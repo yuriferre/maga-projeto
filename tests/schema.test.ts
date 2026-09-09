@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { ExerciseSchema, LessonSchema, TagsFileSchema } from "../shared/schema.ts";
+import { ExerciseSchema, LessonSchema, TagsFileSchema, BlockSchema, PlacementSchema, placementExercises } from "../shared/schema.ts";
 
 const mc = {
   id: "M01-02-q4", type: "multiple_choice", prompt: "Which one sounds evasive?",
@@ -37,5 +37,39 @@ describe("TagsFileSchema", () => {
 describe("LessonSchema", () => {
   it("rejects a lesson missing the quiz", () => {
     expect(() => LessonSchema.parse({ id: "M01-02", module: "M01", order: 2, title: "t" })).toThrow();
+  });
+});
+
+const pq = (id: string, tag = "comp.reading") => ({ id, type: "multiple_choice", prompt: "p?", options: ["a", "b"], answer: 0, explanation: "e", tags: [tag] });
+const placementFixture = {
+  id: "placement", title: "Teste", intro: "Intro.", durationMin: 40,
+  reading: { passages: [{ id: "p1", title: "Doc", source: "doc", text: "Some text.", questions: [pq("PL-r01")] }] },
+  vocabulary: { questions: [pq("PL-v01", "comp.vocabulary")] },
+  grammar: { questions: [pq("PL-g01", "gram.since-for")] },
+  listening: { scripts: [{ id: "s1", title: "Standup", lines: [{ speaker: "Ana", text: "Hi." }], questions: [pq("PL-l01", "comp.listening")] }] },
+  writing: { prompt: "Write.", rubric: ["r"], model: "m", minWords: 60, maxWords: 100 },
+  speaking: { readAloud: ["Read this."], modeA: { prompt: "Speak.", maxSeconds: 45, targetPhrases: ["I worked on"] } },
+};
+
+describe("PlacementSchema", () => {
+  it("accepts the fixture and applies defaults", () => {
+    const p = PlacementSchema.parse(placementFixture);
+    expect(p.reading.passages[0]!.format).toBe("markdown");
+    expect(p.writing.constraints).toEqual([]);
+    expect(p.speaking.modeA.checklist).toEqual([]);
+  });
+  it("rejects an empty passages list and an unknown passage format", () => {
+    expect(() => PlacementSchema.parse({ ...placementFixture, reading: { passages: [] } })).toThrow();
+    expect(() => PlacementSchema.parse({ ...placementFixture, reading: { passages: [{ ...placementFixture.reading.passages[0], format: "html" }] } })).toThrow();
+  });
+  it("placementExercises flattens the four blocks in order", () => {
+    const items = placementExercises(PlacementSchema.parse(placementFixture));
+    expect(items.map((i) => `${i.block}:${i.exercise.id}`)).toEqual(["reading:PL-r01", "vocabulary:PL-v01", "grammar:PL-g01", "listening:PL-l01"]);
+  });
+});
+
+describe("BlockSchema", () => {
+  it("accepts placement", () => {
+    expect(BlockSchema.parse("placement")).toBe("placement");
   });
 });

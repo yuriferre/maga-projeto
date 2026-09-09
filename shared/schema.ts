@@ -14,7 +14,7 @@ export const TagSchema = z
 export type Tag = z.infer<typeof TagSchema>;
 export const TagsFileSchema = z.object({ tags: z.array(TagSchema).min(1) });
 
-export const BlockSchema = z.enum(["warmup", "quiz", "listening", "writing", "speaking"]);
+export const BlockSchema = z.enum(["warmup", "quiz", "listening", "writing", "speaking", "placement"]);
 export type Block = z.infer<typeof BlockSchema>;
 
 // ---------- Exercícios ----------
@@ -57,6 +57,26 @@ export type ExerciseType = Exercise["type"];
 // ---------- Aula ----------
 const line = z.object({ speaker: z.string().min(1), text: z.string().min(1), note: z.string().optional() });
 
+// ---------- Blocos reutilizados por aula e teste inicial ----------
+export const WritingSpecSchema = z.object({
+  prompt: z.string().min(1),
+  constraints: z.array(z.object({ label: z.string().min(1), pattern: z.string().optional() })).default([]),
+  rubric: z.array(z.string().min(1)).min(1),
+  model: z.string().min(1),
+  minWords: z.number().int().positive(),
+  maxWords: z.number().int().positive(),
+  tags: z.array(z.string().min(3)).default([]),
+});
+export type WritingSpec = z.infer<typeof WritingSpecSchema>;
+
+export const SpeakingModeASchema = z.object({
+  prompt: z.string().min(1),
+  maxSeconds: z.number().int().positive(),
+  targetPhrases: z.array(z.string().min(1)).min(1),
+  checklist: z.array(z.string()).default([]),
+});
+export type SpeakingModeA = z.infer<typeof SpeakingModeASchema>;
+
 export const LessonSchema = z.object({
   id: z.string().regex(/^M\d{2}-\d{2}$/),
   module: z.string().regex(/^M\d{2}$/),
@@ -79,17 +99,9 @@ export const LessonSchema = z.object({
   brErrors: z.array(z.object({ wrong: z.string().min(1), right: z.string().min(1), why: z.string().min(1), tag: z.string().min(3) })).default([]),
   dialogue: z.object({ title: z.string().min(1), lines: z.array(line).min(2), notes: z.array(z.string()).default([]) }),
   listening: z.object({ lines: z.array(line).min(1), questions: z.array(ExerciseSchema).min(1) }),
-  writing: z.object({
-    prompt: z.string().min(1),
-    constraints: z.array(z.object({ label: z.string().min(1), pattern: z.string().optional() })).default([]),
-    rubric: z.array(z.string().min(1)).min(1),
-    model: z.string().min(1),
-    minWords: z.number().int().positive(),
-    maxWords: z.number().int().positive(),
-    tags: z.array(z.string().min(3)).default([]),
-  }),
+  writing: WritingSpecSchema,
   speaking: z.object({
-    modeA: z.object({ prompt: z.string().min(1), maxSeconds: z.number().int().positive(), targetPhrases: z.array(z.string().min(1)).min(1), checklist: z.array(z.string()).default([]) }),
+    modeA: SpeakingModeASchema,
     modeB: z.object({ persona: z.string().min(1), goals: z.array(z.string()).min(1), followUps: z.array(z.string()).min(1), rubric: z.array(z.string()).min(1) }).optional(),
   }),
   quiz: z.array(ExerciseSchema).min(3),
@@ -98,6 +110,52 @@ export const LessonSchema = z.object({
   completion: z.object({ quizMin: z.number().min(0).max(1), writingMin: z.number().min(1).max(5), speakingRequired: z.boolean() }),
 });
 export type Lesson = z.infer<typeof LessonSchema>;
+
+// ---------- Teste inicial (placement) ----------
+export const PlacementBlockSchema = z.enum(["reading", "vocabulary", "grammar", "listening"]);
+export type PlacementBlock = z.infer<typeof PlacementBlockSchema>;
+
+const passage = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  source: z.string().min(1),
+  /** markdown passa pelo mini-markdown; pre é renderizado monoespaçado, sem interpretação (logs, erros). */
+  format: z.enum(["markdown", "pre"]).default("markdown"),
+  text: z.string().min(1),
+  questions: z.array(ExerciseSchema).min(1),
+});
+const script = z.object({
+  id: z.string().min(1),
+  title: z.string().min(1),
+  lines: z.array(line).min(1),
+  questions: z.array(ExerciseSchema).min(1),
+});
+
+export const PlacementSchema = z.object({
+  id: z.literal("placement"),
+  title: z.string().min(1),
+  intro: z.string().min(1),
+  durationMin: z.number().int().positive(),
+  reading: z.object({ passages: z.array(passage).min(1) }),
+  vocabulary: z.object({ intro: z.string().optional(), questions: z.array(ExerciseSchema).min(1) }),
+  grammar: z.object({ intro: z.string().optional(), questions: z.array(ExerciseSchema).min(1) }),
+  listening: z.object({ scripts: z.array(script).min(1) }),
+  writing: WritingSpecSchema,
+  speaking: z.object({ readAloud: z.array(z.string().min(1)).min(1), modeA: SpeakingModeASchema }),
+});
+export type Placement = z.infer<typeof PlacementSchema>;
+export type PlacementPassage = Placement["reading"]["passages"][number];
+export type PlacementScript = Placement["listening"]["scripts"][number];
+
+/** Todos os exercícios objetivos do teste, na ordem em que aparecem, com o bloco lógico. */
+export function placementExercises(p: Placement): Array<{ exercise: Exercise; block: PlacementBlock }> {
+  return [
+    ...p.reading.passages.flatMap((ps) => ps.questions.map((exercise) => ({ exercise, block: "reading" as const }))),
+    ...p.vocabulary.questions.map((exercise) => ({ exercise, block: "vocabulary" as const })),
+    ...p.grammar.questions.map((exercise) => ({ exercise, block: "grammar" as const })),
+    ...p.listening.scripts.flatMap((s) => s.questions.map((exercise) => ({ exercise, block: "listening" as const }))),
+  ];
+}
 
 // ---------- Módulo (metadados de avaliação) ----------
 export const ModuleFileSchema = z.object({
