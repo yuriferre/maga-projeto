@@ -15,7 +15,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "build": "pnpm content:build && pnpm typecheck && vite build",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "prepare": "git config core.hooksPath .githooks || true"
   },
   "dependencies": {
     "@hono/node-server": "^2.1.1",

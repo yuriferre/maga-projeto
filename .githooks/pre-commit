@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Hook local de pre-commit. Ativado por `pnpm install` (script "prepare" → core.hooksPath=.githooks).
+# Roda só o que é rápido e relevante para os arquivos em stage.
+set -euo pipefail
+cd "$(git rev-parse --show-toplevel)"
+
+staged=$(git diff --cached --name-only --diff-filter=ACMR)
+[ -z "$staged" ] && exit 0
+
+# 1) Bloqueia segredos óbvios no diff adicionado.
+if git diff --cached -U0 -- . ':(exclude)pnpm-lock.yaml' | grep -E '^\+' | grep -qE 'sk-ant-[A-Za-z0-9_-]{10,}|AKIA[0-9A-Z]{16}|ghp_[A-Za-z0-9]{20,}|-----BEGIN (RSA|OPENSSH|EC|PGP) PRIVATE KEY-----'; then
+  echo "pre-commit: possível segredo no diff. Remova antes de commitar." >&2
+  exit 1
+fi
+
+# 2) Nunca commitar .env ou o banco local.
+if echo "$staged" | grep -qE '^(\.env|data/.*\.sqlite.*)$'; then
+  echo "pre-commit: .env e data/*.sqlite não devem ser versionados." >&2
+  exit 1
+fi
+
+# 3) Conteúdo alterado → valida YAML e cruzamentos.
+if echo "$staged" | grep -qE '^content/'; then
+  pnpm -s content:validate
+fi
+
+# 4) Código alterado → typecheck (precisa do JSON gerado).
+if echo "$staged" | grep -qE '\.(ts|tsx)$|^tsconfig\.json$|^content/'; then
+  [ -f src/generated/content.json ] || pnpm -s content:build
+  pnpm -s typecheck
+fi

@@ -4,3 +4,8 @@ data/
 src/generated/
 .env
 .DS_Store
+.superpowers/
+.claude/settings.local.json
+*.log
+coverage/
+.vite/

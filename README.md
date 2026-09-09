@@ -40,3 +40,6 @@ Abra http://localhost:5173.
 ## Estado atual (etapas E0–E1)
 - Conteúdo: aula M01-02 completa; demais aulas listadas como "em breve".
 - Correção de escrita e fala em modo por regras (sem IA). A integração com a Claude API entra na etapa E4.
+
+## Contribuindo
+Convenções de branches, commits, hooks e trabalho com IA em `CONTRIBUTING.md`. Instruções para agentes de IA em `AGENTS.md`.
