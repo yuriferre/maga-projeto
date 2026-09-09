@@ -1,0 +1,171 @@
+# Teste inicial de nível (Nível 0 — Diagnóstico). Formato e cortes: docs/planejamento/02-trilha.md.
+id: placement
+title: Teste inicial de nível
+durationMin: 40
+intro: |
+  Seis blocos, cerca de 40 minutos: leitura, vocabulário, gramática, escuta, escrita e fala (opcional).
+  Durante o teste você não vê se acertou; tudo aparece no resultado. Responda sem consultar nada: o objetivo é medir, não ensinar.
+
+  Ao final você recebe um **nível sugerido de entrada** (1, 2 ou 3), o radar inicial das competências e a lista de tags fracas que o warm-up das aulas vai usar. Você pode ignorar a sugestão.
+
+reading:
+  passages:
+    - id: iam-doc
+      title: "Trecho de documentação: políticas IAM"
+      source: "Documentação oficial de um provedor de nuvem (estilo AWS IAM)"
+      text: |
+        An IAM policy is a JSON document that defines permissions. When you attach a policy to an identity (a user, a group, or a role), that identity can perform only the actions the policy explicitly allows. By default, all requests are denied. An explicit allow overrides this default, and an explicit deny overrides any allow.
+
+        As a best practice, grant least privilege: start with the minimum set of permissions a workload needs and add more only when required. Avoid using the root user for everyday tasks. Prefer roles over long-term access keys, because role credentials are temporary and are rotated automatically. If a request is unexpectedly denied, check the policy simulator before changing production policies.
+      questions:
+        - { id: PL-r01, type: multiple_choice, prompt: "A policy contains an explicit allow and an explicit deny for the same action. What happens?", options: ["The allow wins", "The deny wins", "The request is logged and retried", "The most recently attached policy wins"], answer: 1, explanation: '"An explicit deny overrides any allow."', tags: [comp.reading, vocab.security] }
+        - { id: PL-r02, type: multiple_choice, prompt: 'What does "grant least privilege" mean in the text?', options: ["Give only the permissions a workload needs", "Give admin rights to one trusted user", "Use the root user for critical tasks", "Rotate access keys every day"], answer: 0, explanation: '"start with the minimum set of permissions a workload needs"', tags: [comp.reading, vocab.security] }
+        - { id: PL-r03, type: multiple_choice, prompt: "Why does the text prefer roles over access keys?", options: ["Roles are cheaper", "Role credentials are temporary and rotate automatically", "Access keys cannot be attached to policies", "Roles do not need policies"], answer: 1, explanation: '"because role credentials are temporary and are rotated automatically"', tags: [comp.reading, vocab.cloud] }
+        - { id: PL-r04, type: fill_blank, prompt: "Before changing production policies, the text tells you to check the policy ___.", accepted: ["simulator"], explanation: 'Leitura de varredura (scanning): "check the policy simulator before changing production policies".', tags: [comp.reading] }
+
+    - id: pipeline-log
+      title: "Log de um job de CI que falhou"
+      source: "Saída de um job de build e push de imagem"
+      format: pre
+      text: |
+        [14:02:11] Step 3/5: Build image
+        [14:02:11] $ docker build -t registry.internal/payments-api:1.42.0 .
+        [14:03:48] Successfully tagged registry.internal/payments-api:1.42.0
+        [14:03:49] Step 4/5: Push image
+        [14:03:49] $ docker push registry.internal/payments-api:1.42.0
+        [14:04:20] error: failed to push: unauthorized: authentication required
+        [14:04:20] hint: the registry token expired at 13:58:02 UTC; re-run the job after refreshing REGISTRY_TOKEN
+        [14:04:21] Step 4/5 failed (exit code 1). Retrying (attempt 2 of 3)...
+        [14:04:52] error: failed to push: unauthorized: authentication required
+        [14:05:23] error: failed to push: unauthorized: authentication required
+        [14:05:23] Job failed after 3 attempts. Duration: 3m12s
+        [14:05:23] Artifacts: build.log (14 KB) uploaded
+      questions:
+        - { id: PL-r05, type: multiple_choice, prompt: "Which step failed?", options: ["Build image", "Push image", "Run tests", "Upload artifacts"], answer: 1, explanation: '"Step 4/5: Push image" é o passo com "failed"; o build (3/5) terminou com "Successfully tagged".', tags: [comp.reading, vocab.errors, vocab.ci] }
+        - { id: PL-r06, type: multiple_choice, prompt: "What is the most likely cause, according to the log?", options: ["The image is too large", "The Dockerfile has a syntax error", "The registry token expired", "The network timed out"], answer: 2, explanation: 'A linha "hint" diz: "the registry token expired at 13:58:02 UTC".', tags: [comp.reading, vocab.errors] }
+        - { id: PL-r07, type: multiple_choice, prompt: 'What does "re-run the job after refreshing REGISTRY_TOKEN" ask you to do?', options: ["Delete the job", "Get a new token, then run the job again", "Increase the retry count", "Push the image from your laptop"], answer: 1, explanation: "re-run = rodar de novo; refreshing the token = renovar o token. Primeiro renova, depois roda.", tags: [comp.reading, vocab.ci] }
+        - { id: PL-r08, type: fill_blank, prompt: "The push was attempted ___ times in total before the job gave up.", accepted: ["3", "three"], explanation: '"Job failed after 3 attempts."', tags: [comp.reading, vocab.errors] }
+
+    - id: github-issue
+      title: "Issue no GitHub: helm upgrade trava"
+      source: "Bug report aberto no repositório de um chart interno"
+      text: |
+        **Title:** `helm upgrade` hangs when the previous release is stuck in `pending-upgrade`
+
+        **Describe the bug**
+
+        Running `helm upgrade --install api ./chart` never returns if a previous upgrade was interrupted (for example, the CI job was cancelled). The release stays in `pending-upgrade` and every new upgrade waits forever.
+
+        **To reproduce**
+
+        - Start an upgrade and cancel the job halfway.
+        - Run `helm upgrade` again.
+        - The command hangs; `helm history api` shows the last revision as `pending-upgrade`.
+
+        **Expected behavior**
+
+        The command should either fail fast with a clear message or roll back the pending revision automatically.
+
+        **Workaround**
+
+        `helm rollback api <previous-revision>` clears the stuck state. It works, but it is easy to forget, and on-call engineers have lost time on it twice this month.
+
+        **Environment:** Helm 3.14, Kubernetes 1.29 (EKS).
+      questions:
+        - { id: PL-r09, type: multiple_choice, prompt: "When does the bug happen?", options: ["On every helm upgrade", "Only on Kubernetes 1.29", "When a previous upgrade was interrupted", "When the chart has no values file"], answer: 2, explanation: '"never returns if a previous upgrade was interrupted"', tags: [comp.reading, vocab.k8s] }
+        - { id: PL-r10, type: multiple_choice, prompt: 'What does "fail fast" mean here?', options: ["Crash the cluster", "Stop immediately with a clear error instead of hanging", "Retry quickly", "Fail only in CI"], answer: 1, explanation: "fail fast = falhar logo e com mensagem clara, em vez de travar em silêncio.", tags: [comp.reading, comp.vocabulary, vocab.errors] }
+        - { id: PL-r11, type: multiple_choice, prompt: "What does the author say about the workaround?", options: ["It does not work", "It works but is easy to forget", "It requires a cluster restart", "It only works on Helm 2"], answer: 1, explanation: '"It works, but it is easy to forget"', tags: [comp.reading, vocab.tickets-prs] }
+        - { id: PL-r12, type: fill_blank, prompt: "The command that clears the stuck state is helm ___ api <previous-revision>.", accepted: ["rollback"], explanation: '"helm rollback api <previous-revision> clears the stuck state."', tags: [comp.reading, vocab.k8s] }
+
+vocabulary:
+  intro: "Complete cada frase de trabalho com a opção mais natural."
+  questions:
+    - { id: PL-v01, type: multiple_choice, prompt: "The deploy failed because a config map was missing, so I had to ___ to the previous release.", options: ["roll back", "roll out", "scale up", "spin down"], answer: 0, explanation: "roll back = voltar à versão anterior. roll out = lançar; scale up = aumentar capacidade; spin down = desligar.", tags: [comp.vocabulary, vocab.ci] }
+    - { id: PL-v02, type: multiple_choice, prompt: "Can you ___ me on the ticket so I get notified when it moves?", options: ["flag", "tag", "pin", "push"], answer: 1, explanation: "tag someone = marcar a pessoa (@) para ela ser notificada. flag = sinalizar um problema; pin = fixar; push = empurrar/publicar.", tags: [comp.vocabulary, vocab.slack] }
+    - { id: PL-v03, type: multiple_choice, prompt: "We're seeing a lot of 502s; I think the load balancer is marking the pods as ___.", options: ["unsafe", "unclear", "unhealthy", "unlucky"], answer: 2, explanation: "unhealthy = reprovado no health check. É o termo usado por load balancers e pelo Kubernetes.", tags: [comp.vocabulary, vocab.k8s, vocab.incident] }
+    - { id: PL-v04, type: multiple_choice, prompt: "The PR looks good. Just one ___: please rename the variable to something more descriptive.", options: ["net", "knot", "nut", "nit"], answer: 3, explanation: "nit (de nitpick) = detalhe pequeno num code review, sem bloquear a aprovação.", tags: [comp.vocabulary, vocab.tickets-prs] }
+    - { id: PL-v05, type: multiple_choice, prompt: "The old dev accounts nobody turned off are pure ___: they cost $4k a month and run nothing.", options: ["profit", "waste", "savings", "revenue"], answer: 1, explanation: 'waste = desperdício. Em FinOps, recurso ligado sem uso é "waste".', tags: [comp.vocabulary, vocab.finops] }
+    - { id: PL-v06, type: multiple_choice, prompt: "The incident is resolved, but we still need to write the ___ by Friday.", options: ["pre-flight", "post-it", "post-mortem", "pre-check"], answer: 2, explanation: "post-mortem = documento de análise do incidente (o que aconteceu, por quê, ações).", tags: [comp.vocabulary, vocab.incident] }
+    - { id: PL-v07, type: multiple_choice, prompt: "The alert fired at 3 a.m., but it turned out to be a ___: nothing was actually wrong.", options: ["false negative", "true positive", "silent failure", "false positive"], answer: 3, explanation: "false positive = alarme falso (alerta disparou sem problema real). false negative é o oposto: problema real sem alerta.", tags: [comp.vocabulary, vocab.observability] }
+    - { id: PL-v08, type: multiple_choice, prompt: "Terraform wants to ___ the database because I changed the instance name. That would delete all the data.", options: ["replace", "refresh", "import", "format"], answer: 0, explanation: 'replace = destruir e recriar o recurso (o plano mostra "must be replaced"). refresh só atualiza o state; import traz um recurso existente para o state.', tags: [comp.vocabulary, vocab.iac] }
+    - { id: PL-v09, type: multiple_choice, prompt: "Heads up: I'll be ___ tomorrow afternoon, so please review the PR in the morning.", options: ["out of order", "out of office", "out of scope", "out of memory"], answer: 1, explanation: "out of office (OOO) = ausente do trabalho. out of order = quebrado; out of scope = fora do escopo; out of memory = sem memória.", tags: [comp.vocabulary, vocab.slack] }
+    - { id: PL-v10, type: multiple_choice, prompt: "The pipeline is ___: it passes on retry without any code change.", options: ["sticky", "fluffy", "flaky", "slippery"], answer: 2, explanation: "flaky = instável, falha de forma intermitente. É o adjetivo padrão para testes e pipelines não determinísticos.", tags: [comp.vocabulary, vocab.ci] }
+
+grammar:
+  intro: "Frases de standup e Slack. Corrija a frase ou escolha a opção correta."
+  questions:
+    - { id: PL-g01, type: error_correction, prompt: "I'm working on this migration since Monday.", accepted: ["I've been working on this migration since Monday.", "I have worked on this migration since Monday."], explanation: 'since marca o início de algo que continua: present perfect (continuous). "I''m working since" é calque do português.', tags: [gram.since-for, br.since-present] }
+    - { id: PL-g02, type: multiple_choice, prompt: "I'll have the fix deployed ___ 5 pm, so QA can test it before they leave.", options: ["until", "by", "since", "for"], answer: 1, explanation: "by = prazo final (no máximo às 17h). until diria que o deploy fica acontecendo continuamente até as 17h.", tags: [gram.by-until, br.until-by] }
+    - { id: PL-g03, type: error_correction, prompt: "Why the pipeline failed?", accepted: ["Why did the pipeline fail?", "Why has the pipeline failed?"], explanation: "Pergunta no passado precisa do auxiliar did: Why did the pipeline fail? O verbo principal volta à forma base.", tags: [gram.question-forms] }
+    - { id: PL-g04, type: error_correction, prompt: "I have a doubt about the rollout strategy.", accepted: ["I have a question about the rollout strategy.", "I've got a question about the rollout strategy."], explanation: "doubt = dúvida no sentido de desconfiança. Quando você quer perguntar algo, é question.", tags: [br.doubt] }
+    - { id: PL-g05, type: multiple_choice, prompt: "Could you ___ how the retry logic works?", options: ["explain me", "explain to me", "explain-me", "explaining me"], answer: 1, explanation: 'explain é seguido de to + pessoa: explain something to me. "Explain me" é calque de "me explica".', tags: [br.explain-me, gram.modals-polite] }
+    - { id: PL-g06, type: multiple_choice, prompt: "The service ___ when I call the health endpoint.", options: ["is giving error", "is throwing an error", "gives error", "is giving an error"], answer: 1, explanation: 'throw / return an error. "Giving error" é calque de "dando erro"; error é contável e precisa de artigo.', tags: [br.giving-error] }
+    - { id: PL-g07, type: multiple_choice, prompt: "We're still ___ the security team to approve the firewall rule.", options: ["waiting", "waiting on", "waiting to", "waiting that"], answer: 1, explanation: 'wait on / wait for someone to do something. Sem preposição ("waiting the team") é o erro mais comum de brasileiros.', tags: [br.waiting-no-prep, gram.prepositions-infra] }
+    - { id: PL-g08, type: multiple_choice, prompt: "Do you know ___?", options: ["where is the runbook", "where the runbook is", "where the runbook is it", "where is it the runbook"], answer: 1, explanation: 'Pergunta indireta: depois de "Do you know", a ordem volta a ser sujeito + verbo (where the runbook is).', tags: [gram.indirect-questions, gram.question-forms] }
+    - { id: PL-g09, type: error_correction, prompt: "If the deploy will fail, the pipeline rolls back automatically.", accepted: ["If the deploy fails, the pipeline rolls back automatically.", "If the deploy fails the pipeline rolls back automatically."], explanation: "Condicional real: if + present simple, nunca if + will. O will fica na outra oração, se houver.", tags: [gram.conditionals-real] }
+    - { id: PL-g10, type: multiple_choice, prompt: "I ___ the cluster upgrade next week; the change request is already approved.", options: ["will doing", "am going to do", "going to do", "do"], answer: 1, explanation: 'Plano decidido e preparado: be going to (ou present continuous: I''m doing). "will doing" não existe; "going to do" sem o verbo be está incompleto.', tags: [gram.future-plans] }
+
+listening:
+  scripts:
+    - id: standup
+      title: "Standup de um time de plataforma (3 pessoas)"
+      lines:
+        - { speaker: Lucas, text: "Yesterday I finished the Terraform module for the new VPC and opened the PR. Today I'm going to start on the peering config. One blocker: I still don't have access to the network account, so I can't run a plan against it." }
+        - { speaker: Maya, text: "I can sort that out after the call, I have admin there. I spent most of yesterday on the flaky integration tests. It turned out two of them depended on the order they ran in. The fix is in review. Today I'm picking up the on-call handover doc." }
+        - { speaker: Tom, text: "Nothing new from me, still on the cost report. Heads up: the finance review moved to Thursday, so I need the numbers from everyone by Wednesday end of day." }
+      questions:
+        - { id: PL-l01, type: multiple_choice, prompt: "What is Lucas blocked on?", options: ["The PR review", "Access to the network account", "The peering config", "The cost report"], answer: 1, explanation: '"I still don''t have access to the network account, so I can''t run a plan against it."', tags: [comp.listening] }
+        - { id: PL-l02, type: multiple_choice, prompt: "What caused the flaky tests?", options: ["A slow database", "They depended on the order they ran in", "Missing credentials", "A timeout in CI"], answer: 1, explanation: '"two of them depended on the order they ran in"', tags: [comp.listening, vocab.ci] }
+        - { id: PL-l03, type: fill_blank, prompt: "Tom needs the numbers from everyone by ___ end of day.", accepted: ["Wednesday"], explanation: '"I need the numbers from everyone by Wednesday end of day." A revisão é quinta; os números, quarta.', tags: [comp.listening] }
+    - id: incident
+      title: "Update de incidente (incident commander)"
+      lines:
+        - { speaker: Priya, text: "This is the ten thirty update on the checkout incident. Since nine fifty, about fifteen percent of checkout requests have been failing with 504 errors. We've narrowed it down to the payments service: its connection pool to the database is exhausted. We haven't found the root cause yet, but we restarted the pods and the error rate dropped from fifteen to three percent. Next steps: Daniel is checking whether last night's deploy changed the pool size, and I'm keeping the status page updated. Next update in thirty minutes, or sooner if anything changes." }
+      questions:
+        - { id: PL-l04, type: multiple_choice, prompt: "What is the current status of the incident?", options: ["Fully resolved", "Mitigated, root cause still unknown", "Getting worse", "Not started yet"], answer: 1, explanation: '"We haven''t found the root cause yet, but we restarted the pods and the error rate dropped". Mitigado, não resolvido.', tags: [comp.listening, vocab.incident] }
+        - { id: PL-l05, type: multiple_choice, prompt: "What did the team do that reduced the error rate?", options: ["Rolled back the deploy", "Increased the pool size", "Restarted the pods", "Moved traffic to another region"], answer: 2, explanation: '"we restarted the pods and the error rate dropped"', tags: [comp.listening, vocab.incident] }
+        - { id: PL-l06, type: fill_blank, prompt: "The error rate dropped from fifteen to ___ percent.", accepted: ["3", "three"], explanation: '"dropped from fifteen to three percent"', tags: [comp.listening, gram.numbers-percentages] }
+
+writing:
+  prompt: |
+    **Cenário:** você está rodando `terraform apply` para criar o bucket S3 de logs `acme-prod-logs` e recebe o erro `Error: creating S3 Bucket (acme-prod-logs): BucketAlreadyExists`. Você já conferiu que o bucket não existe na sua conta. Precisa de ajuda do time de plataforma.
+
+    **Tarefa:** escreva a mensagem que você mandaria no canal `#platform-help` do Slack (60–100 palavras): contexto, o que você já tentou e o que exatamente está pedindo.
+  constraints:
+    - { label: "O erro citado (BucketAlreadyExists)", pattern: "BucketAlreadyExists" }
+    - { label: "O que você já tentou (I've checked / I tried…)", pattern: "\\b(I('ve| have)( already)? (tried|checked|confirmed|verified|looked)|I (tried|checked|confirmed|verified|looked))\\b" }
+    - { label: "Um pedido claro (could/can/would you…)", pattern: "\\b(could|can|would) (you|someone|anyone|somebody|anybody)\\b" }
+    - { label: "Contexto antes do pedido (o que você estava fazendo)" }
+  rubric:
+    - "Estrutura: contexto → o que tentei → pedido"
+    - Gramática e tempos verbais
+    - Naturalidade e registro (Slack, colegas)
+    - Concisão
+  model: >-
+    Hi team, quick question about S3. I'm running terraform apply to create the logs bucket acme-prod-logs
+    and it fails with BucketAlreadyExists. I've already checked our account and the bucket isn't there,
+    so I think the name is taken by another AWS account, because bucket names are global. Could someone
+    confirm whether we own a bucket with that name in a different account? If not, I'll add the account ID
+    as a suffix and re-run the apply. Thanks!
+  minWords: 60
+  maxWords: 100
+  tags: [comp.writing, topic.help, vocab.iac]
+
+speaking:
+  readAloud:
+    - "Yesterday I finished the migration and opened the pull request."
+    - "We're still waiting on the security team to approve the firewall rule."
+    - "The deploy failed because the registry token had expired."
+  modeA:
+    prompt: "Responda em inglês, em até 45 segundos: What did you work on yesterday? Diga o que fez, o que ficou pendente e se há algum bloqueio."
+    maxSeconds: 45
+    targetPhrases:
+      - I worked on
+      - I finished
+      - I've been working on
+      - I'm still on
+      - I'm waiting on
+      - I'm blocked on
+      - no blockers
+      - today I'm going to
+      - it turned out

@@ -3,8 +3,8 @@ import { join } from "node:path";
 import { parse } from "yaml";
 import type { z } from "zod";
 import {
-  BrErrorsFileSchema, LessonSchema, LevelsFileSchema, ModuleFileSchema, TagsFileSchema,
-  type ContentBundle, type Exercise, type Lesson, type ModuleFile,
+  BrErrorsFileSchema, LessonSchema, LevelsFileSchema, ModuleFileSchema, PlacementSchema, TagsFileSchema, placementExercises,
+  type ContentBundle, type Exercise, type Lesson, type ModuleFile, type Placement,
 } from "./schema.ts";
 
 function readYaml<S extends z.ZodType>(path: string, schema: S, problems: string[]): z.infer<S> | undefined {
@@ -23,6 +23,7 @@ export function loadContent(root: string): ContentBundle {
   const levels = readYaml(join(root, "levels.yaml"), LevelsFileSchema, problems);
   const tags = readYaml(join(root, "tags.yaml"), TagsFileSchema, problems);
   const brErrors = readYaml(join(root, "br-errors.yaml"), BrErrorsFileSchema, problems);
+  const placement = readYaml(join(root, "placement", "placement.yaml"), PlacementSchema, problems);
 
   const lessons: Record<string, Lesson> = {};
   const modules: Record<string, ModuleFile> = {};
@@ -43,10 +44,10 @@ export function loadContent(root: string): ContentBundle {
     }
   }
 
-  if (problems.length > 0 || !levels || !tags || !brErrors) {
+  if (problems.length > 0 || !levels || !tags || !brErrors || !placement) {
     throw new Error(`Conteúdo inválido:\n- ${problems.join("\n- ")}`);
   }
-  return { levels: levels.levels, lessons, modules, tags: tags.tags, brErrors: brErrors.patterns };
+  return { levels: levels.levels, lessons, modules, tags: tags.tags, brErrors: brErrors.patterns, placement };
 }
 
 export function allExercises(lesson: Lesson): Array<{ exercise: Exercise; block: "quiz" | "listening" }> {
@@ -56,6 +57,17 @@ export function allExercises(lesson: Lesson): Array<{ exercise: Exercise; block:
   ];
 }
 
+function checkExerciseShape(exercise: Exercise, problems: string[]): void {
+  if (exercise.type === "match") {
+    const rights = exercise.pairs.map((p) => p.right);
+    if (new Set(rights).size !== rights.length) problems.push(`exercício '${exercise.id}': valores 'right' duplicados em match`);
+  }
+  if (exercise.type === "fill_blank") {
+    const blanks = exercise.prompt.split("___").length - 1;
+    if (blanks !== 1) problems.push(`exercício '${exercise.id}': fill_blank precisa de exatamente um ___`);
+  }
+}
+
 /** Verificações entre arquivos. Retorna lista de problemas legíveis (vazia = ok). */
 export function crossValidate(bundle: ContentBundle): string[] {
   const problems: string[] = [];
@@ -63,6 +75,7 @@ export function crossValidate(bundle: ContentBundle): string[] {
   const checkTags = (where: string, tags: string[]) => {
     for (const t of tags) if (!tagIds.has(t)) problems.push(`${where}: tag desconhecida '${t}'`);
   };
+  const seenExercise = new Set<string>();
 
   const roadmapLessonIds = new Set<string>();
   const roadmapModuleIds = new Set<string>();
@@ -88,21 +101,24 @@ export function crossValidate(bundle: ContentBundle): string[] {
     checkTags(`${where}.review`, lesson.review.preferTags);
     for (const e of lesson.brErrors) checkTags(`${where}.brErrors`, [e.tag]);
     for (const c of lesson.srsCards) checkTags(`${where}.srsCards`, [c.tag]);
-    const seen = new Set<string>();
     for (const { exercise, block } of allExercises(lesson)) {
-      if (seen.has(exercise.id)) problems.push(`${where}: exercício duplicado '${exercise.id}'`);
-      seen.add(exercise.id);
+      if (seenExercise.has(exercise.id)) problems.push(`${where}: exercício duplicado '${exercise.id}'`);
+      seenExercise.add(exercise.id);
       if (!exercise.id.startsWith(`${lesson.id}-`)) problems.push(`${where}: exercício '${exercise.id}' (${block}) deveria começar com '${lesson.id}-'`);
       checkTags(`${where}.${block}.${exercise.id}`, exercise.tags);
-      if (exercise.type === "match") {
-        const rights = exercise.pairs.map((p) => p.right);
-        if (new Set(rights).size !== rights.length) problems.push(`exercício '${exercise.id}': valores 'right' duplicados em match`);
-      }
-      if (exercise.type === "fill_blank") {
-        const blanks = exercise.prompt.split("___").length - 1;
-        if (blanks !== 1) problems.push(`exercício '${exercise.id}': fill_blank precisa de exatamente um ___`);
-      }
+      checkExerciseShape(exercise, problems);
     }
+  }
+
+  const pl = bundle.placement;
+  checkTags("placement.writing", pl.writing.tags);
+  if (pl.writing.minWords > pl.writing.maxWords) problems.push("placement: writing.minWords > maxWords");
+  for (const { exercise, block } of placementExercises(pl)) {
+    if (seenExercise.has(exercise.id)) problems.push(`placement: exercício duplicado '${exercise.id}'`);
+    seenExercise.add(exercise.id);
+    if (!exercise.id.startsWith("PL-")) problems.push(`placement: exercício '${exercise.id}' (${block}) deveria começar com 'PL-'`);
+    checkTags(`placement.${block}.${exercise.id}`, exercise.tags);
+    checkExerciseShape(exercise, problems);
   }
 
   for (const mod of Object.values(bundle.modules)) {

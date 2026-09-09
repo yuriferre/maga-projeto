@@ -210,4 +210,5 @@ export type ContentBundle = {
   modules: Record<string, ModuleFile>;
   tags: Tag[];
   brErrors: BrErrorPattern[];
+  placement: Placement;
 };
