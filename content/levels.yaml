@@ -1,0 +1,444 @@
+levels:
+  - id: 1
+    name: Foundation
+    subtitle: Sobreviver ao dia a dia
+    focus: Standup, pedir ajuda, Slack, ler logs e docs, descrever sistemas, tickets e PRs.
+    exitCriteria: Avaliação de nível ≥ 75% + simulação de standup avaliada ≥ 3/5.
+    modules:
+      - id: M01
+        title: Daily standups
+        objective: Dar um update de 30–45 s claro, no tempo verbal certo, sem soar evasivo nem alarmista.
+        competencies: [SPK, VOC, LIS]
+        prerequisites: []
+        completion: Todas as aulas concluídas + avaliação de módulo ≥ 75% + gravação de update real ≥ 3/5.
+        evaluation: Duração média do update, % de expressões-alvo usadas, erros br.since-present e br.until-by tendendo a zero.
+        lessons:
+          - { id: M01-01, title: "Anatomia de um standup: yesterday / today / blockers" }
+          - { id: M01-02, title: "Reportando progresso, atraso e bloqueio no daily" }
+          - { id: M01-03, title: "Tempo e prazos: ETA, EOD, by × until, within" }
+          - { id: M01-04, title: "Bloqueios e dependências: blocked on, waiting on, depends on" }
+          - { id: M01-05, title: "Standup completo com 3 personas + parking lot", simulation: true }
+      - id: M02
+        title: Pedindo ajuda e esclarecimento
+        objective: Pedir ajuda, dizer que não entendeu e fazer perguntas técnicas precisas sem parecer despreparado nem rude.
+        competencies: [SPK, LIS, CNF]
+        prerequisites: [M01-01]
+        completion: Padrão + 3 perguntas técnicas escritas avaliadas ≥ 3/5 cada.
+        evaluation: Nota de módulo e rubrica da simulação de pair debugging.
+        lessons:
+          - { id: M02-01, title: "Pedidos educados e escaláveis: could / would you mind / when you get a chance" }
+          - { id: M02-02, title: "Não entendi: I'm not sure I follow, Do you mean…?, Just to confirm…" }
+          - { id: M02-03, title: "Pergunta técnica que recebe resposta: contexto → o que tentei → pergunta" }
+          - { id: M02-04, title: "Interromper e retomar em reunião: Sorry to jump in, Going back to…" }
+          - { id: M02-05, title: "Pair debugging por chamada: você pede ajuda com um erro de kubectl", simulation: true }
+      - id: M03
+        title: Slack e Teams no dia a dia
+        objective: Escrever mensagens curtas com tom certo, responder e fechar threads, lidar com assíncrono e fusos.
+        competencies: [WRI, VOC, REA]
+        prerequisites: [M01-01]
+        completion: Padrão + 10 mensagens corrigidas com média ≥ 3,5/5.
+        evaluation: Tamanho médio da mensagem caindo, erros de registro caindo.
+        lessons:
+          - { id: M03-01, title: "Tom e formato: no hello, threads, quando marcar alguém, emojis" }
+          - { id: M03-02, title: "Fórmulas que resolvem 80%: FYI, heads up, quick question, +1, TL;DR" }
+          - { id: M03-03, title: "Responder e fechar: on it, will do, done, thanks for flagging" }
+          - { id: M03-04, title: "Assíncrono e fusos: EOD my time, handoffs, avisos de ausência" }
+          - { id: M03-05, title: "Escrita guiada: 10 mensagens reais" }
+      - id: M04
+        title: Lendo logs, erros e documentação
+        objective: Ler com método mensagens de erro, stack traces, READMEs e issues, e resumir o que leu em uma frase.
+        competencies: [REA, VOC]
+        prerequisites: []
+        completion: Padrão + resumo de 1 frase para cada uma das 6 leituras avaliado.
+        evaluation: Acerto nas perguntas de compreensão e qualidade dos resumos.
+        lessons:
+          - { id: M04-01, title: "Anatomia de mensagens de erro: expected/got, failed to, unable to, timed out" }
+          - { id: M04-02, title: "Stack traces e logs estruturados: ler de baixo para cima" }
+          - { id: M04-03, title: "READMEs e docs oficiais: skimming, prerequisites, caveats, deprecated" }
+          - { id: M04-04, title: "Issues e PRs no GitHub: reproduzir, comentar, workaround" }
+          - { id: M04-05, title: "Prática: 6 leituras reais com perguntas" }
+      - id: M05
+        title: Descrevendo sistemas e fluxos
+        objective: Explicar uma arquitetura e um fluxo de requisição em voz alta, com verbos e preposições certos.
+        competencies: [SPK, VOC, PRO]
+        prerequisites: [M01]
+        completion: Padrão + explicação gravada de 2 min ≥ 3/5.
+        evaluation: Rubrica da explicação gravada e erros de preposição por tag.
+        lessons:
+          - { id: M05-01, title: "Componentes e relações: sits behind, talks to, is fronted by, backed by" }
+          - { id: M05-02, title: "Fluxos: the request goes through → hits → gets routed to → returns" }
+          - { id: M05-03, title: "Preposições e verbos de infraestrutura: deploy to, run on, expose via, listen on" }
+          - { id: M05-04, title: "Explicando um diagrama: signposting básico" }
+          - { id: M05-05, title: "Explicar sua arquitetura atual para um colega novo", simulation: true }
+      - id: M06
+        title: Tickets, commits e PRs
+        objective: Escrever ticket, commit, PR e comentários básicos que outros conseguem agir sem perguntar.
+        competencies: [WRI, REA]
+        prerequisites: [M03, M04]
+        completion: Padrão + 5 textos avaliados ≥ 3,5/5.
+        evaluation: Rubrica dos textos escritos.
+        lessons:
+          - { id: M06-01, title: "Ticket: título, contexto, steps to reproduce, expected × actual" }
+          - { id: M06-02, title: "Commit messages e títulos de PR: imperativo, escopo, convenções" }
+          - { id: M06-03, title: "PR description: what / why / how to test / risks" }
+          - { id: M06-04, title: "Comentar e responder em PRs: good catch, addressed, PTAL, nit:, LGTM" }
+          - { id: M06-05, title: "Prática: 3 tickets + 2 PRs a partir de cenários" }
+  - id: 2
+    name: Professional
+    subtitle: Participar ativamente
+    focus: Refinamento, retro e 1:1, code review, explicar problemas, CI/CD, IaC, Kubernetes, e-mail e docs, clouds.
+    exitCriteria: Avaliação ≥ 75% + code review escrito + e-mail de escalada + simulação de refinamento.
+    modules:
+      - id: M07
+        title: Planejamento, refinamento e estimativas
+        objective: "Participar de refinamento: entender a história, levantar dúvidas, estimar com cautela e registrar riscos."
+        competencies: [SPK, LIS, VOC]
+        prerequisites: [M01, M02]
+        completion: Padrão + simulação ≥ 3/5.
+        evaluation: Rubrica da simulação de refinamento.
+        lessons:
+          - { id: M07-01, title: "Vocabulário de backlog: story, epic, spike, acceptance criteria, scope creep" }
+          - { id: M07-02, title: "Estimando com cautela: I'd say, roughly, ballpark, it depends on" }
+          - { id: M07-03, title: "Condicionais reais: If we go with X, we'll need…; unless; as long as" }
+          - { id: M07-04, title: "Levantando dúvidas e riscos de escopo" }
+          - { id: M07-05, title: "Refinamento de uma história de infraestrutura com PO e dev", simulation: true }
+      - id: M08
+        title: Retrospectivas e 1:1s
+        objective: Falar de problemas do time sem culpar, dar e receber feedback, conduzir um 1:1 com objetivo.
+        competencies: [SPK, CNF]
+        prerequisites: [M02]
+        completion: Padrão.
+        evaluation: Rubrica das simulações de retro e 1:1.
+        lessons:
+          - { id: M08-01, title: "Retro: what went well / what didn't / action items" }
+          - { id: M08-02, title: "Dando feedback construtivo: I noticed, it would help if" }
+          - { id: M08-03, title: "Recebendo feedback: fair point, I'll work on that" }
+          - { id: M08-04, title: "1:1 com gestor: prioridades, carga, carreira" }
+          - { id: M08-05, title: "Retro + 1:1 (dois cenários curtos)", simulation: true }
+      - id: M09
+        title: Code review
+        objective: Sugerir, pedir mudanças e responder reviews com tom certo e vocabulário preciso.
+        competencies: [WRI, REA, VOC]
+        prerequisites: [M06]
+        completion: Padrão + 6 comentários de review avaliados ≥ 3,5/5.
+        evaluation: Rubrica dos comentários escritos.
+        lessons:
+          - { id: M09-01, title: "Sugerindo sem impor: consider, what do you think about, nit:, non-blocking" }
+          - { id: M09-02, title: "Pedindo mudanças: this would break…, could we…; severidade explícita" }
+          - { id: M09-03, title: "Respondendo: concordar, discordar com motivo, addressed in abc123" }
+          - { id: M09-04, title: "Léxico de review: refactor, extract, dead code, edge case, race condition" }
+          - { id: M09-05, title: "Prática: revisar 3 PRs reais e responder a 3 reviews" }
+      - id: M10
+        title: Explicando problemas e soluções
+        objective: Narrar um problema, o que foi tentado, a causa e a solução, em voz e em texto.
+        competencies: [SPK, WRI]
+        prerequisites: [M04, M05]
+        completion: Padrão.
+        evaluation: Rubrica da narrativa em thread e em voz.
+        lessons:
+          - { id: M10-01, title: "Narrativa de problema: symptom → context → what I tried → what I found" }
+          - { id: M10-02, title: "Causa e efeito: turned out, because of, which caused, led to" }
+          - { id: M10-03, title: "Verbos de troubleshooting: narrow down, rule out, reproduce, roll back, bisect" }
+          - { id: M10-04, title: "Propondo solução com alternativas: the quickest fix is…, the proper fix is…" }
+          - { id: M10-05, title: "Explicar um bug e a correção numa thread e em voz", simulation: true }
+      - id: M11
+        title: CI/CD e Infraestrutura como Código
+        objective: Discutir pipelines e IaC em conversa e em PR, descrever falhas e estratégias de rollout.
+        competencies: [VOC, SPK, WRI]
+        prerequisites: [M06, M10]
+        completion: Padrão.
+        evaluation: Rubrica da simulação de revisão de pipeline.
+        lessons:
+          - { id: M11-01, title: "Vocabulário de pipelines: stage, job, artifact, runner, trigger, flaky, gate" }
+          - { id: M11-02, title: "Descrevendo falhas de pipeline e como corrigiu" }
+          - { id: M11-03, title: "Terraform/IaC em conversa: plan, apply, drift, state, it wants to recreate" }
+          - { id: M11-04, title: "Estratégias: trunk-based, feature flags, blue/green, canary, rollback" }
+          - { id: M11-05, title: "Revisão de mudança de pipeline + discussão de rollout", simulation: true }
+      - id: M12
+        title: Containers e Kubernetes
+        objective: Descrever estados, fazer troubleshooting em voz alta e discutir recursos e escala.
+        competencies: [VOC, SPK, PRO]
+        prerequisites: [M05, M10]
+        completion: Padrão.
+        evaluation: Rubrica da simulação de incidente leve.
+        lessons:
+          - { id: M12-01, title: "Vocabulário: image, pod, node, deployment, service, ingress, probe, sidecar" }
+          - { id: M12-02, title: "Descrevendo estados: crash-looping, pending, evicted, OOMKilled, throttled" }
+          - { id: M12-03, title: "Troubleshooting narrado: let me describe the pod, the liveness probe is failing" }
+          - { id: M12-04, title: "Recursos e escala: requests/limits, HPA, we're over-provisioned" }
+          - { id: M12-05, title: "Incidente leve de K8s em pair com colega", simulation: true }
+      - id: M13
+        title: E-mails e documentação
+        objective: Escrever e-mails profissionais, README e runbook claros.
+        competencies: [WRI]
+        prerequisites: [M03, M06]
+        completion: Padrão + os 2 textos finais ≥ 4/5.
+        evaluation: Rubrica do e-mail de escalada e do runbook.
+        lessons:
+          - { id: M13-01, title: "E-mail profissional: assunto, abertura, corpo, fechamento; formal × neutro" }
+          - { id: M13-02, title: "E-mails comuns: pedido, follow-up, agendamento, escalada, gentle reminder" }
+          - { id: M13-03, title: "README e documentação: estrutura, imperativo, exemplos, Note / Warning" }
+          - { id: M13-04, title: "Runbooks: pré-condições, passos numerados, verificação, rollback" }
+          - { id: M13-05, title: "Prática: 1 e-mail de escalada + 1 runbook completo" }
+      - id: M14
+        title: "Cloud providers: AWS, Azure, GCP"
+        objective: Falar dos serviços dos três provedores, comparar e justificar escolhas, ler pricing e limites.
+        competencies: [VOC, REA, SPK]
+        prerequisites: [M05]
+        completion: Padrão.
+        evaluation: Rubrica da apresentação de proposta de migração.
+        lessons:
+          - { id: M14-01, title: "Mapa de serviços: compute, storage, networking, IAM nos três provedores" }
+          - { id: M14-02, title: "Termos que confundem: region/zone, managed/serverless, spin up, tear down" }
+          - { id: M14-03, title: "Comparando e justificando: X is a better fit because…" }
+          - { id: M14-04, title: "Lendo docs e pricing pages: quotas, limits, SLAs, tiered pricing" }
+          - { id: M14-05, title: "Apresentar proposta de migração de um serviço para outro provedor", simulation: true }
+  - id: 3
+    name: Incident-ready
+    subtitle: Liderar sob pressão
+    focus: Comunicação de incidente, bridges, post-mortem, observabilidade e SLOs, segurança, FinOps.
+    exitCriteria: Post-mortem escrito ≥ 4/5 + simulação de incident call ≥ 3/5 + avaliação ≥ 75%.
+    modules:
+      - id: M15
+        title: Comunicação de incidentes
+        objective: Escrever e falar atualizações de incidente para técnicos e não técnicos, com cadência e confiança.
+        competencies: [WRI, SPK]
+        prerequisites: [M10, M03]
+        completion: Padrão + sequência de 4 atualizações escritas ≥ 4/5.
+        evaluation: Rubrica das atualizações escritas.
+        lessons:
+          - { id: M15-01, title: "Severidades e impacto: customer-facing, degraded, partial outage, blast radius" }
+          - { id: M15-02, title: "Primeira atualização: what / impact / current status / next update at" }
+          - { id: M15-03, title: "Atualizações periódicas: still investigating, identified, mitigated, monitoring" }
+          - { id: M15-04, title: "Stakeholders não técnicos: sem jargão, com confiança" }
+          - { id: M15-05, title: "Encerrando: resolved, we'll follow up with a post-mortem by…" }
+      - id: M16
+        title: Incident calls (bridges)
+        objective: "Participar e conduzir uma bridge: pedir e dar informação, decidir, interromper e realinhar."
+        competencies: [SPK, LIS, CNF]
+        prerequisites: [M15, M02-04]
+        completion: Padrão + simulação ≥ 3/5.
+        evaluation: Rubrica da bridge simulada.
+        lessons:
+          - { id: M16-01, title: "Papéis e protocolo: incident commander, scribe, comms lead" }
+          - { id: M16-02, title: "Informação sob pressão: can someone confirm…, I'm seeing…" }
+          - { id: M16-03, title: "Decidindo: let's roll back, I'd rather…, hold off on…, go ahead" }
+          - { id: M16-04, title: "Interromper, corrigir e realinhar: hang on, let's stay on…" }
+          - { id: M16-05, title: "Bridge de 15 min com 3 personas; você é o incident commander", simulation: true }
+      - id: M17
+        title: Post-mortems
+        objective: Escrever um post-mortem blameless completo.
+        competencies: [WRI]
+        prerequisites: [M15, M13]
+        completion: Post-mortem ≥ 4/5.
+        evaluation: Rubrica do post-mortem.
+        lessons:
+          - { id: M17-01, title: "Cultura blameless: linguagem que evita culpa, voz passiva útil" }
+          - { id: M17-02, title: "Timeline: horários, timezones, verbos (alerts fired, was paged, rolled back)" }
+          - { id: M17-03, title: "Root cause e contributing factors: the underlying cause, exacerbated by" }
+          - { id: M17-04, title: "Action items: owner, prazo, verbo de ação, prioridade" }
+          - { id: M17-05, title: "Prática: post-mortem completo a partir de um incidente dado" }
+      - id: M18
+        title: Observabilidade, SLOs e performance
+        objective: Descrever gráficos, SLOs e gargalos em voz e em texto.
+        competencies: [VOC, SPK]
+        prerequisites: [M12]
+        completion: Padrão.
+        evaluation: Rubrica da apresentação de análise de degradação.
+        lessons:
+          - { id: M18-01, title: "Metrics, logs, traces: vocabulário e verbos (emit, scrape, sample, correlate)" }
+          - { id: M18-02, title: "Descrevendo gráficos: spiked, dropped, plateaued, p99 latency went from… to…" }
+          - { id: M18-03, title: "SLOs e error budget: burning budget, within SLO, burn rate" }
+          - { id: M18-04, title: "Performance: bottleneck, throughput, saturation, it's CPU-bound" }
+          - { id: M18-05, title: "Apresentar análise de degradação com gráfico para o time", simulation: true }
+      - id: M19
+        title: Segurança
+        objective: Reportar e discutir problemas de segurança com urgência proporcional e vocabulário preciso.
+        competencies: [VOC, WRI, SPK]
+        prerequisites: [M15]
+        completion: Padrão.
+        evaluation: Rubrica da discussão de finding.
+        lessons:
+          - { id: M19-01, title: "Vocabulário: vulnerability, CVE, exposure, least privilege, hardening" }
+          - { id: M19-02, title: "Reportando: urgência sem pânico, canal certo, o que incluir" }
+          - { id: M19-03, title: "Riscos e compliance: this violates…, we're required to…, compensating control" }
+          - { id: M19-04, title: "Respondendo a findings: remediação, aceitação de risco, prazo" }
+          - { id: M19-05, title: "Discutir um finding de pentest com o time e negociar prazo", simulation: true }
+      - id: M20
+        title: Custos e FinOps
+        objective: Falar de custo com números, justificar gasto e apresentar economia.
+        competencies: [SPK, VOC]
+        prerequisites: [M14]
+        completion: Padrão.
+        evaluation: Rubrica da apresentação do plano de redução de custo.
+        lessons:
+          - { id: M20-01, title: "Vocabulário: cost driver, right-sizing, reserved/savings plan, spot, egress" }
+          - { id: M20-02, title: "Falando de números: percentuais, ordens de grandeza, roughly a third" }
+          - { id: M20-03, title: "Justificando gasto e apresentando economia: this pays for itself in…" }
+          - { id: M20-04, title: "Trade-off custo × risco × esforço: we could save X, but…" }
+          - { id: M20-05, title: "Apresentar plano de redução de custo para gestor não técnico", simulation: true }
+  - id: 4
+    name: Influence
+    subtitle: Influenciar e decidir
+    focus: Defender decisões, riscos e trade-offs, discordar, apresentar, RFCs, colaboração multicultural.
+    exitCriteria: RFC escrita ≥ 4/5 + apresentação gravada 5 min ≥ 3,5/5 + debate simulado ≥ 3/5.
+    modules:
+      - id: M21
+        title: Defendendo decisões técnicas
+        objective: Argumentar uma decisão com estrutura, lidar com pushback e admitir limites.
+        competencies: [SPK, WRI, CNF]
+        prerequisites: [M10, M14]
+        completion: Padrão.
+        evaluation: Rubrica do design review simulado.
+        lessons:
+          - { id: M21-01, title: "Estrutura: context → options → decision → rationale → consequences" }
+          - { id: M21-02, title: "ADRs: escrever e discutir; we chose X over Y because…" }
+          - { id: M21-03, title: "Pushback: that's a fair concern, however…; let me address that" }
+          - { id: M21-04, title: "Limites: we don't know yet; I'd want to validate that before committing" }
+          - { id: M21-05, title: "Defender decisão em design review com 2 revisores céticos", simulation: true }
+      - id: M22
+        title: Riscos e trade-offs
+        objective: Apresentar riscos, trade-offs e mitigações de forma que ajude a decidir.
+        competencies: [SPK, WRI]
+        prerequisites: [M21]
+        completion: Padrão.
+        evaluation: Rubrica da análise de risco escrita.
+        lessons:
+          - { id: M22-01, title: "Linguagem de risco: likelihood, impact, there's a chance that, worst case" }
+          - { id: M22-02, title: "Trade-offs: we're trading X for Y; the downside is…; on balance…" }
+          - { id: M22-03, title: "Mitigações e planos B: to reduce that risk…; if that happens, we…" }
+          - { id: M22-04, title: "Para decisão: recomendação clara + alternativas + o que você precisa" }
+          - { id: M22-05, title: "Prática: análise de risco escrita de uma migração de banco" }
+      - id: M23
+        title: Discordando profissionalmente
+        objective: Discordar com o nível certo de diretude e buscar consenso.
+        competencies: [SPK, CNF, LIS]
+        prerequisites: [M08, M21]
+        completion: Padrão.
+        evaluation: Rubrica do debate simulado.
+        lessons:
+          - { id: M23-01, title: "Escala de discordância: suave → direto; quando usar cada grau" }
+          - { id: M23-02, title: "Fórmulas: I see it differently; I'd push back on…; I'm not convinced that…" }
+          - { id: M23-03, title: "Diferenças culturais: EUA, Reino Unido, Índia, Alemanha, Holanda × Brasil" }
+          - { id: M23-04, title: "Consenso: can we agree that…; what would it take to…; let's park that" }
+          - { id: M23-05, title: "Debate técnico com colega insistente", simulation: true }
+      - id: M24
+        title: Apresentações e demos
+        objective: Apresentar 5–10 min com estrutura, descrever slides e diagramas, fazer demo e lidar com Q&A.
+        competencies: [SPK, PRO, CNF]
+        prerequisites: [M05, M18]
+        completion: Padrão.
+        evaluation: Rubrica da apresentação gravada.
+        lessons:
+          - { id: M24-01, title: "Estrutura e signposting: I'll start with…; moving on to…; to wrap up…" }
+          - { id: M24-02, title: "Descrevendo diagramas e slides ao vivo; ritmo e pausas" }
+          - { id: M24-03, title: "Demos: narrar enquanto executa; falhas ao vivo sem pânico" }
+          - { id: M24-04, title: "Q&A: ganhar tempo, reformular, não saber a resposta com elegância" }
+          - { id: M24-05, title: "Apresentar 5 min sobre projeto seu (gravado)", simulation: true }
+      - id: M25
+        title: RFCs e design reviews
+        objective: Ler, escrever e revisar propostas técnicas.
+        competencies: [WRI, REA]
+        prerequisites: [M21, M22]
+        completion: RFC ≥ 4/5 + 5 comentários de review ≥ 3,5/5.
+        evaluation: Rubrica da RFC e dos comentários.
+        lessons:
+          - { id: M25-01, title: "Lendo RFCs: estrutura, non-goals, alternatives considered, open questions" }
+          - { id: M25-02, title: "Escrevendo uma proposta técnica (1–2 páginas)" }
+          - { id: M25-03, title: "Comentando propostas: esclarecimento × objeção × sugestão" }
+          - { id: M25-04, title: "Convergindo: resolver comentários, registrar decisão" }
+          - { id: M25-05, title: "Prática: escrever RFC curta + revisar RFC de colega" }
+      - id: M26
+        title: Colaboração multicultural e small talk
+        objective: Abrir e fechar reuniões com naturalidade, entender idioms reais, reconhecer humor e sarcasmo.
+        competencies: [SPK, LIS, CNF]
+        prerequisites: [M08]
+        completion: Padrão.
+        evaluation: Nota de módulo.
+        lessons:
+          - { id: M26-01, title: "Small talk profissional: início de reunião, sexta-feira, feriados, how's it going?" }
+          - { id: M26-02, title: "Cultura assíncrona e fusos: circle back, take it offline, let's sync" }
+          - { id: M26-03, title: "Idioms e phrasal verbs que aparecem de verdade: low-hanging fruit, bandwidth, loop in" }
+          - { id: M26-04, title: "Humor, ironia e sarcasmo: reconhecer, reagir, e quando não tentar" }
+  - id: 5
+    name: Career
+    subtitle: Carreira internacional
+    focus: Pitch, recrutadores, entrevistas comportamentais e técnicas, ofertas, onboarding.
+    exitCriteria: Entrevista simulada completa ≥ 4/5.
+    modules:
+      - id: M27
+        title: Apresentação profissional e histórias de experiência
+        objective: Contar sua trajetória em 30 s, 2 min e em formato STAR, com impacto quantificado.
+        competencies: [SPK, CNF]
+        prerequisites: [M10, M24]
+        completion: Padrão.
+        evaluation: Rubrica das 5 histórias STAR gravadas.
+        lessons:
+          - { id: M27-01, title: "Elevator pitch: 30 s, 60 s, 2 min" }
+          - { id: M27-02, title: "Cargos e responsabilidades: I was responsible for, I led, I owned" }
+          - { id: M27-03, title: "Quantificando impacto: reduced deploy time from 40 min to 6" }
+          - { id: M27-04, title: "STAR para histórias técnicas: incidente, migração, custo, conflito" }
+          - { id: M27-05, title: "Prática: 5 histórias STAR do seu histórico real" }
+      - id: M28
+        title: Conversas com recrutadores
+        objective: Conduzir um screening call e falar de expectativas com naturalidade.
+        competencies: [SPK, LIS]
+        prerequisites: [M27]
+        completion: Padrão.
+        evaluation: Rubrica do screening simulado.
+        lessons:
+          - { id: M28-01, title: "Screening call: roteiro típico, perguntas frequentes" }
+          - { id: M28-02, title: "Expectativas: salário, remoto, disponibilidade, visto, notice period" }
+          - { id: M28-03, title: "Perguntas para fazer ao recrutador" }
+          - { id: M28-04, title: "Screening call completo (20 min)", simulation: true }
+      - id: M29
+        title: Entrevistas comportamentais
+        objective: Responder perguntas comportamentais com estrutura, sinais de senioridade e sem decorar.
+        competencies: [SPK, CNF]
+        prerequisites: [M27]
+        completion: Padrão.
+        evaluation: Rubrica da entrevista simulada.
+        lessons:
+          - { id: M29-01, title: "Perguntas clássicas: conflict, failure, ownership, ambiguity" }
+          - { id: M29-02, title: "Respostas estruturadas sem decorar: esqueleto + detalhes reais" }
+          - { id: M29-03, title: "Pontos fracos, gaps, mudanças de emprego, demissões" }
+          - { id: M29-04, title: "Sinais de senioridade na fala: trade-offs, in hindsight" }
+          - { id: M29-05, title: "Entrevista comportamental 30 min", simulation: true }
+      - id: M30
+        title: Entrevistas técnicas e system design
+        objective: Pensar em voz alta, esclarecer requisitos e narrar design e troubleshooting em formato de entrevista.
+        competencies: [SPK, LIS, CNF]
+        prerequisites: [M05, M12, M18, M21]
+        completion: Padrão.
+        evaluation: Rubrica da entrevista técnica simulada.
+        lessons:
+          - { id: M30-01, title: "Pensar em voz alta: let me think; my first instinct is…; let me clarify…" }
+          - { id: M30-02, title: "Esclarecendo requisitos antes de responder: escala, restrições" }
+          - { id: M30-03, title: "System design narrado: componentes, trade-offs, escala" }
+          - { id: M30-04, title: "Troubleshooting scenarios (SRE): the site is slow — walk me through" }
+          - { id: M30-05, title: "Perguntas de DevOps/Cloud em formato entrevista: IaC, CI/CD, K8s, IAM" }
+          - { id: M30-06, title: "Entrevista técnica 45 min (design + troubleshooting)", simulation: true }
+      - id: M31
+        title: Ofertas e negociação
+        objective: Entender uma oferta e negociar com educação.
+        competencies: [SPK, REA, WRI]
+        prerequisites: [M28]
+        completion: Padrão.
+        evaluation: Rubrica da negociação simulada.
+        lessons:
+          - { id: M31-01, title: "Componentes de oferta: base, bonus, equity, benefits, PTO, sign-on" }
+          - { id: M31-02, title: "Negociando: I was hoping for…; is there flexibility on…" }
+          - { id: M31-03, title: "Aceitar, pedir tempo e recusar por escrito" }
+          - { id: M31-04, title: "Negociação de oferta", simulation: true }
+      - id: M32
+        title: Onboarding em empresa internacional
+        objective: Atravessar as primeiras semanas com iniciativa e sem medo de perguntar.
+        competencies: [SPK, WRI, CNF]
+        prerequisites: [M26]
+        completion: Padrão.
+        evaluation: Rubrica dos cenários de primeira semana.
+        lessons:
+          - { id: M32-01, title: "Primeiras semanas: se apresentar, mensagem de intro, perguntas sem medo" }
+          - { id: M32-02, title: "Construindo relação: 1:1s de conhecimento, coffee chat" }
+          - { id: M32-03, title: "Pedindo contexto e documentação: is there a doc for…; who owns…" }
+          - { id: M32-04, title: "Primeira semana (3 cenários curtos)", simulation: true }
