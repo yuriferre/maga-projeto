@@ -1,4 +1,4 @@
-import type { BrErrorPattern, Lesson } from "../shared/schema.ts";
+import type { BrErrorPattern, SpeakingModeA } from "../shared/schema.ts";
 import { detectBrErrors, type Finding } from "../shared/br-detector.ts";
 import { tokenizeWords, matchTargetPhrases, wordsPerMinute } from "../shared/speech-compare.ts";
 
@@ -19,12 +19,12 @@ export type SpeakingMetrics = {
  *   + ritmo 90–170 palavras/min → 0,5
  *   Menos de 10 palavras: nota máxima 2.
  */
-export function computeSpeakingMetrics(transcript: string, durationSec: number, lesson: Lesson, patterns: BrErrorPattern[]): SpeakingMetrics {
+export function computeSpeakingMetrics(transcript: string, durationSec: number, spec: SpeakingModeA, patterns: BrErrorPattern[]): SpeakingMetrics {
   const words = tokenizeWords(transcript);
-  const { used, missing } = matchTargetPhrases(transcript, lesson.speaking.modeA.targetPhrases);
+  const { used, missing } = matchTargetPhrases(transcript, spec.targetPhrases);
   const findings = detectBrErrors(transcript, patterns);
   const wpm = wordsPerMinute(words.length, durationSec);
-  const withinTime = durationSec <= lesson.speaking.modeA.maxSeconds;
+  const withinTime = durationSec <= spec.maxSeconds;
 
   let score = 1;
   score += used.length >= 4 ? 1.5 : used.length >= 2 ? 1 : used.length >= 1 ? 0.5 : 0;

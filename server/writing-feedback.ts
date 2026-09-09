@@ -1,4 +1,4 @@
-import type { BrErrorPattern, Lesson } from "../shared/schema.ts";
+import type { BrErrorPattern, WritingSpec } from "../shared/schema.ts";
 import { detectBrErrors, type Finding } from "../shared/br-detector.ts";
 
 export type ConstraintCheck = { label: string; met: boolean | null };
@@ -17,9 +17,9 @@ export function countWords(text: string): number {
 }
 
 /** Feedback sem LLM: tamanho, restrições por regex, erros BR, modelo e rubrica. A nota é a autoavaliação (1–5), se enviada. */
-export function ruleBasedFeedback(text: string, lesson: Lesson, patterns: BrErrorPattern[], selfScore?: number): WritingFeedback {
+export function ruleBasedFeedback(text: string, spec: WritingSpec, patterns: BrErrorPattern[], selfScore?: number): WritingFeedback {
   const wordCount = countWords(text);
-  const { minWords, maxWords, constraints, model, rubric } = lesson.writing;
+  const { minWords, maxWords, constraints, model, rubric } = spec;
   const checks: ConstraintCheck[] = constraints.map((c) => ({
     label: c.label,
     met: c.pattern ? new RegExp(c.pattern, "i").test(text) : null,

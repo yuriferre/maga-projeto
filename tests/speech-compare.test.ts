@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { expandContractions, tokenizeWords, matchTargetPhrases, wordsPerMinute } from "../shared/speech-compare.ts";
+import { expandContractions, tokenizeWords, matchTargetPhrases, wordsPerMinute, wordOverlap } from "../shared/speech-compare.ts";
 
 describe("expandContractions", () => {
   it("expands common contractions and lowercases", () => {
@@ -29,5 +29,16 @@ describe("wordsPerMinute", () => {
   it("scales to 60 seconds and rounds", () => {
     expect(wordsPerMinute(75, 35)).toBe(129);
     expect(wordsPerMinute(10, 0)).toBe(0);
+  });
+});
+
+describe("wordOverlap", () => {
+  it("is 1 for the same sentence, contractions included", () => {
+    expect(wordOverlap("we're still waiting on the security team", "We're still waiting on the security team.")).toBe(1);
+    expect(wordOverlap("we are still waiting on the security team", "We're still waiting on the security team.")).toBe(1);
+  });
+  it("counts each target word once and returns 0 for an empty transcript", () => {
+    expect(wordOverlap("the deploy failed", "The deploy failed because the token expired.")).toBeCloseTo(3 / 6);
+    expect(wordOverlap("", "The deploy failed.")).toBe(0);
   });
 });

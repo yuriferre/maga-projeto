@@ -99,7 +99,7 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
     const id = c.req.param("id");
     const parsed = WritingBody.safeParse(await c.req.json().catch(() => null));
     if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
-    const feedback = ruleBasedFeedback(parsed.data.text, content.lessons[id]!, content.brErrors, parsed.data.selfScore);
+    const feedback = ruleBasedFeedback(parsed.data.text, content.lessons[id]!.writing, content.brErrors, parsed.data.selfScore);
     const rowId = insertWriting(db, { lessonId: id, text: parsed.data.text, feedback, score: feedback.score }, now());
     return c.json({ id: rowId, feedback });
   });
@@ -108,7 +108,7 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
     const id = c.req.param("id");
     const parsed = SpeakingBody.safeParse(await c.req.json().catch(() => null));
     if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
-    const metrics = computeSpeakingMetrics(parsed.data.transcript, parsed.data.durationSec, content.lessons[id]!, content.brErrors);
+    const metrics = computeSpeakingMetrics(parsed.data.transcript, parsed.data.durationSec, content.lessons[id]!.speaking.modeA, content.brErrors);
     const rowId = insertSpeaking(
       db,
       { lessonId: id, mode: "A", transcript: parsed.data.transcript, metrics, score: metrics.score, selfConfidence: parsed.data.selfConfidence ?? null },

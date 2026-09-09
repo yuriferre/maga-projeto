@@ -42,3 +42,11 @@ export function wordsPerMinute(wordCount: number, seconds: number): number {
   if (seconds <= 0) return 0;
   return Math.round((wordCount / seconds) * 60);
 }
+
+/** Fração das palavras distintas do alvo presentes na transcrição (0–1). Usa a mesma tokenização das frases-alvo. */
+export function wordOverlap(transcript: string, target: string): number {
+  const targetWords = [...new Set(tokenizeWords(target))];
+  if (targetWords.length === 0) return 0;
+  const have = new Set(tokenizeWords(transcript));
+  return targetWords.filter((w) => have.has(w)).length / targetWords.length;
+}
