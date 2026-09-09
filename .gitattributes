@@ -1,0 +1,20 @@
+# Normaliza fim de linha e marca arquivos gerados/binários.
+* text=auto eol=lf
+
+*.ts   text
+*.tsx  text
+*.json text
+*.yaml text
+*.yml  text
+*.md   text
+*.sh   text eol=lf
+.githooks/* text eol=lf
+
+# Lockfile: gerado; não mostrar diff nem contar como código.
+pnpm-lock.yaml -diff linguist-generated=true
+
+# Binários
+*.sqlite binary
+*.png binary
+*.jpg binary
+*.gif binary

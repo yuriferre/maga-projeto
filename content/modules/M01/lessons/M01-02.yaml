@@ -1,0 +1,321 @@
+id: M01-02
+module: M01
+order: 2
+title: Reportando progresso, atraso e bloqueio no daily
+objective: >-
+  Ao final, você consegue dar um update de 30–45 segundos que diga o que fez, o que vai fazer e onde está
+  travado, usando past simple e present perfect nos lugares certos, sinalizando atraso cedo e sem soar evasivo
+  ("almost done, almost") nem alarmista ("everything is broken").
+durationMin: 40
+competencies: [SPK, VOC, LIS]
+tags: [topic.daily, gram.present-perfect, gram.since-for, gram.by-until, gram.still-yet-already, vocab.standup, br.since-present, br.doubt, br.until-by, br.giving-error, comp.speaking]
+prerequisites: [M01-01]
+
+context:
+  scenario: |
+    Você é SRE num time distribuído (Brasil, Portugal, EUA). Daily às 10h BRT, 15 minutos, 7 pessoas, câmera ligada.
+
+    Ontem você começou a migrar o pipeline de deploy do serviço `payments-api` do Jenkins para GitHub Actions. Build e lint já funcionam. O job de testes de integração falha por timeout ao subir o container de Postgres no runner. Você já aumentou o timeout para 10 minutos e não resolveu. O prazo combinado com o time era hoje. Você também está esperando a Ana revisar um PR de Terraform desde ontem.
+
+    Você precisa dizer tudo isso em menos de um minuto, deixar claro que não está parado, avisar que pode atrasar e pedir ajuda sem transformar o daily em sessão de debugging.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: I've been working on X
+    meaning: atividade que começou antes e continua
+    example: I've been working on the payments-api pipeline migration.
+    translation: Estou trabalhando na migração do pipeline (desde antes, e continuo).
+    note: Nunca "I'm working on X since yesterday".
+  - term: I got X done / I finished X
+    meaning: tarefa concluída
+    example: I got the build and lint stages done.
+    translation: Terminei as etapas de build e lint.
+    note: '"got done" é neutro e muito comum em standup.'
+  - term: I'm still on X
+    meaning: continua na mesma tarefa; neutro, não é desculpa
+    example: I'm still on the integration tests.
+    translation: Ainda estou nos testes de integração.
+  - term: I'm blocked on X
+    meaning: algo impede você de avançar
+    example: I'm blocked on the Postgres container timing out.
+    translation: Estou travado no container do Postgres dando timeout.
+    note: '"blocked by" também existe, mas "blocked on" é mais usual para o problema em si.'
+  - term: I'm waiting on X (from Y)
+    meaning: dependência de alguém
+    example: I'm waiting on a review from Ana.
+    translation: Estou esperando a revisão da Ana.
+    note: '"waiting for" também é correto. Sem preposição é erro.'
+  - term: It's taking longer than expected
+    meaning: atraso sem drama
+    example: The integration tests are taking longer than expected.
+    translation: Os testes de integração estão demorando mais que o esperado.
+    note: Registro neutro, funciona em qualquer time.
+  - term: I should have it done by EOD
+    meaning: previsão em que você confia
+    example: I should have it done by EOD.
+    translation: Devo terminar até o fim do dia.
+    note: '"should" = confiança razoável.'
+  - term: I'm aiming to have it done by…
+    meaning: meta com risco
+    example: I'm aiming to have it done by tomorrow.
+    translation: Minha meta é terminar até amanhã.
+    note: '"aiming" avisa que pode não dar.'
+  - term: This might slip (to tomorrow)
+    meaning: avisar que o prazo pode escorregar
+    example: "Heads up: this might slip to tomorrow."
+    translation: "Aviso: isso pode escorregar para amanhã."
+    note: '"slip" é o verbo padrão para prazo que atrasa.'
+  - term: I'll need another day on this
+    meaning: pedir mais tempo
+    example: Realistically, I'll need another day on this.
+    translation: Sendo realista, vou precisar de mais um dia nisso.
+    note: '"Realistically" suaviza e mostra maturidade.'
+  - term: "Heads up:"
+    meaning: aviso antecipado
+    example: "Heads up: the deploy window may move."
+    translation: "Aviso: a janela de deploy pode mudar."
+    note: Informal-neutro; ótimo para Slack e voz.
+    register: informal
+  - term: It turned out (that)…
+    meaning: descoberta depois de investigar
+    example: It turned out the runner doesn't have enough memory.
+    translation: Descobri que o runner não tem memória suficiente.
+    note: Substitui "I discovered that", que soa formal demais.
+  - term: I've tried X, but it didn't help
+    meaning: mostrar o que já tentou
+    example: I've tried bumping the timeout, but it didn't help.
+    translation: Já tentei aumentar o timeout, mas não ajudou.
+    note: '"bump" = aumentar (informal, comum em infra).'
+  - term: Can someone pair with me on this after the call?
+    meaning: pedir ajuda sem travar o daily
+    example: Can someone pair with me on this after the call?
+    translation: Alguém pode fazer pair comigo nisso depois da call?
+    note: '"after the call" mantém o daily curto.'
+  - term: No blockers / Nothing blocking me
+    meaning: fechar o update
+    example: No blockers on my side.
+    translation: Sem bloqueios do meu lado.
+    note: Diga sempre, mesmo quando não há bloqueio.
+  - term: "Quick one: / One more thing:"
+    meaning: introduzir item extra
+    example: "Quick one: is anyone touching the RDS module this week?"
+    translation: "Uma rápida: alguém mexendo no módulo do RDS esta semana?"
+
+grammar:
+  title: Past simple × present perfect × present perfect continuous no standup
+  explanation: |
+    | Forma | Uso no standup | Exemplo |
+    |---|---|---|
+    | Past simple | ação fechada num momento definido ("yesterday") | Yesterday I **fixed** the build stage. |
+    | Present perfect | resultado que importa **agora**, sem marcar quando | I**'ve fixed** the build stage. (está pronto, pode usar) |
+    | Present perfect continuous | atividade em andamento, começou antes e continua | I**'ve been working** on the migration since Monday. |
+
+    **Regra prática:** *yesterday* → past simple · estado atual → present perfect (simple ou continuous) · *today* → going to / will / aiming to.
+
+    **since / for exigem present perfect.** Em português "estou trabalhando nisso desde ontem" usa presente. Em inglês: *I've been working on this since yesterday* / *for two days*. "I'm working on this since yesterday" é o erro mais frequente de brasileiros no daily.
+
+    **still / yet / already**
+
+    | Palavra | Posição | Frase | Sentido |
+    |---|---|---|---|
+    | still | antes do verbo principal, afirmativa | I'm **still** waiting on the review. | continua |
+    | yet | fim da frase, negativa ou pergunta | It hasn't been merged **yet**. / Is it merged **yet**? | ainda não |
+    | already | antes do verbo principal, afirmativa | It's **already** merged. | já |
+
+    **by × until**
+
+    - **by** = prazo (até, no máximo): "I'll have it done **by** Friday."
+    - **until** = duração (até, durante): "I'll be working on it **until** Friday."
+    - "I will finish until Friday" está errado e soa estranho para nativos.
+  examples:
+    - { en: "Yesterday I fixed the build stage.", pt: "Ontem consertei a etapa de build." }
+    - { en: "I've fixed the build stage.", pt: "Consertei a etapa de build (está pronta agora)." }
+    - { en: "I've been working on the migration since Monday.", pt: "Estou trabalhando na migração desde segunda." }
+    - { en: "It hasn't been merged yet.", pt: "Ainda não foi mergeado." }
+    - { en: "I'll have it done by Friday.", pt: "Vou ter isso pronto até sexta." }
+
+examples:
+  - en: Yesterday I got the build and lint stages working. Today I'm on the integration tests.
+    pt: Ontem fiz build e lint funcionarem. Hoje estou nos testes de integração.
+    context: Update normal, sem problema.
+  - en: I'm still on the pipeline migration. The integration job keeps timing out when it spins up Postgres.
+    pt: Ainda estou na migração. O job de integração fica dando timeout ao subir o Postgres.
+    context: Atraso com causa clara. "keeps + -ing" = acontece repetidamente.
+  - en: I've tried bumping the timeout to ten minutes, but it didn't help, so I'm going to look at the runner's resources next.
+    pt: Tentei aumentar o timeout para dez minutos, mas não ajudou, então vou olhar os recursos do runner.
+    context: Mostra que você não está parado e tem próximo passo.
+  - en: "Heads up: this might slip to tomorrow. I'll know more by lunchtime."
+    pt: "Aviso: pode escorregar para amanhã. Saberei mais até o almoço."
+    context: Gerenciar expectativa cedo, com data para nova informação.
+  - en: "I'm blocked on access to the staging cluster. I've asked in #platform-support but haven't heard back yet."
+    pt: Estou bloqueado no acesso ao cluster de staging. Pedi no canal, mas ainda não responderam.
+    context: Bloqueio por terceiros, já com ação tomada.
+  - en: "No blockers on my side. Quick one: is anyone touching the Terraform for the RDS module this week? I'd rather not step on toes."
+    pt: "Sem bloqueios. Uma rápida: alguém mexendo no Terraform do RDS esta semana? Prefiro não atropelar ninguém."
+    context: Fechar update e coordenar. "step on toes" = pisar no trabalho de alguém.
+  - en: Realistically, I'll need another day on this.
+    pt: Sendo realista, vou precisar de mais um dia.
+    context: Pedir tempo com maturidade.
+
+variations:
+  - idea: '"está atrasado"'
+    items:
+      - { register: Neutro, text: "It's taking longer than I expected.", adequate: true }
+      - { register: Direto, text: "I won't have this done today.", adequate: true }
+      - { register: Com plano, text: "This is going to slip a day; I'll have it done by tomorrow EOD.", adequate: true, note: A melhor opção. }
+      - { register: Informal (time próximo), text: "Still fighting the integration tests.", adequate: true, note: Com colegas. }
+      - { register: Inadequada, text: "Sorry, sorry, I'm so slow, I couldn't do it…", adequate: false, note: Autodepreciação sem informação. }
+      - { register: Inadequada, text: "It's not my fault, the runner is bad.", adequate: false, note: Culpa sem dado, sem próximo passo. }
+      - { register: Inadequada, text: "It's almost done, almost.", adequate: false, note: Evasivo; ninguém sabe o que significa. }
+  - idea: '"estou bloqueado"'
+    items:
+      - { register: Formal (e-mail ao gestor), text: "I'm currently unable to proceed due to a pending access request.", adequate: true }
+      - { register: Neutro (daily), text: "I'm blocked on access to staging.", adequate: true }
+      - { register: Informal (Slack com colega), text: "Still no staging access 😅 any idea who can unblock me?", adequate: true }
+
+brErrors:
+  - { wrong: "I'm working on this since yesterday.", right: "I've been working on this since yesterday.", why: "since/for pedem present perfect", tag: br.since-present }
+  - { wrong: "I didn't finish yet.", right: "I haven't finished yet.", why: '"yet" pede present perfect', tag: gram.still-yet-already }
+  - { wrong: "I have a doubt about the runner.", right: "I have a question about the runner. / I'm not sure about…", why: '"doubt" = desconfiança, não dúvida', tag: br.doubt }
+  - { wrong: "I will finish it until Friday.", right: "I'll have it done by Friday.", why: "until = duração; by = prazo", tag: br.until-by }
+  - { wrong: "Actually I finished it. (querendo dizer \"atualmente\")", right: "I've finished it now. / It's done now.", why: "actually = na verdade", tag: br.actually }
+  - { wrong: "I'm waiting the review.", right: "I'm waiting on/for the review.", why: "o verbo exige preposição", tag: br.waiting-no-prep }
+  - { wrong: "It's giving error.", right: "It's throwing an error. / It's failing with a timeout. / It's timing out.", why: 'calque de "está dando erro"', tag: br.giving-error }
+  - { wrong: "I pretend to finish today.", right: "I intend to / I plan to finish today.", why: "pretend = fingir", tag: br.pretend }
+  - { wrong: "I'm doing the deploy today. (plano)", right: "I'm going to deploy today. / I'll deploy today.", why: 'presente contínuo soa como "agora"; ok se está agendado', tag: gram.future-plans }
+  - { wrong: "Can you explain me the runner setup?", right: "Can you explain the runner setup to me? / Can you walk me through the runner setup?", why: "explain não aceita objeto indireto direto", tag: br.explain-me }
+  - { wrong: "I stayed until late to fix it.", right: "I stayed late to fix it.", why: '"until late" não existe', tag: br.until-late }
+
+dialogue:
+  title: Standup, 10:00 BRT. Sete pessoas; trecho com quatro.
+  lines:
+    - { speaker: Priya, text: "Morning everyone. Let's go around. Yuri, you're up." }
+    - { speaker: Yuri, text: "Morning. Yesterday I got the build and lint stages of the payments-api pipeline working on GitHub Actions. I'm still on the integration tests — the job keeps timing out when it spins up the Postgres service container. I've tried bumping the timeout, but it didn't help, so today I'm going to check the runner's memory and try a smaller Postgres image. Heads up: this might slip to tomorrow. And I'm waiting on a review from Ana on the Terraform PR." }
+    - { speaker: Ana, text: "Sorry, I'll get to it right after this." }
+    - { speaker: Yuri, text: "No worries, thanks." }
+    - { speaker: Priya, text: "Do you need a hand with the runner thing?" }
+    - { speaker: Yuri, text: "Actually, yeah. Marcos, could you pair with me for twenty minutes after the call? You set up the runners, right?", note: 'Uso correto de "actually" (= na verdade, sim).' }
+    - { speaker: Marcos, text: "Sure, ping me." }
+    - { speaker: Priya, text: "Great. Next — Ana?" }
+  notes:
+    - '"You''re up" = é a sua vez. "Do you need a hand?" = precisa de ajuda?'
+    - '"Actually, yeah" aqui é o uso correto de actually (= na verdade, sim), diferente do erro "actually = atualmente".'
+    - '"Ping me" = me chama (no Slack). "No worries" = sem problema; resposta padrão para um pedido de desculpa pequeno.'
+    - "O update de Yuri tem 75 palavras e ~35 segundos. Cobre: feito / em andamento / tentativa / próximo passo / risco de prazo / dependência."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Yesterday I finished the RDS module refactor and opened the PR. Today I'm picking up the alerting rules for the new cluster. No blockers, but I'll be out from 2 pm my time for a dentist appointment." }
+    - { speaker: Marcos, text: "Still on the runner autoscaling. It turned out the scale-down policy was too aggressive, so we were killing runners mid-job. I've got a fix in review. Nothing blocking me, but I could use a second pair of eyes on the PR." }
+    - { speaker: Priya, text: "Quick one from me: the release is moving to Thursday because of the pipeline migration. I'll update the ticket. Anything else for the parking lot?" }
+  questions:
+    - { id: M01-02-l1, type: multiple_choice, prompt: "Who is blocked?", options: ["Ana", "Marcos", "Nobody", "Priya"], answer: 2, explanation: "Ana diz \"No blockers\", Marcos diz \"Nothing blocking me\", Priya não fala de bloqueio.", tags: [comp.listening] }
+    - { id: M01-02-l2, type: multiple_choice, prompt: "What caused Marcos's problem?", options: ["a timeout", "an aggressive scale-down policy", "low memory", "a flaky test"], answer: 1, explanation: '"It turned out the scale-down policy was too aggressive."', tags: [comp.listening, vocab.ci] }
+    - { id: M01-02-l3, type: fill_blank, prompt: "The release is now on ___.", accepted: ["Thursday"], explanation: '"the release is moving to Thursday"', tags: [comp.listening] }
+    - { id: M01-02-l4, type: multiple_choice, prompt: "What is Ana picking up today?", options: ["the RDS refactor", "alerting rules", "the runner autoscaling", "the release"], answer: 1, explanation: '"Today I''m picking up the alerting rules for the new cluster."', tags: [comp.listening] }
+    - { id: M01-02-l5, type: multiple_choice, prompt: '"I could use a second pair of eyes" means…', options: ["I need two monitors", "I'd like someone to review it", "I'm tired", "I need glasses"], answer: 1, explanation: "Expressão idiomática: quero que alguém revise.", tags: [vocab.standup] }
+    - { id: M01-02-l6, type: multiple_choice, prompt: '"I''ll be out from 2 pm my time" — why "my time"?', options: ["she's the boss", "the team is in different time zones", "it's a typo", "she works part-time"], answer: 1, explanation: 'Em times distribuídos, horário sempre vem com referência de fuso ("my time", "UTC", "BRT").', tags: [topic.async] }
+
+writing:
+  prompt: |
+    **Cenário:** Ontem você investigou alertas falsos de CPU no cluster de produção. Descobriu que o threshold estava em 60% em vez de 85%. Corrigiu via Terraform, mas o PR ainda não foi revisado. Hoje pretende validar em staging. Está dependendo de alguém do time de rede liberar uma regra de firewall pedida há dois dias.
+
+    **Tarefa:** escreva seu update de standup (60–90 palavras) para ser lido em voz alta.
+  constraints:
+    - { label: "1 present perfect", pattern: "\\b(I've|I have|it's been|it has been|has been|hasn't been|haven't|hasn't|we've|we have)\\b" }
+    - { label: '"it turned out"', pattern: "\\bit turned out\\b" }
+    - { label: '"waiting on"', pattern: "\\bwaiting (on|for)\\b" }
+    - { label: '1 previsão com "by"', pattern: "\\bby (tomorrow|today|eod|end of|noon|lunch|friday|monday|tuesday|wednesday|thursday|the end|\\d)" }
+  rubric:
+    - Estrutura yesterday / today / blockers
+    - Tempos verbais
+    - Preposições e conectores
+    - Naturalidade e registro
+    - Concisão
+  model: >-
+    Yesterday I looked into the false CPU alerts on the prod cluster. It turned out the threshold was set to 60%
+    instead of 85%. I've fixed it in Terraform and the PR is up, but it hasn't been reviewed yet. Today I'm going
+    to validate the change in staging. One blocker: I'm still waiting on the network team to open the firewall
+    rule I requested on Monday — I'll chase it again after this. I should have everything merged by tomorrow EOD.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.daily, gram.present-perfect]
+
+speaking:
+  modeA:
+    prompt: Grave-se dando seu update de standup real de hoje em até 45 segundos. Use pelo menos 4 das expressões da aula.
+    maxSeconds: 45
+    targetPhrases:
+      - I've been working on
+      - I got it done
+      - I finished
+      - I'm still on
+      - I'm blocked on
+      - I'm waiting on
+      - I'm waiting for
+      - taking longer than expected
+      - I should have it done by
+      - I'm aiming to
+      - might slip
+      - I'll need another day
+      - heads up
+      - it turned out
+      - I've tried
+      - pair with me
+      - no blockers
+      - nothing blocking me
+      - quick one
+    checklist:
+      - Usei past simple para ontem?
+      - Usei present perfect para o estado atual?
+      - Disse o que já tentei?
+      - Dei previsão com "by"?
+      - Fechei com "no blockers" ou um pedido claro?
+  modeB:
+    persona: Priya, scrum master, direta e simpática. Conduz o daily e faz follow-ups curtos.
+    goals:
+      - Dar o update completo (feito / em andamento / bloqueio) em menos de 45 segundos
+      - Responder aos follow-ups sem se perder
+      - Fechar com "no blockers" ou um pedido de ajuda específico
+    followUps:
+      - What have you tried so far?
+      - When do you think it'll be ready?
+      - Do you need someone to chase the network team?
+    rubric:
+      - Clareza
+      - Tempos verbais
+      - Naturalidade
+      - Concisão
+
+quiz:
+  - { id: M01-02-q1, type: fill_blank, prompt: "I ___ (work) on this since Monday.", accepted: ["have been working", "'ve been working"], explanation: "since marca o ponto de início de algo que continua; isso é present perfect continuous. \"I'm working since\" é o calque mais comum do português.", tags: [gram.since-for, br.since-present] }
+  - { id: M01-02-q2, type: multiple_choice, prompt: "I'll finish it ___ Friday.", options: ["by", "until"], answer: 0, explanation: "by = prazo final. until diria que você vai ficar terminando durante toda a semana até sexta.", tags: [gram.by-until, br.until-by] }
+  - { id: M01-02-q3, type: error_correction, prompt: "I didn't finish yet.", accepted: ["I haven't finished yet.", "I haven't finished it yet.", "I haven't finished yet"], explanation: "yet aparece com present perfect em negativas e perguntas. \"didn't… yet\" é compreensível, mas marca não-nativo.", tags: [gram.still-yet-already, gram.present-perfect] }
+  - { id: M01-02-q4, type: multiple_choice, prompt: "Which one sounds evasive?", options: ["It's taking longer than expected; I'll need another day.", "It's almost done, almost."], answer: 1, explanation: "\"Almost done, almost\" não dá informação: quanto falta, o que trava, quando fica pronto. A alternativa (a) diz o problema e o novo prazo.", tags: [topic.daily, vocab.standup] }
+  - { id: M01-02-q5, type: fill_blank, prompt: "I'm waiting ___ Ana's review.", accepted: ["on", "for"], explanation: "wait pede preposição. wait on e wait for são intercambiáveis aqui; \"waiting the review\" está errado.", tags: [br.waiting-no-prep] }
+  - { id: M01-02-q6, type: error_correction, prompt: "I have a doubt about the runner.", accepted: ["I have a question about the runner.", "I have a question about the runner", "I'm not sure about the runner.", "I'm not sure about the runner"], explanation: "doubt é desconfiança (\"I doubt it will work\"). Dúvida no sentido de pergunta é question.", tags: [br.doubt] }
+  - { id: M01-02-q7, type: translate, prompt: "Está dando erro de timeout.", accepted: ["It's timing out.", "It's timing out", "It's failing with a timeout.", "It's failing with a timeout", "It is timing out.", "It's throwing a timeout error.", "It's throwing a timeout error"], explanation: "\"Giving error\" é tradução literal. Em inglês, erros são thrown, raised, ou o sistema fails with, times out, crashes.", tags: [br.giving-error, vocab.errors] }
+  - { id: M01-02-q8, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["on", "blocked", "staging", "to", "access", "I'm"], answer: "I'm blocked on access to staging", explanation: "Ordem fixa: sujeito + blocked on + o que bloqueia. \"Access to staging\" é a unidade.", tags: [vocab.standup] }
+
+review:
+  count: 5
+  preferTags: [gram.question-forms, br.doubt, gram.present-perfect]
+
+srsCards:
+  - { front: "estou trabalhando nisso desde ontem", back: "I've been working on this since yesterday", tag: br.since-present }
+  - { front: "ainda não terminei", back: "I haven't finished yet", tag: gram.still-yet-already }
+  - { front: "estou travado em X", back: "I'm blocked on X", tag: vocab.standup }
+  - { front: "estou esperando a revisão da Ana", back: "I'm waiting on a review from Ana", tag: br.waiting-no-prep }
+  - { front: "está demorando mais que o esperado", back: "It's taking longer than expected", tag: vocab.standup }
+  - { front: "devo terminar até o fim do dia", back: "I should have it done by EOD", tag: gram.by-until }
+  - { front: "isso pode atrasar para amanhã", back: "This might slip to tomorrow", tag: vocab.standup }
+  - { front: "vou precisar de mais um dia", back: "I'll need another day on this", tag: vocab.standup }
+  - { front: "descobri que… (depois de investigar)", back: "It turned out (that)…", tag: vocab.standup }
+  - { front: "já tentei X, mas não ajudou", back: "I've tried X, but it didn't help", tag: gram.present-perfect }
+  - { front: "alguém pode fazer pair comigo depois da call?", back: "Can someone pair with me on this after the call?", tag: topic.help }
+  - { front: "tenho uma dúvida (pergunta)", back: "I have a question (NÃO \"doubt\")", tag: br.doubt }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

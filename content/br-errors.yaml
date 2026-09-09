@@ -1,0 +1,105 @@
+# Catálogo de erros típicos de brasileiros. Regex aplicada ao texto do aluno (flags padrão: gi).
+# Regras: padrões conservadores (poucos falsos positivos). Quando em dúvida, não detectar.
+patterns:
+  - id: doubt-question
+    pattern: "\\b(i have|i've got|i got|i still have|i just have) (a|one|another|a quick|a small|a little) doubt\\b|\\bany doubts?\\s*\\?"
+    wrong: "I have a doubt"
+    right: "I have a question / I'm not sure about…"
+    why: "doubt = desconfiança. Dúvida no sentido de pergunta é question."
+    tag: br.doubt
+  - id: since-present-continuous
+    pattern: "\\b(i'm|i am|we're|we are|he's|she's|it's|they're|they are)\\s+(?!going\\b)\\w+ing\\b[^.!?]{0,40}\\b(since (yesterday|today|last|this|monday|tuesday|wednesday|thursday|friday|saturday|sunday|january|february|march|april|may|june|july|august|september|october|november|december|\\d|then|noon|lunch|morning)|for the last|for the past|for \\d+ (minutes|hours|days|weeks|months|years))\\b"
+    wrong: "I'm working on this since yesterday"
+    right: "I've been working on this since yesterday"
+    why: "since/for exigem present perfect (continuous)."
+    tag: br.since-present
+  - id: until-as-deadline
+    pattern: "\\b(will|'ll|can|could|should|going to|gonna|need to|have to|must|plan to|want to|try to|hope to)\\s+(finish|finishing|deliver|send|complete|merge|deploy|fix|be done|be ready|have it done|have it ready|get it done|do it|do this|do that)(\\s+(it|this|that|them|everything|the \\w+))?\\s+until\\b"
+    wrong: "I will finish it until Friday"
+    right: "I'll have it done by Friday"
+    why: "until = duração; by = prazo."
+    tag: br.until-by
+  - id: until-late
+    pattern: "\\b(stay|stayed|staying|work|worked|working) until late\\b"
+    wrong: "I stayed until late"
+    right: "I stayed late"
+    why: '"until late" não existe em inglês.'
+    tag: br.until-late
+  - id: giving-error
+    pattern: "\\b(giving|gives|gave|is giving|it's giving)\\s+errors?\\b"
+    wrong: "It's giving error"
+    right: "It's throwing an error / It's failing with… / It's timing out"
+    why: 'Calque de "está dando erro".'
+    tag: br.giving-error
+  - id: waiting-no-preposition
+    pattern: "\\bwaiting (the|a|an|my|your|his|her|their|our|him|them|you|me)\\b(?!\\s*(\\w+\\s+)?(minute|minutes|second|seconds|moment|sec|bit|while|few|couple|little|day|days|week|weeks|month|months|year|years|hour|hours|whole|entire|rest|all|long|time)\\b)"
+    wrong: "I'm waiting the review"
+    right: "I'm waiting on/for the review"
+    why: "wait exige preposição (on/for)."
+    tag: br.waiting-no-prep
+  - id: explain-me
+    pattern: "\\bexplain(s|ed)? (me|us|him|her|them) (the|a|an|this|that|how|what|why|my|your|our|it)\\b"
+    wrong: "explain me"
+    right: "explain to me / walk me through"
+    why: "explain não aceita objeto indireto direto."
+    tag: br.explain-me
+  - id: pretend
+    pattern: "\\b(i|we) pretend to (?!(be|have|know|like|care|understand|listen|agree)\\b)\\w+"
+    wrong: "I pretend to finish today"
+    right: "I intend to / I plan to finish today"
+    why: "pretend = fingir."
+    tag: br.pretend
+  - id: assist-meeting
+    pattern: "\\bassist(ed|ing)? (the|a|our|this|that) (meeting|call|daily|standup|stand-up|presentation|class|session)\\b"
+    wrong: "assist the meeting"
+    right: "attend the meeting"
+    why: "assist = ajudar; attend = participar."
+    tag: br.assist
+  - id: make-a-question
+    pattern: "\\bmake (a|one|some|two|three) questions?\\b"
+    wrong: "make a question"
+    right: "ask a question"
+    why: "Perguntas são feitas com ask."
+    tag: br.make-a-question
+  - id: have-years-old
+    pattern: "\\b(i|he|she|we|they) (have|has) \\d+ years\\b(?!\\s+(of|experience|working|in|at|with|on|as|left|remaining|until|to|before|ahead)\\b)"
+    wrong: "I have 30 years"
+    right: "I'm 30 (years old)"
+    why: "Idade em inglês usa be."
+    tag: br.have-years
+  - id: people-is
+    pattern: "(?<!\\bof\\s)\\bpeople (is|was|has|doesn't|isn't|wasn't)\\b"
+    wrong: "people is"
+    right: "people are"
+    why: "people é plural."
+    tag: br.people-is
+  - id: discuss-about
+    pattern: "\\bdiscuss(ed|ing)? about\\b"
+    wrong: "discuss about the plan"
+    right: "discuss the plan"
+    why: "discuss é transitivo direto."
+    tag: br.discuss-about
+  - id: depend-of
+    pattern: "\\bdepend(s|ed|ing)? of\\b"
+    wrong: "depends of"
+    right: "depends on"
+    why: "depend on."
+    tag: br.depend-of
+  - id: according-with
+    pattern: "\\baccording with\\b"
+    wrong: "according with the docs"
+    right: "according to the docs"
+    why: "according to."
+    tag: br.according-with
+  - id: win-money
+    pattern: "\\bwin(s|ning)? (a|my|his|her|their|our) ((good|better|higher|decent|fair|great|nice) )?(salary|wage|wages|income)\\b|\\bwin(s|ning)? (more|less|enough|good) money (per|a|each|every) (month|year|hour|week|day)\\b"
+    wrong: "win money"
+    right: "earn money / make money"
+    why: "win = ganhar em competição; salário se earn/make."
+    tag: br.win-money
+  - id: lose-deadline
+    pattern: "\\b(lose|lost|losing) (the|a|my|our|this) (deadline|bus|flight|train|appointment)\\b"
+    wrong: "lose the deadline"
+    right: "miss the deadline"
+    why: "Perder hora/prazo/transporte é miss."
+    tag: br.lose-the-deadline

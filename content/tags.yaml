@@ -1,0 +1,74 @@
+# Taxonomia fechada de tags. Toda tag usada em aulas, exercícios e catálogo de erros precisa existir aqui.
+tags:
+  # Competências
+  - { id: comp.vocabulary,    group: comp, label: Vocabulário }
+  - { id: comp.speaking,      group: comp, label: Conversação }
+  - { id: comp.listening,     group: comp, label: Compreensão auditiva }
+  - { id: comp.pronunciation, group: comp, label: Pronúncia }
+  - { id: comp.reading,       group: comp, label: Leitura }
+  - { id: comp.writing,       group: comp, label: Escrita }
+  - { id: comp.confidence,    group: comp, label: Confiança }
+  # Gramática em contexto
+  - { id: gram.present-perfect,        group: gram, label: Present perfect × past simple }
+  - { id: gram.since-for,              group: gram, label: since / for }
+  - { id: gram.by-until,               group: gram, label: by × until }
+  - { id: gram.still-yet-already,      group: gram, label: still / yet / already }
+  - { id: gram.future-plans,           group: gram, label: Planos (going to / will / -ing) }
+  - { id: gram.question-forms,         group: gram, label: Formação de perguntas }
+  - { id: gram.modals-polite,          group: gram, label: Modais de polidez }
+  - { id: gram.indirect-questions,     group: gram, label: Perguntas indiretas }
+  - { id: gram.present-simple-process, group: gram, label: Present simple para processos }
+  - { id: gram.prepositions-infra,     group: gram, label: Preposições de infraestrutura }
+  - { id: gram.imperative,             group: gram, label: Imperativo em instruções }
+  - { id: gram.conditionals-real,      group: gram, label: Condicionais reais }
+  - { id: gram.hedging,                group: gram, label: Cautela (hedging) }
+  - { id: gram.softeners,              group: gram, label: Suavizadores }
+  - { id: gram.past-narrative,         group: gram, label: Narrativa no passado }
+  - { id: gram.cause-effect,           group: gram, label: Causa e efeito }
+  - { id: gram.passive,                group: gram, label: Voz passiva }
+  - { id: gram.describing-trends,      group: gram, label: Descrever tendências }
+  - { id: gram.numbers-percentages,    group: gram, label: Números e percentuais }
+  # Vocabulário por tema
+  - { id: vocab.standup,       group: vocab, label: Standup }
+  - { id: vocab.slack,         group: vocab, label: Slack / Teams }
+  - { id: vocab.errors,        group: vocab, label: Mensagens de erro e logs }
+  - { id: vocab.architecture,  group: vocab, label: Arquitetura e fluxos }
+  - { id: vocab.tickets-prs,   group: vocab, label: Tickets, commits e PRs }
+  - { id: vocab.ci,            group: vocab, label: CI/CD }
+  - { id: vocab.iac,           group: vocab, label: Infra como código }
+  - { id: vocab.k8s,           group: vocab, label: Containers e Kubernetes }
+  - { id: vocab.cloud,         group: vocab, label: Cloud providers }
+  - { id: vocab.incident,      group: vocab, label: Incidentes }
+  - { id: vocab.observability, group: vocab, label: Observabilidade e SLOs }
+  - { id: vocab.security,      group: vocab, label: Segurança }
+  - { id: vocab.finops,        group: vocab, label: Custos e FinOps }
+  - { id: vocab.interview,     group: vocab, label: Entrevistas e carreira }
+  # Erros típicos de brasileiros
+  - { id: br.since-present,    group: br, label: "since/for + presente" }
+  - { id: br.doubt,            group: br, label: "doubt em vez de question" }
+  - { id: br.until-by,         group: br, label: "until em vez de by" }
+  - { id: br.until-late,       group: br, label: "until late" }
+  - { id: br.actually,         group: br, label: "actually = atualmente" }
+  - { id: br.pretend,          group: br, label: "pretend = pretender" }
+  - { id: br.assist,           group: br, label: "assist = assistir" }
+  - { id: br.explain-me,       group: br, label: "explain me" }
+  - { id: br.giving-error,     group: br, label: "giving error" }
+  - { id: br.waiting-no-prep,  group: br, label: "waiting + objeto sem preposição" }
+  - { id: br.make-a-question,  group: br, label: "make a question" }
+  - { id: br.in-the-last-week, group: br, label: "in the last week (= semana passada)" }
+  - { id: br.have-years,       group: br, label: "have X years (idade)" }
+  - { id: br.people-is,        group: br, label: "people is" }
+  - { id: br.discuss-about,    group: br, label: "discuss about" }
+  - { id: br.depend-of,        group: br, label: "depend of" }
+  - { id: br.according-with,   group: br, label: "according with" }
+  - { id: br.win-money,        group: br, label: "win money" }
+  - { id: br.lose-the-deadline, group: br, label: "lose (perder) hora/prazo" }
+  # Situação
+  - { id: topic.daily,         group: topic, label: Daily standup }
+  - { id: topic.help,          group: topic, label: Pedir ajuda }
+  - { id: topic.async,         group: topic, label: Assíncrono e fusos }
+  - { id: topic.reading,       group: topic, label: Leitura técnica }
+  - { id: topic.architecture,  group: topic, label: Explicar arquitetura }
+  - { id: topic.code-review,   group: topic, label: Code review }
+  - { id: topic.incident-call, group: topic, label: Incident call }
+  - { id: topic.interview,     group: topic, label: Entrevista }
