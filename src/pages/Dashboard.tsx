@@ -5,6 +5,7 @@ import { RadarChart } from "../components/dashboard/RadarChart.tsx";
 import { PlacementCard } from "../components/dashboard/PlacementCard.tsx";
 import { TagHeatmap } from "../components/dashboard/TagHeatmap.tsx";
 import { StreakCard } from "../components/dashboard/StreakCard.tsx";
+import { SrsCard } from "../components/dashboard/SrsCard.tsx";
 import { WeeklyGoalCard } from "../components/dashboard/WeeklyGoalCard.tsx";
 import { Timeline } from "../components/dashboard/Timeline.tsx";
 
@@ -25,6 +26,7 @@ export function Dashboard() {
       <div className="grid gap-6 md:grid-cols-2">
         <PlacementCard latest={data.placement.latest} />
         <StreakCard streak={data.streak} />
+        <SrsCard srs={data.srs} />
         <Card>
           <h2 className="font-medium">Competências</h2>
           <RadarChart axes={AXES.map((k) => ({ key: k, label: competencyLabel[k] ?? k, value: data.radar[k].value }))} />

@@ -17,10 +17,10 @@ export function WeeklyGoalCard({ week, onSaved }: { week: Dashboard["week"]; onS
     try { await api.setWeekGoal(draft); setEditing(false); onSaved(); } catch (e) { setError((e as Error).message); } finally { setBusy(false); }
   };
 
-  const rows: Array<{ label: string; done: number; target: number; note?: string }> = week.goal
+  const rows: Array<{ label: string; done: number; target: number }> = week.goal
     ? [
         { label: "Aulas", done: week.progress.lessons, target: week.goal.lessonsTarget },
-        { label: "Revisões", done: week.progress.reviews, target: week.goal.reviewsTarget, note: "disponível na E3" },
+        { label: "Revisões", done: week.progress.reviews, target: week.goal.reviewsTarget },
         { label: "Minutos", done: week.progress.minutes, target: week.goal.minutesTarget },
       ]
     : [];
@@ -41,7 +41,7 @@ export function WeeklyGoalCard({ week, onSaved }: { week: Dashboard["week"]; onS
         <div className="mt-2 space-y-3">
           {rows.map((r) => (
             <div key={r.label}>
-              <div className="flex justify-between text-sm"><span>{r.label}{r.note && r.done === 0 ? <span className="ml-1 text-xs text-slate-400">({r.note})</span> : null}</span><span className="text-slate-600">{r.done}/{r.target}</span></div>
+              <div className="flex justify-between text-sm"><span>{r.label}</span><span className="text-slate-600">{r.done}/{r.target}</span></div>
               <ProgressBar value={r.target === 0 ? 0 : r.done / r.target} />
             </div>
           ))}
