@@ -105,3 +105,41 @@ export function tagStats(db: Db, sinceIso: string): TagStat[] {
     .all(sinceIso) as Array<{ tag: string; attempts: number; errors: number }>;
   return rows.map((r) => ({ tag: r.tag, attempts: r.attempts, errors: r.errors, errorRate: r.attempts === 0 ? 0 : r.errors / r.attempts }));
 }
+
+// ---------- avaliações ----------
+export type AssessmentKind = "placement" | "module" | "level" | "checkpoint";
+export type AssessmentRow = { id: number; kind: AssessmentKind; ref: string; score_json: string; ts: string };
+
+export function insertAssessment(db: Db, a: { kind: AssessmentKind; ref: string; score: unknown }, now: string): number {
+  const r = db.prepare("insert into assessments (kind, ref, score_json, ts) values (?,?,?,?)").run(a.kind, a.ref, JSON.stringify(a.score), now);
+  return Number(r.lastInsertRowid);
+}
+
+export function latestAssessment(db: Db, kind: AssessmentKind, ref: string): AssessmentRow | undefined {
+  return db.prepare("select * from assessments where kind = ? and ref = ? order by ts desc, id desc limit 1").get(kind, ref) as AssessmentRow | undefined;
+}
+
+export function listAssessments(db: Db): AssessmentRow[] {
+  return db.prepare("select * from assessments order by ts desc, id desc").all() as AssessmentRow[];
+}
+
+// ---------- rodada: registros com ts estritamente maior que um instante ("" = desde sempre) ----------
+export function latestAttemptsSince(db: Db, lessonId: string, block: Block, sinceExclusive: string): Map<string, AttemptRow> {
+  const rows = db.prepare("select * from attempts where lesson_id = ? and block = ? and ts > ? order by ts asc, id asc").all(lessonId, block, sinceExclusive) as AttemptRow[];
+  const map = new Map<string, AttemptRow>();
+  for (const r of rows) map.set(r.exercise_id, r);
+  return map;
+}
+
+export function latestWritingSince(db: Db, lessonId: string, sinceExclusive: string): WritingRow | undefined {
+  return db.prepare("select * from writing_submissions where lesson_id = ? and ts > ? order by ts desc, id desc limit 1").get(lessonId, sinceExclusive) as WritingRow | undefined;
+}
+
+export type SpeakingRow = {
+  id: number; lesson_id: string; mode: "A" | "B"; transcript: string; metrics_json: string;
+  score: number | null; self_confidence: number | null; ts: string;
+};
+
+export function latestSpeakingSince(db: Db, lessonId: string, sinceExclusive: string): SpeakingRow | undefined {
+  return db.prepare("select * from speaking_sessions where lesson_id = ? and ts > ? order by ts desc, id desc limit 1").get(lessonId, sinceExclusive) as SpeakingRow | undefined;
+}

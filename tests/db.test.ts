@@ -1,4 +1,5 @@
 import { describe, it, expect } from "vitest";
+import { DatabaseSync } from "node:sqlite";
 import { openDb, migrate, MIGRATIONS } from "../server/db.ts";
 
 describe("openDb", () => {
@@ -15,5 +16,23 @@ describe("openDb", () => {
     const db = openDb(":memory:");
     expect(migrate(db)).toBe(MIGRATIONS.length - 1);
     expect(migrate(db)).toBe(MIGRATIONS.length - 1);
+  });
+});
+
+describe("migration 1", () => {
+  it("rebuilds attempts keeping rows and accepting block placement", () => {
+    const db = new DatabaseSync(":memory:");
+    db.exec(MIGRATIONS[0]!);
+    db.exec("create table schema_version (version integer not null); insert into schema_version (version) values (0)");
+    db.prepare("insert into attempts (lesson_id, exercise_id, block, type, correct, answer, tags_json, ts) values ('M01-02','M01-02-q1','quiz','fill_blank',1,'x','[\"gram.since-for\"]','2026-09-01T10:00:00.000Z')").run();
+    expect(migrate(db)).toBe(MIGRATIONS.length - 1);
+    const rows = db.prepare("select * from attempts").all() as Array<{ exercise_id: string; answer: string }>;
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ exercise_id: "M01-02-q1", answer: "x" });
+    const insert = (block: string) => db.prepare("insert into attempts (lesson_id, exercise_id, block, type, correct, tags_json, ts) values ('placement','PL-r01',?,'multiple_choice',0,'[]','2026-09-02T10:00:00.000Z')").run(block);
+    expect(() => insert("placement")).not.toThrow();
+    expect(() => insert("bogus")).toThrow();
+    const indexes = (db.prepare("select name from sqlite_master where type='index' and tbl_name='attempts'").all() as { name: string }[]).map((r) => r.name);
+    expect(indexes).toEqual(expect.arrayContaining(["idx_attempts_lesson_block", "idx_attempts_ts"]));
   });
 });

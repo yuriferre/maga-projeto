@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import type { Db } from "./db.ts";
 import { nowIso } from "./db.ts";
-import { BlockSchema, type ContentBundle } from "../shared/schema.ts";
+import { BlockSchema, placementExercises, type ContentBundle } from "../shared/schema.ts";
 import {
   insertAttempt, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, insertCards, tagStats,
@@ -34,6 +34,7 @@ const SpeakingBody = z.object({
 
 export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   const app = new Hono();
+  const placementIds = new Set(placementExercises(content.placement).map((e) => e.exercise.id));
 
   app.onError((err, c) => {
     console.error(err);
@@ -55,7 +56,14 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   app.post("/api/attempts", async (c) => {
     const parsed = AttemptBody.safeParse(await c.req.json().catch(() => null));
     if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
-    if (!content.lessons[parsed.data.lessonId]) return c.json({ error: "aula não encontrada" }, 404);
+    const { lessonId, block, exerciseId } = parsed.data;
+    if (lessonId === "placement") {
+      if (block !== "placement") return c.json({ error: "o teste inicial usa o bloco placement" }, 400);
+      if (!placementIds.has(exerciseId)) return c.json({ error: "exercício não pertence ao teste inicial" }, 400);
+    } else {
+      if (block === "placement") return c.json({ error: "bloco placement só vale para o teste inicial" }, 400);
+      if (!content.lessons[lessonId]) return c.json({ error: "aula não encontrada" }, 404);
+    }
     return c.json({ id: insertAttempt(db, parsed.data, now()) });
   });
 

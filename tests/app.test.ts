@@ -105,3 +105,17 @@ describe("lesson flow", () => {
     expect(body.since).toBe(expected);
   });
 });
+
+describe("placement attempts", () => {
+  const body = (over: Record<string, unknown>) => ({ lessonId: "placement", exerciseId: "PL-r01", block: "placement", type: "multiple_choice", correct: true, tags: ["comp.reading"], ...over });
+  it("accepts a placement attempt", async () => {
+    const res = await json("POST", "/api/attempts", body({}));
+    expect(res.status).toBe(200);
+    expect((await res.json()).id).toBeGreaterThan(0);
+  });
+  it("rejects a wrong block, an unknown placement exercise and block placement on a lesson", async () => {
+    expect((await json("POST", "/api/attempts", body({ block: "quiz" }))).status).toBe(400);
+    expect((await json("POST", "/api/attempts", body({ exerciseId: "PL-zz" }))).status).toBe(400);
+    expect((await json("POST", "/api/attempts", body({ lessonId: lesson.id, exerciseId: "M01-02-q1", type: "fill_blank", tags: ["gram.since-for"] }))).status).toBe(400);
+  });
+});

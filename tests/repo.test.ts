@@ -3,6 +3,7 @@ import { openDb, type Db } from "../server/db.ts";
 import {
   insertAttempt, latestAttemptsByExercise, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, countSpeaking, insertCards, countCards, tagStats,
+  insertAssessment, latestAssessment, listAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince,
 } from "../server/repo.ts";
 
 let db: Db;
@@ -73,5 +74,38 @@ describe("tagStats", () => {
     const since = stats.find((s) => s.tag === "gram.since-for")!;
     expect(since).toEqual({ tag: "gram.since-for", attempts: 2, errors: 1, errorRate: 0.5 });
     expect(stats.find((s) => s.tag === "br.since-present")).toBeUndefined();
+  });
+});
+
+describe("assessments", () => {
+  it("inserts, returns the latest per kind/ref and lists newest first", () => {
+    insertAssessment(db, { kind: "placement", ref: "placement", score: { level: 1 } }, t(1));
+    const second = insertAssessment(db, { kind: "placement", ref: "placement", score: { level: 2 } }, t(3));
+    insertAssessment(db, { kind: "module", ref: "M01", score: { pct: 0.8 } }, t(2));
+    expect(latestAssessment(db, "placement", "placement")?.id).toBe(second);
+    expect(JSON.parse(latestAssessment(db, "placement", "placement")!.score_json)).toEqual({ level: 2 });
+    expect(latestAssessment(db, "level", "1")).toBeUndefined();
+    expect(listAssessments(db).map((a) => a.ts)).toEqual([t(3), t(2), t(1)]);
+  });
+});
+
+describe("rodada (registros após um instante)", () => {
+  it("latestAttemptsSince ignores rows at or before the cutoff and keeps the latest per exercise", () => {
+    insertAttempt(db, { lessonId: "placement", exerciseId: "PL-r01", block: "placement", type: "multiple_choice", correct: false, tags: ["comp.reading"] }, t(1));
+    insertAttempt(db, { lessonId: "placement", exerciseId: "PL-r01", block: "placement", type: "multiple_choice", correct: true, tags: ["comp.reading"] }, t(2));
+    insertAttempt(db, { lessonId: "placement", exerciseId: "PL-r02", block: "placement", type: "multiple_choice", correct: true, tags: ["comp.reading"] }, t(3));
+    expect([...latestAttemptsSince(db, "placement", "placement", "").keys()].sort()).toEqual(["PL-r01", "PL-r02"]);
+    const since2 = latestAttemptsSince(db, "placement", "placement", t(2));
+    expect([...since2.keys()]).toEqual(["PL-r02"]);
+    expect(latestAttemptsSince(db, "placement", "placement", "").get("PL-r01")?.correct).toBe(1);
+  });
+  it("latestWritingSince / latestSpeakingSince respect the cutoff", () => {
+    insertWriting(db, { lessonId: "placement", text: "a", feedback: {}, score: 3 }, t(1));
+    insertWriting(db, { lessonId: "placement", text: "b", feedback: {}, score: 4 }, t(2));
+    insertSpeaking(db, { lessonId: "placement", mode: "A", transcript: "x", metrics: { readAloudPct: 1 }, score: 4, selfConfidence: 3 }, t(2));
+    expect(latestWritingSince(db, "placement", "")?.text).toBe("b");
+    expect(latestWritingSince(db, "placement", t(2))).toBeUndefined();
+    expect(latestSpeakingSince(db, "placement", t(1))?.self_confidence).toBe(3);
+    expect(latestSpeakingSince(db, "placement", t(2))).toBeUndefined();
   });
 });
