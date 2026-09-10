@@ -1,5 +1,6 @@
 # Glossário curado — tema "dia a dia". Cada entrada: significado em português, definição curta em inglês,
 # exemplos reais com tradução, colocações, pronúncia aproximada para brasileiros, armadilhas, registro e tags.
+# Pronúncia: "r" inicial representa o /h/ do inglês (ex.: "RÉDZ-âp" = heads up); é aproximação para brasileiros, não IPA.
 id: daily
 title: "Dia a dia: standup e Slack"
 entries:
@@ -10,7 +11,7 @@ entries:
       - { en: "Heads up: the deploy window moved to 3 pm.", pt: "Aviso: a janela de deploy mudou para 15h." }
       - { en: "Just a heads up, I'll be out tomorrow morning.", pt: "Só avisando: não estarei amanhã de manhã." }
     collocations: ["quick heads up", "just a heads up", "heads up that…"]
-    pronunciation: "HEDZ-âp"
+    pronunciation: "RÉDZ-âp"
     pitfalls: ["Não é pergunta nem pedido: é aviso. Para pedir atenção, use \"FYI\" ou \"please note\"."]
     register: informal
     tags: [vocab.slack]
@@ -59,9 +60,9 @@ entries:
     definition: estimated time of arrival; when something is expected to be done
     examples:
       - { en: "What's the ETA on the fix? — Around 4 pm.", pt: "Qual a previsão do fix? — Por volta das 16h." }
-    collocations: ["ETA on X", "give me an ETA", "no ETA yet"]
+    collocations: ["ETA on X", "ETA for X", "give me an ETA", "no ETA yet"]
     pronunciation: "í-tí-êi"
-    pitfalls: ["Fala-se letra a letra. Pede-se \"an ETA on\" algo, não \"of\"."]
+    pitfalls: ["Fala-se letra a letra. Para o assunto, \"an ETA on/for X\"; para o horário, \"an ETA of 4 pm\"."]
     register: neutral
     tags: [vocab.standup]
   - term: EOD
@@ -130,7 +131,7 @@ entries:
     meaning: incluir alguém na conversa ou no assunto
     definition: to include someone in a conversation or decision
     examples:
-      - { en: "Let's loop in Priya, she owns that service.", pt: "Vamos incluir a Priya, ela é dona desse serviço." }
+      - { en: "Let's loop in Priya; she owns that service.", pt: "Vamos incluir a Priya, ela é dona desse serviço." }
       - { en: "Keep me in the loop on the migration.", pt: "Me mantém informado sobre a migração." }
     collocations: ["loop someone in", "keep me in the loop", "out of the loop"]
     pronunciation: "lup in"
@@ -162,7 +163,7 @@ entries:
     meaning: discordar de uma decisão ou prazo com argumentos
     definition: to resist or challenge a request or decision
     examples:
-      - { en: "I pushed back on the deadline; two weeks isn't realistic.", pt: "Contestei o prazo; duas semanas não é realista." }
+      - { en: "I pushed back on the deadline; two weeks isn't realistic.", pt: "Contestei o prazo; duas semanas não são realistas." }
     collocations: ["push back on X", "get pushback", "some pushback from the team"]
     pronunciation: "push bék"
     pitfalls: ["Não é \"empurrar\". Substantivo é \"pushback\", uma palavra."]
@@ -266,7 +267,7 @@ entries:
     examples:
       - { en: "WIP: do not merge, still adding tests.", pt: "Em andamento: não mesclar, ainda adicionando testes." }
     collocations: ["WIP PR", "mark as WIP", "still WIP"]
-    pronunciation: "uíp"
+    pronunciation: "uíp / dâ-bliu-ái-pí"
     pitfalls: ["Prefira o modo rascunho (draft PR) quando a ferramenta tiver; \"WIP\" no título é o fallback."]
     register: neutral
     tags: [vocab.tickets-prs]
@@ -304,7 +305,7 @@ entries:
     meaning: "combinado, está bom para mim"
     definition: I agree; that works for me
     examples:
-      - { en: "Let's sync at 2 pm? — Sounds good.", pt: "Vamos alinhar às 14h? — Combinado." }
+      - { en: "Can we sync at 2 pm? — Sounds good.", pt: "Podemos alinhar às 14h? — Combinado." }
     collocations: ["sounds good to me", "sounds good, thanks"]
     pronunciation: "saundz gud"
     pitfalls: ["\"sounds good\", não \"sounds well\" (adjetivo, não advérbio)."]
