@@ -1,0 +1,17 @@
+node_modules
+dist
+data
+src/generated
+.env
+.git
+.githooks
+.superpowers
+.claude
+.vite
+coverage
+*.log
+.DS_Store
+docs
+Dockerfile
+docker-compose.yml
+Makefile

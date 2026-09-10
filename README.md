@@ -22,6 +22,20 @@ Páginas: `/` painel (radar, heatmap de tags, sequência, meta semanal), `/trilh
 
 Ao atualizar de uma versão anterior, faça uma cópia de `data/progress.sqlite` antes do primeiro `pnpm dev`: a migração 1 reconstrói a tabela `attempts`.
 
+## Makefile e Docker
+
+`make` (sem alvo) lista os atalhos. Três jeitos de subir:
+
+| Modo | Comando | Onde abre | Quando usar |
+|---|---|---|---|
+| Local | `make dev` | http://localhost:5173 | dia a dia com hot reload; exige Node 25 e pnpm |
+| Container de produção | `make docker-build && make up` | http://localhost:3001 | um processo serve API e UI compilada; banco persistido em `./data` |
+| Container de desenvolvimento | `make dev-up` | http://localhost:5173 | hot reload sem instalar Node na máquina; código montado do host |
+
+Outros alvos: `make check` (suíte + content + typecheck + build, o mesmo dos hooks), `make logs`, `make shell`, `make down`, `make backup-db` (cópia datada do SQLite), `make clean`.
+
+A imagem usa `node:25-alpine`; o servidor serve `dist/` quando ele existe (`STATIC_DIR`), com fallback do SPA para `index.html`. Variáveis: `PORT` (3001), `DB_PATH` (`data/progress.sqlite`), `STATIC_DIR` (`dist`). Um `.env` na raiz é carregado pelo compose se existir (é onde vai a chave da Claude API na E4). Fala e áudio continuam no Chrome do host, em qualquer modo.
+
 ## Scripts
 - `pnpm test` — testes (vitest)
 - `pnpm typecheck` — TypeScript sem emitir
@@ -41,7 +55,7 @@ Ao atualizar de uma versão anterior, faça uma cópia de `data/progress.sqlite`
 3. Para concluir: quiz ≥ 75%, escrita enviada e avaliada (≥ 3/5), uma gravação de fala. Os cards da aula entram no SRS na conclusão.
 4. O progresso fica em `data/progress.sqlite`. Apague o arquivo para recomeçar do zero.
 
-## Estado atual (etapas E0–E1)
+## Estado atual (etapas E0–E3)
 - Conteúdo: aula M01-02 completa; demais aulas listadas como "em breve".
 - Correção de escrita e fala em modo por regras (sem IA). A integração com a Claude API entra na etapa E4.
 

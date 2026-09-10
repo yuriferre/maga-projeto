@@ -1,0 +1,37 @@
+# Dois modos:
+#   make up       → serviço `app`: imagem de produção, UI + API em http://localhost:3001, banco em ./data
+#   make dev-up   → serviço `dev` (perfil dev): pnpm dev com o código montado, Vite em :5173 e API em :3001
+services:
+  app:
+    build: .
+    image: projeto-ingles:latest
+    container_name: projeto-ingles
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./data:/app/data
+    env_file:
+      - path: .env
+        required: false
+    restart: unless-stopped
+
+  dev:
+    profiles: ["dev"]
+    image: node:25-alpine
+    container_name: projeto-ingles-dev
+    working_dir: /app
+    command: sh -c "npm install -g pnpm@9.15.9 && pnpm install --frozen-lockfile && pnpm content:build && pnpm dev"
+    ports:
+      - "5173:5173"
+      - "3001:3001"
+    volumes:
+      - .:/app
+      - dev_node_modules:/app/node_modules
+    environment:
+      - VITE_HOST=0.0.0.0
+    env_file:
+      - path: .env
+        required: false
+
+volumes:
+  dev_node_modules:
