@@ -108,6 +108,12 @@ export function crossValidate(bundle: ContentBundle): string[] {
     checkTags(where, lesson.tags);
     checkTags(`${where}.writing`, lesson.writing.tags);
     checkTags(`${where}.review`, lesson.review.preferTags);
+    const vocabTerms = new Set<string>();
+    for (const v of lesson.vocabulary) {
+      const key = v.term.trim().toLowerCase();
+      if (vocabTerms.has(key)) problems.push(`${where}.vocabulary: termo duplicado '${v.term}'`);
+      vocabTerms.add(key);
+    }
     for (const e of lesson.brErrors) checkTags(`${where}.brErrors`, [e.tag]);
     for (const c of lesson.srsCards) checkTags(`${where}.srsCards`, [c.tag]);
     for (const { exercise, block } of allExercises(lesson)) {
@@ -142,6 +148,18 @@ export function crossValidate(bundle: ContentBundle): string[] {
       checkTags(`glossary ${theme.id}.${entry.term}`, entry.tags);
     }
   }
+
+  // A frente do card do glossário é o `meaning`, e o dedupe do banco é por (lesson_id, front):
+  // dois significados iguais colidiriam em silêncio, então exigimos significado único no conteúdo.
+  const meanings = new Map<string, string>();
+  const checkMeaning = (where: string, meaning: string) => {
+    const key = meaning.trim().toLowerCase();
+    const seen = meanings.get(key);
+    if (seen) problems.push(`${where}: significado repetido de '${seen}' ('${meaning}') — a frente do card seria a mesma`);
+    else meanings.set(key, where);
+  };
+  for (const theme of bundle.glossary) for (const entry of theme.entries) checkMeaning(`glossary ${theme.id}.${entry.term}`, entry.meaning);
+  for (const lesson of Object.values(bundle.lessons)) for (const v of lesson.vocabulary) checkMeaning(`aula ${lesson.id}.vocabulary.${v.term}`, v.meaning);
 
   for (const mod of Object.values(bundle.modules)) {
     if (!roadmapModuleIds.has(mod.id)) problems.push(`module.yaml ${mod.id}: módulo não existe em levels.yaml`);

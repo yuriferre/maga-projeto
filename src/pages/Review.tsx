@@ -69,7 +69,14 @@ export function Review() {
     </p>
   );
 
-  if (error && !queue) return <p className="text-rose-700">Servidor não respondeu ({error}).</p>;
+  if (error && !queue) {
+    return (
+      <Card>
+        <p className="text-rose-700">Servidor não respondeu ({error}).</p>
+        <Button className="mt-3" onClick={load}>Tentar de novo</Button>
+      </Card>
+    );
+  }
   if (!queue || !counts) return <p className="text-slate-500">Carregando fila…</p>;
 
   if (queue.length === 0 || finished) {

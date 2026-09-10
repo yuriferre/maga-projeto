@@ -47,10 +47,10 @@ export function buildGlossary(content: Pick<ContentBundle, "glossary" | "lessons
   return items.sort((a, b) => normalize(a.term).localeCompare(normalize(b.term)));
 }
 
-/** Busca sem acento e sem caixa em termo, significado, definição, exemplos (EN) e colocações. Consulta vazia casa tudo. */
+/** Busca sem acento e sem caixa em termo, significado, definição, exemplos (EN e PT), colocações e armadilhas. Consulta vazia casa tudo. */
 export function matches(item: GlossaryItem, query: string): boolean {
   const q = normalize(query);
   if (q === "") return true;
-  const haystack = [item.term, item.meaning, item.definition ?? "", ...item.examples.map((x) => x.en), ...item.collocations];
+  const haystack = [item.term, item.meaning, item.definition ?? "", ...item.examples.flatMap((x) => [x.en, x.pt ?? ""]), ...item.collocations, ...item.pitfalls];
   return haystack.some((h) => normalize(h).includes(q));
 }

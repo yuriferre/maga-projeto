@@ -48,7 +48,7 @@ sm2(state: CardState, grade: 0–5, nowIso: string): Sm2Result
 - Estado inicial dos cards criados pela aula: `ease 2.5, intervalDays 0, reps 0, due = created_at` (já é assim).
 - `maturity(state)`: `"new" | "learning" | "mature"` pela regra da seção 3.
 
-`server/time.ts` ganha `localDayStart(date: string): string` (ISO da meia-noite local de `YYYY-MM-DD`), reutilizando o construtor local já usado por `weekBounds`.
+`localDayStart(date: string): string` (ISO da meia-noite local de `YYYY-MM-DD`) vive em `shared/local-date.ts`, junto de `localDate`/`addDays` (movidos de `server/time.ts`, que os reexporta), para que `shared/sm2.ts` continue puro.
 
 ## 5. Servidor
 
@@ -70,7 +70,7 @@ insertGlossaryCard(db, card: { front, back, hint?, tag }, nowIso): { inserted: b
 
 - `GET /api/srs/queue?limit=` (limite 1–200, padrão 50) → `{ cards: CardRow[], counts: cardCounts }`.
 - `POST /api/srs/review` `{ cardId: int ≥ 1, grade: int 0–5 }` (zod) → 404 se o card não existe; senão aplica `sm2(state, grade, now())`, grava, devolve `{ card: CardRow, maturity, counts }`.
-- `POST /api/srs/cards` `{ front ≥1 (trim), back ≥1 (trim), hint?: string, tag ≥3 }` (zod) → `insertGlossaryCard` → `{ inserted, id }` (200 nas duas situações; `inserted: false` = já existia).
+- `POST /api/srs/cards` `{ front ≥1 (trim), back ≥1 (trim), hint?: string ≥1 (trim), tag ≥3 }` (zod) → `insertGlossaryCard` → `{ inserted, id }` (200 nas duas situações; `inserted: false` = já existia).
 - `GET /api/dashboard` ganha `srs: { new, learning, mature, dueNow, total, nextDue, accuracy30d: RadarSample }`. `week.progress.reviews` já conta `srs_reviews`.
 
 Regras vigentes: todo POST validado com zod, SQL parametrizado, timestamps só de `now()`.
@@ -107,14 +107,14 @@ GlossaryFileSchema = { id: /^[a-z][a-z0-9-]*$/, title ≥1, entries: GlossaryEnt
 ContentBundle.glossary: GlossaryFile[]
 ```
 
-`shared/content-loader.ts`: lê `content/glossary/*.yaml` (ordenado; diretório pode não existir → `[]`); `crossValidate`: ids de arquivo únicos, `term` único por arquivo (sem caixa), tags existentes.
+`shared/content-loader.ts`: lê `content/glossary/*.yaml` (ordenado; diretório pode não existir → `[]`); `crossValidate`: ids de arquivo únicos, `term` único por arquivo (sem caixa), tags existentes, `term` único no `vocabulary` de cada aula e `meaning` único no conjunto glossário + `vocabulary` de todas as aulas (a frente do card do glossário é o `meaning`).
 
 ### 6.3 Lógica pura (`shared/glossary.ts`) e página (`src/pages/Glossary.tsx`)
 
 `GlossaryItem = { key, term, meaning, definition?, examples, collocations, pronunciation?, pitfalls, register, tags, source: { kind: "theme" | "lesson", id, label } }`.
 
 - `buildGlossary(content)`: entradas dos temas (`source: theme`) + para cada aula com conteúdo, cada item de `vocabulary` → `{ term, meaning, examples: [{ en: example, pt: translation }], pitfalls: note ? [note] : [], register, tags: tags da aula que começam com "vocab." (ou ["comp.vocabulary"]), source: { kind: "lesson", id: lesson.id, label: "Aula M01-02" } }`. Ordenado por `term` (sem caixa).
-- `normalize(s)`: NFD, remove diacríticos, minúsculas. `matches(item, query)` procura em `term`, `meaning`, `definition`, `examples[].en`, `collocations`.
+- `normalize(s)`: NFD, remove diacríticos, minúsculas. `matches(item, query)` procura em `term`, `meaning`, `definition`, `examples[].en`, `examples[].pt`, `collocations`, `pitfalls`.
 - Página: campo de busca (debounce 150 ms), chips de fonte ("Todas", cada tema, cada aula), contagem; lista com: termo (▶ TTS), badge de registro, significado, definição, exemplos (▶ cada um; tradução em cinza), colocações, pronúncia, armadilhas; botão "Adicionar aos cards" → `POST /api/srs/cards { front: meaning, back: term, hint: first collocation?, tag: tags[0] }` → "adicionado" / "já estava nos cards". Estado vazio: "Nenhum termo para '<busca>'."
 
 ## 7. Página de revisão (`src/pages/Review.tsx`)
@@ -122,7 +122,7 @@ ContentBundle.glossary: GlossaryFile[]
 - Monta: `GET /api/srs/queue`. Cabeçalho: "N para revisar · novos X · aprendendo Y · maduros Z".
 - Card: frente (PT) grande; botão "Mostrar" (Espaço/Enter). Verso: EN + dica + ▶ (TTS `speak(back)`), tag rotulada, fonte (aula ou glossário). Quatro botões com prévia: "Errei · agora", "Difícil · em 1 d", "Bom · em 6 d", "Fácil · em 15 d" (teclas 1–4). Ao clicar: `POST /api/srs/review`, avança; erro de rede mostra mensagem e mantém o card.
 - Barra de progresso da rodada; contador "errei" local.
-- Fim da rodada: refaz `GET /api/srs/queue`; se voltaram cards (os errados), botão "Revisar os errados (N)"; senão "Fila vazia. Próximo card: <data local>" (ou "nenhum card ainda: conclua uma aula") + links Painel / Glossário.
+- Fim da rodada: usa o `counts` da última resposta de `/review` (equivalente a refazer o `GET /api/srs/queue`, porque o card errado fica com `due` = instante da revisão); se sobraram cards vencidos (os errados), botão "Revisar os vencidos (N)"; senão "Fila vazia. Próximo card: <data local>" (ou "nenhum card ainda: conclua uma aula") + links Painel / Glossário.
 - Sem cards no banco: estado vazio com link para a trilha.
 
 ## 8. Painel e navegação

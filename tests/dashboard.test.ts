@@ -89,6 +89,13 @@ describe("dashboard srs", () => {
     expect(d.srs).toEqual({ new: 1, learning: 1, mature: 0, dueNow: 1, total: 2, nextDue: at(1, 0), accuracy30d: { value: 0.5, samples: 2 } });
     expect(d.week.progress.reviews).toBe(2);
   });
+  it("a review counts as activity for the streak", async () => {
+    insertCards(db, "M01-02", [{ front: "a", back: "A", tag: "vocab.standup" }], at(0, 9));
+    const [a] = (db.prepare("select id from srs_cards").all() as { id: number }[]).map((r) => r.id);
+    db.prepare("delete from study_sessions").run();
+    applyReview(db, a!, 4, { ease: 2.5, intervalDays: 1, reps: 1, lapses: 0, due: at(1, 0) }, at(0, 10));
+    expect((await dashboard()).streak.activeToday).toBe(true);
+  });
 });
 
 describe("POST /api/study/heartbeat", () => {

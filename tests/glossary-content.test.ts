@@ -29,6 +29,17 @@ describe("content/glossary/daily.yaml", () => {
     expect(problems.some((p) => p.includes("termo duplicado"))).toBe(true);
     expect(problems.some((p) => p.includes("vocab.nope"))).toBe(true);
   });
+  it("crossValidate reports a repeated meaning across glossary and lessons, and a repeated vocabulary term inside a lesson", () => {
+    const broken = structuredClone(bundle);
+    const g = broken.glossary[0]!;
+    g.entries.push({ ...g.entries[1]!, term: "outro termo", meaning: g.entries[0]!.meaning.toUpperCase() });
+    const lesson = broken.lessons["M01-02"]!;
+    lesson.vocabulary.push({ ...lesson.vocabulary[0]!, meaning: "significado novo e único" });
+    const problems = crossValidate(broken);
+    expect(problems.some((p) => p.includes("significado repetido"))).toBe(true);
+    expect(problems.some((p) => p.includes("vocabulary: termo duplicado"))).toBe(true);
+    expect(crossValidate(bundle)).toEqual([]);
+  });
 });
 
 describe("buildGlossary", () => {
@@ -40,7 +51,7 @@ describe("buildGlossary", () => {
     expect(fromLesson[0]!.source).toEqual({ kind: "lesson", id: "M01-02", label: "Aula M01-02" });
     expect(fromLesson.every((i) => i.tags.length > 0 && i.examples.length === 1)).toBe(true);
     const terms = items.map((i) => normalize(i.term));
-    expect(terms).toEqual([...terms].sort());
+    expect(terms).toEqual([...terms].sort((a, b) => a.localeCompare(b)));
   });
   it("gives lesson items the lesson's vocab.* tags and the note as pitfall", () => {
     const item = items.find((i) => i.source.kind === "lesson" && i.term.startsWith("I've been working on"))!;
@@ -54,7 +65,7 @@ describe("normalize / matches", () => {
   it("ignores accents and case", () => {
     expect(normalize("Ação É")).toBe("acao e");
   });
-  it("searches term, meaning, definition, examples and collocations", () => {
+  it("searches term, meaning, definition, examples (EN and PT), collocations and pitfalls", () => {
     const headsUp = items.find((i) => i.term === "heads up")!;
     expect(matches(headsUp, "")).toBe(true);
     expect(matches(headsUp, "HEADS")).toBe(true);
@@ -62,5 +73,8 @@ describe("normalize / matches", () => {
     expect(matches(headsUp, "deploy window")).toBe(true);
     expect(matches(headsUp, "just a heads up")).toBe(true);
     expect(matches(headsUp, "kubernetes")).toBe(false);
+    const lessonItem = items.find((i) => i.source.kind === "lesson" && i.term.startsWith("I've been working on"))!;
+    expect(matches(lessonItem, "migracao")).toBe(true); // tradução do exemplo
+    expect(matches(headsUp, "nao e pergunta")).toBe(true); // armadilha
   });
 });

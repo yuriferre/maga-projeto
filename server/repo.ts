@@ -196,6 +196,7 @@ export function activityDays(db: Db): string[] {
          select date(ts, 'localtime') as d from attempts
          union select date(ts, 'localtime') from writing_submissions
          union select date(ts, 'localtime') from speaking_sessions
+         union select date(ts, 'localtime') from srs_reviews
          union select date(started_at, 'localtime') from study_sessions
        ) order by d`,
     )

@@ -12,7 +12,7 @@ entries:
       - { en: "Just a heads up, I'll be out tomorrow morning.", pt: "Só avisando: não estarei amanhã de manhã." }
     collocations: ["quick heads up", "just a heads up", "heads up that…"]
     pronunciation: "RÉDZ-âp"
-    pitfalls: ["Não é pergunta nem pedido: é aviso. Para pedir atenção, use \"FYI\" ou \"please note\"."]
+    pitfalls: ["Não é pergunta nem pedido: é aviso. Para chamar atenção a algo, use \"please note\"."]
     register: informal
     tags: [vocab.slack]
   - term: FYI
@@ -185,7 +185,7 @@ entries:
     examples:
       - { en: "We did a rollback to 1.41 within five minutes.", pt: "Fizemos rollback para a 1.41 em cinco minutos." }
       - { en: "Roll back first, investigate later.", pt: "Primeiro volta a versão, depois investiga." }
-    collocations: ["roll back (verbo)", "rollback plan", "automatic rollback"]
+    collocations: ["rollback plan", "automatic rollback", "roll back (verbo)"]
     pronunciation: "RÔUL-bék"
     pitfalls: ["Verbo em duas palavras (roll back); substantivo junto (rollback)."]
     register: neutral
@@ -252,7 +252,7 @@ entries:
     register: informal
     tags: [vocab.tickets-prs]
   - term: LGTM
-    meaning: "\"looks good to me\": aprovado"
+    meaning: "aprovado; código bom para mim"
     definition: looks good to me — approval on a review
     examples:
       - { en: "LGTM, just fix the nit before merging.", pt: "Aprovado, só corrige o detalhe antes de mesclar." }
