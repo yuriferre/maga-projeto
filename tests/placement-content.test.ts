@@ -32,6 +32,22 @@ describe("placement content (content/placement/placement.yaml)", () => {
     expect(answers.size).toBeGreaterThanOrEqual(3);
   });
 
+  it("no answer position dominates a block's multiple-choice items (at most 50%)", () => {
+    const byBlock = new Map<string, number[]>();
+    for (const { exercise, block } of placementExercises(p)) {
+      if (exercise.type !== "multiple_choice") continue;
+      if (!byBlock.has(block)) byBlock.set(block, []);
+      byBlock.get(block)!.push(exercise.answer);
+    }
+    for (const [block, answers] of byBlock) {
+      if (answers.length < 4) continue;
+      const counts = new Map<number, number>();
+      for (const a of answers) counts.set(a, (counts.get(a) ?? 0) + 1);
+      const max = Math.max(...counts.values());
+      expect(max, `${block}: ${answers.length} itens, contagens ${JSON.stringify([...counts])}`).toBeLessThanOrEqual(Math.floor(answers.length * 0.5));
+    }
+  });
+
   it("every item carries the tag of its competency", () => {
     for (const ps of p.reading.passages) for (const q of ps.questions) expect(q.tags).toContain("comp.reading");
     for (const q of p.vocabulary.questions) expect(q.tags).toContain("comp.vocabulary");

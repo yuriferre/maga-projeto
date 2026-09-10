@@ -4,7 +4,7 @@ import { parse } from "yaml";
 import type { z } from "zod";
 import {
   BrErrorsFileSchema, LessonSchema, LevelsFileSchema, ModuleFileSchema, PlacementSchema, TagsFileSchema, placementExercises,
-  type ContentBundle, type Exercise, type Lesson, type ModuleFile, type Placement,
+  type ContentBundle, type Exercise, type Lesson, type ModuleFile,
 } from "./schema.ts";
 
 function readYaml<S extends z.ZodType>(path: string, schema: S, problems: string[]): z.infer<S> | undefined {
