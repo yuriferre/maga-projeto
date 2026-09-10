@@ -8,7 +8,9 @@ import {
   insertWriting, latestWriting, insertSpeaking, insertCards, tagStats,
   insertAssessment, latestAssessment, latestAttemptsSince, latestWritingSince, latestSpeakingSince, ensureWeekGoal,
   upsertWeekGoal, latestStudySession, insertStudySession, extendStudySession,
+  dueCards, getCard, applyReview, cardCounts, insertGlossaryCard,
 } from "./repo.ts";
+import { sm2, maturity, type Grade } from "../shared/sm2.ts";
 import { evaluateCompletion } from "./completion.ts";
 import { selectWarmup, weakTags } from "./warmup.ts";
 import { ruleBasedFeedback } from "./writing-feedback.ts";
@@ -63,6 +65,20 @@ const PlacementSpeakingBody = z.object({
   durationSec: z.number().positive(),
   selfConfidence: z.number().int().min(1).max(5).optional(),
 });
+
+const ReviewBody = z.object({ cardId: z.number().int().min(1), grade: z.number().int().min(0).max(5) });
+const CardBody = z.object({
+  front: z.string().trim().min(1),
+  back: z.string().trim().min(1),
+  hint: z.string().trim().min(1).optional(),
+  tag: z.string().min(3),
+});
+
+/** `limit` da fila: inteiro entre 1 e 200; qualquer outra coisa vira 50. */
+function sanitizeLimit(raw: string | undefined): number {
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 1 ? Math.min(200, Math.floor(n)) : 50;
+}
 
 export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   const app = new Hono();
@@ -236,6 +252,34 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   });
 
   app.route("/api/placement", placement);
+
+  // ---------- SRS ----------
+  const srs = new Hono();
+
+  srs.get("/queue", (c) => {
+    const ts = now();
+    return c.json({ cards: dueCards(db, ts, sanitizeLimit(c.req.query("limit"))), counts: cardCounts(db, ts) });
+  });
+
+  srs.post("/review", async (c) => {
+    const parsed = ReviewBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const card = getCard(db, parsed.data.cardId);
+    if (!card) return c.json({ error: "card não encontrado" }, 404);
+    const ts = now();
+    const next = sm2({ ease: card.ease, intervalDays: card.interval_days, reps: card.reps, lapses: card.lapses }, parsed.data.grade as Grade, ts);
+    applyReview(db, card.id, parsed.data.grade, next, ts);
+    const updated = getCard(db, card.id)!;
+    return c.json({ card: updated, maturity: maturity({ reps: updated.reps, intervalDays: updated.interval_days }), counts: cardCounts(db, ts) });
+  });
+
+  srs.post("/cards", async (c) => {
+    const parsed = CardBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    return c.json(insertGlossaryCard(db, parsed.data, now()));
+  });
+
+  app.route("/api/srs", srs);
 
   app.route("/api/lessons", lessons);
   return app;
