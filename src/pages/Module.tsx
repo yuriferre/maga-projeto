@@ -15,7 +15,7 @@ export function Module() {
   return (
     <div className="space-y-6">
       <div>
-        <Link to="/" className="text-sm text-indigo-700 hover:underline">← Trilha</Link>
+        <Link to="/trilha" className="text-sm text-indigo-700 hover:underline">← Trilha</Link>
         <h1 className="mt-2 text-2xl font-semibold">{module.id} · {module.title}</h1>
         <p className="text-sm text-slate-500">Nível {level.id} · {level.name}</p>
       </div>

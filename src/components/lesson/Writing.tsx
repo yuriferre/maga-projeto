@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
-import type { Lesson } from "../../../shared/schema.ts";
+import type { WritingSpec } from "../../../shared/schema.ts";
 import type { WritingFeedback } from "../../../server/writing-feedback.ts";
-import { api } from "../../lib/api.ts";
+import type { WritingRow } from "../../../server/repo.ts";
 import { Button } from "../ui/Button.tsx";
 import { Markdown } from "../ui/Markdown.tsx";
 
-export function Writing({ lesson }: { lesson: Lesson }) {
+type Props = {
+  spec: WritingSpec;
+  fetchLatest(): Promise<WritingRow | null>;
+  submit(body: { text: string; selfScore?: number }): Promise<{ id: number; feedback: WritingFeedback }>;
+  /** Texto ao lado da nota salva, ex.: "mínimo 3". */
+  minScoreLabel?: string;
+  onSaved?(score: number | null): void;
+};
+
+export function Writing({ spec, fetchLatest, submit, minScoreLabel, onSaved }: Props) {
   const [text, setText] = useState("");
   const [feedback, setFeedback] = useState<WritingFeedback | null>(null);
   const [selfScore, setSelfScore] = useState<number | "">("");
@@ -13,23 +22,27 @@ export function Writing({ lesson }: { lesson: Lesson }) {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const words = text.trim().split(/\s+/).filter(Boolean).length;
-  const { minWords, maxWords } = lesson.writing;
+  const { minWords, maxWords } = spec;
 
   useEffect(() => {
-    api.latestWriting(lesson.id).then(({ submission }) => {
-      if (!submission) return;
+    let cancelled = false;
+    fetchLatest().then((submission) => {
+      if (cancelled || !submission) return;
       setText(submission.text);
       setFeedback(JSON.parse(submission.feedback_json) as WritingFeedback);
       setSavedScore(submission.score);
     }).catch(() => undefined);
-  }, [lesson.id]);
+    return () => { cancelled = true; };
+    // fetchLatest muda a cada render; buscamos uma vez por spec.
+  }, [spec]);
 
-  const submit = async (score?: number) => {
+  const send = async (score?: number) => {
     setBusy(true); setError(null);
     try {
-      const res = await api.submitWriting(lesson.id, score === undefined ? { text } : { text, selfScore: score });
+      const res = await submit(score === undefined ? { text } : { text, selfScore: score });
       setFeedback(res.feedback);
       setSavedScore(res.feedback.score);
+      onSaved?.(res.feedback.score);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -40,15 +53,15 @@ export function Writing({ lesson }: { lesson: Lesson }) {
   return (
     <section className="space-y-4">
       <h2 className="text-xl font-semibold">Exercício de escrita</h2>
-      <Markdown text={lesson.writing.prompt} />
+      <Markdown text={spec.prompt} />
       <ul className="text-sm text-slate-600">
-        <li><span className="font-medium">Obrigatório usar:</span> {lesson.writing.constraints.map((c) => c.label).join(" · ")}</li>
-        <li><span className="font-medium">Rubrica:</span> {lesson.writing.rubric.join(" · ")}</li>
+        {spec.constraints.length > 0 && <li><span className="font-medium">Obrigatório:</span> {spec.constraints.map((c) => c.label).join(" · ")}</li>}
+        <li><span className="font-medium">Rubrica:</span> {spec.rubric.join(" · ")}</li>
       </ul>
       <textarea className="min-h-40 w-full rounded border border-slate-300 p-3 focus:border-indigo-500 focus:outline-none" value={text} onChange={(e) => setText(e.target.value)} placeholder="Escreva em inglês…" />
       <div className="flex items-center justify-between">
         <span className={`text-sm ${words >= minWords && words <= maxWords ? "text-emerald-700" : "text-slate-500"}`}>{words} palavras (meta {minWords}–{maxWords})</span>
-        <Button onClick={() => submit()} disabled={busy || words === 0}>{feedback ? "Enviar de novo" : "Enviar"}</Button>
+        <Button onClick={() => send()} disabled={busy || words === 0}>{feedback ? "Enviar de novo" : "Enviar"}</Button>
       </div>
       {error && <p className="text-sm text-rose-700">{error}</p>}
 
@@ -82,8 +95,8 @@ export function Writing({ lesson }: { lesson: Lesson }) {
               <option value="">—</option>
               {[1, 2, 3, 4, 5].map((n) => <option key={n} value={n}>{n}</option>)}
             </select>
-            <Button variant="secondary" disabled={selfScore === "" || busy} onClick={() => submit(Number(selfScore))}>Salvar nota</Button>
-            {savedScore !== null && <span className="text-emerald-700">nota salva: {savedScore}/5 (mínimo {lesson.completion.writingMin})</span>}
+            <Button variant="secondary" disabled={selfScore === "" || busy} onClick={() => send(Number(selfScore))}>Salvar nota</Button>
+            {savedScore !== null && <span className="text-emerald-700">nota salva: {savedScore}/5{minScoreLabel ? ` (${minScoreLabel})` : ""}</span>}
           </div>
         </div>
       )}

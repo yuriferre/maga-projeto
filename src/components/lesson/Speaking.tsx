@@ -1,12 +1,18 @@
 import { useEffect, useRef, useState } from "react";
-import type { Lesson } from "../../../shared/schema.ts";
+import type { SpeakingModeA } from "../../../shared/schema.ts";
 import type { SpeakingMetrics } from "../../../server/speaking-metrics.ts";
-import { api } from "../../lib/api.ts";
 import { isRecognitionSupported, startRecognition } from "../../lib/speech.ts";
 import { Button } from "../ui/Button.tsx";
 
-export function Speaking({ lesson }: { lesson: Lesson }) {
-  const { modeA } = lesson.speaking;
+type Props = {
+  spec: SpeakingModeA;
+  submit(body: { transcript: string; durationSec: number; selfConfidence?: number }): Promise<{ metrics: SpeakingMetrics }>;
+  title?: string;
+  onSubmitted?(metrics: SpeakingMetrics): void;
+};
+
+export function Speaking({ spec, submit: send, title = "Atividade de conversação (modo A)", onSubmitted }: Props) {
+  const modeA = spec;
   const supported = isRecognitionSupported();
   const [recording, setRecording] = useState(false);
   const [seconds, setSeconds] = useState(0);
@@ -47,8 +53,9 @@ export function Speaking({ lesson }: { lesson: Lesson }) {
   const submit = async () => {
     setBusy(true); setError(null);
     try {
-      const res = await api.submitSpeaking(lesson.id, { mode: "A", transcript, durationSec, ...(confidence === "" ? {} : { selfConfidence: Number(confidence) }) });
+      const res = await send({ transcript, durationSec, ...(confidence === "" ? {} : { selfConfidence: Number(confidence) }) });
       setMetrics(res.metrics);
+      onSubmitted?.(res.metrics);
     } catch (err) {
       setError((err as Error).message);
     } finally {
@@ -58,7 +65,7 @@ export function Speaking({ lesson }: { lesson: Lesson }) {
 
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-semibold">Atividade de conversação (modo A)</h2>
+      <h2 className="text-xl font-semibold">{title}</h2>
       <p className="text-slate-700">{modeA.prompt}</p>
       <details className="text-sm text-slate-600"><summary className="cursor-pointer font-medium">Expressões-alvo ({modeA.targetPhrases.length})</summary><p className="mt-1">{modeA.targetPhrases.join(" · ")}</p></details>
       {modeA.checklist.length > 0 && <ul className="list-disc pl-5 text-sm text-slate-600">{modeA.checklist.map((c, i) => <li key={i}>{c}</li>)}</ul>}

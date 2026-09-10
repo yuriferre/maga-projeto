@@ -67,9 +67,9 @@ export function Lesson() {
       case "examples": return <Examples lesson={lesson} />;
       case "brErrors": return <BrErrors lesson={lesson} />;
       case "dialogue": return <Dialogue lesson={lesson} />;
-      case "listening": return <Listening lesson={lesson} />;
-      case "writing": return <Writing lesson={lesson} />;
-      case "speaking": return <Speaking lesson={lesson} />;
+      case "listening": return <Listening lessonId={lesson.id} block="listening" lines={lesson.listening.lines} questions={lesson.listening.questions} />;
+      case "writing": return <Writing spec={lesson.writing} fetchLatest={() => api.latestWriting(lesson.id).then((r) => r.submission)} submit={(body) => api.submitWriting(lesson.id, body)} minScoreLabel={`mínimo ${lesson.completion.writingMin}`} />;
+      case "speaking": return <Speaking spec={lesson.speaking.modeA} submit={(body) => api.submitSpeaking(lesson.id, { mode: "A", ...body })} />;
       case "quiz": return <Quiz lesson={lesson} />;
       case "completion": return <Completion lesson={lesson} />;
       default: return null;

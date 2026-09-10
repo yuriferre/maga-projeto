@@ -15,7 +15,8 @@ const typeLabel: Record<Exercise["type"], string> = {
   reorder: "Coloque em ordem", translate: "Traduza", match: "Associe", free_text: "Escreva",
 };
 
-type Props = { exercise: Exercise; onAnswered(result: CheckResult, response: ExerciseResponse): void };
+export type FeedbackMode = "immediate" | "deferred";
+type Props = { exercise: Exercise; onAnswered(result: CheckResult, response: ExerciseResponse): void; feedback?: FeedbackMode };
 
 /** Resposta completa o suficiente para ser avaliada — evita registrar tentativa incompleta como erro. */
 export function isResponseComplete(exercise: Exercise, value: ExerciseResponse | undefined): value is ExerciseResponse {
@@ -35,7 +36,7 @@ export function isResponseComplete(exercise: Exercise, value: ExerciseResponse |
   }
 }
 
-export function ExerciseRunner({ exercise, onAnswered }: Props) {
+export function ExerciseRunner({ exercise, onAnswered, feedback = "immediate" }: Props) {
   const [value, setValue] = useState<ExerciseResponse | undefined>(undefined);
   const [result, setResult] = useState<CheckResult | null>(null);
   const disabled = result !== null;
@@ -66,7 +67,10 @@ export function ExerciseRunner({ exercise, onAnswered }: Props) {
       {exercise.type !== "fill_blank" && exercise.type !== "error_correction" && exercise.type !== "translate" && <p className="text-lg">{exercise.prompt}</p>}
       {input}
       {!disabled && <Button type="submit" disabled={!isResponseComplete(exercise, value)}>Responder</Button>}
-      {result && (
+      {result && feedback === "deferred" && (
+        <div className="rounded-md border border-slate-200 bg-slate-50 p-3 text-sm text-slate-600">Resposta registrada. O resultado aparece no fim do teste.</div>
+      )}
+      {result && feedback === "immediate" && (
         <div className={`rounded-md border p-3 text-sm ${result.correct ? "border-emerald-300 bg-emerald-50" : "border-rose-300 bg-rose-50"}`}>
           <div className="font-medium">{result.correct ? "✓ Correto" : "✗ Não é isso"}</div>
           {!result.correct && <div className="mt-1">Esperado: <span className="font-medium">{result.expected}</span></div>}
