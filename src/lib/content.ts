@@ -3,6 +3,13 @@ import type { ContentBundle, Lesson, LessonRef, Level, ModuleMeta } from "../../
 
 export const content = raw as unknown as ContentBundle;
 export const levels: Level[] = content.levels;
+export const placement = content.placement;
+
+const tagById = new Map(content.tags.map((t) => [t.id, t]));
+/** Rótulo humano de uma tag (ou o próprio id se desconhecida). */
+export function tagLabel(id: string): string {
+  return tagById.get(id)?.label ?? id;
+}
 
 export function getLesson(id: string): Lesson | undefined {
   return content.lessons[id];
