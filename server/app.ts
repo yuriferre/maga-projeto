@@ -7,6 +7,7 @@ import {
   insertAttempt, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, insertCards, tagStats,
   insertAssessment, latestAssessment, latestAttemptsSince, latestWritingSince, latestSpeakingSince, ensureWeekGoal,
+  upsertWeekGoal, latestStudySession, insertStudySession, extendStudySession,
 } from "./repo.ts";
 import { evaluateCompletion } from "./completion.ts";
 import { selectWarmup, weakTags } from "./warmup.ts";
@@ -15,6 +16,7 @@ import { computeSpeakingMetrics } from "./speaking-metrics.ts";
 import { wordOverlap } from "../shared/speech-compare.ts";
 import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs } from "./placement.ts";
 import { weekStart } from "./time.ts";
+import { buildDashboard } from "./dashboard.ts";
 
 export type AppDeps = { db: Db; content: ContentBundle; now?: () => string };
 
@@ -39,6 +41,22 @@ const SpeakingBody = z.object({
 /** Meta semanal criada ao concluir o teste inicial (trilha assume 3 aulas/semana). */
 export const DEFAULT_GOAL = { lessonsTarget: 3, reviewsTarget: 5, minutesTarget: 150 };
 
+/** Heartbeat mais antigo que isso abre uma sessão nova. */
+export const HEARTBEAT_GAP_MS = 120_000;
+
+const GoalBody = z.object({
+  lessonsTarget: z.number().int().min(0).max(50),
+  reviewsTarget: z.number().int().min(0).max(500),
+  minutesTarget: z.number().int().min(0).max(3000),
+});
+const HeartbeatBody = z.object({ lessonId: z.string().min(1).optional() });
+
+/** `days` da query: inteiro entre 1 e 365; qualquer outra coisa vira 30. */
+function sanitizeDays(raw: string | undefined): number {
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 1 ? Math.min(365, Math.floor(n)) : 30;
+}
+
 const PlacementSpeakingBody = z.object({
   readAloud: z.array(z.object({ target: z.string().min(1), transcript: z.string() })).default([]),
   transcript: z.string().trim().min(1),
@@ -60,11 +78,34 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   app.get("/api/progress/overview", (c) => c.json({ lessons: listProgress(db) }));
 
   app.get("/api/tags/stats", (c) => {
-    const rawDays = Number(c.req.query("days"));
-    const days = Number.isFinite(rawDays) && rawDays >= 1 ? Math.min(365, Math.floor(rawDays)) : 30;
+    const days = sanitizeDays(c.req.query("days"));
     const current = new Date(now());
     const since = new Date(current.getTime() - days * 864e5).toISOString();
     return c.json({ since, stats: tagStats(db, since), weak: weakTags(db, current) });
+  });
+
+  app.get("/api/dashboard", (c) => c.json(buildDashboard(db, content, now(), sanitizeDays(c.req.query("days")))));
+
+  app.put("/api/goals/week", async (c) => {
+    const parsed = GoalBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const ws = weekStart(now());
+    const row = upsertWeekGoal(db, ws, parsed.data);
+    return c.json({ weekStart: ws, goal: { lessonsTarget: row.lessons_target, reviewsTarget: row.reviews_target, minutesTarget: row.minutes_target } });
+  });
+
+  app.post("/api/study/heartbeat", async (c) => {
+    // Corpo vazio é válido: heartbeat sem aula.
+    const parsed = HeartbeatBody.safeParse(await c.req.json().catch(() => ({})));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const ts = now();
+    const lessonId = parsed.data.lessonId ?? null;
+    const last = latestStudySession(db);
+    if (last && Date.parse(ts) - Date.parse(last.ended_at ?? last.started_at) <= HEARTBEAT_GAP_MS) {
+      extendStudySession(db, last.id, ts, lessonId);
+      return c.json({ sessionId: last.id, resumed: true });
+    }
+    return c.json({ sessionId: insertStudySession(db, ts, lessonId), resumed: false });
   });
 
   app.post("/api/attempts", async (c) => {
