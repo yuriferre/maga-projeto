@@ -5,6 +5,8 @@ import type { WritingFeedback } from "../../server/writing-feedback.ts";
 import type { SpeakingMetrics } from "../../server/speaking-metrics.ts";
 import type { PlacementAssessment, PlacementSpeakingMetrics } from "../../server/placement.ts";
 import type { Dashboard, WeekGoal } from "../../server/dashboard.ts";
+import type { CardCounts, CardRow } from "../../server/repo.ts";
+import type { Maturity } from "../../shared/sm2.ts";
 
 /** Erro HTTP com o corpo da resposta (ex.: 409 do finish traz `missing`). */
 export class ApiError extends Error {
@@ -40,7 +42,7 @@ const put = <T>(path: string, body: unknown) => request<T>(path, { method: "PUT"
 export type LessonStatus = { progress: LessonProgressRow | null; completion: CompletionStatus };
 export type PlacementState = { latest: PlacementAssessment | null; run: { answered: string[]; writing: WritingRow | null; speaking: SpeakingRow | null } };
 export type ReadAloudEntry = { target: string; transcript: string };
-export type { Block, Exercise, WeekGoal, Dashboard, PlacementAssessment, PlacementSpeakingMetrics, WritingRow, SpeakingRow, WritingFeedback, SpeakingMetrics, TagStat };
+export type { Block, Exercise, WeekGoal, Dashboard, PlacementAssessment, PlacementSpeakingMetrics, WritingRow, SpeakingRow, WritingFeedback, SpeakingMetrics, TagStat, CardRow, CardCounts, Maturity };
 
 export const api = {
   overview: () => request<{ lessons: LessonProgressRow[] }>("/api/progress/overview"),
@@ -66,4 +68,9 @@ export const api = {
   dashboard: (days = 30) => request<Dashboard>(`/api/dashboard?days=${days}`),
   setWeekGoal: (goal: WeekGoal) => put<{ weekStart: string; goal: WeekGoal }>("/api/goals/week", goal),
   heartbeat: (lessonId?: string) => post<{ sessionId: number; resumed: boolean }>("/api/study/heartbeat", lessonId ? { lessonId } : {}),
+
+  // SRS
+  srsQueue: (limit = 50) => request<{ cards: CardRow[]; counts: CardCounts }>(`/api/srs/queue?limit=${limit}`),
+  srsReview: (cardId: number, grade: number) => post<{ card: CardRow; maturity: Maturity; counts: CardCounts }>("/api/srs/review", { cardId, grade }),
+  addCard: (body: { front: string; back: string; hint?: string; tag: string }) => post<{ inserted: boolean; id: number }>("/api/srs/cards", body),
 };

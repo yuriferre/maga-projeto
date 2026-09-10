@@ -14,6 +14,8 @@ export function Layout() {
           <nav className="flex gap-4 text-sm text-slate-600">
             <NavLink to="/" end className={linkClass}>Painel</NavLink>
             <NavLink to="/trilha" className={linkClass}>Trilha</NavLink>
+            <NavLink to="/review" className={linkClass}>Revisar</NavLink>
+            <NavLink to="/glossary" className={linkClass}>Glossário</NavLink>
             <NavLink to="/placement" className={linkClass}>Teste inicial</NavLink>
           </nav>
         </div>
