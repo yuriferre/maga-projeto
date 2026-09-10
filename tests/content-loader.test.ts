@@ -45,6 +45,10 @@ describe("loadContent(content/)", () => {
     expect(items.filter((i) => i.block === "quiz")).toHaveLength(8);
     expect(items.filter((i) => i.block === "listening")).toHaveLength(6);
   });
+
+  it("loads the curated glossary themes", () => {
+    expect(bundle.glossary.map((g) => g.id)).toEqual(["daily"]);
+  });
 });
 
 describe("crossValidate", () => {

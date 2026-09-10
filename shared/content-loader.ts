@@ -3,8 +3,8 @@ import { join } from "node:path";
 import { parse } from "yaml";
 import type { z } from "zod";
 import {
-  BrErrorsFileSchema, LessonSchema, LevelsFileSchema, ModuleFileSchema, PlacementSchema, TagsFileSchema, placementExercises,
-  type ContentBundle, type Exercise, type Lesson, type ModuleFile,
+  BrErrorsFileSchema, GlossaryFileSchema, LessonSchema, LevelsFileSchema, ModuleFileSchema, PlacementSchema, TagsFileSchema, placementExercises,
+  type ContentBundle, type Exercise, type GlossaryFile, type Lesson, type ModuleFile,
 } from "./schema.ts";
 
 function readYaml<S extends z.ZodType>(path: string, schema: S, problems: string[]): z.infer<S> | undefined {
@@ -44,10 +44,19 @@ export function loadContent(root: string): ContentBundle {
     }
   }
 
+  const glossary: GlossaryFile[] = [];
+  const glossaryDir = join(root, "glossary");
+  if (existsSync(glossaryDir)) {
+    for (const file of readdirSync(glossaryDir).filter((f) => f.endsWith(".yaml")).sort()) {
+      const theme = readYaml(join(glossaryDir, file), GlossaryFileSchema, problems);
+      if (theme) glossary.push(theme);
+    }
+  }
+
   if (problems.length > 0 || !levels || !tags || !brErrors || !placement) {
     throw new Error(`Conteúdo inválido:\n- ${problems.join("\n- ")}`);
   }
-  return { levels: levels.levels, lessons, modules, tags: tags.tags, brErrors: brErrors.patterns, placement };
+  return { levels: levels.levels, lessons, modules, tags: tags.tags, brErrors: brErrors.patterns, placement, glossary };
 }
 
 export function allExercises(lesson: Lesson): Array<{ exercise: Exercise; block: "quiz" | "listening" }> {
@@ -119,6 +128,19 @@ export function crossValidate(bundle: ContentBundle): string[] {
     if (!exercise.id.startsWith("PL-")) problems.push(`placement: exercício '${exercise.id}' (${block}) deveria começar com 'PL-'`);
     checkTags(`placement.${block}.${exercise.id}`, exercise.tags);
     checkExerciseShape(exercise, problems);
+  }
+
+  const glossaryIds = new Set<string>();
+  for (const theme of bundle.glossary) {
+    if (glossaryIds.has(theme.id)) problems.push(`glossary: id duplicado '${theme.id}'`);
+    glossaryIds.add(theme.id);
+    const terms = new Set<string>();
+    for (const entry of theme.entries) {
+      const key = entry.term.trim().toLowerCase();
+      if (terms.has(key)) problems.push(`glossary ${theme.id}: termo duplicado '${entry.term}'`);
+      terms.add(key);
+      checkTags(`glossary ${theme.id}.${entry.term}`, entry.tags);
+    }
   }
 
   for (const mod of Object.values(bundle.modules)) {

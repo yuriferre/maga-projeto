@@ -1,0 +1,312 @@
+# Glossário curado — tema "dia a dia". Cada entrada: significado em português, definição curta em inglês,
+# exemplos reais com tradução, colocações, pronúncia aproximada para brasileiros, armadilhas, registro e tags.
+id: daily
+title: "Dia a dia: standup e Slack"
+entries:
+  - term: heads up
+    meaning: aviso rápido de algo que vai acontecer ou mudar
+    definition: a short advance warning about something
+    examples:
+      - { en: "Heads up: the deploy window moved to 3 pm.", pt: "Aviso: a janela de deploy mudou para 15h." }
+      - { en: "Just a heads up, I'll be out tomorrow morning.", pt: "Só avisando: não estarei amanhã de manhã." }
+    collocations: ["quick heads up", "just a heads up", "heads up that…"]
+    pronunciation: "HEDZ-âp"
+    pitfalls: ["Não é pergunta nem pedido: é aviso. Para pedir atenção, use \"FYI\" ou \"please note\"."]
+    register: informal
+    tags: [vocab.slack]
+  - term: FYI
+    meaning: "para sua informação (sem ação esperada)"
+    definition: for your information; no action required
+    examples:
+      - { en: "FYI, the staging database will be down for 10 minutes at noon.", pt: "Para sua informação, o banco de staging vai ficar fora por 10 minutos ao meio-dia." }
+    collocations: ["FYI only", "just FYI", "FYI: …"]
+    pronunciation: "éf-uái-ái"
+    pitfalls: ["Não use quando espera resposta ou ação; aí é \"could you…\" ou \"please…\"."]
+    register: neutral
+    tags: [vocab.slack]
+  - term: TL;DR
+    meaning: resumo de uma mensagem longa, no começo ou no fim
+    definition: too long; didn't read — a one-line summary
+    examples:
+      - { en: "TL;DR: the deploy is postponed to Thursday; details below.", pt: "Resumindo: o deploy foi adiado para quinta; detalhes abaixo." }
+    collocations: ["TL;DR:", "the TL;DR is…"]
+    pronunciation: "tí-él-dí-ár"
+    pitfalls: ["Escreve-se com ponto e vírgula. Vem seguido de dois-pontos e uma frase só."]
+    register: informal
+    tags: [vocab.slack]
+  - term: on it
+    meaning: "estou cuidando disso (resposta a um pedido)"
+    definition: I'm handling it right now
+    examples:
+      - { en: "Can someone restart the runner? — On it.", pt: "Alguém pode reiniciar o runner? — Já estou nisso." }
+    collocations: ["I'm on it", "on it, give me 5 minutes"]
+    pronunciation: "ón it"
+    pitfalls: ["Não confundir com \"I'm in it\"; a preposição é \"on\"."]
+    register: informal
+    tags: [vocab.slack]
+  - term: will do
+    meaning: "pode deixar, farei (aceitando um pedido)"
+    definition: I will do that
+    examples:
+      - { en: "Please update the ticket when you're done. — Will do.", pt: "Atualiza o ticket quando terminar. — Pode deixar." }
+    collocations: ["will do!", "sure, will do"]
+    pronunciation: "uíl du"
+    pitfalls: ["Só como resposta curta; não inicia uma frase completa."]
+    register: informal
+    tags: [vocab.slack]
+  - term: ETA
+    meaning: previsão de quando algo fica pronto ou chega
+    definition: estimated time of arrival; when something is expected to be done
+    examples:
+      - { en: "What's the ETA on the fix? — Around 4 pm.", pt: "Qual a previsão do fix? — Por volta das 16h." }
+    collocations: ["ETA on X", "give me an ETA", "no ETA yet"]
+    pronunciation: "í-tí-êi"
+    pitfalls: ["Fala-se letra a letra. Pede-se \"an ETA on\" algo, não \"of\"."]
+    register: neutral
+    tags: [vocab.standup]
+  - term: EOD
+    meaning: "fim do dia (de trabalho); usado como prazo"
+    definition: end of day
+    examples:
+      - { en: "I'll have the PR up by EOD.", pt: "Vou abrir o PR até o fim do dia." }
+      - { en: "Send me the numbers by EOD my time, please.", pt: "Me manda os números até o fim do meu dia, por favor." }
+    collocations: ["by EOD", "EOD my time", "EOD Friday"]
+    pronunciation: "í-ou-dí"
+    pitfalls: ["Prazo é \"by EOD\", nunca \"until EOD\". Em times distribuídos, diga de quem é o dia: \"EOD my time\"."]
+    register: neutral
+    tags: [vocab.standup, vocab.slack]
+  - term: blocker
+    meaning: algo que impede o trabalho de avançar
+    definition: something that prevents progress
+    examples:
+      - { en: "No blockers on my side.", pt: "Sem bloqueios do meu lado." }
+      - { en: "My main blocker is the missing IAM permission.", pt: "Meu principal bloqueio é a permissão IAM que falta." }
+    collocations: ["no blockers", "hit a blocker", "raise a blocker", "main blocker"]
+    pronunciation: "BLÓ-ker"
+    pitfalls: ["\"blocker\" é a coisa; a pessoa está \"blocked\". Não diga \"I have a block\"."]
+    register: neutral
+    tags: [vocab.standup]
+  - term: blocked on
+    meaning: travado por causa de algo específico
+    definition: unable to proceed because of something
+    examples:
+      - { en: "I'm blocked on the security review.", pt: "Estou travado na revisão de segurança." }
+    collocations: ["blocked on X", "still blocked on", "no longer blocked"]
+    pronunciation: "blókt ón"
+    pitfalls: ["\"blocked by Ana\" soa acusatório; prefira \"blocked on the review\" (a coisa, não a pessoa)."]
+    register: neutral
+    tags: [vocab.standup]
+  - term: waiting on
+    meaning: esperando alguém ou algo para continuar
+    definition: waiting for someone or something before continuing
+    examples:
+      - { en: "Still waiting on the network team to open the port.", pt: "Ainda esperando o time de rede liberar a porta." }
+    collocations: ["waiting on a review", "waiting on approval", "waiting for X"]
+    pronunciation: "UÊI-ting ón"
+    pitfalls: ["Nunca sem preposição (\"waiting the team\" é calque). \"waiting for\" também vale."]
+    register: neutral
+    tags: [vocab.standup]
+  - term: pair with
+    meaning: trabalhar junto com alguém numa tarefa (pair programming, pair debugging)
+    definition: to work together with someone on a task
+    examples:
+      - { en: "Can you pair with me on the Helm chart after lunch?", pt: "Você pode fazer par comigo no chart do Helm depois do almoço?" }
+    collocations: ["pair with someone on X", "pairing session", "let's pair"]
+    pronunciation: "pér uíth"
+    pitfalls: ["\"pair\" é verbo aqui; \"make a pair\" não se usa nesse sentido."]
+    register: neutral
+    tags: [vocab.standup]
+  - term: ping
+    meaning: chamar alguém rapidamente por mensagem
+    definition: to send someone a quick message to get their attention
+    examples:
+      - { en: "Ping me when the pipeline is green.", pt: "Me chama quando o pipeline ficar verde." }
+    collocations: ["ping me", "I'll ping you", "quick ping"]
+    pronunciation: "ping"
+    pitfalls: ["É mensagem, não ligação. Para ligar, diga \"call me\"."]
+    register: informal
+    tags: [vocab.slack]
+  - term: loop in
+    meaning: incluir alguém na conversa ou no assunto
+    definition: to include someone in a conversation or decision
+    examples:
+      - { en: "Let's loop in Priya, she owns that service.", pt: "Vamos incluir a Priya, ela é dona desse serviço." }
+      - { en: "Keep me in the loop on the migration.", pt: "Me mantém informado sobre a migração." }
+    collocations: ["loop someone in", "keep me in the loop", "out of the loop"]
+    pronunciation: "lup in"
+    pitfalls: ["Verbo separável: \"loop Priya in\" ou \"loop in Priya\". \"in the loop\" é o estado."]
+    register: informal
+    tags: [vocab.slack]
+  - term: follow up
+    meaning: "dar continuidade a algo; cobrar uma resposta"
+    definition: to check on or continue something later
+    examples:
+      - { en: "I'll follow up with the vendor tomorrow.", pt: "Vou cobrar o fornecedor amanhã." }
+      - { en: "Quick follow-up on yesterday's incident.", pt: "Rápido acompanhamento do incidente de ontem." }
+    collocations: ["follow up on X", "follow up with someone", "a follow-up (substantivo)"]
+    pronunciation: "FÓ-lou âp"
+    pitfalls: ["Verbo em duas palavras (follow up); substantivo com hífen (follow-up)."]
+    register: neutral
+    tags: [vocab.slack]
+  - term: circle back
+    meaning: voltar a um assunto mais tarde
+    definition: to return to a topic later
+    examples:
+      - { en: "Let's circle back on this after the release.", pt: "Vamos voltar a isso depois do release." }
+    collocations: ["circle back on X", "circle back later"]
+    pronunciation: "SÂR-col bék"
+    pitfalls: ["Jargão corporativo; em texto formal prefira \"revisit\"."]
+    register: informal
+    tags: [vocab.slack]
+  - term: push back
+    meaning: discordar de uma decisão ou prazo com argumentos
+    definition: to resist or challenge a request or decision
+    examples:
+      - { en: "I pushed back on the deadline; two weeks isn't realistic.", pt: "Contestei o prazo; duas semanas não é realista." }
+    collocations: ["push back on X", "get pushback", "some pushback from the team"]
+    pronunciation: "push bék"
+    pitfalls: ["Não é \"empurrar\". Substantivo é \"pushback\", uma palavra."]
+    register: neutral
+    tags: [vocab.slack]
+  - term: flaky
+    meaning: "instável, que falha de forma intermitente"
+    definition: unreliable; failing intermittently
+    examples:
+      - { en: "That test is flaky; it fails one run in five.", pt: "Esse teste é instável; falha uma rodada em cinco." }
+    collocations: ["flaky test", "flaky pipeline", "flakiness"]
+    pronunciation: "FLÊI-ki"
+    pitfalls: ["Não confundir com \"fake\". \"flaky\" é sobre inconsistência, não sobre ser falso."]
+    register: informal
+    tags: [vocab.ci]
+  - term: rollback
+    meaning: voltar para a versão anterior depois de um deploy ruim
+    definition: reverting to the previous version
+    examples:
+      - { en: "We did a rollback to 1.41 within five minutes.", pt: "Fizemos rollback para a 1.41 em cinco minutos." }
+      - { en: "Roll back first, investigate later.", pt: "Primeiro volta a versão, depois investiga." }
+    collocations: ["roll back (verbo)", "rollback plan", "automatic rollback"]
+    pronunciation: "RÔUL-bék"
+    pitfalls: ["Verbo em duas palavras (roll back); substantivo junto (rollback)."]
+    register: neutral
+    tags: [vocab.ci]
+  - term: hotfix
+    meaning: correção urgente aplicada direto em produção
+    definition: an urgent fix deployed straight to production
+    examples:
+      - { en: "We shipped a hotfix for the login bug last night.", pt: "Subimos um hotfix para o bug de login ontem à noite." }
+    collocations: ["ship a hotfix", "hotfix branch", "hotfix release"]
+    pronunciation: "RÓT-fiks"
+    pitfalls: ["Uma palavra só. Não é qualquer correção: é urgente e fora do ciclo normal."]
+    register: neutral
+    tags: [vocab.ci]
+  - term: handover
+    meaning: "passagem de contexto para quem assume (plantão, tarefa)"
+    definition: the transfer of responsibility and context to someone else
+    examples:
+      - { en: "Here's the handover for tonight's on-call: two open alerts, one silenced.", pt: "Aqui está a passagem para o plantão de hoje: dois alertas abertos, um silenciado." }
+    collocations: ["handover notes", "do a handover", "hand over (verbo)"]
+    pronunciation: "RÉND-ôuver"
+    pitfalls: ["\"hand over\" é o verbo; \"handover\" o substantivo. Nos EUA, \"handoff\" é sinônimo."]
+    register: neutral
+    tags: [vocab.incident]
+  - term: on-call
+    meaning: de plantão
+    definition: responsible for responding to incidents during a period
+    examples:
+      - { en: "I'm on call this week, so ping me for anything urgent.", pt: "Estou de plantão esta semana; me chama para qualquer urgência." }
+      - { en: "The on-call engineer acknowledged the page in two minutes.", pt: "O engenheiro de plantão reconheceu o alerta em dois minutos." }
+    collocations: ["on-call rotation", "be on call", "on-call engineer"]
+    pronunciation: "ón-cól"
+    pitfalls: ["Sem hífen como predicado (\"I'm on call\"); com hífen como adjetivo (\"on-call engineer\")."]
+    register: neutral
+    tags: [vocab.incident]
+  - term: parking lot
+    meaning: lista de assuntos deixados para depois da reunião
+    definition: a list of topics set aside to discuss later
+    examples:
+      - { en: "Let's put that in the parking lot and discuss after standup.", pt: "Vamos deixar isso para depois e discutir após o standup." }
+    collocations: ["parking lot item", "put it in the parking lot"]
+    pronunciation: "PÁR-king lót"
+    pitfalls: ["Aqui não é estacionamento: é a pauta do \"depois\"."]
+    register: neutral
+    tags: [vocab.standup]
+  - term: action item
+    meaning: tarefa combinada em reunião, com dono e prazo
+    definition: a task assigned to someone as a result of a meeting
+    examples:
+      - { en: "Action item: Marcos updates the runbook by Friday.", pt: "Ação combinada: Marcos atualiza o runbook até sexta." }
+    collocations: ["assign an action item", "action items from the retro", "open action items"]
+    pronunciation: "ÉK-chân ÁI-tem"
+    pitfalls: ["Sempre com dono e prazo; sem isso é só uma ideia."]
+    register: neutral
+    tags: [vocab.standup]
+  - term: nit
+    meaning: "detalhe pequeno num code review, que não bloqueia a aprovação"
+    definition: a minor, non-blocking review comment (from nitpick)
+    examples:
+      - { en: "Nit: rename tmp to something more descriptive.", pt: "Detalhe: renomeie tmp para algo mais descritivo." }
+    collocations: ["nit:", "just a nit", "non-blocking nit"]
+    pronunciation: "nit"
+    pitfalls: ["Marca um comentário como opcional. Não use para problemas reais."]
+    register: informal
+    tags: [vocab.tickets-prs]
+  - term: LGTM
+    meaning: "\"looks good to me\": aprovado"
+    definition: looks good to me — approval on a review
+    examples:
+      - { en: "LGTM, just fix the nit before merging.", pt: "Aprovado, só corrige o detalhe antes de mesclar." }
+    collocations: ["LGTM!", "LGTM with one nit", "LGTM once CI is green"]
+    pronunciation: "él-dji-tí-ém"
+    pitfalls: ["Só quando você revisou de verdade; \"LGTM\" sem ler é má prática conhecida."]
+    register: informal
+    tags: [vocab.tickets-prs]
+  - term: WIP
+    meaning: "trabalho em andamento; ainda não é para revisar ou mesclar"
+    definition: work in progress
+    examples:
+      - { en: "WIP: do not merge, still adding tests.", pt: "Em andamento: não mesclar, ainda adicionando testes." }
+    collocations: ["WIP PR", "mark as WIP", "still WIP"]
+    pronunciation: "uíp"
+    pitfalls: ["Prefira o modo rascunho (draft PR) quando a ferramenta tiver; \"WIP\" no título é o fallback."]
+    register: neutral
+    tags: [vocab.tickets-prs]
+  - term: quick question
+    meaning: abertura para uma pergunta curta
+    definition: a short question that should not take long
+    examples:
+      - { en: "Quick question: do we still need the legacy bucket?", pt: "Pergunta rápida: ainda precisamos do bucket antigo?" }
+    collocations: ["quick question:", "one quick question", "quick q"]
+    pronunciation: "kuík KUÉS-tchân"
+    pitfalls: ["Nunca \"I have a doubt\" para perguntar: \"doubt\" é desconfiança."]
+    register: neutral
+    tags: [vocab.slack]
+  - term: no worries
+    meaning: "sem problema (resposta a desculpa ou agradecimento)"
+    definition: it's fine; don't worry about it
+    examples:
+      - { en: "Sorry for the late reply. — No worries.", pt: "Desculpa a demora. — Sem problema." }
+    collocations: ["no worries at all", "no worries, take your time"]
+    pronunciation: "nou UÂ-riz"
+    pitfalls: ["Resposta a \"sorry\" ou \"thanks\". \"No problem\" é equivalente."]
+    register: informal
+    tags: [vocab.slack]
+  - term: my bad
+    meaning: "foi erro meu (admissão rápida e informal)"
+    definition: my mistake
+    examples:
+      - { en: "My bad, I pushed to the wrong branch.", pt: "Foi mal, fiz push na branch errada." }
+    collocations: ["my bad!", "sorry, my bad"]
+    pronunciation: "mai béd"
+    pitfalls: ["Só informal. Em post-mortem ou e-mail, diga \"that was my mistake\"."]
+    register: informal
+    tags: [vocab.slack]
+  - term: sounds good
+    meaning: "combinado, está bom para mim"
+    definition: I agree; that works for me
+    examples:
+      - { en: "Let's sync at 2 pm? — Sounds good.", pt: "Vamos alinhar às 14h? — Combinado." }
+    collocations: ["sounds good to me", "sounds good, thanks"]
+    pronunciation: "saundz gud"
+    pitfalls: ["\"sounds good\", não \"sounds well\" (adjetivo, não advérbio)."]
+    register: informal
+    tags: [vocab.slack]

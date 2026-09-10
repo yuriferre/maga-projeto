@@ -203,6 +203,30 @@ export const BrErrorPatternSchema = z.object({
 export type BrErrorPattern = z.infer<typeof BrErrorPatternSchema>;
 export const BrErrorsFileSchema = z.object({ patterns: z.array(BrErrorPatternSchema).min(1) });
 
+// ---------- Glossário ----------
+export const GlossaryEntrySchema = z.object({
+  term: z.string().min(1),
+  /** Significado em português. */
+  meaning: z.string().min(1),
+  /** Definição curta em inglês. */
+  definition: z.string().min(1).optional(),
+  examples: z.array(z.object({ en: z.string().min(1), pt: z.string().min(1).optional() })).min(1),
+  collocations: z.array(z.string().min(1)).default([]),
+  /** Pronúncia aproximada para brasileiros (ex.: "HEDZ-âp"). */
+  pronunciation: z.string().min(1).optional(),
+  /** Armadilhas: calques e confusões típicas. */
+  pitfalls: z.array(z.string().min(1)).default([]),
+  register: Register.default("neutral"),
+  tags: z.array(z.string().min(3)).min(1),
+});
+export type GlossaryEntry = z.infer<typeof GlossaryEntrySchema>;
+export const GlossaryFileSchema = z.object({
+  id: z.string().regex(/^[a-z][a-z0-9-]*$/),
+  title: z.string().min(1),
+  entries: z.array(GlossaryEntrySchema).min(1),
+});
+export type GlossaryFile = z.infer<typeof GlossaryFileSchema>;
+
 // ---------- Bundle consumido pelo cliente e servidor ----------
 export type ContentBundle = {
   levels: Level[];
@@ -211,4 +235,5 @@ export type ContentBundle = {
   tags: Tag[];
   brErrors: BrErrorPattern[];
   placement: Placement;
+  glossary: GlossaryFile[];
 };
