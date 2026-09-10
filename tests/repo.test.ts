@@ -6,6 +6,7 @@ import {
   insertAssessment, latestAssessment, listAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince,
   getWeekGoal, upsertWeekGoal, ensureWeekGoal, latestStudySession, insertStudySession, extendStudySession, studySessionsBetween,
   activityDays, completedLessonsBetween, reviewsBetween, attemptAccuracy, writingAverage, speakingAverage, readAloudAverage,
+  dueCards, getCard, applyReview, cardCounts, reviewAccuracy, insertGlossaryCard,
 } from "../server/repo.ts";
 
 let db: Db;
@@ -180,5 +181,66 @@ describe("amostras do radar", () => {
     insertSpeaking(db, { lessonId: "placement", mode: "A", transcript: "x", metrics: { readAloudPct: 0.9 }, score: 3, selfConfidence: 4 }, t(2));
     insertSpeaking(db, { lessonId: "placement", mode: "A", transcript: "y", metrics: { readAloudPct: null }, score: 3, selfConfidence: 4 }, t(2));
     expect(readAloudAverage(db, t(2))).toEqual({ value: 0.9, samples: 1 });
+  });
+});
+
+describe("srs: fila, revisão, contagens", () => {
+  const cards = [
+    { front: "a", back: "A", tag: "vocab.standup" },
+    { front: "b", back: "B", tag: "vocab.standup" },
+    { front: "c", back: "C", tag: "vocab.standup" },
+  ];
+  const ids = () => (db.prepare("select id from srs_cards order by id").all() as { id: number }[]).map((r) => r.id);
+  const reviews = () => (db.prepare("select count(*) as n from srs_reviews").get() as { n: number }).n;
+
+  it("dueCards lista só os vencidos, mais antigos primeiro, com limite", () => {
+    insertCards(db, "M01-02", cards, t(1));
+    const [a, b] = ids();
+    applyReview(db, b!, 4, { ease: 2.5, intervalDays: 1, reps: 1, lapses: 0, due: t(5) }, t(2));
+    expect(dueCards(db, t(3), 10).map((r) => r.front)).toEqual(["a", "c"]);
+    expect(dueCards(db, t(3), 1).map((r) => r.front)).toEqual(["a"]);
+    expect(dueCards(db, t(5), 10).map((r) => r.front)).toEqual(["a", "c", "b"]);
+    expect(getCard(db, a!)?.front).toBe("a");
+    expect(getCard(db, 999)).toBeUndefined();
+  });
+
+  it("applyReview grava estado e revisão juntos; nota inválida não deixa nada gravado", () => {
+    insertCards(db, "M01-02", cards.slice(0, 1), t(1));
+    const [id] = ids();
+    applyReview(db, id!, 4, { ease: 2.5, intervalDays: 1, reps: 1, lapses: 0, due: t(2) }, t(1));
+    expect(getCard(db, id!)).toMatchObject({ ease: 2.5, interval_days: 1, reps: 1, lapses: 0, due: t(2) });
+    expect(reviews()).toBe(1);
+    expect(() => applyReview(db, id!, 9, { ease: 1.3, intervalDays: 0, reps: 0, lapses: 1, due: t(3) }, t(3))).toThrow();
+    expect(getCard(db, id!)).toMatchObject({ interval_days: 1, reps: 1, due: t(2) });
+    expect(reviews()).toBe(1);
+  });
+
+  it("cardCounts classifica novos/aprendendo/maduros, conta vencidos e aponta o próximo", () => {
+    expect(cardCounts(db, t(1))).toEqual({ new: 0, learning: 0, mature: 0, dueNow: 0, total: 0, nextDue: null });
+    insertCards(db, "M01-02", cards, t(1));
+    const [, b, c] = ids();
+    applyReview(db, b!, 4, { ease: 2.5, intervalDays: 6, reps: 2, lapses: 0, due: t(7) }, t(1));
+    applyReview(db, c!, 5, { ease: 2.6, intervalDays: 30, reps: 4, lapses: 0, due: t(9) }, t(1));
+    expect(cardCounts(db, t(2))).toEqual({ new: 1, learning: 1, mature: 1, dueNow: 1, total: 3, nextDue: t(7) });
+    expect(cardCounts(db, t(9))).toMatchObject({ dueNow: 3, nextDue: null });
+  });
+
+  it("reviewAccuracy conta notas ≥ 3 na janela", () => {
+    insertCards(db, "M01-02", cards.slice(0, 1), t(1));
+    const [id] = ids();
+    const next = { ease: 2.5, intervalDays: 1, reps: 1, lapses: 0, due: t(9) };
+    applyReview(db, id!, 5, next, t(1));
+    applyReview(db, id!, 4, next, t(2));
+    applyReview(db, id!, 1, next, t(3));
+    expect(reviewAccuracy(db, t(2))).toEqual({ value: 0.5, samples: 2 });
+    expect(reviewAccuracy(db, t(4))).toEqual({ value: null, samples: 0 });
+  });
+
+  it("insertGlossaryCard insere uma vez e devolve o id existente depois", () => {
+    const first = insertGlossaryCard(db, { front: "aviso rápido", back: "heads up", hint: "just a heads up", tag: "vocab.slack" }, t(1));
+    const second = insertGlossaryCard(db, { front: "aviso rápido", back: "heads up", tag: "vocab.slack" }, t(2));
+    expect(first.inserted).toBe(true);
+    expect(second).toEqual({ inserted: false, id: first.id });
+    expect(getCard(db, first.id)).toMatchObject({ lesson_id: "glossary", hint: "just a heads up", due: t(1), reps: 0 });
   });
 });

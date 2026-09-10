@@ -1,5 +1,6 @@
 import type { Db } from "./db.ts";
 import type { Block, ExerciseType } from "../shared/schema.ts";
+import { MATURE_DAYS, type Sm2Result } from "../shared/sm2.ts";
 
 // ---------- attempts ----------
 export type AttemptInput = {
@@ -252,4 +253,61 @@ export function speakingAverage(db: Db, sinceIso: string, column: "score" | "sel
 
 export function readAloudAverage(db: Db, sinceIso: string): RadarSample {
   return average(db, "select count(*) as n, avg(json_extract(metrics_json, '$.readAloudPct')) as avg from speaking_sessions where ts >= ? and json_extract(metrics_json, '$.readAloudPct') is not null", sinceIso, 1);
+}
+
+// ---------- srs: fila, revisões e contagens ----------
+export type CardRow = {
+  id: number; lesson_id: string; front: string; back: string; hint: string | null; tag: string;
+  ease: number; interval_days: number; due: string; reps: number; lapses: number; created_at: string;
+};
+export type CardCounts = { new: number; learning: number; mature: number; dueNow: number; total: number; nextDue: string | null };
+
+/** Cards vencidos até `nowIso`, mais antigos primeiro. */
+export function dueCards(db: Db, nowIso: string, limit: number): CardRow[] {
+  return db.prepare("select * from srs_cards where due <= ? order by due asc, id asc limit ?").all(nowIso, limit) as CardRow[];
+}
+
+export function getCard(db: Db, id: number): CardRow | undefined {
+  return db.prepare("select * from srs_cards where id = ?").get(id) as CardRow | undefined;
+}
+
+/** Grava o novo estado do card e a revisão na mesma transação. */
+export function applyReview(db: Db, id: number, grade: number, next: Sm2Result, nowIso: string): void {
+  db.exec("begin");
+  try {
+    db.prepare("update srs_cards set ease = ?, interval_days = ?, reps = ?, lapses = ?, due = ? where id = ?")
+      .run(next.ease, next.intervalDays, next.reps, next.lapses, next.due, id);
+    db.prepare("insert into srs_reviews (card_id, grade, ts) values (?,?,?)").run(id, grade, nowIso);
+    db.exec("commit");
+  } catch (err) {
+    db.exec("rollback");
+    throw err;
+  }
+}
+
+export function cardCounts(db: Db, nowIso: string): CardCounts {
+  const row = db
+    .prepare(
+      `select count(*) as total,
+         coalesce(sum(case when reps = 0 then 1 else 0 end), 0) as new,
+         coalesce(sum(case when reps > 0 and interval_days < ? then 1 else 0 end), 0) as learning,
+         coalesce(sum(case when reps > 0 and interval_days >= ? then 1 else 0 end), 0) as mature,
+         coalesce(sum(case when due <= ? then 1 else 0 end), 0) as dueNow
+       from srs_cards`,
+    )
+    .get(MATURE_DAYS, MATURE_DAYS, nowIso) as { total: number; new: number; learning: number; mature: number; dueNow: number };
+  const next = db.prepare("select min(due) as d from srs_cards where due > ?").get(nowIso) as { d: string | null };
+  return { new: row.new, learning: row.learning, mature: row.mature, dueNow: row.dueNow, total: row.total, nextDue: next.d };
+}
+
+/** Fração das revisões com nota ≥ 3 desde `sinceIso`. */
+export function reviewAccuracy(db: Db, sinceIso: string): RadarSample {
+  return average(db, "select count(*) as n, avg(case when grade >= 3 then 1.0 else 0.0 end) as avg from srs_reviews where ts >= ?", sinceIso, 1);
+}
+
+/** Card criado a partir do glossário (`lesson_id = 'glossary'`); `unique (lesson_id, front)` impede duplicata. */
+export function insertGlossaryCard(db: Db, card: { front: string; back: string; hint?: string; tag: string }, nowIso: string): { inserted: boolean; id: number } {
+  const inserted = insertCards(db, "glossary", [card], nowIso) === 1;
+  const row = db.prepare("select id from srs_cards where lesson_id = 'glossary' and front = ?").get(card.front) as { id: number };
+  return { inserted, id: row.id };
 }
