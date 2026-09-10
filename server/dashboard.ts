@@ -1,8 +1,9 @@
 import type { Db } from "./db.ts";
 import type { Competency, ContentBundle, Tag } from "../shared/schema.ts";
 import {
-  activityDays, attemptAccuracy, completedLessonsBetween, getWeekGoal, latestAssessment, listAssessments,
-  readAloudAverage, reviewsBetween, speakingAverage, studySessionsBetween, tagStats, writingAverage, type RadarSample, type TagStat,
+  activityDays, attemptAccuracy, cardCounts, completedLessonsBetween, getWeekGoal, latestAssessment, listAssessments,
+  readAloudAverage, reviewAccuracy, reviewsBetween, speakingAverage, studySessionsBetween, tagStats, writingAverage,
+  type CardCounts, type RadarSample, type TagStat,
 } from "./repo.ts";
 import { weakTags } from "./warmup.ts";
 import { computeStreak, localDate, overlapMs, weekBounds, weekStart } from "./time.ts";
@@ -17,6 +18,7 @@ export type Dashboard = {
   week: { weekStart: string; goal: WeekGoal | null; progress: { lessons: number; reviews: number; minutes: number } };
   placement: { latest: PlacementAssessment | null };
   timeline: Array<{ id: number; kind: string; ref: string; ts: string; summary: { level?: number; pct?: number } }>;
+  srs: CardCounts & { accuracy30d: RadarSample };
 };
 
 const DAY = 864e5;
@@ -48,6 +50,8 @@ export function buildDashboard(db: Db, content: ContentBundle, nowIso: string, d
     return { id: r.id, kind: r.kind, ref: r.ref, ts: r.ts, summary: { level: s.level, pct: s.pct } };
   });
 
+  const srs = { ...cardCounts(db, nowIso), accuracy30d: reviewAccuracy(db, since) };
+
   return {
     since,
     radar,
@@ -60,5 +64,6 @@ export function buildDashboard(db: Db, content: ContentBundle, nowIso: string, d
     },
     placement: { latest: placementRow ? parsePlacementAssessment(placementRow) : null },
     timeline,
+    srs,
   };
 }

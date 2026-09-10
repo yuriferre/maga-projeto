@@ -3,7 +3,7 @@ import type { Hono } from "hono";
 import { createApp } from "../server/app.ts";
 import { openDb, type Db } from "../server/db.ts";
 import { loadContent } from "../shared/content-loader.ts";
-import { insertAssessment, insertAttempt, completeLesson } from "../server/repo.ts";
+import { insertAssessment, insertAttempt, completeLesson, insertCards, applyReview } from "../server/repo.ts";
 import { weekStart } from "../server/time.ts";
 
 const content = loadContent("content");
@@ -33,6 +33,7 @@ describe("GET /api/dashboard", () => {
     expect(d.week).toEqual({ weekStart: weekStart(current), goal: null, progress: { lessons: 0, reviews: 0, minutes: 0 } });
     expect(d.placement).toEqual({ latest: null });
     expect(d.timeline).toEqual([]);
+    expect(d.srs).toEqual({ new: 0, learning: 0, mature: 0, dueNow: 0, total: 0, nextDue: null, accuracy30d: { value: null, samples: 0 } });
   });
 
   it("radar mixes lesson and placement data; tags carry labels; streak and week reflect activity", async () => {
@@ -75,6 +76,18 @@ describe("GET /api/dashboard", () => {
     expect(d.timeline.map((t: { id: number }) => t.id)[0]).toBe(later);
     expect(d.timeline[0]).toMatchObject({ kind: "placement", ref: "placement", summary: { level: 2, pct: 0.7 } });
     expect(d.placement.latest.id).toBe(later);
+  });
+});
+
+describe("dashboard srs", () => {
+  it("counts cards by maturity, due now, next due and 30-day accuracy", async () => {
+    insertCards(db, "M01-02", [{ front: "a", back: "A", tag: "vocab.standup" }, { front: "b", back: "B", tag: "vocab.standup" }], at(-2, 10));
+    const [a, b] = (db.prepare("select id from srs_cards order by id").all() as { id: number }[]).map((r) => r.id);
+    applyReview(db, a!, 4, { ease: 2.5, intervalDays: 1, reps: 1, lapses: 0, due: at(1, 0) }, at(-1, 10));
+    applyReview(db, b!, 1, { ease: 1.96, intervalDays: 0, reps: 0, lapses: 1, due: at(-1, 10) }, at(-1, 10));
+    const d = await dashboard();
+    expect(d.srs).toEqual({ new: 1, learning: 1, mature: 0, dueNow: 1, total: 2, nextDue: at(1, 0), accuracy30d: { value: 0.5, samples: 2 } });
+    expect(d.week.progress.reviews).toBe(2);
   });
 });
 
