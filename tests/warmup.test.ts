@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach } from "vitest";
 import { openDb, type Db } from "../server/db.ts";
-import { completeLesson, insertAttempt } from "../server/repo.ts";
+import { completeLesson, insertAttempt, insertAssessment } from "../server/repo.ts";
 import { selectWarmup, weakTags } from "../server/warmup.ts";
 import { loadContent } from "../shared/content-loader.ts";
 import type { ContentBundle, Lesson } from "../shared/schema.ts";
@@ -47,6 +47,14 @@ describe("selectWarmup", () => {
     expect(new Set(items.map((e) => e.id)).size).toBe(5);
     const weakSet = ["gram.since-for", "gram.question-forms", "br.doubt", "gram.present-perfect"];
     expect(items.slice(0, 3).every((e) => e.tags.some((t) => weakSet.includes(t)))).toBe(true);
+    expect(items.some((e) => e.tags.includes("gram.since-for"))).toBe(true);
+  });
+  it("draws placement items for weak tags when no lesson is completed but the placement was taken", () => {
+    insertAssessment(db, { kind: "placement", ref: "placement", score: { level: 1 } }, daysAgo(2));
+    for (let i = 0; i < 4; i++) insertAttempt(db, { lessonId: "placement", exerciseId: "PL-g01", block: "placement", type: "error_correction", correct: false, tags: ["gram.since-for", "br.since-present"] }, daysAgo(2));
+    const items = selectWarmup(db, content, "M01-02", now, rng);
+    expect(items.length).toBe(5);
+    expect(items.every((e) => e.id.startsWith("PL-"))).toBe(true);
     expect(items.some((e) => e.tags.includes("gram.since-for"))).toBe(true);
   });
 });

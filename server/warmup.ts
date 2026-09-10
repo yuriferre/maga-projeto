@@ -1,7 +1,8 @@
 import type { Db } from "./db.ts";
 import type { ContentBundle, Exercise } from "../shared/schema.ts";
 import { allExercises } from "../shared/content-loader.ts";
-import { listProgress, tagStats } from "./repo.ts";
+import { placementExercises } from "../shared/schema.ts";
+import { latestAssessment, listProgress, tagStats } from "./repo.ts";
 
 const DAY = 864e5;
 
@@ -28,7 +29,8 @@ function shuffled<T>(items: T[], rng: () => number): T[] {
 
 /**
  * Warm-up da aula: até 3 itens de tags fracas, até 1 item de aulas concluídas há ~3, ~7 e ~21 dias,
- * completando com itens aleatórios do pool. Nunca usa a aula atual. Só aulas concluídas com conteúdo.
+ * completando com itens aleatórios do pool. Nunca usa a aula atual. Só aulas concluídas com conteúdo e,
+ * se houver avaliação, o teste inicial.
  */
 export function selectWarmup(db: Db, content: ContentBundle, lessonId: string, now: Date = new Date(), rng: () => number = Math.random): Exercise[] {
   const lesson = content.lessons[lessonId];
@@ -36,11 +38,15 @@ export function selectWarmup(db: Db, content: ContentBundle, lessonId: string, n
   const count = lesson.review.count;
 
   const completed = listProgress(db).filter((p) => p.status === "completed" && p.lesson_id !== lessonId && content.lessons[p.lesson_id]);
-  if (completed.length === 0) return [];
-
-  const pool: Candidate[] = completed.flatMap((p) =>
-    allExercises(content.lessons[p.lesson_id]!).map(({ exercise }) => ({ exercise, lessonId: p.lesson_id, completedAt: p.completed_at ?? p.started_at })),
-  );
+  const placementTs = latestAssessment(db, "placement", "placement")?.ts;
+  const pool: Candidate[] = [
+    ...completed.flatMap((p) =>
+      allExercises(content.lessons[p.lesson_id]!).map(({ exercise }) => ({ exercise, lessonId: p.lesson_id, completedAt: p.completed_at ?? p.started_at })),
+    ),
+    // Itens do teste inicial entram no pool depois da primeira avaliação (spec: seção 13 da aula-exemplo).
+    ...(placementTs ? placementExercises(content.placement).map(({ exercise }) => ({ exercise, lessonId: "placement", completedAt: placementTs })) : []),
+  ];
+  if (pool.length === 0) return [];
 
   const weak = new Set([...weakTags(db, now), ...lesson.review.preferTags]);
   const chosen: Exercise[] = [];
