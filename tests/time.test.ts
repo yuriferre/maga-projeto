@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { localDate, addDays, weekStart, weekBounds, overlapMs, computeStreak } from "../server/time.ts";
+import { localDate, addDays, localDayStart, weekStart, weekBounds, overlapMs, computeStreak } from "../server/time.ts";
 
 // Datas construídas no fuso local da máquina, como o servidor faz em produção.
 const local = (y: number, m: number, d: number, h = 12) => new Date(y, m - 1, d, h, 0, 0).toISOString();
@@ -23,6 +23,9 @@ describe("calendário local", () => {
     const { start, end } = weekBounds("2026-09-07");
     expect(start).toBe(new Date(2026, 8, 7, 0, 0, 0).toISOString());
     expect(end).toBe(new Date(2026, 8, 14, 0, 0, 0).toISOString());
+  });
+  it("localDayStart is the local midnight of the date", () => {
+    expect(localDayStart("2026-09-10")).toBe(new Date(2026, 8, 10, 0, 0, 0).toISOString());
   });
 });
 
