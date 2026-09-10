@@ -18,7 +18,7 @@ Depois de editar qualquer arquivo em `content/`, rode `pnpm content:build` de no
 
 Abra http://localhost:5173.
 
-Páginas: `/` painel (radar, heatmap de tags, sequência, meta semanal), `/trilha` níveis e módulos, `/placement` teste inicial de nível, `/lessons/:id` aula.
+Páginas: `/` painel (radar, heatmap de tags, sequência, meta semanal), `/trilha` níveis e módulos, `/placement` teste inicial de nível, `/review` revisão diária dos cards (SM-2), `/glossary` glossário com busca e áudio, `/lessons/:id` aula.
 
 Ao atualizar de uma versão anterior, faça uma cópia de `data/progress.sqlite` antes do primeiro `pnpm dev`: a migração 1 reconstrói a tabela `attempts`.
 

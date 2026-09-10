@@ -4,7 +4,7 @@ Instruções para qualquer assistente de código (Claude Code, Codex, Cursor, et
 
 ## O projeto
 
-Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: etapas E0, E1 e E2 entregues (motor de aula + aula M01-02 + teste inicial e painel). Próximas: E3 flashcards e glossário, E4 Claude API, E5 conteúdo do Nível 1, E6 adaptação.
+Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: etapas E0–E3 entregues (motor de aula + aula M01-02 + teste inicial e painel + SRS e glossário). Próximas: E4 Claude API, E5 conteúdo do Nível 1, E6 adaptação.
 
 ## Comandos
 
@@ -29,8 +29,8 @@ pnpm content:validate   # só valida
 ## Estrutura
 
 ```
-content/   YAML: levels.yaml (trilha), tags.yaml (taxonomia fechada), br-errors.yaml (regex), modules/Mxx/lessons/*.yaml, placement/placement.yaml (teste inicial)
-shared/    schemas zod, loader, detector de erros BR, scoring, comparação de fala, mini-markdown
+content/   YAML: levels.yaml (trilha), tags.yaml (taxonomia fechada), br-errors.yaml (regex), modules/Mxx/lessons/*.yaml, placement/placement.yaml (teste inicial), glossary/*.yaml (termos por tema)
+shared/    schemas zod, loader, detector de erros BR, scoring, comparação de fala, mini-markdown, SM-2 (sm2.ts), glossário (glossary.ts), datas locais (local-date.ts)
 server/    Hono + node:sqlite: app.ts (rotas), db.ts (migrações), repo.ts (SQL), placement.ts (resultado do teste), dashboard.ts (painel), time.ts (calendário local), serviços
 src/       React: pages/, components/{ui,exercises,lesson}/, lib/{api,content,speech}.ts
 tests/     vitest, sem jsdom: conteúdo real + banco :memory: + rotas via app.request
