@@ -32,7 +32,7 @@ Ao atualizar de uma versão anterior, faça uma cópia de `data/progress.sqlite`
 | Container de produção | `make docker-build && make up` | http://localhost:3001 | um processo serve API e UI compilada; banco persistido em `./data` |
 | Container de desenvolvimento | `make dev-up` | http://localhost:5173 | hot reload sem instalar Node na máquina; código montado do host |
 
-Outros alvos: `make check` (suíte + content + typecheck + build, o mesmo dos hooks), `make logs`, `make shell`, `make down`, `make backup-db` (cópia datada do SQLite), `make clean`.
+Outros alvos: `make check` (suíte + content + typecheck + build, o mesmo dos hooks), `make logs`, `make shell`, `make down`, `make backup-db` (cópia datada do SQLite), `make clean`, `make stop-dev` (encerra um `pnpm dev` esquecido: o `node --watch` reinicia o servidor se só o filho for morto, e a porta 3001 fica presa; `make up` avisa quando isso acontece).
 
 A imagem usa `node:25-alpine`; o servidor serve `dist/` quando ele existe (`STATIC_DIR`), com fallback do SPA para `index.html`. Variáveis: `PORT` (3001), `DB_PATH` (`data/progress.sqlite`), `STATIC_DIR` (`dist`). Um `.env` na raiz é carregado pelo compose se existir (é onde vai a chave da Claude API na E4). Fala e áudio continuam no Chrome do host, em qualquer modo.
 
