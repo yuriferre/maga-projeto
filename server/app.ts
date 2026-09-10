@@ -6,11 +6,15 @@ import { BlockSchema, placementExercises, type ContentBundle } from "../shared/s
 import {
   insertAttempt, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, insertCards, tagStats,
+  insertAssessment, latestAssessment, latestAttemptsSince, latestWritingSince, latestSpeakingSince, ensureWeekGoal,
 } from "./repo.ts";
 import { evaluateCompletion } from "./completion.ts";
 import { selectWarmup, weakTags } from "./warmup.ts";
 import { ruleBasedFeedback } from "./writing-feedback.ts";
 import { computeSpeakingMetrics } from "./speaking-metrics.ts";
+import { wordOverlap } from "../shared/speech-compare.ts";
+import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs } from "./placement.ts";
+import { weekStart } from "./time.ts";
 
 export type AppDeps = { db: Db; content: ContentBundle; now?: () => string };
 
@@ -27,6 +31,16 @@ const AttemptBody = z.object({
 const WritingBody = z.object({ text: z.string().min(1), selfScore: z.number().min(1).max(5).optional() });
 const SpeakingBody = z.object({
   mode: z.literal("A"),
+  transcript: z.string().trim().min(1),
+  durationSec: z.number().positive(),
+  selfConfidence: z.number().int().min(1).max(5).optional(),
+});
+
+/** Meta semanal criada ao concluir o teste inicial (trilha assume 3 aulas/semana). */
+export const DEFAULT_GOAL = { lessonsTarget: 3, reviewsTarget: 5, minutesTarget: 150 };
+
+const PlacementSpeakingBody = z.object({
+  readAloud: z.array(z.object({ target: z.string().min(1), transcript: z.string() })).default([]),
   transcript: z.string().trim().min(1),
   durationSec: z.number().positive(),
   selfConfidence: z.number().int().min(1).max(5).optional(),
@@ -124,6 +138,62 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
     );
     return c.json({ id: rowId, metrics });
   });
+
+  // ---------- teste inicial ----------
+  const placement = new Hono();
+  const pl = content.placement;
+  /** A rodada atual é tudo que foi gravado depois da última avaliação ("" = desde sempre). */
+  const runInputs = (): { since: string; inputs: PlacementInputs } => {
+    const since = latestAssessment(db, "placement", "placement")?.ts ?? "";
+    return {
+      since,
+      inputs: {
+        attempts: latestAttemptsSince(db, "placement", "placement", since),
+        writing: latestWritingSince(db, "placement", since),
+        speaking: latestSpeakingSince(db, "placement", since),
+      },
+    };
+  };
+
+  placement.get("/state", (c) => {
+    const latestRow = latestAssessment(db, "placement", "placement");
+    const { inputs } = runInputs();
+    return c.json({
+      latest: latestRow ? parsePlacementAssessment(latestRow) : null,
+      run: { answered: [...inputs.attempts.keys()], writing: inputs.writing ?? null, speaking: inputs.speaking ?? null },
+    });
+  });
+
+  placement.post("/writing", async (c) => {
+    const parsed = WritingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const feedback = ruleBasedFeedback(parsed.data.text, pl.writing, content.brErrors, parsed.data.selfScore);
+    const id = insertWriting(db, { lessonId: "placement", text: parsed.data.text, feedback, score: feedback.score }, now());
+    return c.json({ id, feedback });
+  });
+
+  placement.post("/speaking", async (c) => {
+    const parsed = PlacementSpeakingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const { readAloud, transcript, durationSec, selfConfidence } = parsed.data;
+    const readAloudPct = readAloud.length === 0 ? 0 : readAloud.reduce((sum, r) => sum + wordOverlap(r.transcript, r.target), 0) / readAloud.length;
+    const metrics = { ...computeSpeakingMetrics(transcript, durationSec, pl.speaking.modeA, content.brErrors), readAloudPct };
+    const id = insertSpeaking(db, { lessonId: "placement", mode: "A", transcript, metrics, score: metrics.score, selfConfidence: selfConfidence ?? null }, now());
+    return c.json({ id, metrics });
+  });
+
+  placement.post("/finish", (c) => {
+    const { inputs } = runInputs();
+    const missing = missingForFinish(pl, inputs);
+    if (missing.exercises.length > 0 || missing.writing) return c.json({ error: "teste incompleto", missing }, 409);
+    const ts = now();
+    const result = computePlacementResult(pl, inputs, ts);
+    const id = insertAssessment(db, { kind: "placement", ref: "placement", score: result }, ts);
+    ensureWeekGoal(db, weekStart(ts), DEFAULT_GOAL);
+    return c.json({ assessment: { id, ts, result } });
+  });
+
+  app.route("/api/placement", placement);
 
   app.route("/api/lessons", lessons);
   return app;
