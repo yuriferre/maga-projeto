@@ -3,7 +3,7 @@ import type { AttemptInput, LessonProgressRow, SpeakingRow, TagStat, WritingRow 
 import type { CompletionStatus } from "../../server/completion.ts";
 import type { WritingFeedback } from "../../server/writing-feedback.ts";
 import type { SpeakingMetrics } from "../../server/speaking-metrics.ts";
-import type { PlacementAssessment } from "../../server/placement.ts";
+import type { PlacementAssessment, PlacementSpeakingMetrics } from "../../server/placement.ts";
 import type { Dashboard, WeekGoal } from "../../server/dashboard.ts";
 
 /** Erro HTTP com o corpo da resposta (ex.: 409 do finish traz `missing`). */
@@ -40,8 +40,7 @@ const put = <T>(path: string, body: unknown) => request<T>(path, { method: "PUT"
 export type LessonStatus = { progress: LessonProgressRow | null; completion: CompletionStatus };
 export type PlacementState = { latest: PlacementAssessment | null; run: { answered: string[]; writing: WritingRow | null; speaking: SpeakingRow | null } };
 export type ReadAloudEntry = { target: string; transcript: string };
-export type PlacementSpeakingMetrics = SpeakingMetrics & { readAloudPct: number };
-export type { Block, Exercise, WeekGoal, Dashboard, PlacementAssessment, WritingRow, SpeakingRow, WritingFeedback, SpeakingMetrics, TagStat };
+export type { Block, Exercise, WeekGoal, Dashboard, PlacementAssessment, PlacementSpeakingMetrics, WritingRow, SpeakingRow, WritingFeedback, SpeakingMetrics, TagStat };
 
 export const api = {
   overview: () => request<{ lessons: LessonProgressRow[] }>("/api/progress/overview"),

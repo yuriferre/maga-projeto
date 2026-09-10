@@ -176,4 +176,9 @@ describe("amostras do radar", () => {
     expect(readAloudAverage(db, t(2))).toEqual({ value: 0.9, samples: 1 });
     expect(readAloudAverage(db, t(3))).toEqual({ value: null, samples: 0 });
   });
+  it("readAloudAverage ignores a session whose readAloudPct is null", () => {
+    insertSpeaking(db, { lessonId: "placement", mode: "A", transcript: "x", metrics: { readAloudPct: 0.9 }, score: 3, selfConfidence: 4 }, t(2));
+    insertSpeaking(db, { lessonId: "placement", mode: "A", transcript: "y", metrics: { readAloudPct: null }, score: 3, selfConfidence: 4 }, t(2));
+    expect(readAloudAverage(db, t(2))).toEqual({ value: 0.9, samples: 1 });
+  });
 });

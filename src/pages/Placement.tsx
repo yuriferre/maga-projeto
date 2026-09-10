@@ -22,6 +22,13 @@ const STEPS: Array<{ key: Stage; label: string }> = [
 const ORDER: Stage[] = ["intro", "reading", "vocabulary", "grammar", "listening", "writing", "speaking", "result"];
 const next = (s: Stage): Stage => ORDER[Math.min(ORDER.indexOf(s) + 1, ORDER.length - 1)]!;
 
+/** Frase da caixa de pendências: só escrita, só itens ou os dois. */
+function missingSentence(missing: { exercises: string[]; writing: boolean }): string {
+  const items = missing.exercises.length;
+  if (items === 0) return "Falta a nota da escrita.";
+  return `Faltam ${items} item(ns) objetivo(s)${missing.writing ? " e a nota da escrita" : ""}.`;
+}
+
 /** Primeiro bloco com item sem resposta na rodada; escrita se falta nota; senão fala. */
 function resumeStage(state: PlacementState): Stage {
   const answered = new Set(state.run.answered);
@@ -50,6 +57,8 @@ export function Placement() {
       if (s.latest && !hasRun) { setAssessment(s.latest); setStage("result"); return; }
       if (hasRun) {
         setWritingScore(s.run.writing?.score ?? null);
+        // Fala já enviada nesta rodada: o botão precisa dizer "Concluir o teste", não "Pular a fala".
+        if (s.run.speaking) setSpoken(JSON.parse(s.run.speaking.metrics_json) as SpeakingMetrics);
         const resume = resumeStage(s);
         const answeredPassages = placement.reading.passages.findIndex((p) => p.questions.some((q) => !s.run.answered.includes(q.id)));
         const answeredScripts = placement.listening.scripts.findIndex((sc) => sc.questions.some((q) => !s.run.answered.includes(q.id)));
@@ -169,7 +178,7 @@ export function Placement() {
       {error && <p className="text-sm text-rose-700">Servidor não respondeu ({error}).</p>}
       {missing && (
         <div className="rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
-          Faltam {missing.exercises.length > 0 ? `${missing.exercises.length} item(ns) objetivo(s)` : ""}{missing.exercises.length > 0 && missing.writing ? " e " : ""}{missing.writing ? "a nota da escrita" : ""}.
+          {missingSentence(missing)}
           {missing.exercises.length > 0 && <Button variant="ghost" onClick={backToBlocks}>Voltar aos blocos</Button>}
           {missing.writing && <Button variant="ghost" onClick={() => setStage("writing")}>Ir para a escrita</Button>}
         </div>

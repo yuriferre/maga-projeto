@@ -46,7 +46,7 @@ export function PlacementResult({ assessment, placement, onRetake }: { assessmen
                 <tr key={b} className="border-t border-slate-100"><td className="py-1">{blockLabel[b]}</td><td className="py-1 text-right">{r.blocks[b].correct}/{r.blocks[b].total}</td><td className="py-1 text-right text-slate-500">{Math.round(r.blocks[b].pct * 100)}%</td></tr>
               ))}
               <tr className="border-t border-slate-100"><td className="py-1">Escrita (autoavaliação)</td><td className="py-1 text-right" colSpan={2}>{r.writingScore === null ? "—" : `${r.writingScore}/5`}</td></tr>
-              <tr className="border-t border-slate-100"><td className="py-1">Fala</td><td className="py-1 text-right" colSpan={2}>{r.speaking ? `${r.speaking.score}/5 · leitura ${Math.round(r.speaking.readAloudPct * 100)}%` : "não feita"}</td></tr>
+              <tr className="border-t border-slate-100"><td className="py-1">Fala</td><td className="py-1 text-right" colSpan={2}>{r.speaking ? `${r.speaking.score}/5 · leitura ${r.speaking.readAloudPct === null ? "—" : `${Math.round(r.speaking.readAloudPct * 100)}%`}` : "não feita"}</td></tr>
             </tbody>
           </table>
         </Card>
@@ -70,11 +70,16 @@ export function PlacementResult({ assessment, placement, onRetake }: { assessmen
             const ex = byId.get(item.id);
             if (!ex) return null;
             const expected = ex.type === "multiple_choice" ? ex.options[ex.answer] : "accepted" in ex ? ex.accepted[0] : "answer" in ex ? ex.answer : "";
+            // Múltipla escolha grava o índice da opção; mostrar o texto escolhido.
+            const shownAnswer =
+              item.answer === null ? "—"
+              : ex.type === "multiple_choice" && /^\d+$/.test(item.answer) ? (ex.options[Number(item.answer)] ?? item.answer)
+              : item.answer;
             return (
               <li key={item.id} className={`rounded-md border p-3 ${item.correct ? "border-emerald-200 bg-emerald-50" : "border-rose-200 bg-rose-50"}`}>
                 <div className="text-xs text-slate-500">{i + 1} · {blockLabel[item.block]}</div>
                 <div className="font-medium">{ex.prompt}</div>
-                <div>{item.correct ? "✓" : "✗"} Sua resposta: {item.answer ?? "—"}{!item.correct && <> · Esperado: <span className="font-medium">{expected}</span></>}</div>
+                <div>{item.correct ? "✓" : "✗"} Sua resposta: {shownAnswer}{!item.correct && <> · Esperado: <span className="font-medium">{expected}</span></>}</div>
                 <div className="mt-1 text-slate-600">{ex.explanation}</div>
               </li>
             );

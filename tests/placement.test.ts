@@ -50,6 +50,14 @@ describe("computePlacementResult", () => {
     expect(r.items.find((i) => i.id === "PL-l01")).toEqual({ id: "PL-l01", block: "listening", correct: false, answer: "x" });
     expect(r.finishedAt).toBe(T);
   });
+  it("leaves the PRO axis null when metrics_json has no readAloudPct", () => {
+    const row: SpeakingRow = { id: 1, lesson_id: "placement", mode: "A", transcript: "t", metrics_json: "{}", score: 3, self_confidence: null, ts: T };
+    const r = computePlacementResult(p, inputs({ attempts: answers(() => true), writing: writing(3), speaking: row }), T);
+    expect(r.speaking?.readAloudPct).toBeNull();
+    expect(r.radar.PRO).toBeNull();
+    expect(r.radar.SPK).toBeCloseTo(0.6);
+    expect(r.radar.CNF).toBeNull();
+  });
   it("leaves speaking axes null without a speaking session and applies the writing floor", () => {
     const r = computePlacementResult(p, inputs({ attempts: answers(() => true), writing: writing(3) }), T);
     expect(r.speaking).toBeNull();

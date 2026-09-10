@@ -14,7 +14,7 @@ import { selectWarmup, weakTags } from "./warmup.ts";
 import { ruleBasedFeedback } from "./writing-feedback.ts";
 import { computeSpeakingMetrics } from "./speaking-metrics.ts";
 import { wordOverlap } from "../shared/speech-compare.ts";
-import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs } from "./placement.ts";
+import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs, type PlacementSpeakingMetrics } from "./placement.ts";
 import { weekStart } from "./time.ts";
 import { buildDashboard } from "./dashboard.ts";
 
@@ -30,7 +30,7 @@ const AttemptBody = z.object({
   score: z.number().optional(),
   tags: z.array(z.string()),
 });
-const WritingBody = z.object({ text: z.string().min(1), selfScore: z.number().min(1).max(5).optional() });
+const WritingBody = z.object({ text: z.string().trim().min(1), selfScore: z.number().min(1).max(5).optional() });
 const SpeakingBody = z.object({
   mode: z.literal("A"),
   transcript: z.string().trim().min(1),
@@ -217,8 +217,9 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
     const parsed = PlacementSpeakingBody.safeParse(await c.req.json().catch(() => null));
     if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
     const { readAloud, transcript, durationSec, selfConfidence } = parsed.data;
-    const readAloudPct = readAloud.length === 0 ? 0 : readAloud.reduce((sum, r) => sum + wordOverlap(r.transcript, r.target), 0) / readAloud.length;
-    const metrics = { ...computeSpeakingMetrics(transcript, durationSec, pl.speaking.modeA, content.brErrors), readAloudPct };
+    // Sem leitura em voz alta não há fonte para o eixo Pronúncia: `null`, não zero (spec §7.3).
+    const readAloudPct = readAloud.length === 0 ? null : readAloud.reduce((sum, r) => sum + wordOverlap(r.transcript, r.target), 0) / readAloud.length;
+    const metrics: PlacementSpeakingMetrics = { ...computeSpeakingMetrics(transcript, durationSec, pl.speaking.modeA, content.brErrors), readAloudPct };
     const id = insertSpeaking(db, { lessonId: "placement", mode: "A", transcript, metrics, score: metrics.score, selfConfidence: selfConfidence ?? null }, now());
     return c.json({ id, metrics });
   });

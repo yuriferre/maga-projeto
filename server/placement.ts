@@ -1,8 +1,11 @@
 import type { Competency, Placement, PlacementBlock } from "../shared/schema.ts";
 import { placementExercises } from "../shared/schema.ts";
 import type { AssessmentRow, AttemptRow, SpeakingRow, WritingRow } from "./repo.ts";
+import type { SpeakingMetrics } from "./speaking-metrics.ts";
 
 export type BlockScore = { correct: number; total: number; pct: number };
+/** Métricas da fala do teste inicial: `readAloudPct` é `null` quando não houve leitura em voz alta. */
+export type PlacementSpeakingMetrics = SpeakingMetrics & { readAloudPct: number | null };
 export type PlacementRadar = Record<Competency, number | null>;
 export type PlacementResult = {
   version: 1;
@@ -10,7 +13,7 @@ export type PlacementResult = {
   blocks: Record<PlacementBlock, BlockScore>;
   /** Autoavaliação 1–5 (modo por regras) até a E4. */
   writingScore: number | null;
-  speaking: { score: number; readAloudPct: number; selfConfidence: number | null } | null;
+  speaking: { score: number; readAloudPct: number | null; selfConfidence: number | null } | null;
   level: 1 | 2 | 3;
   radar: PlacementRadar;
   /** Tags com erro ≥ 50% entre as tentativas do teste, mais erros primeiro. */
@@ -78,8 +81,8 @@ export function computePlacementResult(placement: Placement, inputs: PlacementIn
 
   let speaking: PlacementResult["speaking"] = null;
   if (inputs.speaking) {
-    const metrics = JSON.parse(inputs.speaking.metrics_json) as { readAloudPct?: number };
-    speaking = { score: inputs.speaking.score ?? 0, readAloudPct: metrics.readAloudPct ?? 0, selfConfidence: inputs.speaking.self_confidence };
+    const metrics = JSON.parse(inputs.speaking.metrics_json) as { readAloudPct?: number | null };
+    speaking = { score: inputs.speaking.score ?? 0, readAloudPct: metrics.readAloudPct ?? null, selfConfidence: inputs.speaking.self_confidence };
   }
   const radar: PlacementRadar = {
     REA: blocks.reading.pct,

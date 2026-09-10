@@ -87,6 +87,23 @@ describe("POST /api/placement/finish", () => {
     const goal = db.prepare("select * from weekly_goals").all();
     expect(goal).toEqual([{ week_start: weekStart(assessment.ts), lessons_target: DEFAULT_GOAL.lessonsTarget, reviews_target: DEFAULT_GOAL.reviewsTarget, minutes_target: DEFAULT_GOAL.minutesTarget }]);
   });
+  it("speaking without read-aloud entries leaves readAloudPct and the PRO axis null", async () => {
+    await answer(() => true);
+    expect((await json("POST", "/api/placement/writing", { text: p.writing.model, selfScore: 4 })).status).toBe(200);
+    const s = await json("POST", "/api/placement/speaking", {
+      readAloud: [],
+      transcript: "Yesterday I worked on the VPC module and I finished the peering config. No blockers.", durationSec: 20, selfConfidence: 3,
+    });
+    expect(s.status).toBe(200);
+    expect((await s.json()).metrics.readAloudPct).toBeNull();
+
+    const fin = await json("POST", "/api/placement/finish");
+    expect(fin.status).toBe(200);
+    const { assessment } = await fin.json();
+    expect(assessment.result.speaking.readAloudPct).toBeNull();
+    expect(assessment.result.radar.PRO).toBeNull();
+    expect(typeof assessment.result.radar.SPK).toBe("number");
+  });
   it("a retake after finish creates a second assessment and becomes the latest", async () => {
     await answer(() => false);
     await json("POST", "/api/placement/writing", { text: p.writing.model, selfScore: 2 });
@@ -106,5 +123,8 @@ describe("validation", () => {
     expect((await json("POST", "/api/placement/writing", { text: "" })).status).toBe(400);
     expect((await json("POST", "/api/placement/speaking", { transcript: "x", durationSec: 0 })).status).toBe(400);
     expect((await json("POST", "/api/placement/speaking", { readAloud: [{ target: "a" }], transcript: "x", durationSec: 5 })).status).toBe(400);
+  });
+  it("400 on a writing text made only of whitespace", async () => {
+    expect((await json("POST", "/api/placement/writing", { text: "   " })).status).toBe(400);
   });
 });
