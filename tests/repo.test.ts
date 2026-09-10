@@ -4,6 +4,8 @@ import {
   insertAttempt, latestAttemptsByExercise, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, countSpeaking, insertCards, countCards, tagStats,
   insertAssessment, latestAssessment, listAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince,
+  getWeekGoal, upsertWeekGoal, ensureWeekGoal, latestStudySession, insertStudySession, extendStudySession, studySessionsBetween,
+  activityDays, completedLessonsBetween, reviewsBetween, attemptAccuracy, writingAverage, speakingAverage, readAloudAverage,
 } from "../server/repo.ts";
 
 let db: Db;
@@ -107,5 +109,71 @@ describe("rodada (registros após um instante)", () => {
     expect(latestWritingSince(db, "placement", t(2))).toBeUndefined();
     expect(latestSpeakingSince(db, "placement", t(1))?.self_confidence).toBe(3);
     expect(latestSpeakingSince(db, "placement", t(2))).toBeUndefined();
+  });
+});
+
+describe("weekly_goals", () => {
+  it("upserts and ensure does not overwrite", () => {
+    expect(getWeekGoal(db, "2026-09-07")).toBeUndefined();
+    ensureWeekGoal(db, "2026-09-07", { lessonsTarget: 3, reviewsTarget: 5, minutesTarget: 150 });
+    upsertWeekGoal(db, "2026-09-07", { lessonsTarget: 4, reviewsTarget: 5, minutesTarget: 150 });
+    ensureWeekGoal(db, "2026-09-07", { lessonsTarget: 9, reviewsTarget: 9, minutesTarget: 9 });
+    expect(getWeekGoal(db, "2026-09-07")).toEqual({ week_start: "2026-09-07", lessons_target: 4, reviews_target: 5, minutes_target: 150 });
+  });
+});
+
+describe("study_sessions", () => {
+  it("inserts, extends and selects sessions overlapping a window", () => {
+    const id = insertStudySession(db, t(1), null);
+    extendStudySession(db, id, "2026-09-01T10:05:00.000Z", "M01-02");
+    expect(latestStudySession(db)).toMatchObject({ id, started_at: t(1), ended_at: "2026-09-01T10:05:00.000Z", lesson_id: "M01-02" });
+    insertStudySession(db, t(5), null);
+    expect(studySessionsBetween(db, "2026-09-01T10:02:00.000Z", "2026-09-02T00:00:00.000Z").map((s) => s.id)).toEqual([id]);
+    expect(studySessionsBetween(db, "2026-09-01T10:05:00.000Z", "2026-09-02T00:00:00.000Z")).toEqual([]);
+  });
+});
+
+describe("atividade e contagens da semana", () => {
+  const localIso = (d: number, h: number) => new Date(2026, 8, d, h, 0, 0).toISOString();
+  it("activityDays unions attempts, writing, speaking and study sessions as local dates", () => {
+    insertAttempt(db, { lessonId: "M01-02", exerciseId: "M01-02-q1", block: "quiz", type: "fill_blank", correct: true, tags: ["gram.since-for"] }, localIso(9, 12));
+    insertWriting(db, { lessonId: "M01-02", text: "a", feedback: {}, score: null }, localIso(8, 23));
+    insertSpeaking(db, { lessonId: "M01-02", mode: "A", transcript: "x", metrics: {}, score: 3, selfConfidence: null }, localIso(8, 1));
+    insertStudySession(db, localIso(5, 9), null);
+    expect(activityDays(db)).toEqual(["2026-09-05", "2026-09-08", "2026-09-09"]);
+  });
+  it("counts completed lessons and reviews inside [start, end)", () => {
+    completeLesson(db, "M01-02", 0.9, "2026-09-08T12:00:00.000Z");
+    db.prepare("insert into srs_cards (lesson_id, front, back, tag, due, created_at) values ('M01-02','f','b','vocab.standup',?,?)").run(t(1), t(1));
+    db.prepare("insert into srs_reviews (card_id, grade, ts) values (1, 4, ?)").run("2026-09-08T13:00:00.000Z");
+    db.prepare("insert into srs_reviews (card_id, grade, ts) values (1, 4, ?)").run("2026-09-14T00:00:00.000Z");
+    expect(completedLessonsBetween(db, "2026-09-07T00:00:00.000Z", "2026-09-14T00:00:00.000Z")).toBe(1);
+    expect(completedLessonsBetween(db, "2026-09-09T00:00:00.000Z", "2026-09-14T00:00:00.000Z")).toBe(0);
+    expect(reviewsBetween(db, "2026-09-07T00:00:00.000Z", "2026-09-14T00:00:00.000Z")).toBe(1);
+  });
+});
+
+describe("amostras do radar", () => {
+  it("attemptAccuracy matches by block, tag list or tag prefix, counting each attempt once", () => {
+    insertAttempt(db, { lessonId: "M01-02", exerciseId: "M01-02-l1", block: "listening", type: "multiple_choice", correct: true, tags: ["comp.listening", "vocab.ci"] }, t(2));
+    insertAttempt(db, { lessonId: "placement", exerciseId: "PL-l01", block: "placement", type: "multiple_choice", correct: false, tags: ["comp.listening"] }, t(2));
+    insertAttempt(db, { lessonId: "placement", exerciseId: "PL-v01", block: "placement", type: "multiple_choice", correct: true, tags: ["comp.vocabulary", "vocab.ci"] }, t(2));
+    insertAttempt(db, { lessonId: "M01-02", exerciseId: "M01-02-q1", block: "quiz", type: "fill_blank", correct: true, tags: ["gram.since-for"] }, t(1));
+    expect(attemptAccuracy(db, t(2), { blocks: ["listening"], tags: ["comp.listening"] })).toEqual({ value: 0.5, samples: 2 });
+    expect(attemptAccuracy(db, t(2), { blocks: [], tags: ["comp.vocabulary"], tagPrefix: "vocab." })).toEqual({ value: 1, samples: 2 });
+    expect(attemptAccuracy(db, t(2), { blocks: [], tags: ["comp.reading"] })).toEqual({ value: null, samples: 0 });
+    expect(attemptAccuracy(db, t(3), { blocks: ["listening"], tags: [] })).toEqual({ value: null, samples: 0 });
+  });
+  it("writing, speaking and read-aloud averages ignore nulls and the window", () => {
+    insertWriting(db, { lessonId: "M01-02", text: "a", feedback: {}, score: 4 }, t(2));
+    insertWriting(db, { lessonId: "M01-02", text: "b", feedback: {}, score: null }, t(2));
+    insertWriting(db, { lessonId: "M01-02", text: "c", feedback: {}, score: 1 }, t(1));
+    insertSpeaking(db, { lessonId: "placement", mode: "A", transcript: "x", metrics: { readAloudPct: 0.9 }, score: 3, selfConfidence: 4 }, t(2));
+    insertSpeaking(db, { lessonId: "M01-02", mode: "A", transcript: "y", metrics: {}, score: 5, selfConfidence: null }, t(2));
+    expect(writingAverage(db, t(2))).toEqual({ value: 0.8, samples: 1 });
+    expect(speakingAverage(db, t(2), "score")).toEqual({ value: 0.8, samples: 2 });
+    expect(speakingAverage(db, t(2), "self_confidence")).toEqual({ value: 0.8, samples: 1 });
+    expect(readAloudAverage(db, t(2))).toEqual({ value: 0.9, samples: 1 });
+    expect(readAloudAverage(db, t(3))).toEqual({ value: null, samples: 0 });
   });
 });

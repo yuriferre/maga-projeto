@@ -143,3 +143,113 @@ export type SpeakingRow = {
 export function latestSpeakingSince(db: Db, lessonId: string, sinceExclusive: string): SpeakingRow | undefined {
   return db.prepare("select * from speaking_sessions where lesson_id = ? and ts > ? order by ts desc, id desc limit 1").get(lessonId, sinceExclusive) as SpeakingRow | undefined;
 }
+
+// ---------- metas semanais ----------
+export type WeeklyGoalRow = { week_start: string; lessons_target: number; reviews_target: number; minutes_target: number };
+export type WeekGoalInput = { lessonsTarget: number; reviewsTarget: number; minutesTarget: number };
+
+export function getWeekGoal(db: Db, weekStart: string): WeeklyGoalRow | undefined {
+  return db.prepare("select * from weekly_goals where week_start = ?").get(weekStart) as WeeklyGoalRow | undefined;
+}
+
+export function upsertWeekGoal(db: Db, weekStart: string, g: WeekGoalInput): WeeklyGoalRow {
+  db.prepare(
+    `insert into weekly_goals (week_start, lessons_target, reviews_target, minutes_target) values (?,?,?,?)
+     on conflict(week_start) do update set lessons_target = excluded.lessons_target, reviews_target = excluded.reviews_target, minutes_target = excluded.minutes_target`,
+  ).run(weekStart, g.lessonsTarget, g.reviewsTarget, g.minutesTarget);
+  return getWeekGoal(db, weekStart)!;
+}
+
+/** Cria a meta da semana se não existir; nunca sobrescreve. */
+export function ensureWeekGoal(db: Db, weekStart: string, g: WeekGoalInput): WeeklyGoalRow {
+  db.prepare("insert or ignore into weekly_goals (week_start, lessons_target, reviews_target, minutes_target) values (?,?,?,?)").run(weekStart, g.lessonsTarget, g.reviewsTarget, g.minutesTarget);
+  return getWeekGoal(db, weekStart)!;
+}
+
+// ---------- sessões de estudo ----------
+export type StudySessionRow = { id: number; started_at: string; ended_at: string | null; lesson_id: string | null };
+
+export function latestStudySession(db: Db): StudySessionRow | undefined {
+  return db.prepare("select * from study_sessions order by coalesce(ended_at, started_at) desc, id desc limit 1").get() as StudySessionRow | undefined;
+}
+
+export function insertStudySession(db: Db, now: string, lessonId: string | null): number {
+  const r = db.prepare("insert into study_sessions (started_at, ended_at, lesson_id) values (?,?,?)").run(now, now, lessonId);
+  return Number(r.lastInsertRowid);
+}
+
+export function extendStudySession(db: Db, id: number, now: string, lessonId: string | null): void {
+  db.prepare("update study_sessions set ended_at = ?, lesson_id = coalesce(?, lesson_id) where id = ?").run(now, lessonId, id);
+}
+
+/** Sessões que intersectam [startIso, endIso). */
+export function studySessionsBetween(db: Db, startIso: string, endIso: string): StudySessionRow[] {
+  return db.prepare("select * from study_sessions where started_at < ? and coalesce(ended_at, started_at) > ? order by started_at").all(endIso, startIso) as StudySessionRow[];
+}
+
+// ---------- atividade (dias locais) e contagens ----------
+export function activityDays(db: Db): string[] {
+  const rows = db
+    .prepare(
+      `select distinct d from (
+         select date(ts, 'localtime') as d from attempts
+         union select date(ts, 'localtime') from writing_submissions
+         union select date(ts, 'localtime') from speaking_sessions
+         union select date(started_at, 'localtime') from study_sessions
+       ) order by d`,
+    )
+    .all() as { d: string }[];
+  return rows.map((r) => r.d);
+}
+
+export function completedLessonsBetween(db: Db, startIso: string, endIso: string): number {
+  return (db.prepare("select count(*) as n from lesson_progress where status = 'completed' and completed_at >= ? and completed_at < ?").get(startIso, endIso) as { n: number }).n;
+}
+
+export function reviewsBetween(db: Db, startIso: string, endIso: string): number {
+  return (db.prepare("select count(*) as n from srs_reviews where ts >= ? and ts < ?").get(startIso, endIso) as { n: number }).n;
+}
+
+// ---------- amostras do radar ----------
+export type RadarSample = { value: number | null; samples: number };
+
+/** Acerto médio das tentativas desde `sinceIso` que casam por bloco OU por tag (lista exata ou prefixo). Cada tentativa conta uma vez. */
+export function attemptAccuracy(db: Db, sinceIso: string, match: { blocks: string[]; tags: string[]; tagPrefix?: string }): RadarSample {
+  const conds: string[] = [];
+  const params: string[] = [sinceIso];
+  if (match.blocks.length > 0) {
+    conds.push(`a.block in (${match.blocks.map(() => "?").join(",")})`);
+    params.push(...match.blocks);
+  }
+  const tagConds: string[] = [];
+  if (match.tags.length > 0) {
+    tagConds.push(`j.value in (${match.tags.map(() => "?").join(",")})`);
+    params.push(...match.tags);
+  }
+  if (match.tagPrefix) {
+    tagConds.push("j.value like ?");
+    params.push(`${match.tagPrefix}%`);
+  }
+  if (tagConds.length > 0) conds.push(`exists (select 1 from json_each(a.tags_json) j where ${tagConds.join(" or ")})`);
+  if (conds.length === 0) return { value: null, samples: 0 };
+  const row = db.prepare(`select count(*) as n, coalesce(sum(a.correct), 0) as ok from attempts a where a.ts >= ? and (${conds.join(" or ")})`).get(...params) as { n: number; ok: number };
+  return { value: row.n === 0 ? null : row.ok / row.n, samples: row.n };
+}
+
+function average(db: Db, sql: string, sinceIso: string, divisor: number): RadarSample {
+  const row = db.prepare(sql).get(sinceIso) as { n: number; avg: number | null };
+  return { value: row.n === 0 || row.avg === null ? null : row.avg / divisor, samples: row.n };
+}
+
+export function writingAverage(db: Db, sinceIso: string): RadarSample {
+  return average(db, "select count(*) as n, avg(score) as avg from writing_submissions where ts >= ? and score is not null", sinceIso, 5);
+}
+
+export function speakingAverage(db: Db, sinceIso: string, column: "score" | "self_confidence"): RadarSample {
+  const col = column === "score" ? "score" : "self_confidence";
+  return average(db, `select count(*) as n, avg(${col}) as avg from speaking_sessions where ts >= ? and ${col} is not null`, sinceIso, 5);
+}
+
+export function readAloudAverage(db: Db, sinceIso: string): RadarSample {
+  return average(db, "select count(*) as n, avg(json_extract(metrics_json, '$.readAloudPct')) as avg from speaking_sessions where ts >= ? and json_extract(metrics_json, '$.readAloudPct') is not null", sinceIso, 1);
+}
