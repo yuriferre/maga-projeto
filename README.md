@@ -18,9 +18,9 @@ Depois de editar qualquer arquivo em `content/`, rode `pnpm content:build` de no
 
 Abra http://localhost:5173.
 
-Páginas: `/` painel (radar, heatmap de tags, sequência, meta semanal), `/trilha` níveis e módulos, `/placement` teste inicial de nível, `/review` revisão diária dos cards (SM-2), `/glossary` glossário com busca e áudio, `/lessons/:id` aula.
+Páginas: `/` painel (radar, heatmap de tags, sequência, meta semanal), `/trilha` níveis e módulos, `/placement` teste inicial de nível, `/review` revisão diária dos cards (SM-2), `/glossary` glossário com busca e áudio, `/lessons/:id` aula, `/modules/:id/assessment` avaliação do módulo (liberada quando todas as aulas do módulo estão concluídas).
 
-Ao atualizar de uma versão anterior, faça uma cópia de `data/progress.sqlite` antes do primeiro `pnpm dev`: a migração 1 reconstrói a tabela `attempts`.
+Ao atualizar de uma versão anterior, faça uma cópia de `data/progress.sqlite` antes do primeiro `pnpm dev` (`make backup-db`): as migrações 1 e 2 reconstroem a tabela `attempts`.
 
 ## Makefile e Docker
 
@@ -34,7 +34,7 @@ Ao atualizar de uma versão anterior, faça uma cópia de `data/progress.sqlite`
 
 Outros alvos: `make check` (suíte + content + typecheck + build, o mesmo dos hooks), `make logs`, `make shell`, `make down`, `make backup-db` (cópia datada do SQLite), `make clean`, `make stop-dev` (encerra um `pnpm dev` esquecido: o `node --watch` reinicia o servidor se só o filho for morto, e a porta 3001 fica presa; `make up` avisa quando isso acontece).
 
-A imagem usa `node:25-alpine`; o servidor serve `dist/` quando ele existe (`STATIC_DIR`), com fallback do SPA para `index.html`. Variáveis: `PORT` (3001), `DB_PATH` (`data/progress.sqlite`), `STATIC_DIR` (`dist`). Um `.env` na raiz é carregado pelo compose se existir (é onde vai a chave da Claude API na E4). Fala e áudio continuam no Chrome do host, em qualquer modo.
+A imagem usa `node:25-alpine`; o servidor serve `dist/` quando ele existe (`STATIC_DIR`), com fallback do SPA para `index.html`. Variáveis: `PORT` (3001), `DB_PATH` (`data/progress.sqlite`), `STATIC_DIR` (`dist`). Um `.env` na raiz é carregado pelo compose se existir. Fala e áudio continuam no Chrome do host, em qualquer modo.
 
 ## Scripts
 - `pnpm test` — testes (vitest)
@@ -55,9 +55,9 @@ A imagem usa `node:25-alpine`; o servidor serve `dist/` quando ele existe (`STAT
 3. Para concluir: quiz ≥ 75%, escrita enviada e avaliada (≥ 3/5), uma gravação de fala. Os cards da aula entram no SRS na conclusão.
 4. O progresso fica em `data/progress.sqlite`. Apague o arquivo para recomeçar do zero.
 
-## Estado atual (etapas E0–E3)
-- Conteúdo: aula M01-02 completa; demais aulas listadas como "em breve".
-- Correção de escrita e fala em modo por regras (sem IA). A integração com a Claude API entra na etapa E4.
+## Estado atual (etapas E0–E3 + M01 completo)
+- Conteúdo: módulo M01 completo (5 aulas + avaliação do módulo); demais aulas listadas como "em breve".
+- Correção de escrita e fala em modo por regras (sem IA). A integração com a Claude API (E4) está fora do roteiro; tudo segue por regras e heurísticas locais.
 
 ## Contribuindo
 Convenções de branches, commits, hooks e trabalho com IA em `CONTRIBUTING.md`. Instruções para agentes de IA em `AGENTS.md`.

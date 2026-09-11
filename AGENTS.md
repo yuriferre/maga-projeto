@@ -4,7 +4,7 @@ Instruções para qualquer assistente de código (Claude Code, Codex, Cursor, et
 
 ## O projeto
 
-Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: etapas E0–E3 entregues (motor de aula + aula M01-02 + teste inicial e painel + SRS e glossário). A E4 (Claude API) está fora do roteiro por decisão do usuário (sem créditos de API): tudo segue por regras e heurísticas locais, sem LLM. Próximas: E5 conteúdo do Nível 1, E6 adaptação.
+Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: etapas E0–E3 entregues e E5 em andamento (M01 completo: 5 aulas + avaliação do módulo). A E4 (Claude API) está fora do roteiro por decisão do usuário (sem créditos de API): tudo segue por regras e heurísticas locais, sem LLM. Próximas: E5 (M02–M06 + avaliação de nível), E6 adaptação.
 
 ## Comandos
 
@@ -29,9 +29,9 @@ pnpm content:validate   # só valida
 ## Estrutura
 
 ```
-content/   YAML: levels.yaml (trilha), tags.yaml (taxonomia fechada), br-errors.yaml (regex), modules/Mxx/lessons/*.yaml, placement/placement.yaml (teste inicial), glossary/*.yaml (termos por tema)
+content/   YAML: levels.yaml (trilha), tags.yaml (taxonomia fechada), br-errors.yaml (regex), modules/Mxx/lessons/*.yaml, modules/Mxx/assessment.yaml (avaliação do módulo), placement/placement.yaml (teste inicial), glossary/*.yaml (termos por tema)
 shared/    schemas zod, loader, detector de erros BR, scoring, comparação de fala, mini-markdown, SM-2 (sm2.ts), glossário (glossary.ts), datas locais (local-date.ts)
-server/    Hono + node:sqlite: app.ts (rotas), db.ts (migrações), repo.ts (SQL), placement.ts (resultado do teste), dashboard.ts (painel), time.ts (calendário local), serviços
+server/    Hono + node:sqlite: app.ts (rotas), db.ts (migrações), repo.ts (SQL), placement.ts (resultado do teste), assessment.ts (avaliação de módulo), dashboard.ts (painel), time.ts (calendário local), serviços
 src/       React: pages/, components/{ui,exercises,lesson}/, lib/{api,content,speech}.ts
 tests/     vitest, sem jsdom: conteúdo real + banco :memory: + rotas via app.request
 docs/      planejamento/ (spec), superpowers/plans/ (planos executáveis)
@@ -46,6 +46,7 @@ docs/      planejamento/ (spec), superpowers/plans/ (planos executáveis)
 - Nunca gere conteúdo genérico ou placeholder. Cada aula segue o formato de `docs/planejamento/03-exemplo-aula-M01-02.md` e é revisada por uma pessoa.
 - Depois de editar `content/`, rode `pnpm content:build`; o Vite não observa YAML.
 - Trechos de log/erro no teste inicial usam `format: pre` (renderização monoespaçada, sem mini-markdown).
+- Avaliação de módulo: 15 itens que cobrem todas as tags gram.*/br.* das aulas do módulo (teste de guarda), gabarito balanceado, escrita + fala com os mesmos motores das aulas. Aprovação: itens ≥ 75 %, escrita ≥ 3, fala ≥ 3.
 
 ## Testes
 
