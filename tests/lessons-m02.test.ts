@@ -13,4 +13,5 @@ describe("M02 lessons", () => {
   checkLesson(bundle, "M02-02", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M02-01"] });
   checkLesson(bundle, "M02-03", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M02-02"] });
   checkLesson(bundle, "M02-04", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M02-03"] });
+  checkLesson(bundle, "M02-05", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M02-04"] });
 });

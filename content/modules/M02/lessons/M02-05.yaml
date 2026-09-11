@@ -1,0 +1,290 @@
+id: M02-05
+module: M02
+order: 5
+title: "Pair debugging por chamada: você pede ajuda com um erro de kubectl"
+objective: >-
+  Ao final, você consegue conduzir uma call de pair debugging inteira: pedir o pair com urgência e
+  motivo, apresentar contexto → tentativa → pergunta, compartilhar a tela e ler os eventos em voz
+  alta, admitir quando não entender um termo, confirmar a causa antes da correção e fechar agradecendo
+  — o módulo inteiro em uma sessão.
+durationMin: 40
+competencies: [SPK, VOC, LIS, CNF]
+tags: [topic.help, vocab.k8s, vocab.errors, br.do-modal, br.did-past, comp.confidence, comp.speaking]
+prerequisites: [M02-04]
+
+context:
+  scenario: |
+    Sexta-feira, 10h40. Você subiu a `v2.4.1` do serviço de faturamento há vinte minutos e o pod nunca
+    levantou — trava em `ImagePullBackOff`. O release de hoje depende desse deploy. Você chama a Ana
+    para uma sessão de pair debugging por voz, com a tela compartilhada.
+
+    A simulação junta tudo do módulo: o pedido inicial com urgência real, a pergunta em três blocos,
+    o "não peguei" quando a Ana fala rápido demais, a confirmação da causa antes de corrigir e o
+    fechamento do loop — com agradecimento e correção documentada.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: Can you pair with me on this?
+    meaning: convite para depurar junto numa call
+    example: Can you pair with me on this? The pod is stuck in ImagePullBackOff.
+    translation: Pode fazer pair comigo nisso? O pod está travado em ImagePullBackOff.
+    note: '"pair" virou verbo: depurar/programar junto ao vivo.'
+  - term: ImagePullBackOff
+    meaning: o cluster não consegue baixar a imagem do pod
+    example: The pod has been in ImagePullBackOff since the rollout.
+    translation: O pod está em ImagePullBackOff desde o rollout.
+    note: "Causas comuns: tag errada, secret de pull faltando, registry fora."
+  - term: kubectl describe pod
+    meaning: mostra eventos e status detalhados do pod
+    example: Run `kubectl describe pod` and check the events at the bottom.
+    translation: Rode `kubectl describe pod` e veja os eventos no fim.
+    note: Os eventos no fim do output dizem por que o pull falhou.
+  - term: What do the events say?
+    meaning: o que os eventos do pod dizem
+    example: What do the events say? Read me the last few lines.
+    translation: O que os eventos dizem? Me leia as últimas linhas.
+    note: No pair, a evidência vem primeiro — a hipótese depois.
+  - term: Let me share my screen.
+    meaning: vou compartilhar a tela na call
+    example: Let me share my screen so you can see the events.
+    translation: Vou compartilhar a tela para você ver os eventos.
+    note: Anuncie antes de compartilhar — não assuma que a tela já apareceu.
+  - term: Can you see my screen?
+    meaning: confirma se a pessoa vê a tela
+    example: Sharing now — can you see my screen?
+    translation: Compartilhando — está vendo minha tela?
+    note: Sempre confirme; perder dois minutos falando para ninguém é clássico.
+  - term: "Try running …"
+    meaning: sugestão de comando no pair
+    example: Try running `kubectl get pods` with the namespace flag.
+    translation: Tente rodar `kubectl get pods` com a flag de namespace.
+    note: Imperativo direto é normal no pair — a urgência já foi combinada.
+  - term: It's a typo in the image tag.
+    meaning: a causa é um erro de digitação na tag
+    example: It's a typo in the image tag — v2.41 instead of v2.4.1.
+    translation: É um erro de digitação na tag da imagem — v2.41 em vez de v2.4.1.
+    note: A causa mais comum de ImagePullBackOff é a mais banal.
+  - term: That did it.
+    meaning: isso resolveu
+    example: Fixed the tag, redeployed — that did it. The pod is running.
+    translation: Corrigi a tag, refiz o deploy — isso resolveu. O pod está rodando.
+    note: Fecho rápido quando a correção funciona; confirme o estado, não a intenção.
+  - term: Let's roll it back.
+    meaning: vamos reverter o deploy
+    example: This is worse — let's roll it back to v2.4.0 and regroup.
+    translation: Isso piorou — vamos reverter para a v2.4.0 e reagrupar.
+    note: '"roll back" = voltar à versão anterior; decisão normal, não fracasso.'
+  - term: readiness probe
+    meaning: sonda que diz se o pod está pronto para tráfego
+    example: The readiness probe passes now — traffic can hit the pod.
+    translation: A readiness probe passa agora — o tráfego pode chegar ao pod.
+    note: readiness = pronto para tráfego; liveness = continua vivo.
+  - term: What does that flag do?
+    meaning: o que essa opção do comando faz
+    example: What does the `--watch` flag do exactly?
+    translation: O que a flag `--watch` faz exatamente?
+    note: Pergunta de significado de comando — use "what does X do".
+  - term: imagePullSecret
+    meaning: o secret que autentica o pull da imagem
+    example: The new cluster needs an imagePullSecret called registry-creds.
+    translation: O cluster novo precisa de um imagePullSecret chamado registry-creds.
+    note: Sem ele, o registry nega o pull — segunda causa clássica.
+  - term: Thanks for pairing.
+    meaning: obrigado pela sessão de debugging junto
+    example: Thanks for pairing — the events trick saved me an hour.
+    translation: Obrigado pelo pair — o truque dos eventos me poupou uma hora.
+    note: Agradeça nomeando o que ajudou — o agradecimento ensina também.
+
+grammar:
+  title: "O arco da call de pair debugging"
+  explanation: |
+    **As cinco fases, cada uma com sua frase:**
+
+    | Fase | Frase | De onde vem |
+    |---|---|---|
+    | Pedir o pair | *Can you pair with me? It's blocking the release.* | M02-01 (urgência com motivo) |
+    | Contexto → tentativa → pergunta | *I bumped to v2.4.1; I tried restarting; why won't it pull?* | M02-03 |
+    | Compartilhar e evidenciar | *Sharing my screen — can you see it? What do the events say?* | novo |
+    | Não entender / confirmar | *Sorry, I didn't catch the tag. So it was the tag, not the registry?* | M02-02 |
+    | Fechar | *That did it. Thanks for pairing.* | novo |
+
+    **No pair, imperativo direto é normal:** "try running X", "check the events" — a licença já foi
+    dada no convite. O que muda é a ordem: evidência ("what do the events say") antes de hipótese
+    ("maybe the registry is down").
+
+    **Confirme a causa antes de corrigir:** "so it was the tag, not the registry?" — corrigir sem
+    confirmar é como dois bugs aconteceram e você só viu um.
+  examples:
+    - { en: "Can you pair with me on this? It's blocking today's release.", pt: "Pode fazer pair comigo nisso? Está travando o release de hoje." }
+    - { en: "I bumped the image twenty minutes ago and the pod never came up.", pt: "Subi a imagem há vinte minutos e o pod nunca levantou." }
+    - { en: "What do the events say at the bottom?", pt: "O que os eventos dizem no fim?" }
+    - { en: "So it was the tag, not the registry — right?", pt: "Então era a tag, não o registry — certo?" }
+    - { en: "That did it — the pod is running. Thanks for pairing.", pt: "Isso resolveu — o pod está rodando. Obrigado pelo pair." }
+
+examples:
+  - en: Ana, can you pair with me on this? The billing pod is stuck in ImagePullBackOff and it's blocking today's release.
+    pt: Ana, pode fazer pair comigo nisso? O pod de faturamento está travado em ImagePullBackOff e está bloqueando o release de hoje.
+    context: Convite com objeto e urgência justificada.
+  - en: "Context: I bumped the image to v2.4.1 twenty minutes ago. I've tried restarting the pod — same failure every time."
+    pt: "Contexto: subi a imagem para v2.4.1 há vinte minutos. Tentei reiniciar o pod — mesma falha sempre."
+    context: Contexto + tentativa em duas frases.
+  - en: Sharing my screen — can you see it? What do the events say at the bottom?
+    pt: Compartilhando a tela — está vendo? O que os eventos dizem no fim?
+    context: Anuncia o compartilhamento e pede a evidência.
+  - en: Sorry, I didn't catch the tag — what's after the colon?
+    pt: Desculpa, não peguei a tag — o que vem depois dos dois-pontos?
+    context: '"Não entendi" aplicado a um dado pontual.'
+  - en: Wait — that's a typo. It says v2.41; it should be v2.4.1.
+    pt: Espera — isso é um erro de digitação. Está v2.41; devia ser v2.4.1.
+    context: A descoberta ao ler os eventos em voz alta.
+  - en: Fixed the tag, redeployed, readiness probe is green — that did it.
+    pt: Corrigi a tag, refiz o deploy, readiness probe verde — isso resolveu.
+    context: Fechamento com estado confirmado.
+  - en: My bad — I mistyped the tag. I'll add a note to the runbook so nobody hits this again.
+    pt: Erro meu — digitei a tag errada. Vou anotar no runbook para ninguém cair nisso de novo.
+    context: Admissão rápida + prevenção; sem drama.
+
+variations:
+  - idea: '"abrir a call de pair debugging"'
+    items:
+      - { register: Urgente com motivo, text: "Can you pair with me? The pod is stuck and it's blocking today's release.", adequate: true }
+      - { register: Sem pressa, text: "When you get a chance — could you pair with me on a flaky test? No rush.", adequate: true }
+      - { register: Com contexto mínimo, text: "Got ten minutes? Billing pod is in ImagePullBackOff — I've tried restarting it.", adequate: true }
+      - { register: Inadequada, text: "Do you can pair with me?", adequate: false, note: "Auxiliar duplo: can you pair with me?" }
+      - { register: Inadequada, text: "HELP! PROD IS DOWN!!!", adequate: false, note: "Pânico sem objeto — diga o que trava e o que já tentou." }
+  - idea: '"reportar o que os eventos dizem"'
+    items:
+      - { register: Lendo literal, text: "The events say 'failed to pull image: not found'.", adequate: true }
+      - { register: Esperado × observado, text: "I expected the pod to pull and start, but I got ImagePullBackOff.", adequate: true }
+      - { register: Inadequada, text: "The deploy is giving error.", adequate: false, note: '"Dar erro" não é "give error": the deploy is failing / I''m getting an error.' }
+      - { register: Inadequada, text: "What means ImagePullBackOff?", adequate: false, note: "Falta o auxiliar: what does ImagePullBackOff mean?" }
+
+brErrors:
+  - { wrong: "Do you can pair with me on this?", right: "Can you pair with me on this?", why: "auxiliar duplo", tag: br.do-modal }
+  - { wrong: "I didn't understood what describe shows.", right: "I didn't understand what describe shows.", why: "didn't + forma base", tag: br.did-past }
+  - { wrong: "Can you explain me the events?", right: "Can you explain the events to me?", why: "explain + coisa + to me", tag: br.explain-me }
+  - { wrong: "I need that you look at my screen.", right: "I need you to look at my screen.", why: "need + pessoa + to", tag: br.need-that-you }
+  - { wrong: "The deploy is giving error.", right: "The deploy is failing. / I'm getting an error on the deploy.", why: '"dar erro" não é "give error"', tag: br.giving-error }
+  - { wrong: "I have a doubt about this flag.", right: "I have a question about this flag.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "Sorry for interrupt — what was that flag?", right: "Sorry to interrupt — what was that flag?", why: '"sorry to" + verbo', tag: br.sorry-for-interrupt }
+  - { wrong: "What means ImagePullBackOff?", right: "What does ImagePullBackOff mean?", why: "wh-pergunta precisa de does", tag: gram.question-forms }
+  - { wrong: "It's urgent, please help!!!", right: "It's blocking today's release — can you pair with me?", why: "urgência pelo impacto, não pelo volume", tag: topic.help }
+  - { wrong: "You see my screen?", right: "Can you see my screen?", why: "pergunta sim/não começa com can/do", tag: gram.question-forms }
+
+dialogue:
+  title: "A call de pair debugging: vinte minutos de ImagePullBackOff"
+  lines:
+    - { speaker: Yuri, text: "Ana, do you have ten minutes? The billing deploy is stuck and it's blocking today's release — can you pair with me on it?" }
+    - { speaker: Ana, text: "Sure. Walk me through what you've got." }
+    - { speaker: Yuri, text: "Context: I bumped the image to v2.4.1 and rolled it out twenty minutes ago. The pod never came up — it's been in ImagePullBackOff since. I've tried restarting it; same failure." }
+    - { speaker: Ana, text: "What do the events say? Try running `kubectl describe pod` and read me the last few lines." }
+    - { speaker: Yuri, text: "Sharing my screen — can you see it? … It says 'failed to pull image: not found'." }
+    - { speaker: Ana, text: "Sorry, I didn't catch the tag — what comes after the colon?" }
+    - { speaker: Yuri, text: "v2.41 — wait. That's a typo. It should be v2.4.1." }
+    - { speaker: Ana, text: "That was it. Fix the tag, redeploy, and watch the pod come up." }
+    - { speaker: Yuri, text: "Fixing now… readiness probe is green — that did it. My bad on the tag. Thanks for pairing." }
+    - { speaker: Ana, text: "Anytime. And nice work reading the events out loud — that's what caught it." }
+  notes:
+    - "O convite já traz objeto, tentativa e urgência real — a Ana entra sabendo por que importa."
+    - '"what do the events say" antes de qualquer hipótese: evidência primeiro, sempre.'
+    - "Ler em voz alta no pair expõe o erro que o olho pula — foi assim que a tag apareceu."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "When a pod sits in ImagePullBackOff, describe it first — the events at the bottom tell you why the pull failed: bad tag, missing pull secret, or the registry is down." }
+    - { speaker: Marcos, text: "If the tag looks right, check the imagePullSecret next — the new cluster needs one called registry-creds, or every pull gets denied." }
+    - { speaker: Priya, text: "And if you're pairing, share the screen and read the events out loud — two pairs of eyes beat one, every time." }
+  questions:
+    - { id: M02-05-l1, type: multiple_choice, prompt: "What should you do first when a pod is in ImagePullBackOff?", options: ["Describe the pod and read the events", "Restart the cluster", "Roll back immediately", "Delete the pod"], answer: 0, explanation: '"describe it first — the events tell you why"', tags: [comp.listening, vocab.k8s] }
+    - { id: M02-05-l2, type: multiple_choice, prompt: "Which causes does Ana list for a failed pull?", options: ["Bad CPU and low memory", "Old kubectl version", "Bad tag, missing pull secret, or registry down", "Wrong namespace only"], answer: 2, explanation: '"bad tag, missing pull secret, or the registry is down"', tags: [comp.listening, vocab.k8s] }
+    - { id: M02-05-l3, type: multiple_choice, prompt: "What does the new cluster need for the pull to work?", options: ["A bigger node", "A secret called registry-creds", "A new namespace", "A different tag format"], answer: 1, explanation: '"needs one called registry-creds"', tags: [comp.listening, vocab.k8s] }
+    - { id: M02-05-l4, type: fill_blank, prompt: "Two ___ of eyes beat one.", accepted: ["pairs"], explanation: '"two pairs of eyes" = duas pessoas olhando.', tags: [comp.listening, topic.help] }
+    - { id: M02-05-l5, type: multiple_choice, prompt: "Why does Priya say to read the events out loud?", options: ["To practice pronunciation", "Because the mic is on", "To fill the silence", "Because two pairs of eyes beat one"], answer: 3, explanation: "Ler em voz alta compartilha a evidência — e expõe o erro.", tags: [comp.listening, topic.help] }
+    - { id: M02-05-l6, type: multiple_choice, prompt: "What is Marcos's advice if the tag looks right?", options: ["Reboot the node", "Check the imagePullSecret", "Wait an hour", "Rename the pod"], answer: 1, explanation: '"check the imagePullSecret next"', tags: [comp.listening, vocab.k8s] }
+
+writing:
+  prompt: |
+    **Cenário:** a sessão de pair debugging acabou. Resumo do que aconteceu: o deploy da `v2.4.1` ficou
+    vinte minutos em `ImagePullBackOff`; você já tinha tentado reiniciar o pod (mesma falha); com a
+    Ana, o `kubectl describe` mostrou `failed to pull image: not found`; a causa era um erro de
+    digitação na tag (`v2.41`); corrigido e redeploy feito, o pod subiu.
+
+    **Tarefa:** escreva a nota de fechamento para o canal do time (70–90 palavras): o que aconteceu,
+    o que você tinha tentado, a causa confirmada, a correção e o agradecimento — sem drama e sem culpa.
+  constraints:
+    - { label: "O que já tinha tentado (tried / restarted / describe / events / checked)", pattern: "\\b(tried|restarted|describe|events|checked)\\b" }
+    - { label: "A causa confirmada (typo / mistyped / wrong tag / turned out / it was)", pattern: "\\b(typo|mistyped|wrong tag|turned out|it was)\\b" }
+    - { label: "O resultado (fixed / running / came up / redeployed / resolved / green)", pattern: "\\b(fixed|running|came up|redeployed|resolved|green)\\b" }
+    - { label: "Linguagem de pair/agradecimento (pair / pairing / thanks / walked me)", pattern: "\\b(pair|pairing|thanks|walked me)\\b" }
+  rubric:
+    - "Fatos na ordem: falha → tentativa → causa → correção"
+    - Causa confirmada com evidência, não suspeita
+    - Sem culpa e sem drama; admissão em uma frase
+    - Agradecimento que nomeia o que ajudou
+  model: >-
+    Closing the loop on this morning's deploy: the billing pod sat in ImagePullBackOff for twenty
+    minutes after the v2.4.1 rollout. I'd already tried restarting it — same failure. Ana paired with
+    me and `kubectl describe` showed "failed to pull image: not found" in the events. Turned out it was
+    a typo in the tag — v2.41 instead of v2.4.1. Fixed, redeployed, pod's running. Thanks for pairing,
+    Ana — runbook updated with the right tag.
+  minWords: 70
+  maxWords: 90
+  tags: [comp.writing, vocab.errors, vocab.k8s]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos simulando a abertura da call de pair debugging: peça o pair com urgência e motivo, dê o contexto e o que tentou, e faça a pergunta específica sobre o ImagePullBackOff."
+    maxSeconds: 45
+    targetPhrases:
+      - can you pair with me
+      - it's blocking the release
+      - here's the context
+      - I've already tried
+      - I expected it to
+      - but I got
+      - let me share my screen
+      - can you see my screen
+      - what do the events say
+      - try running
+      - I didn't catch that
+      - so it was
+      - that did it
+      - thanks for pairing
+    checklist:
+      - Pedi o pair com objeto e urgência real?
+      - Contexto → tentativa → pergunta, nessa ordem?
+      - Li a evidência antes de propor hipótese?
+      - Confirmei a causa antes de fechar?
+
+quiz:
+  - { id: M02-05-q1, type: multiple_choice, prompt: "Your pod is stuck in ImagePullBackOff. What is the first move?", options: ["Describe the pod and read the events", "Roll back right away", "Restart the cluster", "Post 'help!!!' in the channel"], answer: 0, explanation: "Evidência primeiro: os eventos dizem por que o pull falhou.", tags: [vocab.k8s, topic.help] }
+  - { id: M02-05-q2, type: error_correction, prompt: "Do you can pair with me on this?", accepted: ["Can you pair with me on this?", "Could you pair with me on this?", "Can you pair with me on this", "Could you pair with me on this"], explanation: "Auxiliar duplo: ou do/does ou o modal.", tags: [br.do-modal] }
+  - { id: M02-05-q3, type: fill_blank, prompt: "The events say 'failed to ___ image: not found'.", accepted: ["pull"], explanation: '"pull" = baixar a imagem do registry.', tags: [vocab.k8s] }
+  - { id: M02-05-q4, type: multiple_choice, prompt: "Ana mentions 'imagePullSecret' and you don't know it. What do you say?", options: ["Nothing — you'll look it up later.", "What does an imagePullSecret do, exactly?", "I know, obviously.", "Let's talk about something else."], answer: 1, explanation: "Pergunta de significado na hora — 'what does X do'.", tags: [gram.question-forms, comp.confidence] }
+  - { id: M02-05-q5, type: translate, prompt: "Era um erro de digitação na tag. O pod subiu depois da correção.", accepted: ["It was a typo in the tag. The pod came up after the fix.", "It was a typo in the tag. The pod is running after the fix.", "It was a typo in the image tag. The pod came up after the fix.", "Turned out it was a typo in the tag. The pod came up after the fix."], explanation: '"typo in the tag" + "came up" / "is running".', tags: [vocab.errors, vocab.k8s] }
+  - { id: M02-05-q6, type: error_correction, prompt: "The deploy is giving error.", accepted: ["The deploy is failing.", "I'm getting an error on the deploy.", "The deploy is failing", "I'm getting an error on the deploy"], explanation: '"Dar erro" não é "give error" — descreva o que acontece.', tags: [br.giving-error] }
+  - { id: M02-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "do", "events", "what", "say"], answer: "what do the events say", explanation: '"what do the events say" — evidência antes de hipótese.', tags: [vocab.k8s, gram.question-forms] }
+  - { id: M02-05-q8, type: match, prompt: "Associe a fase da call à frase.", pairs: [{ left: "pedir o pair", right: "can you pair with me" }, { left: "pedir evidência", right: "what do the events say" }, { left: "confirmar a causa", right: "so it was the tag" }, { left: "fechar", right: "thanks for pairing" }], explanation: "O arco da call de pair debugging.", tags: [topic.help, comp.speaking] }
+
+review:
+  count: 5
+  preferTags: [br.do-modal, vocab.k8s, topic.help]
+
+srsCards:
+  - { front: "pode fazer pair comigo nisso?", back: "Can you pair with me on this?", tag: topic.help }
+  - { front: "me guie pelo que você está vendo", back: "Walk me through what you see.", tag: topic.help }
+  - { front: "vou compartilhar minha tela", back: "Let me share my screen.", tag: comp.speaking }
+  - { front: "está vendo minha tela?", back: "Can you see my screen?", tag: comp.speaking }
+  - { front: "o que os eventos dizem?", back: "What do the events say?", tag: vocab.k8s }
+  - { front: "tente rodar X", back: "Try running X.", tag: gram.imperative }
+  - { front: "é um erro de digitação na tag", back: "It's a typo in the tag.", tag: vocab.errors }
+  - { front: "isso resolveu (o problema)", back: "That did it.", tag: vocab.errors }
+  - { front: "vamos reverter o deploy", back: "Let's roll it back.", tag: vocab.k8s }
+  - { front: "o que essa flag faz?", back: "What does that flag do?", tag: gram.question-forms }
+  - { front: "o cluster não consegue baixar a imagem do pod", back: "ImagePullBackOff", tag: vocab.k8s }
+  - { front: "obrigado pela sessão de debugging junto", back: "Thanks for pairing.", tag: topic.help }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
