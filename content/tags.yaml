@@ -68,6 +68,10 @@ tags:
   - { id: br.sorry-for-interrupt, group: br, label: "sorry for interrupt" }
   - { id: br.need-that-you,      group: br, label: "need that you" }
   - { id: br.did-past,           group: br, label: "did/don't + verbo no passado" }
+  - { id: br.said-me,            group: br, label: "said me (tell + pessoa)" }
+  - { id: br.ask-to,             group: br, label: "ask to him/her" }
+  - { id: br.on-next,            group: br, label: "on/in next week" }
+  - { id: br.send-to-me,         group: br, label: "send to me the X" }
   # Situação
   - { id: topic.daily,         group: topic, label: Daily standup }
   - { id: topic.help,          group: topic, label: Pedir ajuda }

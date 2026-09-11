@@ -131,6 +131,35 @@ describe("detectBrErrors", () => {
     for (const s of clean) expect(detectBrErrors(s, patterns), s).toEqual([]);
     expect(tagsOf("It depends of the runner.")).toContain("br.depend-of");
   });
+  it("flags 'said me' but not 'told me' or 'said to me'", () => {
+    expect(tagsOf("She said me to check the logs.")).toContain("br.said-me");
+    expect(tagsOf("Marcos says me the freeze starts tomorrow.")).toContain("br.said-me");
+    expect(tagsOf("She told me to check the logs.")).not.toContain("br.said-me");
+    expect(tagsOf("He said to me the fix was live.")).not.toContain("br.said-me");
+    expect(tagsOf("He said, 'me too'.")).not.toContain("br.said-me");
+    expect(tagsOf("What did she say? Me, I think it's fine.")).not.toContain("br.said-me");
+  });
+  it("flags 'ask to + pronoun' only", () => {
+    expect(tagsOf("Ask to him about the freeze.")).toContain("br.ask-to");
+    expect(tagsOf("You can ask to her in the thread.")).toContain("br.ask-to");
+    expect(tagsOf("Ask him about the freeze.")).not.toContain("br.ask-to");
+    expect(tagsOf("Ask to join the huddle.")).not.toContain("br.ask-to");
+    expect(tagsOf("May I ask you to check?")).not.toContain("br.ask-to");
+  });
+  it("flags preposition + 'next <period>' but not possessives", () => {
+    expect(tagsOf("The deploy is on next week.")).toContain("br.on-next");
+    expect(tagsOf("I'll pick this up in next Monday.")).toContain("br.on-next");
+    expect(tagsOf("I'll pick this up next week.")).not.toContain("br.on-next");
+    expect(tagsOf("Let's review it in next week's planning.")).not.toContain("br.on-next");
+    expect(tagsOf("See you on the next call.")).not.toContain("br.on-next");
+  });
+  it("flags 'send to me the X' word-order calque only", () => {
+    expect(tagsOf("Can you send to me the runbook?")).toContain("br.send-to-me");
+    expect(tagsOf("She forwarded to me the thread.")).toContain("br.send-to-me");
+    expect(tagsOf("Send me the runbook.")).not.toContain("br.send-to-me");
+    expect(tagsOf("Send the runbook to me.")).not.toContain("br.send-to-me");
+    expect(tagsOf("She replied to me.")).not.toContain("br.send-to-me");
+  });
   it("still flags the narrowed calques", () => {
     expect(tagsOf("Any doubts?")).toContain("br.doubt");
     expect(tagsOf("I have 30 years.")).toContain("br.have-years");

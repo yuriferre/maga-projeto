@@ -130,3 +130,28 @@ patterns:
     right: "Currently I'm working at a bank / I'm working at a bank now"
     why: "actually = na verdade (correção ou surpresa). Atualmente é currently / nowadays / at the moment."
     tag: br.actually
+  - id: said-pronoun
+    pattern: "\\b(say|says|said|saying) (me|him|her|us|them)\\b"
+    wrong: "She said me to check the logs"
+    right: "She told me to check the logs / She said to me…"
+    why: "say não leva objeto indireto sem 'to'; o natural é tell + pessoa."
+    tag: br.said-me
+  - id: ask-to-pronoun
+    pattern: "\\bask to (him|her|them|us|me|you)\\b"
+    wrong: "Ask to him about the freeze"
+    right: "Ask him about the freeze"
+    why: 'Calque de "pergunte para ele": ask + pessoa, sem "to".'
+    tag: br.ask-to
+  # O (?!') protege "next week's meeting", que é correta.
+  - id: prep-next
+    pattern: "\\b(on|in|at) next (week|month|year|quarter|sprint|release|monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b(?!')"
+    wrong: "The deploy is on next week"
+    right: "The deploy is next week"
+    why: "next + período dispensa preposição (next week, next Monday)."
+    tag: br.on-next
+  - id: verb-to-pronoun-object
+    pattern: "\\b(send|sent|sends|sending|forward|forwards|forwarded|forwarding|reply|replied|replies|replying) to (me|him|her|us|them) (the|a|an|this|that|my|your|our)\\b"
+    wrong: "Can you send to me the runbook?"
+    right: "Send me the runbook / Send the runbook to me"
+    why: 'Calque de "me manda o arquivo": send + pessoa + objeto, ou send + objeto + to + pessoa.'
+    tag: br.send-to-me
