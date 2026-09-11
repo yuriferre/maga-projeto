@@ -1,0 +1,292 @@
+id: M05-02
+module: M05
+order: 2
+title: "Fluxos: the request goes through → hits → gets routed to → returns"
+objective: >-
+  Ao final, você narra o caminho de uma request de ponta a ponta — onde ela
+  entra, por onde passa, quem a encaminha e onde ela termina — com os verbos
+  de fluxo e os conectores de sequência certos.
+durationMin: 35
+competencies: [SPK, VOC, PRO]
+tags: [vocab.architecture, topic.architecture, comp.speaking, comp.vocabulary, gram.present-simple-process, br.third-person-s, br.arrive-on]
+prerequisites: [M05-01]
+
+context:
+  scenario: |
+    Na descrição de componentes você disse O QUE existe. Agora a pergunta é
+    outra: "e quando uma request chega, o que acontece?" — é a hora de narrar
+    movimento, não posição.
+
+    Fluxo é sequência: `first`, `then`, `next`, `from there`, `finally`. E é
+    verbo de movimento: `goes through`, `hits`, `gets routed to`, `forwards`,
+    `returns`. Cada verbo diz algo sobre a request: "hits" é a chegada
+    brusca, "gets routed to" é alguém decidir o destino, "returns" é o
+    caminho de volta.
+
+    O mesmo sistema de sempre: request → CDN → gateway → serviço → banco →
+    volta. Você vai contá-lo como uma história de 30 segundos.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: goes through
+    meaning: passa por — atravessa um componente
+    example: "Every request goes through the gateway before it reaches a service."
+    translation: "Toda request passa pelo gateway antes de chegar a um serviço."
+    note: '"through" porque atravessa e continua; diferente de "goes to" (para ali e acabou).'
+  - term: hits
+    meaning: bate em — chega a um componente (mais enfático que "reaches")
+    example: "The request hits the CDN first."
+    translation: "A request bate na CDN primeiro."
+    note: '"hits" = o primeiro contato; comum em logs: "the spike hit at 14:02".'
+  - term: gets routed to
+    meaning: é encaminhada para — alguém decide o destino
+    example: "After auth, the request gets routed to the right service."
+    translation: "Depois da auth, a request é encaminhada para o serviço certo."
+    note: 'Passiva: o gateway decide, a request é levada. Mais preciso que "goes to".'
+  - term: forwards (to)
+    meaning: encaminha — passa adiante sem decidir
+    example: "The load balancer forwards the request to a healthy pod."
+    translation: "O load balancer encaminha a request para um pod saudável."
+    note: '"routes" decide o destino; "forwards" só repassa.'
+  - term: returns
+    meaning: retorna — o caminho de volta até o cliente
+    example: "The response returns through the same chain."
+    translation: "A resposta retorna pela mesma cadeia."
+    note: 'Verbo intransitivo aqui: "the response returns". "The API returns data" = transitivo.'
+  - term: "first, then, next, finally"
+    meaning: primeiro, depois, em seguida, por fim — conectores de sequência
+    example: "First the request hits the CDN, then it goes through the gateway, finally it reaches the service."
+    translation: "Primeiro a request bate na CDN, depois passa pelo gateway, por fim chega ao serviço."
+    note: Sem conector, a narrativa vira uma lista telefônica — "and then, and then" cansa.
+  - term: "from there"
+    meaning: dali — conecta o passo seguinte ao ponto anterior
+    example: "From there, it goes to the queue."
+    translation: "Dali, ela vai para a fila."
+    note: Mais natural que repetir "then the request…" toda hora.
+  - term: ends up
+    meaning: acaba em — o destino final da request
+    example: "Read requests end up at the replica; writes end up at the primary."
+    translation: "Requests de leitura acabam na réplica; escritas acabam no primário."
+    note: '"ends up at" para o ponto final; transmite "depois de tudo, é ali".'
+  - term: bounces (back)
+    meaning: retorna com erro — a request é devolvida
+    example: "If the service is down, the request bounces back to the gateway."
+    translation: "Se o serviço cai, a request volta para o gateway."
+    note: '"Bounce" de e-mail que retorna; a request "bounces back" com 502/503.'
+  - term: times out
+    meaning: expira — a request morre por tempo
+    example: "If the database is slow, the request times out at 30 seconds."
+    translation: "Se o banco está lento, a request expira em 30 segundos."
+    note: O fluxo que não completa; contraste com "returns" (volta com resposta).
+  - term: "in parallel"
+    meaning: em paralelo — dois caminhos ao mesmo tempo
+    example: "The service talks to the cache and to the database in parallel."
+    translation: "O serviço fala com o cache e com o banco em paralelo."
+    note: Importante quando o fluxo não é uma linha só.
+  - term: round trip
+    meaning: viagem de ida e volta — request + resposta
+    example: "The whole round trip takes about 80 milliseconds."
+    translation: "A viagem de ida e volta leva uns 80 milissegundos."
+    note: Métrica de latência; fecha a narrativa do fluxo.
+  - term: "a happy path"
+    meaning: caminho feliz — o fluxo quando nada falha
+    example: "That's the happy path — no timeouts, no retries."
+    translation: "Esse é o caminho feliz — sem timeouts, sem retries."
+    note: Depois do happy path vem "but if X fails…".
+
+grammar:
+  title: "Sequência: conectores + presente simples"
+  explanation: |
+    Fluxo é **processo que se repete** — presente simples, como a arquitetura: *the request hits the CDN, goes through the gateway, gets routed to a service.*
+
+    **Os conectores de sequência:**
+
+    | Conector | Papel |
+    |---|---|
+    | first | abre a sequência |
+    | then / next | cada passo do meio |
+    | from there | retoma de onde parou |
+    | finally / ends up | o destino final |
+
+    **Os verbos de fluxo em ordem de "decisão":**
+
+    | Verbo | Quem decide? |
+    |---|---|
+    | goes through | ninguém — só atravessa |
+    | hits | ninguém — é o impacto da chegada |
+    | gets routed to | um componente decide |
+    | is forwarded to | repassado sem decidir |
+    | returns | o caminho de volta |
+
+    **Os erros BR de sempre:** terceira pessoa sem -s (*the request go through*), "arrive on the server" (é *arrive at* ou *reaches*), e "the datas" (data é incontável).
+  examples:
+    - { en: "First the request hits the CDN, then it goes through the gateway.", pt: "Primeiro a request bate na CDN, depois passa pelo gateway." }
+    - { en: "After auth, it gets routed to the checkout service.", pt: "Depois da auth, ela é encaminhada para o serviço de checkout." }
+    - { en: "From there, the service calls the database.", pt: "Dali, o serviço chama o banco." }
+    - { en: "The response returns through the same chain.", pt: "A resposta retorna pela mesma cadeia." }
+    - { en: "If the service is down, the request bounces back.", pt: "Se o serviço cai, a request volta." }
+    - { en: "The whole round trip takes about 80 milliseconds.", pt: "A viagem de ida e volta leva uns 80 milissegundos." }
+
+examples:
+  - en: "First the request hits the CDN — that's the entry point."
+    pt: "Primeiro a request bate na CDN — é o ponto de entrada."
+    context: Abrir a narrativa pelo primeiro contato.
+  - en: "Then it goes through the gateway, which checks auth and rate limits."
+    pt: "Depois ela passa pelo gateway, que verifica auth e rate limits."
+    context: '"goes through" + uma cláusula de "which" explica o que acontece ali.'
+  - en: "Next, the request gets routed to checkout or payments, depending on the path."
+    pt: "Em seguida, a request é encaminhada para checkout ou pagamentos, dependendo do caminho."
+    context: '"gets routed to" = o gateway decide o destino.'
+  - en: "From there, the service talks to Postgres if it needs data."
+    pt: "Dali, o serviço fala com o Postgres se precisar de dados."
+    context: '"from there" retoma o ponto anterior.'
+  - en: "Finally, the response returns through the same chain — the whole round trip takes about 80 ms."
+    pt: "Por fim, a resposta retorna pela mesma cadeia — a viagem de ida e volta leva uns 80 ms."
+    context: Fechar a narrativa com o retorno e a latência.
+  - en: "If the database is slow, the request times out at 30 seconds — the client sees a 504."
+    pt: "Se o banco está lento, a request expira em 30 segundos — o cliente vê um 504."
+    context: O fluxo infeliz depois do happy path.
+  - en: "Read requests end up at the replica; writes go to the primary."
+    pt: "Requests de leitura acabam na réplica; escritas vão para o primário."
+    context: '"ends up at" para o destino final.'
+  - en: "The request arrives at the service, not on it."
+    pt: "A request chega AO serviço, não NELE."
+    context: '"arrive at" — o ponto técnico é "at", não "on".'
+
+variations:
+  - idea: '"narrar o caminho da request"'
+    items:
+      - { register: "Boa", text: "First it hits the CDN, then it goes through the gateway, finally it reaches the service.", adequate: true }
+      - { register: "Boa", text: "The request goes to the gateway, gets routed to a service, and the response comes back the same way.", adequate: true }
+      - { register: "Inadequada", text: "The request go through the gateway.", adequate: false, note: 'Terceira pessoa leva -s: "goes through".' }
+      - { register: "Inadequada", text: "The request arrives on the service.", adequate: false, note: '"arrive on" é calque — é "arrives at" ou "reaches".' }
+  - idea: '"dizer o que acontece quando falha"'
+    items:
+      - { register: "Boa", text: "If the service is down, the request bounces back to the client as a 502.", adequate: true }
+      - { register: "Boa", text: "If the DB is slow, the request times out at 30 seconds.", adequate: true }
+      - { register: "Inadequada", text: "If the service is down, the request return back.", adequate: false, note: '"return back" é redundante — "returns" ou "bounces back".' }
+      - { register: "Inadequada", text: "The request is timeout.", adequate: false, note: '"times out" é verbo: "the request times out".' }
+
+brErrors:
+  - { wrong: "The request go through the gateway.", right: "The request goes through the gateway.", why: "terceira pessoa leva -s: goes", tag: br.third-person-s }
+  - { wrong: "This service talk to the database.", right: "This service talks to the database.", why: "terceira pessoa leva -s: talks", tag: br.third-person-s }
+  - { wrong: "The load balancer route traffic to pods.", right: "The load balancer routes traffic to pods.", why: "terceira pessoa leva -s: routes", tag: br.third-person-s }
+  - { wrong: "The request arrives on the server.", right: "The request arrives at the server.", why: '"arrive on" é calque — é "arrives at" ou "reaches"', tag: br.arrive-on }
+  - { wrong: "The packet arrived in the pod.", right: "The packet arrived at the pod.", why: "chegar a um ponto técnico é \"arrive at\"", tag: br.arrive-on }
+  - { wrong: "The flow returns the datas to the client.", right: "The flow returns the data to the client.", why: "data é incontável — sem plural", tag: br.uncountable }
+  - { wrong: "The service listens in port 8080.", right: "The service listens on port 8080.", why: "serviço escuta ON a porta", tag: br.listen-in }
+  - { wrong: "I have a doubt about the flow.", right: "I have a question about the flow.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The response is more fast with the cache.", right: "The response is faster with the cache.", why: "fast é adjetivo curto: faster", tag: br.more-er }
+  - { wrong: "He said me the request hits the CDN first.", right: "He told me the request hits the CDN first.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "E quando uma request chega — o que acontece?"
+  lines:
+    - { speaker: Marcos, text: "Okay, I see the components. Now — when a request comes in, what actually happens?" }
+    - { speaker: Yuri, text: "First it hits the CDN. If the content is cached, it returns right there — the happy path for static assets." }
+    - { speaker: Marcos, text: "And if it's not cached?" }
+    - { speaker: Yuri, text: "Then it goes through the gateway. The gateway checks auth and rate limits, and the request gets routed to checkout or payments, depending on the path." }
+    - { speaker: Marcos, text: "From there?" }
+    - { speaker: Yuri, text: "From there, the service talks to Postgres if it needs data, and puts emails on the queue. The workers handle those in parallel." }
+    - { speaker: Marcos, text: "And the response?" }
+    - { speaker: Yuri, text: "It returns through the same chain — the whole round trip takes about 80 milliseconds. If anything's slow, the request times out at 30 seconds." }
+    - { speaker: Marcos, text: "So: CDN, gateway, service, DB — and the queue for the async stuff. Clear." }
+  notes:
+    - '"first / then / from there / finally" seguram a sequência; "hits / goes through / gets routed to / returns" são os verbos.'
+    - 'a pergunta "and if it''s not cached?" abre o ramo infeliz — fluxo feliz × fluxo infeliz.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Walk through a request: it hits the CDN first — static stuff returns there. Dynamic requests go through the gateway, which checks auth, and get routed to a service." }
+    - { speaker: Marcos, text: "Then the service talks to Postgres if it needs data. The response comes back the same way. Round trip is about 80 ms on a good day." }
+    - { speaker: Priya, text: "And if the service is down, the request bounces back as a 502 — the client retries. If the DB is just slow, it times out at 30 seconds with a 504." }
+  questions:
+    - { id: M05-02-l1, type: multiple_choice, prompt: "What happens first when a request comes in?", options: ["It hits the gateway", "It hits the service", "It hits the CDN", "It hits Postgres"], answer: 2, explanation: '"it hits the CDN first."', tags: [comp.listening] }
+    - { id: M05-02-l2, type: multiple_choice, prompt: "What does the gateway do?", options: ["caches static content", "checks auth and routes the request", "talks to Postgres", "sends emails"], answer: 1, explanation: '"goes through the gateway, which checks auth, and get routed to a service."', tags: [comp.listening] }
+    - { id: M05-02-l3, type: fill_blank, prompt: "The response ___ back the same way.", accepted: ["comes", "returns"], explanation: '"returns/comes back" — o caminho de volta.', tags: [vocab.architecture, comp.listening] }
+    - { id: M05-02-l4, type: multiple_choice, prompt: "What happens if the service is down?", options: ["The request times out at 30 s", "The request bounces back as a 502", "The CDN caches it", "The queue holds it"], answer: 1, explanation: '"if the service is down, the request bounces back as a 502."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-02-l5, type: multiple_choice, prompt: "What does 'round trip' mean here?", options: ["the request only", "the response only", "the retry loop", "request + response, ida e volta"], answer: 3, explanation: '"round trip is about 80 ms" — ida + volta.', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-02-l6, type: fill_blank, prompt: "If the DB is slow, the request ___ out at 30 seconds.", accepted: ["times"], explanation: '"times out" — expira por tempo.', tags: [vocab.architecture, comp.listening] }
+
+writing:
+  prompt: |
+    **Cenário:** continue descrevendo o checkout para o colega novo — agora ele perguntou: "and when a request comes in?". O fluxo: request → CDN (cache para estáticos) → gateway (auth + rate limit) → serviço (checkout ou payments) → Postgres se precisar de dados → fila para e-mails → resposta volta pelo mesmo caminho (~80 ms); se o serviço cai, 502; se o DB demora, 504 em 30 s.
+
+    **Tarefa:** escreva a narrativa do fluxo em texto corrido (60–90 palavras): a sequência completa e o que acontece quando falha.
+  constraints:
+    - { label: "Conector de sequência", pattern: "\\b(first|then|next|finally|from there|after)\\b" }
+    - { label: "Verbo de fluxo", pattern: "\\b(goes? through|hits?|gets? routed|forward(s|ed)?|returns?|reaches|ends? up)\\b" }
+    - { label: "Componente de infra nomeado", pattern: "\\b(cdn|gateway|service|database|postgres|queue|pod|api|client)\\b" }
+    - { label: "Caminho infeliz (timeout/erro)", pattern: "\\b(times? out|bounces?|50[0-9]|retry|retries|fails?|down)\\b" }
+  rubric:
+    - Sequência com first/then/finally ou equivalente
+    - Verbos de fluxo corretos (goes through, gets routed to, returns)
+    - O que acontece quando falha
+    - Terceira pessoa com -s; "arrive at", não "arrive on"
+  model: >-
+    First the request hits the CDN — static assets return right there. Dynamic requests then go
+    through the gateway, which checks auth and rate limits, and get routed to checkout or payments.
+    From there, the service talks to Postgres if it needs data and puts emails on the queue.
+    Finally, the response returns through the same chain — the whole round trip takes about 80 ms.
+    If a service is down, the request bounces back as a 502; if the DB is slow, it times out at 30 s.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.architecture, topic.architecture]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos narrando o fluxo de uma request de ponta a ponta — onde ela entra, por onde passa, quem a encaminha e onde ela termina.
+    maxSeconds: 45
+    targetPhrases:
+      - the request hits
+      - goes through
+      - gets routed to
+      - from there
+      - the response returns
+      - ends up at
+      - bounces back
+      - times out
+      - in parallel
+      - the happy path
+      - first, then
+      - the whole round trip
+      - arrives at
+      - talks to
+    checklist:
+      - Narrei a sequência com conectores (first, then, finally)?
+      - Usei verbos de fluxo corretos (hits, goes through, gets routed to, returns)?
+      - Cobri o que acontece quando falha (bounces/times out)?
+      - Terceira pessoa com -s; "arrive at", não "arrive on"?
+
+quiz:
+  - { id: M05-02-q1, type: multiple_choice, prompt: "Which verb means 'a componente decide o destino'?", options: ["goes through", "gets routed to", "hits", "bounces"], answer: 1, explanation: '"gets routed to" = alguém decide para onde ela vai.', tags: [vocab.architecture] }
+  - { id: M05-02-q2, type: error_correction, prompt: "The request go through the gateway and arrive on the service.", accepted: ["The request goes through the gateway and arrives at the service.", "The request goes through the gateway and arrives at the service", "The request goes through the gateway and reaches the service.", "The request goes through the gateway and reaches the service"], explanation: "Dois erros: goes (3ª pessoa) e arrives at (não on).", tags: [br.third-person-s, br.arrive-on] }
+  - { id: M05-02-q3, type: multiple_choice, prompt: "Put the flow in order.", options: ["gateway → CDN → service → DB", "CDN → service → gateway → DB", "DB → service → gateway → CDN", "CDN → gateway → service → DB"], answer: 3, explanation: "CDN primeiro (fachada), gateway (auth), service (lógica), DB (dados).", tags: [vocab.architecture] }
+  - { id: M05-02-q4, type: fill_blank, prompt: "The request hits the CDN first; ___ it goes through the gateway.", accepted: ["then", "next", "from there"], explanation: '"then" / "next" / "from there" — o conector do passo seguinte.', tags: [gram.present-simple-process] }
+  - { id: M05-02-q5, type: error_correction, prompt: "If the service is down, the request return back.", accepted: ["If the service is down, the request returns.", "If the service is down, the request returns", "If the service is down, the request bounces back.", "If the service is down, the request bounces back"], explanation: '"return back" é redundante — "returns" ou "bounces back".', tags: [vocab.architecture] }
+  - { id: M05-02-q6, type: translate, prompt: "Se o banco está lento, a request expira em 30 segundos.", accepted: ["If the database is slow, the request times out at 30 seconds.", "If the database is slow, the request times out at 30 seconds", "If the DB is slow, the request times out at 30 seconds."], explanation: '"times out" — o verbo para expirar por tempo.', tags: [vocab.architecture] }
+  - { id: M05-02-q7, type: multiple_choice, prompt: "Which sentence narrates the flow correctly?", options: ["The request hits the CDN and goes through the gateway.", "The request hit the CDN and go through the gateway.", "The request hits in the CDN and go through the gateway.", "The request arriving at the CDN first."], answer: 0, explanation: '"hits" com -s e "goes through"; "hits in" e "go" sem -s são erros.', tags: [gram.present-simple-process, vocab.architecture] }
+  - { id: M05-02-q8, type: match, prompt: "Associe o verbo ao papel no fluxo.", pairs: [{ left: "hits", right: "the first contact" }, { left: "gets routed to", right: "someone decides the destination" }, { left: "forwards to", right: "passes on without deciding" }, { left: "ends up at", right: "the final destination" }], explanation: "Quatro verbos, quatro nuances de movimento.", tags: [vocab.architecture] }
+
+review:
+  count: 5
+  preferTags: [vocab.architecture, br.arrive-on, br.third-person-s]
+
+srsCards:
+  - { front: "a request passa pelo gateway", back: "the request goes through the gateway", tag: br.third-person-s }
+  - { front: "a request bate na CDN primeiro", back: "the request hits the CDN first", tag: vocab.architecture }
+  - { front: "é encaminhada para o serviço", back: "gets routed to the service", tag: vocab.architecture }
+  - { front: "encaminha para um pod saudável", back: "forwards to a healthy pod", tag: vocab.architecture }
+  - { front: "a resposta volta pelo mesmo caminho", back: "the response returns the same way", tag: vocab.architecture }
+  - { front: "primeiro… depois… por fim", back: "first… then… finally…", tag: gram.present-simple-process }
+  - { front: "dali, ela vai para a fila", back: "from there, it goes to the queue", tag: vocab.architecture }
+  - { front: "acaba na réplica", back: "ends up at the replica", tag: vocab.architecture }
+  - { front: "a request volta com 502", back: "the request bounces back as a 502", tag: vocab.architecture }
+  - { front: "expira em 30 segundos", back: "times out at 30 seconds", tag: vocab.architecture }
+  - { front: "a request chega ao serviço", back: "the request arrives at the service", tag: br.arrive-on }
+  - { front: "a viagem de ida e volta", back: "the round trip", tag: vocab.architecture }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
