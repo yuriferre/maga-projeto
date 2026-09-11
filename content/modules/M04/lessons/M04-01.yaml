@@ -1,0 +1,293 @@
+id: M04-01
+module: M04
+order: 1
+title: "Anatomia de mensagens de erro: expected/got, failed to, unable to, denied, timed out, refused, not found"
+objective: >-
+  Ao final, você lê uma mensagem de erro em três passos: o que falhou (o verbo),
+  o que a mensagem compara (expected × got) e onde ela aponta o próximo lugar
+  para olhar. Você também consegue relatar o que leu em uma frase.
+durationMin: 35
+competencies: [REA, VOC]
+tags: [vocab.errors, topic.reading, comp.reading, comp.vocabulary, br.giving-error, br.did-past, br.irregular-past, br.for-to]
+prerequisites: []
+
+context:
+  scenario: |
+    Seu pod não sobe. `kubectl describe` cospe dez linhas de eventos e você trava
+    na primeira. Dez minutos depois, a resposta estava na última linha o tempo
+    todo: `failed to pull image … not found`. A tag da imagem tinha um typo.
+
+    Mensagem de erro não é texto corrido — é estrutura. Quem lê com método sabe
+    que `failed to` aponta a ação que quebrou, que `denied` é sobre permissão e
+    não sobre rede, e que `expected 2, got 1` já diz exatamente onde procurar.
+    A aula ensina essa anatomia com erros reais de kubectl, curl e Terraform.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: "expected … got …"
+    meaning: a comparação que a mensagem faz entre o esperado e o que veio
+    example: "Error: expected 2 arguments, got 1."
+    translation: "Erro: esperava 2 argumentos, recebeu 1."
+    note: A diferença entre os dois valores é o bug — leia os dois lados antes de mexer em qualquer coisa.
+  - term: failed to
+    meaning: não conseguiu fazer — a ação que quebrou
+    example: "Failed to pull image \"registry.example.com/payments:v1.4.2\"."
+    translation: "Falhou ao baixar a imagem."
+    note: 'Depois de "failed to" vem o verbo da ação — é aí que a investigação começa.'
+  - term: unable to
+    meaning: não foi capaz de — prima formal do "failed to"
+    example: "Unable to connect to the server: dial tcp 10.0.0.1:443: i/o timeout."
+    translation: "Não conseguiu conectar ao servidor: timeout de i/o."
+    note: kubectl adora essa forma; o motivo real vem depois dos dois-pontos.
+  - term: permission denied
+    meaning: acesso negado — quem chamou não tem direito
+    example: "Error: opening file: permission denied."
+    translation: "Erro: ao abrir o arquivo: permissão negada."
+    note: Problema de credencial ou escopo — não de rede. Não adianta dar retry sem mudar a permissão.
+  - term: timed out
+    meaning: estourou o tempo limite esperando resposta
+    example: "Get https://api.internal: dial tcp: i/o timeout — request timed out."
+    translation: "A requisição estourou o tempo limite."
+    note: Ninguém respondeu. Rede, firewall ou serviço morto — diferente de "refused".
+  - term: connection refused
+    meaning: a conexão foi rejeitada ativamente
+    example: "curl: (7) Failed to connect to api.internal port 443: Connection refused."
+    translation: "Falhou ao conectar na porta 443: conexão recusada."
+    note: Alguém respondeu "não" — a máquina está de pé, mas a porta está fechada. É pista, não beco.
+  - term: not found
+    meaning: não encontrado — o recurso pedido não existe
+    example: "Error from server (NotFound): pods \"api-7d9\" not found."
+    translation: "Erro do servidor (NotFound): pod não encontrado."
+    note: Nome errado, namespace errado ou recurso apagado. Cheque o nome antes de tudo.
+  - term: root cause
+    meaning: causa raiz — o motivo de verdade atrás da falha
+    example: "The pod crashed, but the root cause was a missing env var."
+    translation: "O pod crashou, mas a causa raiz era uma env var faltando."
+    note: O erro que você vê primeiro costuma ser sintoma; a root cause é o que você corrige.
+  - term: "the error says"
+    meaning: o erro diz — para relatar o que você leu
+    example: "The error says the image tag doesn't exist."
+    translation: "O erro diz que a tag da imagem não existe."
+    note: 'Forma curta de reportar leitura. Nunca "the error is saying me".'
+  - term: it means
+    meaning: quer dizer — ao traduzir o erro para linguagem comum
+    example: "\"Connection refused\" — it means the port is closed, not that the host is down."
+    translation: '"Conexão recusada" — quer dizer que a porta está fechada, não que o host caiu.'
+    note: Use depois de citar o erro para dar a interpretação.
+  - term: in other words
+    meaning: em outras palavras — ao resumir o erro
+    example: "In other words: the tag was wrong, the registry is fine."
+    translation: "Em outras palavras: a tag estava errada, o registry está bem."
+    note: Bom para a frase-resumo depois de ler o erro inteiro.
+  - term: exit code
+    meaning: código de saída — 0 = sucesso, qualquer outro = falha
+    example: "The script exited with code 1 — check the last line before the exit."
+    translation: "O script saiu com código 1 — cheque a última linha antes da saída."
+    note: Exit code diz SE falhou; a mensagem diz POR QUÊ.
+  - term: known issue
+    meaning: problema conhecido — já reportado e documentado
+    example: "That's a known issue with version 1.4 — the workaround is in the tracker."
+    translation: "Isso é um problema conhecido na versão 1.4 — a gambi… a solução está no tracker."
+    note: Antes de debugar do zero, cheque se o erro é um known issue.
+  - term: status code
+    meaning: código de status — a categoria numérica da resposta
+    example: "The API returned status code 403 — authenticated, but not allowed."
+    translation: "A API retornou 403 — autenticado, mas sem permissão."
+    note: 401 = quem é você? 403 = sei quem você é e não pode. Confundir os dois manda a investigação pro lado errado.
+  - term: "bottom line"
+    meaning: a conclusão — o que importa depois de ler tudo
+    example: "Bottom line: the registry credentials expired — the image itself is fine."
+    translation: "Conclusão: as credenciais do registry expiraram — a imagem está bem."
+    note: Use para a frase-resumo no fim da leitura.
+
+grammar:
+  title: "A frase de erro tem esqueleto fixo"
+  explanation: |
+    Mensagens de erro seguem um padrão de três partes: **[quem falhou] + [o que tentou] + [por que não deu]**.
+
+    | Trecho real | Quem | O quê | Por quê |
+    |---|---|---|---|
+    | *Failed to pull image …: not found* | o kubelet | pull da imagem | ela não existe |
+    | *Unable to connect to the server: i/o timeout* | o kubectl | conectar | ninguém respondeu |
+    | *Error: creating EC2 instance: UnauthorizedOperation* | o Terraform | criar a instância | a role não permite |
+    | *expected 2 arguments, got 1* | o CLI | parsear o comando | faltou um argumento |
+
+    **Verbo no passado + infinitivo.** "Failed to pull", "unable to connect", "denied access" — a ação quebrada vem no infinitivo depois do marcador. É o primeiro lugar para olhar.
+
+    **O depois-dois-pontos é o motivo.** Em `unable to connect: i/o timeout`, o que importa está depois do `:` — o timeout. A primeira metade só diz quem reclamou.
+
+    **`denied` ≠ `refused` ≠ `timed out`.** *denied* = você não tem permissão (troque credencial); *refused* = a porta fechou na sua cara (serviço fora ou porta errada); *timed out* = silêncio total (rede, firewall ou host morto). Três erros, três investigações diferentes.
+  examples:
+    - { en: "Failed to pull image \"app:v2\": not found — the tag doesn't exist.", pt: "Falhou ao baixar a imagem: não encontrada — a tag não existe." }
+    - { en: "Unable to connect to the server: i/o timeout.", pt: "Não conseguiu conectar ao servidor: timeout." }
+    - { en: "curl: (7) Failed to connect to api.internal port 443: Connection refused.", pt: "curl: falhou ao conectar na porta 443: conexão recusada." }
+    - { en: "Error: expected 2 arguments, got 1.", pt: "Erro: esperava 2 argumentos, recebeu 1." }
+    - { en: "Error from server (Forbidden): pods is forbidden — permission denied.", pt: "Erro do servidor (Forbidden): pods é proibido — permissão negada." }
+
+examples:
+  - en: "Failed to pull image \"payments:v1.4.2\": rpc error — not found."
+    pt: "Falhou ao baixar a imagem: erro rpc — não encontrada."
+    context: O verbo quebrado é pull; o motivo é not found → a tag provavelmente está errada.
+  - en: "Unable to reach the cluster: connection timed out after 30s."
+    pt: "Não conseguiu alcançar o cluster: a conexão estourou os 30 s."
+    context: "timeout = silêncio total: VPN, firewall ou o cluster está morto."
+  - en: "curl: (7) Failed to connect to localhost port 8080: Connection refused."
+    pt: "curl: falhou ao conectar em localhost:8080: conexão recusada."
+    context: A máquina respondeu e a porta está fechada — o serviço não subiu.
+  - en: "Error: expected a map, got a string."
+    pt: "Erro: esperava um map, recebeu uma string."
+    context: expected/got — o tipo errado foi passado; procure o valor no YAML.
+  - en: "Permission denied while writing to /var/log/app.log."
+    pt: "Permissão negada ao escrever no log."
+    context: "denied = credencial ou dono do arquivo — retry não resolve."
+  - en: "The error says the image tag doesn't exist — it means we pushed the wrong tag."
+    pt: "O erro diz que a tag não existe — quer dizer que subimos a tag errada."
+    context: '"the error says" + "it means": citar e interpretar em uma frase.'
+  - en: "Bottom line: the service account has no pull permission — known issue, workaround in the tracker."
+    pt: "Conclusão: a service account não tem permissão de pull — problema conhecido, solução no tracker."
+    context: A frase-resumo depois da leitura completa.
+  - en: "I didn't understand the exit code at first — the log says the step timed out."
+    pt: "Não entendi o exit code de primeira — o log diz que a etapa estourou o tempo."
+    context: '"didn''t understand", nunca "didn''t understood".'
+
+variations:
+  - idea: '"relatar o que o erro diz"'
+    items:
+      - { register: "Boa", text: "The error says the image tag doesn't exist.", adequate: true }
+      - { register: "Boa", text: "It means the tag is wrong — the registry is fine.", adequate: true }
+      - { register: "Inadequada", text: "The error is saying me the tag is wrong.", adequate: false, note: '"saying me" não existe: "the error says…" ou "it tells me…".' }
+      - { register: "Inadequada", text: "It's giving error not found.", adequate: false, note: '"giving error" é calque: "it''s throwing not found" ou "it fails with not found".' }
+  - idea: '"distinguir refused × timed out"'
+    items:
+      - { register: "Boa", text: "Connection refused — the port is closed; the host answered.", adequate: true }
+      - { register: "Boa", text: "It timed out — nothing answered; could be the VPN.", adequate: true }
+      - { register: "Inadequada", text: "It refused — maybe the VPN is down.", adequate: false, note: 'Refused significa que algo respondeu "não" — VPN caída daria timeout, não refused.' }
+
+brErrors:
+  - { wrong: "It's giving error ImagePullBackOff.", right: "It's throwing ImagePullBackOff.", why: '"giving error" é calque de "dando erro"; use throw / fail with / return', tag: br.giving-error }
+  - { wrong: "I didn't understood what the error says.", right: "I didn't understand what the error says.", why: "depois de didn't, o verbo volta à forma base", tag: br.did-past }
+  - { wrong: "I didn't saw the timeout in the log.", right: "I didn't see the timeout in the log.", why: "depois de didn't, sempre a forma base (see)", tag: br.did-past }
+  - { wrong: "The log says me the pod crashed.", right: "The log says the pod crashed.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I readed the error message twice.", right: "I read the error message twice.", why: "read é irregular: passado é read (pronuncia 'red'), nunca readed", tag: br.irregular-past }
+  - { wrong: "I read the doc for to find the flag.", right: "I read the doc to find the flag.", why: 'calque de "para": finalidade é só "to"', tag: br.for-to }
+  - { wrong: "The new image is more easy to pull.", right: "The new image is easier to pull.", why: "easy é adjetivo curto: comparativo com -er", tag: br.more-er }
+  - { wrong: "I found the fix in the internet.", right: "I found the fix on the internet.", why: 'em inglês é "on the internet"', tag: br.in-the-internet }
+  - { wrong: "I had a doubt about the exit code.", right: "I had a question about the exit code.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The error is saying that the port is closed.", right: "The error says the port is closed.", why: "para relatar o conteúdo de uma mensagem, use o simple present", tag: vocab.errors }
+
+dialogue:
+  title: "O pod que não sobe: lendo o erro de baixo para cima"
+  lines:
+    - { speaker: Yuri, text: "Ana, the payments pod won't start. `describe` gave me a wall of events — where do I even look?" }
+    - { speaker: Ana, text: "Last line first. What does it say?" }
+    - { speaker: Yuri, text: "\"Failed to pull image 'registry.example.com/payments:v1.4.2': not found.\" So the kubelet failed to pull… and the reason is 'not found'." }
+    - { speaker: Ana, text: "Exactly — 'failed to' tells you the action that broke, and everything after the colon tells you why. What does 'not found' mean here?" }
+    - { speaker: Yuri, text: "The image doesn't exist in the registry — it means the tag is probably wrong, not that the registry is down." }
+    - { speaker: Ana, text: "Right. And if it had said 'pull access denied' instead?" }
+    - { speaker: Yuri, text: "Denied is permissions — I'd check the registry credentials. And 'connection refused' would mean the registry answered but closed the port, while 'timed out' means nobody answered at all." }
+    - { speaker: Ana, text: "There you go — three different errors, three different investigations. Bottom line for this one?" }
+    - { speaker: Yuri, text: "The tag v1.4.2 was never pushed — I'll check what tag CI actually published." }
+  notes:
+    - '"Failed to pull … : not found" — ação quebrada + motivo depois dos dois-pontos.'
+    - 'denied (permissão) × refused (porta fechada) × timed out (silêncio) — três motivos, três investigações.'
+    - '"it means" e "bottom line" transformam a leitura em uma frase útil.'
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Quick one — my terraform plan died with 'Error: expected a map, got a string' on the tags variable. Expected map, got string — so the type is wrong, not the value." }
+    - { speaker: Ana, text: "Heads up on the staging gateway: curl says 'Failed to connect, port 443: connection refused'. The host answered and closed the port — the service is probably not up yet." }
+    - { speaker: Priya, text: "The nightly job exited with code 1 and the last line says 'unable to write report: permission denied'. In other words, it ran fine — it just can't write the output." }
+  questions:
+    - { id: M04-01-l1, type: multiple_choice, prompt: "What is wrong with Marcos's tags variable?", options: ["The value is wrong", "The type is wrong — a string was given where a map was expected", "The variable doesn't exist", "The plan timed out"], answer: 1, explanation: '"expected a map, got a string" — o problema é o tipo, não o valor.', tags: [comp.listening, vocab.errors] }
+    - { id: M04-01-l2, type: multiple_choice, prompt: "What does 'connection refused' tell Ana?", options: ["Nobody answered — maybe the VPN", "The credentials expired", "The host answered but the port is closed", "The DNS is broken"], answer: 2, explanation: "refused = alguém respondeu e a porta está fechada; serviço provavelmente fora do ar.", tags: [comp.listening, vocab.errors] }
+    - { id: M04-01-l3, type: multiple_choice, prompt: "Why does Priya say the job 'ran fine'?", options: ["The failure happened only when writing the output", "The exit code was 0", "The report was written", "There was no error"], answer: 0, explanation: "'unable to write report: permission denied' — a falha é só na escrita final.", tags: [comp.listening] }
+    - { id: M04-01-l4, type: fill_blank, prompt: "Error: expected a ___, got a string.", accepted: ["map"], explanation: '"expected X, got Y" compara o esperado com o recebido.', tags: [vocab.errors, comp.listening] }
+    - { id: M04-01-l5, type: multiple_choice, prompt: "'Permission denied' points to a problem with…", options: ["the network", "permissions or ownership", "the image tag", "the timeout value"], answer: 1, explanation: "denied = credencial, escopo ou dono do recurso.", tags: [comp.listening, vocab.errors] }
+    - { id: M04-01-l6, type: multiple_choice, prompt: "What would 'i/o timeout' mean instead of 'connection refused'?", options: ["The port is closed", "Permission is missing", "The file doesn't exist", "Nothing answered — network, firewall or dead host"], answer: 3, explanation: "timeout = silêncio total; refused = resposta negativa ativa.", tags: [comp.listening, vocab.errors] }
+
+writing:
+  prompt: |
+    **Cenário:** dois erros chegaram no canal hoje:
+
+    1. `kubectl`: `Failed to pull image "checkout:v9.1": pull access denied`
+    2. `curl`: `Failed to connect to api.payments port 8443: Connection timed out`
+
+    **Tarefa:** escreva um post curto (60–90 palavras) resumindo os dois erros para o time: o que cada mensagem diz, o que cada uma significa em uma frase e o que você vai checar primeiro em cada caso.
+  constraints:
+    - { label: "Vocabulário da anatomia do erro", pattern: "\\b(failed to|unable to|denied|timed out|refused|not found)\\b" }
+    - { label: "Frase interpretativa", pattern: "\\b(the error says|it means|in other words|bottom line)\\b" }
+    - { label: "Primeiro passo da investigação", pattern: "\\b(i('ll| will) check|first i('ll| will)|let me check|i would check|check the)\\b" }
+    - { label: "Diferencia denied × timed out", pattern: "\\b(credential|permission|network|firewall|vpn|port)\\b" }
+  rubric:
+    - Cada erro resumido em uma frase (o que diz + o que significa)
+    - denied tratado como permissão; timed out como silêncio de rede
+    - Um primeiro passo concreto para cada erro
+    - Sem calques ("giving error", "didn't understood")
+  model: >-
+    Two errors came in today. The first says "failed to pull image: pull access denied" — it means
+    the registry credentials are missing or expired, so first I'll check the image pull secret. The
+    second is a curl timeout on port 8443: the error says connection timed out, which means nothing
+    answered — in other words, it's the network or the firewall, not the service. I'll check the
+    security group before touching the app. Bottom line: permissions on one side, connectivity on
+    the other.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.errors, topic.reading]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos lendo um erro em voz alta e explicando-o em uma frase — use um dos erros da escrita ou um real do seu dia. Diga o que a mensagem diz, o que significa e o primeiro lugar onde você vai olhar.
+    maxSeconds: 45
+    targetPhrases:
+      - the error says
+      - it means
+      - in other words
+      - failed to
+      - unable to
+      - permission denied
+      - timed out
+      - connection refused
+      - not found
+      - root cause
+      - it failed at
+      - bottom line
+      - expected two, got one
+      - the port is closed
+    checklist:
+      - Li o erro em voz alta sem travar nos termos técnicos?
+      - Separei "o que diz" de "o que significa"?
+      - Fechei com um primeiro passo concreto?
+      - Diferenciei denied × refused × timed out?
+
+quiz:
+  - { id: M04-01-q1, type: multiple_choice, prompt: "In 'Unable to connect to the server: i/o timeout', where is the actual reason?", options: ["Before 'unable'", "After the colon", "In the server name", "There is no reason given"], answer: 1, explanation: "A primeira metade diz quem reclamou; o motivo real vem depois dos dois-pontos.", tags: [vocab.errors, comp.reading] }
+  - { id: M04-01-q2, type: error_correction, prompt: "I didn't understood why the pod was not found.", accepted: ["I didn't understand why the pod was not found.", "I didn't understand why the pod was not found", "I did not understand why the pod was not found."], explanation: "Depois de didn't, a forma base: understand.", tags: [br.did-past] }
+  - { id: M04-01-q3, type: multiple_choice, prompt: "'Connection refused' most likely means…", options: ["nobody answered at all", "the credentials are wrong", "the host answered but the port is closed", "the DNS name is wrong"], answer: 2, explanation: "refused = resposta negativa ativa; timeout seria silêncio total.", tags: [vocab.errors] }
+  - { id: M04-01-q4, type: fill_blank, prompt: "Error: expected 2 arguments, ___ 1.", accepted: ["got"], explanation: '"expected X, got Y" — a comparação é o bug.', tags: [vocab.errors] }
+  - { id: M04-01-q5, type: error_correction, prompt: "I readed the whole stack trace for to find the cause.", accepted: ["I read the whole stack trace to find the cause.", "I read the whole stack trace to find the cause", "I read the entire stack trace to find the cause."], explanation: 'Dois calques: "readed" → read (irregular) e "for to" → to.', tags: [br.irregular-past, br.for-to] }
+  - { id: M04-01-q6, type: translate, prompt: "O erro diz que a porta está fechada — quer dizer que o serviço não subiu.", accepted: ["The error says the port is closed — it means the service didn't come up.", "The error says the port is closed — it means the service is not up.", "The error says the port is closed; it means the service didn't come up."], explanation: '"the error says" + "it means" para citar e interpretar.', tags: [vocab.errors] }
+  - { id: M04-01-q7, type: multiple_choice, prompt: "Which summary is correct for 'permission denied'?", options: ["It's an access problem — check credentials or ownership", "It's a network problem — check the VPN", "The file doesn't exist", "The command timed out"], answer: 0, explanation: "denied = credencial, escopo ou dono; retry sem mudar permissão não resolve.", tags: [vocab.errors] }
+  - { id: M04-01-q8, type: match, prompt: "Associe o marcador do erro ao significado.", pairs: [{ left: "timed out", right: "nothing answered" }, { left: "refused", right: "answered, port closed" }, { left: "denied", right: "no permission" }, { left: "not found", right: "doesn't exist" }], explanation: "Quatro marcadores, quatro investigações diferentes.", tags: [vocab.errors] }
+
+review:
+  count: 5
+  preferTags: [vocab.errors, br.did-past, br.irregular-past]
+
+srsCards:
+  - { front: "esperava X, recebeu Y (em mensagem de erro)", back: "expected X, got Y", tag: vocab.errors }
+  - { front: "falhou ao fazer (ação quebrada)", back: "failed to …", tag: vocab.errors }
+  - { front: "acesso negado (permissão)", back: "permission denied", tag: vocab.errors }
+  - { front: "estourou o tempo limite (ninguém respondeu)", back: "timed out", tag: vocab.errors }
+  - { front: "conexão recusada (porta fechada)", back: "connection refused", tag: vocab.errors }
+  - { front: "causa raiz", back: "root cause", tag: vocab.errors }
+  - { front: "o erro diz…", back: "the error says…", tag: vocab.errors }
+  - { front: "em outras palavras (ao resumir o erro)", back: "in other words", tag: vocab.errors }
+  - { front: "não entendi o erro", back: "I didn't understand the error.", tag: br.did-past }
+  - { front: "li a mensagem de erro", back: "I read the error message.", tag: br.irregular-past }
+  - { front: "li a doc para achar a flag", back: "I read the doc to find the flag.", tag: br.for-to }
+  - { front: "conclusão (depois de ler tudo)", back: "bottom line", tag: vocab.errors }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
