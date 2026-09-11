@@ -1,0 +1,281 @@
+id: M01-01
+module: M01
+order: 1
+title: "Anatomia de um standup: yesterday / today / blockers"
+objective: >-
+  Ao final, você consegue dar um update de 30 segundos com as três partes na ordem (ontem, hoje, bloqueios),
+  usando frases-molde que funcionam em qualquer time, sem entrar em detalhe técnico demais, sem pedir desculpa
+  e sem dizer "everything is fine" quando não está.
+durationMin: 35
+competencies: [SPK, VOC, LIS]
+tags: [topic.daily, vocab.standup, gram.future-plans, gram.present-perfect, br.actually, br.pretend, comp.speaking]
+prerequisites: []
+
+context:
+  scenario: |
+    Você acabou de entrar num time de plataforma distribuído (Brasil, Irlanda, Índia). O daily é às 9h30 BRT, 15 minutos, 6 pessoas, no Google Meet. Quem conduz é a Priya, scrum master. A regra da casa: cada pessoa fala **menos de um minuto** e segue a ordem *yesterday / today / blockers*.
+
+    Ontem você configurou o `kubectl` e o acesso ao cluster de staging, leu o runbook de deploy e abriu um PR pequeno corrigindo um typo no Helm chart do `notifications-api`. Hoje vai acompanhar o Marcos no deploy de staging e começar a ler o código do serviço. Não tem bloqueio, mas ainda não recebeu acesso ao Grafana.
+
+    É o seu primeiro standup em inglês nesse time. Você não precisa impressionar; precisa ser claro, curto e fácil de acompanhar.
+  roles: [Priya (scrum master), Marcos (platform engineer), Ana (SRE)]
+
+vocabulary:
+  - term: Yesterday I…
+    meaning: abre a primeira parte do update (o que foi feito)
+    example: Yesterday I set up kubectl and got access to the staging cluster.
+    translation: Ontem configurei o kubectl e consegui acesso ao cluster de staging.
+    note: Past simple. Uma ou duas frases bastam.
+  - term: Today I'm going to… / Today I'll…
+    meaning: abre a segunda parte (o plano de hoje)
+    example: Today I'm going to shadow Marcos on the staging deploy.
+    translation: Hoje vou acompanhar o Marcos no deploy de staging.
+    note: '"going to" para plano decidido; "I''ll" para decisão no momento ou promessa.'
+  - term: No blockers.
+    meaning: fecha o update quando nada impede o trabalho
+    example: No blockers.
+    translation: Sem bloqueios.
+    note: Diga sempre, mesmo curto. O silêncio deixa a dúvida no ar.
+  - term: "One thing:"
+    meaning: introduz um pedido ou aviso pequeno depois do update
+    example: "One thing: I still don't have access to Grafana."
+    translation: "Uma coisa: ainda não tenho acesso ao Grafana."
+    note: Alternativa a "quick one".
+  - term: I set up X
+    meaning: configurei / preparei X
+    example: I set up my local environment and the VPN.
+    translation: Configurei meu ambiente local e a VPN.
+    note: '"set up" (verbo, duas palavras) × "setup" (substantivo).'
+  - term: I got access to X
+    meaning: consegui acesso a X
+    example: I got access to the staging cluster.
+    translation: Consegui acesso ao cluster de staging.
+    note: '"get access" é a colocação natural; "receive access" soa formal.'
+  - term: I opened a PR (for/to…)
+    meaning: abri um pull request
+    example: I opened a small PR to fix a typo in the Helm chart.
+    translation: Abri um PR pequeno corrigindo um typo no chart do Helm.
+    note: '"open" ou "raise" a PR; "make a PR" soa não-nativo.'
+  - term: I read through X
+    meaning: li X do começo ao fim
+    example: I read through the deploy runbook.
+    translation: Li o runbook de deploy inteiro.
+    note: '"read through" = leitura completa; "skimmed" = leitura rápida.'
+  - term: I'm going to shadow X on Y
+    meaning: vou acompanhar alguém fazendo algo, para aprender
+    example: I'm going to shadow Marcos on the staging deploy.
+    translation: Vou acompanhar o Marcos no deploy de staging.
+    note: Comum em onboarding e on-call.
+  - term: I'll start looking into X
+    meaning: vou começar a investigar / estudar X
+    example: I'll start looking into the notifications-api codebase.
+    translation: Vou começar a olhar o código do notifications-api.
+    note: '"look into" = investigar. Sem "the code of…" desnecessário.'
+  - term: I'm picking up X
+    meaning: estou assumindo a tarefa X
+    example: I'm picking up the alerting ticket.
+    translation: Estou pegando o ticket de alertas.
+    note: Sinaliza que a tarefa tem dono.
+  - term: Nothing else from me.
+    meaning: encerra e passa a vez
+    example: That's it, nothing else from me.
+    translation: É isso, nada mais da minha parte.
+    note: Marca o fim; evita a pausa constrangedora.
+  - term: Still no access to X
+    meaning: continuo sem acesso a X (aviso, não drama)
+    example: Still no access to Grafana, but it's not blocking me yet.
+    translation: Ainda sem acesso ao Grafana, mas ainda não me bloqueia.
+    note: '"not blocking me yet" avisa cedo sem pedir socorro.'
+    register: informal
+  - term: That's it from me.
+    meaning: encerramento neutro
+    example: That's it from me.
+    translation: É isso da minha parte.
+    note: Igual a "nothing else from me".
+
+grammar:
+  title: Past simple para ontem, going to / will para hoje
+  explanation: |
+    O standup tem dois tempos. **Ontem** é fechado: past simple. **Hoje** é plano: *going to* (decidido) ou *will* (decisão na hora, promessa).
+
+    | Parte | Forma | Exemplo |
+    |---|---|---|
+    | Yesterday | past simple | Yesterday I **set up** kubectl and **opened** a PR. |
+    | Today (plano) | be going to | Today I**'m going to** shadow Marcos on the deploy. |
+    | Today (decisão agora) | will | I**'ll** ping you after the call. |
+    | Em andamento desde antes | present perfect continuous | I**'ve been reading** the runbook since yesterday. |
+
+    **Três armadilhas de brasileiro:**
+
+    - "Actually I'm working on X" para dizer "atualmente": *actually* = na verdade. Use *currently* ou *now*.
+    - "I pretend to finish today": *pretend* = fingir. Use *I plan to* / *I intend to*.
+    - "Today I do the deploy": presente simples soa como rotina. Para plano de hoje, *I'm going to* / *I'll*.
+
+    **O que não dizer no standup:** detalhe técnico demais (guarde para depois da call), desculpas em série ("sorry, sorry"), e "everything is fine" quando existe um risco. O daily serve para o time enxergar o que está acontecendo.
+  examples:
+    - { en: "Yesterday I set up my environment.", pt: "Ontem configurei meu ambiente." }
+    - { en: "Today I'm going to read the runbook.", pt: "Hoje vou ler o runbook." }
+    - { en: "I'll send the link after the call.", pt: "Mando o link depois da call." }
+    - { en: "I've been reading the code since yesterday.", pt: "Estou lendo o código desde ontem." }
+
+examples:
+  - en: Yesterday I set up kubectl and got access to staging. Today I'm going to shadow Marcos on the deploy. No blockers.
+    pt: Ontem configurei o kubectl e consegui acesso ao staging. Hoje vou acompanhar o Marcos no deploy. Sem bloqueios.
+    context: Update completo de 12 segundos. As três partes, na ordem.
+  - en: Yesterday I read through the deploy runbook and opened a small PR for a typo in the Helm chart.
+    pt: Ontem li o runbook de deploy inteiro e abri um PR pequeno para um typo no chart do Helm.
+    context: Duas ações fechadas no passado. Sem explicar o typo.
+  - en: Today I'll start looking into the notifications-api codebase.
+    pt: Hoje vou começar a olhar o código do notifications-api.
+    context: Plano do dia em uma frase; "start looking into" avisa que é leitura, não entrega.
+  - en: "One thing: I still don't have access to Grafana. Not blocking me yet."
+    pt: "Uma coisa: ainda não tenho acesso ao Grafana. Ainda não me bloqueia."
+    context: Aviso pequeno, sem virar bloqueio. Quem cuida de acesso ouve e resolve.
+  - en: Nothing else from me.
+    pt: Nada mais da minha parte.
+    context: Encerramento. Evita a pausa em que ninguém sabe se você terminou.
+  - en: I'm picking up the alerting ticket after the deploy.
+    pt: Vou pegar o ticket de alertas depois do deploy.
+    context: '"picking up" = assumindo. Mostra que a tarefa tem dono e ordem.'
+  - en: Currently I'm working on the onboarding tasks.
+    pt: Atualmente estou trabalhando nas tarefas de onboarding.
+    context: '"currently", não "actually", para "atualmente".'
+
+variations:
+  - idea: '"fechar o update"'
+    items:
+      - { register: Neutro, text: "No blockers.", adequate: true }
+      - { register: Neutro, text: "That's it from me.", adequate: true }
+      - { register: Informal, text: "Nothing else, thanks!", adequate: true, note: Com colegas próximos. }
+      - { register: Inadequada, text: "…", adequate: false, note: Silêncio; ninguém sabe se acabou. }
+      - { register: Inadequada, text: "Everything is fine, no problems at all, all good.", adequate: false, note: Excesso; soa como esconder algo. }
+  - idea: '"ainda não tenho acesso"'
+    items:
+      - { register: Neutro (daily), text: "Still no access to Grafana, not blocking me yet.", adequate: true }
+      - { register: Formal (e-mail), text: "My Grafana access request is still pending.", adequate: true }
+      - { register: Inadequada, text: "Sorry, I don't have access, sorry, I don't know why.", adequate: false, note: Desculpas sem informação; não é culpa sua. }
+      - { register: Inadequada, text: "I pretend to ask for access today.", adequate: false, note: '"pretend" = fingir. Diga "I plan to".' }
+
+brErrors:
+  - { wrong: "Actually I'm working on onboarding tasks. (= atualmente)", right: "Currently I'm working on onboarding tasks.", why: "actually = na verdade", tag: br.actually }
+  - { wrong: "I pretend to finish the setup today.", right: "I plan to finish the setup today.", why: "pretend = fingir", tag: br.pretend }
+  - { wrong: "Today I do the deploy with Marcos.", right: "Today I'm going to do the deploy with Marcos.", why: "plano de hoje pede going to / will", tag: gram.future-plans }
+  - { wrong: "Yesterday I have configured kubectl.", right: "Yesterday I configured kubectl.", why: "yesterday fecha o momento: past simple", tag: gram.present-perfect }
+  - { wrong: "I made a PR yesterday.", right: "I opened a PR yesterday.", why: "PR se abre (open/raise), não se faz", tag: vocab.standup }
+  - { wrong: "I have a doubt about the runbook.", right: "I have a question about the runbook.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "I'm waiting the Grafana access.", right: "I'm waiting on/for the Grafana access.", why: "wait exige preposição", tag: br.waiting-no-prep }
+  - { wrong: "Sorry, sorry, I'm new, sorry.", right: "I'm new here, so bear with me.", why: "uma vez basta; desculpa em série soa inseguro", tag: topic.daily }
+  - { wrong: "I will explain you the setup later.", right: "I'll walk you through the setup later.", why: "explain não aceita objeto indireto direto", tag: br.explain-me }
+
+dialogue:
+  title: "Seu primeiro standup no time, 9:30 BRT."
+  lines:
+    - { speaker: Priya, text: "Morning all. Quick round, one minute each. Yuri, welcome — you go first." }
+    - { speaker: Yuri, text: "Thanks. Yesterday I set up kubectl and got access to the staging cluster, read through the deploy runbook, and opened a small PR for a typo in the notifications-api Helm chart. Today I'm going to shadow Marcos on the staging deploy and start looking into the codebase. No blockers. One thing: I still don't have access to Grafana, but it's not blocking me yet.", note: "Três partes, 20 segundos. O aviso do Grafana vem depois de 'no blockers'." }
+    - { speaker: Priya, text: "Good. Ana, can you sort out the Grafana access?" }
+    - { speaker: Ana, text: "On it. I'll add you to the group right after this." }
+    - { speaker: Yuri, text: "Thanks, Ana." }
+    - { speaker: Priya, text: "Marcos, you're up." }
+    - { speaker: Marcos, text: "Yesterday I finished the node pool upgrade in staging. Today I'm deploying notifications-api with Yuri. No blockers." }
+    - { speaker: Priya, text: "Great, keep it that short. Ana?" }
+  notes:
+    - '"You go first" / "you''re up" = é a sua vez.'
+    - '"Sort out" = resolver, providenciar. "On it" = já estou cuidando.'
+    - 'O update de Marcos tem 20 palavras e é perfeitamente aceitável: não precisa ser longo para ser bom.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Yesterday I rotated the certificates on the ingress and updated the runbook. Today I'm going to review the alerting rules for the new cluster. No blockers, but heads up: I'll be out from noon my time." }
+    - { speaker: Marcos, text: "Yesterday I finished the node pool upgrade in staging; it went fine. Today I'm deploying notifications-api with Yuri after this call. Nothing blocking me." }
+    - { speaker: Priya, text: "Quick one: the retro moved to Thursday at 2 pm BRT. I'll send the invite. That's it from me." }
+  questions:
+    - { id: M01-01-l1, type: multiple_choice, prompt: "What did Ana do yesterday?", options: ["Reviewed the alerting rules", "Rotated the ingress certificates", "Upgraded the node pool", "Moved the retro"], answer: 1, explanation: '"Yesterday I rotated the certificates on the ingress."', tags: [comp.listening] }
+    - { id: M01-01-l2, type: multiple_choice, prompt: "Who has a blocker?", options: ["Ana", "Marcos", "Priya", "Nobody"], answer: 3, explanation: 'Ana: "No blockers"; Marcos: "Nothing blocking me"; Priya não fala de bloqueio.', tags: [comp.listening, vocab.standup] }
+    - { id: M01-01-l3, type: fill_blank, prompt: "Ana will be out from ___ her time.", accepted: ["noon", "12", "12 pm", "midday"], explanation: '"I''ll be out from noon my time."', tags: [comp.listening] }
+    - { id: M01-01-l4, type: multiple_choice, prompt: "What is Marcos going to do today?", options: ["Upgrade the node pool", "Rotate certificates", "Deploy notifications-api with Yuri", "Send the retro invite"], answer: 2, explanation: '"Today I''m deploying notifications-api with Yuri."', tags: [comp.listening] }
+    - { id: M01-01-l5, type: multiple_choice, prompt: "When is the retro now?", options: ["Thursday at 2 pm BRT", "Tuesday at noon", "Today after the call", "Thursday at 9:30"], answer: 0, explanation: '"the retro moved to Thursday at 2 pm BRT"', tags: [comp.listening] }
+    - { id: M01-01-l6, type: multiple_choice, prompt: '"It went fine" means the upgrade…', options: ["failed", "was cancelled", "worked without problems", "is still running"], answer: 2, explanation: '"went fine" = correu bem.', tags: [vocab.standup] }
+
+writing:
+  prompt: |
+    **Cenário:** ontem você configurou o ambiente local, conseguiu acesso ao cluster de staging e leu o runbook de deploy. Hoje vai acompanhar a Ana numa rotação de certificados e começar a ler o código do serviço de notificações. Não há bloqueio, mas você ainda não recebeu acesso ao Grafana.
+
+    **Tarefa:** escreva seu update de standup (60–90 palavras) na ordem yesterday / today / blockers, para ser lido em voz alta em menos de 40 segundos.
+  constraints:
+    - { label: 'Começa com "Yesterday"', pattern: "^\\s*yesterday\\b" }
+    - { label: '"Today" + going to / I''ll', pattern: "\\btoday (i'm going to|i am going to|i'll|i will)\\b" }
+    - { label: '"No blockers" ou "Nothing blocking me"', pattern: "\\b(no blockers|nothing blocking me)\\b" }
+    - { label: "Aviso do Grafana em uma frase" }
+  rubric:
+    - Estrutura yesterday / today / blockers
+    - Tempos verbais (past simple × going to / will)
+    - Concisão (nada de detalhe técnico)
+    - Naturalidade e registro
+  model: >-
+    Yesterday I set up my local environment, got access to the staging cluster and read through the deploy
+    runbook. Today I'm going to shadow Ana on the certificate rotation and then start looking into the
+    notifications service codebase, mostly reading for now. No blockers. One thing: I still don't have access to Grafana, but it's not
+    blocking me yet. That's it from me.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.daily, gram.future-plans]
+
+speaking:
+  modeA:
+    prompt: Grave seu update de standup de hoje (real ou o do cenário) em até 45 segundos, na ordem yesterday / today / blockers. Use pelo menos 4 expressões da aula.
+    maxSeconds: 45
+    targetPhrases:
+      - yesterday I
+      - today I'm going to
+      - today I'll
+      - I set up
+      - I got access to
+      - I opened a PR
+      - I read through
+      - shadow
+      - start looking into
+      - I'm picking up
+      - no blockers
+      - nothing blocking me
+      - one thing
+      - not blocking me yet
+      - that's it from me
+      - nothing else from me
+    checklist:
+      - Comecei com "Yesterday" e uma ação fechada?
+      - Usei "going to" ou "I'll" para o plano de hoje?
+      - Fechei com "no blockers" ou um aviso curto?
+      - Fiquei abaixo de 45 segundos sem detalhe técnico?
+
+quiz:
+  - { id: M01-01-q1, type: reorder, prompt: "Coloque as partes do update na ordem certa.", tokens: ["blockers", "today", "yesterday"], answer: "yesterday today blockers", explanation: "Ordem fixa do standup: o que fiz, o que vou fazer, o que me trava.", tags: [topic.daily, vocab.standup] }
+  - { id: M01-01-q2, type: multiple_choice, prompt: "Yesterday I ___ the VPN.", options: ["have set up", "set up", "am setting up", "setup"], answer: 1, explanation: "yesterday fecha o momento: past simple. \"setup\" junto é substantivo.", tags: [gram.present-perfect, vocab.standup] }
+  - { id: M01-01-q3, type: error_correction, prompt: "Actually I'm working on the onboarding tasks now.", accepted: ["Currently I'm working on the onboarding tasks.", "Currently I'm working on the onboarding tasks now.", "I'm currently working on the onboarding tasks.", "Right now I'm working on the onboarding tasks.", "I'm working on the onboarding tasks now."], explanation: "actually = na verdade. Atualmente é currently / now / at the moment.", tags: [br.actually] }
+  - { id: M01-01-q4, type: fill_blank, prompt: "Today I'm ___ to shadow Marcos on the deploy.", accepted: ["going"], explanation: "Plano decidido: be going to.", tags: [gram.future-plans] }
+  - { id: M01-01-q5, type: multiple_choice, prompt: "Which closing is the best?", options: ["…", "Everything is fine, no problems at all, all good.", "No blockers. That's it from me.", "Sorry, that's all, sorry."], answer: 2, explanation: "Curto, claro e marca o fim. Silêncio deixa dúvida; excesso soa como esconder algo; desculpa sem motivo soa inseguro.", tags: [topic.daily, vocab.standup] }
+  - { id: M01-01-q6, type: error_correction, prompt: "I pretend to read the runbook today.", accepted: ["I plan to read the runbook today.", "I intend to read the runbook today.", "I'm going to read the runbook today.", "I plan to read the runbook today", "I intend to read the runbook today"], explanation: "pretend = fingir. Pretender é plan to / intend to.", tags: [br.pretend] }
+  - { id: M01-01-q7, type: translate, prompt: "Abri um PR pequeno ontem.", accepted: ["I opened a small PR yesterday.", "I opened a small PR yesterday", "Yesterday I opened a small PR.", "Yesterday I opened a small PR", "I raised a small PR yesterday.", "I raised a small PR yesterday"], explanation: "open / raise a PR. \"make a PR\" soa não-nativo.", tags: [vocab.standup, vocab.tickets-prs] }
+  - { id: M01-01-q8, type: match, prompt: "Associe a parte do update à frase.", pairs: [{ left: "yesterday", right: "I rotated the ingress certificates." }, { left: "today", right: "I'm going to review the alerting rules." }, { left: "blockers", right: "Still no access to Grafana." }], explanation: "Cada parte tem um tempo verbal: past simple, going to, presente.", tags: [topic.daily] }
+
+review:
+  count: 5
+  preferTags: [gram.question-forms, br.doubt, gram.future-plans]
+
+srsCards:
+  - { front: "ontem eu configurei o kubectl", back: "Yesterday I set up kubectl", tag: vocab.standup }
+  - { front: "consegui acesso ao cluster de staging", back: "I got access to the staging cluster", tag: vocab.standup }
+  - { front: "abri um PR pequeno", back: "I opened a small PR", tag: vocab.tickets-prs }
+  - { front: "li o runbook inteiro", back: "I read through the runbook", tag: vocab.standup }
+  - { front: "hoje vou acompanhar o Marcos no deploy", back: "Today I'm going to shadow Marcos on the deploy", tag: gram.future-plans }
+  - { front: "vou começar a olhar o código", back: "I'll start looking into the codebase", tag: gram.future-plans }
+  - { front: "estou pegando o ticket de alertas", back: "I'm picking up the alerting ticket", tag: vocab.standup }
+  - { front: "sem bloqueios", back: "No blockers", tag: vocab.standup }
+  - { front: "uma coisa: ainda não tenho acesso ao Grafana", back: "One thing: I still don't have access to Grafana", tag: topic.daily }
+  - { front: "ainda não me bloqueia", back: "It's not blocking me yet", tag: vocab.standup }
+  - { front: "é isso da minha parte", back: "That's it from me", tag: vocab.standup }
+  - { front: "atualmente (NÃO \"actually\")", back: "currently / at the moment", tag: br.actually }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
