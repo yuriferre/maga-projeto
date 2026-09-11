@@ -1,0 +1,282 @@
+id: M02-01
+module: M02
+order: 1
+title: "Pedidos educados e escaláveis: could / would you mind / when you get a chance"
+objective: >-
+  Ao final, você consegue escolher o nível certo de pedido (assíncrono sem pressa, educado padrão,
+  polido, formal ou urgente com motivo), formar o pedido sem auxiliar duplo e sem "need that you",
+  e sinalizar urgência pelo impacto — não por caps lock nem por excesso de desculpas.
+durationMin: 35
+competencies: [SPK, VOC, LIS, CNF]
+tags: [topic.help, gram.modals-polite, gram.softeners, br.do-modal, br.need-that-you, comp.confidence, comp.speaking]
+prerequisites: [M01-01]
+
+context:
+  scenario: |
+    Quarta-feira, depois do daily. Você precisa de duas coisas hoje, de urgências diferentes:
+
+    - **Sem pressa:** acesso de leitura ao dashboard de SLO, para acompanhar o *error budget* esta semana. Qualquer dia serve.
+    - **Urgente:** o alerta de latência do `checkout` disparou em todos os deploys da manhã e você não sabe dizer se é o novo *threshold* ou uma regressão real. O corte do release é hoje — isso trava seu trabalho de verdade.
+
+    O módulo inteiro começa aqui: o mesmo "preciso de ajuda" vira frases diferentes conforme o custo para quem ajuda e a urgência real. Pedido urgente não precisa de drama; precisa de motivo.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: Could you…?
+    meaning: pedido educado padrão
+    example: Could you check the alert threshold when you have a minute?
+    translation: Pode verificar o threshold do alerta quando tiver um minuto?
+    note: '"Could" soa mais polido que "can"; na dúvida, use could.'
+  - term: Would you mind -ing…?
+    meaning: pedido bem polido; mind pede gerúndio
+    example: Would you mind taking a look at the latency alert with me?
+    translation: Você se importaria de dar uma olhada no alerta de latência comigo?
+    note: 'Depois de mind vem o -ing: "mind checking", nunca "mind to check".'
+  - term: "When you get a chance,…"
+    meaning: quando tiver um tempo; sem urgência
+    example: When you get a chance, could you give me read access to the SLO dashboard?
+    translation: Quando tiver um tempo, pode me dar acesso de leitura ao dashboard de SLO?
+    note: Tira a pressa do pedido; ideal para assíncrono.
+  - term: Any chance you could…?
+    meaning: pedido indireto e leve
+    example: Any chance you could bump the threshold back before the release cut?
+    translation: Alguma chance de você poder reverter o threshold antes do corte do release?
+    note: Mais leve que "could you"; comum no Slack.
+  - term: No rush
+    meaning: sem pressa
+    example: No rush — anytime this week works.
+    translation: Sem pressa — qualquer dia desta semana serve.
+    note: Declara explicitamente que não é urgente; evita ansiedade desnecessária.
+  - term: whenever works (for you)
+    meaning: quando funcionar para você
+    example: Whenever works for you — I just want the access before Friday.
+    translation: Quando funcionar para você — só preciso do acesso antes de sexta.
+    note: Passa o controle do tempo para quem ajuda; combine com um prazo externo se houver.
+  - term: This is blocking me
+    meaning: isso está me travando de verdade
+    example: This is blocking me — the release cut is today.
+    translation: Isso está me travando — o corte do release é hoje.
+    note: Urgência legítima se declara com o impacto, não com "urgent!!!".
+  - term: It's urgent because…
+    meaning: urgente com o motivo explícito
+    example: It's urgent because the report goes out at 5 pm.
+    translation: É urgente porque o relatório sai às 17h.
+    note: '"urgent" + motivo funciona; "urgent" sozinho vira ruído.'
+  - term: I'd appreciate it if you could…
+    meaning: pedido formal e polido
+    example: I'd appreciate it if you could double-check the permissions change.
+    translation: Eu agradeceria se você pudesse conferir a mudança de permissões.
+    note: Registro formal; bom para canal amplo ou alguém que você não conhece.
+  - term: Can I grab you for ten minutes after this?
+    meaning: pedir dez minutos ao vivo da pessoa
+    example: Ana, can I grab you for ten minutes after standup?
+    translation: Ana, posso te pegar por dez minutos depois do standup?
+    note: '"grab you" = chamar a pessoa; informal mas comum. Dê o tamanho do pedido.'
+  - term: Does that work for you?
+    meaning: checa se o pedido cabe para a pessoa
+    example: I can show you the dashboard at 2 — does that work for you?
+    translation: Posso te mostrar o dashboard às 14h — serve para você?
+    note: Fecha o combinado sem impor.
+  - term: when you have a sec
+    meaning: quando tiver um segundo (informal)
+    example: Ping me when you have a sec and I'll show you the alert.
+    translation: Me chama quando tiver um segundo que eu te mostro o alerta.
+    note: Muito informal; só com quem você já fala todo dia.
+  - term: as soon as you can
+    meaning: assim que você puder
+    example: I need the approval as soon as you can — the window closes at 1 pm.
+    translation: Preciso da aprovação assim que você puder — a janela fecha às 13h.
+    note: Urgência moderada; melhor que "ASAP", que soa seco.
+  - term: "If you could … by EOD, that'd be great"
+    meaning: prazo suave no fim do dia
+    example: If you could get the access sorted by EOD, that'd be great.
+    translation: Se você conseguir resolver o acesso até o fim do dia, seria ótimo.
+    note: Prazo com tom de favor, não de cobrança.
+
+grammar:
+  title: "Modais de polidez e a escala de urgência"
+  explanation: |
+    **A escala do pedido:**
+
+    | Nível | Frase | Quando |
+    |---|---|---|
+    | Assíncrono, sem pressa | *When you get a chance, could you…?* | Qualquer dia serve |
+    | Educado padrão | *Could you check X?* | Neutro, uso diário |
+    | Polido | *Would you mind checking X?* | O pedido custa trabalho |
+    | Formal | *I'd appreciate it if you could…* | Canal amplo, pessoa distante |
+    | Com prazo | *Could you check X today / by EOD?* | Existe data real |
+    | Urgente | *This is blocking the release — could you look now?* | Trava trabalho de verdade |
+
+    **Regras:** *mind* pede gerúndio ("mind checking"). Nunca junte `do/did` com modal — "do you can" é auxiliar duplo; escolha um. "I need **you to** check", nunca "I need that you check" (calque de "preciso que você").
+
+    **Urgência se declara pelo impacto:** *this is blocking me / it's blocking the release* dizem por que importa. Caps lock, "ASAP" sozinho e cinco "please" não dizem nada — e desgastam seu crédito de urgência.
+
+    **Um suavizador basta:** *no rush*, *when you get a chance*, *if possible*. Empilhar "sorry to bother, maybe if possible could you perhaps" soa inseguro, não educado.
+  examples:
+    - { en: "When you get a chance, could you give me read access to the SLO dashboard?", pt: "Quando tiver um tempo, pode me dar acesso de leitura ao dashboard de SLO?" }
+    - { en: "Would you mind checking the alert with me?", pt: "Você se importaria de verificar o alerta comigo?" }
+    - { en: "This is blocking me — could you look at it now?", pt: "Isso está me travando — pode olhar agora?" }
+    - { en: "I'd appreciate it if you could double-check the permissions change.", pt: "Eu agradeceria se você pudesse conferir a mudança de permissões." }
+    - { en: "I need you to approve the rotation before noon.", pt: "Preciso que você aprove a rotação antes do meio-dia." }
+
+examples:
+  - en: Marcos, when you get a chance, could you give me read access to the SLO dashboard? No rush — anytime this week works.
+    pt: Marcos, quando tiver um tempo, pode me dar acesso de leitura ao dashboard de SLO? Sem pressa — qualquer dia desta semana serve.
+    context: Pedido assíncrono com a pressa desligada.
+  - en: Any chance you could review my PR before lunch? It's ten lines.
+    pt: Alguma chance de você revisar meu PR antes do almoço? São dez linhas.
+    context: Pedido leve com o tamanho declarado — fica fácil dizer sim.
+  - en: Ana, this is blocking me — the checkout alert fires on every deploy and the release cut is today. Would you mind taking a look with me?
+    pt: Ana, isso está me travando — o alerta do checkout dispara a cada deploy e o corte do release é hoje. Você se importaria de olhar comigo?
+    context: Urgência com motivo + pedido polido.
+  - en: I'd appreciate it if you could point me to whoever owns the alert thresholds.
+    pt: Eu agradeceria se você pudesse me indicar quem cuida dos thresholds de alerta.
+    context: Formal, para canal amplo ou alguém que você não conhece.
+  - en: Can I grab you for ten minutes after this? I want to show you the failing job.
+    pt: Posso te pegar por dez minutos depois disso? Quero te mostrar o job que está falhando.
+    context: Pedido de tempo ao vivo com tamanho claro.
+  - en: I need you to approve the secret rotation by noon — the window closes at 1 pm.
+    pt: Preciso que você aprove a rotação de secrets até o meio-dia — a janela fecha às 13h.
+    context: Necessidade direta com prazo e motivo.
+  - en: If you could sort out my access by EOD, that'd be great. Does that work for you?
+    pt: Se você conseguir resolver meu acesso até o fim do dia, seria ótimo. Serve para você?
+    context: Prazo suave + confirmação leve.
+
+variations:
+  - idea: '"pedir um review de PR"'
+    items:
+      - { register: Assíncrono, text: "When you get a chance, could you review my PR? No rush this week.", adequate: true }
+      - { register: Neutro, text: "Could you review my PR today? It's blocking the next ticket.", adequate: true }
+      - { register: Formal, text: "I'd appreciate it if you could review the threshold change before the release.", adequate: true }
+      - { register: Inadequada, text: "Do you can review my PR?", adequate: false, note: "Auxiliar duplo: ou \"do you\" ou \"can you\", nunca os dois." }
+      - { register: Inadequada, text: "REVIEW MY PR ASAP!!!", adequate: false, note: "Urgência sem motivo e sem frase — só caps lock." }
+  - idea: '"pedir acesso a um dashboard"'
+    items:
+      - { register: Sem pressa, text: "Whenever works — could you add me to the SLO dashboard this week?", adequate: true }
+      - { register: Com prazo, text: "Could you add me to the SLO dashboard by Friday? I want to check the error budget before the review.", adequate: true }
+      - { register: Inadequada, text: "I need that you give me access.", adequate: false, note: 'Calque de "preciso que você": I need you to give me access.' }
+      - { register: Inadequada, text: "Sorry to bother, maybe if it's possible could you perhaps add me…", adequate: false, note: "Suavizadores empilhados soam inseguros; um basta." }
+
+brErrors:
+  - { wrong: "Do you can check the logs?", right: "Can you check the logs? / Could you check the logs?", why: "auxiliar duplo: ou do/does ou o modal, nunca os dois", tag: br.do-modal }
+  - { wrong: "I need that you check the config.", right: "I need you to check the config.", why: 'calque de "preciso que você": need + pessoa + to', tag: br.need-that-you }
+  - { wrong: "Sorry for interrupt, but could you look at this?", right: "Sorry to interrupt, but could you look at this?", why: '"sorry to" + verbo ou "sorry for" + -ing', tag: br.sorry-for-interrupt }
+  - { wrong: "Would you mind to check the PR?", right: "Would you mind checking the PR?", why: "mind pede gerúndio", tag: gram.modals-polite }
+  - { wrong: "You could check my PR?", right: "Could you check my PR?", why: "pedido é pergunta: modal antes do sujeito", tag: gram.question-forms }
+  - { wrong: "I have a doubt about the alert threshold.", right: "I have a question about the alert threshold.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "It's urgent, please!!!", right: "It's urgent — it's blocking the release.", why: "urgência se declara pelo impacto, não por caps lock", tag: topic.help }
+  - { wrong: "Can you help me?", right: "Could you check why the alert fires on every deploy?", why: "pedido sem objeto não dá para atender", tag: topic.help }
+  - { wrong: "Sorry to bother, maybe if possible could you perhaps check it?", right: "Could you check it when you get a chance?", why: "um suavizador basta; a pilha soa insegura", tag: gram.softeners }
+  - { wrong: "I didn't understood your last message.", right: "I didn't understand your last message.", why: "depois de did, verbo na forma base", tag: br.did-past }
+
+dialogue:
+  title: "Depois do daily de quarta: dois pedidos, duas urgências"
+  lines:
+    - { speaker: Priya, text: "That's the last update — hang on for two minutes if anyone needs anything." }
+    - { speaker: Yuri, text: "I'll take one. Marcos, when you get a chance, could you give me read access to the SLO dashboard? No rush — anytime this week works." }
+    - { speaker: Marcos, text: "Sure, I'll add you after lunch. Anything else?" }
+    - { speaker: Yuri, text: "One more, and this one's actually blocking me. The checkout latency alert fired on every deploy this morning, and I can't tell if it's the new threshold or a real regression. Ana, would you mind taking a look with me? The release cut is today." }
+    - { speaker: Ana, text: "I can grab ten minutes right now. Show me the alert." }
+    - { speaker: Yuri, text: "Bringing it up. And thanks — the dashboard can wait, this one can't." }
+    - { speaker: Ana, text: "Threshold dropped in yesterday's PR. I'd revert it for now and open a ticket for a proper fix." }
+    - { speaker: Yuri, text: "Makes sense. I'll do that now — I appreciate the quick look." }
+    - { speaker: Priya, text: "Nice. Dashboard access after lunch, threshold reverted now, ticket for the real fix. Good asks." }
+  notes:
+    - '"when you get a chance" + "no rush" desligam a pressa de um pedido assíncrono.'
+    - '"this one''s actually blocking me" nomeia a urgência pelo impacto, não pelo volume.'
+    - '"would you mind taking a look" é o registro polido para um pedido que custa trabalho.'
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Yuri, when you get a chance, could you update the onboarding doc with the new VPN steps? Whenever works — nobody's blocked on it." }
+    - { speaker: Ana, text: "Yuri — I need you to approve the secret rotation before noon. The window closes at 1 pm and it blocks the prod deploy. Sorry to ask last minute." }
+    - { speaker: Priya, text: "If anyone has ten minutes today, could you look at the parking lot items from yesterday? I'd appreciate it — but Friday is fine too." }
+  questions:
+    - { id: M02-01-l1, type: multiple_choice, prompt: "What does Marcos ask Yuri to do?", options: ["Update the onboarding doc", "Fix the VPN", "Review a PR", "Check the parking lot"], answer: 0, explanation: '"update the onboarding doc with the new VPN steps"', tags: [comp.listening] }
+    - { id: M02-01-l2, type: multiple_choice, prompt: "How urgent is Marcos's request?", options: ["For today", "By Friday", "Not urgent — whenever works", "He needs it by noon"], answer: 2, explanation: '"Whenever works — nobody''s blocked on it."', tags: [comp.listening, gram.softeners] }
+    - { id: M02-01-l3, type: multiple_choice, prompt: "Why is Ana's request urgent?", options: ["She asked last minute", "The window closes at 1 pm and it blocks the prod deploy", "Yuri owes her a favor", "The rotation failed"], answer: 1, explanation: "Urgência com motivo: janela fecha às 13h e trava o deploy de produção.", tags: [comp.listening, topic.help] }
+    - { id: M02-01-l4, type: fill_blank, prompt: "When you get a ___, could you look at the parking lot items?", accepted: ["chance"], explanation: '"when you get a chance" = quando tiver um tempo.', tags: [gram.softeners, comp.listening] }
+    - { id: M02-01-l5, type: multiple_choice, prompt: "What is Priya asking for?", options: ["Ten minutes to look at the parking lot items", "A volunteer for yesterday's incident", "Approval before noon", "A doc update"], answer: 0, explanation: '"could you look at the parking lot items from yesterday"', tags: [comp.listening] }
+    - { id: M02-01-l6, type: multiple_choice, prompt: "Which request is the most urgent?", options: ["Marcos's doc update", "Priya's parking lot review", "Ana's rotation approval", "They are equally urgent"], answer: 2, explanation: "Só a da Ana tem prazo real e impacto: fecha às 13h e trava o deploy.", tags: [comp.listening, topic.help] }
+
+writing:
+  prompt: |
+    **Cenário:** você precisa de duas coisas hoje. (1) Um review num PR pequeno que só ajusta um threshold de alerta — sem pressa nenhuma, antes de sexta basta. (2) Ajuda com um CronJob de faturamento que pulou a execução de ontem à noite sem erro visível — isso está travando o relatório que o financeiro espera hoje.
+
+    **Tarefa:** escreva as duas mensagens (60–90 palavras no total): uma de pedido sem pressa e uma de pedido urgente, cada uma com o nível de polidez certo e o motivo.
+  constraints:
+    - { label: "Um modal de polidez (could/can/would + you)", pattern: "\\b(could|can|would) you\\b" }
+    - { label: "Sinal de pressa desligada ou urgência real", pattern: "\\b(no rush|when you get a chance|whenever works|blocking|urgent)\\b" }
+    - { label: '"I need you to" ou pedido específico com objeto', pattern: "\\bI need\\b" }
+    - { label: "Um prazo ou janela (by / today / this morning…)", pattern: "\\b(by (eod|noon|lunch|friday|tomorrow)|today|this (morning|afternoon))\\b" }
+  rubric:
+    - Nível de polidez proporcional à urgência
+    - Urgência com motivo, não com volume
+    - Pedidos com objeto e destinatário claros
+    - Sem auxiliar duplo nem "need that you"
+  model: >-
+    Two asks. The small one first: when you get a chance, could you review my PR on the alert threshold?
+    No rush — before Friday is fine. The urgent one: the billing CronJob skipped last night and it's blocking
+    the finance report. I need you to check the job history with me — I think it's the permissions change from
+    yesterday. Could you look at it this morning?
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.help, gram.modals-polite]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos pedindo ajuda com algo real de hoje (ou com o cenário da escrita). Escolha o nível certo para a urgência real e faça um pedido específico.
+    maxSeconds: 45
+    targetPhrases:
+      - could you
+      - would you mind
+      - when you get a chance
+      - any chance you could
+      - no rush
+      - whenever works
+      - this is blocking me
+      - it's urgent because
+      - I need you to
+      - could someone
+      - right after this
+      - by EOD
+      - does that work for you
+      - I'd appreciate it
+    checklist:
+      - Escolhi o nível certo para a urgência real?
+      - Dei o motivo da urgência (não só "urgent")?
+      - O pedido tem objeto e destinatário?
+      - Usei um suavizador só, sem empilhar?
+
+quiz:
+  - { id: M02-01-q1, type: multiple_choice, prompt: "Which request is the most polished for a costly ask?", options: ["Check my PR.", "Could you check my PR?", "Would you mind checking my PR?", "You could check my PR?"], answer: 2, explanation: '"would you mind" + gerúndio é o registro mais polido. A última mistura afirmação com pergunta.', tags: [gram.modals-polite] }
+  - { id: M02-01-q2, type: error_correction, prompt: "Do you can check the alert?", accepted: ["Can you check the alert?", "Could you check the alert?", "Do you think you can check the alert?", "Can you check the alert", "Could you check the alert"], explanation: "Auxiliar duplo: ou do/does ou o modal.", tags: [br.do-modal] }
+  - { id: M02-01-q3, type: fill_blank, prompt: "Would you mind ___ the PR? (check)", accepted: ["checking"], explanation: "mind pede gerúndio.", tags: [gram.modals-polite] }
+  - { id: M02-01-q4, type: multiple_choice, prompt: "Which urgency is legitimate?", options: ["URGENT!!!", "It's urgent because the release is blocked.", "urgent urgent urgent", "Sorry, it's urgent, I think?"], answer: 1, explanation: "Urgência real se declara pelo impacto.", tags: [topic.help, gram.softeners] }
+  - { id: M02-01-q5, type: translate, prompt: "Quando tiver um tempo, pode revisar meu PR? Sem pressa.", accepted: ["When you get a chance, could you review my PR? No rush.", "When you get a chance, can you review my PR? No rush.", "When you get a chance could you review my PR? No rush.", "Could you review my PR when you get a chance? No rush."], explanation: '"when you get a chance" + "no rush" = assíncrono sem pressa.', tags: [gram.softeners, gram.modals-polite] }
+  - { id: M02-01-q6, type: error_correction, prompt: "I need that you check the cron.", accepted: ["I need you to check the cron.", "I need you to check the cron"], explanation: 'Calque de "preciso que você": need + pessoa + to.', tags: [br.need-that-you] }
+  - { id: M02-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["checking", "mind", "you", "the", "would", "alert"], answer: "would you mind checking the alert", explanation: "would you mind + -ing.", tags: [gram.modals-polite] }
+  - { id: M02-01-q8, type: match, prompt: "Associe a situação à frase.", pairs: [{ left: "sem pressa", right: "when you get a chance" }, { left: "polido", right: "would you mind -ing" }, { left: "urgente com motivo", right: "this is blocking the release" }, { left: "formal", right: "I'd appreciate it if you could" }], explanation: "Quatro níveis da escala de pedido.", tags: [gram.modals-polite, gram.softeners] }
+
+review:
+  count: 5
+  preferTags: [br.do-modal, gram.modals-polite, br.need-that-you]
+
+srsCards:
+  - { front: "pode revisar meu PR? (educado padrão)", back: "Could you review my PR?", tag: gram.modals-polite }
+  - { front: "você se importaria de revisar meu PR?", back: "Would you mind reviewing my PR?", tag: gram.modals-polite }
+  - { front: "quando tiver um tempo…", back: "When you get a chance,…", tag: gram.softeners }
+  - { front: "sem pressa", back: "No rush.", tag: gram.softeners }
+  - { front: "alguma chance de você poder…?", back: "Any chance you could…?", tag: gram.modals-polite }
+  - { front: "quando funcionar para você", back: "whenever works for you", tag: gram.softeners }
+  - { front: "isso está me travando (urgência real)", back: "This is blocking me.", tag: topic.help }
+  - { front: "é urgente porque trava o release", back: "It's urgent — it's blocking the release.", tag: topic.help }
+  - { front: "eu agradeceria se você pudesse…", back: "I'd appreciate it if you could…", tag: gram.modals-polite }
+  - { front: "posso te pegar por dez minutos depois?", back: "Can I grab you for ten minutes after this?", tag: topic.help }
+  - { front: "assim que você puder", back: "as soon as you can", tag: topic.help }
+  - { front: "serve para você?", back: "Does that work for you?", tag: gram.modals-polite }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
