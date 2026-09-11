@@ -15,9 +15,9 @@ context:
   scenario: |
     Terça-feira, daily das 10h BRT. Você está migrando o `checkout-worker` para o novo cluster e travou em três pontos diferentes, de três naturezas diferentes:
 
-    1. O pipeline falha porque a *service account* do novo cluster não tem permissão de ler o bucket de artefatos. Você abriu um ticket para o time de segurança ontem de manhã e ninguém respondeu.
-    2. O Marcos prometeu o Helm chart base na sexta e ainda não entregou; sem ele você não consegue testar o rollout.
-    3. Você não entendeu como o *secret* do banco é injetado no cluster novo; leu o runbook duas vezes e continua sem entender.
+    - O pipeline falha porque a *service account* do novo cluster não tem permissão de ler o bucket de artefatos. Você abriu um ticket para o time de segurança ontem de manhã e ninguém respondeu.
+    - O Marcos prometeu o Helm chart base na sexta e ainda não entregou; sem ele você não consegue testar o rollout.
+    - Você não entendeu como o *secret* do banco é injetado no cluster novo; leu o runbook duas vezes e continua sem entender.
 
     O primeiro é um **bloqueio** por terceiros, o segundo é uma **dependência** de um colega, o terceiro é uma **dúvida** sua. Cada um pede uma frase diferente. E a Ana está esperando **você** revisar o PR dela desde ontem.
   roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
@@ -43,7 +43,7 @@ vocabulary:
     example: I need read access to the artifacts bucket from the security team.
     translation: Preciso de acesso de leitura ao bucket de artefatos, do time de segurança.
     note: Diga o quê e de quem; evita "I need help".
-  - term: I've asked in #channel / I opened a ticket
+  - term: "I've asked in #channel / I opened a ticket"
     meaning: mostrar que já agiu
     example: I opened a ticket with security yesterday morning; no reply yet.
     translation: Abri um ticket com segurança ontem de manhã; sem resposta ainda.
@@ -88,7 +88,7 @@ vocabulary:
     example: I'll get to your PR right after this.
     translation: Vou pegar seu PR logo depois disso.
     note: '"get to" = chegar em (uma tarefa da fila).'
-  - term: This is blocking Ana's release
+  - term: X is blocking Y
     meaning: nomear o impacto do bloqueio
     example: The bucket policy is blocking the checkout release, so it's urgent.
     translation: A policy do bucket está bloqueando o release do checkout, então é urgente.
@@ -114,7 +114,7 @@ grammar:
 
     **O pedido em uma frase:** contexto curto → o que já tentei → pedido específico.
 
-    > I'm blocked on the bucket permissions; I opened a ticket yesterday with no reply. **Could someone from security take a look after the call?**
+    *Exemplo:* I'm blocked on the bucket permissions; I opened a ticket yesterday with no reply. **Could someone from security take a look after the call?**
 
     **Modais de polidez, do mais leve ao mais direto:** *Could you point me to…?* · *Would you mind…?* · *Can you unblock me on…?* · *I need X from Y by Z.* Quanto mais urgente, mais direto; quanto mais direto, mais específico.
 
@@ -172,7 +172,7 @@ brErrors:
   - { wrong: "I'm blocked by Marcos.", right: "I'm blocked on the base chart (from Marcos).", why: "blocked on + o problema; nomear a pessoa como bloqueio soa acusatório", tag: vocab.standup }
   - { wrong: "I need help.", right: "I need read access to the bucket from security.", why: "pedido sem objeto não destrava nada", tag: topic.help }
   - { wrong: "You can give me access?", right: "Could you give me access?", why: "pergunta pede inversão + modal de polidez", tag: gram.modals-polite }
-  - { wrong: "I'm in the new cluster now.", right: "I'm on the new cluster now.", why: "cluster/servidor/ambiente: on", tag: gram.prepositions-infra }
+  - { wrong: "I'm in the new cluster now.", right: "I'm on the new cluster now.", why: "trabalhar em um cluster/servidor/ambiente: on; injetar ou deployar algo é in the cluster", tag: gram.prepositions-infra }
   - { wrong: "Sorry to bother, but maybe if it's possible could you perhaps…", right: "Could you take a look at the bucket policy after the call?", why: "excesso de suavizadores soa inseguro; um modal basta", tag: gram.modals-polite }
 
 dialogue:
@@ -195,14 +195,14 @@ dialogue:
 listening:
   lines:
     - { speaker: Ana, text: "I'm blocked on the firewall rule for the new load balancer. I asked in the network channel on Friday and again yesterday. If I don't hear back by noon, I'll escalate to their lead." }
-    - { speaker: Marcos, text: "The node pool upgrade depends on the new AMI from the platform team; they said Thursday. Not blocked yet, just planning around it. I'm waiting for their confirmation." }
+    - { speaker: Marcos, text: "The node group upgrade depends on the new AMI from the platform team; they said Thursday. Not blocked yet, just planning around it. I'm waiting for their confirmation." }
     - { speaker: Priya, text: "Yuri, the release notes are waiting on you; I need the checkout section by tomorrow. Also, who owns the Grafana folder for the old dashboards? We should archive it." }
   questions:
     - { id: M01-04-l1, type: multiple_choice, prompt: "What is Ana blocked on?", options: ["A firewall rule", "The new AMI", "The release notes", "The Grafana folder"], answer: 0, explanation: '"I''m blocked on the firewall rule for the new load balancer."', tags: [comp.listening] }
     - { id: M01-04-l2, type: multiple_choice, prompt: "What will Ana do if nobody replies by noon?", options: ["Open a ticket", "Wait until Friday", "Ask Marcos", "Escalate to the network lead"], answer: 3, explanation: '"If I don''t hear back by noon, I''ll escalate to their lead."', tags: [comp.listening, topic.help] }
-    - { id: M01-04-l3, type: fill_blank, prompt: "The node pool upgrade depends ___ the new AMI.", accepted: ["on"], explanation: "depend on.", tags: [br.depend-of, comp.listening] }
+    - { id: M01-04-l3, type: fill_blank, prompt: "The node group upgrade depends ___ the new AMI.", accepted: ["on"], explanation: "depend on.", tags: [br.depend-of, comp.listening] }
     - { id: M01-04-l4, type: multiple_choice, prompt: "Is Marcos blocked?", options: ["Yes, since Friday", "Yes, on the AMI", "Not yet; he is planning around it", "He does not say"], answer: 2, explanation: '"Not blocked yet, just planning around it."', tags: [comp.listening, vocab.standup] }
-    - { id: M01-04-l5, type: multiple_choice, prompt: "What is waiting on Yuri?", options: ["The firewall rule", "The release notes", "The AMI", "The node pool"], answer: 1, explanation: '"the release notes are waiting on you"', tags: [comp.listening, br.waiting-no-prep] }
+    - { id: M01-04-l5, type: multiple_choice, prompt: "What is waiting on Yuri?", options: ["The firewall rule", "The release notes", "The AMI", "The node group"], answer: 1, explanation: '"the release notes are waiting on you"', tags: [comp.listening, br.waiting-no-prep] }
     - { id: M01-04-l6, type: multiple_choice, prompt: '"Who owns the Grafana folder?" — Priya wants to know…', options: ["who created it", "who uses it most", "who deleted it", "who is responsible for it"], answer: 3, explanation: "own = ser responsável por.", tags: [vocab.standup] }
 
 writing:
