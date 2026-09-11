@@ -1,0 +1,75 @@
+# Avaliação do módulo M05: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M05
+title: "Avaliação do módulo M05: descrevendo sistemas e fluxos"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita com autoavaliação ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M05-A01, type: multiple_choice, prompt: "Which sentence uses 'sits behind' correctly?", options: ["The database sits in front of the API and talks to clients.", "The API sits behind the database and receives all the traffic.", "The services sit behind the client and reach the DB.", "The database sits behind the API — nothing reaches it directly."], answer: 3, explanation: "sits behind = protegido por quem vem antes na cadeia.", tags: [vocab.architecture] }
+  - { id: M05-A02, type: error_correction, prompt: "This service talk to the database and the packet arrive on the pod.", accepted: ["This service talks to the database and the packet arrives at the pod.", "This service talks to the database and the packet arrives at the pod", "This service talks to the database and the packet reaches the pod."], explanation: "Duas correções: talks/arrives (3ª pessoa) e arrives at (não on).", tags: [br.third-person-s, br.arrive-on, gram.present-simple-process] }
+  - { id: M05-A03, type: multiple_choice, prompt: "Which pair describes 'front × back' of an architecture?", options: ["talks to / listens on", "hits / returns", "fronted by / backed by", "deploy to / run on"], answer: 2, explanation: "fronted by = quem recebe o tráfego; backed by = a fundação.", tags: [vocab.architecture] }
+  - { id: M05-A04, type: fill_blank, prompt: "The admin interface listens ___ port 9090.", accepted: ["on"], explanation: "porta de escuta é sempre \"on\".", tags: [gram.prepositions-infra, br.listen-in] }
+  - { id: M05-A05, type: error_correction, prompt: "We deploy in staging and the app runs in AWS.", accepted: ["We deploy to staging and the app runs on AWS.", "We deploy to staging and the app runs on AWS", "We deploy to staging, and the app runs on AWS."], explanation: "Dois calques de \"em/para\": deploy TO, runs ON.", tags: [gram.prepositions-infra] }
+  - { id: M05-A06, type: error_correction, prompt: "The service listens in port 8080 and returns the datas.", accepted: ["The service listens on port 8080 and returns the data.", "The service listens on port 8080 and returns the data", "The service listens on 8080 and returns the data."], explanation: "Dois erros: listens ON + data sem plural.", tags: [br.listen-in, br.uncountable] }
+  - { id: M05-A07, type: multiple_choice, prompt: "Put the request flow in order.", options: ["client → service → gateway → CDN", "client → CDN → gateway → service", "gateway → client → CDN → service", "client → CDN → service → gateway"], answer: 1, explanation: "cliente → CDN (fachada) → gateway (auth) → serviço.", tags: [vocab.architecture] }
+  - { id: M05-A08, type: multiple_choice, prompt: "The client is ___ the left of the diagram; the gateway sits ___ the middle.", options: ["in / on", "at / on", "on / at", "on / in"], answer: 3, explanation: "lateral é \"on\"; centro é \"in\": on the left, in the middle.", tags: [gram.prepositions-infra] }
+  - { id: M05-A09, type: error_correction, prompt: "In the right is the database, and the queue sit at the bottom.", accepted: ["On the right is the database, and the queue sits at the bottom.", "On the right is the database, and the queue sits at the bottom", "On the right is the database and the queue sits at the bottom."], explanation: "Dois erros: ON the right + sits (3ª pessoa).", tags: [gram.prepositions-infra, br.third-person-s] }
+  - { id: M05-A10, type: multiple_choice, prompt: "What does a 502 usually mean in this flow?", options: ["the request timed out", "a service is down and the request bounced back", "auth failed", "the queue is full"], answer: 1, explanation: "502 = o serviço não respondeu; a request \"bounced back\".", tags: [vocab.errors, vocab.architecture] }
+  - { id: M05-A11, type: fill_blank, prompt: "If the database is slow, the request ___ out at 30 seconds.", accepted: ["times"], explanation: '"times out" — expira por tempo.', tags: [vocab.architecture] }
+  - { id: M05-A12, type: error_correction, prompt: "The packet arrived in the pod on port 3000.", accepted: ["The packet arrived at the pod on port 3000.", "The packet arrived at the pod on port 3000", "The packet reached the pod on port 3000.", "The packet reached the pod on port 3000"], explanation: '"arrived in" para infra é calque — ponto técnico é "at" (porta continua "on").', tags: [br.arrive-on] }
+  - { id: M05-A13, type: translate, prompt: "A resposta volta pelo mesmo caminho — a viagem inteira leva uns 80 ms.", accepted: ["The response returns the same way — the whole round trip takes about 80 ms.", "The response returns the same way — the whole round trip takes about 80 ms", "The response comes back the same way — the whole round trip takes about 80 ms."], explanation: '"returns/comes back the same way" + "round trip".', tags: [vocab.architecture] }
+  - { id: M05-A14, type: match, prompt: "Associe o verbo de movimento ao que ele diz da request.", pairs: [{ left: "goes through", right: "passes through a component" }, { left: "forwards to", right: "passes on without deciding" }, { left: "bounces back", right: "returns with an error" }, { left: "ends up at", right: "the final destination" }], explanation: "Quatro verbos de movimento, quatro nuances.", tags: [vocab.architecture] }
+  - { id: M05-A15, type: multiple_choice, prompt: "Which walkthrough line is correct?", options: ["\"In the left is the client, and the request arrives on the gateway.\"", "\"On the left is the client, and the request arrives at the gateway.\"", "\"On the left is the client, and the request arrive at the gateway.\"", "\"At the left is the client, and the request arrives at the gateway.\""], answer: 1, explanation: "ON the left + arrives AT + arrives com -s.", tags: [gram.prepositions-infra, br.arrive-on, br.third-person-s] }
+
+writing:
+  prompt: |
+    **Cenário:** o colega novo pediu a arquitetura por escrito para reler depois. O sistema: cliente → CDN → gateway (auth + rate limit) → serviços (checkout/payments) → Postgres (RDS, só os serviços falam com ele); fila + workers async; tudo na AWS, EKS, API na 8080; 502 quando o serviço cai, 504 em 30 s quando o DB demora.
+
+    **Tarefa:** escreva o walkthrough em texto corrido (70–100 palavras): big picture, componentes, fluxo e o que acontece quando falha.
+  constraints:
+    - { label: "Verbo de relação ou fluxo", pattern: "\\b(sits? behind|talks? to|backed by|fronted by|goes? through|hits?|gets? routed|returns?|bounces?|times? out)\\b" }
+    - { label: "Par verbo-preposição de infra", pattern: "\\b(runs? on|listens? on|hosted on|deploy(s|ed)? to|points? to|exposed via|arrives? at)\\b" }
+    - { label: "Componente de infra nomeado", pattern: "\\b(cdn|gateway|service|database|postgres|queue|worker|eks|rds|aws|api)\\b" }
+    - { label: "O que acontece quando falha", pattern: "\\b(50[0-9]|times? out|bounces?|fails?|down|logs?)\\b" }
+  rubric:
+    - Componentes e relações (sits behind, talks to, backed by)
+    - Fluxo com sequência (hits, goes through, gets routed to, returns)
+    - Pares verbo-preposição corretos (runs on, listens on, arrives at)
+    - O que acontece quando falha (bounces back, times out, 502/504)
+  model: >-
+    Big picture: everything the client sends hits the CDN first, then goes through the gateway —
+    that is where auth happens. From there the request gets routed to checkout or payments. Only
+    the services talk to Postgres — it sits at the back on RDS. The queue and the workers handle
+    the async emails off the path. Everything runs on AWS, the services on EKS, and the API listens
+    on 8080. A dead service means the request bounces back as a 502; a slow DB means it times out
+    at 30 seconds with a 504.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.architecture, topic.architecture]
+
+speaking:
+  prompt: "Grave 2 minutos explicando a arquitetura em voz alta — como para o colega novo: big picture, componentes e relações, o fluxo da request, o que acontece quando falha e onde olhar. É a gravação que fecha o módulo (nota ≥ 3/5)."
+  maxSeconds: 120
+  targetPhrases:
+    - let me walk you through
+    - the big picture
+    - on the left
+    - in the middle
+    - this is where
+    - sits behind
+    - talks to
+    - backed by
+    - goes through
+    - gets routed to
+    - runs on
+    - listens on
+    - bounces back
+    - times out
+    - the source of truth
+    - end to end
+  checklist:
+    - Abri com o big picture e guiei com signposting?
+    - Cobri componentes, relações, fluxo, falhas e onde olhar?
+    - Pares verbo-preposição corretos (runs on, listens on, points to, arrives at)?
+    - Terceira pessoa com -s; data sem plural; "arrive at", não "arrive on"?

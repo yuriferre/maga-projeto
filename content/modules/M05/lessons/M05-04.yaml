@@ -1,0 +1,288 @@
+id: M05-04
+module: M05
+order: 4
+title: "Explicando um diagrama: signposting básico"
+objective: >-
+  Ao final, você guia o ouvinte por um diagrama de arquitetura — onde olhar
+  primeiro, o que cada caixa e seta significam — com signposting que segura a
+  atenção e a orientação espacial.
+durationMin: 35
+competencies: [SPK, VOC, PRO]
+tags: [vocab.architecture, topic.architecture, comp.speaking, comp.vocabulary, gram.prepositions-infra, br.third-person-s]
+prerequisites: [M05-03]
+
+context:
+  scenario: |
+    Você compartilha a tela com o diagrama de arquitetura e começa a falar.
+    Sem signposting, o ouvinte vê 20 caixas e não sabe onde olhar: "aqui tem
+    um banco, aqui um serviço, aqui uma fila" — e ele já se perdeu na segunda
+    frase.
+
+    Explicar diagrama é guiar o olho. O ouvinte precisa saber **onde** olhar
+    (`on the left`, `at the top`, `in the middle`, `this box here`) e **o
+    que** cada coisa é (`the arrow means`, `this line connects`, `that box
+    is`). É como ser guia turístico: você aponta antes de explicar.
+
+    O truque é pensar o diagrama como uma narrativa com direção: da esquerda
+    para a direita segue o fluxo da request; de cima para baixo segue a
+    dependência. Você vai usar a mesma arquitetura de sempre — mas agora
+    guiando o olho.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: "on the left / on the right"
+    meaning: à esquerda / à direita — orientação lateral do diagrama
+    example: "On the left you have the client; on the right, the database."
+    translation: "À esquerda você tem o cliente; à direita, o banco."
+    note: 'Posição lateral é "on": on the left, on the right, on the far left.'
+  - term: "at the top / at the bottom"
+    meaning: no topo / na base — orientação vertical
+    example: "At the top there's the user; at the bottom, the workers."
+    translation: "No topo está o usuário; na base, os workers."
+    note: 'Posição vertical é "at": at the top, at the bottom, at the bottom-left.'
+  - term: "in the middle / in the center"
+    meaning: no meio / no centro
+    example: "In the middle sits the gateway — everything passes through it."
+    translation: "No meio fica o gateway — tudo passa por ele."
+    note: '"in" para o centro do espaço; "at" para extremos.'
+  - term: "this box here"
+    meaning: esta caixa aqui — aponta um componente
+    example: "This box here is the API gateway — it's the entry point."
+    translation: "Esta caixa aqui é o API gateway — é o ponto de entrada."
+    note: '"this box here" é o pointing físico; quase sempre seguido de "is" ou "means".'
+  - term: "the arrow means"
+    meaning: a seta significa — lê o que a seta indica
+    example: "The arrow means 'calls' — checkout calls payments."
+    translation: "A seta significa \"chama\" — o checkout chama pagamentos."
+    note: '"means" lê o diagrama; "shows" também funciona: "the arrow shows the call".'
+  - term: "as you can see"
+    meaning: como você pode ver — chama atenção para algo evidente
+    example: "As you can see, everything flows through the gateway."
+    translation: "Como você pode ver, tudo flui pelo gateway."
+    note: "Marca o que é evidente na figura; use para apontar, não para provar."
+  - term: "moving right / moving down"
+    meaning: indo para a direita / descendo — transição espacial
+    example: "Moving right, we hit the services layer."
+    translation: "Indo para a direita, chegamos à camada de serviços."
+    note: 'O conector de transição espacial: "moving right", "moving down", "over here".'
+  - term: "the solid line / the dashed line"
+    meaning: a linha contínua / a linha tracejada
+    example: "The solid line is synchronous; the dashed line is async."
+    translation: "A linha contínua é síncrona; a tracejada é assíncrona."
+    note: 'Convenção comum: sólida = chamada síncrona, tracejada = evento/fila.'
+  - term: "this is where"
+    meaning: é aqui que — aponta o ponto onde algo acontece
+    example: "This is where auth happens — inside the gateway."
+    translation: "É aqui que a auth acontece — dentro do gateway."
+    note: '"this is where X happens" aponta + explica ao mesmo tempo.'
+  - term: "follow the arrow"
+    meaning: siga a seta — instrução ao ouvinte
+    example: "Follow the arrow to the right — it lands on the database."
+    translation: "Siga a seta para a direita — ela termina no banco."
+    note: 'Imperativo que guia o olho; "follow the line" para linhas.'
+  - term: "over here / right here"
+    meaning: aqui — aponta um lugar específico
+    example: "Over here, on the right, is the cache layer."
+    translation: "Aqui, à direita, está a camada de cache."
+    note: 'Marcador de posição informal; "right here" = exatamente aqui.'
+  - term: "labeled"
+    meaning: rotulado — o que está escrito na caixa/seta
+    example: "The arrow labeled 'gRPC' is the service-to-service call."
+    translation: "A seta rotulada \"gRPC\" é a chamada entre serviços."
+    note: '"labeled X" = o que está escrito; útil para diferenciar setas.'
+
+grammar:
+  title: "Signposting = orientação espacial + leitura do diagrama"
+  explanation: |
+    Explicar diagrama mistura duas linguagens: **onde olhar** (posição) e **o que significa** (leitura).
+
+    **Posição — a preposição muda com o lugar:**
+
+    | Onde | Preposição | Exemplo |
+    |---|---|---|
+    | laterais | **on** | *on the left / on the right* |
+    | extremos verticais | **at** | *at the top / at the bottom* |
+    | centro | **in** | *in the middle / in the center* |
+    | canto | **in/at** | *in the top-right corner / at the far end* |
+
+    **Leitura — os verbos que leem o desenho:**
+
+    - **this box is** = identidade ("this box is the gateway")
+    - **the arrow means** = significado ("the arrow means 'calls'")
+    - **the line connects** = ligação ("this line connects the API to the DB")
+    - **this is where** = local de ação ("this is where auth happens")
+
+    **A narrativa tem direção:** *starting on the left… moving right… down here… and finally at the bottom*. Sem essa trilha, o ouvinte se perde.
+
+    **Erros BR:** "in the left" (é *on the left*), "the box that stay in the middle" (3ª pessoa: *sits/stays*), "this arrow meaning" (é *means*).
+  examples:
+    - { en: "On the left you have the client; on the right, the database.", pt: "À esquerda você tem o cliente; à direita, o banco." }
+    - { en: "At the top there's the user; in the middle, the gateway.", pt: "No topo está o usuário; no meio, o gateway." }
+    - { en: "This box here is the API gateway — it's the entry point.", pt: "Esta caixa aqui é o API gateway — é o ponto de entrada." }
+    - { en: "The arrow means 'calls' — the service calls the database.", pt: "A seta significa \"chama\" — o serviço chama o banco." }
+    - { en: "The dashed line is async — it goes to the queue.", pt: "A linha tracejada é assíncrona — ela vai para a fila." }
+    - { en: "This is where rate limiting happens — inside the gateway.", pt: "É aqui que o rate limiting acontece — dentro do gateway." }
+
+examples:
+  - en: "Starting on the left, you have the client — a browser or the mobile app."
+    pt: "Começando pela esquerda, você tem o cliente — um browser ou o app mobile."
+    context: '"starting on the left" abre a narrativa com direção.'
+  - en: "Moving right, the first thing the request hits is the CDN."
+    pt: "Indo para a direita, a primeira coisa que a request encontra é a CDN."
+    context: '"moving right" + "hits" — transição espacial + verbo de fluxo.'
+  - en: "This box in the middle is the gateway — it handles auth and routing."
+    pt: "Esta caixa no meio é o gateway — ele lida com auth e roteamento."
+    context: '"this box" aponta; "handles" diz o que faz.'
+  - en: "The solid arrows mean synchronous calls; the dashed ones are async."
+    pt: "As setas contínuas significam chamadas síncronas; as tracejadas são assíncronas."
+    context: "ler a legenda do diagrama em voz alta."
+  - en: "This is where auth happens — the gateway checks the token before anything else."
+    pt: "É aqui que a auth acontece — o gateway verifica o token antes de tudo."
+    context: '"this is where" aponta o lugar da ação.'
+  - en: "Follow the arrow labeled 'gRPC' — it lands on the payments service."
+    pt: "Siga a seta rotulada \"gRPC\" — ela termina no serviço de pagamentos."
+    context: "imperativo que guia o olho até o destino."
+  - en: "Down at the bottom, these workers sit behind the queue — they're off the request path."
+    pt: "Lá embaixo, esses workers ficam atrás da fila — eles estão fora do caminho da request."
+    context: '"down at the bottom" + "sit behind" — posição no diagrama + posição na arquitetura.'
+  - en: "As you can see, everything flows through the gateway — nothing bypasses it."
+    pt: "Como você pode ver, tudo flui pelo gateway — nada o contorna."
+    context: '"as you can see" para o que é evidente na figura.'
+
+variations:
+  - idea: '"apontar uma caixa do diagrama"'
+    items:
+      - { register: "Boa", text: "This box here is the gateway.", adequate: true }
+      - { register: "Boa", text: "Over here, on the right, is the cache layer.", adequate: true }
+      - { register: "Inadequada", text: "In the left you have the client.", adequate: false, note: 'Lateral é "on": ON the left.' }
+      - { register: "Inadequada", text: "This box stay in the middle.", adequate: false, note: 'Terceira pessoa: "stays" (ou "sits").' }
+  - idea: '"ler uma seta do diagrama"'
+    items:
+      - { register: "Boa", text: "The arrow means 'calls' — checkout calls payments.", adequate: true }
+      - { register: "Boa", text: "This line connects the API to the database.", adequate: true }
+      - { register: "Inadequada", text: "The arrow is meaning calls.", adequate: false, note: '"means" é estado, não progressivo: "the arrow means".' }
+      - { register: "Inadequada", text: "This arrow say calls.", adequate: false, note: 'Terceira pessoa: "says" (mas "means" é mais natural para diagrama).' }
+
+brErrors:
+  - { wrong: "The service listens in port 8080.", right: "The service listens on port 8080.", why: "serviço escuta ON a porta", tag: br.listen-in }
+  - { wrong: "The request arrives on the gateway.", right: "The request arrives at the gateway.", why: '"arrive on" é calque — é "arrives at"', tag: br.arrive-on }
+  - { wrong: "This box stay in the middle.", right: "This box stays in the middle.", why: "terceira pessoa leva -s: stays", tag: br.third-person-s }
+  - { wrong: "The arrow point to the database.", right: "The arrow points to the database.", why: "terceira pessoa leva -s: points", tag: br.third-person-s }
+  - { wrong: "In the left you have the client.", right: "On the left you have the client.", why: 'lateral é "on": ON the left', tag: gram.prepositions-infra }
+  - { wrong: "The diagram have the components.", right: "The diagram has the components.", why: "terceira pessoa: has (não have)", tag: br.third-person-s }
+  - { wrong: "The response returns the datas.", right: "The response returns the data.", why: "data é incontável", tag: br.uncountable }
+  - { wrong: "I have a doubt about the diagram.", right: "I have a question about the diagram.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The diagram is more clear with colors.", right: "The diagram is clearer with colors.", why: "clear é adjetivo curto: clearer", tag: br.more-er }
+  - { wrong: "She said me the arrow means calls.", right: "She told me the arrow means calls.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "Guiando o olho pelo diagrama"
+  lines:
+    - { speaker: Yuri, text: "Okay, let me walk you through this diagram. Starting on the left, you have the client — a browser or the mobile app." }
+    - { speaker: Marcos, text: "Got it. What's that box next to it?" }
+    - { speaker: Yuri, text: "Moving right, that's the CDN — it's the entry point for static content. See the arrow? It means 'goes to'." }
+    - { speaker: Marcos, text: "And the big box in the middle?" }
+    - { speaker: Yuri, text: "That's the gateway — this is where auth happens. The solid arrows are synchronous calls; follow the one going right, it lands on checkout." }
+    - { speaker: Marcos, text: "And the dashed line going down?" }
+    - { speaker: Yuri, text: "Dashed means async — that one goes to the queue. Down at the bottom, the workers sit behind it. They're off the request path." }
+    - { speaker: Marcos, text: "And where's the database in all this?" }
+    - { speaker: Yuri, text: "On the far right — only the services talk to it. As you can see, everything flows through the gateway first. Nothing bypasses it." }
+  notes:
+    - '"starting on the left / moving right / down at the bottom / on the far right" é a trilha que guia o olho.'
+    - '"this box / the arrow means / this is where" lê o desenho em voz alta.'
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "Starting on the left, you have the client. Moving right, the first thing the request hits is the CDN — it's the entry point for static content." }
+    - { speaker: Yuri, text: "In the middle is the gateway — this is where auth happens. The solid arrows are sync calls; the dashed ones are async — that dashed line going down is the queue." }
+    - { speaker: Yuri, text: "At the bottom, the workers sit behind the queue. And on the far right is the database — only the services talk to it. Everything flows through the gateway first." }
+  questions:
+    - { id: M05-04-l1, type: multiple_choice, prompt: "Where does the narrative start?", options: ["at the gateway", "on the left, with the client", "at the database", "in the middle"], answer: 1, explanation: '"starting on the left, you have the client."', tags: [comp.listening] }
+    - { id: M05-04-l2, type: multiple_choice, prompt: "What do the dashed arrows mean?", options: ["sync calls", "auth", "async calls", "errors"], answer: 2, explanation: '"the dashed ones are async."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-04-l3, type: fill_blank, prompt: "The gateway sits ___ the middle of the diagram.", accepted: ["in"], explanation: "centro do espaço é \"in\": in the middle.", tags: [gram.prepositions-infra] }
+    - { id: M05-04-l4, type: multiple_choice, prompt: "Where is the database on the diagram?", options: ["on the left", "at the top", "in the middle", "on the far right"], answer: 3, explanation: '"on the far right is the database."', tags: [comp.listening] }
+    - { id: M05-04-l5, type: multiple_choice, prompt: "'This is where auth happens' points to…", options: ["the client", "the CDN", "the gateway", "the workers"], answer: 2, explanation: '"in the middle is the gateway — this is where auth happens."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-04-l6, type: fill_blank, prompt: "The client is ___ the left of the diagram.", accepted: ["on"], explanation: "lateral é \"on\": on the left.", tags: [gram.prepositions-infra] }
+
+writing:
+  prompt: |
+    **Cenário:** você manda o diagrama no Slack e escreve a legenda guiada — o colega novo vai ler sem você na tela. O diagrama: cliente à esquerda → CDN → gateway (auth) no meio → serviços (checkout/payments) → banco à direita; seta tracejada desce para a fila → workers embaixo.
+
+    **Tarefa:** escreva a legenda em texto corrido (60–90 palavras): onde cada coisa está no diagrama e o que as setas significam.
+  constraints:
+    - { label: "Marcador espacial (on the left / at the top / in the middle)", pattern: "\\b(on the (left|right|far left|far right)|at the (top|bottom)|in the (middle|center|corner)|over here|down at)\\b" }
+    - { label: "Leitura do desenho (box is / arrow means / line connects / this is where)", pattern: "\\b(box|arrow|line|means|connects|this is where|labeled|solid|dashed)\\b" }
+    - { label: "Componente de infra nomeado", pattern: "\\b(client|cdn|gateway|service|database|queue|worker|api|cache)\\b" }
+    - { label: "Conector de direção ou sequência", pattern: "\\b(starting|moving|first|then|next|finally|from there)\\b" }
+  rubric:
+    - Marcadores espaciais corretos (on the left, in the middle)
+    - Leitura do desenho (arrow means, box is, this is where)
+    - A trilha tem direção (left → right, top → bottom)
+    - Terceira pessoa com -s
+  model: >-
+    Starting on the left, you have the client — a browser or the app. Moving right, the request
+    hits the CDN, then this big box in the middle: the gateway. This is where auth happens. The
+    solid arrows mean sync calls — follow them to checkout and payments. The dashed line going down
+    is the queue; the workers sit at the bottom, off the request path. On the far right is the
+    database — only the services talk to it.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.architecture, topic.architecture]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos guiando o ouvinte pelo diagrama — onde olhar, o que cada caixa e seta significam, em que direção seguir.
+    maxSeconds: 45
+    targetPhrases:
+      - on the left
+      - on the right
+      - at the top
+      - at the bottom
+      - in the middle
+      - this box here
+      - the arrow means
+      - this line connects
+      - this is where
+      - as you can see
+      - moving right
+      - follow the arrow
+      - the solid line
+      - the dashed line
+    checklist:
+      - Orientei com marcadores espaciais (on the left, at the top, in the middle)?
+      - Li o desenho (box is, arrow means, this is where)?
+      - Dei direção à narrativa (starting, moving, finally)?
+      - '"On the left", não "in the left"?'
+
+quiz:
+  - { id: M05-04-q1, type: multiple_choice, prompt: "The client is ___ the left of the diagram.", options: ["in", "at", "on", "to"], answer: 2, explanation: "lateral é \"on\": on the left / on the right.", tags: [gram.prepositions-infra] }
+  - { id: M05-04-q2, type: error_correction, prompt: "In the left you have the client, and this box stay in the middle.", accepted: ["On the left you have the client, and this box stays in the middle.", "On the left you have the client, and this box stays in the middle", "On the left you have the client and this box sits in the middle."], explanation: "Dois erros: ON the left + stays (3ª pessoa).", tags: [gram.prepositions-infra, br.third-person-s] }
+  - { id: M05-04-q3, type: multiple_choice, prompt: "The gateway sits ___ the middle.", options: ["in", "on", "at", "to"], answer: 0, explanation: "centro do espaço é \"in\": in the middle.", tags: [gram.prepositions-infra] }
+  - { id: M05-04-q4, type: fill_blank, prompt: "The arrow ___ 'calls' — checkout calls payments.", accepted: ["means"], explanation: '"means" lê o desenho; 3ª pessoa.', tags: [vocab.architecture] }
+  - { id: M05-04-q5, type: error_correction, prompt: "The request arrives on the gateway first.", accepted: ["The request arrives at the gateway first.", "The request arrives at the gateway first", "The request reaches the gateway first.", "The request reaches the gateway first"], explanation: '"arrive on" é calque — ponto técnico é "arrive at".', tags: [br.arrive-on] }
+  - { id: M05-04-q6, type: translate, prompt: "É aqui que a auth acontece.", accepted: ["This is where auth happens.", "This is where auth happens", "This is where authentication happens."], explanation: '"this is where X happens" — aponta + explica.', tags: [vocab.architecture] }
+  - { id: M05-04-q7, type: multiple_choice, prompt: "Which sentence guides the eye correctly?", options: ["In the left is the client.", "On the left you have the client.", "At the left stays the client.", "The client it is on left."], answer: 1, explanation: '"on the left" + "you have" — posição e existência corretas.', tags: [gram.prepositions-infra] }
+  - { id: M05-04-q8, type: match, prompt: "Associe o marcador ao lugar.", pairs: [{ left: "on the left", right: "a lateral" }, { left: "at the top", right: "o extremo vertical" }, { left: "in the middle", right: "o centro" }, { left: "the arrow means", right: "o que a seta indica" }], explanation: "Lateral on, extremo at, centro in — e \"means\" lê a seta.", tags: [gram.prepositions-infra, vocab.architecture] }
+
+review:
+  count: 5
+  preferTags: [gram.prepositions-infra, vocab.architecture, br.third-person-s]
+
+srsCards:
+  - { front: "à esquerda", back: "on the left", tag: gram.prepositions-infra }
+  - { front: "à direita", back: "on the right", tag: gram.prepositions-infra }
+  - { front: "no topo", back: "at the top", tag: gram.prepositions-infra }
+  - { front: "na base", back: "at the bottom", tag: gram.prepositions-infra }
+  - { front: "no meio", back: "in the middle", tag: gram.prepositions-infra }
+  - { front: "esta caixa aqui", back: "this box here", tag: vocab.architecture }
+  - { front: "a seta significa", back: "the arrow means", tag: vocab.architecture }
+  - { front: "é aqui que a auth acontece", back: "this is where auth happens", tag: vocab.architecture }
+  - { front: "indo para a direita", back: "moving right", tag: vocab.architecture }
+  - { front: "siga a seta", back: "follow the arrow", tag: vocab.architecture }
+  - { front: "a linha tracejada é assíncrona", back: "the dashed line is async", tag: vocab.architecture }
+  - { front: "como você pode ver", back: "as you can see", tag: vocab.architecture }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

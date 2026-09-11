@@ -1,0 +1,308 @@
+id: M05-05
+module: M05
+order: 5
+title: "Explicar sua arquitetura atual para um colega novo"
+objective: >-
+  Integração total: você explica a arquitetura real em que trabalha para um
+  colega novo — componentes, relações, fluxo de request, onde cada coisa roda
+  — e responde às perguntas dele, em texto e em voz.
+durationMin: 45
+competencies: [SPK, VOC, PRO]
+tags: [vocab.architecture, topic.architecture, comp.speaking, comp.writing, gram.present-simple-process, gram.prepositions-infra, br.third-person-s, br.listen-in, br.arrive-on, br.uncountable]
+prerequisites: [M05-01, M05-02, M05-03, M05-04]
+
+context:
+  scenario: |
+    Segunda-feira, primeiro dia do colega novo. O time manda o diagrama no
+    Slack e diz: "walk him through it." É a explicação de verdade — sem
+    roteiro, com perguntas no meio e a sua arquitetura real.
+
+    Você vai usar tudo do módulo ao mesmo tempo:
+
+    - componentes (`there is/are`, `sits behind`, `fronted by`, `backed by`)
+    - fluxo (`first… then…`, `hits`, `goes through`, `gets routed to`,
+      `returns`, `times out`)
+    - preposições de infra (`deploy to`, `run on`, `listen on`,
+      `expose via`, `point to`, `arrive at`)
+    - signposting (`on the left`, `this box here`, `the arrow means`,
+      `this is where`)
+
+    E vai responder às perguntas clássicas de quem chega: "who talks to the
+    database?", "what happens when it fails?", "where do I look when it
+    breaks?" — a explicação só está completa quando as perguntas param.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: walk (someone) through
+    meaning: guiar alguém por — explicar passo a passo
+    example: "Let me walk you through the architecture before you start."
+    translation: "Deixa eu te guiar pela arquitetura antes de você começar."
+    note: '"walk through" = o tour guiado; a explicação do diagrama inteiro.'
+  - term: "the big picture"
+    meaning: o panorama — a visão de alto nível antes dos detalhes
+    example: "Let's start with the big picture, then we zoom into the services."
+    translation: "Vamos começar pelo panorama, depois damos zoom nos serviços."
+    note: "Sempre abra pelo big picture; detalhe antes disso confunde."
+  - term: "zoom into"
+    meaning: dar zoom em — descer do panorama para o detalhe
+    example: "Now let me zoom into the checkout service specifically."
+    translation: "Agora deixa eu dar zoom no serviço de checkout especificamente."
+    note: "O movimento contrário do big picture — do geral para o específico."
+  - term: "the same way"
+    meaning: do mesmo jeito — o caminho de volta ou um padrão repetido
+    example: "The response comes back the same way — through the gateway and the CDN."
+    translation: "A resposta volta do mesmo jeito — pelo gateway e pela CDN."
+    note: 'Evita reexplicar o caminho de volta: "returns the same way".'
+  - term: "nothing fancy"
+    meaning: nada sofisticado — honesto sobre simplicidade
+    example: "The queue is nothing fancy — just SQS feeding the workers."
+    translation: "A fila não tem nada de sofisticado — só SQS alimentando os workers."
+    note: "Hedge honesto: reconhece a simplicidade sem se desculpar."
+  - term: "that's about it"
+    meaning: é basicamente isso — fecha a explicação
+    example: "That's about it — any questions before we zoom in?"
+    translation: "É basicamente isso — alguma pergunta antes de darmos zoom?"
+    note: "O fecho natural do tour; abre espaço para perguntas."
+  - term: "when it breaks"
+    meaning: quando quebra — a pergunta que todo mundo faz
+    example: "When it breaks, you start at the gateway logs and work backwards."
+    translation: "Quando quebra, você começa nos logs do gateway e volta para trás."
+    note: 'A pergunta implícita de todo colega novo: "e quando falha, onde eu olho?"'
+  - term: "end to end"
+    meaning: de ponta a ponta — a request completa
+    example: "That's the flow end to end — client to database and back."
+    translation: "Esse é o fluxo de ponta a ponta — do cliente ao banco e de volta."
+    note: '"end to end" resume o percurso completo.'
+  - term: "it's a bit of a mess"
+    meaning: está meio bagunçado — honesto sobre complexidade real
+    example: "The legacy part is a bit of a mess — three services doing the same thing."
+    translation: "A parte legada está meio bagunçada — três serviços fazendo a mesma coisa."
+    note: "Hedge honesto para arquitetura real, que nunca é limpa como o diagrama."
+  - term: "don't worry about (it) yet"
+    meaning: não se preocupe com isso ainda — adia o detalhe
+    example: "Don't worry about the workers yet — they're async and off the path."
+    translation: "Não se preocupe com os workers ainda — eles são assíncronos e fora do caminho."
+    note: 'Gerencia a carga cognitiva do ouvinte: "depois a gente vê isso".'
+  - term: "the source of truth"
+    meaning: a fonte da verdade — onde a informação real mora
+    example: "The database is the source of truth; the cache is just a copy."
+    translation: "O banco é a fonte da verdade; o cache é só uma cópia."
+    note: "Conceito importante: qual componente detém o dado real."
+  - term: "any questions so far"
+    meaning: alguma pergunta até aqui — checkpoint do tour
+    example: "Any questions so far, or should I keep going?"
+    translation: "Alguma pergunta até aqui, ou posso continuar?"
+    note: "Checkpoint no meio do tour — evita chegar ao fim com o ouvinte perdido."
+
+grammar:
+  title: "A explicação completa = estado + fluxo + posição"
+  explanation: |
+    Explicar arquitetura real combina os três modos do módulo em sequência:
+
+    | Parte | Linguagem | Exemplo |
+    |---|---|---|
+    | O que existe | there is/are, component names | *There are four main components.* |
+    | Como se relacionam | sits behind, talks to, backed by | *The DB sits behind the API.* |
+    | O fluxo | hits, goes through, gets routed to, returns | *First it hits the CDN…* |
+    | Onde roda | runs on, listens on, points to | *The API runs on EKS, listens on 8080.* |
+    | Guiando o olho | on the left, this box here, the arrow means | *On the left you have the client.* |
+
+    **As perguntas que o colega novo sempre faz — e a estrutura da resposta:**
+
+    - *"Who talks to X?"* → *Only the services talk to it — nothing else reaches it.*
+    - *"What happens when it fails?"* → *If the service is down, the request bounces back as a 502.*
+    - *"Where do I look when it breaks?"* → *You start at the gateway logs and work backwards.*
+
+    **E os erros BR que concentram aqui:** *the request go* (-s), *listens in port* (on), *arrives on the server* (at), *the datas* (data). Quatro padrões, quatro correções.
+  examples:
+    - { en: "Let me walk you through the big picture first.", pt: "Deixa eu te guiar pelo panorama primeiro." }
+    - { en: "Only the services talk to the database — nothing else reaches it.", pt: "Só os serviços falam com o banco — nada mais chega a ele." }
+    - { en: "If the service is down, the request bounces back as a 502.", pt: "Se o serviço cai, a request volta como 502." }
+    - { en: "When it breaks, you start at the gateway logs and work backwards.", pt: "Quando quebra, você começa nos logs do gateway e volta." }
+    - { en: "That's the flow end to end — any questions?", pt: "Esse é o fluxo de ponta a ponta — alguma pergunta?" }
+    - { en: "The queue is nothing fancy — just SQS feeding the workers.", pt: "A fila não tem nada de sofisticado — só SQS alimentando os workers." }
+
+examples:
+  - en: "Let me walk you through the big picture before we zoom into the services."
+    pt: "Deixa eu te guiar pelo panorama antes de darmos zoom nos serviços."
+    context: "Abertura do tour — big picture primeiro."
+  - en: "On the left is the client; this box in the middle is the gateway — this is where auth happens."
+    pt: "À esquerda está o cliente; essa caixa no meio é o gateway — é aqui que a auth acontece."
+    context: "Signposting + papel do componente em uma frase."
+  - en: "First the request hits the CDN, then it goes through the gateway, finally it lands on a service."
+    pt: "Primeiro a request bate na CDN, depois passa pelo gateway, por fim chega a um serviço."
+    context: "O fluxo em uma linha."
+  - en: "The API runs on EKS and listens on 8080; Postgres runs on RDS."
+    pt: "A API roda em EKS e escuta na 8080; o Postgres roda em RDS."
+    context: "runs on + listens on — pares fechados."
+  - en: "If anything's slow, the request times out at 30 seconds — the client sees a 504."
+    pt: "Se algo demora, a request expira em 30 segundos — o cliente vê um 504."
+    context: "O fluxo infeliz."
+  - en: "When it breaks, you start at the gateway logs — the request ID follows the whole chain."
+    pt: "Quando quebra, você começa nos logs do gateway — o request ID segue a cadeia inteira."
+    context: "A resposta para \"onde eu olho quando quebra\"."
+  - en: "That's about it for the happy path — the legacy part is a bit of a mess, but don't worry about it yet."
+    pt: "É basicamente isso para o caminho feliz — a parte legada está meio bagunçada, mas não se preocupe com isso ainda."
+    context: "Honestidade sobre a bagunça real + gerenciamento de atenção."
+  - en: "That's the system end to end — CDN in front, gateway in the middle, services behind it, DB at the back."
+    pt: "Esse é o sistema de ponta a ponta — CDN na frente, gateway no meio, serviços atrás, DB no fundo."
+    context: "O fecho em uma linha — a arquitetura inteira resumida."
+
+variations:
+  - idea: '"abrir o tour guiado"'
+    items:
+      - { register: "Boa", text: "Let me walk you through the architecture — big picture first.", adequate: true }
+      - { register: "Boa", text: "I'll start with the big picture, then we zoom into the services.", adequate: true }
+      - { register: "Inadequada", text: "I will explain for you the architecture.", adequate: false, note: '"explain for you" é calque — "walk you through" ou "explain the architecture to you".' }
+      - { register: "Inadequada", text: "Here is the diagram, look.", adequate: false, note: "Sem narrativa guiada — o ouvinte se perde sozinho." }
+  - idea: '"fechar e abrir para perguntas"'
+    items:
+      - { register: "Boa", text: "That's about it — any questions so far?", adequate: true }
+      - { register: "Boa", text: "That's the flow end to end — what should I zoom into?", adequate: true }
+      - { register: "Inadequada", text: "Finished. Questions?", adequate: false, note: "Abrupto demais; o fecho convida com uma frase." }
+      - { register: "Inadequada", text: "Do you have doubts?", adequate: false, note: '"doubts" = desconfiança; dúvidas-perguntas são "questions".' }
+
+brErrors:
+  - { wrong: "The request go through the gateway.", right: "The request goes through the gateway.", why: "terceira pessoa leva -s: goes", tag: br.third-person-s }
+  - { wrong: "The service listens in port 8080.", right: "The service listens on port 8080.", why: "serviço escuta ON a porta", tag: br.listen-in }
+  - { wrong: "The request arrives on the server.", right: "The request arrives at the server.", why: '"arrive on" é calque — é "arrives at"', tag: br.arrive-on }
+  - { wrong: "The response returns the datas.", right: "The response returns the data.", why: "data é incontável — sem plural", tag: br.uncountable }
+  - { wrong: "We deploy in staging first.", right: "We deploy to staging first.", why: "destino do deploy é \"to\"", tag: gram.prepositions-infra }
+  - { wrong: "In the left you have the client.", right: "On the left you have the client.", why: 'lateral é "on": ON the left', tag: gram.prepositions-infra }
+  - { wrong: "I have a doubt about the architecture.", right: "I have a question about the architecture.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The system is more fast now.", right: "The system is faster now.", why: "fast é adjetivo curto: faster", tag: br.more-er }
+  - { wrong: "He said me the queue is async.", right: "He told me the queue is async.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I am agree with this architecture.", right: "I agree with this architecture.", why: '"I am agree" é calque — "agree" já é verbo', tag: br.i-am-agree }
+
+dialogue:
+  title: "O tour completo — primeiro dia do colega novo"
+  lines:
+    - { speaker: Marcos, text: "First day — where do I even start?" }
+    - { speaker: Yuri, text: "Let me walk you through it — big picture first. On the left of the diagram you have the client; everything it sends hits the CDN first." }
+    - { speaker: Marcos, text: "And the big box in the middle?" }
+    - { speaker: Yuri, text: "That's the gateway — this is where auth and rate limiting happen. Nothing gets past it without a valid token." }
+    - { speaker: Marcos, text: "So the request goes CDN, gateway, then…?" }
+    - { speaker: Yuri, text: "Then it gets routed to a service — checkout or payments, depending on the path. The solid arrows are the sync calls." }
+    - { speaker: Marcos, text: "Who talks to the database?" }
+    - { speaker: Yuri, text: "Only the services — Postgres sits at the back, on RDS. Nothing reaches it directly; it's the source of truth." }
+    - { speaker: Marcos, text: "And that dashed line going down?" }
+    - { speaker: Yuri, text: "That's the queue — async. Checkout puts emails there, the workers send them after the response returns. Don't worry about them yet — they're off the path." }
+    - { speaker: Marcos, text: "What happens when something fails?" }
+    - { speaker: Yuri, text: "If a service is down, the request bounces back as a 502. If the DB is slow, it times out at 30 seconds — the client sees a 504." }
+    - { speaker: Marcos, text: "And when it breaks, where do I look?" }
+    - { speaker: Yuri, text: "You start at the gateway logs — every request has an ID that follows the whole chain. You can trace it end to end." }
+    - { speaker: Marcos, text: "Where does all this run?" }
+    - { speaker: Yuri, text: "Everything's hosted on AWS — services run on EKS, the API listens on 8080, metrics are exposed via /metrics. We deploy to staging on every merge." }
+    - { speaker: Marcos, text: "That's a lot — but it's clearer than I expected. The gateway is the chokepoint, the services are behind it, the DB is at the back." }
+    - { speaker: Yuri, text: "Exactly — that's about it. The legacy part is a bit of a mess, but that's a tour for another day. Any questions so far?" }
+  notes:
+    - "o tour tem estrutura: big picture → componentes → fluxo → falhas → onde olhar → onde roda → fecho."
+    - "cada pergunta do colega novo é respondida com a linguagem do módulo: who talks to X, what happens when it fails, where do I look."
+    - '"that''s about it" + "any questions so far" fecha e convida.'
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "Big picture first: on the left is the client, everything hits the CDN, then goes through the gateway — that's where auth happens — and gets routed to a service. The services talk to Postgres; the queue and workers handle the async stuff off the path." }
+    - { speaker: Marcos, text: "When it breaks, you start at the gateway logs — every request has an ID that follows the chain end to end. 502 means a service is down; 504 means something timed out at 30 seconds." }
+    - { speaker: Priya, text: "Infra-wise: everything's hosted on AWS, services run on EKS, the API listens on 8080, and metrics are exposed via /metrics. Staging gets a deploy on every merge." }
+  questions:
+    - { id: M05-05-l1, type: multiple_choice, prompt: "What is the order of the request?", options: ["client → gateway → CDN → service", "client → CDN → gateway → service", "CDN → client → gateway → service", "client → service → gateway → CDN"], answer: 1, explanation: '"client… hits the CDN, then goes through the gateway… routed to a service."', tags: [comp.listening] }
+    - { id: M05-05-l2, type: multiple_choice, prompt: "What does a 502 mean here?", options: ["a timeout", "auth failed", "the queue is full", "a service is down"], answer: 3, explanation: '"502 means a service is down."', tags: [comp.listening, vocab.errors] }
+    - { id: M05-05-l3, type: multiple_choice, prompt: "Where do you start debugging?", options: ["at the service logs", "at the CDN", "at the gateway logs", "at the database"], answer: 2, explanation: '"you start at the gateway logs — the request ID follows the chain."', tags: [comp.listening] }
+    - { id: M05-05-l4, type: fill_blank, prompt: "The API listens ___ port 8080.", accepted: ["on"], explanation: "porta de escuta é \"on\".", tags: [gram.prepositions-infra, br.listen-in] }
+    - { id: M05-05-l5, type: multiple_choice, prompt: "Where does Postgres run?", options: ["on EKS", "on the gateway", "on ElastiCache", "on RDS"], answer: 3, explanation: '"Postgres sits at the back, on RDS."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-05-l6, type: multiple_choice, prompt: "What does the request ID let you do?", options: ["skip auth", "trace the request end to end", "cache the response", "deploy faster"], answer: 1, explanation: '"an ID that follows the whole chain — trace it end to end."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-05-l7, type: fill_blank, prompt: "Metrics are exposed ___ /metrics.", accepted: ["via"], explanation: "o canal/mecanismo é \"via\".", tags: [gram.prepositions-infra] }
+    - { id: M05-05-l8, type: multiple_choice, prompt: "What should you NOT worry about yet, per Yuri?", options: ["the gateway", "the CDN", "the workers (async, off the path)", "auth"], answer: 2, explanation: '"don''t worry about them yet — they''re off the path."', tags: [comp.listening] }
+
+writing:
+  prompt: |
+    **Cenário:** o colega novo pediu a explicação por escrito para reler depois: "can you write me the architecture walkthrough?". O sistema: cliente → CDN → gateway (auth + rate limit) → serviços (checkout/payments) → Postgres (RDS, só os serviços falam com ele); fila + workers async para e-mails; tudo na AWS, EKS, API na 8080, métricas via /metrics; 502 quando o serviço cai, 504 em 30 s quando o DB demora; debug começa nos logs do gateway pelo request ID.
+
+    **Tarefa:** escreva o walkthrough em texto corrido (80–120 palavras): big picture, componentes, fluxo, falhas e onde olhar quando quebra.
+  constraints:
+    - { label: "Verbo de relação ou fluxo", pattern: "\\b(sits? behind|talks? to|backed by|fronted by|goes? through|hits?|gets? routed|returns?|bounces?|times? out)\\b" }
+    - { label: "Par verbo-preposição de infra", pattern: "\\b(runs? on|listens? on|hosted on|deploy(s|ed)? to|points? to|exposed via|arrives? at|over tls)\\b" }
+    - { label: "Marcador de posição ou signposting", pattern: "\\b(on the (left|right|far right)|in the middle|at the (top|bottom|back)|this is where|the arrow)\\b" }
+    - { label: "Componente de infra nomeado", pattern: "\\b(cdn|gateway|service|database|postgres|queue|worker|eks|rds|aws|metrics|request id)\\b" }
+    - { label: "O que acontece quando falha / onde olhar", pattern: "\\b(50[0-9]|times? out|bounces?|fails?|down|logs?|breaks?|trace)\\b" }
+  rubric:
+    - Big picture antes dos detalhes
+    - Componentes e relações (sits behind, talks to)
+    - Fluxo com sequência e falhas (bounces back, times out)
+    - Pares verbo-preposição corretos (runs on, listens on, via)
+    - Onde olhar quando quebra (gateway logs, request ID)
+  model: >-
+    Big picture: on the left is the client; everything hits the CDN first, then goes through the
+    gateway — this is where auth happens. From there the request gets routed to checkout or
+    payments. Only the services talk to Postgres — it sits at the back on RDS, the source of truth.
+    The dashed line is the queue: async, feeding the workers. Everything runs on AWS, the services
+    on EKS; the API listens on 8080, metrics exposed via /metrics. A dead service means the request
+    bounces back as a 502; a slow DB means it times out at 30 s. When it breaks, start at the
+    gateway logs — the request ID traces the whole chain.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.architecture, topic.architecture]
+
+speaking:
+  modeA:
+    prompt: Grave 60 segundos explicando a arquitetura para o colega novo — big picture, componentes, fluxo, falhas e onde olhar quando quebra. É o ensaio da explicação gravada de 2 min que fecha o módulo.
+    maxSeconds: 60
+    targetPhrases:
+      - let me walk you through
+      - the big picture
+      - on the left
+      - in the middle
+      - this is where
+      - sits behind
+      - talks to
+      - goes through
+      - gets routed to
+      - runs on
+      - listens on
+      - exposed via
+      - bounces back
+      - times out
+      - the source of truth
+      - end to end
+      - that's about it
+      - any questions so far
+    checklist:
+      - Abri com o big picture antes dos detalhes?
+      - Cobri componentes, relações, fluxo e falhas?
+      - Usei os pares verbo-preposição corretos (runs on, listens on, points to, arrives at)?
+      - Disse onde olhar quando quebra?
+      - Fechei com "that's about it" ou equivalente e abri para perguntas?
+
+quiz:
+  - { id: M05-05-q1, type: multiple_choice, prompt: "What's the best way to open the walkthrough?", options: ["\"Let me walk you through the big picture first.\"", "\"Here's the diagram, look.\"", "\"Any questions?\"", "\"The database is on RDS.\""], answer: 0, explanation: "Big picture primeiro; detalhe antes disso confunde.", tags: [vocab.architecture, comp.speaking] }
+  - { id: M05-05-q2, type: error_correction, prompt: "The API runs in EKS and listens in port 8080.", accepted: ["The API runs on EKS and listens on port 8080.", "The API runs on EKS and listens on port 8080", "The API runs on EKS and listens on 8080."], explanation: "Dois calques de \"em\": runs ON EKS, listens ON port.", tags: [gram.prepositions-infra, br.listen-in] }
+  - { id: M05-05-q3, type: multiple_choice, prompt: "'Who talks to the database?' — the answer:", options: ["everyone does", "only the services — nothing reaches it directly", "the gateway", "the CDN"], answer: 1, explanation: "Proteção: só os serviços falam com o banco.", tags: [vocab.architecture] }
+  - { id: M05-05-q4, type: fill_blank, prompt: "If the service is down, the request ___ back as a 502.", accepted: ["bounces"], explanation: '"bounces back" — retorna com erro.', tags: [vocab.architecture] }
+  - { id: M05-05-q5, type: error_correction, prompt: "The request arrives on the server and the response returns the datas.", accepted: ["The request arrives at the server and the response returns the data.", "The request arrives at the server and the response returns the data", "The request reaches the server and the response returns the data."], explanation: "Dois erros: arrives AT + data sem plural.", tags: [br.arrive-on, br.uncountable] }
+  - { id: M05-05-q6, type: translate, prompt: "Quando quebra, você começa nos logs do gateway.", accepted: ["When it breaks, you start at the gateway logs.", "When it breaks, you start at the gateway logs", "When something breaks, you start at the gateway logs."], explanation: '"when it breaks" + "start at the logs".', tags: [vocab.architecture] }
+  - { id: M05-05-q7, type: multiple_choice, prompt: "How do you close the walkthrough?", options: ["\"Finished. Questions?\"", "\"Do you have doubts?\"", "\"Okay bye.\"", "\"That's about it — any questions so far?\""], answer: 3, explanation: "O fecho resume e convida — não corta.", tags: [vocab.architecture, comp.speaking] }
+  - { id: M05-05-q8, type: match, prompt: "Associe a pergunta do colega novo à resposta.", pairs: [{ left: "Who talks to the DB?", right: "only the services" }, { left: "What happens when it fails?", right: "bounces back / times out" }, { left: "Where do I look when it breaks?", right: "the gateway logs" }, { left: "Where does it run?", right: "hosted on AWS, runs on EKS" }], explanation: "As quatro perguntas clássicas do primeiro dia.", tags: [vocab.architecture] }
+
+review:
+  count: 8
+  preferTags: [vocab.architecture, gram.prepositions-infra, gram.present-simple-process, br.third-person-s, br.listen-in, br.arrive-on, br.uncountable]
+
+srsCards:
+  - { front: "deixa eu te guiar pela arquitetura", back: "let me walk you through the architecture", tag: vocab.architecture }
+  - { front: "o panorama primeiro", back: "the big picture first", tag: vocab.architecture }
+  - { front: "dar zoom nos serviços", back: "zoom into the services", tag: vocab.architecture }
+  - { front: "nada sofisticado — só SQS", back: "nothing fancy — just SQS", tag: vocab.architecture }
+  - { front: "é basicamente isso", back: "that's about it", tag: vocab.architecture }
+  - { front: "quando quebra, onde eu olho?", back: "when it breaks, where do I look?", tag: vocab.architecture }
+  - { front: "de ponta a ponta", back: "end to end", tag: vocab.architecture }
+  - { front: "a fonte da verdade", back: "the source of truth", tag: vocab.architecture }
+  - { front: "não se preocupe com isso ainda", back: "don't worry about it yet", tag: vocab.architecture }
+  - { front: "alguma pergunta até aqui?", back: "any questions so far?", tag: vocab.architecture }
+  - { front: "a API roda em EKS e escuta na 8080", back: "the API runs on EKS and listens on 8080", tag: gram.prepositions-infra }
+  - { front: "a request chega ao gateway", back: "the request arrives at the gateway", tag: br.arrive-on }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

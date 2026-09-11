@@ -182,3 +182,31 @@ patterns:
     right: "I found the workaround on the internet"
     why: 'Em inglês se diz "on the internet".'
     tag: br.in-the-internet
+  # "listen in on" é phrasal verb correta ("escutar junto") — o alvo errado é só
+  # port/interface/address/socket.
+  - id: listen-in
+    pattern: "\\blisten(s|ing|ed)? in (the |a |an )?(port|interface|address|socket)\\b"
+    wrong: "The service listens in port 8080"
+    right: "The service listens on port 8080"
+    why: "Serviço escuta ON a porta/interface (listen on port 8080)."
+    tag: br.listen-in
+  - id: uncountable-plural
+    pattern: "\\b(datas|informations|feedbacks|advices|equipments|softwares|knowledges)\\b"
+    wrong: "The response returns the datas"
+    right: "The response returns the data"
+    why: "data, information, feedback, advice, equipment, software e knowledge são incontáveis — sem plural."
+    tag: br.uncountable
+  # Sujeitos de infra conhecidos + verbo sem -s; plurais ("the requests go") ficam fora da lista.
+  - id: third-person-bare
+    pattern: "\\b(the|this|that|it|he|she) (request|service|server|pod|cluster|gateway|proxy|database|cache|queue|worker|app|api|endpoint|container|instance|function|job|pipeline|load balancer|loadbalancer|ingress) (go|talk|hit|return|sit|listen|run|fail|pass|come|handle|call|point|expose|route|need|look|seem)\\b"
+    wrong: "The request go through the gateway"
+    right: "The request goes through the gateway"
+    why: "Terceira pessoa do singular leva -s no present simple (the request goes)."
+    tag: br.third-person-s
+  # "arrive on/in" + alvo de infra é calque; "arrive on time" e "arrive in <cidade>" ficam fora.
+  - id: arrive-on
+    pattern: "\\b(arrive|arrives|arrived|arriving) (on|in) (the |a |an |my |your |our |this |that )?(server|service|host|endpoint|cluster|pod|node|machine|instance|api)\\b"
+    wrong: "The request arrives on the server"
+    right: "The request arrives at the server / reaches the server"
+    why: 'Chegar a um ponto técnico é "arrive at" (ou reaches/hits); on/in é para lugar geográfico ou "on time".'
+    tag: br.arrive-on

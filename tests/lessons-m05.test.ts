@@ -1,0 +1,57 @@
+import { describe, it, expect } from "vitest";
+import { loadContent, crossValidate } from "../shared/content-loader.ts";
+import { checkLesson } from "./lib/check-lesson.ts";
+
+const bundle = loadContent("content");
+
+describe("M05 lessons", () => {
+  it("passes cross-validation", () => {
+    expect(crossValidate(bundle)).toEqual([]);
+  });
+  // Cada aula nova adiciona uma linha (T3–T7 do plano 2026-09-11-e5-m05).
+  checkLesson(bundle, "M05-01", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 45,
+    prerequisites: ["M01-01"],
+  });
+  checkLesson(bundle, "M05-02", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 45,
+    prerequisites: ["M05-01"],
+  });
+  checkLesson(bundle, "M05-03", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 45,
+    prerequisites: ["M05-02"],
+  });
+  checkLesson(bundle, "M05-04", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 45,
+    prerequisites: ["M05-03"],
+  });
+  checkLesson(bundle, "M05-05", {
+    vocabMin: 12,
+    dialogueMin: 12,
+    listening: 8,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 60,
+    prerequisites: ["M05-01", "M05-02", "M05-03", "M05-04"],
+  });
+});

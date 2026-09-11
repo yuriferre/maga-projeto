@@ -1,0 +1,8 @@
+id: M05
+assessment:
+  title: Module assessment
+  description: "15 itens mistos cobrindo as tags do módulo + escrita (descrição de fluxo, autoavaliada) + gravação de 2 min explicando uma arquitetura (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 3, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
