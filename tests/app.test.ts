@@ -93,6 +93,7 @@ describe("lesson flow", () => {
     await json("POST", `/api/lessons/${lesson.id}/start`);
     const overview = await (await app.request("/api/progress/overview")).json();
     expect(overview.lessons).toHaveLength(1);
+    expect(overview.modules).toEqual({});
     const stats = await (await app.request("/api/tags/stats?days=7")).json();
     expect(stats.stats.find((s: { tag: string }) => s.tag === "gram.since-for").errors).toBe(1);
   });

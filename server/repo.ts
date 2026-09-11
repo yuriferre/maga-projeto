@@ -124,6 +124,17 @@ export function listAssessments(db: Db): AssessmentRow[] {
   return db.prepare("select * from assessments order by ts desc, id desc").all() as AssessmentRow[];
 }
 
+/** Última avaliação de cada módulo (kind = 'module'), uma linha por ref. */
+export function latestModuleAssessments(db: Db): AssessmentRow[] {
+  return db
+    .prepare(
+      `select a.* from assessments a
+       where a.kind = 'module' and a.id = (select max(b.id) from assessments b where b.kind = 'module' and b.ref = a.ref)
+       order by a.ref`,
+    )
+    .all() as AssessmentRow[];
+}
+
 // ---------- rodada: registros com ts estritamente maior que um instante ("" = desde sempre) ----------
 export function latestAttemptsSince(db: Db, lessonId: string, block: Block, sinceExclusive: string): Map<string, AttemptRow> {
   const rows = db.prepare("select * from attempts where lesson_id = ? and block = ? and ts > ? order by ts asc, id asc").all(lessonId, block, sinceExclusive) as AttemptRow[];

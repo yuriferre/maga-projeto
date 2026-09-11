@@ -6,7 +6,7 @@ import { BlockSchema, placementExercises, type ContentBundle } from "../shared/s
 import {
   insertAttempt, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, insertCards, tagStats,
-  insertAssessment, latestAssessment, latestAttemptsSince, latestWritingSince, latestSpeakingSince, ensureWeekGoal,
+  insertAssessment, latestAssessment, latestModuleAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince, ensureWeekGoal,
   upsertWeekGoal, latestStudySession, insertStudySession, extendStudySession,
   dueCards, getCard, applyReview, cardCounts, insertGlossaryCard,
 } from "./repo.ts";
@@ -17,6 +17,7 @@ import { ruleBasedFeedback } from "./writing-feedback.ts";
 import { computeSpeakingMetrics } from "./speaking-metrics.ts";
 import { wordOverlap } from "../shared/speech-compare.ts";
 import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs, type PlacementSpeakingMetrics } from "./placement.ts";
+import { computeAssessmentResult, missingForAssessment, moduleEligibility, parseAssessmentRecord, type AssessmentInputs } from "./assessment.ts";
 import { weekStart } from "./time.ts";
 import { buildDashboard } from "./dashboard.ts";
 
@@ -83,6 +84,7 @@ function sanitizeLimit(raw: string | undefined): number {
 export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   const app = new Hono();
   const placementIds = new Set(placementExercises(content.placement).map((e) => e.exercise.id));
+  const assessmentIds = new Map(Object.entries(content.moduleAssessments).map(([id, a]) => [id, new Set(a.items.map((q) => q.id))]));
 
   app.onError((err, c) => {
     console.error(err);
@@ -91,7 +93,13 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
 
   app.get("/api/health", (c) => c.json({ ok: true }));
 
-  app.get("/api/progress/overview", (c) => c.json({ lessons: listProgress(db) }));
+  app.get("/api/progress/overview", (c) => {
+    const modules = Object.fromEntries(latestModuleAssessments(db).map((r) => {
+      const rec = parseAssessmentRecord(r);
+      return [r.ref, { passed: rec.result.passed, latest: rec }];
+    }));
+    return c.json({ lessons: listProgress(db), modules });
+  });
 
   app.get("/api/tags/stats", (c) => {
     const days = sanitizeDays(c.req.query("days"));
@@ -131,7 +139,12 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
     if (lessonId === "placement") {
       if (block !== "placement") return c.json({ error: "o teste inicial usa o bloco placement" }, 400);
       if (!placementIds.has(exerciseId)) return c.json({ error: "exercício não pertence ao teste inicial" }, 400);
+    } else if (assessmentIds.has(lessonId)) {
+      // lessonId é um módulo com avaliação: só aceita o bloco assessment, mesmo que o item exista.
+      if (block !== "assessment") return c.json({ error: "a avaliação do módulo usa o bloco assessment" }, 400);
+      if (!assessmentIds.get(lessonId)!.has(exerciseId)) return c.json({ error: "exercício não pertence à avaliação" }, 400);
     } else {
+      if (block === "assessment") return c.json({ error: "módulo sem avaliação" }, 404);
       if (block === "placement") return c.json({ error: "bloco placement só vale para o teste inicial" }, 400);
       if (!content.lessons[lessonId]) return c.json({ error: "aula não encontrada" }, 404);
     }
@@ -252,6 +265,69 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   });
 
   app.route("/api/placement", placement);
+
+  // ---------- avaliação de módulo ----------
+  const moduleAssessment = new Hono();
+
+  moduleAssessment.use("/:id/*", async (c, next) => {
+    if (!content.moduleAssessments[c.req.param("id") ?? ""]) return c.json({ error: "módulo sem avaliação" }, 404);
+    await next();
+  });
+
+  /** Rodada atual do módulo: tudo gravado com lesson_id = id depois da última avaliação dele. */
+  const assessmentRun = (id: string): AssessmentInputs => {
+    const since = latestAssessment(db, "module", id)?.ts ?? "";
+    return {
+      attempts: latestAttemptsSince(db, id, "assessment", since),
+      writing: latestWritingSince(db, id, since),
+      speaking: latestSpeakingSince(db, id, since),
+    };
+  };
+
+  moduleAssessment.get("/:id/assessment/state", (c) => {
+    const id = c.req.param("id");
+    const latestRow = latestAssessment(db, "module", id);
+    const run = assessmentRun(id);
+    return c.json({
+      eligible: moduleEligibility(content, listProgress(db), id),
+      latest: latestRow ? parseAssessmentRecord(latestRow) : null,
+      run: { answered: [...run.attempts.keys()], writing: run.writing ?? null, speaking: run.speaking ?? null },
+    });
+  });
+
+  moduleAssessment.post("/:id/assessment/writing", async (c) => {
+    const id = c.req.param("id");
+    const parsed = WritingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const feedback = ruleBasedFeedback(parsed.data.text, content.moduleAssessments[id]!.writing, content.brErrors, parsed.data.selfScore);
+    const rowId = insertWriting(db, { lessonId: id, text: parsed.data.text, feedback, score: feedback.score }, now());
+    return c.json({ id: rowId, feedback });
+  });
+
+  moduleAssessment.post("/:id/assessment/speaking", async (c) => {
+    const id = c.req.param("id");
+    const parsed = SpeakingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const metrics = computeSpeakingMetrics(parsed.data.transcript, parsed.data.durationSec, content.moduleAssessments[id]!.speaking, content.brErrors);
+    const rowId = insertSpeaking(db, { lessonId: id, mode: "A", transcript: parsed.data.transcript, metrics, score: metrics.score, selfConfidence: parsed.data.selfConfidence ?? null }, now());
+    return c.json({ id: rowId, metrics });
+  });
+
+  moduleAssessment.post("/:id/assessment/finish", (c) => {
+    const id = c.req.param("id");
+    const eligible = moduleEligibility(content, listProgress(db), id);
+    if (eligible.missing.length > 0) return c.json({ error: "aulas pendentes", missing: eligible.missing }, 409);
+    const spec = { kind: "module" as const, ref: id, items: content.moduleAssessments[id]!.items, pass: content.modules[id]?.pass ?? { itemsMin: 0.75, writingMin: 3, speakingMin: 3 } };
+    const inputs = assessmentRun(id);
+    const missing = missingForAssessment(spec, inputs);
+    if (missing.exercises.length > 0 || missing.writing || missing.speaking) return c.json({ error: "avaliação incompleta", missing }, 409);
+    const ts = now();
+    const result = computeAssessmentResult(spec, inputs, ts);
+    const rowId = insertAssessment(db, { kind: "module", ref: id, score: result }, ts);
+    return c.json({ assessment: { id: rowId, ts, result } });
+  });
+
+  app.route("/api/modules", moduleAssessment);
 
   // ---------- SRS ----------
   const srs = new Hono();
