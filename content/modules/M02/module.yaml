@@ -1,0 +1,7 @@
+id: M02
+assessment:
+  description: "15 itens mistos das tags do módulo + escrita (3 perguntas técnicas, autoavaliadas) + gravação de um pedido de ajuda (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 3, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
