@@ -7,7 +7,7 @@ import { Badge } from "../components/ui/Badge.tsx";
 export function Module() {
   const { id = "" } = useParams();
   const found = findModule(id);
-  const { byLesson, modules } = useOverview();
+  const { byLesson, modules, loading, error, reload } = useOverview();
 
   if (!found) return <p className="text-rose-700">Módulo não encontrado.</p>;
   const { level, module } = found;
@@ -34,18 +34,20 @@ export function Module() {
         const withContent = module.lessons.filter((l) => hasContent(l.id));
         const done = withContent.filter((l) => byLesson.get(l.id)?.status === "completed").length;
         const summary = modules[module.id];
+        const locked = loading || !!error || (done < withContent.length && !summary?.latest);
         return (
           <Card>
             <div className="flex flex-wrap items-center justify-between gap-3">
               <div>
                 <h2 className="font-medium">Avaliação do módulo</h2>
                 <p className="text-sm text-slate-600">
-                  {summary?.latest
-                    ? `${summary.passed ? "Aprovado" : "Reprovado"} · itens ${Math.round(summary.latest.result.itemsPct * 100)}% · ${new Date(summary.latest.ts).toLocaleDateString("pt-BR")}`
-                    : done < withContent.length ? `Conclua as ${withContent.length} aulas (${done} feitas).` : "Todas as aulas concluídas. Pode fazer a avaliação."}
+                  {loading ? "Carregando progresso…" : error ? "Não foi possível carregar o progresso." : summary?.latest
+                    ? `${summary.passed ? "Aprovado" : "Ainda não"} · itens ${Math.round(summary.latest.result.itemsPct * 100)}% · ${new Date(summary.latest.ts).toLocaleDateString("pt-BR")}`
+                    : done < withContent.length ? `Conclua ${withContent.length === 1 ? "a aula" : `as ${withContent.length} aulas`} (${done} ${done === 1 ? "feita" : "feitas"}).` : "Todas as aulas concluídas. Pode fazer a avaliação."}
                 </p>
+                {error && <button type="button" onClick={reload} className="mt-1 text-sm text-indigo-700 hover:underline">Tentar novamente</button>}
               </div>
-              <Link to={`/modules/${module.id}/assessment`} className={`rounded-md px-4 py-2 text-sm font-medium ${done < withContent.length && !summary?.latest ? "pointer-events-none bg-slate-200 text-slate-500" : "bg-indigo-600 text-white hover:bg-indigo-700"}`}>
+              <Link to={`/modules/${module.id}/assessment`} aria-disabled={locked} tabIndex={locked ? -1 : undefined} onClick={(e) => { if (locked) e.preventDefault(); }} className={`rounded-md px-4 py-2 text-sm font-medium ${locked ? "pointer-events-none bg-slate-200 text-slate-500" : "bg-indigo-600 text-white hover:bg-indigo-700"}`}>
                 {summary?.latest ? "Ver resultado" : "Fazer avaliação"}
               </Link>
             </div>

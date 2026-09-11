@@ -11,6 +11,8 @@ const score = (n: number | null) => (n === null ? "—" : `${n}/5`);
 
 function expectedOf(ex: Exercise): string {
   if (ex.type === "multiple_choice") return ex.options[ex.answer] ?? "";
+  if (ex.type === "match") return ex.pairs.map((p) => `${p.left} → ${p.right}`).join("; ");
+  if (ex.type === "free_text") return ex.model ?? "Resposta livre conforme o enunciado.";
   if ("accepted" in ex) return ex.accepted[0] ?? "";
   if ("answer" in ex) return String(ex.answer);
   return "";
@@ -18,6 +20,14 @@ function expectedOf(ex: Exercise): string {
 function shownAnswer(ex: Exercise, answer: string | null): string {
   if (answer === null) return "—";
   if (ex.type === "multiple_choice" && /^\d+$/.test(answer)) return ex.options[Number(answer)] ?? answer;
+  if (ex.type === "match") {
+    try {
+      const pairs: unknown = JSON.parse(answer);
+      if (pairs && typeof pairs === "object" && !Array.isArray(pairs)) {
+        return Object.entries(pairs).map(([left, right]) => `${left} → ${String(right)}`).join("; ");
+      }
+    } catch { /* Resposta antiga inválida: mantém o texto original. */ }
+  }
   return answer;
 }
 

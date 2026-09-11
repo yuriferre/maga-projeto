@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router";
 import type { SpeakingMetrics } from "../../server/speaking-metrics.ts";
 import { api, ApiError, type AssessmentMissing, type AssessmentRecord, type ModuleAssessmentState } from "../lib/api.ts";
@@ -27,9 +27,13 @@ export function ModuleAssessment() {
   const [missing, setMissing] = useState<AssessmentMissing | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const retryRetake = useRef(false);
 
   /** Carrega o estado e decide o estágio: resultado, retomada ou intro. */
-  const load = (afterRetake = false) => {
+  const load = useCallback((afterRetake = false) => {
+    retryRetake.current = afterRetake;
+    setStage("loading"); setState(null); setRecord(null);
+    setWritingScore(null); setSpoken(null);
     setError(null); setMissing(null);
     api.moduleAssessmentState(id).then((s) => {
       setState(s);
@@ -42,8 +46,8 @@ export function ModuleAssessment() {
       const allAnswered = assessment ? assessment.items.every((q) => s.run.answered.includes(q.id)) : true;
       setStage(!allAnswered ? "items" : s.run.writing?.score == null ? "writing" : "speaking");
     }).catch((e: Error) => { setError(e.message); setStage("intro"); });
-  };
-  useEffect(() => { load(); }, [id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [id, assessment]);
+  useEffect(() => { load(); }, [load]);
 
   if (!assessment || !found) return <p className="text-rose-700">Este módulo ainda não tem avaliação.</p>;
   const { module } = found;
@@ -57,14 +61,16 @@ export function ModuleAssessment() {
       setStage("result");
     } catch (e) {
       if (e instanceof ApiError && e.status === 409) {
-        const body = e.body as { error: string; missing: AssessmentMissing | string[] };
-        if (Array.isArray(body.missing)) { load(); } else setMissing(body.missing);
+        const body = e.body as { missing?: AssessmentMissing | string[] } | null;
+        if (Array.isArray(body?.missing)) { load(); }
+        else if (body?.missing) setMissing(body.missing);
+        else setError(e.message);
       } else setError((e as Error).message);
     } finally {
       setBusy(false);
     }
   };
-  const retake = () => { setRecord(null); setWritingScore(null); setSpoken(null); load(true); };
+  const retake = () => { load(true); };
 
   if (stage === "loading") return <p className="text-slate-500">Carregando…</p>;
   if (stage === "result" && record) return <AssessmentResult record={record} items={assessment.items} title={assessment.title} backTo={backTo} onRetake={retake} />;
@@ -75,7 +81,7 @@ export function ModuleAssessment() {
         <h1 className="text-2xl font-semibold">{assessment.title}</h1>
         <Card>
           <p className="text-slate-700">Conclua as aulas do módulo antes da avaliação: {state.eligible.lessonsDone}/{state.eligible.lessonsTotal} concluídas.</p>
-          <ul className="mt-2 list-disc pl-5 text-sm text-slate-600">{state.eligible.missing.map((l) => <li key={l}><Link to={`/lessons/${l}`} className="text-indigo-700 hover:underline">{l}</Link></li>)}</ul>
+          <ul className="mt-2 list-disc pl-5 text-sm text-slate-600">{state.eligible.missing.map((l) => <li key={l}><Link to={`/lessons/${l}`} className="text-indigo-700 hover:underline">{l} · {module.lessons.find((lesson) => lesson.id === l)?.title}</Link></li>)}</ul>
         </Card>
       </div>
     );
@@ -89,7 +95,9 @@ export function ModuleAssessment() {
           <div className="space-y-4">
             <Markdown text={assessment.intro} />
             <p className="text-sm text-slate-500">{assessment.items.length} itens · 1 escrita · 1 gravação. Pode fechar e retomar; as respostas ficam salvas.</p>
-            <Button onClick={() => setStage("items")}>Começar</Button>
+            {state
+              ? <Button onClick={() => setStage("items")}>Começar</Button>
+              : <Button onClick={() => load(retryRetake.current)}>Tentar novamente</Button>}
           </div>
         );
       case "items":
@@ -125,7 +133,7 @@ export function ModuleAssessment() {
         <div className="rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
           Faltam: {[missing.exercises.length > 0 ? `${missing.exercises.length} item(ns)` : "", missing.writing ? "a nota da escrita" : "", missing.speaking ? "a gravação" : ""].filter(Boolean).join(", ")}.
           {missing.exercises.length > 0 && <Button variant="ghost" onClick={() => load()}>Voltar aos itens</Button>}
-          {missing.writing && <Button variant="ghost" onClick={() => setStage("writing")}>Ir para a escrita</Button>}
+          {missing.writing && <Button variant="ghost" onClick={() => { setMissing(null); setStage("writing"); }}>Ir para a escrita</Button>}
         </div>
       )}
       <div className="rounded-lg border border-slate-200 bg-white p-6 shadow-sm">{body}</div>
