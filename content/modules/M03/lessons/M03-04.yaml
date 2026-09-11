@@ -1,0 +1,273 @@
+id: M03-04
+module: M03
+order: 4
+title: "Assíncrono e fusos: EOD my time, handoffs, avisos de ausência"
+objective: >-
+  Ao final, você consegue trabalhar em time distribuído por fusos: declarar prazo no seu
+  fuso ("EOD my time"), deixar handoff com estado + próximo passo + onde continuar, e
+  avisar ausência antes de ela virar silêncio.
+durationMin: 35
+competencies: [WRI, VOC, REA]
+tags: [topic.async, vocab.slack, comp.writing, comp.vocabulary, gram.time-expressions, gram.future-plans, br.until-by, br.on-next]
+prerequisites: [M03-03]
+
+context:
+  scenario: |
+    Quinta-feira, 18h em São Paulo (BRT). Seu dia acabou — mas o do Marcos (PST) está
+    começando agora, e o da Priya (IST) recomeça daqui a poucas horas. O ticket que estava
+    com você não pode dormir com você: alguém em outro fuso precisa conseguir pegar de
+    onde você parou, sem te acordar para perguntar.
+
+    Assíncrono bom se mede por uma coisa: quem acorda depois de você consegue agir sem
+    você. Isso pede três coisas na mensagem — o estado atual, o próximo passo e onde a
+    pessoa continua.
+  roles: [Ana (SRE, mesmo fuso), Marcos (platform engineer, PST), Priya (scrum master, IST)]
+
+vocabulary:
+  - term: "EOD my time"
+    meaning: fim do dia no meu fuso — não no seu
+    example: "I'll have the review done by EOD my time — that's your morning."
+    translation: "Vou terminar o review até o fim do meu dia — que é a sua manhã."
+    note: "Sempre marque o fuso quando o prazo cruza fusos; 'EOD' sozinho é ambíguo."
+  - term: COB
+    meaning: close of business — fim do expediente
+    example: "Need the sign-off by COB Friday PST."
+    translation: "Preciso do aceite até o fim do expediente de sexta, horário do Pacífico."
+    note: "Mesmo problema do EOD: sempre diga o fuso."
+  - term: "my morning / your afternoon"
+    meaning: traduzir a hora para o fuso de quem lê
+    example: "I'll send it my morning, so it's in your inbox by your afternoon."
+    translation: "Vou mandar na minha manhã, então chega na sua tarde."
+    note: "Escrever no tempo do outro é a cortesia básica do assíncrono."
+  - term: "handing this over to @…"
+    meaning: passando o bastão para alguém
+    example: "Handing this over to @Marcos — he picks it up when PST wakes up."
+    translation: "Passando isso para o @Marcos — ele continua quando o Pacífico acordar."
+    note: "Handoff sempre nomeia quem pega; 'someone will pick it up' = ninguém pega."
+  - term: "handoff notes"
+    meaning: notas de passagem de bastão
+    example: "Left handoff notes in the thread — status, next step, and where the logs are."
+    translation: "Deixei notas de handoff na thread — status, próximo passo e onde estão os logs."
+    note: "Estrutura mínima: estado atual, próximo passo, onde continuar."
+  - term: OOO
+    meaning: out of office — fora do escritório/ausente
+    example: "Heads up: I'm OOO tomorrow — dentist, back Friday."
+    translation: "Avisando: fico fora amanhã — dentista, volto sexta."
+    note: "Ausência se avisa antes, com a volta junto."
+  - term: "out Friday / off tomorrow"
+    meaning: fora na sexta / de folga amanhã
+    example: "I'm out Friday — flag anything urgent today and I'll handle it before EOD."
+    translation: "Fico fora sexta — sinalizem o que for urgente hoje que eu resolvo antes do fim do dia."
+    note: '"out" e "off" são os registros naturais; "I will be absent" soa a relatório militar.'
+  - term: "I'll pick this up tomorrow morning"
+    meaning: eu continuo isso amanhã de manhã
+    example: "Can't finish tonight — I'll pick this up tomorrow morning my time."
+    translation: "Não termino hoje — continuo amanhã de manhã no meu horário."
+    note: "Declarar quando retoma evita que o assunto pareça abandonado."
+  - term: "leaving notes in the thread"
+    meaning: deixando o rastro na thread
+    example: "Logging off — leaving notes in the thread for whoever picks this up."
+    translation: "Saindo — deixando notas na thread para quem continuar."
+    note: "O rastro escrito é o que torna o handoff possível."
+  - term: "by the time you're online"
+    meaning: quando você estiver online (no seu fuso)
+    example: "The logs should be there by the time you're online."
+    translation: "Os logs devem estar lá quando você estiver online."
+    note: "Fala do tempo do outro, não do seu — a perspectiva certa no assíncrono."
+  - term: "first thing tomorrow"
+    meaning: primeira coisa amanhã
+    example: "I'll approve it first thing tomorrow — it's queued."
+    translation: "Aprovo primeira coisa amanhã — já está na fila."
+    note: "Compromisso de início do dia; mais concreto que 'tomorrow' sozinho."
+  - term: "catch you tomorrow"
+    meaning: a gente se fala amanhã
+    example: "Catch you tomorrow — I'll review the handoff with my coffee."
+    translation: "Falamos amanhã — reviso o handoff com meu café."
+    note: "Fechamento leve de fim de turno; informal."
+  - term: "overlap hours"
+    meaning: horas em que os fusos se sobrepõem
+    example: "Our overlap is 9–11 am my time — let's keep the sync there."
+    translation: "Nossa sobreposição é 9–11 no meu horário — vamos manter o sync ali."
+    note: "As poucas horas em que todos estão acordados são para o que precisa de voz."
+  - term: "same time tomorrow"
+    meaning: mesmo horário amanhã
+    example: "No resolution tonight — same time tomorrow, we'll pick it back up."
+    translation: "Sem resolução hoje — mesmo horário amanhã, retomamos."
+    note: "Reagendar na mesma frase evita o 'e agora?' no vazio."
+
+grammar:
+  title: "Tempo, prazo e fuso: by × until, next sem preposição"
+  explanation: |
+    **by × until de novo — agora com fusos:** *by* é prazo ("by EOD my time"), *until* é duração ("I'll be online until 6"). "I'll send it until tomorrow" está errado — até amanhã você estará *trabalhando nisso* ou *online*, não *mandando*. O prazo é **by tomorrow**.
+
+    **next dispensa preposição:** "the deploy is **next week**", "see you **next Monday**". "On next week" e "in next Monday" são calques de "na próxima semana". (Exceção de posse: "in next **week's** planning" está correto — aí a preposição é do "week's", não do "next".)
+
+    **O fuso vai junto do prazo:** "by EOD" sozinho faz quem lê adivinhar de quem é o fim do dia. "by EOD **my time**", "by noon **PST**", "**my morning**" resolvem. Melhor ainda: traduzir — "my EOD, your morning".
+
+    **Ausência se declara com a volta:** "OOO tomorrow" sem retorno deixa o time adivinhando; "OOO tomorrow, back Friday" fecha a pergunta antes de ela nascer.
+  examples:
+    - { en: "I'll have the fix reviewed by EOD my time — your morning, Priya.", pt: "Vou ter a correção revisada até o fim do meu dia — sua manhã, Priya." }
+    - { en: "The rollout continues next week — the freeze blocks Thursday.", pt: "O rollout continua semana que vem — o freeze bloqueia quinta." }
+    - { en: "Handing this over to Marcos — he picks it up when PST wakes up.", pt: "Passando isso para o Marcos — ele continua quando o Pacífico acordar." }
+    - { en: "I'm OOO tomorrow — dentist. Back Friday, first thing.", pt: "Fico fora amanhã — dentista. De volta sexta, primeira coisa." }
+    - { en: "Left the handoff notes in thread: status, next step, where the logs live.", pt: "Deixei as notas de handoff na thread: status, próximo passo, onde ficam os logs." }
+
+examples:
+  - en: "Wrapping up my day — handing the dashboard ticket to @Marcos. Status and next step in thread."
+    pt: "Encerrando meu dia — passando o ticket do dashboard para o @Marcos. Status e próximo passo na thread."
+    context: "Handoff nomeia quem pega e aponta onde continuar."
+  - en: "Heads up: I'm OOO tomorrow — dentist. Back Friday first thing; urgent stuff goes to Ana."
+    pt: "Avisando: fico fora amanhã — dentista. De volta sexta primeira coisa; o urgente vai para a Ana."
+    context: "Ausência com data de volta e substituto."
+  - en: "I'll have the review done by EOD my time — that's your morning, so it'll be waiting for you."
+    pt: "Vou terminar o review até o fim do meu dia — que é a sua manhã, então vai estar te esperando."
+    context: "Prazo no seu fuso traduzido para o fuso do outro."
+  - en: "No resolution tonight — same time tomorrow, we pick it back up. Notes are in the thread."
+    pt: "Sem resolução hoje — mesmo horário amanhã, retomamos. As notas estão na thread."
+    context: "Fechamento de dia com reagendamento e rastro."
+  - en: "The migration window is next week — I'll confirm the exact slot tomorrow."
+    pt: "A janela de migração é semana que vem — confirmo o horário exato amanhã."
+    context: '"next week" sem preposição.'
+  - en: "Can you have it ready by COB Thursday PST? That gives me Friday morning to verify."
+    pt: "Consegue deixar pronto até o fim do expediente de quinta no Pacífico? Isso me dá sexta de manhã para verificar."
+    context: "Prazo com fuso explícito e o motivo — por que aquela hora importa."
+  - en: "I'll pick this up tomorrow morning my time — the fix needs one more test I'm too tired to trust."
+    pt: "Continuo isso amanhã de manhã no meu horário — a correção precisa de mais um teste e estou cansado demais para confiar nele."
+    context: "Parar conscientemente, declarando quando retoma."
+
+variations:
+  - idea: '"avisar que sai mais cedo"'
+    items:
+      - { register: "Boa", text: "Heads up: I'm off at 3 my time today — anything urgent before then?", adequate: true }
+      - { register: "Boa", text: "OOO from 2 pm — back tomorrow first thing.", adequate: true }
+      - { register: "Inadequada", text: "I will be absent this afternoon.", adequate: false, note: '"absent" é registro de escola/relatório; "out" ou "off" são naturais.' }
+      - { register: "Inadequada", text: "(sair sem avisar)", adequate: false, note: "No assíncrono, ausência não avisada vira silêncio que parece abandono." }
+  - idea: '"declarar um prazo para outro fuso"'
+    items:
+      - { register: "Boa", text: "I'll have it done by EOD my time — your morning.", adequate: true }
+      - { register: "Boa", text: "By noon PST Thursday — that leaves me Friday to verify.", adequate: true }
+      - { register: "Inadequada", text: "I'll send it until tomorrow.", adequate: false, note: 'until é duração, não prazo — "by tomorrow".' }
+      - { register: "Inadequada", text: "Need it by EOD.", adequate: false, note: "EOD de quem? Sem fuso, o prazo é ambíguo." }
+
+brErrors:
+  - { wrong: "I'll send the report until tomorrow.", right: "I'll send the report by tomorrow.", why: "until = duração; by = prazo", tag: br.until-by }
+  - { wrong: "The deploy is on next week.", right: "The deploy is next week.", why: "next + período dispensa preposição", tag: br.on-next }
+  - { wrong: "See you in next Monday's sync. Wait — on next Monday.", right: "See you next Monday. / In next Monday's sync.", why: "'in next Monday's' vale com posse; 'on next Monday' nunca", tag: br.on-next }
+  - { wrong: "I will be absent tomorrow.", right: "I'll be out tomorrow. / I'm OOO tomorrow.", why: '"absent" é registro formal demais; out/off/OOO são naturais', tag: vocab.slack }
+  - { wrong: "The meeting is scheduled to tomorrow.", right: "The meeting is scheduled for tomorrow.", why: "schedule for, não to", tag: gram.time-expressions }
+  - { wrong: "I'll finish it at morning.", right: "I'll finish it in the morning.", why: "in the morning; 'at' só com hora exata", tag: gram.time-expressions }
+  - { wrong: "She said me the window moved to Friday.", right: "She told me the window moved to Friday.", why: "tell + pessoa, não said + pessoa", tag: br.said-me }
+  - { wrong: "I didn't saw the handoff notes.", right: "I didn't see the handoff notes.", why: "depois de did, verbo na forma base", tag: br.did-past }
+  - { wrong: "Waiting your confirmation EOD.", right: "Waiting on your confirmation. I'll check back by EOD.", why: "wait on/for; e o prazo precisa de sujeito", tag: br.waiting-no-prep }
+  - { wrong: "Tomorrow morning I send you the logs.", right: "I'll send you the logs tomorrow morning.", why: 'ordem natural: sujeito + verbo antes da expressão de tempo', tag: gram.time-expressions }
+
+dialogue:
+  title: "Quinta, 18h BRT: o ticket que não pode dormir com você"
+  lines:
+    - { speaker: Yuri, text: "Wrapping up my day — quick status on the dashboard ticket before I log off." }
+    - { speaker: Yuri, text: "Current state: panel fix is deployed to staging, still failing on prod data. Next step: someone needs to check the prod query plan — I suspect a missing index. Handoff notes in thread." }
+    - { speaker: Marcos, text: "I'll take it — I'm just starting my day here in PST. Anything I should know before I dig in?" }
+    - { speaker: Yuri, text: "Two things in the thread: the staging fix is verified, and there's a slow query log attached. Ping me if prod behaves differently — I'll check in the morning, my time." }
+    - { speaker: Marcos, text: "Got it. If it's the index, I'll have a PR up by your morning. Catch you tomorrow." }
+    - { speaker: Priya, text: "Jumping in from IST — it's my start of day too. Marcos, the freeze is Thursday your time, so whatever lands needs to land by your Wednesday EOD." }
+    - { speaker: Marcos, text: "Copy — Wednesday EOD my time or it waits for next week's window. Yuri, heads up so it's on record: I'm OOO Friday." }
+    - { speaker: Yuri, text: "Thanks for flagging early. If it's not done by your Wednesday, I'll pick it back up Thursday morning my time. Logging off — notes are all in the thread." }
+  notes:
+    - 'O handoff tem as três peças: estado ("failing on prod data"), próximo passo ("check the prod query plan") e onde continuar ("in thread").'
+    - 'Todo prazo vem com fuso: "Wednesday EOD my time", "your morning", "Thursday morning my time".'
+    - '"OOO Friday" avisado na quarta dá tempo de rearranjar — aviso de ausência bom chega antes.'
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Handing over the cert rotation to you, Yuri — it's mid-flight. Status: staging done, prod scheduled for tomorrow 10 am PST. The rollback script is in the thread if anything goes red." }
+    - { speaker: Priya, text: "Team, I'm OOO Monday — public holiday here. Anything that needs me has to land by my Friday EOD, that's your Friday morning." }
+    - { speaker: Ana, text: "Yuri, I'll pick up your dashboard ticket first thing tomorrow — my morning, your night. Leave the notes and I'll take it from there." }
+  questions:
+    - { id: M03-04-l1, type: multiple_choice, prompt: "What is Marcos handing over?", options: ["The cert rotation", "The dashboard ticket", "The freeze approval", "The monitoring gap"], answer: 0, explanation: '"Handing over the cert rotation to you."', tags: [comp.listening] }
+    - { id: M03-04-l2, type: multiple_choice, prompt: "Where is the rollback script?", options: ["In a ticket", "In the runbook", "In the thread", "With Priya"], answer: 2, explanation: '"The rollback script is in the thread."', tags: [comp.listening] }
+    - { id: M03-04-l3, type: fill_blank, prompt: "Anything that needs me has to land by my Friday ___ — that's your Friday morning.", accepted: ["EOD", "eod"], explanation: "EOD = end of day; com o fuso declarado.", tags: [comp.listening, vocab.slack] }
+    - { id: M03-04-l4, type: multiple_choice, prompt: "Why is Priya out on Monday?", options: ["Dentist", "Public holiday", "Vacation", "She's sick"], answer: 1, explanation: '"public holiday here" — e ela avisa com antecedência, com o prazo no fuso dela.', tags: [comp.listening] }
+    - { id: M03-04-l5, type: multiple_choice, prompt: "When will Ana pick up Yuri's ticket?", options: ["Tonight", "After the freeze", "Monday", "First thing tomorrow, her morning"], answer: 3, explanation: '"first thing tomorrow — my morning, your night".', tags: [comp.listening] }
+    - { id: M03-04-l6, type: multiple_choice, prompt: "What makes these handoffs work across time zones?", options: ["Everyone works longer hours", "Status + next step + where to continue, in writing", "More meetings", "Waiting for the overlap"], answer: 1, explanation: "O rastro escrito deixa quem acorda depois agir sem perguntar.", tags: [comp.listening, topic.async] }
+
+writing:
+  prompt: |
+    **Cenário:** são 18h no seu fuso e o ticket da migração do Redis continua aberto — você testou o failover em staging (funcionou), mas prod ainda não foi tocado. O Marcos (PST) pode pegar daqui a pouco. Sexta você fica fora (consulta), então se não andar até lá, retoma segunda de manhã.
+
+    **Tarefa:** escreva a mensagem de handoff + o aviso de ausência (60–90 palavras no total): estado atual, próximo passo, onde continuar, prazo com fuso e a volta declarada.
+  constraints:
+    - { label: "Verbo de handoff (handing over / pick this up / take it)", pattern: "\\b(handing over|pick(ing)? (this|it) up|i'll take it|take it from)\\b" }
+    - { label: "Prazo com fuso ou marcador de turno (EOD my time / my morning)", pattern: "\\b(eod|cob)\\b.{0,20}\\b(my time|pst|ist|brt|utc)\\b|\\bmy (morning|afternoon|eod)\\b" }
+    - { label: "Ausência com retorno (OOO / out Friday / back)", pattern: "\\b(ooo|out (friday|tomorrow)|off|back (friday|monday|first thing))\\b" }
+    - { label: "Estado ou próximo passo (status / next step / still failing)", pattern: "\\b(status|next step|still (failing|open|blocked)|remaining)\\b" }
+  rubric:
+    - Estado atual + próximo passo + onde continuar
+    - Prazos com fuso explícito ou traduzido
+    - Ausência avisada com a volta junto
+    - Sem "until" como prazo nem "on next week"
+  model: >-
+    Wrapping up my day — handing the Redis migration over to @Marcos. Status: failover tested
+    on staging, all green; prod still untouched. Next step: run the prod cutover tomorrow —
+    the script and the rollback plan are in thread. Heads up: I'm OOO tomorrow, back Monday
+    first thing. If it doesn't land by EOD Friday my time, I'll pick it up Monday morning.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.async, vocab.slack]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos deixando um voice handoff para o colega do próximo fuso — estado atual, próximo passo, onde continuar e quando você volta.
+    maxSeconds: 45
+    targetPhrases:
+      - handing this over to
+      - I'll pick this up
+      - by EOD my time
+      - my morning
+      - your afternoon
+      - first thing tomorrow
+      - OOO
+      - I'm out Friday
+      - notes in the thread
+      - by the time you're online
+      - same time tomorrow
+      - catch you tomorrow
+      - next week
+      - leaving notes
+    checklist:
+      - O handoff tem estado + próximo passo + onde continuar?
+      - Os prazos vieram com fuso?
+      - A ausência veio com a volta junto?
+      - Usei "by" para prazo, não "until"?
+
+quiz:
+  - { id: M03-04-q1, type: multiple_choice, prompt: "Which deadline actually works across time zones?", options: ["by EOD", "by EOD my time — your morning", "soon", "by tomorrow-ish"], answer: 1, explanation: "Fuso declarado e traduzido para quem lê.", tags: [topic.async, gram.time-expressions] }
+  - { id: M03-04-q2, type: error_correction, prompt: "I'll send the logs until tomorrow.", accepted: ["I'll send the logs by tomorrow.", "I'll send the logs by tomorrow"], explanation: "until = duração; by = prazo.", tags: [br.until-by] }
+  - { id: M03-04-q3, type: multiple_choice, prompt: "A good handoff message contains…", options: ["status + next step + where to continue", "just 'someone please take this'", "the whole chat history", "only the blocker"], answer: 0, explanation: "Três peças deixam quem acorda depois agir sem perguntar.", tags: [topic.async, vocab.slack] }
+  - { id: M03-04-q4, type: fill_blank, prompt: "I'll pick this up first ___ tomorrow — my morning, your night.", accepted: ["thing"], explanation: '"first thing tomorrow" = primeira coisa amanhã.', tags: [gram.time-expressions, vocab.slack] }
+  - { id: M03-04-q5, type: error_correction, prompt: "The deploy is on next week.", accepted: ["The deploy is next week.", "The deploy is next week"], explanation: "next + período dispensa preposição.", tags: [br.on-next] }
+  - { id: M03-04-q6, type: translate, prompt: "Fico fora sexta — de volta segunda primeira coisa.", accepted: ["I'm out Friday — back Monday first thing.", "I'm OOO Friday — back Monday first thing.", "Out Friday — back Monday first thing."], explanation: "Ausência com a volta junto.", tags: [vocab.slack, topic.async] }
+  - { id: M03-04-q7, type: match, prompt: "Associe a frase ao significado no assíncrono.", pairs: [{ left: "EOD my time", right: "fim do dia no meu fuso" }, { left: "OOO", right: "fora do escritório" }, { left: "first thing tomorrow", right: "primeira coisa amanhã" }, { left: "overlap hours", right: "horas em que os fusos se cruzam" }], explanation: "Vocabulário do trabalho distribuído.", tags: [topic.async, vocab.slack] }
+  - { id: M03-04-q8, type: multiple_choice, prompt: "'I'm OOO tomorrow' is best followed by…", options: ["nothing — it's complete", "an apology", "the return date or a substitute", "a formal request"], answer: 2, explanation: "Ausência boa declara a volta (ou quem cobre) junto.", tags: [topic.async, vocab.slack] }
+
+review:
+  count: 5
+  preferTags: [br.until-by, br.on-next, vocab.slack]
+
+srsCards:
+  - { front: "fim do dia no meu fuso", back: "EOD my time", tag: topic.async }
+  - { front: "passando o bastão para o Marcos", back: "handing this over to @Marcos", tag: vocab.slack }
+  - { front: "fico fora amanhã — volto sexta", back: "I'm OOO tomorrow — back Friday.", tag: vocab.slack }
+  - { front: "continuo isso amanhã de manhã (meu horário)", back: "I'll pick this up tomorrow morning my time.", tag: topic.async }
+  - { front: "primeira coisa amanhã", back: "first thing tomorrow", tag: gram.time-expressions }
+  - { front: "quando você estiver online", back: "by the time you're online", tag: topic.async }
+  - { front: "mesmo horário amanhã", back: "same time tomorrow", tag: vocab.slack }
+  - { front: "a gente se fala amanhã", back: "catch you tomorrow", tag: vocab.slack }
+  - { front: "até amanhã (prazo, não duração)", back: "by tomorrow", tag: br.until-by }
+  - { front: "semana que vem (sem preposição)", back: "next week", tag: br.on-next }
+  - { front: "deixando notas na thread", back: "leaving notes in the thread", tag: vocab.slack }
+  - { front: "horas de sobreposição dos fusos", back: "overlap hours", tag: topic.async }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
