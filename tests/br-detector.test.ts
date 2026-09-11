@@ -82,6 +82,9 @@ describe("detectBrErrors", () => {
       "Actually I finished it yesterday.",
       "It depends on the runner.",
       "The dependency of the module is outdated.",
+      "Actually I am running low on time, but currently we are blocked.",
+      "Actually, I am thinking about it, currently leaning yes.",
+      "Actually he is joking, currently nobody believes him.",
     ];
     for (const s of clean) expect(detectBrErrors(s, patterns), s).toEqual([]);
     expect(tagsOf("It depends of the runner.")).toContain("br.depend-of");
