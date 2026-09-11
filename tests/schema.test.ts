@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { ExerciseSchema, LessonSchema, TagsFileSchema, BlockSchema, PlacementSchema, placementExercises } from "../shared/schema.ts";
+import { ExerciseSchema, LessonSchema, TagsFileSchema, BlockSchema, PlacementSchema, placementExercises, ModuleFileSchema, ModuleAssessmentSchema } from "../shared/schema.ts";
 
 const mc = {
   id: "M01-02-q4", type: "multiple_choice", prompt: "Which one sounds evasive?",
@@ -71,5 +71,23 @@ describe("PlacementSchema", () => {
 describe("BlockSchema", () => {
   it("accepts placement", () => {
     expect(BlockSchema.parse("placement")).toBe("placement");
+  });
+});
+
+describe("ModuleFileSchema / ModuleAssessmentSchema", () => {
+  it("module.yaml gets pass defaults 0.75 / 3 / 3", () => {
+    const m = ModuleFileSchema.parse({ id: "M01", assessment: { description: "x" } });
+    expect(m.pass).toEqual({ itemsMin: 0.75, writingMin: 3, speakingMin: 3 });
+    expect(() => ModuleFileSchema.parse({ id: "M01", assessment: { description: "x" }, pass: { itemsMin: 1.5 } })).toThrow();
+  });
+  it("assessment needs at least 10 items", () => {
+    const item = { id: "M01-A01", type: "multiple_choice", prompt: "p?", options: ["a", "b"], answer: 0, explanation: "e", tags: ["vocab.standup"] };
+    const base = { id: "M01", title: "t", intro: "i", writing: { prompt: "w", rubric: ["r"], model: "m", minWords: 60, maxWords: 90 }, speaking: { prompt: "s", maxSeconds: 45, targetPhrases: ["no blockers"] } };
+    expect(() => ModuleAssessmentSchema.parse({ ...base, items: [item] })).toThrow();
+    const ten = Array.from({ length: 10 }, (_, i) => ({ ...item, id: `M01-A${String(i + 1).padStart(2, "0")}` }));
+    expect(ModuleAssessmentSchema.parse({ ...base, items: ten }).items).toHaveLength(10);
+  });
+  it("BlockSchema accepts assessment", () => {
+    expect(BlockSchema.parse("assessment")).toBe("assessment");
   });
 });

@@ -14,7 +14,7 @@ export const TagSchema = z
 export type Tag = z.infer<typeof TagSchema>;
 export const TagsFileSchema = z.object({ tags: z.array(TagSchema).min(1) });
 
-export const BlockSchema = z.enum(["warmup", "quiz", "listening", "writing", "speaking", "placement"]);
+export const BlockSchema = z.enum(["warmup", "quiz", "listening", "writing", "speaking", "placement", "assessment"]);
 export type Block = z.infer<typeof BlockSchema>;
 
 // ---------- Exercícios ----------
@@ -157,12 +157,33 @@ export function placementExercises(p: Placement): Array<{ exercise: Exercise; bl
   ];
 }
 
-// ---------- Módulo (metadados de avaliação) ----------
+// ---------- Módulo (metadados + regra de aprovação da avaliação) ----------
+export const PassRuleSchema = z.object({
+  /** Fração mínima de acertos nos itens objetivos. */
+  itemsMin: z.number().min(0).max(1).default(0.75),
+  /** Nota mínima da escrita (autoavaliação 1–5). */
+  writingMin: z.number().min(1).max(5).default(3),
+  /** Nota mínima da fala (modo A, 1–5). */
+  speakingMin: z.number().min(1).max(5).default(3),
+});
+export type PassRule = z.infer<typeof PassRuleSchema>;
 export const ModuleFileSchema = z.object({
   id: z.string().regex(/^M\d{2}$/),
-  assessment: z.object({ description: z.string().min(1), passPct: z.number().min(0).max(1) }),
+  assessment: z.object({ description: z.string().min(1) }),
+  pass: PassRuleSchema.default({ itemsMin: 0.75, writingMin: 3, speakingMin: 3 }),
 });
 export type ModuleFile = z.infer<typeof ModuleFileSchema>;
+
+// ---------- Avaliação de módulo (conteúdo próprio: itens + escrita + fala) ----------
+export const ModuleAssessmentSchema = z.object({
+  id: z.string().regex(/^M\d{2}$/),
+  title: z.string().min(1),
+  intro: z.string().min(1),
+  items: z.array(ExerciseSchema).min(10),
+  writing: WritingSpecSchema,
+  speaking: SpeakingModeASchema,
+});
+export type ModuleAssessment = z.infer<typeof ModuleAssessmentSchema>;
 
 // ---------- Trilha ----------
 export const LessonRefSchema = z.object({ id: z.string().regex(/^M\d{2}-\d{2}$/), title: z.string().min(1), simulation: z.boolean().default(false) });
@@ -232,6 +253,7 @@ export type ContentBundle = {
   levels: Level[];
   lessons: Record<string, Lesson>;
   modules: Record<string, ModuleFile>;
+  moduleAssessments: Record<string, ModuleAssessment>;
   tags: Tag[];
   brErrors: BrErrorPattern[];
   placement: Placement;

@@ -1,0 +1,67 @@
+# Avaliação do módulo M01. Versão inicial com 10 itens baseados na M01-02; a T10 do plano amplia para 15 cobrindo as cinco aulas.
+id: M01
+title: "Avaliação do módulo M01: daily standups"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita com autoavaliação ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M01-A01, type: fill_blank, prompt: "I ___ (work) on the alerting rules since Tuesday.", accepted: ["have been working", "'ve been working"], explanation: "since + atividade que continua: present perfect continuous.", tags: [gram.since-for, br.since-present] }
+  - { id: M01-A02, type: multiple_choice, prompt: "Which sentence sets a deadline?", options: ["I'll be on this until Friday.", "I'll have it done by Friday.", "I worked on it for Friday.", "I'm working on it since Friday."], answer: 1, explanation: "by = prazo final. until = duração; for/since marcam tempo decorrido.", tags: [gram.by-until, br.until-by] }
+  - { id: M01-A03, type: error_correction, prompt: "I didn't merge the PR yet.", accepted: ["I haven't merged the PR yet.", "I haven't merged the PR yet"], explanation: "yet em negativa pede present perfect.", tags: [gram.still-yet-already, gram.present-perfect] }
+  - { id: M01-A04, type: multiple_choice, prompt: "Which update is the clearest?", options: ["It's almost done, almost.", "The tests are taking longer than expected; I'll need another day.", "Everything is broken, I don't know.", "Sorry, sorry, I'm so slow."], answer: 1, explanation: "Diz o problema, o impacto e o novo prazo. As outras não dão informação.", tags: [topic.daily, vocab.standup] }
+  - { id: M01-A05, type: fill_blank, prompt: "I'm still waiting ___ the security review.", accepted: ["on", "for"], explanation: "wait exige preposição: wait on / wait for.", tags: [br.waiting-no-prep] }
+  - { id: M01-A06, type: error_correction, prompt: "I have a doubt about the rollout.", accepted: ["I have a question about the rollout.", "I have a question about the rollout", "I'm not sure about the rollout.", "I'm not sure about the rollout"], explanation: "doubt = desconfiança; pergunta é question.", tags: [br.doubt] }
+  - { id: M01-A07, type: translate, prompt: "O job está dando erro de permissão.", accepted: ["The job is failing with a permission error.", "The job is failing with a permission error", "The job is throwing a permission error.", "The job is throwing a permission error", "The job fails with a permission error.", "The job fails with a permission error"], explanation: "\"Giving error\" é calque. Use fail with / throw / time out.", tags: [br.giving-error, vocab.errors] }
+  - { id: M01-A08, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["might", "tomorrow", "slip", "to", "this"], answer: "this might slip to tomorrow", explanation: "Aviso padrão de atraso: this might slip to + dia.", tags: [vocab.standup] }
+  - { id: M01-A09, type: multiple_choice, prompt: "Yesterday I ___ the build stage.", options: ["fix", "have fixed", "fixed", "am fixing"], answer: 2, explanation: "yesterday fecha o momento: past simple.", tags: [gram.present-perfect] }
+  - { id: M01-A10, type: multiple_choice, prompt: "\"Heads up: the deploy window may move.\" What is the speaker doing?", options: ["Complaining", "Giving an advance warning", "Asking for approval", "Reporting a bug"], answer: 1, explanation: "heads up = aviso antecipado.", tags: [vocab.standup, vocab.slack] }
+writing:
+  prompt: |
+    **Cenário:** ontem você rotacionou as credenciais do banco de staging e atualizou os segredos no cluster. O deploy de `orders-api` falhou uma vez por causa de um segredo antigo em cache e você refez o rollout. Hoje pretende repetir o procedimento em produção, mas depende de uma janela aprovada pelo time de mudanças, pedida na segunda.
+
+    **Tarefa:** escreva seu update de standup (60–90 palavras) para ser lido em voz alta.
+  constraints:
+    - { label: "1 present perfect", pattern: "\\b(I've|I have|it's been|it has been|has been|hasn't been|haven't|hasn't|we've|we have)\\b" }
+    - { label: '"it turned out" ou "I''ve tried"', pattern: "\\b(it turned out|I've tried|I have tried)\\b" }
+    - { label: '"waiting on/for" ou "blocked on"', pattern: "\\b(waiting (on|for)|blocked on)\\b" }
+    - { label: '1 previsão com "by"', pattern: "\\bby (tomorrow|today|eod|end of|noon|lunch|friday|monday|tuesday|wednesday|thursday|the end|\\d)" }
+  rubric:
+    - Estrutura yesterday / today / blockers
+    - Tempos verbais
+    - Preposições e conectores
+    - Naturalidade e registro
+    - Concisão
+  model: >-
+    Yesterday I rotated the staging database credentials and updated the secrets in the cluster. The first
+    orders-api deploy failed; it turned out an old secret was still cached, so I redid the rollout and it's been
+    green since then. Today I'm going to repeat the procedure in production, but I'm still waiting on the change
+    window I requested on Monday. If it gets approved this morning, I should have production done by EOD.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.daily, gram.present-perfect]
+speaking:
+  prompt: "Grave seu update de standup real de hoje em até 45 segundos: o que fez, o que vai fazer, bloqueios. Use as expressões do módulo."
+  maxSeconds: 45
+  targetPhrases:
+    - I've been working on
+    - I finished
+    - I got it done
+    - I'm still on
+    - I'm blocked on
+    - I'm waiting on
+    - I'm waiting for
+    - it turned out
+    - I've tried
+    - taking longer than expected
+    - I should have it done by
+    - might slip
+    - heads up
+    - no blockers
+    - nothing blocking me
+    - quick one
+  checklist:
+    - Usei past simple para ontem e present perfect para o estado atual?
+    - Dei previsão com "by"?
+    - Disse o que já tentei ou onde estou travado?
+    - Fechei com "no blockers" ou um pedido claro?

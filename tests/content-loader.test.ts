@@ -49,6 +49,14 @@ describe("loadContent(content/)", () => {
   it("loads the curated glossary themes", () => {
     expect(bundle.glossary.map((g) => g.id)).toEqual(["daily"]);
   });
+
+  it("loads the M01 module assessment with pass thresholds", () => {
+    expect(bundle.modules["M01"]!.pass).toEqual({ itemsMin: 0.75, writingMin: 3, speakingMin: 3 });
+    const a = bundle.moduleAssessments["M01"]!;
+    expect(a.id).toBe("M01");
+    expect(a.items.length).toBeGreaterThanOrEqual(10);
+    expect(a.items.every((i) => i.id.startsWith("M01-A"))).toBe(true);
+  });
 });
 
 describe("crossValidate", () => {
@@ -72,5 +80,18 @@ describe("crossValidate", () => {
     const problems = crossValidate({ ...bundle, lessons: { ...bundle.lessons, "M01-02": lesson } });
     expect(problems.some((p) => p.includes("valores 'right' duplicados em match"))).toBe(true);
     expect(problems.some((p) => p.includes("fill_blank precisa de exatamente um ___"))).toBe(true);
+  });
+
+  it("reports an assessment whose id differs from its folder, a duplicated item id and an unknown tag", () => {
+    const bundle = loadContent("content");
+    const broken = structuredClone(bundle);
+    const a = broken.moduleAssessments["M01"]!;
+    a.items[1]!.id = a.items[0]!.id;
+    a.items[2]!.tags = ["vocab.nope"];
+    a.items[3]!.id = "M02-A04";
+    const problems = crossValidate(broken);
+    expect(problems.some((p) => p.includes("duplicad"))).toBe(true);
+    expect(problems.some((p) => p.includes("vocab.nope"))).toBe(true);
+    expect(problems.some((p) => p.includes("deveria começar com 'M01-A'"))).toBe(true);
   });
 });
