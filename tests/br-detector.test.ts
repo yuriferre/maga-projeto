@@ -77,6 +77,40 @@ describe("detectBrErrors", () => {
     // A antiga asserção positiva confundia preferência por concisão com erro gramatical.
     expect(detectBrErrors(sentence, patterns)).toEqual([]);
   });
+  it("flags 'do/did + modal' only as the calque", () => {
+    expect(tagsOf("Do you can check the logs?")).toContain("br.do-modal");
+    expect(tagsOf("Did you could reproduce it?")).toContain("br.do-modal");
+    expect(tagsOf("Doesn't she can approve it?")).toContain("br.do-modal");
+    expect(tagsOf("Do you have a minute?")).not.toContain("br.do-modal");
+    expect(tagsOf("Do you think you can check the logs?")).not.toContain("br.do-modal");
+    expect(tagsOf("I don't think it can wait.")).not.toContain("br.do-modal");
+  });
+  it("flags 'sorry for interrupt' but not the -ing or to-forms", () => {
+    expect(tagsOf("Sorry for interrupt.")).toContain("br.sorry-for-interrupt");
+    expect(tagsOf("Sorry for jump in.")).toContain("br.sorry-for-interrupt");
+    expect(tagsOf("Sorry to interrupt.")).not.toContain("br.sorry-for-interrupt");
+    expect(tagsOf("Sorry for interrupting.")).not.toContain("br.sorry-for-interrupt");
+    expect(tagsOf("Sorry for the interruption.")).not.toContain("br.sorry-for-interrupt");
+  });
+  it("flags 'need that you' as the 'preciso que você' calque", () => {
+    expect(tagsOf("I need that you check the config.")).toContain("br.need-that-you");
+    expect(tagsOf("I need you to check the config.")).not.toContain("br.need-that-you");
+    expect(tagsOf("I need that file. You can check the rest.")).not.toContain("br.need-that-you");
+  });
+  it("flags do/did + past-tense forms only", () => {
+    expect(tagsOf("I didn't understood the error.")).toContain("br.did-past");
+    expect(tagsOf("Did you tried a restart?")).toContain("br.did-past");
+    expect(tagsOf("She doesn't knew about it.")).toContain("br.did-past");
+    const clean = [
+      "Did you try a restart?",
+      "It worked.",
+      "I don't need anything else.",
+      "Do you feed the alerts into the dashboard?",
+      "Did you read the runbook?",
+      "Did you found the company before joining?",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.did-past");
+  });
   it("flags 'actually' used as 'currently' only with an explicit present-time context", () => {
     expect(tagsOf("Actually I'm working at a bank now.")).toContain("br.actually");
     expect(tagsOf("Actually we are using Terraform these days.")).toContain("br.actually");

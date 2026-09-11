@@ -64,6 +64,10 @@ tags:
   - { id: br.according-with,   group: br, label: "according with" }
   - { id: br.win-money,        group: br, label: "win money" }
   - { id: br.lose-the-deadline, group: br, label: "lose (perder) hora/prazo" }
+  - { id: br.do-modal,           group: br, label: "do/did + modal (do you can)" }
+  - { id: br.sorry-for-interrupt, group: br, label: "sorry for interrupt" }
+  - { id: br.need-that-you,      group: br, label: "need that you" }
+  - { id: br.did-past,           group: br, label: "did/don't + verbo no passado" }
   # Situação
   - { id: topic.daily,         group: topic, label: Daily standup }
   - { id: topic.help,          group: topic, label: Pedir ajuda }

@@ -99,6 +99,31 @@ patterns:
     right: "miss the deadline"
     why: "Perder hora/prazo/transporte é miss."
     tag: br.lose-the-deadline
+  - id: do-modal
+    pattern: "\\b(do|does|did|don't|doesn't|didn't) (you|i|we|they|he|she|it) (can|could|should|would|must|may|might)\\b"
+    wrong: "Do you can check the logs?"
+    right: "Can you check the logs?"
+    why: "Auxiliar duplo: ou a pergunta com do/does ou o modal, nunca os dois."
+    tag: br.do-modal
+  - id: sorry-for-interrupt
+    pattern: "\\bsorry for (interrupt|bother|jump)\\b"
+    wrong: "Sorry for interrupt"
+    right: "Sorry to interrupt / Sorry for interrupting"
+    why: "\"sorry to\" + verbo ou \"sorry for\" + -ing."
+    tag: br.sorry-for-interrupt
+  - id: need-that-you
+    pattern: "\\bneed(s|ed)? that you\\b"
+    wrong: "I need that you check the config"
+    right: "I need you to check the config"
+    why: 'Calque de "preciso que você": need + pessoa + to.'
+    tag: br.need-that-you
+  # A lista de formas de passado é explícita porque \\w+ed pegaria "don't need" e "did you read".
+  - id: did-past
+    pattern: "\\b(did not|didn't|do not|don't|does not|doesn't|did|do|does) (you |i |we |they |he |she |it )?(worked|tried|fixed|deployed|merged|checked|looked|asked|talked|finished|started|stopped|dropped|watched|waited|wanted|opened|closed|used|played|turned|failed|passed|helped|tested|created|updated|reviewed|approved|pushed|pulled|restarted|rolled|logged|saved|changed|added|removed|deleted|configured|installed|understood|went|got|took|made|spoke|told|heard|left|lost|ran|said|sold|ate|drank|drove|threw|wrote|wore|broke|chose|forgot|began|brought|thought|bought|caught|taught|meant|sent|spent|built|held|kept|knew|grew|flew|swam|stole|stood|sat|paid|met|felt|won|done|gone|been|seen|had|given|taken|written|broken|driven|eaten|fallen|forgotten|gotten|hidden|known|risen|shaken|shown|thrown|led)\\b"
+    wrong: "I didn't understood the error"
+    right: "I didn't understand the error"
+    why: "Depois de do/does/did, o verbo fica na forma base (didn't understand)."
+    tag: br.did-past
   - id: actually-currently
     pattern: "\\bactually,? (i|we|he|she|they)\\s*('m|am|'re|are|'s|is)\\s+\\w+ing\\b[^.!?,;]{0,40}\\b(now|nowadays|these days|at the moment|currently|right now)\\b|\\b(i|we|they) actually (work|works|use|uses|run|runs|live|lives|study|studies)\\b[^.!?,;]{0,40}\\b(now|nowadays|these days|at the moment|currently|right now)\\b"
     wrong: "Actually I'm working at a bank now"
