@@ -1,0 +1,7 @@
+id: M03
+assessment:
+  description: "15 itens mistos das tags do módulo + escrita (5 mensagens de Slack numeradas, autoavaliadas) + gravação de um resumo/voice note (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 3,5, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 3.5
+  speakingMin: 3
