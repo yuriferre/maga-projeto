@@ -1,0 +1,281 @@
+id: M03-01
+module: M03
+order: 1
+title: "Tom e formato: no hello, threads, quando marcar alguém, emojis"
+objective: >-
+  Ao final, você consegue mandar uma mensagem de Slack que recebe resposta na primeira
+  tentativa: pedido com contexto na primeira linha (nunca "oi" sozinho), conversa no lugar
+  certo (canal × thread), menção só quando precisa de atenção de verdade e reações usadas
+  como resposta curta.
+durationMin: 35
+competencies: [WRI, VOC, REA]
+tags: [vocab.slack, topic.async, comp.writing, comp.vocabulary, comp.reading, br.doubt, br.waiting-no-prep, br.said-me]
+prerequisites: [M01-01]
+
+context:
+  scenario: |
+    Segunda de manhã. Você manda "hi Ana" no Slack às 9h e fecha a aba. Às 11h30 ela responde
+    "hi?". Você finalmente escreve o que precisava — mas agora ela entrou numa call. A pergunta
+    de dez segundos custou três horas de espera.
+
+    No Slack assíncrono, a saudação e o pedido andam juntos na mesma mensagem. "no hello" não
+    é falta de educação: é respeito pelo tempo de quem lê — a pessoa já sabe do que se trata
+    antes de abrir. O resto da aula é sobre onde a conversa mora (canal × thread), quem você
+    puxa com @, e quando um 👀 vale mais que uma frase.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: '"no hello"'
+    meaning: mandar o pedido na primeira mensagem, sem saudação isolada
+    example: "Instead of 'hi Ana', write: hi Ana — quick one: can you check why the deploy is stuck?"
+    translation: 'Em vez de "oi Ana", escreva: oi Ana — rapidinho: pode ver por que o deploy travou?'
+    note: 'A saudação fica, mas o pedido vai junto. "hi" sozinho obriga a pessoa a responder só para descobrir o assunto.'
+  - term: "quick one:"
+    meaning: abertura para pergunta curta — seguida da pergunta na mesma linha
+    example: "Quick one: is the staging cluster on the new AMI already?"
+    translation: "Rapidinho: o cluster de staging já está na AMI nova?"
+    note: Só funciona se a pergunta vier logo depois — "quick one:" sozinho é o mesmo problema do "hi".
+  - term: "context:"
+    meaning: rótulo para o pano de fundo antes do pedido
+    example: "Context: the batch job failed twice last night. Can someone take a look?"
+    translation: "Contexto: o job de batch falhou duas vezes ontem à noite. Alguém pode olhar?"
+    note: Separa o cenário do pedido; quem lê sabe onde está a pergunta.
+  - term: in thread
+    meaning: dentro da thread, fora do canal principal
+    example: "Answering in thread to keep the channel clean."
+    translation: "Respondendo na thread para manter o canal limpo."
+    note: Assunto longo vai para thread; o canal fica para o que interessa a todos.
+  - term: "let's take this to a thread"
+    meaning: vamos continuar isso numa thread
+    example: "Let's take this to a thread — I'll post the logs there."
+    translation: "Vamos levar isso para uma thread — vou postar os logs lá."
+    note: Forma educada de tirar uma conversa longa do canal.
+  - term: "@channel / @here"
+    meaning: menção que notifica todo o canal / quem está online
+    example: "@channel the prod DB is down. (For anything else, @ the person directly.)"
+    translation: "@channel o banco de prod caiu. (Para qualquer outra coisa, marque a pessoa diretamente.)"
+    note: Reservado para o que todo mundo precisa ver agora; abusar disso gasta seu crédito de atenção.
+  - term: "no action needed"
+    meaning: ninguém precisa fazer nada — só ciência
+    example: "FYI, the cron job is disabled for the migration — no action needed."
+    translation: "Só avisando, o cron job está desativado para a migração — nenhuma ação necessária."
+    note: Declarar que não precisa de resposta evita uma fila de "ok" desnecessários.
+  - term: "👀 / ✅ / ➕"
+    meaning: reações como resposta curta (vendo / feito / concordo)
+    example: "Drop a 👀 on it so I know you're looking; ✅ when it's done."
+    translation: "Deixa um 👀 para eu saber que você está vendo; ✅ quando terminar."
+    note: Reação fecha o loop sem poluir o canal; cada time tem suas convenções — observe as da casa.
+  - term: bump / gentle bump
+    meaning: ressuscitar uma mensagem sem resposta
+    example: "Gentle bump on this — the freeze is tomorrow."
+    translation: "Só ressuscitando isso — o freeze é amanhã."
+    note: Uma vez, com o motivo. Bump diário vira cobrança.
+  - term: ping me
+    meaning: me chama / me avisa
+    example: "Ping me when the review is up and I'll approve it."
+    translation: "Me chama quando o review subir que eu aprovo."
+    note: Informal; comum entre quem se fala todo dia.
+  - term: for visibility
+    meaning: para ciência do canal
+    example: "Posting here for visibility: the dashboard link changed."
+    translation: "Postando aqui para ciência: o link do dashboard mudou."
+    note: Avisa que a mensagem é informativa, não um pedido.
+  - term: "can you take a look when you get a sec"
+    meaning: pode dar uma olhada quando tiver um segundo
+    example: "Can you take a look at the alert when you get a sec?"
+    translation: "Pode dar uma olhada no alerta quando tiver um segundo?"
+    note: Pedido leve e informal; "sec" só com quem você já fala todo dia.
+  - term: "moving this to #incidents"
+    meaning: levando a conversa para o canal certo
+    example: "This is bigger than a thread — moving this to #incidents."
+    translation: "Isso é maior que uma thread — levando para o #incidents."
+    note: Conversa que vira incidente sai da thread e ganha o canal próprio.
+  - term: "sorry, wrong channel"
+    meaning: desculpe, canal errado — corrigindo
+    example: "Sorry, wrong channel — reposting in #data-team."
+    translation: "Desculpe, canal errado — repostando no #data-team."
+    note: Errar de canal acontece; corrija rápido e siga em frente.
+
+grammar:
+  title: "Registro no Slack: direto não é grosseiro"
+  explanation: |
+    **A anatomia da mensagem que recebe resposta:** saudação curta + contexto de uma linha + pedido específico + (se houver) prazo. Tudo na primeira mensagem.
+
+    | Ruim | Bom |
+    |---|---|
+    | *hi* | *hi Ana — quick one: is the deploy stuck?* |
+    | *hi Ana* / *(espera)* / *are you there?* | *hi Ana — can you check the stuck deploy when you get a sec?* |
+    | *Dear team, I am writing to inform you that…* | *FYI: the dashboard link changed, no action needed* |
+    | *Sorry to bother you, I know you're busy, but…* | *Quick question about the freeze — two lines, promise* |
+
+    **Direto não é grosseiro — vago é grosseiro.** "hi" sozinho obriga a pessoa a um turno inteiro só para descobrir o assunto. O pedido específico com contexto é a forma educada no assíncrono.
+
+    **Menção = pedir atenção.** `@nome` chama uma pessoa; `@here` chama quem está online; `@channel` chama todo mundo — inclusive quem está de folga. Regra prática: se não pararia a pessoa no corredor para isso, não use @.
+
+    **Reação é resposta.** 👀 = "estou vendo", ✅ = "feito", ➕ = "concordo/contem comigo". Uma reação no lugar certo fecha o loop sem encher o canal.
+  examples:
+    - { en: "hi Ana — quick one: is the deploy stuck or still running?", pt: "oi Ana — rapidinho: o deploy travou ou ainda está rodando?" }
+    - { en: "FYI: the dashboard link changed — no action needed.", pt: "Só avisando: o link do dashboard mudou — nenhuma ação necessária." }
+    - { en: "Let's take this to a thread so we don't flood the channel.", pt: "Vamos levar isso para uma thread para não inundar o canal." }
+    - { en: "@channel prod DB is down — incident bridge in two minutes.", pt: "@channel o banco de prod caiu — bridge de incidente em dois minutos." }
+    - { en: "Gentle bump — any updates on the access request?", pt: "Só ressuscitando — alguma novidade no pedido de acesso?" }
+
+examples:
+  - en: "hi Marcos — quick one: can you add me to the SLO dashboard when you get a sec? No rush."
+    pt: "oi Marcos — rapidinho: pode me adicionar no dashboard de SLO quando tiver um segundo? Sem pressa."
+    context: Saudação + pedido + urgência na primeira mensagem.
+  - en: "Context: the billing job failed twice last night. Can someone take a look? Logs in thread."
+    pt: "Contexto: o job de faturamento falhou duas vezes ontem à noite. Alguém pode olhar? Logs na thread."
+    context: Pedido ao canal com contexto rotulado e detalhe na thread.
+  - en: "Let's take this to a thread — I'll post the pod events there."
+    pt: "Vamos levar isso para uma thread — vou postar os eventos do pod lá."
+    context: Tirando assunto longo do canal principal.
+  - en: "@channel the prod database is down. Bridge in two minutes — everyone else, thread only please."
+    pt: "@channel o banco de produção caiu. Bridge em dois minutos — o resto, só na thread por favor."
+    context: "O único @channel legítimo do dia: incidente real."
+  - en: "Posting here for visibility: the VPN rotates at noon — expect a reconnect."
+    pt: "Postando para ciência: a VPN rotaciona ao meio-dia — esperem uma reconexão."
+    context: Aviso informativo, sem pedido.
+  - en: "Gentle bump on this — the freeze is tomorrow and I still need the approval."
+    pt: "Só ressuscitando isso — o freeze é amanhã e ainda preciso da aprovação."
+    context: Bump único com o motivo.
+  - en: "She told me to post updates in the incident channel, not here."
+    pt: "Ela me disse para postar updates no canal de incidentes, não aqui."
+    context: '"told me", nunca "said me".'
+
+variations:
+  - idea: '"pedir um olhar num alerta"'
+    items:
+      - { register: "Boa", text: "hi Ana — can you take a look at the latency alert when you get a sec? It fired twice since 9.", adequate: true }
+      - { register: "Boa (fórmula)", text: "Quick one: is the latency alert expected after the threshold change?", adequate: true }
+      - { register: "Inadequada", text: "hi", adequate: false, note: '"hi" sozinho obriga a pessoa a responder só para descobrir o assunto.' }
+      - { register: "Inadequada", text: "I have a doubt about the alert.", adequate: false, note: '"doubt" = desconfiança; dúvida no sentido de pergunta é question.' }
+  - idea: '"avisar o canal de uma mudança"'
+    items:
+      - { register: "Boa", text: "FYI: the deploy window moved to 3 pm today — no action needed.", adequate: true }
+      - { register: "Boa", text: "Heads up, team: VPN rotates at noon, expect a reconnect.", adequate: true }
+      - { register: "Inadequada", text: "@channel FYI the deploy moved to 3 pm", adequate: false, note: "Aviso de rotina não merece @channel; guarde para o que todos precisam ver agora." }
+      - { register: "Inadequada", text: "Dear team, I am writing to inform you that the deploy window has been rescheduled.", adequate: false, note: "Registro de e-mail no Slack: longo demais e formal demais." }
+
+brErrors:
+  - { wrong: "I have a doubt about the cron schedule.", right: "I have a question about the cron schedule.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "Waiting your reply on the access request.", right: "Waiting on your reply on the access request.", why: "wait exige preposição (on/for)", tag: br.waiting-no-prep }
+  - { wrong: "She said me to post it in the incident channel.", right: "She told me to post it in the incident channel.", why: "say não leva objeto indireto sem to; tell + pessoa", tag: br.said-me }
+  - { wrong: "I need that you approve the change today.", right: "I need you to approve the change today.", why: 'calque de "preciso que você": need + pessoa + to', tag: br.need-that-you }
+  - { wrong: "Do you can check why the deploy is stuck?", right: "Can you check why the deploy is stuck?", why: "auxiliar duplo: ou do ou o modal", tag: br.do-modal }
+  - { wrong: "hi", right: "hi Ana — quick one: is the deploy stuck?", why: '"hi" sozinho não é mensagem: o pedido vai junto na primeira linha', tag: vocab.slack }
+  - { wrong: "Dear team, I am writing to inform you that the window moved.", right: "FYI: the deploy window moved to 3 pm.", why: "Slack pede registro curto e neutro; 'Dear team' é e-mail", tag: vocab.slack }
+  - { wrong: "Sorry for interrupt your day, but…", right: "Sorry to interrupt — quick question: …", why: '"sorry to" + verbo; e no Slack o pedido dispensa preâmbulo longo', tag: br.sorry-for-interrupt }
+  - { wrong: "Can you send to me the dashboard link?", right: "Can you send me the dashboard link?", why: "send + pessoa + objeto", tag: br.send-to-me }
+  - { wrong: "Any doubts?", right: "Any questions?", why: 'calque de "alguma dúvida?"; doubt é desconfiança', tag: br.doubt }
+
+dialogue:
+  title: "Segunda de manhã: o 'hi' que custou três horas"
+  lines:
+    - { speaker: Yuri, text: "hi ana" }
+    - { speaker: Ana, text: "hi? — sorry, was in calls. what's up?" }
+    - { speaker: Yuri, text: "no worries! quick one: the checkout deploy has been stuck for 20 min — is that expected or should I kill it?" }
+    - { speaker: Ana, text: "kill it. the canary step hangs when the threshold is that low. redeploy with the old value and ping me if it fails again." }
+    - { speaker: Yuri, text: "will do. context for the thread: this started right after yesterday's threshold change — I'll post the deploy log there." }
+    - { speaker: Ana, text: "perfect, keep it in thread so Marcos sees it too. and drop a 👀 on my message when you start — that way I know it's moving." }
+    - { speaker: Yuri, text: "done. also FYI for visibility: I'll be updating the runbook with this after the redeploy — no action needed." }
+    - { speaker: Ana, text: "sounds good. next time just lead with the question — 'hi' alone makes me guess 😄" }
+  notes:
+    - '"quick one:" funciona porque a pergunta vem junto — é o "no hello" aplicado.'
+    - '"logs in thread" / "keep it in thread": detalhe longo mora na thread, o canal fica limpo.'
+    - '👀 como resposta: Ana pede a reação para saber que está andando, sem mais uma mensagem.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Team — FYI, the retro moved to Thursday at 4. No action needed, just flagging it here for visibility." }
+    - { speaker: Marcos, text: "Yuri, quick one: did the cron fix go out this morning? I'm seeing stale rows in the report. Reply in thread when you can." }
+    - { speaker: Ana, text: "@channel — the prod API is returning 500s. Bridge is up, join if you're on the incident. Everything else, keep it in threads today." }
+  questions:
+    - { id: M03-01-l1, type: multiple_choice, prompt: "Why does Priya say 'no action needed'?", options: ["Nobody should reply — it's just for visibility", "The retro is cancelled", "Only Yuri needs to act", "She will handle it alone"], answer: 0, explanation: '"no action needed" desliga a obrigação de responder; "for visibility" = só ciência.', tags: [comp.listening, vocab.slack] }
+    - { id: M03-01-l2, type: multiple_choice, prompt: "What does Marcos want from Yuri?", options: ["A fix for the cron", "Confirmation that the cron fix shipped", "Stale rows deleted", "A new report"], answer: 1, explanation: '"did the cron fix go out this morning?" — ele quer confirmação, e pede resposta "in thread".', tags: [comp.listening] }
+    - { id: M03-01-l3, type: multiple_choice, prompt: "Where should Marcos's question be answered?", options: ["In the main channel", "In a DM", "In thread", "On the bridge"], answer: 2, explanation: '"Reply in thread when you can."', tags: [comp.listening, vocab.slack] }
+    - { id: M03-01-l4, type: fill_blank, prompt: "FYI, the retro moved to Thursday at 4. No ___ needed.", accepted: ["action"], explanation: '"no action needed" = ninguém precisa fazer nada.', tags: [vocab.slack, comp.listening] }
+    - { id: M03-01-l5, type: multiple_choice, prompt: "Why does Ana use @channel?", options: ["She wants everyone in the retro", "The prod API is down — a real incident", "She is bored", "It's a routine announcement"], answer: 1, explanation: "@channel é para o que todo mundo precisa ver agora: incidente real.", tags: [comp.listening, vocab.slack] }
+    - { id: M03-01-l6, type: multiple_choice, prompt: "What does Ana ask the rest of the team to do?", options: ["Join the bridge", "Keep non-incident talk in threads", "Stop working today", "Post in the main channel"], answer: 1, explanation: '"Everything else, keep it in threads today."', tags: [comp.listening, vocab.slack] }
+
+writing:
+  prompt: |
+    **Cenário:** você escreveu "hi ana" às 9h e nada. Agora são 11h30. Você precisa que ela olhe o deploy do `checkout` travado há 20 minutos — começou depois da mudança de threshold de ontem. Também quer avisar o canal que vai atualizar o runbook depois (só ciência, sem ação).
+
+    **Tarefa:** escreva duas mensagens de Slack (60–90 palavras no total): (1) o pedido para Ana com contexto na primeira linha e a pergunta específica; (2) o aviso ao canal marcando que é só para visibilidade.
+  constraints:
+    - { label: "Contexto ou abertura de mensagem curta (context/quick one/FYI)", pattern: "\\b(context|quick one|fyi|heads up)\\b" }
+    - { label: "Pergunta ou pedido específico com modal", pattern: "\\b(can|could|would) (you|someone|anyone)\\b" }
+    - { label: "Marcação de urgência ou visibilidade", pattern: "\\b(no rush|no action needed|for visibility|when you get a (sec|chance|minute))\\b" }
+    - { label: "Referência ao incidente real (deploy/threshold)", pattern: "\\b(deploy|threshold|stuck|checkout)\\b" }
+  rubric:
+    - Pedido na primeira mensagem, sem "hi" isolado
+    - Contexto de uma linha separado do pedido
+    - Aviso marcado como informativo (no action needed / for visibility)
+    - 'Registro de Slack: curto, sem "Dear team"'
+  model: >-
+    Hi Ana — quick one: the checkout deploy has been stuck for 20 minutes, right after yesterday's
+    threshold change. Can you take a look when you get a sec? Should I kill it or let it run?
+    And for the channel: FYI, I'll be updating the runbook with the fix after the redeploy —
+    no action needed, just for visibility.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.slack, topic.async]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos dizendo em voz alta as mensagens que você mandaria no Slack — um pedido com contexto e um aviso ao canal (use o cenário da escrita ou algo real de hoje).
+    maxSeconds: 45
+    targetPhrases:
+      - quick one
+      - context
+      - can you take a look
+      - when you get a sec
+      - no rush
+      - no action needed
+      - for visibility
+      - in thread
+      - let's take this to a thread
+      - ping me
+      - gentle bump
+      - I'll post the logs
+      - sounds good
+      - just flagging
+    checklist:
+      - O pedido veio com contexto na mesma frase?
+      - Marquei o que era só para visibilidade?
+      - Usei fórmula de abertura curta (quick one / FYI)?
+      - Fechei com pedido específico ou "no action needed"?
+
+quiz:
+  - { id: M03-01-q1, type: multiple_choice, prompt: "Which message is most likely to get a fast, useful reply?", options: ["hi", "hi Ana, are you there?", "hi Ana — quick one: is the deploy stuck?", "Dear Ana, I hope this message finds you well."], answer: 2, explanation: '"no hello": saudação + pergunta na primeira mensagem.', tags: [vocab.slack] }
+  - { id: M03-01-q2, type: error_correction, prompt: "I have a doubt about the deploy window.", accepted: ["I have a question about the deploy window.", "I have a question about the deploy window", "Quick question about the deploy window.", "Quick question about the deploy window"], explanation: '"doubt" é desconfiança; a dúvida-pergunta é question.', tags: [br.doubt] }
+  - { id: M03-01-q3, type: multiple_choice, prompt: "A long discussion is flooding the main channel. Best move?", options: ["@channel to get attention", "Take it to a thread", "Send a DM to each member", "Keep posting — it's important"], answer: 1, explanation: "Assunto longo vai para a thread; o canal fica para o que interessa a todos.", tags: [vocab.slack] }
+  - { id: M03-01-q4, type: fill_blank, prompt: "FYI: the cron is disabled for the migration — no ___ needed.", accepted: ["action"], explanation: '"no action needed" desliga a obrigação de responder.', tags: [vocab.slack] }
+  - { id: M03-01-q5, type: error_correction, prompt: "She said me to post updates in the incident channel.", accepted: ["She told me to post updates in the incident channel.", "She told me to post updates in the incident channel", "She said to post updates in the incident channel.", "She said to post updates in the incident channel"], explanation: '"said me" não existe: tell + pessoa, ou "said to post".', tags: [br.said-me] }
+  - { id: M03-01-q6, type: translate, prompt: "Só ressuscitando isso — o freeze é amanhã e ainda preciso da aprovação.", accepted: ["Gentle bump on this — the freeze is tomorrow and I still need the approval.", "Gentle bump — the freeze is tomorrow and I still need the approval.", "Bumping this — the freeze is tomorrow and I still need the approval."], explanation: '"gentle bump" + o motivo em uma linha.', tags: [vocab.slack] }
+  - { id: M03-01-q7, type: multiple_choice, prompt: "When is @channel appropriate?", options: ["Any question to the team", "Your first message of the day", "Something everyone must see right now, like an incident", "When nobody answered your DM"], answer: 2, explanation: "@channel notifica todo mundo, inclusive quem está de folga — só para urgência coletiva.", tags: [vocab.slack] }
+  - { id: M03-01-q8, type: match, prompt: "Associe a reação ao significado.", pairs: [{ left: "👀", right: "looking into it" }, { left: "✅", right: "done" }, { left: "➕", right: "count me in / agree" }, { left: "🙏", right: "thanks" }], explanation: "Reações fecham o loop sem mensagem extra.", tags: [vocab.slack] }
+
+review:
+  count: 5
+  preferTags: [vocab.slack, br.doubt, br.said-me]
+
+srsCards:
+  - { front: "regra do 'no hello'", back: "Put the ask in the first message — never 'hi' alone.", tag: vocab.slack }
+  - { front: "rapidinho: (abertura de pergunta curta)", back: "quick one: …", tag: vocab.slack }
+  - { front: "contexto: (rótulo antes do pedido)", back: "context: …", tag: vocab.slack }
+  - { front: "vamos levar isso para uma thread", back: "let's take this to a thread", tag: vocab.slack }
+  - { front: "ninguém precisa fazer nada", back: "no action needed", tag: vocab.slack }
+  - { front: "para ciência do canal", back: "for visibility", tag: vocab.slack }
+  - { front: "ressuscitando a mensagem (sem resposta)", back: "gentle bump", tag: vocab.slack }
+  - { front: "me chama quando subir", back: "ping me when it's up", tag: vocab.slack }
+  - { front: "olhando / feito / concordo (reações)", back: "👀 looking · ✅ done · ➕ agree", tag: vocab.slack }
+  - { front: "ela me disse para postar no canal", back: "She told me to post in the channel.", tag: br.said-me }
+  - { front: "esperando sua resposta", back: "waiting on your reply", tag: br.waiting-no-prep }
+  - { front: "tenho uma dúvida sobre a janela", back: "I have a question about the window.", tag: br.doubt }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
