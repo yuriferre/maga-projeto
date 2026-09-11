@@ -1,0 +1,73 @@
+# Avaliação do módulo M02: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M02
+title: "Avaliação do módulo M02: pedindo ajuda e esclarecimento"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita com autoavaliação ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M02-A01, type: multiple_choice, prompt: "Which request best fits a non-urgent, async ask?", options: ["When you get a chance, could you add me to the dashboard?", "I need you to add me to the dashboard right now!!!", "Add me to the dashboard.", "Do you can add me to the dashboard?"], answer: 0, explanation: "Sem pressa = 'when you get a chance' + could. A segunda é urgência sem motivo; a terceira é ordem seca; a quarta é auxiliar duplo.", tags: [gram.modals-polite, gram.softeners] }
+  - { id: M02-A02, type: error_correction, prompt: "Do you can check the pod events?", accepted: ["Can you check the pod events?", "Could you check the pod events?", "Can you check the pod events", "Could you check the pod events"], explanation: "Auxiliar duplo: ou do/does ou o modal, nunca os dois.", tags: [br.do-modal, vocab.k8s] }
+  - { id: M02-A03, type: error_correction, prompt: "I need that you approve the freeze window before noon.", accepted: ["I need you to approve the freeze window before noon.", "I need you to approve the freeze window before noon"], explanation: 'Calque de "preciso que você": need + pessoa + to.', tags: [br.need-that-you] }
+  - { id: M02-A04, type: fill_blank, prompt: "Sorry to ___ — quick question about the release freeze.", accepted: ["interrupt", "jump in"], explanation: '"sorry to" + verbo: interrupt ou jump in. "Sorry for interrupt" estaria errado.', tags: [br.sorry-for-interrupt] }
+  - { id: M02-A05, type: error_correction, prompt: "I didn't understood why the CronJob skipped the run.", accepted: ["I didn't understand why the CronJob skipped the run.", "I didn't understand why the CronJob skipped the run"], explanation: "Depois de didn't, o verbo volta à forma base — o did já carrega o passado.", tags: [br.did-past] }
+  - { id: M02-A06, type: multiple_choice, prompt: "You want to ask the channel about the skipped CronJob. Which version is formed correctly?", options: ["Do you know why did the CronJob skip?", "Do you know why the CronJob skipped?", "Do you know why does the CronJob skip?", "Do you know why the CronJob did skip?"], answer: 1, explanation: "Depois de 'do you know', a pergunta interna fica na ordem de afirmação: why it skipped.", tags: [gram.indirect-questions] }
+  - { id: M02-A07, type: translate, prompt: "Preciso que você revise o runbook até o fim do dia. Serve para você?", accepted: ["I need you to review the runbook by EOD. Does that work for you?", "I need you to review the runbook by EOD, does that work for you?", "I need you to review the runbook by end of day. Does that work for you?", "I need you to review the runbook by the end of the day. Does that work for you?"], explanation: '"Preciso que você" = I need you to. "Serve para você?" = does that work for you.', tags: [br.need-that-you, gram.modals-polite] }
+  - { id: M02-A08, type: multiple_choice, prompt: "You lost the middle of a colleague's explanation on a call. What do you say?", options: ["You repeat now.", "What you said?", "Sorry, I didn't catch the middle part — could you say it again?", "I understand nothing, sorry."], answer: 2, explanation: "Admissão + parte específica + pedido educado. 'What you said' perde o auxiliar; 'I understand nothing' é calque.", tags: [gram.question-forms, br.did-past] }
+  - { id: M02-A09, type: error_correction, prompt: "Can you explain me what 'flapping' means?", accepted: ["Can you explain to me what 'flapping' means?", "Can you explain what 'flapping' means?", "Could you explain to me what 'flapping' means?", "Could you explain what 'flapping' means?", "Can you explain to me what flapping means?", "Can you explain what flapping means?"], explanation: "explain + coisa + to me; nunca explain me. 'What X means' dentro fica na ordem de afirmação.", tags: [br.explain-me, vocab.observability] }
+  - { id: M02-A10, type: error_correction, prompt: "The readiness probe is giving timeout since the last deploy.", accepted: ["The readiness probe has been timing out since the last deploy.", "The readiness probe has been failing with a timeout since the last deploy.", "I'm getting a timeout error on the readiness probe since the last deploy.", "The readiness probe has been timing out since the last deploy"], explanation: '"Dar erro" não é "give error": a probe times out / fails / you get a timeout.', tags: [br.giving-error, vocab.errors] }
+  - { id: M02-A11, type: multiple_choice, prompt: "Pick the correct embedded question.", options: ["Can you tell me where does the config live?", "Can you tell me where is the config?", "Can you tell me where the config?", "Can you tell me where the config is?"], answer: 3, explanation: "Pergunta embutida fica na ordem de afirmação: where the config is.", tags: [gram.indirect-questions] }
+  - { id: M02-A12, type: translate, prompt: "O que você quer dizer com 'flapping'?", accepted: ["What do you mean by 'flapping'?", "What do you mean by flapping?", "What do you mean by 'flapping'", "What do you mean by flapping"], explanation: '"O que você quer dizer com X" = what do you mean by X.', tags: [gram.question-forms, vocab.observability] }
+  - { id: M02-A13, type: error_correction, prompt: "I want to make a question about the rollback plan.", accepted: ["I have a question about the rollback plan.", "Can I ask a question about the rollback plan?", "I have a question about the rollback plan", "Can I ask a question about the rollback plan", "I want to ask a question about the rollback plan.", "I want to ask a question about the rollback plan"], explanation: 'Calque de "fazer uma pergunta": have/ask a question.', tags: [br.make-a-question] }
+  - { id: M02-A14, type: match, prompt: "Associe o movimento de reunião à frase.", pairs: [{ left: "segurar a vez", right: "let me just finish this" }, { left: "pedir a vez", right: "can I add something" }, { left: "confirmar o entendido", right: "just to confirm" }, { left: "religar o fio da conversa", right: "where were we" }], explanation: "Movimentos de interrupção, confirmação e retomada.", tags: [gram.softeners] }
+  - { id: M02-A15, type: error_correction, prompt: "Can we discuss about the freeze policy tomorrow?", accepted: ["Can we discuss the freeze policy tomorrow?", "Can we discuss the freeze policy tomorrow", "Can we talk about the freeze policy tomorrow?", "Can we talk about the freeze policy tomorrow"], explanation: "discuss não leva about; talk about, sim.", tags: [br.discuss-about, gram.modals-polite] }
+writing:
+  prompt: |
+    **Cenário:** a trilha pede três perguntas técnicas escritas. Use situações do seu contexto — ou estas: (1) um CronJob que pulou a execução noturna; (2) um deploy que funciona em staging e falha em produção; (3) um alerta que dispara e resolve sem parar.
+
+    **Tarefa:** escreva três perguntas técnicas numeradas (`1.` `2.` `3.`), cada uma na estrutura contexto → o que você tentou → pergunta específica. 80–120 palavras no total.
+  constraints:
+    - { label: "Três perguntas numeradas (1. 2. 3.)", pattern: "1[.)][\\s\\S]*2[.)][\\s\\S]*3[.)]" }
+    - { label: "Contexto declarado (context / trying to / on staging / on prod)", pattern: "\\b(context|trying to|on staging|on prod)\\b" }
+    - { label: "O que você tentou (tried / checked / read / ran)", pattern: "\\b(i('ve| have)? ?(already )?tried|i checked|i read|i (re)?ran)\\b" }
+    - { label: "Pergunta específica (does anyone / do you know / does the / why does)", pattern: "\\b(does anyone|do you know|does the|why does|can anyone)\\b" }
+    - { label: "Falha concreta (error / fails / refused / timeout / flapping / skipped)", pattern: "\\b(error|fails?|refused|timeout|flapping|skipped|crash)\\b" }
+  rubric:
+    - Cada pergunta em contexto → tentativa → pergunta
+    - Perguntas específicas e respondíveis
+    - Erros literais ou contraste esperado × observado
+    - Sem auxiliar duplo, "make a question" nem "need that you"
+    - Tom de pedido de ajuda, não de cobrança
+  model: >-
+    1. Context: the billing CronJob skipped last night's run on the new cluster. I've already tried rerunning it
+    manually — same "connection refused" on the DB host. Does the new cluster need a different secret? 2. The
+    checkout deploy works on staging but fails on prod with a timeout error. I've checked the service account
+    and the docs. Do you know if prod uses a different egress rule? 3. My latency alert fires and resolves every
+    few minutes — classic flapping. I've already widened the threshold once. Does anyone know if we have a
+    standard delay for this?
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, topic.help, gram.indirect-questions]
+speaking:
+  prompt: "Grave um pedido de ajuda real em até 45 segundos — um bloqueio de hoje ou o cenário do CronJob. Peça ajuda ou um pair com urgência e motivo, diga o que já tentou e feche com a pergunta específica."
+  maxSeconds: 45
+  targetPhrases:
+    - could you
+    - would you mind
+    - when you get a chance
+    - this is blocking
+    - can you pair with me
+    - I've already tried
+    - the error says
+    - do you know if
+    - does anyone know
+    - sorry to jump in
+    - could you say that again
+    - just to confirm
+    - any ideas
+    - thanks for pairing
+  checklist:
+    - Escolhi o nível de polidez certo para a urgência?
+    - Dei contexto, o que tentei e a pergunta específica?
+    - Declarei a urgência pelo impacto, sem drama?
+    - Fechei com dono, prazo ou próximo passo?
