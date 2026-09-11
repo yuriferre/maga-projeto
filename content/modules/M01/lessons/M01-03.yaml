@@ -43,7 +43,7 @@ vocabulary:
     note: Descreve o período, não o prazo. "I'll finish until Wednesday" está errado.
   - term: within (two days)
     meaning: dentro de uma janela de tempo
-    example: I can move the alert cutover within two days of the datasource landing.
+    example: I can do the alert cutover within two days of the datasource landing.
     translation: Consigo virar os alertas em até dois dias depois de a datasource chegar.
     note: Janela relativa, não data fixa.
   - term: should be done by
@@ -73,8 +73,8 @@ vocabulary:
     note: 'Oposto: "behind schedule".'
   - term: behind schedule / running late
     meaning: atrasado em relação ao plano
-    example: The app dashboards are running a day late.
-    translation: Os dashboards de aplicação estão um dia atrasados.
+    example: We're behind schedule on the app dashboards; they're running a day late.
+    translation: Estamos atrasados nos dashboards de aplicação; estão um dia atrasados.
     note: '"running late" = atrasando; "a day late" quantifica.'
   - term: push (something) back / bring (something) forward
     meaning: adiar / adiantar uma data
@@ -95,7 +95,7 @@ vocabulary:
     meaning: no pior cenário
     example: Worst case, the app dashboards land on Thursday morning.
     translation: No pior caso, os dashboards de aplicação chegam quinta de manhã.
-    note: 'Sem "in the": "worst case, …". Par: "best case".'
+    note: 'Em update falado, sem "in the": "worst case, …". Par: "best case".'
 
 grammar:
   title: "by × until × within: prazo, duração e janela"
@@ -146,9 +146,9 @@ examples:
   - en: We're on track for Wednesday. Nothing blocking me right now.
     pt: Estamos dentro do prazo para quarta. Nada me bloqueando agora.
     context: Update curto quando está tudo certo.
-  - en: I stayed late yesterday to get the infra part done, so that piece is off the table.
-    pt: Fiquei até tarde ontem para terminar a parte de infra, então isso está resolvido.
-    context: '"stayed late", não "until late". "off the table" = resolvido / fora de discussão.'
+  - en: I stayed late yesterday to get the infra part done, so that piece is off my plate.
+    pt: Fiquei até tarde ontem para terminar a parte de infra, então isso saiu da minha lista.
+    context: '"stayed late", não "until late". "off my plate" = fora da minha lista, já resolvido.'
 
 variations:
   - idea: '"vai ficar pronto até quarta"'
@@ -182,7 +182,7 @@ dialogue:
     - { speaker: Priya, text: "Yuri, where are we on the Grafana migration? I need a date for the release notes." }
     - { speaker: Yuri, text: "The infra dashboards are done as of yesterday. The app dashboards depend on the new datasource, which the data team is releasing on Tuesday. So the app part should be done by Wednesday, and I'll know more by Tuesday morning at the latest.", note: "Pronto / dependência / previsão com condição / data da próxima informação." }
     - { speaker: Marcos, text: "Any chance we can bring the alert cutover forward? I'd like it before the release." }
-    - { speaker: Yuri, text: "Not really. The cutover has to happen within a day of the app dashboards, so Thursday morning at the earliest. I'd rather not rush it on release day." }
+    - { speaker: Yuri, text: "Not really. The cutover has to happen at least a day after the app dashboards land, so Thursday morning at the earliest. I'd rather not rush it on release day." }
     - { speaker: Ana, text: "Just so it's clear: I'm shutting the old cluster down on Thursday afternoon, so I need everything migrated no later than Thursday noon." }
     - { speaker: Yuri, text: "Understood. Worst case, if the datasource slips, I'll flag it on Tuesday and we push the shutdown back a day. Does that work?" }
     - { speaker: Ana, text: "Works for me. Just don't leave it for Wednesday night." }
@@ -200,7 +200,7 @@ listening:
     - { speaker: Priya, text: "Reminder: the release is Thursday at 2 pm BRT. Anything that isn't merged by Wednesday EOD waits for the next one." }
   questions:
     - { id: M01-03-l1, type: multiple_choice, prompt: "When should the node pool upgrade be done?", options: ["By EOD today", "Until tomorrow", "Within a week", "On Monday"], answer: 0, explanation: '"the upgrade should be done by EOD today"', tags: [comp.listening, gram.by-until] }
-    - { id: M01-03-l2, type: multiple_choice, prompt: "How long will Ana be on the certificate rotation?", options: ["Until Sunday night", "Until Monday", "Until Thursday", "Until EOD"], answer: 1, explanation: '"I''m on the certificate rotation until Monday" — duração, por isso until.', tags: [comp.listening, gram.by-until] }
+    - { id: M01-03-l2, type: multiple_choice, prompt: "How long will Ana be on the certificate rotation?", options: ["Until Friday", "Until Monday", "Until Thursday", "Until EOD"], answer: 1, explanation: '"I''m on the certificate rotation until Monday" — duração, por isso until.', tags: [comp.listening, gram.by-until] }
     - { id: M01-03-l3, type: fill_blank, prompt: "The rotation must be done no later than ___ night.", accepted: ["Sunday"], explanation: '"no later than Sunday night, because the old certs expire on Monday"', tags: [comp.listening] }
     - { id: M01-03-l4, type: multiple_choice, prompt: "What happens to a PR that is not merged by Wednesday EOD?", options: ["It is merged on Thursday morning", "It is closed", "Priya merges it herself", "It waits for the next release"], answer: 3, explanation: '"Anything that isn''t merged by Wednesday EOD waits for the next one."', tags: [comp.listening, gram.by-until] }
     - { id: M01-03-l5, type: multiple_choice, prompt: '"Worst case, tomorrow morning" means…', options: ["It will definitely be tomorrow", "Tomorrow morning is the latest it should slip to", "It is already late", "He does not know"], answer: 1, explanation: "worst case = pior cenário: o mais tarde que deve acontecer.", tags: [gram.time-expressions] }
