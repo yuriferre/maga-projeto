@@ -12,6 +12,7 @@ tags:
   - { id: gram.present-perfect,        group: gram, label: Present perfect × past simple }
   - { id: gram.since-for,              group: gram, label: since / for }
   - { id: gram.by-until,               group: gram, label: by × until }
+  - { id: gram.time-expressions,       group: gram, label: Expressões de tempo e prazo }
   - { id: gram.still-yet-already,      group: gram, label: still / yet / already }
   - { id: gram.future-plans,           group: gram, label: Planos (going to / will / -ing) }
   - { id: gram.question-forms,         group: gram, label: Formação de perguntas }

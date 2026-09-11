@@ -103,3 +103,9 @@ patterns:
     right: "miss the deadline"
     why: "Perder hora/prazo/transporte é miss."
     tag: br.lose-the-deadline
+  - id: actually-currently
+    pattern: "\\bactually,? (i|we|he|she|they)\\s*('m|am|'re|are|'s|is)\\s+\\w+ing\\b[^.!?]{0,40}\\b(now|nowadays|these days|at the moment|currently|right now)\\b|\\b(i|we|they) actually (work|works|use|uses|run|runs|live|lives|study|studies)\\b[^.!?]{0,40}\\b(now|nowadays|these days|at the moment|currently|right now)\\b"
+    wrong: "Actually I'm working at a bank now"
+    right: "Currently I'm working at a bank / I'm working at a bank now"
+    why: "actually = na verdade (correção ou surpresa). Atualmente é currently / nowadays / at the moment."
+    tag: br.actually

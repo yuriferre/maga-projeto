@@ -69,6 +69,23 @@ describe("detectBrErrors", () => {
     ];
     for (const s of clean) expect(detectBrErrors(s, patterns), s).toEqual([]);
   });
+  it("flags 'actually' used as 'currently' only with an explicit present-time context", () => {
+    expect(tagsOf("Actually I'm working at a bank now.")).toContain("br.actually");
+    expect(tagsOf("Actually we are using Terraform these days.")).toContain("br.actually");
+    expect(tagsOf("I actually work at Nubank nowadays.")).toContain("br.actually");
+  });
+  it("does NOT flag the correct uses of 'actually' or of 'depend on'", () => {
+    const clean = [
+      "Actually I'm not sure that's right.",
+      "Actually, yeah, Marcos can pair with me.",
+      "It's actually working now.",
+      "Actually I finished it yesterday.",
+      "It depends on the runner.",
+      "The dependency of the module is outdated.",
+    ];
+    for (const s of clean) expect(detectBrErrors(s, patterns), s).toEqual([]);
+    expect(tagsOf("It depends of the runner.")).toContain("br.depend-of");
+  });
   it("still flags the narrowed calques", () => {
     expect(tagsOf("Any doubts?")).toContain("br.doubt");
     expect(tagsOf("I have 30 years.")).toContain("br.have-years");
