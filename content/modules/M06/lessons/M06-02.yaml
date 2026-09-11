@@ -1,0 +1,288 @@
+id: M06-02
+module: M06
+order: 2
+title: "Commit messages e títulos de PR: imperativo, escopo, convenções"
+objective: >-
+  Ao final, você escreve commits e títulos de PR que contam o que muda e por
+  quê — no imperativo, com escopo, curtos o bastante para ler num `git log`
+  --oneline.
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.tickets-prs, comp.writing, comp.reading, gram.imperative, br.revert-back, br.merge-in, topic.code-review]
+prerequisites: [M06-01]
+
+context:
+  scenario: |
+    `git log --oneline` é a história do projeto — e metade dos commits diz
+    "fix", "wip", "update", "changes". Seis meses depois, ninguém sabe o que
+    cada um fazia, e o `git bisect` vira arqueologia cega.
+
+    A convenção que resolve: **imperativo + escopo + razão**.
+
+    - `fix(checkout): return 422 for empty cart` — tipo(escopo): o que
+    - Imperativo porque o commit é uma *instrução aplicada ao código*:
+      "this commit will `return 422`" — não "returned" nem "returns"
+    - Curto na primeira linha (~50 chars); o corpo explica o porquê, não o quê
+    - PR segue a mesma regra — o título é o que aparece no merge commit
+
+    "Fix bug" diz zero. "fix(checkout): return 422 for empty cart" diz tudo.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: "conventional commits"
+    meaning: "a convenção tipo(escopo): descrição"
+    example: "feat(auth): add token refresh; fix(api): return 404 for missing user"
+    translation: "feat(auth): adiciona refresh de token; fix(api): retorna 404 para usuário inexistente."
+    note: "feat/fix/chore/docs/refactor/test/perf + escopo entre parênteses."
+  - term: imperative mood
+    meaning: modo imperativo — o tempo verbal do commit
+    example: "fix the bug, not 'fixed the bug' — the commit IS the fix."
+    translation: "fix the bug, não \"fixed the bug\" — o commit É a correção."
+    note: "Teste mental: \"this commit will ___\" — só o imperativo encaixa."
+  - term: "the 50/72 rule"
+    meaning: ~50 chars no título, ~72 no corpo
+    example: "Keep the subject under 50 chars; wrap the body at 72."
+    translation: "Mantenha o título abaixo de 50 caracteres; quebre o corpo em 72."
+    note: "Regra clássica de Tim Pope — legível em log e e-mail."
+  - term: scope
+    meaning: escopo — a parte do sistema que o commit toca
+    example: "fix(checkout): … — the scope is checkout, not the whole API."
+    translation: "fix(checkout): … — o escopo é checkout, não a API inteira."
+    note: "Entre parênteses depois do tipo: fix(api), feat(auth), chore(deps)."
+  - term: "the body"
+    meaning: o corpo do commit — o porquê, depois do título
+    example: "The body explains why: 'empty carts crashed the checkout with a 502'."
+    translation: "O corpo explica o porquê: \"carrinhos vazios quebravam o checkout com 502\"."
+    note: "Título = o quê; corpo = por quê + contexto. Nem todo commit precisa de corpo."
+  - term: "atomic commit"
+    meaning: commit atômico — uma mudança, um commit
+    example: "One commit, one change — don't mix the fix with a refactor."
+    translation: "Um commit, uma mudança — não misture a correção com refatoração."
+    note: "Atômico facilita revert, bisect e review."
+  - term: "squash and merge"
+    meaning: esmaga e mergeia — junta os commits do PR em um só
+    example: "We squash and merge, so the PR title becomes the commit."
+    translation: "Nós fazemos squash and merge, então o título do PR vira o commit."
+    note: "Por isso o título do PR segue a mesma convenção do commit."
+  - term: "revert a commit"
+    meaning: reverter um commit — git revert cria um commit de desfazimento
+    example: "Revert the bad deploy — don't revert back, just revert."
+    translation: "Reverta o deploy ruim — não \"revert back\", só \"revert\"."
+    note: '"revert" já contém "back" — "revert back" é redundante.'
+  - term: "wip / do not merge"
+    meaning: trabalho em progresso — marca commit/PR não pronto
+    example: "Title it 'wip: retry logic' or mark the PR as draft."
+    translation: "Nomeie \"wip: retry logic\" ou marque o PR como draft."
+    note: "Draft PR > título com WIP no GitHub moderno."
+  - term: "a breaking change"
+    meaning: mudança que quebra compatibilidade — exige aviso
+    example: "feat(api)!: drop v1 endpoints — BREAKING CHANGE in the body."
+    translation: "feat(api)!: remove endpoints v1 — BREAKING CHANGE no corpo."
+    note: "O `!` depois do escopo ou o rodapé BREAKING CHANGE marca a quebra."
+  - term: "the merge commit"
+    meaning: o commit de merge — o que entra na main
+    example: "When squashed, the PR title becomes the merge commit message."
+    translation: "Com squash, o título do PR vira a mensagem do merge commit."
+    note: "Por isso título de PR = título de commit."
+  - term: "git blame / bisect"
+    meaning: rastrear quem/quando mudou — por que o título importa
+    example: "Good titles make git bisect actually usable."
+    translation: "Bons títulos tornam o git bisect realmente usável."
+    note: "O argumento de venda da convenção — o log é ferramenta de debug."
+
+grammar:
+  title: "Imperativo: o commit é uma instrução"
+  explanation: |
+    O commit message é uma **instrução aplicada ao código** — por isso o imperativo. Teste mental: *"this commit will ___"*. Só o imperativo encaixa: *will fix*, não *will fixed* nem *will fixes*.
+
+    **A anatomia conventional commits:**
+
+    ```
+    tipo(escopo): descrição no imperativo        ← ~50 chars
+
+    corpo: por quê, contexto, o que mudou        ← quebra em ~72
+    BREAKING CHANGE: o que quebra                ← rodapé opcional
+    ```
+
+    **Os tipos mais usados:** `feat` (funcionalidade), `fix` (correção), `chore` (manutenção), `docs`, `refactor`, `test`, `perf`. Escopo = a parte do sistema: `(api)`, `(auth)`, `(checkout)`, `(deps)`.
+
+    **Título de PR = título de commit** quando se usa squash and merge — mesma convenção.
+
+    **Erros BR:** "merge **in** main" (é *into*), "revert **back**" (redundante), "I **did** a commit" (é *committed*), e o título no passado — "fixed the bug" vira *fix the bug*.
+  examples:
+    - { en: "fix(checkout): return 422 for empty cart", pt: "fix(checkout): retorna 422 para carrinho vazio" }
+    - { en: "feat(auth): add refresh token rotation", pt: "feat(auth): adiciona rotação de refresh token" }
+    - { en: "chore(deps): bump postgres driver to 3.4", pt: "chore(deps): sobe o driver postgres para 3.4" }
+    - { en: "Merge the PR into main.", pt: "Merge o PR na main." }
+    - { en: "Revert the bad deploy — it broke checkout.", pt: "Reverta o deploy ruim — quebrou o checkout." }
+    - { en: "Squash and merge — the PR title becomes the commit.", pt: "Squash and merge — o título do PR vira o commit." }
+
+examples:
+  - en: "fix(checkout): return 422 for empty cart"
+    pt: "fix(checkout): retorna 422 para carrinho vazio"
+    context: "Tipo + escopo + imperativo: o que o commit faz."
+  - en: "feat(auth): add token refresh; the body explains why the old one expired silently."
+    pt: "feat(auth): adiciona refresh de token; o corpo explica por que o antigo expirava em silêncio."
+    context: "Título diz o quê; corpo diz por quê."
+  - en: "chore(deps): bump the postgres driver — no behavior change."
+    pt: "chore(deps): sobe o driver postgres — sem mudança de comportamento."
+    context: "chore para manutenção; \"no behavior change\" tranquiliza o revisor."
+  - en: "fix(api)!: drop the v1 endpoints — BREAKING CHANGE: clients must migrate to v2."
+    pt: "fix(api)!: remove os endpoints v1 — BREAKING CHANGE: clientes devem migrar para v2."
+    context: "O `!` ou o rodapé marca a quebra de compatibilidade."
+  - en: "We squash and merge, so write the PR title like a commit — 'fix(checkout): return 422 for empty cart'."
+    pt: "Fazemos squash and merge, então escreva o título do PR como um commit."
+    context: "O título do PR vira o merge commit."
+  - en: "Revert the deploy — 'revert back' is redundant."
+    pt: "Reverta o deploy — \"revert back\" é redundante."
+    context: '"revert" já contém "back".'
+  - en: "One commit, one change — don't mix the fix with the refactor."
+    pt: "Um commit, uma mudança — não misture a correção com a refatoração."
+    context: "Atômico facilita revert, bisect e review."
+  - en: "Merge the hotfix into main, then backport to the release branch."
+    pt: "Merge o hotfix na main, depois faça backport para a branch de release."
+    context: '"merge into" + "backport to" — duas preposições de branch.'
+
+variations:
+  - idea: '"escrever o título do commit"'
+    items:
+      - { register: "Boa", text: "fix(checkout): return 422 for empty cart", adequate: true }
+      - { register: "Boa", text: "feat(auth): add refresh token rotation", adequate: true }
+      - { register: "Inadequada", text: "fixed the bug", adequate: false, note: "Passado — o commit é imperativo: \"fix the bug\"." }
+      - { register: "Inadequada", text: "fix: fix", adequate: false, note: "Tipo certo, descrição vazia — diga o que muda." }
+  - idea: '"falar sobre merge e revert"'
+    items:
+      - { register: "Boa", text: "Merge the PR into main when CI is green.", adequate: true }
+      - { register: "Boa", text: "Revert the deploy — it broke checkout.", adequate: true }
+      - { register: "Inadequada", text: "Merge the PR in main.", adequate: false, note: 'Merge de branch é "into": merge into main.' }
+      - { register: "Inadequada", text: "Revert back the deploy.", adequate: false, note: '"revert" já contém "back" — redundante.' }
+
+brErrors:
+  - { wrong: "Merge the PR in main.", right: "Merge the PR into main.", why: "merge de branch é \"into\"", tag: br.merge-in }
+  - { wrong: "We merged it in develop.", right: "We merged it into develop.", why: "merge de branch é \"into\"", tag: br.merge-in }
+  - { wrong: "We should revert back the deploy.", right: "We should revert the deploy.", why: '"revert" já contém "back"', tag: br.revert-back }
+  - { wrong: "It was reverted back to v1.2.", right: "It was reverted to v1.2.", why: '"revert" já contém "back"', tag: br.revert-back }
+  - { wrong: "Please verify if the CI is green.", right: "Please check whether the CI is green.", why: '"verify if" é calque — "check whether"', tag: br.verify-if }
+  - { wrong: "Add the steps for reproduce.", right: "Add the steps to reproduce.", why: '"steps to reproduce" — infinitivo de finalidade', tag: br.steps-for }
+  - { wrong: "The commit fix the bug.", right: "The commit fixes the bug.", why: "terceira pessoa leva -s: fixes", tag: br.third-person-s }
+  - { wrong: "I have a doubt about the PR.", right: "I have a question about the PR.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The new message is more clear.", right: "The new message is clearer.", why: "clear é adjetivo curto: clearer", tag: br.more-er }
+  - { wrong: "She said me the PR is ready.", right: "She told me the PR is ready.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "Reescrevendo o histórico"
+  lines:
+    - { speaker: Ana, text: "Look at this log — 'fix', 'wip', 'update', 'changes'. Six months from now this is archaeology." }
+    - { speaker: Yuri, text: "Fair. New rule: conventional commits — type, scope, imperative. 'fix(checkout): return 422 for empty cart'." }
+    - { speaker: Ana, text: "Why imperative and not past tense?" }
+    - { speaker: Yuri, text: "The commit is an instruction applied to the code — 'this commit will return 422'. Past tense describes; imperative does." }
+    - { speaker: Ana, text: "And the body?" }
+    - { speaker: Yuri, text: "The why, not the what — 'empty carts crashed checkout with a 502; returning 422 gives the client a readable error'. Keep the title under 50 chars, wrap the body at 72." }
+    - { speaker: Ana, text: "What about PRs — same convention?" }
+    - { speaker: Yuri, text: "Exactly — we squash and merge, so the PR title becomes the merge commit. And breaking changes get the '!' or a BREAKING CHANGE footer." }
+    - { speaker: Ana, text: "And when something lands badly — we 'revert back'?" }
+    - { speaker: Yuri, text: "Just 'revert' — 'revert back' is redundant. 'Revert the deploy', 'merge into main' — not 'in'." }
+  notes:
+    - '"this commit will ___" é o teste mental do imperativo.'
+    - 'squash and merge é o argumento para o título do PR seguir a mesma convenção.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Rule of thumb: the commit is an instruction. 'This commit will fix the bug' — so it's 'fix', imperative, not 'fixed'." }
+    - { speaker: Marcos, text: "Conventional commits give you the shape: type, scope in parens, imperative description. Fix checkout colon return 422 for empty cart. Title under 50 chars; the body holds the why." }
+    - { speaker: Priya, text: "And remember — we squash and merge, so your PR title becomes the commit. Write it like one." }
+  questions:
+    - { id: M06-02-l1, type: multiple_choice, prompt: "Why imperative for commit messages?", options: ["it's shorter", "the commit is an instruction applied to the code", "it's the convention", "it avoids merge conflicts"], answer: 1, explanation: '"the commit is an instruction — this commit will fix."', tags: [comp.listening, gram.imperative] }
+    - { id: M06-02-l2, type: fill_blank, prompt: "fix(checkout): ___ 422 for empty cart.", accepted: ["return"], explanation: "Imperativo: return, não returned/returns.", tags: [gram.imperative] }
+    - { id: M06-02-l3, type: multiple_choice, prompt: "What goes in the commit body?", options: ["the why and context", "the what", "the diff", "the reviewer name"], answer: 0, explanation: '"the body holds the why."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-02-l4, type: multiple_choice, prompt: "Why does the PR title follow the commit convention?", options: ["GitHub requires it", "it looks nicer", "squash and merge makes the PR title the commit", "it's shorter"], answer: 2, explanation: '"we squash and merge, so your PR title becomes the commit."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-02-l5, type: multiple_choice, prompt: "Which commit title is correct?", options: ["\"fixed the bug\"", "\"fix: stuff\"", "\"bug fix in checkout maybe\"", "\"fix(checkout): return 422 for empty cart\""], answer: 3, explanation: "Tipo + escopo + imperativo com detalhe.", tags: [gram.imperative, vocab.tickets-prs] }
+    - { id: M06-02-l6, type: fill_blank, prompt: "Merge the hotfix ___ main.", accepted: ["into"], explanation: "merge de branch é \"into\".", tags: [br.merge-in] }
+
+writing:
+  prompt: |
+    **Cenário:** três mudanças prontas para commitar, e um PR para abrir:
+
+    1. Corrige o 502 do checkout com carrinho vazio retornando 422.
+    2. Adiciona rotação de refresh token no auth.
+    3. Sobe o driver postgres para 3.4 (sem mudança de comportamento).
+    4. O PR é o da correção do checkout — title + corpo com o porquê.
+
+    **Tarefa:** escreva os 3 títulos de commit (conventional) e o título + corpo do PR, em texto corrido (60–90 palavras).
+  constraints:
+    - { label: "Formato conventional (tipo(escopo): imperativo)", pattern: "\\b(fix|feat|chore|docs|refactor|test|perf)\\([a-z-]+\\):\\s" }
+    - { label: "Imperativo no título", pattern: "\\b(return|add|bump|fix|drop|remove|update|refactor)\\b" }
+    - { label: "O porquê ou o escopo no corpo", pattern: "\\b(because|why|empty cart|silent|no behavior change|breaking)\\b" }
+    - { label: "Linguagem de merge/revert correta", pattern: "\\b(merge[sd]? into|revert(ed)?(?! back)|squash)\\b" }
+  rubric:
+    - "Títulos em conventional commits (tipo(escopo): imperativo)"
+    - Nenhum título no passado ("fixed" → "fix")
+    - Corpo do PR explica o porquê
+    - '"merge into", "revert" sem "back"'
+  model: >-
+    Three commits, one PR. fix(checkout): return 422 for empty cart. feat(auth): add refresh token
+    rotation. chore(deps): bump postgres driver to 3.4 — no behavior change. The PR title is the
+    same as the fix commit, because we squash and merge. Body: empty carts crashed checkout with a
+    502; returning 422 gives the client a readable error. When it lands, merge into main — and if
+    it goes wrong, revert it — one clean revert commit.
+  minWords: 60
+  maxWords: 95
+  tags: [comp.writing, vocab.tickets-prs]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos lendo os três commits e o título+corpo do PR em voz alta — como se explicasse a convenção para o time.
+    maxSeconds: 45
+    targetPhrases:
+      - fix checkout colon
+      - conventional commits
+      - imperative mood
+      - this commit will
+      - the body explains why
+      - merge into main
+      - revert the deploy
+      - squash and merge
+      - breaking change
+      - no behavior change
+      - under 50 chars
+      - the merge commit
+      - atomic commit
+      - bump the driver
+    checklist:
+      - "Li os três títulos no formato tipo(escopo): imperativo?"
+      - Expliquei por que imperativo e não passado?
+      - '"merge into", "revert" sem "back"?'
+      - Título do PR = commit quando squash?
+
+quiz:
+  - { id: M06-02-q1, type: multiple_choice, prompt: "Which commit title follows the convention?", options: ["\"fixed the bug\"", "\"fix: fix\"", "\"fix(checkout): return 422 for empty cart\"", "\"checkout bug maybe\""], answer: 2, explanation: "Tipo + escopo + imperativo com o que muda.", tags: [gram.imperative, vocab.tickets-prs] }
+  - { id: M06-02-q2, type: error_correction, prompt: "Merge the PR in main and revert back the old deploy.", accepted: ["Merge the PR into main and revert the old deploy.", "Merge the PR into main and revert the old deploy", "Merge it into main and revert the old deploy."], explanation: "Dois erros: merge INTO + revert sem \"back\".", tags: [br.merge-in, br.revert-back] }
+  - { id: M06-02-q3, type: multiple_choice, prompt: "Why imperative, not past tense?", options: ["it's shorter", "it's the older convention", "it avoids conflicts", "the commit is an instruction: 'this commit will ___'"], answer: 3, explanation: '"this commit will fix" — só o imperativo encaixa.', tags: [gram.imperative] }
+  - { id: M06-02-q4, type: fill_blank, prompt: "Please ___ whether the CI is green before merging.", accepted: ["check"], explanation: '"check whether" — nunca "verify if".', tags: [br.verify-if] }
+  - { id: M06-02-q5, type: error_correction, prompt: "I did a commit that fix the bug.", accepted: ["I committed a fix for the bug.", "I committed a fix for the bug", "I committed the fix.", "I committed the fix"], explanation: '"committed" é o verbo; e "fixes"/imperative "fix" — não "did a commit that fix".', tags: [vocab.tickets-prs, br.third-person-s] }
+  - { id: M06-02-q6, type: translate, prompt: "Fazemos squash and merge, então o título do PR vira o commit.", accepted: ["We squash and merge, so the PR title becomes the commit.", "We squash and merge, so the PR title becomes the commit", "We squash and merge, so the PR title becomes the merge commit."], explanation: '"squash and merge" + "the title becomes the commit".', tags: [vocab.tickets-prs] }
+  - { id: M06-02-q7, type: multiple_choice, prompt: "What marks a breaking change?", options: ["'!' after the scope or a BREAKING CHANGE footer", "a longer title", "capital letters", "a bigger PR"], answer: 0, explanation: 'O "!" depois do escopo ou o rodapé BREAKING CHANGE.', tags: [vocab.tickets-prs] }
+  - { id: M06-02-q8, type: match, prompt: "Associe o tipo de commit ao caso.", pairs: [{ left: "fix", right: "a bug correction" }, { left: "feat", right: "new functionality" }, { left: "chore", right: "maintenance, deps, tooling" }, { left: "revert", right: "undoes a previous commit" }], explanation: "Quatro tipos, quatro casos de uso.", tags: [vocab.tickets-prs] }
+
+review:
+  count: 5
+  preferTags: [gram.imperative, vocab.tickets-prs, br.merge-in, br.revert-back]
+
+srsCards:
+  - { front: "tipo(escopo): imperativo", back: "fix(checkout): return 422 for empty cart", tag: gram.imperative }
+  - { front: "o commit é uma instrução", back: "this commit will ___", tag: gram.imperative }
+  - { front: "merge na main", back: "merge into main", tag: br.merge-in }
+  - { front: "reverter o deploy", back: "revert the deploy", tag: br.revert-back }
+  - { front: "verifique se a CI está verde", back: "check whether CI is green", tag: br.verify-if }
+  - { front: "passos para reproduzir", back: "steps to reproduce", tag: br.steps-for }
+  - { front: "squash and merge", back: "the PR title becomes the commit", tag: vocab.tickets-prs }
+  - { front: "mudança que quebra compatibilidade", back: "breaking change", tag: vocab.tickets-prs }
+  - { front: "sem mudança de comportamento", back: "no behavior change", tag: vocab.tickets-prs }
+  - { front: "commit atômico", back: "one commit, one change", tag: vocab.tickets-prs }
+  - { front: "o corpo explica o porquê", back: "the body explains why", tag: vocab.tickets-prs }
+  - { front: "trabalho em progresso", back: "wip / draft PR", tag: vocab.tickets-prs }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
