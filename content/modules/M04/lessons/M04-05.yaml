@@ -1,0 +1,279 @@
+id: M04-05
+module: M04
+order: 5
+title: "Prática: 6 leituras reais com perguntas — doc, erro, issue, log, changelog, RFC"
+objective: >-
+  Ao final, você aplicou o método de leitura em seis formatos reais — doc do
+  Terraform, erro do Helm, issue do Argo CD, log do CloudWatch, changelog e
+  uma RFC curta — e resumiu cada um em uma frase.
+durationMin: 40
+competencies: [REA, VOC]
+tags: [topic.reading, vocab.errors, vocab.iac, vocab.observability, vocab.tickets-prs, comp.reading, comp.vocabulary]
+prerequisites: [M04-02, M04-03, M04-04]
+
+context:
+  scenario: |
+    Sexta-feira, debrief da semana. O time trouxe seis leituras que apareceram
+    no caminho: a doc de um resource do Terraform, um erro do Helm que travou
+    o pipeline, a issue do Argo CD da aula passada, um log JSON do CloudWatch,
+    o changelog da nova versão do Helm e um trecho de RFC sobre retry.
+
+    Cada formato tem sua anatomia — e cada um pede um resumo de uma frase. A
+    prática consolida: erro se lê pelo marcador, trace de baixo para cima, doc
+    pelos headings, issue pelos comentários com dado, changelog pela seção de
+    breaking changes, RFC pelo "should/must".
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: "resource attributes"
+    meaning: os atributos que um resource expõe — a referência da doc
+    example: "The aws_s3_bucket doc lists attributes like arn and region."
+    translation: "A doc do aws_s3_bucket lista atributos como arn e region."
+    note: Na doc do Terraform, Attributes Reference é a seção que diz o que você lê de volta.
+  - term: "rendered template"
+    meaning: o template depois de processado — onde o erro do Helm aponta
+    example: "The error says the rendered template is invalid at line 14."
+    translation: "O erro diz que o template renderizado é inválido na linha 14."
+    note: O erro do Helm é no template renderizado, não no .tpl que você editou.
+  - term: "behavior should / must"
+    meaning: o que a spec exige (must) × recomenda (should)
+    example: "The RFC says clients MUST retry idempotent requests."
+    translation: "A RFC diz que clientes DEVEM reenviar requisições idempotentes."
+    note: "RFC 2119: MUST é obrigação, SHOULD é recomendação, MAY é opção — a força da palavra é a norma."
+  - term: changelog
+    meaning: o registro do que mudou entre versões
+    example: "The changelog lists two breaking changes and five fixes."
+    translation: "O changelog lista duas breaking changes e cinco correções."
+    note: "Leitura: seção de breaking changes primeiro, depois fixes, por último features."
+  - term: "fixed / changed / added"
+    meaning: as seções padrão de um changelog (keep-a-changelog)
+    example: "Under 'Fixed': the timeout bug. Under 'Changed': the default retries."
+    translation: "Em 'Fixed': o bug do timeout. Em 'Changed': o default de retries."
+    note: O formato keep-a-changelog agrupa por tipo de mudança.
+  - term: "known regression"
+    meaning: regressão conhecida — funcionava antes, quebrou na versão
+    example: "The changelog admits a known regression in v4.0.0."
+    translation: "O changelog admite uma regressão conhecida na v4.0.0."
+    note: Se o bug apareceu depois do upgrade, procure "regression" no changelog.
+  - term: "lines of the trace"
+    meaning: as linhas do trace — cada frame
+    example: "The last lines of the trace point to our handler."
+    translation: "As últimas linhas do trace apontam para o nosso handler."
+    note: 'M04-02 aplicado: ler de baixo para cima.'
+  - term: "the spec says"
+    meaning: a especificação diz — citando RFC ou doc normativa
+    example: "The spec says retries MUST use exponential backoff."
+    translation: "A spec diz que retries DEVEM usar backoff exponencial."
+    note: 'Forma de citar norma. "Spec" é curto para specification.'
+  - term: idempotent
+    meaning: idempotente — repetir dá o mesmo resultado
+    example: "GET is idempotent — retrying it is safe."
+    translation: "GET é idempotente — reenviar é seguro."
+    note: Palavra-chave de RFCs e docs de API; decide se retry é seguro.
+  - term: "at least / at most"
+    meaning: no mínimo / no máximo — limites em specs
+    example: "The RFC says wait at least 1 second before the first retry."
+    translation: "A RFC diz para esperar no mínimo 1 segundo antes do primeiro retry."
+    note: "Leitura fina de spec: o limite exato está nessas duas palavras."
+  - term: "breaking change (recap)"
+    meaning: revisão — mudança que quebra compatibilidade
+    example: "Section 'Changed' hides a breaking change: the flag was renamed."
+    translation: "A seção 'Changed' esconde uma breaking change: a flag foi renomeada."
+    note: No changelog, nem toda breaking change grita — às vezes está em "Changed".
+  - term: "request id (recap)"
+    meaning: revisão — o fio que costura as linhas de uma requisição
+    example: "In the CloudWatch log, request id 7f3a ties the four ERROR lines together."
+    translation: "No log do CloudWatch, o request id 7f3a amarra as quatro linhas de ERROR."
+    note: M04-02 aplicado ao log estruturado da AWS.
+
+grammar:
+  title: "Seis formatos, seis anatomias"
+  explanation: |
+    | Formato | Onde olhar primeiro | O que extrair |
+    |---|---|---|
+    | **Doc (Terraform)** | Argument Reference → Attributes Reference | o que configurar × o que ler de volta |
+    | **Erro (Helm)** | o marcador (failed to/unable to) + depois do `:` | ação quebrada + motivo |
+    | **Issue (GitHub)** | steps → expected × actual → comentários com dado | workaround testado |
+    | **Log (CloudWatch)** | level → timestamp → request id | a linha ERROR e o WARN anterior |
+    | **Changelog** | Breaking changes → Changed → Fixed | o que quebra o seu setup |
+    | **RFC** | MUST/SHOULD/MAY + at least/at most | a obrigação exata |
+
+    **MUST × SHOULD × MAY é a gramática da RFC.** MUST = obrigatório; SHOULD = recomendado, desviar exige justificativa; MAY = opcional. Errar a força da palavra é errar a norma.
+
+    **Cada formato pede a mesma saída: uma frase.** "The doc says the attribute is computed." "The error means the rendered template is invalid." "The workaround pins the image." "The log shows the request timed out at the gateway." "The changelog has a breaking rename." "The RFC requires exponential backoff."
+  examples:
+    - { en: "Clients MUST retry idempotent requests with exponential backoff.", pt: "Clientes DEVEM reenviar requisições idempotentes com backoff exponencial." }
+    - { en: "The doc lists 'arn' under Attributes Reference — it's computed, you don't set it.", pt: "A doc lista 'arn' em Attributes Reference — é computado, você não configura." }
+    - { en: "Helm says the rendered template is invalid at line 14 — the error is in the output, not the .tpl.", pt: "O Helm diz que o template renderizado é inválido na linha 14 — o erro está na saída, não no .tpl." }
+    - { en: "The changelog buries a breaking rename under 'Changed'.", pt: "O changelog esconde uma renomeação quebradora em 'Changed'." }
+    - { en: "In the CloudWatch log, request 7f3a has four ERROR lines tied together.", pt: "No log do CloudWatch, o request 7f3a tem quatro linhas de ERROR amarradas." }
+
+examples:
+  - en: "Terraform doc — Argument Reference: 'replicas' is required; Attributes Reference: 'endpoint' is computed."
+    pt: "Doc do Terraform — Argument Reference: 'replicas' é obrigatório; Attributes Reference: 'endpoint' é computado."
+    context: Argumento = você configura; atributo = você lê de volta.
+  - en: "Helm error: 'rendered manifests contain a resource that already exists' — the chart is trying to create something already there."
+    pt: "Erro do Helm: 'os manifests renderizados contêm um recurso que já existe' — o chart está tentando criar o que já existe."
+    context: O motivo depois de "contain" diz o conflito.
+  - en: "Issue #4821, comment 31: 'as a workaround, pin the image to 2.9.1' — tested by three people."
+    pt: "Issue #4821, comentário 31: 'como paliativo, fixe a imagem na 2.9.1' — testado por três pessoas."
+    context: O comentário com workaround testado é a resposta.
+  - en: "CloudWatch: {\"level\":\"ERROR\",\"ts\":\"14:03:12\",\"req\":\"7f3a\",\"msg\":\"upstream timed out\"}."
+    pt: "CloudWatch: a linha ERROR das 14:03:12 diz 'upstream timed out' no request 7f3a."
+    context: level + ts + req = a navegação do log estruturado.
+  - en: "Changelog, 'Changed': the --debug flag was renamed to --verbose — that breaks our CI script."
+    pt: "Changelog, 'Changed': a flag --debug foi renomeada para --verbose — isso quebra nosso script de CI."
+    context: Breaking change escondida na seção Changed.
+  - en: "RFC: 'clients SHOULD wait at least 1 second before the first retry' — recommendation, not obligation."
+    pt: "RFC: 'clientes DEVERIAM esperar no mínimo 1 segundo antes do primeiro retry' — recomendação, não obrigação."
+    context: SHOULD ≠ MUST — a força da palavra é a norma.
+  - en: "Bottom line for all six: read the structure, not the volume."
+    pt: "Conclusão das seis: leia a estrutura, não o volume."
+    context: O método vale para qualquer formato técnico.
+
+variations:
+  - idea: '"resumir cada formato em uma frase"'
+    items:
+      - { register: "Boa", text: "The doc says 'endpoint' is a computed attribute — you read it, you don't set it.", adequate: true }
+      - { register: "Boa", text: "The Helm error means the rendered template conflicts with an existing resource.", adequate: true }
+      - { register: "Inadequada", text: "I readed the changelog and finded nothing.", adequate: false, note: 'Dois irregulares com -ed: read e found.' }
+      - { register: "Inadequada", text: "The RFC is saying we must retry.", adequate: false, note: 'Para citar texto, simple present: "the RFC says".' }
+  - idea: '"dizer o que a norma exige"'
+    items:
+      - { register: "Boa", text: "The RFC says clients MUST retry — it's an obligation.", adequate: true }
+      - { register: "Boa", text: "SHOULD means recommended — you need a reason to skip it.", adequate: true }
+      - { register: "Inadequada", text: "It's more easy to just retry always.", adequate: false, note: '"more easy" → easier.' }
+      - { register: "Inadequada", text: "According with the RFC, we must retry.", adequate: false, note: '"according to", nunca "according with".' }
+
+brErrors:
+  - { wrong: "I readed the changelog and finded nothing.", right: "I read the changelog and found nothing.", why: "read e find são irregulares: read, found", tag: br.irregular-past }
+  - { wrong: "I read the doc for to understand the attribute.", right: "I read the doc to understand the attribute.", why: 'calque de "para": só "to"', tag: br.for-to }
+  - { wrong: "The RFC is saying we must retry.", right: "The RFC says we must retry.", why: "para citar texto, simple present", tag: vocab.errors }
+  - { wrong: "According with the RFC, retries are mandatory.", right: "According to the RFC, retries are mandatory.", why: '"according to"', tag: br.according-with }
+  - { wrong: "It's more easy to retry always.", right: "It's easier to retry always.", why: "easy → easier", tag: br.more-er }
+  - { wrong: "I didn't saw the breaking change in the changelog.", right: "I didn't see the breaking change in the changelog.", why: "depois de didn't, forma base", tag: br.did-past }
+  - { wrong: "The spec says me to use backoff.", right: "The spec says to use backoff.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I am agree with the RFC's recommendation.", right: "I agree with the RFC's recommendation.", why: '"I am agree" é calque', tag: br.i-am-agree }
+  - { wrong: "I found the workaround in the internet.", right: "I found the workaround on the internet.", why: '"on the internet"', tag: br.in-the-internet }
+
+dialogue:
+  title: "Debrief de sexta: seis leituras, seis frases"
+  lines:
+    - { speaker: Priya, text: "Reading club time — six formats this week. Everyone gives one sentence per reading. Yuri, you're up." }
+    - { speaker: Yuri, text: "Terraform doc first: 'endpoint' is under Attributes Reference — it's computed, you read it, you don't set it." }
+    - { speaker: Marcos, text: "The Helm error that broke the pipeline?" }
+    - { speaker: Yuri, text: "'Rendered manifests contain a resource that already exists' — it means the chart tried to create something already there. The conflict is in the output, not the template file." }
+    - { speaker: Ana, text: "And the Argo CD issue?" }
+    - { speaker: Yuri, text: "Steps reproduce our case; the workaround in comment 31 pins the image to 2.9.1 — tested by three people." }
+    - { speaker: Priya, text: "CloudWatch log?" }
+    - { speaker: Yuri, text: "Request 7f3a has four ERROR lines tied together — the last one says 'upstream timed out', so the gateway timed out waiting for the service." }
+    - { speaker: Marcos, text: "Changelog and the RFC — the last two." }
+    - { speaker: Yuri, text: "Changelog hides a breaking rename under 'Changed': --debug became --verbose, which breaks our CI script. And the RFC says clients SHOULD wait at least one second before retrying — recommendation, not obligation." }
+    - { speaker: Priya, text: "Six readings, six sentences. That's the method working." }
+  notes:
+    - 'Cada leitura virou uma frase — a saída que a trilha pede.'
+    - 'SHOULD × MUST: a força da palavra é a norma na RFC.'
+    - 'Changelog: breaking changes podem morar em "Changed", não só em "Breaking".'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Reading club — one sentence per text. The Terraform doc: 'endpoint' is a computed attribute; you read it, you don't set it." }
+    - { speaker: Marcos, text: "The Helm error says the rendered manifests contain a resource that already exists — so the chart is trying to create something already there." }
+    - { speaker: Ana, text: "The CloudWatch log: request 7f3a shows four ERROR lines, and the last says 'upstream timed out' — the gateway gave up waiting." }
+    - { speaker: Yuri, text: "And the changelog buries a breaking change under 'Changed': --debug was renamed to --verbose." }
+  questions:
+    - { id: M04-05-l1, type: multiple_choice, prompt: "In the Terraform doc, what is 'endpoint'?", options: ["A required argument", "A computed attribute — read it, don't set it", "A deprecated flag", "A resource name"], answer: 1, explanation: '"computed attribute; you read it, you don''t set it."', tags: [comp.listening, vocab.iac] }
+    - { id: M04-05-l2, type: multiple_choice, prompt: "What does the Helm error mean?", options: ["The template file has a typo", "Helm is outdated", "The cluster is down", "The rendered output conflicts with an existing resource"], answer: 3, explanation: '"the rendered manifests contain a resource that already exists."', tags: [comp.listening, vocab.errors] }
+    - { id: M04-05-l3, type: multiple_choice, prompt: "What do the four ERROR lines in CloudWatch share?", options: ["The same timestamp", "The same message", "The same request id — 7f3a", "The same level only"], answer: 2, explanation: '"request 7f3a" costura as quatro linhas.', tags: [comp.listening, vocab.observability] }
+    - { id: M04-05-l4, type: fill_blank, prompt: "The changelog buries a breaking ___ under 'Changed'.", accepted: ["change"], explanation: "breaking change escondida na seção Changed.", tags: [topic.reading, comp.listening] }
+    - { id: M04-05-l5, type: multiple_choice, prompt: "What does 'upstream timed out' tell us?", options: ["The gateway gave up waiting for the service", "The gateway refused the connection", "The service denied the request", "The log is truncated"], answer: 0, explanation: "upstream = o serviço atrás do gateway; timed out = ninguém respondeu.", tags: [comp.listening, vocab.errors] }
+    - { id: M04-05-l6, type: multiple_choice, prompt: "Where was the breaking change listed?", options: ["Under 'Changed'", "Under 'Breaking'", "Under 'Fixed'", "In the RFC"], answer: 0, explanation: "buries a breaking change under 'Changed'.", tags: [comp.listening, topic.reading] }
+
+writing:
+  prompt: |
+    **Cenário:** três leituras novas chegaram para resumir em uma frase cada:
+
+    1. Doc do `aws_db_instance`: `multi_az` está em Argument Reference (você configura); `endpoint` está em Attributes Reference (computado).
+    2. Erro do `helm upgrade`: `Error: rendered manifests contain a resource that already exists: deployment "api"`.
+    3. Changelog da v4.1.0: na seção `Changed`, a flag `--debug` foi renomeada para `--verbose`.
+
+    **Tarefa:** escreva três resumos de uma frase (80–120 palavras no total), um por leitura — o que o texto diz e o que significa para quem vai agir.
+  constraints:
+    - { label: "Vocabulário de doc/spec", pattern: "\\b(argument|attribute|computed|reference|required)\\b" }
+    - { label: "Interpretação do erro do Helm", pattern: "\\b(rendered|manifest|already exists|resource|conflict)\\b" }
+    - { label: "Breaking change do changelog", pattern: "\\b(renamed|changed|breaking|debug|verbose)\\b" }
+    - { label: "Marcador de resumo", pattern: "\\b(says|means|in other words|bottom line|the doc|the error|the changelog)\\b" }
+  rubric:
+    - "Uma frase por leitura, com o que diz + o que significa"
+    - "Doc: configura × lê de volta"
+    - "Erro: o conflito é no manifest renderizado"
+    - "Changelog: a renomeação quebra quem usa --debug"
+  model: >-
+    One sentence per reading. The doc says multi_az is an argument you set, while endpoint is a
+    computed attribute you read back — it means you configure one and consume the other. The Helm
+    error says the rendered manifests contain a resource that already exists — in other words, the
+    chart is trying to create a deployment that's already there, so delete or adopt it first. And
+    the changelog lists --debug renamed to --verbose under Changed — a breaking change for any
+    script still using the old flag.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, topic.reading, vocab.iac, vocab.errors]
+
+speaking:
+  modeA:
+    prompt: Grave 60 segundos resumindo em voz alta as três leituras da escrita — uma frase cada, com o que o texto diz e o que significa. Depois, escolha uma leitura real da sua semana e resuma-a também.
+    maxSeconds: 60
+    targetPhrases:
+      - the doc says
+      - the error means
+      - the changelog lists
+      - computed attribute
+      - rendered manifest
+      - already exists
+      - breaking change
+      - renamed to
+      - in other words
+      - it means
+      - you set it
+      - you read it back
+      - under changed
+      - bottom line
+      - one sentence per reading
+    checklist:
+      - Uma frase por leitura, sem enrolar?
+      - '"computed attribute" e "rendered manifest" pronunciados com clareza?'
+      - Diferenciei "you set it" de "you read it back"?
+      - Fechei com a leitura real da minha semana?
+
+quiz:
+  - { id: M04-05-q1, type: multiple_choice, prompt: "In a Terraform doc, Argument Reference vs Attributes Reference:", options: ["Both are things you set", "Arguments are deprecated", "Arguments you set; attributes are computed and you read back", "Attributes are required"], answer: 2, explanation: "Argumento = configuração; atributo = valor computado que você lê.", tags: [vocab.iac, comp.reading] }
+  - { id: M04-05-q2, type: error_correction, prompt: "I readed the changelog and finded a breaking change.", accepted: ["I read the changelog and found a breaking change.", "I read the changelog and found a breaking change", "I read the changelog and found one breaking change."], explanation: "Dois irregulares com -ed: read e found.", tags: [br.irregular-past] }
+  - { id: M04-05-q3, type: multiple_choice, prompt: "The RFC says clients SHOULD retry. That means…", options: ["it's mandatory", "it's recommended — you need a reason not to", "it's forbidden", "it's optional decoration"], answer: 1, explanation: "RFC 2119: SHOULD = recomendação; MUST seria obrigação.", tags: [topic.reading, comp.reading] }
+  - { id: M04-05-q4, type: fill_blank, prompt: "Error: rendered ___ contain a resource that already exists.", accepted: ["manifests"], explanation: "O erro é no manifest renderizado, não no .tpl.", tags: [vocab.errors] }
+  - { id: M04-05-q5, type: error_correction, prompt: "According with the RFC, we must wait at least 1 second.", accepted: ["According to the RFC, we must wait at least 1 second.", "According to the RFC, we must wait at least 1 second", "The RFC says we must wait at least 1 second."], explanation: '"according to", nunca "according with".', tags: [br.according-with] }
+  - { id: M04-05-q6, type: translate, prompt: "O changelog esconde uma mudança quebradora na seção 'Changed'.", accepted: ["The changelog hides a breaking change under 'Changed'.", "The changelog hides a breaking change under 'Changed'", "The changelog buries a breaking change under 'Changed'."], explanation: '"hides/buries … under Changed" — breaking change escondida.', tags: [topic.reading] }
+  - { id: M04-05-q7, type: multiple_choice, prompt: "Reading a JSON log, the order is:", options: ["msg → level → ts → req", "read every line", "only ERROR matters", "level → timestamp window → request id → context lines"], answer: 3, explanation: "Filtrar nível e janela, seguir o id, ler as linhas em volta.", tags: [vocab.observability, comp.reading] }
+  - { id: M04-05-q8, type: match, prompt: "Associe o formato à primeira coisa a olhar.", pairs: [{ left: "Terraform doc", right: "Argument vs Attributes Reference" }, { left: "GitHub issue", right: "steps + expected/actual" }, { left: "changelog", right: "breaking changes first" }, { left: "RFC", right: "MUST/SHOULD/MAY" }], explanation: "Seis formatos, seis pontos de entrada — aqui, quatro.", tags: [topic.reading] }
+
+review:
+  count: 6
+  preferTags: [topic.reading, vocab.errors, vocab.iac]
+
+srsCards:
+  - { front: "o que você configura × o que você lê de volta (Terraform)", back: "Argument Reference × Attributes Reference", tag: vocab.iac }
+  - { front: "obrigação × recomendação × opção (RFC)", back: "MUST × SHOULD × MAY", tag: topic.reading }
+  - { front: "o template depois de processado (Helm)", back: "rendered template / manifest", tag: vocab.errors }
+  - { front: "registro do que mudou entre versões", back: "changelog", tag: topic.reading }
+  - { front: "seções do changelog", back: "Added / Changed / Fixed / Deprecated", tag: topic.reading }
+  - { front: "regressão conhecida", back: "known regression", tag: topic.reading }
+  - { front: "repetir dá o mesmo resultado", back: "idempotent", tag: topic.reading }
+  - { front: "no mínimo / no máximo (em specs)", back: "at least / at most", tag: topic.reading }
+  - { front: "a spec diz que retries devem usar backoff", back: "the spec says retries MUST use backoff", tag: topic.reading }
+  - { front: "li o changelog e achei nada", back: "I read the changelog and found nothing.", tag: br.irregular-past }
+  - { front: "segundo a RFC", back: "according to the RFC", tag: br.according-with }
+  - { front: "uma frase por leitura", back: "one sentence per reading", tag: topic.reading }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
