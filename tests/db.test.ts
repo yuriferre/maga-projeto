@@ -36,3 +36,20 @@ describe("migration 1", () => {
     expect(indexes).toEqual(expect.arrayContaining(["idx_attempts_lesson_block", "idx_attempts_ts"]));
   });
 });
+
+describe("migration 2", () => {
+  it("rebuilds attempts keeping rows and accepting block assessment", () => {
+    const db = new DatabaseSync(":memory:");
+    db.exec(MIGRATIONS[0]!);
+    db.exec(MIGRATIONS[1]!);
+    db.exec("create table schema_version (version integer not null); insert into schema_version (version) values (1)");
+    db.prepare("insert into attempts (lesson_id, exercise_id, block, type, correct, answer, tags_json, ts) values ('placement','PL-r01','placement','multiple_choice',1,'x','[]','2026-09-01T10:00:00.000Z')").run();
+    expect(migrate(db)).toBe(MIGRATIONS.length - 1);
+    expect((db.prepare("select count(*) as n from attempts").get() as { n: number }).n).toBe(1);
+    const insert = (block: string) => db.prepare("insert into attempts (lesson_id, exercise_id, block, type, correct, tags_json, ts) values ('M01','M01-A01',?,'multiple_choice',1,'[]','2026-09-02T10:00:00.000Z')").run(block);
+    expect(() => insert("assessment")).not.toThrow();
+    expect(() => insert("bogus")).toThrow();
+    const indexes = (db.prepare("select name from sqlite_master where type='index' and tbl_name='attempts'").all() as { name: string }[]).map((r) => r.name);
+    expect(indexes).toEqual(expect.arrayContaining(["idx_attempts_lesson_block", "idx_attempts_ts"]));
+  });
+});

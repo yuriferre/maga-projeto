@@ -128,6 +128,27 @@ export const MIGRATIONS: string[] = [
   create index idx_attempts_lesson_block on attempts(lesson_id, block);
   create index idx_attempts_ts on attempts(ts);
   `,
+  // Migração 2: attempts aceita block='assessment' (avaliações de módulo/nível). SQLite não altera CHECK.
+  `
+  create table attempts_new (
+    id integer primary key autoincrement,
+    lesson_id text not null,
+    exercise_id text not null,
+    block text not null check (block in ('warmup','quiz','listening','writing','speaking','placement','assessment')),
+    type text not null,
+    correct integer not null check (correct in (0,1)),
+    answer text,
+    score real,
+    tags_json text not null,
+    ts text not null
+  );
+  insert into attempts_new (id, lesson_id, exercise_id, block, type, correct, answer, score, tags_json, ts)
+    select id, lesson_id, exercise_id, block, type, correct, answer, score, tags_json, ts from attempts;
+  drop table attempts;
+  alter table attempts_new rename to attempts;
+  create index idx_attempts_lesson_block on attempts(lesson_id, block);
+  create index idx_attempts_ts on attempts(ts);
+  `,
 ];
 
 export function migrate(db: Db): number {
