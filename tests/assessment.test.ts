@@ -33,11 +33,13 @@ describe("computeAssessmentResult", () => {
     const r = computeAssessmentResult(spec, inputs({ attempts: answers((id) => a.items.findIndex((q) => q.id === id) < n), writing: writing(c.w), speaking: speaking(c.s) }), T);
     expect(r.passed).toBe(false);
   });
-  it("uses the exact boundaries: 75 % passes, writing 3 passes, speaking 3 passes", () => {
-    const twelve = Math.ceil(a.items.length * 0.75);
-    const r = computeAssessmentResult(spec, inputs({ attempts: answers((id) => a.items.findIndex((q) => q.id === id) < twelve), writing: writing(3), speaking: speaking(3) }), T);
-    expect(r.itemsPct).toBeGreaterThanOrEqual(0.75);
-    expect(r.passed).toBe(true);
+  it.each([[9, true], [8, false]] as const)("with 12 items, %i correct yields passed=%s at the 75 percent boundary", (correct, passed) => {
+    const twelveItemSpec: AssessmentSpec = { ...spec, items: a.items.slice(0, 12) };
+    const attempts = new Map(twelveItemSpec.items.map((q, index) => [q.id, attempt(q.id, index < correct, q.tags)]));
+    const r = computeAssessmentResult(twelveItemSpec, inputs({ attempts, writing: writing(3), speaking: speaking(3) }), T);
+    expect(r.itemCount).toBe(12);
+    expect(r.itemsPct).toBe(correct / 12);
+    expect(r.passed).toBe(passed);
   });
   it("collects weak tags (error rate ≥ 50 %) and marks missing writing/speaking as null", () => {
     const r = computeAssessmentResult(spec, inputs({ attempts: answers((id) => id !== "M01-A05" && id !== "M01-A06") }), T);

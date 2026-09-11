@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { z } from "zod";
 import type { Db } from "./db.ts";
 import { nowIso } from "./db.ts";
-import { BlockSchema, placementExercises, type ContentBundle } from "../shared/schema.ts";
+import { BlockSchema, placementExercises, DEFAULT_PASS_RULE, type ContentBundle } from "../shared/schema.ts";
 import {
   insertAttempt, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, insertCards, tagStats,
@@ -317,7 +317,7 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
     const id = c.req.param("id");
     const eligible = moduleEligibility(content, listProgress(db), id);
     if (eligible.missing.length > 0) return c.json({ error: "aulas pendentes", missing: eligible.missing }, 409);
-    const spec = { kind: "module" as const, ref: id, items: content.moduleAssessments[id]!.items, pass: content.modules[id]?.pass ?? { itemsMin: 0.75, writingMin: 3, speakingMin: 3 } };
+    const spec = { kind: "module" as const, ref: id, items: content.moduleAssessments[id]!.items, pass: content.modules[id]?.pass ?? DEFAULT_PASS_RULE };
     const inputs = assessmentRun(id);
     const missing = missingForAssessment(spec, inputs);
     if (missing.exercises.length > 0 || missing.writing || missing.speaking) return c.json({ error: "avaliação incompleta", missing }, 409);

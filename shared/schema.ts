@@ -167,10 +167,12 @@ export const PassRuleSchema = z.object({
   speakingMin: z.number().min(1).max(5).default(3),
 });
 export type PassRule = z.infer<typeof PassRuleSchema>;
+/** Regra de aprovação padrão da avaliação de módulo (spec §3). */
+export const DEFAULT_PASS_RULE: PassRule = { itemsMin: 0.75, writingMin: 3, speakingMin: 3 };
 export const ModuleFileSchema = z.object({
   id: z.string().regex(/^M\d{2}$/),
   assessment: z.object({ description: z.string().min(1) }),
-  pass: PassRuleSchema.default({ itemsMin: 0.75, writingMin: 3, speakingMin: 3 }),
+  pass: PassRuleSchema.default(DEFAULT_PASS_RULE),
 });
 export type ModuleFile = z.infer<typeof ModuleFileSchema>;
 

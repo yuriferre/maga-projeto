@@ -3,7 +3,7 @@ import { openDb, type Db } from "../server/db.ts";
 import {
   insertAttempt, latestAttemptsByExercise, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, countSpeaking, insertCards, countCards, tagStats,
-  insertAssessment, latestAssessment, listAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince,
+  insertAssessment, latestAssessment, latestModuleAssessments, listAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince,
   getWeekGoal, upsertWeekGoal, ensureWeekGoal, latestStudySession, insertStudySession, extendStudySession, studySessionsBetween,
   activityDays, completedLessonsBetween, reviewsBetween, attemptAccuracy, writingAverage, speakingAverage, readAloudAverage,
   dueCards, getCard, applyReview, cardCounts, reviewAccuracy, insertGlossaryCard,
@@ -81,6 +81,19 @@ describe("tagStats", () => {
 });
 
 describe("assessments", () => {
+  it("selects the latest module result by timestamp and id, isolated by module and kind", () => {
+    insertAssessment(db, { kind: "module", ref: "M01", score: { passed: false } }, t(3));
+    const m01 = insertAssessment(db, { kind: "module", ref: "M01", score: { passed: true } }, t(3));
+    insertAssessment(db, { kind: "module", ref: "M01", score: { passed: false } }, t(1));
+    const m02 = insertAssessment(db, { kind: "module", ref: "M02", score: { passed: false } }, t(2));
+    insertAssessment(db, { kind: "placement", ref: "M01", score: {} }, t(5));
+    insertAssessment(db, { kind: "level", ref: "M02", score: {} }, t(5));
+
+    const latest = latestModuleAssessments(db);
+    expect(latest.map((row) => [row.ref, row.id])).toEqual([["M01", m01], ["M02", m02]]);
+    for (const row of latest) expect(row).toEqual(latestAssessment(db, "module", row.ref));
+  });
+
   it("inserts, returns the latest per kind/ref and lists newest first", () => {
     insertAssessment(db, { kind: "placement", ref: "placement", score: { level: 1 } }, t(1));
     const second = insertAssessment(db, { kind: "placement", ref: "placement", score: { level: 2 } }, t(3));

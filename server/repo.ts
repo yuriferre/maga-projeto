@@ -129,7 +129,10 @@ export function latestModuleAssessments(db: Db): AssessmentRow[] {
   return db
     .prepare(
       `select a.* from assessments a
-       where a.kind = 'module' and a.id = (select max(b.id) from assessments b where b.kind = 'module' and b.ref = a.ref)
+       where a.kind = 'module' and a.id = (
+         select b.id from assessments b where b.kind = 'module' and b.ref = a.ref
+         order by b.ts desc, b.id desc limit 1
+       )
        order by a.ref`,
     )
     .all() as AssessmentRow[];

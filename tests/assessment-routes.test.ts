@@ -81,6 +81,9 @@ describe("/api/modules/:id/assessment", () => {
     const s = await state();
     expect(s.latest.id).toBe(assessment.id);
     expect(s.run).toEqual({ answered: [], writing: null, speaking: null });
+    const repeated = await json("POST", "/api/modules/M01/assessment/finish");
+    expect(repeated.status).toBe(409);
+    expect(await repeated.json()).toEqual({ error: "avaliação incompleta", missing: { exercises: a.items.map((q) => q.id), writing: true, speaking: true } });
     const overview = await (await app.request("/api/progress/overview")).json();
     expect(overview.modules.M01).toMatchObject({ passed: true, latest: { id: assessment.id } });
     expect(listAssessments(db).filter((r) => r.kind === "module")).toHaveLength(1);
