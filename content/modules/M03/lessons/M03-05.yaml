@@ -1,0 +1,286 @@
+id: M03-05
+module: M03
+order: 5
+title: "Escrita guiada: as cinco mensagens do dia a dia"
+objective: >-
+  Ao final, você consegue escrever os cinco tipos de mensagem que dominam o Slack de um
+  time de plataforma — pedido, aviso, follow-up, escalada leve e desculpa por atraso —
+  cada uma com o tom e a fórmula certos para o canal e para a situação.
+durationMin: 40
+competencies: [WRI, VOC, REA]
+tags: [vocab.slack, topic.async, comp.writing, comp.vocabulary, gram.future-plans, gram.softeners, br.said-me, br.on-next]
+prerequisites: [M03-02, M03-03, M03-04]
+
+context:
+  scenario: |
+    Sexta-feira. A semana inteira coube em cinco mensagens que você ainda não mandou:
+    um pedido de acesso que ficou travado, um aviso de mudança de janela, um follow-up
+    numa thread morta, uma escalada que precisa ser leve e uma desculpa por um atraso
+    que foi seu.
+
+    Cada tipo tem sua fórmula e seu risco: o pedido sem contexto vira "hi" esperando; o
+    aviso sem "no action needed" gera fila de "ok"; o follow-up sem referência vira
+    cobrança solta; a escalada pesada demais queima capital; e a desculpa por atraso
+    enrolada vira três parágrafos de culpa. Esta aula é escrever — as cinco, de verdade.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: circling back
+    meaning: retomando um assunto que ficou pendente
+    example: "Circling back on the access request — still blocked on approval."
+    translation: "Retomando o pedido de acesso — ainda travado na aprovação."
+    note: "Follow-up que retoma um fio parado; sempre traga a referência."
+  - term: quick nudge
+    meaning: cutucada leve — lembrete sem cobrança
+    example: "Quick nudge on the sign-off — the freeze is tomorrow."
+    translation: "Cutucada leve no aceite — o freeze é amanhã."
+    note: "Uma nudge por thread; a terceira já é cobrança."
+  - term: "wanted to flag"
+    meaning: queria sinalizar — escalada leve, sem alarme
+    example: "Wanted to flag: the retry count tripled since yesterday."
+    translation: "Queria sinalizar: o número de retries triplicou desde ontem."
+    note: "Sinaliza antes de escalar; dá ao dono a chance de agir primeiro."
+  - term: "escalating to"
+    meaning: subindo o assunto para quem decide
+    example: "Escalating to @Priya — this needs a decision by Friday."
+    translation: "Escalando para a @Priya — isso precisa de decisão até sexta."
+    note: "Escalada leve diz o que precisa e até quando, não quem falhou."
+  - term: "sorry for the delay"
+    meaning: desculpa pelo atraso — uma linha, depois ação
+    example: "Sorry for the delay — the cert took longer than expected. Done now."
+    translation: "Desculpa pelo atraso — o cert levou mais que o esperado. Feito agora."
+    note: "Uma linha de desculpa + o que foi feito; três parágrafos de culpa ninguém lê."
+  - term: my bad
+    meaning: foi mal — assumindo um erro leve
+    example: "My bad — I missed the thread update. Posting the fix now."
+    translation: "Foi mal — perdi a atualização da thread. Postando a correção agora."
+    note: "Assumir rápido e já entregar; informal."
+  - term: "I dropped the ball"
+    meaning: eu deixei cair — assumi e falhei
+    example: "I dropped the ball on the runbook update — finishing it today."
+    translation: "Deixei cair a atualização do runbook — termino hoje."
+    note: "Mais pesado que 'my bad': quando você era o dono e falhou."
+  - term: "still on my radar"
+    meaning: ainda no meu radar — não esqueci
+    example: "This is still on my radar — the dependency fix comes first."
+    translation: "Isso ainda está no meu radar — a correção da dependência vem antes."
+    note: "Sinaliza que não foi esquecido sem prometer data."
+  - term: "second pair of eyes"
+    meaning: um segundo par de olhos — revisão
+    example: "Could you put a second pair of eyes on the migration script?"
+    translation: "Você pode botar um segundo par de olhos no script de migração?"
+    note: "Forma leve de pedir revisão sem burocratizar."
+  - term: sign-off
+    meaning: aceite/aprovação final
+    example: "Waiting on your sign-off to merge — no rush, just flagging."
+    translation: "Esperando seu aceite para mergear — sem pressa, só sinalizando."
+    note: "O nome da aprovação que destrava; substantivo."
+  - term: soft deadline
+    meaning: prazo flexível — preferência, não regra
+    example: "Soft deadline Friday — if it slips to Monday, that's ok."
+    translation: "Prazo flexível sexta — se escorregar para segunda, tudo bem."
+    note: "Declare quando o prazo é preferência: evita pânico desnecessário."
+  - term: "holding off on"
+    meaning: segurando/adiando algo de propósito
+    example: "Holding off on the deploy until the alert settles."
+    translation: "Segurando o deploy até o alerta assentar."
+    note: "Espera deliberada, declarada — diferente de esquecer."
+  - term: "parking this"
+    meaning: estacionando o assunto para depois
+    example: "Parking this until next sprint — not worth the context switch now."
+    translation: "Estacionando isso até a próxima sprint — não vale a troca de contexto agora."
+    note: "Decisão de não agir, explicitada — melhor que o assunto morrer sem aviso."
+  - term: "give me a shout"
+    meaning: me dá um toque / me chama
+    example: "Give me a shout when prod is green and I'll close the ticket."
+    translation: "Me dá um toque quando prod estiver verde que eu fecho o ticket."
+    note: "Informal; equivalente a 'ping me'."
+
+grammar:
+  title: "Os cinco tipos: fórmula, risco e a frase que salva"
+  explanation: |
+    | Tipo | Fórmula que resolve | O risco |
+    |---|---|---|
+    | Pedido | contexto + `could you`/`can you` + objeto | "hi" sozinho; pedido vago |
+    | Aviso | `FYI`/`heads up` + `no action needed` | @channel de rotina; parágrafo de e-mail |
+    | Follow-up | `following up on`/`circling back` + referência | bump sem motivo; cobrança solta |
+    | Escalada leve | `wanted to flag`/`escalating to` + o que precisa | culpar pessoas; alarme sem pedido |
+    | Desculpa por atraso | `sorry for the delay` + o que foi feito | três parágrafos de culpa |
+
+    **A desculpa curta:** "sorry for the delay" + causa de uma linha + o estado agora. Culpa longa transfere o desconforto para quem lê — peça desculpa e entregue.
+
+    **A escalada leve descreve o problema, não o culpado:** "wanted to flag: retries tripled" abre espaço para o dono agir; "the team failed to notice" cria defesa. Escale o fato com o que você precisa — não a pessoa.
+
+    **Futuro nos compromissos:** "I'll send it Monday", "I'm holding off until green". E lembre: **by** é prazo ("by Monday"), **until** é duração ("holding off until green"), e **next** dispensa preposição ("next sprint").
+  examples:
+    - { en: "Following up on the VPN access from Monday — still waiting on the sign-off.", pt: "Dando sequência ao acesso da VPN de segunda — ainda esperando o aceite." }
+    - { en: "Wanted to flag: prod retries tripled since the last deploy. Escalating to @Ana if it holds.", pt: "Queria sinalizar: retries de prod triplicaram desde o último deploy. Escalando para a @Ana se continuar." }
+    - { en: "Sorry for the delay — the migration took two extra runs. The report is attached now.", pt: "Desculpa pelo atraso — a migração levou duas execuções a mais. O relatório está anexado agora." }
+    - { en: "Holding off on the merge until the canary is green — soft deadline tomorrow.", pt: "Segurando o merge até o canário ficar verde — prazo flexível amanhã." }
+    - { en: "Parking the refactor until next sprint — the freeze makes it risky now.", pt: "Estacionando o refactor até a próxima sprint — o freeze o torna arriscado agora." }
+
+examples:
+  - en: "Hi Marcos — could you add me to the on-call rotation doc? Context: I'm shadowing next week."
+    pt: "Oi Marcos — pode me adicionar no doc da rotação de plantão? Contexto: vou acompanhar semana que vem."
+    context: "Pedido: contexto na mesma mensagem."
+  - en: "FYI: the staging cluster rebuilds tonight — no action needed, just expect it down after 8."
+    pt: "Só avisando: o cluster de staging é reconstruído hoje à noite — nenhuma ação, só esperem ele fora depois das 20h."
+    context: "Aviso marcado como ciência."
+  - en: "Circling back on the sign-off thread — the freeze is tomorrow and I still need the approval."
+    pt: "Retomando a thread do aceite — o freeze é amanhã e ainda preciso da aprovação."
+    context: "Follow-up com referência e motivo."
+  - en: "Wanted to flag: the queue depth has doubled since Monday. If it holds tomorrow, escalating to @Priya."
+    pt: "Queria sinalizar: a profundidade da fila dobrou desde segunda. Se continuar amanhã, escalo para a @Priya."
+    context: "Escalada leve: fato + limiar + para quem."
+  - en: "Sorry for the delay — I dropped the ball on the cert renewal. It's scheduled for tonight now."
+    pt: "Desculpa pelo atraso — deixei cair a renovação do cert. Está agendada para hoje à noite agora."
+    context: "Desculpa de uma linha + o que foi feito."
+  - en: "She told me the window moved — I'll hold off on the deploy until Monday."
+    pt: "Ela me disse que a janela mudou — vou segurar o deploy até segunda."
+    context: '"told me", nunca "said me"; "until" para duração.'
+  - en: "Could you put a second pair of eyes on the rollback script before I run it?"
+    pt: "Você pode botar um segundo par de olhos no script de rollback antes de eu rodar?"
+    context: "Pedido de revisão leve."
+  - en: "Parking the dashboard rework until next sprint — the freeze makes it risky now."
+    pt: "Estacionando o retrabalho do dashboard até a próxima sprint — o freeze o torna arriscado agora."
+    context: "Não-agir explicitado com o motivo e o quando."
+
+variations:
+  - idea: '"fazer follow-up num pedido parado"'
+    items:
+      - { register: "Boa", text: "Circling back on the access request from Monday — still blocked, flagging in case it slipped.", adequate: true }
+      - { register: "Boa", text: "Quick nudge on the sign-off — freeze is tomorrow.", adequate: true }
+      - { register: "Inadequada", text: "hello???", adequate: false, note: "Cobrança sem referência nem motivo só irrita." }
+      - { register: "Inadequada", text: "I'm still waiting your answer.", adequate: false, note: '"waiting" exige on/for — e o tom é de cobrança pura.' }
+  - idea: '"escalar sem queimar ninguém"'
+    items:
+      - { register: "Boa", text: "Wanted to flag: retries doubled since the deploy. Escalating to @Ana if it holds tonight.", adequate: true }
+      - { register: "Boa", text: "Escalating to @Priya — needs a decision by Friday, details in thread.", adequate: true }
+      - { register: "Inadequada", text: "The team keeps ignoring this and now I'm escalating.", adequate: false, note: "Escalada com culpa embutida cria defesa, não ação." }
+      - { register: "Inadequada", text: "@channel THIS IS STILL BROKEN", adequate: false, note: "Alarme sem pedido acionável é ruído — diga o que precisa." }
+
+brErrors:
+  - { wrong: "She said me to escalate the ticket.", right: "She told me to escalate the ticket.", why: "tell + pessoa; say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "The fix lands on next sprint.", right: "The fix lands next sprint.", why: "next + período dispensa preposição", tag: br.on-next }
+  - { wrong: "Sorry for the delay to reply.", right: "Sorry for the late reply. / Sorry for the delay.", why: '"delay to reply" é calque; "late reply" é a forma natural', tag: vocab.slack }
+  - { wrong: "Waiting your sign-off to merge.", right: "Waiting on your sign-off to merge.", why: "wait exige on/for", tag: br.waiting-no-prep }
+  - { wrong: "Do you can escalate this to Ana?", right: "Can you escalate this to Ana?", why: "auxiliar duplo", tag: br.do-modal }
+  - { wrong: "I need that you approve today.", right: "I need you to approve today.", why: 'calque de "preciso que você"', tag: br.need-that-you }
+  - { wrong: "Can you give me a feedback on the script?", right: "Can you give me feedback on the script?", why: "feedback é incontável", tag: vocab.slack }
+  - { wrong: "I will make a follow-up on the ticket.", right: "I'll follow up on the ticket.", why: 'calque de "fazer um follow-up": follow up já é verbo', tag: vocab.slack }
+  - { wrong: "I didn't saw your message in thread.", right: "I didn't see your message in thread.", why: "depois de did, forma base", tag: br.did-past }
+  - { wrong: "I'm agree to escalate.", right: "I agree we should escalate. / I agree — escalate it.", why: 'agree sem be; "agree to" + verbo pede sujeito', tag: br.i-am-agree }
+
+dialogue:
+  title: "Sexta em #team-infra: os cinco tipos em uma thread só"
+  lines:
+    - { speaker: Yuri, text: "Hi team — bundling the week's loose ends in one thread. First: Marcos, could you add me to the on-call rotation doc? Context: I'm shadowing next week." }
+    - { speaker: Marcos, text: "Done ✅ — you should have access now. All set." }
+    - { speaker: Yuri, text: "Thanks! Second, FYI for everyone: staging rebuilds tonight — no action needed, just expect it down after 8." }
+    - { speaker: Priya, text: "Good to know. And thanks for consolidating — the channel was getting noisy." }
+    - { speaker: Yuri, text: "Third: circling back on the cert sign-off from Monday — freeze is tomorrow and I still need the approval." }
+    - { speaker: Priya, text: "On it — signing off within the hour, my morning is packed but I'll get to it." }
+    - { speaker: Yuri, text: "Fourth, wanted to flag: queue depth doubled since Monday. If it holds through tonight, escalating to @Ana — details in thread." }
+    - { speaker: Ana, text: "Saw it — keep me posted, I'll watch the overnight run." }
+    - { speaker: Yuri, text: "And last: sorry for the delay on the runbook update — I dropped the ball. It's drafted now, second pair of eyes welcome; soft deadline Monday." }
+    - { speaker: Marcos, text: "I'll take a look first thing tomorrow — my morning, your night. Good week to wrap." }
+  notes:
+    - "Os cinco tipos em sequência: pedido com contexto, aviso marcado, follow-up com referência, escalada com fato e limiar, desculpa curta com entrega."
+    - 'Repare como cada resposta também segue as regras: "done ✅" fecha, "on it" compromete, "saw it — keep me posted" recebe a escalada sem drama.'
+    - '"soft deadline Monday" declara que o prazo é preferência — ninguém entra em pânico.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Circling back on the incident review — the action items are still unassigned. If nobody picks them up by EOD my time, I'm escalating to Priya." }
+    - { speaker: Marcos, text: "Sorry for the delay on the AMI update — my bad, the rebuild took two extra cycles. It's green now, notes in the runbook." }
+    - { speaker: Priya, text: "Quick nudge on the retro doc — need everyone's items by Friday your time so I can consolidate over the weekend." }
+  questions:
+    - { id: M03-05-l1, type: multiple_choice, prompt: "What happens if the action items stay unassigned?", options: ["Ana escalates to Priya", "Ana drops them", "The review is cancelled", "Priya assigns them"], answer: 0, explanation: '"If nobody picks them up by EOD my time, I''m escalating to Priya."', tags: [comp.listening] }
+    - { id: M03-05-l2, type: multiple_choice, prompt: "Why does Marcos apologize?", options: ["He broke prod", "The AMI update took longer than expected", "He missed the retro", "He forgot the sign-off"], answer: 1, explanation: '"the rebuild took two extra cycles" — atraso assumido em uma linha, já resolvido.', tags: [comp.listening] }
+    - { id: M03-05-l3, type: fill_blank, prompt: "Quick ___ on the retro doc — need everyone's items by Friday.", accepted: ["nudge"], explanation: '"quick nudge" = lembrete leve, sem cobrança.', tags: [comp.listening, vocab.slack] }
+    - { id: M03-05-l4, type: multiple_choice, prompt: "What is Priya's deadline for the retro items?", options: ["Monday", "EOD today", "Next sprint", "Friday, your time"], answer: 3, explanation: '"by Friday your time" — prazo no fuso de quem lê.', tags: [comp.listening, topic.async] }
+    - { id: M03-05-l5, type: multiple_choice, prompt: "What does 'my bad' signal in Marcos's message?", options: ["He owns the delay, lightly", "Someone else failed", "He's angry", "The task is impossible"], answer: 0, explanation: '"my bad" assume o erro leve sem cerimônia.', tags: [comp.listening, vocab.slack] }
+    - { id: M03-05-l6, type: multiple_choice, prompt: "Which pattern do all three messages share?", options: ["They all escalate", "They all apologize", "They name the reference and the next step", "They all use @channel"], answer: 2, explanation: "Follow-up, desculpa e nudge: cada um traz a referência e o que acontece depois.", tags: [comp.listening, vocab.slack] }
+
+writing:
+  prompt: |
+    **Cenário:** sexta-feira, fim do dia. Você deve três mensagens ao time: (1) um pedido — você precisa de acesso ao doc da rotação de plantão porque vai acompanhar semana que vem; (2) um follow-up — o aceite do cert de segunda continua pendente e o freeze é amanhã; (3) uma desculpa por atraso — a atualização do runbook que era para terça só saiu hoje (foi falha sua, já está pronta).
+
+    **Tarefa:** escreva as três mensagens numeradas (80–120 palavras no total), cada uma com a fórmula do tipo certo.
+  constraints:
+    - { label: "Pedido com modal + contexto", pattern: "\\b(could|can|would) you\\b" }
+    - { label: "Follow-up com referência (following up on / circling back / nudge)", pattern: "\\b(following up on|circling back|quick nudge|bump)\\b" }
+    - { label: "Desculpa curta por atraso (sorry for the delay / my bad / dropped the ball)", pattern: "\\b(sorry for the delay|my bad|dropped the ball|late)\\b" }
+    - { label: "Referência de tempo ou prazo (Monday / tomorrow / next week)", pattern: "\\b(monday|tuesday|wednesday|thursday|friday|tomorrow|next (week|sprint)|eod)\\b" }
+  rubric:
+    - Pedido traz contexto na mesma mensagem
+    - Follow-up traz a referência (qual pedido, de quando)
+    - Desculpa em uma linha + o que foi feito
+    - Cada mensagem no tipo e tom certos
+  model: >-
+    1. Hi Marcos — could you add me to the on-call rotation doc? Context: I'm shadowing the
+    rotation next week and want to read it before then. 2. Circling back on the cert sign-off
+    from Monday — the freeze is tomorrow and I still need the approval to merge today.
+    3. Sorry for the delay on the runbook update — I dropped the ball and it's drafted now.
+    Second pair of eyes welcome; soft deadline Monday.
+  minWords: 70
+  maxWords: 120
+  tags: [comp.writing, vocab.slack, topic.async]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos deixando as três mensagens em voz alta — pedido com contexto, follow-up com referência e desculpa curta por atraso.
+    maxSeconds: 45
+    targetPhrases:
+      - could you
+      - context
+      - following up on
+      - circling back
+      - quick nudge
+      - sorry for the delay
+      - my bad
+      - I dropped the ball
+      - still on my radar
+      - wanted to flag
+      - escalating to
+      - soft deadline
+      - second pair of eyes
+      - give me a shout
+    checklist:
+      - O pedido veio com contexto?
+      - O follow-up trouxe a referência?
+      - A desculpa foi de uma linha, com o que foi feito?
+      - Cada mensagem soou no tom certo?
+
+quiz:
+  - { id: M03-05-q1, type: error_correction, prompt: "She said me to escalate the ticket.", accepted: ["She told me to escalate the ticket.", "She told me to escalate the ticket", "She said to escalate the ticket.", "She said to escalate the ticket"], explanation: "tell + pessoa, ou said sem objeto indireto.", tags: [br.said-me] }
+  - { id: M03-05-q2, type: multiple_choice, prompt: "Which follow-up is least likely to annoy?", options: ["hello???", "I'm still waiting your answer.", "Circling back on the cert sign-off — freeze is tomorrow.", "bump"], answer: 2, explanation: "Referência + motivo: a thread acordada sabe do que se trata e por quê.", tags: [vocab.slack] }
+  - { id: M03-05-q3, type: error_correction, prompt: "The fix lands on next sprint.", accepted: ["The fix lands next sprint.", "The fix lands next sprint"], explanation: "next + período dispensa preposição.", tags: [br.on-next] }
+  - { id: M03-05-q4, type: multiple_choice, prompt: "A light escalation names…", options: ["who failed", "the fact, the threshold, and who decides", "the culprit's manager", "how long it's been broken"], answer: 1, explanation: "Escale o fato com o que você precisa — não a pessoa.", tags: [vocab.slack] }
+  - { id: M03-05-q5, type: fill_blank, prompt: "Sorry for the ___ on the runbook — it's drafted now.", accepted: ["delay"], explanation: '"sorry for the delay" + o que foi feito.', tags: [vocab.slack] }
+  - { id: M03-05-q6, type: translate, prompt: "Queria sinalizar: a fila dobrou desde segunda. Se continuar, escalo para a Ana.", accepted: ["Wanted to flag: the queue doubled since Monday. If it holds, escalating to Ana.", "Wanted to flag: the queue has doubled since Monday. If it holds, I'm escalating to Ana.", "Wanted to flag — the queue doubled since Monday; if it holds, I'll escalate to Ana."], explanation: '"wanted to flag" + fato + limiar + para quem.', tags: [vocab.slack] }
+  - { id: M03-05-q7, type: match, prompt: "Associe o tipo de mensagem à fórmula.", pairs: [{ left: "pedido", right: "context + could you" }, { left: "follow-up", right: "circling back on" }, { left: "escalada leve", right: "wanted to flag" }, { left: "desculpa por atraso", right: "sorry for the delay" }], explanation: "Cada tipo tem sua fórmula de abertura.", tags: [vocab.slack] }
+  - { id: M03-05-q8, type: error_correction, prompt: "Sorry for the delay to reply.", accepted: ["Sorry for the late reply.", "Sorry for the late reply", "Sorry for the delay in replying.", "Sorry for the delay."], explanation: '"delay to reply" é calque; "late reply" ou "delay in replying".', tags: [vocab.slack] }
+
+review:
+  count: 5
+  preferTags: [vocab.slack, br.said-me, topic.async]
+
+srsCards:
+  - { front: "retomando o assunto pendente", back: "circling back on…", tag: vocab.slack }
+  - { front: "cutucada leve", back: "quick nudge", tag: vocab.slack }
+  - { front: "queria sinalizar (escalada leve)", back: "wanted to flag: …", tag: vocab.slack }
+  - { front: "escalando para a Priya", back: "escalating to @Priya", tag: vocab.slack }
+  - { front: "desculpa pelo atraso — feito agora", back: "sorry for the delay — done now.", tag: vocab.slack }
+  - { front: "foi mal (erro leve meu)", back: "my bad", tag: vocab.slack }
+  - { front: "deixei cair (falhei como dono)", back: "I dropped the ball", tag: vocab.slack }
+  - { front: "ainda no meu radar", back: "still on my radar", tag: vocab.slack }
+  - { front: "um segundo par de olhos", back: "a second pair of eyes", tag: vocab.slack }
+  - { front: "aceite final (substantivo)", back: "sign-off", tag: vocab.slack }
+  - { front: "prazo flexível", back: "soft deadline", tag: vocab.slack }
+  - { front: "segurando até ficar verde", back: "holding off until it's green", tag: vocab.slack }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
