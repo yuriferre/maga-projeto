@@ -47,8 +47,10 @@ describe("buildGlossary", () => {
     const themed = items.filter((i) => i.source.kind === "theme");
     const fromLesson = items.filter((i) => i.source.kind === "lesson");
     expect(themed).toHaveLength(daily.entries.length);
-    expect(fromLesson).toHaveLength(bundle.lessons["M01-02"]!.vocabulary.length);
-    expect(fromLesson[0]!.source).toEqual({ kind: "lesson", id: "M01-02", label: "Aula M01-02" });
+    // Todas as aulas com conteúdo contribuem vocabulário (a partir da E5 há mais de uma).
+    const vocabTotal = Object.values(bundle.lessons).reduce((n, l) => n + l.vocabulary.length, 0);
+    expect(fromLesson).toHaveLength(vocabTotal);
+    expect(fromLesson.map((i) => i.source)).toContainEqual({ kind: "lesson", id: "M01-02", label: "Aula M01-02" });
     expect(fromLesson.every((i) => i.tags.length > 0 && i.examples.length === 1)).toBe(true);
     const terms = items.map((i) => normalize(i.term));
     expect(terms).toEqual([...terms].sort((a, b) => a.localeCompare(b)));
