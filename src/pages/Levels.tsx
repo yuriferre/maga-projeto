@@ -6,7 +6,7 @@ import { Badge } from "../components/ui/Badge.tsx";
 import { ProgressBar } from "../components/ui/ProgressBar.tsx";
 
 export function Levels() {
-  const { byLesson, error } = useOverview();
+  const { byLesson, modules, error } = useOverview();
   const moduleCount = levels.reduce((sum, level) => sum + level.modules.length, 0);
   const lessonCount = levels.reduce((sum, level) => sum + level.modules.reduce((s, m) => s + m.lessons.length, 0), 0);
 
@@ -38,7 +38,10 @@ export function Levels() {
                     <Link to={`/modules/${m.id}`} className="block rounded-md border border-slate-200 p-3 hover:border-indigo-400 hover:bg-indigo-50">
                       <div className="flex items-center justify-between gap-2">
                         <span className="font-medium">{m.id} · {m.title}</span>
-                        {available === 0 ? <Badge>em breve</Badge> : completed === m.lessons.length ? <Badge tone="green">concluído</Badge> : <Badge tone="blue">{available} aula(s) disponíveis</Badge>}
+                        <span className="flex items-center gap-1">
+                          {modules[m.id]?.passed && <Badge tone="green">aprovado</Badge>}
+                          {available === 0 ? <Badge>em breve</Badge> : completed === m.lessons.length ? <Badge tone="green">concluído</Badge> : <Badge tone="blue">{available} aula(s) disponíveis</Badge>}
+                        </span>
                       </div>
                       <div className="mt-1 text-xs text-slate-500">{m.lessons.length} aulas · {completed} concluídas</div>
                     </Link>

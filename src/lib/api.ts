@@ -7,6 +7,7 @@ import type { PlacementAssessment, PlacementSpeakingMetrics } from "../../server
 import type { Dashboard, WeekGoal } from "../../server/dashboard.ts";
 import type { CardCounts, CardRow } from "../../server/repo.ts";
 import type { Maturity } from "../../shared/sm2.ts";
+import type { AssessmentRecord, AssessmentMissing } from "../../server/assessment.ts";
 
 /** Erro HTTP com o corpo da resposta (ex.: 409 do finish traz `missing`). */
 export class ApiError extends Error {
@@ -42,10 +43,16 @@ const put = <T>(path: string, body: unknown) => request<T>(path, { method: "PUT"
 export type LessonStatus = { progress: LessonProgressRow | null; completion: CompletionStatus };
 export type PlacementState = { latest: PlacementAssessment | null; run: { answered: string[]; writing: WritingRow | null; speaking: SpeakingRow | null } };
 export type ReadAloudEntry = { target: string; transcript: string };
-export type { Block, Exercise, WeekGoal, Dashboard, PlacementAssessment, PlacementSpeakingMetrics, WritingRow, SpeakingRow, WritingFeedback, SpeakingMetrics, TagStat, CardRow, CardCounts, Maturity };
+export type ModuleSummary = { passed: boolean; latest: AssessmentRecord | null };
+export type ModuleAssessmentState = {
+  eligible: { lessonsTotal: number; lessonsDone: number; missing: string[] };
+  latest: AssessmentRecord | null;
+  run: { answered: string[]; writing: WritingRow | null; speaking: SpeakingRow | null };
+};
+export type { Block, Exercise, WeekGoal, Dashboard, PlacementAssessment, PlacementSpeakingMetrics, WritingRow, SpeakingRow, WritingFeedback, SpeakingMetrics, TagStat, CardRow, CardCounts, Maturity, AssessmentRecord, AssessmentMissing };
 
 export const api = {
-  overview: () => request<{ lessons: LessonProgressRow[] }>("/api/progress/overview"),
+  overview: () => request<{ lessons: LessonProgressRow[]; modules: Record<string, ModuleSummary> }>("/api/progress/overview"),
   tagStats: (days = 30) => request<{ since: string; stats: TagStat[]; weak: string[] }>(`/api/tags/stats?days=${days}`),
   startLesson: (id: string) => post<{ progress: LessonProgressRow | null }>(`/api/lessons/${id}/start`),
   lessonStatus: (id: string) => request<LessonStatus>(`/api/lessons/${id}/status`),
@@ -63,6 +70,13 @@ export const api = {
   submitPlacementSpeaking: (body: { readAloud: ReadAloudEntry[]; transcript: string; durationSec: number; selfConfidence?: number }) =>
     post<{ id: number; metrics: PlacementSpeakingMetrics }>("/api/placement/speaking", body),
   finishPlacement: () => post<{ assessment: PlacementAssessment }>("/api/placement/finish"),
+
+  // avaliação de módulo
+  moduleAssessmentState: (id: string) => request<ModuleAssessmentState>(`/api/modules/${id}/assessment/state`),
+  submitModuleWriting: (id: string, body: { text: string; selfScore?: number }) => post<{ id: number; feedback: WritingFeedback }>(`/api/modules/${id}/assessment/writing`, body),
+  submitModuleSpeaking: (id: string, body: { mode: "A"; transcript: string; durationSec: number; selfConfidence?: number }) =>
+    post<{ id: number; metrics: SpeakingMetrics }>(`/api/modules/${id}/assessment/speaking`, body),
+  finishModuleAssessment: (id: string) => post<{ assessment: AssessmentRecord }>(`/api/modules/${id}/assessment/finish`),
 
   // painel, metas, sessões
   dashboard: (days = 30) => request<Dashboard>(`/api/dashboard?days=${days}`),

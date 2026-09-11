@@ -1,5 +1,5 @@
 import { Link, useParams } from "react-router";
-import { findModule, hasContent, competencyLabel } from "../lib/content.ts";
+import { content, findModule, hasContent, competencyLabel } from "../lib/content.ts";
 import { useOverview } from "../lib/useOverview.ts";
 import { Card } from "../components/ui/Card.tsx";
 import { Badge } from "../components/ui/Badge.tsx";
@@ -7,7 +7,7 @@ import { Badge } from "../components/ui/Badge.tsx";
 export function Module() {
   const { id = "" } = useParams();
   const found = findModule(id);
-  const { byLesson } = useOverview();
+  const { byLesson, modules } = useOverview();
 
   if (!found) return <p className="text-rose-700">Módulo não encontrado.</p>;
   const { level, module } = found;
@@ -29,6 +29,29 @@ export function Module() {
           <div><dt className="font-medium text-slate-700">Como medir a evolução</dt><dd className="text-slate-600">{module.evaluation}</dd></div>
         </dl>
       </Card>
+
+      {content.moduleAssessments[module.id] && (() => {
+        const withContent = module.lessons.filter((l) => hasContent(l.id));
+        const done = withContent.filter((l) => byLesson.get(l.id)?.status === "completed").length;
+        const summary = modules[module.id];
+        return (
+          <Card>
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="font-medium">Avaliação do módulo</h2>
+                <p className="text-sm text-slate-600">
+                  {summary?.latest
+                    ? `${summary.passed ? "Aprovado" : "Reprovado"} · itens ${Math.round(summary.latest.result.itemsPct * 100)}% · ${new Date(summary.latest.ts).toLocaleDateString("pt-BR")}`
+                    : done < withContent.length ? `Conclua as ${withContent.length} aulas (${done} feitas).` : "Todas as aulas concluídas. Pode fazer a avaliação."}
+                </p>
+              </div>
+              <Link to={`/modules/${module.id}/assessment`} className={`rounded-md px-4 py-2 text-sm font-medium ${done < withContent.length && !summary?.latest ? "pointer-events-none bg-slate-200 text-slate-500" : "bg-indigo-600 text-white hover:bg-indigo-700"}`}>
+                {summary?.latest ? "Ver resultado" : "Fazer avaliação"}
+              </Link>
+            </div>
+          </Card>
+        );
+      })()}
 
       <ol className="space-y-2">
         {module.lessons.map((l, i) => {
