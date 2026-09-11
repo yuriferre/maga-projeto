@@ -1,0 +1,283 @@
+id: M03-02
+module: M03
+order: 2
+title: "Fórmulas que resolvem 80%: FYI, heads up, quick question, +1, TL;DR"
+objective: >-
+  Ao final, você consegue usar as fórmulas prontas do Slack corporativo — FYI, heads up,
+  quick question, +1, TL;DR, "any objections?", looping in, ETA — sabendo o que cada uma
+  promete, quando cada uma cabe e quando soa passivo-agressiva.
+durationMin: 35
+competencies: [WRI, VOC, REA]
+tags: [vocab.slack, topic.async, comp.writing, comp.vocabulary, comp.reading, br.doubt, br.make-a-question, br.ask-to, gram.hedging]
+prerequisites: [M03-01]
+
+context:
+  scenario: |
+    O deploy window mudou de 14h para 15h e três pessoas precisam saber coisas diferentes:
+    o time todo precisa do aviso, a Ana precisa aprovar a mudança e o Marcos precisa saber
+    que a PR dele pode esperar. Você poderia escrever três parágrafos — ou três mensagens
+    de uma linha cada, com a fórmula certa.
+
+    As fórmulas do Slack são atalhos de tom: cada uma carrega um contrato ("isso é só
+    ciência", "silêncio = concordo", "resumo no topo"). Usar a fórmula certa é escolher o
+    tom sem escrever o tom.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: FYI
+    meaning: só para sua informação — não precisa responder
+    example: "FYI: the deploy window moved to 3 pm today."
+    translation: "Só para constar: a janela de deploy mudou para as 15h hoje."
+    note: Fecha a mensagem com "no action needed" quando a ciência é total.
+  - term: heads up
+    meaning: aviso prévio — pode exigir reação sua
+    example: "Heads up: the VPN rotates at noon, expect a reconnect."
+    translation: "Avisando antes: a VPN rotaciona ao meio-dia, esperem reconexão."
+    note: Diferente de FYI — heads up avisa de algo que vai te afetar.
+  - term: quick question
+    meaning: pergunta rápida — a pergunta vem junto
+    example: "Quick question: did the cron fix go out this morning?"
+    translation: "Pergunta rápida: a correção do cron saiu hoje de manhã?"
+    note: A fórmula promete brevidade — cumpra-a ou não use.
+  - term: "+1"
+    meaning: concordo / aconteceu comigo também
+    example: "+1 on pushing the freeze to Thursday — the cert issue isn't solved."
+    translation: "+1 em adiar o freeze para quinta — o problema do cert não foi resolvido."
+    note: Votar com +1 em vez de repetir o argumento mantém a thread curta.
+  - term: "TL;DR"
+    meaning: resumo de uma linha para quem não vai ler tudo
+    example: "TL;DR: prod is fine, the dashboard was lying — fixed the panel."
+    translation: "Resumo: prod está bem, o dashboard mentia — painel corrigido."
+    note: Vai no topo da mensagem longa, não no fim.
+  - term: "any objections?"
+    meaning: alguém se opõe? silêncio = consentimento
+    example: "Rolling this out at 3 unless any objections."
+    translation: "Vou subir isso às 15h se ninguém se opuser."
+    note: Encerra a discussão com prazo implícito; bom para decisões reversíveis.
+  - term: per our chat
+    meaning: como conversamos (registro do combinado)
+    example: "Per our chat, I'm skipping today's standup for the doctor's appointment."
+    translation: "Como conversamos, vou pular o standup de hoje por causa do médico."
+    note: Ancora a mensagem num acordo anterior — útil quando a pessoa pode ter esquecido.
+  - term: "looping in @…"
+    meaning: trazendo alguém para a conversa
+    example: "Looping in @Marcos — he owns the alert thresholds."
+    translation: "Trazendo o @Marcos — ele cuida dos thresholds de alerta."
+    note: 'Explique por que a pessoa entrou: quem é puxado sem contexto vira espectador perdido.'
+  - term: ETA
+    meaning: previsão de quando fica pronto/chega
+    example: "ETA on the fix is end of day — I'll update the thread."
+    translation: "Previsão da correção é fim do dia — vou atualizar a thread."
+    note: Nunca prometa sem ETA revisável; "no ETA yet" é resposta válida.
+  - term: nvm
+    meaning: deixa pra lá / resolvido, ignora
+    example: "nvm — found it, the VPN had dropped."
+    translation: "deixa pra lá — achei, a VPN tinha caído."
+    note: 'Sempre feche o que você abriu: "nvm" + o motivo poupa quem ia responder.'
+  - term: wfm
+    meaning: works for me — por mim ok
+    example: "3 pm wfm — locking the invite."
+    translation: "15h serve para mim — vou travar o convite."
+    note: Abreviação interna de time; na dúvida, escreva "works for me".
+  - term: SGTM
+    meaning: sounds good to me — parece bom para mim
+    example: "SGTM, ship it."
+    translation: "Por mim beleza, manda ver."
+    note: Aprovação leve; para aprovação formal (deploy, acesso) use frase inteira.
+  - term: friendly reminder
+    meaning: lembrete gentil — sem cobrança explícita
+    example: "Friendly reminder: freeze starts tomorrow, get your approvals in today."
+    translation: "Lembrete gentil: o freeze começa amanhã, resolvam as aprovações hoje."
+    note: Uma vez é lembrete; a terceira vez vira cobrança passiva.
+  - term: "following up on"
+    meaning: dando sequência a / voltando ao assunto
+    example: "Following up on the access request from Monday — still blocked."
+    translation: "Dando sequência ao pedido de acesso de segunda — ainda travado."
+    note: O follow-up sempre traz a referência (qual pedido, de quando).
+
+grammar:
+  title: "Frases telegráficas e o contrato de cada fórmula"
+  explanation: |
+    **Fórmulas são telegramas com contrato.** Cada uma promete algo: *FYI* promete que nada é pedido; *quick question* promete uma pergunta curta; *any objections?* promete que silêncio autoriza. Quebrar o contrato — "quick question" seguida de cinco parágrafos — gasta a fórmula e o seu crédito.
+
+    | Fórmula | Contrato | Sina passivo-agressiva quando… |
+    |---|---|---|
+    | *FYI* | Só ciência | É usada para entregar problema que era seu |
+    | *heads up* | Isso vai te afetar | O aviso chega tarde demais para agir |
+    | *quick question* | Uma pergunta curta | A "pergunta" é um relatório |
+    | *any objections?* | Silêncio = sim | A decisão não é reversível |
+    | *friendly reminder* | Lembrete sem cobrança | É a terceira vez na semana |
+    | *+1* | Concordo | Vira pilha sem ninguém decidir |
+
+    **Hedging leve nas fórmulas:** "unless any objections", "if that's ok", "correct me if I'm wrong" deixam a porta aberta sem pedir licença demais. O ponto é dar saída fácil para quem discorda — não se desculpar por existir.
+
+    **O que NÃO cabe no Slack:** "please find attached", "kindly do the needful", "as per my last message". Registro de e-mail formal em canal de chat soa distante — ou hostil.
+  examples:
+    - { en: "TL;DR: the cert rotation broke staging; rolling back now, prod untouched.", pt: "Resumo: a rotação de cert quebrou staging; revertendo agora, prod intacta." }
+    - { en: "Heads up: I'm OOO Friday — handing the on-call to Marcos.", pt: "Avisando: fico fora sexta — passo o on-call para o Marcos." }
+    - { en: "Rolling the threshold back at 3 unless any objections.", pt: "Vou reverter o threshold às 15h se ninguém se opuser." }
+    - { en: "Per our chat yesterday, I'm skipping the freeze window this week.", pt: "Como conversamos ontem, vou pular a janela de freeze desta semana." }
+    - { en: "Following up on the VPN ticket — still waiting on the access approval.", pt: "Dando sequência ao ticket da VPN — ainda esperando a aprovação de acesso." }
+
+examples:
+  - en: "FYI: the deploy window moved to 3 pm today — no action needed."
+    pt: "Só para constar: a janela de deploy mudou para as 15h — nenhuma ação necessária."
+    context: Ciência pura, marcada como tal.
+  - en: "Heads up, on-call folks: the cert rotation hits staging at noon — expect alerts."
+    pt: "Avisando, pessoal do on-call: a rotação de cert chega em staging ao meio-dia — esperem alertas."
+    context: Aviso prévio para quem será afetado.
+  - en: "Quick question: is the billing CronJob supposed to skip holidays?"
+    pt: "Pergunta rápida: o CronJob de faturamento deveria pular feriados?"
+    context: A fórmula é cumprida — a pergunta tem uma linha.
+  - en: "+1 on moving the freeze — the cert issue isn't fully resolved yet."
+    pt: "+1 em adiar o freeze — o problema do cert ainda não foi totalmente resolvido."
+    context: Concordância sem repetir o argumento.
+  - en: "Looping in @Priya — she owns the release calendar and can confirm the window."
+    pt: "Trazendo a @Priya — ela cuida do calendário de release e pode confirmar a janela."
+    context: Pessoa puxada com o motivo explícito.
+  - en: "Merging the fix at 4 unless any objections."
+    pt: "Vou mergear a correção às 16h se ninguém se opuser."
+    context: Decisão reversível com saída fácil para quem discorda.
+  - en: "Following up on the access request from Monday — still blocked on the approval."
+    pt: "Dando sequência ao pedido de acesso de segunda — ainda travado na aprovação."
+    context: 'Follow-up com referência: qual pedido, de quando.'
+  - en: "nvm on the log request — the VPN had dropped on my side."
+    pt: "deixa pra lá o pedido dos logs — a VPN tinha caído aqui do meu lado."
+    context: Fecha o que abriu, com o motivo.
+
+variations:
+  - idea: '"avisar mudança de janela de deploy"'
+    items:
+      - { register: "Boa", text: "FYI: deploy window moved to 3 pm today.", adequate: true }
+      - { register: "Boa (afeta quem lê)", text: "Heads up: deploy window moved to 3 pm — plan your merges around it.", adequate: true }
+      - { register: "Inadequada", text: "Dear team, please be advised that the deployment window has been moved.", adequate: false, note: "Registro de e-mail formal; no Slack isso é três linhas a mais de nada." }
+      - { register: "Inadequada", text: "@channel deploy moved to 3 pm", adequate: false, note: "Mudança de rotina não justifica notificar o canal inteiro." }
+  - idea: '"fazer uma pergunta curta"'
+    items:
+      - { register: "Boa", text: "Quick question: did the cert fix go out?", adequate: true }
+      - { register: "Boa", text: "quick one — is staging on the new AMI?", adequate: true }
+      - { register: "Inadequada", text: "I want to make a question about the cert.", adequate: false, note: '"make a question" é calque de "fazer uma pergunta": ask a question, ou só pergunte.' }
+      - { register: "Inadequada", text: "Quick question. [5 paragraphs follow]", adequate: false, note: "A fórmula promete brevidade; um bloco enorme quebra o contrato." }
+
+brErrors:
+  - { wrong: "I have a doubt about the freeze window.", right: "I have a question about the freeze window.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "I want to make a question.", right: "I want to ask a question. / Quick question: …", why: 'calque de "fazer uma pergunta"', tag: br.make-a-question }
+  - { wrong: "Ask to him about the rotation.", right: "Ask him about the rotation.", why: 'calque de "pergunte para ele": ask + pessoa, sem to', tag: br.ask-to }
+  - { wrong: "I didn't saw your message.", right: "I didn't see your message.", why: "depois de did, verbo na forma base", tag: br.did-past }
+  - { wrong: "Can you send to me the doc?", right: "Can you send me the doc?", why: "send + pessoa + objeto", tag: br.send-to-me }
+  - { wrong: "Sorry for the inconvenient.", right: "Sorry for the inconvenience.", why: "inconvenient é adjetivo; o substantivo é inconvenience", tag: vocab.slack }
+  - { wrong: "According with the plan, the freeze is Thursday.", right: "According to the plan, the freeze is Thursday.", why: "according to, nunca according with", tag: br.according-with }
+  - { wrong: "I pretend to deploy Friday.", right: "I plan to deploy Friday. / I intend to deploy Friday.", why: "pretend = fingir", tag: br.pretend }
+  - { wrong: "please find attached the report", right: "attaching the report / report attached", why: "registro de e-mail formal não cabe no Slack", tag: vocab.slack }
+  - { wrong: "waiting your answer", right: "waiting on your answer", why: "wait exige on/for", tag: br.waiting-no-prep }
+
+dialogue:
+  title: "Tarde de terça em #team-infra: quatro mensagens, quatro contratos"
+  lines:
+    - { speaker: Priya, text: "Heads up, folks: the deploy window moved to 3 pm today — the cert rotation needs the morning. Plan your merges around it." }
+    - { speaker: Yuri, text: "Thanks for flagging. Quick question: does the freeze move too, or is it still noon?" }
+    - { speaker: Priya, text: "Freeze stays at noon. And FYI: tomorrow's window is cancelled entirely — no action needed." }
+    - { speaker: Marcos, text: "+1 on keeping the freeze — the threshold fix isn't fully verified yet." }
+    - { speaker: Yuri, text: "TL;DR for the channel: deploy at 3, freeze at noon, nothing tomorrow. Looping in @Ana — she was asking about the window earlier." }
+    - { speaker: Ana, text: "SGTM. I'm pushing my changes at 2:30 then — any objections?" }
+    - { speaker: Marcos, text: "None from me. And Yuri — friendly reminder to update the runbook after your deploy." }
+    - { speaker: Yuri, text: "On it — I'll post it in thread when it's up." }
+  notes:
+    - '"heads up" porque a mudança afeta quem lê; "FYI … no action needed" quando é só ciência.'
+    - '"any objections?" fecha decisão reversível com saída fácil — ninguém se opõe, segue o jogo.'
+    - '"looping in" sempre com o motivo: Ana perguntou da janela antes.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Heads up, on-call: I'm rotating the API keys at 2 pm — expect a brief reconnect on the dashboard. Ping me if anything stays red." }
+    - { speaker: Marcos, text: "TL;DR on the incident review: root cause was the expired cert, not the deploy. Following up on the monitoring gap in a separate ticket." }
+    - { speaker: Priya, text: "Reminder — freeze starts Thursday at noon. If your PR isn't approved by then, it waits for next week's window. Any objections, flag them today." }
+  questions:
+    - { id: M03-02-l1, type: multiple_choice, prompt: "What is Ana announcing?", options: ["An API key rotation at 2 pm", "A dashboard outage", "A new on-call schedule", "A cert expiry"], answer: 0, explanation: '"rotating the API keys at 2 pm" — heads up porque afeta quem está de plantão.', tags: [comp.listening] }
+    - { id: M03-02-l2, type: multiple_choice, prompt: "What should you do if the dashboard stays red?", options: ["Wait until tomorrow", "Restart the VPN", "Ping Ana", "Post in the channel"], answer: 2, explanation: '"Ping me if anything stays red."', tags: [comp.listening, vocab.slack] }
+    - { id: M03-02-l3, type: fill_blank, prompt: "TL;DR on the incident review: root cause was the expired ___, not the deploy.", accepted: ["cert", "certificate"], explanation: "TL;DR resume a mensagem longa em uma linha.", tags: [comp.listening, vocab.slack] }
+    - { id: M03-02-l4, type: multiple_choice, prompt: "What is Marcos doing with the monitoring gap?", options: ["Fixing it now", "Ignoring it", "Following up in a separate ticket", "Assigning it to Yuri"], answer: 2, explanation: '"Following up on the monitoring gap in a separate ticket."', tags: [comp.listening, vocab.slack] }
+    - { id: M03-02-l5, type: multiple_choice, prompt: "What happens to a PR that misses the Thursday freeze?", options: ["It gets deployed anyway", "It needs a manager's approval", "It gets reverted", "It waits for next week's window"], answer: 3, explanation: '"it waits for next week''s window"', tags: [comp.listening] }
+    - { id: M03-02-l6, type: multiple_choice, prompt: "What does 'any objections, flag them today' mean?", options: ["Speak today or accept the plan", "Objections are not welcome", "Flag the PRs today", "The freeze is today"], answer: 0, explanation: "O convite a objeções tem prazo: depois de hoje, silêncio = concordância.", tags: [comp.listening, vocab.slack] }
+
+writing:
+  prompt: |
+    **Cenário:** três coisas aconteceram hoje. (1) A janela de deploy mudou para as 15h — o time precisa saber, ninguém precisa agir. (2) O pedido de acesso ao VPN de segunda continua travado — você quer dar sequência sem soar como cobrança. (3) Você vai mergear a correção do cert às 16h — decisão reversível, mas alguém pode discordar.
+
+    **Tarefa:** escreva as três mensagens (60–90 palavras no total), cada uma usando a fórmula certa para o contrato certo.
+  constraints:
+    - { label: "Ciência marcada (FYI / heads up / no action needed)", pattern: "\\b(fyi|heads up|no action needed)\\b" }
+    - { label: "Follow-up com referência (following up on / per our)", pattern: "\\b(following up on|per our)\\b" }
+    - { label: "Decisão reversível com saída (any objections / unless)", pattern: "\\b(any objections|unless)\\b" }
+    - { label: "Prazo concreto (at 3 / by noon / today)", pattern: "\\b(at \\d|by (noon|eod|friday|tomorrow)|today|tomorrow)\\b" }
+  rubric:
+    - Cada mensagem usa a fórmula do contrato certo
+    - O follow-up traz a referência (qual pedido, de quando)
+    - A decisão reversível abre saída para objeção
+    - Nada de registro de e-mail (Dear team, please be advised)
+  model: >-
+    FYI: the deploy window moved to 3 pm today — no action needed, just flagging it here for
+    visibility. Following up on Monday's VPN access request — still blocked on the approval;
+    no rush, but flagging in case it slipped. Last one: I'll merge the cert fix at 4 pm unless
+    any objections — ping me if that's a problem for anyone.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.slack, topic.async]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos deixando um voice update para o time — um aviso, um follow-up e uma decisão reversível, cada um com sua fórmula.
+    maxSeconds: 45
+    targetPhrases:
+      - FYI
+      - heads up
+      - quick question
+      - TL;DR
+      - any objections
+      - following up on
+      - looping in
+      - no action needed
+      - friendly reminder
+      - works for me
+      - sounds good to me
+      - per our chat
+      - ETA
+      - ping me
+    checklist:
+      - Cada fórmula cumpriu o contrato (FYI sem pedido, pergunta curta de verdade)?
+      - O follow-up trouxe a referência?
+      - A decisão reversível abriu espaço para objeção?
+      - Fechei cada ponto sem enrolar?
+
+quiz:
+  - { id: M03-02-q1, type: multiple_choice, prompt: "You need to tell the channel something nobody must act on. Which formula?", options: ["FYI", "heads up", "any objections?", "quick question"], answer: 0, explanation: "FYI = só ciência. Heads up avisa de algo que vai afetar quem lê.", tags: [vocab.slack] }
+  - { id: M03-02-q2, type: error_correction, prompt: "I want to make a question about the freeze.", accepted: ["I want to ask a question about the freeze.", "I have a question about the freeze.", "Quick question about the freeze.", "I want to ask a question about the freeze", "I have a question about the freeze", "Quick question about the freeze"], explanation: '"make a question" é calque; ask a question, ou vá direto com "quick question:".', tags: [br.make-a-question] }
+  - { id: M03-02-q3, type: multiple_choice, prompt: "'Merging at 4 unless any objections' works best when the decision is…", options: ["irreversible and costly", "reversible and low-stakes", "already decided by management", "urgent and blocking"], answer: 1, explanation: "Silêncio = consentimento só vale quando errar sai barato.", tags: [vocab.slack] }
+  - { id: M03-02-q4, type: fill_blank, prompt: "___: prod is fine, the dashboard was lying — fixed the panel.", accepted: ["TL;DR", "TLDR", "tl;dr", "tldr"], explanation: "TL;DR abre a mensagem longa com o resumo.", tags: [vocab.slack] }
+  - { id: M03-02-q5, type: error_correction, prompt: "Ask to him about the cert rotation.", accepted: ["Ask him about the cert rotation.", "Ask him about the cert rotation"], explanation: 'Calque de "pergunte para ele": ask + pessoa, sem to.', tags: [br.ask-to] }
+  - { id: M03-02-q6, type: translate, prompt: "Como conversamos, vou pular o freeze desta semana.", accepted: ["Per our chat, I'm skipping this week's freeze.", "Per our chat, I'm skipping the freeze this week.", "Per our conversation, I'm skipping this week's freeze.", "As we discussed, I'm skipping this week's freeze."], explanation: '"per our chat" ancora no combinado anterior.', tags: [vocab.slack] }
+  - { id: M03-02-q7, type: match, prompt: "Associe a fórmula ao contrato.", pairs: [{ left: "FYI", right: "só ciência, nada a fazer" }, { left: "heads up", right: "isso vai te afetar" }, { left: "+1", right: "concordo" }, { left: "nvm", right: "deixa pra lá, resolvido" }], explanation: "Cada fórmula carrega uma promessa.", tags: [vocab.slack] }
+  - { id: M03-02-q8, type: multiple_choice, prompt: "Which message breaks its formula's contract?", options: ["FYI: freeze starts Thursday", "Quick question: [five paragraphs]", "Heads up: VPN rotates at noon", "+1 on Ana's plan"], answer: 1, explanation: '"quick question" promete brevidade; cinco parágrafos quebram o contrato.', tags: [vocab.slack] }
+
+review:
+  count: 5
+  preferTags: [vocab.slack, br.make-a-question, br.ask-to]
+
+srsCards:
+  - { front: "só para sua informação", back: "FYI: …", tag: vocab.slack }
+  - { front: "aviso prévio (vai te afetar)", back: "heads up: …", tag: vocab.slack }
+  - { front: "pergunta rápida (a pergunta vem junto)", back: "quick question: …", tag: vocab.slack }
+  - { front: "concordo / comigo também", back: "+1", tag: vocab.slack }
+  - { front: "resumo de uma linha no topo", back: "TL;DR: …", tag: vocab.slack }
+  - { front: "alguém se opõe? (decisão reversível)", back: "any objections?", tag: vocab.slack }
+  - { front: "como conversamos", back: "per our chat", tag: vocab.slack }
+  - { front: "trazendo o Marcos para a conversa", back: "looping in @Marcos", tag: vocab.slack }
+  - { front: "previsão de quando fica pronto", back: "ETA", tag: vocab.slack }
+  - { front: "dando sequência ao pedido de segunda", back: "following up on Monday's request", tag: vocab.slack }
+  - { front: "por mim ok (abreviação)", back: "wfm — works for me", tag: vocab.slack }
+  - { front: "pergunte para ele sobre a rotação", back: "ask him about the rotation", tag: br.ask-to }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
