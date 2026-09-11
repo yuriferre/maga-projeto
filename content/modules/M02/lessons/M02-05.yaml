@@ -7,10 +7,10 @@ objective: >-
   motivo, apresentar contexto → tentativa → pergunta, compartilhar a tela e ler os eventos em voz
   alta, admitir quando não entender um termo, confirmar a causa antes da correção e fechar agradecendo
   — o módulo inteiro em uma sessão.
-durationMin: 40
+durationMin: 45
 competencies: [SPK, VOC, LIS, CNF]
 tags: [topic.help, vocab.k8s, vocab.errors, br.do-modal, br.did-past, comp.confidence, comp.speaking]
-prerequisites: [M02-04]
+prerequisites: [M02-02, M02-03, M02-04]
 
 context:
   scenario: |
@@ -181,9 +181,13 @@ dialogue:
     - { speaker: Yuri, text: "Sharing my screen — can you see it? … It says 'failed to pull image: not found'." }
     - { speaker: Ana, text: "Sorry, I didn't catch the tag — what comes after the colon?" }
     - { speaker: Yuri, text: "v2.41 — wait. That's a typo. It should be v2.4.1." }
-    - { speaker: Ana, text: "That was it. Fix the tag, redeploy, and watch the pod come up." }
-    - { speaker: Yuri, text: "Fixing now… readiness probe is green — that did it. My bad on the tag. Thanks for pairing." }
-    - { speaker: Ana, text: "Anytime. And nice work reading the events out loud — that's what caught it." }
+    - { speaker: Marcos, text: "Sorry to jump in — I'm listening from my desk. If the tag were right, the next suspect would be the imagePullSecret; the new cluster needs registry-creds." }
+    - { speaker: Yuri, text: "Good to know. Going back to the tag — fixing it now." }
+    - { speaker: Ana, text: "Redeploy and watch the events — the pull should succeed this time." }
+    - { speaker: Yuri, text: "Rolling out… readiness probe is green — that did it. My bad on the tag." }
+    - { speaker: Priya, text: "Nice teamwork. Yuri, can you add the typo and the describe-the-pod-first trick to the runbook before we close?" }
+    - { speaker: Yuri, text: "On it — one line in the debugging section. Thanks for pairing, Ana — and for the secret tip, Marcos." }
+    - { speaker: Ana, text: "Anytime. Reading the events out loud is what caught it — keep doing that." }
   notes:
     - "O convite já traz objeto, tentativa e urgência real — a Ana entra sabendo por que importa."
     - '"what do the events say" antes de qualquer hipótese: evidência primeiro, sempre.'
@@ -194,6 +198,7 @@ listening:
     - { speaker: Ana, text: "When a pod sits in ImagePullBackOff, describe it first — the events at the bottom tell you why the pull failed: bad tag, missing pull secret, or the registry is down." }
     - { speaker: Marcos, text: "If the tag looks right, check the imagePullSecret next — the new cluster needs one called registry-creds, or every pull gets denied." }
     - { speaker: Priya, text: "And if you're pairing, share the screen and read the events out loud — two pairs of eyes beat one, every time." }
+    - { speaker: Ana, text: "One more thing: ErrImagePull and ImagePullBackOff are the same story — the first is the failed attempt; the back-off is the retry waiting." }
   questions:
     - { id: M02-05-l1, type: multiple_choice, prompt: "What should you do first when a pod is in ImagePullBackOff?", options: ["Describe the pod and read the events", "Restart the cluster", "Roll back immediately", "Delete the pod"], answer: 0, explanation: '"describe it first — the events tell you why"', tags: [comp.listening, vocab.k8s] }
     - { id: M02-05-l2, type: multiple_choice, prompt: "Which causes does Ana list for a failed pull?", options: ["Bad CPU and low memory", "Old kubectl version", "Bad tag, missing pull secret, or registry down", "Wrong namespace only"], answer: 2, explanation: '"bad tag, missing pull secret, or the registry is down"', tags: [comp.listening, vocab.k8s] }
@@ -201,6 +206,8 @@ listening:
     - { id: M02-05-l4, type: fill_blank, prompt: "Two ___ of eyes beat one.", accepted: ["pairs"], explanation: '"two pairs of eyes" = duas pessoas olhando.', tags: [comp.listening, topic.help] }
     - { id: M02-05-l5, type: multiple_choice, prompt: "Why does Priya say to read the events out loud?", options: ["To practice pronunciation", "Because the mic is on", "To fill the silence", "Because two pairs of eyes beat one"], answer: 3, explanation: "Ler em voz alta compartilha a evidência — e expõe o erro.", tags: [comp.listening, topic.help] }
     - { id: M02-05-l6, type: multiple_choice, prompt: "What is Marcos's advice if the tag looks right?", options: ["Reboot the node", "Check the imagePullSecret", "Wait an hour", "Rename the pod"], answer: 1, explanation: '"check the imagePullSecret next"', tags: [comp.listening, vocab.k8s] }
+    - { id: M02-05-l7, type: multiple_choice, prompt: "What is the relationship between ErrImagePull and ImagePullBackOff?", options: ["They are different bugs", "ErrImagePull happens only on prod", "The first is the failed attempt; the back-off is the retry waiting", "ImagePullBackOff comes first"], answer: 2, explanation: "Mesma história: a tentativa falha (ErrImagePull) e o retry espera (back-off).", tags: [comp.listening, vocab.k8s] }
+    - { id: M02-05-l8, type: fill_blank, prompt: "ErrImagePull is just the failed ___; the back-off is the retry waiting.", accepted: ["attempt"], explanation: '"attempt" = tentativa (o pull que falhou).', tags: [comp.listening, vocab.k8s] }
 
 writing:
   prompt: |
@@ -223,18 +230,20 @@ writing:
     - Agradecimento que nomeia o que ajudou
   model: >-
     Closing the loop on this morning's deploy: the billing pod sat in ImagePullBackOff for twenty
-    minutes after the v2.4.1 rollout. I'd already tried restarting it — same failure. Ana paired with
-    me and `kubectl describe` showed "failed to pull image: not found" in the events. Turned out it was
-    a typo in the tag — v2.41 instead of v2.4.1. Fixed, redeployed, pod's running. Thanks for pairing,
-    Ana — runbook updated with the right tag.
-  minWords: 70
-  maxWords: 90
+    minutes after the v2.4.1 rollout. I'd already tried restarting it — same failure every time. Ana
+    paired with me and `kubectl describe` showed "failed to pull image: not found" in the events.
+    Turned out it was a typo in the tag — v2.41 instead of v2.4.1. Fixed the tag, redeployed, and the
+    readiness probe went green; the pod is running now. Marcos flagged the fallback check too: if the
+    tag had been right, the next suspect was the imagePullSecret. Thanks for pairing — runbook updated
+    with the right tag and the describe-first trick.
+  minWords: 80
+  maxWords: 120
   tags: [comp.writing, vocab.errors, vocab.k8s]
 
 speaking:
   modeA:
-    prompt: "Grave 45 segundos simulando a abertura da call de pair debugging: peça o pair com urgência e motivo, dê o contexto e o que tentou, e faça a pergunta específica sobre o ImagePullBackOff."
-    maxSeconds: 45
+    prompt: "Grave 60 segundos simulando a call de pair debugging inteira: peça o pair com urgência e motivo, dê o contexto e o que tentou, peça a evidência, confirme a causa e feche agradecendo."
+    maxSeconds: 60
     targetPhrases:
       - can you pair with me
       - it's blocking the release
