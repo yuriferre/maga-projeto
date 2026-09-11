@@ -1,0 +1,280 @@
+id: M02-03
+module: M02
+order: 3
+title: "Pergunta técnica que recebe resposta: contexto → o que tentei → pergunta"
+objective: >-
+  Ao final, você consegue estruturar uma pergunta técnica em três blocos (contexto, o que já tentou,
+  pergunta específica), declarar o esperado versus o observado, embutir a pergunta em frames polidos
+  sem inverter a ordem ("do you know why it failed?") e fechar com um convite curto — o formato que
+  recebe resposta em minutos no canal de ajuda.
+durationMin: 35
+competencies: [SPK, VOC, WRI, LIS, CNF]
+tags: [topic.help, vocab.errors, gram.indirect-questions, gram.question-forms, br.make-a-question, br.did-past, comp.confidence]
+prerequisites: [M02-02]
+
+context:
+  scenario: |
+    Terça-feira. O job de migração do serviço de faturamento falha no cluster novo com
+    `connection refused` depois de 30 segundos — e funciona na sua máquina e no cluster antigo.
+    Você vai postar no canal `#help` do time.
+
+    Duas versões possíveis: "hey, the deploy doesn't work, any ideas?" — que morre sem resposta — ou
+    contexto → tentativa → pergunta específica, que a Ana resolve em dois minutos. Pergunta boa não é
+    pergunta longa: é pergunta em que cada frase tem uma função.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: "Here's the context:"
+    meaning: abre o contexto antes de perguntar
+    example: "Here's the context: I'm deploying the billing service to the new cluster."
+    translation: "Aqui está o contexto: estou fazendo o deploy do serviço de faturamento no cluster novo."
+    note: Primeira linha do post; diz em que cenário a pergunta acontece.
+  - term: What I'm trying to do is…
+    meaning: declara o objetivo, não só o erro
+    example: What I'm trying to do is run the migration job before the rollout.
+    translation: O que estou tentando fazer é rodar o job de migração antes do rollout.
+    note: Muitas vezes a resposta certa é outro caminho — por isso o objetivo importa.
+  - term: I've already tried…
+    meaning: lista o que já tentou (present perfect)
+    example: I've already tried rerunning the job and checking the service account.
+    translation: Já tentei rodar o job de novo e checar a service account.
+    note: Evita que respondam o óbvio; mostra que você pesquisou antes de perguntar.
+  - term: I expected X, but got Y
+    meaning: esperado versus observado
+    example: I expected the job to connect, but I got "connection refused" after 30 seconds.
+    translation: Eu esperava que o job conectasse, mas recebi "connection refused" depois de 30 segundos.
+    note: O contraste esperado/observado é o coração de uma pergunta técnica.
+  - term: The error says…
+    meaning: reporta a mensagem de erro literal
+    example: The error says "connection refused" on the DB host.
+    translation: O erro diz "connection refused" no host do banco.
+    note: Cole a mensagem real entre aspas, não a sua interpretação.
+  - term: "My question is: …"
+    meaning: fecha com a pergunta em si
+    example: "My question is: does the new cluster need a different DB secret?"
+    translation: "Minha pergunta é: o cluster novo precisa de um secret de banco diferente?"
+    note: Depois do contexto, a pergunta específica cai pronta.
+  - term: Am I missing something?
+    meaning: estou deixando passar algo?
+    example: Am I missing something, or is the doc out of date?
+    translation: Estou deixando passar algo, ou a doc está desatualizada?
+    note: Humildade útil — às vezes a resposta é "sim, você perdeu X".
+  - term: Does anyone know why…?
+    meaning: alguém sabe por que… (canal amplo)
+    example: Does anyone know why the job hangs after the migration step?
+    translation: Alguém sabe por que o job trava depois da etapa de migração?
+    note: 'A pergunta interna fica na ordem de afirmação: "why the job hangs".'
+  - term: Any ideas?
+    meaning: alguma ideia? (fecho curto)
+    example: I've checked the obvious stuff — any ideas?
+    translation: Já chequei o óbvio — alguma ideia?
+    note: Fecho amigável depois da pergunta específica, nunca sozinho.
+  - term: I couldn't find it in the docs
+    meaning: não achei na documentação
+    example: I couldn't find the new secret name in the docs.
+    translation: Não achei o nome do secret novo na documentação.
+    note: Diz que você liu a doc — e onde ela falhou.
+  - term: steps to reproduce
+    meaning: passos para reproduzir
+    example: "Steps to reproduce: deploy to staging, run the migration job, wait 30 seconds."
+    translation: "Passos para reproduzir: deploy em staging, rodar o job de migração, esperar 30 segundos."
+    note: Quem consegue reproduzir consegue ajudar.
+  - term: it works on staging but not on prod
+    meaning: funciona em um ambiente e não no outro
+    example: It works on staging but not on prod — same image, different secret.
+    translation: Funciona em staging mas não em prod — mesma imagem, secret diferente.
+    note: A comparação entre ambientes é a pista mais valiosa.
+  - term: "logs in the thread"
+    meaning: os logs vão na thread
+    example: Full logs in the thread — the short version is above.
+    translation: Logs completos na thread — o resumo está acima.
+    note: Mensagem principal curta; evidência longa vai na thread.
+  - term: That was it!
+    meaning: era exatamente isso (a causa)
+    example: That was it — the secret name changed in the new cluster.
+    translation: Era isso — o nome do secret mudou no cluster novo.
+    note: Confirma a solução e agradece; fecha o loop publicamente.
+
+grammar:
+  title: "Perguntas indiretas e a estrutura contexto → tentativa → pergunta"
+  explanation: |
+    **A estrutura de três blocos:**
+
+    | Bloco | Frase-tipo | Função |
+    |---|---|---|
+    | Contexto | *What I'm trying to do is…* | Diz o objetivo e o ambiente |
+    | Tentativa | *I've already tried X and checked Y.* | Corta respostas óbvias |
+    | Pergunta | *Does the new cluster need a different secret?* | Específica e respondível |
+
+    **Pergunta dentro de pergunta fica na ordem de afirmação:** "Do you know why **it failed**?" — nunca "do you know why **did it fail**?". Depois de *do you know / does anyone know / can you tell me*, o resto é afirmação: *why it fails*, *where the config lives*, *what changed*.
+
+    **Esperado × observado:** "I expected X, but got Y" — o contraste em uma frase. Com a mensagem literal: *the error says "connection refused"*.
+
+    **O que estraga a pergunta:** "it doesn't work, any ideas?" sem contexto; "I want to make a question" (calque de "fazer uma pergunta" — o certo é *ask/have a question*); e pergunta antes da evidência.
+  examples:
+    - { en: "Do you know why the job hangs after the migration step?", pt: "Você sabe por que o job trava depois da etapa de migração?" }
+    - { en: "Can you tell me where the DB config lives in the new cluster?", pt: "Pode me dizer onde fica a config de banco no cluster novo?" }
+    - { en: "I expected the pod to start, but I got a CrashLoopBackOff instead.", pt: "Eu esperava que o pod subisse, mas recebi um CrashLoopBackOff." }
+    - { en: "I've already tried rerunning it and checking the service account.", pt: "Já tentei rodar de novo e checar a service account." }
+    - { en: "The error says 'connection refused' on the DB host.", pt: "O erro diz 'connection refused' no host do banco." }
+
+examples:
+  - en: "Context first: I'm deploying the billing service to the new cluster. It works on staging."
+    pt: "Contexto primeiro: estou fazendo deploy do serviço de faturamento no cluster novo. Funciona em staging."
+    context: Abre com cenário e ambiente — nunca com o erro sozinho.
+  - en: "What I've tried so far: reran the job twice, checked the service account, read the migration doc."
+    pt: "O que já tentei até agora: rodei o job duas vezes, chequei a service account, li a doc de migração."
+    context: Bloco de tentativa em uma linha de itens.
+  - en: "I expected the migration to connect, but I got 'connection refused' on the DB host after 30 seconds."
+    pt: "Eu esperava que a migração conectasse, mas recebi 'connection refused' no host do banco depois de 30 segundos."
+    context: Esperado × observado + mensagem literal.
+  - en: "Does anyone know if the new cluster uses a different secret name for the DB?"
+    pt: "Alguém sabe se o cluster novo usa um nome de secret diferente para o banco?"
+    context: Pergunta indireta com ordem de afirmação dentro.
+  - en: "Am I missing something, or is the migration doc out of date?"
+    pt: "Estou deixando passar algo, ou a doc de migração está desatualizada?"
+    context: Hipótese dupla que facilita a resposta.
+  - en: "That was it — the secret is called `db-creds` now, not `db-secret`. Thanks, Ana!"
+    pt: "Era isso — o secret agora se chama `db-creds`, não `db-secret`. Valeu, Ana!"
+    context: Fecha o loop confirmando a solução em público.
+  - en: "Quick question for whoever owns the pipeline — logs in the thread."
+    pt: "Pergunta rápida para quem cuida do pipeline — logs na thread."
+    context: Endereça o dono e mantém a mensagem principal curta.
+
+variations:
+  - idea: '"postar no canal de ajuda"'
+    items:
+      - { register: Completo, text: "Context: deploying billing to the new cluster. Tried: rerun + service account. Question: does it need a different secret?", adequate: true }
+      - { register: Curto mas estruturado, text: "Migration job fails with 'connection refused' on the new cluster — works on staging. I've already checked the service account. Any ideas?", adequate: true }
+      - { register: Inadequada, text: "hey, deploy broken, help?", adequate: false, note: "Sem contexto, sem tentativa, sem pergunta — não dá para responder." }
+      - { register: Inadequada, text: "Do you know why did it fail?", adequate: false, note: "Dentro de 'do you know', ordem de afirmação: why it failed." }
+  - idea: '"fazer a pergunta ao vivo, numa call"'
+    items:
+      - { register: Padrão, text: "Quick context: the migration job fails on the new cluster. I've tried rerunning it. Does anyone know why it can't reach the DB?", adequate: true }
+      - { register: Com hipótese, text: "Do you know if the new cluster uses a different secret? That's my best guess.", adequate: true }
+      - { register: Inadequada, text: "I want to make a question.", adequate: false, note: 'Calque de "fazer uma pergunta": I have a question / can I ask something.' }
+      - { register: Inadequada, text: "Why it fails?", adequate: false, note: "Wh-pergunta precisa do auxiliar: why does it fail?" }
+
+brErrors:
+  - { wrong: "I want to make a question.", right: "I have a question. / Can I ask a question?", why: 'calque de "fazer uma pergunta"', tag: br.make-a-question }
+  - { wrong: "Do you know why did it fail?", right: "Do you know why it failed?", why: "pergunta interna fica na ordem de afirmação", tag: gram.indirect-questions }
+  - { wrong: "Does anyone know where is the config?", right: "Does anyone know where the config is?", why: "depois de 'know', sujeito antes do verbo", tag: gram.indirect-questions }
+  - { wrong: "I didn't tried anything yet.", right: "I haven't tried anything yet. / I didn't try anything yet.", why: "didn't + forma base; ou present perfect", tag: br.did-past }
+  - { wrong: "I have a doubt about the retry logic.", right: "I have a question about the retry logic.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "Do you can help me debug this?", right: "Can you help me debug this?", why: "auxiliar duplo", tag: br.do-modal }
+  - { wrong: "Explain me why the pod restarts.", right: "Explain to me why the pod restarts.", why: "explain + to me, nunca explain me", tag: br.explain-me }
+  - { wrong: "I need that someone looks at this.", right: "I need someone to look at this.", why: "need + pessoa + to", tag: br.need-that-you }
+  - { wrong: "Why it fails on prod?", right: "Why does it fail on prod?", why: "wh-pergunta precisa de does", tag: gram.question-forms }
+  - { wrong: "The job is giving timeout.", right: "The job is timing out. / I'm getting a timeout error.", why: '"dar erro" não é "give error"; descreva o que acontece', tag: br.giving-error }
+
+dialogue:
+  title: "No canal #help: a pergunta que recebe resposta em dois minutos"
+  lines:
+    - { speaker: Yuri, text: "Quick one for whoever owns the deploy pipeline — context first: I'm deploying the billing service to the new cluster." }
+    - { speaker: Yuri, text: "What I'm trying to do is run the migration job before the rollout. It works on my machine and on the old cluster." }
+    - { speaker: Yuri, text: "What I've tried: reran the job twice, checked the service account, read the migration doc — nothing about the new cluster." }
+    - { speaker: Yuri, text: "The error says 'connection refused' on the DB host after 30 seconds. My question: does the new cluster use a different secret for the DB?" }
+    - { speaker: Ana, text: "Good question format. Yes — the new cluster reads from the secrets store, not a mounted file. Look for a secret called db-creds." }
+    - { speaker: Yuri, text: "That was it — the secret name changed. Job's running now. Thanks, Ana!" }
+    - { speaker: Marcos, text: "And for the channel: context → tried → question like that gets answered in minutes. Keep doing it." }
+    - { speaker: Yuri, text: "Will do. I'll add the fix to the migration doc so nobody hits this again." }
+  notes:
+    - "Quatro mensagens, quatro funções: contexto, objetivo, tentativa, pergunta. Nenhuma linha sobra."
+    - '"the error says" + mensagem literal evita que a pessoa peça o log de volta.'
+    - "Fechar o loop em público ('that was it') ajuda quem pesquisar o erro depois."
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Reading the channel today: first post just says 'hey, the deploy doesn't work, any ideas?' — no context, no error, nothing tried." }
+    - { speaker: Ana, text: "Second post is better: 'Deploying billing to the new cluster. Migration job fails with connection refused after thirty seconds. I reran it and checked the service account. Does the cluster use a different DB secret?'" }
+    - { speaker: Priya, text: "And the third one is just 'URGENT, someone help!!!' — urgent for whom? Nobody can answer that." }
+  questions:
+    - { id: M02-03-l1, type: multiple_choice, prompt: "What is wrong with the first post?", options: ["It is too long", "It has no context, no error and nothing tried", "It uses the wrong channel", "It is too polite"], answer: 1, explanation: '"no context, no error, nothing tried" — não há o que responder.', tags: [comp.listening, topic.help] }
+    - { id: M02-03-l2, type: multiple_choice, prompt: "In the second post, what did the person already try?", options: ["Rerunning the job and checking the service account", "Restarting the cluster", "Reading the whole doc", "Calling Ana directly"], answer: 0, explanation: '"reran it and checked the service account"', tags: [comp.listening] }
+    - { id: M02-03-l3, type: multiple_choice, prompt: "What is the specific question in the second post?", options: ["Why is the deploy broken?", "Who owns the pipeline?", "Does the cluster use a different DB secret?", "Can someone fix this?"], answer: 2, explanation: "Pergunta específica depois do contexto — respondível com sim/não + explicação.", tags: [comp.listening, gram.indirect-questions] }
+    - { id: M02-03-l4, type: fill_blank, prompt: "What I'm trying to ___ is run the migration job.", accepted: ["do"], explanation: '"what I''m trying to do" = o que estou tentando fazer.', tags: [topic.help, comp.listening] }
+    - { id: M02-03-l5, type: multiple_choice, prompt: "Why is the third post weak?", options: ["Urgency without a reason or an object", "It is in English", "It has too much context", "It asks a specific question"], answer: 0, explanation: '"urgent for whom?" — urgência sem motivo e sem pedido não recebe resposta.', tags: [comp.listening, topic.help] }
+    - { id: M02-03-l6, type: multiple_choice, prompt: "Which post gets a fast answer?", options: ["The first", "The third", "None of them", "The second"], answer: 3, explanation: "Contexto + tentativa + pergunta específica.", tags: [comp.listening] }
+
+writing:
+  prompt: |
+    **Cenário:** o CronJob de faturamento pulou a execução de ontem à noite. Você já: rodou o job manualmente (falhou com o mesmo erro), checou as permissões da service account e leu a doc de migração (que não cobre o cluster novo). O erro literal é `connection refused` no host do banco, depois de 30 segundos.
+
+    **Tarefa:** escreva o post para o canal `#help` (70–90 palavras) na estrutura contexto → tentativa → pergunta, com a mensagem de erro literal e a pergunta específica no fim.
+  constraints:
+    - { label: "Contexto/objetivo (context / what I'm trying to do / deploying / running)", pattern: "\\b(context|what i'm trying to do|i'm trying to|deploying|running)\\b" }
+    - { label: "O que já tentou (tried / checked / read / reran)", pattern: "\\b(i('ve| have)? ?(already )?tried|i (re)?ran|i checked|i read)\\b" }
+    - { label: "A pergunta específica (does anyone / do you know / my question / does the cluster)", pattern: "\\b(does anyone|do you know|my question|does the cluster|does it)\\b" }
+    - { label: "O erro literal ou o contraste (error says / expected / connection refused / fails)", pattern: "\\b(error says|i expected|connection refused|fails?|refused)\\b" }
+  rubric:
+    - Estrutura contexto → tentativa → pergunta, nessa ordem
+    - Mensagem de erro literal, não a interpretação
+    - Pergunta específica e respondível no fim
+    - Sem "make a question" nem pergunta interna invertida
+  model: >-
+    Context: the billing CronJob skipped last night's run on the new cluster — it works on the old one.
+    What I'm trying to do is run it manually before today's report. I've already tried rerunning it,
+    checked the service account, and read the migration doc. The error says "connection refused" on the
+    DB host after 30 seconds. Does anyone know if the new cluster uses a different secret? Logs in the
+    thread.
+  minWords: 70
+  maxWords: 90
+  tags: [comp.writing, topic.help, gram.indirect-questions]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos fazendo uma pergunta técnica ao vivo — o cenário do CronJob ou um erro real do seu dia. Contexto, o que você tentou, e a pergunta específica.
+    maxSeconds: 45
+    targetPhrases:
+      - here's the context
+      - what I'm trying to do
+      - I've already tried
+      - I expected
+      - but I got
+      - the error says
+      - my question is
+      - does anyone know
+      - do you know if
+      - am I missing something
+      - any ideas
+      - I couldn't find it in the docs
+      - it works on staging
+      - steps to reproduce
+    checklist:
+      - Dei o contexto antes do erro?
+      - Listei o que já tentei?
+      - A pergunta final é específica e respondível?
+      - A pergunta interna ficou na ordem de afirmação?
+
+quiz:
+  - { id: M02-03-q1, type: multiple_choice, prompt: "What is the right order for a technical question?", options: ["Question → context → what you tried", "Context → what you tried → question", "What you tried → question → context", "Question only — keep it short"], answer: 1, explanation: "Contexto → tentativa → pergunta: cada bloco tem uma função.", tags: [topic.help] }
+  - { id: M02-03-q2, type: error_correction, prompt: "I want to make a question about the migration job.", accepted: ["I have a question about the migration job.", "Can I ask a question about the migration job?", "I have a question about the migration job", "Can I ask a question about the migration job"], explanation: 'Calque de "fazer uma pergunta": have/ask a question.', tags: [br.make-a-question] }
+  - { id: M02-03-q3, type: fill_blank, prompt: "I've already ___ the job twice. (try)", accepted: ["tried"], explanation: "Present perfect: have + particípio.", tags: [gram.question-forms] }
+  - { id: M02-03-q4, type: multiple_choice, prompt: "Which indirect question is correct?", options: ["Do you know why did it fail?", "Do you know why it failed?", "Do you know why does it fail?", "Do you know why it fails did?"], answer: 1, explanation: "Depois de 'do you know', ordem de afirmação: why it failed.", tags: [gram.indirect-questions] }
+  - { id: M02-03-q5, type: translate, prompt: "Eu já tentei reiniciar o job, mas o erro continua.", accepted: ["I've already tried restarting the job, but the error persists.", "I already tried restarting the job, but the error persists.", "I've already tried to restart the job, but the error persists.", "I've already tried rerunning the job, but the error persists."], explanation: '"já tentei" = I''ve already tried; "reiniciar" = restart/rerun.', tags: [topic.help, br.did-past] }
+  - { id: M02-03-q6, type: error_correction, prompt: "Why it fails on prod?", accepted: ["Why does it fail on prod?", "Why does it fail on prod", "Why is it failing on prod?", "Why is it failing on prod"], explanation: "Wh-pergunta precisa do auxiliar.", tags: [gram.question-forms] }
+  - { id: M02-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["already", "i", "have", "tried", "that"], answer: "i have already tried that", explanation: '"I have already tried that" = já tentei isso.', tags: [topic.help] }
+  - { id: M02-03-q8, type: match, prompt: "Associe o bloco à frase.", pairs: [{ left: "contexto", right: "what I'm trying to do" }, { left: "tentativa", right: "I've already tried" }, { left: "pergunta", right: "my question is" }, { left: "convite", right: "any ideas" }], explanation: "Os três blocos + o fecho.", tags: [topic.help, gram.indirect-questions] }
+
+review:
+  count: 5
+  preferTags: [br.make-a-question, gram.indirect-questions, br.did-past]
+
+srsCards:
+  - { front: "aqui está o contexto:", back: "Here's the context:…", tag: topic.help }
+  - { front: "o que estou tentando fazer é…", back: "What I'm trying to do is…", tag: topic.help }
+  - { front: "eu já tentei X", back: "I've already tried…", tag: topic.help }
+  - { front: "eu esperava X, mas recebi Y", back: "I expected X, but I got Y.", tag: vocab.errors }
+  - { front: "o erro diz…", back: "The error says…", tag: vocab.errors }
+  - { front: "minha pergunta é:", back: "My question is:…", tag: topic.help }
+  - { front: "estou deixando passar algo?", back: "Am I missing something?", tag: topic.help }
+  - { front: "alguém sabe por que…?", back: "Does anyone know why…?", tag: gram.indirect-questions }
+  - { front: "alguma ideia? (fecho)", back: "Any ideas?", tag: topic.help }
+  - { front: "não achei na documentação", back: "I couldn't find it in the docs.", tag: topic.help }
+  - { front: "funciona em staging, mas não em prod", back: "It works on staging but not on prod.", tag: vocab.errors }
+  - { front: "era exatamente isso", back: "That was it!", tag: topic.help }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
