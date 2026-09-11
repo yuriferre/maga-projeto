@@ -1,0 +1,283 @@
+id: M02-02
+module: M02
+order: 2
+title: "Não entendi: I'm not sure I follow, Do you mean…?, Just to confirm…"
+objective: >-
+  Ao final, você consegue admitir que não entendeu sem drama, pedir repetição ou velocidade menor,
+  perguntar o que uma palavra significa, oferecer interpretações para a pessoa confirmar ("do you
+  mean X or Y?") e fechar o entendimento com um resumo ("just to confirm…") — tudo com o verbo na
+  forma base depois de didn't.
+durationMin: 35
+competencies: [SPK, VOC, LIS, CNF]
+tags: [topic.help, comp.listening, comp.confidence, gram.question-forms, br.did-past, br.explain-me]
+prerequisites: [M02-01]
+
+context:
+  scenario: |
+    Call com a Ana. Ela explica como o novo roteador de alertas funciona — rápido, com jargão interno
+    (*fingerprint*, *dedupe*, *receiver*) — e você perde o meio da explicação. Assentir e fingir que
+    entendeu cobra caro depois: a dúvida volta como erro em produção.
+
+    Esta aula treina o caminho profissional: admitir rápido, apontar **a parte** que faltou, oferecer
+    uma interpretação para a pessoa confirmar e fechar com um resumo. Ninguém espera que você entenda
+    tudo de primeira; esperam que você confirme antes de agir.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: I'm not sure I follow.
+    meaning: não sei se estou acompanhando
+    example: I'm not sure I follow — what happens after the dedupe step?
+    translation: Não sei se estou acompanhando — o que acontece depois da etapa de dedupe?
+    note: Admissão educada; "follow" aqui é acompanhar o raciocínio.
+  - term: I didn't catch that.
+    meaning: não peguei o que você disse
+    example: Sorry, I didn't catch the last part — could you repeat it?
+    translation: Desculpa, não peguei a última parte — pode repetir?
+    note: '"catch" = ouvir/entender o que foi dito; não é "pegar" físico.'
+  - term: Could you say that again?
+    meaning: pode repetir o que disse
+    example: Could you say that again? The audio broke for a second.
+    translation: Pode repetir? O áudio falhou por um segundo.
+    note: Mais polido que "repeat?" ou "what?".
+  - term: Could you slow down a bit?
+    meaning: pode falar mais devagar
+    example: Could you slow down a bit? I want to write this down.
+    translation: Pode falar um pouco mais devagar? Quero anotar isso.
+    note: Justifique o pedido e ele soa natural, não reclamão.
+  - term: What do you mean by X?
+    meaning: o que você quer dizer com X
+    example: What do you mean by "flapping"?
+    translation: O que você quer dizer com "flapping"?
+    note: Pergunta de significado; "by" introduz o termo duvidoso.
+  - term: Do you mean X or Y?
+    meaning: você quer dizer X ou Y?
+    example: Do you mean the threshold or the receiver?
+    translation: Você quer dizer o threshold ou o receiver?
+    note: Oferece interpretações — a pessoa só confirma, e você mostra que quase entendeu.
+  - term: "Just to confirm,…"
+    meaning: só para confirmar o entendido
+    example: Just to confirm, the router dedupes before routing?
+    translation: Só para confirmar, o roteador faz dedupe antes de rotear?
+    note: Abre a recapitulação; a frase seguinte é o seu resumo.
+  - term: Let me make sure I got this.
+    meaning: deixa eu ver se entendi direito
+    example: Let me make sure I got this — sev1 pages anytime, sev3 never does.
+    translation: Deixa eu ver se entendi — sev1 aciona a qualquer hora, sev3 nunca.
+    note: Prepara a paráfrase; mostra cuidado, não fraqueza.
+  - term: if I understood correctly
+    meaning: se eu entendi corretamente
+    example: If I understood correctly, a sev1 always lands in the incidents channel.
+    translation: Se eu entendi corretamente, um sev1 sempre cai no canal de incidentes.
+    note: '"understood" aqui é passado mesmo — o entendimento já aconteceu.'
+  - term: the call cut out
+    meaning: a chamada cortou
+    example: Sorry, the call cut out for a second — could you say that again?
+    translation: Desculpa, a chamada cortou por um segundo — pode repetir?
+    note: Explicação técnica honesta para ter perdido o trecho.
+  - term: Could you walk me through it?
+    meaning: pode me guiar passo a passo
+    example: Could you walk me through the retry logic once more?
+    translation: Pode me guiar pela lógica de retry mais uma vez?
+    note: Pede explicação passo a passo, não só repetição.
+  - term: that went over my head
+    meaning: aquilo passou por cima de mim
+    example: The fingerprint part went over my head — what does it identify?
+    translation: A parte do fingerprint passou por cima de mim — o que ele identifica?
+    note: Admissão informal e honesta; aponte logo a parte que faltou.
+  - term: in other words
+    meaning: em outras palavras
+    example: So, in other words, the router merges repeated alerts into one?
+    translation: Então, em outras palavras, o roteador funde alertas repetidos em um só?
+    note: Reenquadra a explicação nas suas palavras para confirmar.
+  - term: Sorry, what was that?
+    meaning: desculpa, o que foi isso mesmo?
+    example: Sorry, what was that last number — thirty or thirteen?
+    translation: Desculpa, qual foi o último número — trinta ou treze?
+    note: Recuperação rápida de um dado pontual; informal.
+
+grammar:
+  title: "Perguntas de esclarecimento e o didn't + forma base"
+  explanation: |
+    **Os quatro movimentos de quem não entendeu:**
+
+    | Movimento | Frase | Efeito |
+    |---|---|---|
+    | Admitir | *Sorry, I didn't catch the last part.* | Rápido e sem drama |
+    | Pedir a parte | *Could you say the middle part again?* | Específico, não "repeat" genérico |
+    | Oferecer interpretação | *Do you mean the threshold or the receiver?* | A pessoa só confirma |
+    | Fechar com resumo | *Just to confirm: router dedupes, receiver routes.* | Trava o entendimento |
+
+    **`didn't` + forma base:** "I didn't **understand**", nunca "didn't understood". O `did` já carrega o passado — o verbo volta ao infinitivo. O mesmo vale em perguntas: "Did you **say** the threshold?", não "did you said".
+
+    **Perguntas de significado:** "What **do you mean by** X?" e "What **does** 'flapping' mean?" precisam do auxiliar — "what means X" é pergunta sem do/does, marca clássica de tradução direta.
+
+    **"explain" não leva pessoa direta:** "explain **the routing to me**" ou "explain **it to me**", nunca "explain me the routing" (calque de "me explica").
+  examples:
+    - { en: "Sorry, I didn't catch the middle part — could you say it again?", pt: "Desculpa, não peguei a parte do meio — pode repetir?" }
+    - { en: "What do you mean by 'dedupe'?", pt: "O que você quer dizer com 'dedupe'?" }
+    - { en: "Do you mean the old threshold or the new one?", pt: "Você quer dizer o threshold antigo ou o novo?" }
+    - { en: "Just to confirm: sev1 pages anytime, sev3 only alerts in business hours.", pt: "Só para confirmar: sev1 aciona a qualquer hora, sev3 só alerta em horário comercial." }
+    - { en: "Could you explain the retry logic to me once more?", pt: "Pode me explicar a lógica de retry mais uma vez?" }
+
+examples:
+  - en: I'm not sure I follow — what happens between the dedupe and the routing?
+    pt: Não sei se estou acompanhando — o que acontece entre o dedupe e o roteamento?
+    context: Admissão + pergunta sobre a lacuna exata.
+  - en: Sorry, I didn't catch the last number. Was it three retries or five?
+    pt: Desculpa, não peguei o último número. Eram três retries ou cinco?
+    context: Recupera um dado pontual oferecendo as opções.
+  - en: What do you mean by "flapping" — the alert firing and resolving over and over?
+    pt: O que você quer dizer com "flapping" — o alerta disparando e resolvendo sem parar?
+    context: Pergunta de significado já com a hipótese embutida.
+  - en: Could you slow down a bit? I want to write down the severity rules.
+    pt: Pode falar mais devagar? Quero anotar as regras de severidade.
+    context: Pedido de velocidade com motivo.
+  - en: "Let me make sure I got this: the router dedupes by fingerprint, and the receiver maps severity to a channel."
+    pt: "Deixa eu ver se entendi: o roteador faz dedupe por fingerprint e o receiver mapeia severidade para um canal."
+    context: Paráfrase completa para confirmar o todo.
+  - en: Sorry, the call cut out — what was that about business hours?
+    pt: Desculpa, a chamada cortou — o que você disse sobre horário comercial?
+    context: Culpa a conexão (verdade) e pergunta só a parte perdida.
+  - en: Could you walk me through the webhook retry once more? That part went over my head.
+    pt: Pode me guiar pelo retry do webhook mais uma vez? Aquela parte passou por cima de mim.
+    context: Admissão honesta + pedido de passo a passo.
+
+variations:
+  - idea: '"dizer que não entendeu numa call"'
+    items:
+      - { register: Direto e educado, text: "Sorry, I didn't catch that — could you say it again?", adequate: true }
+      - { register: Com lacuna apontada, text: "I followed the router part, but I lost you at the receiver — what does it do?", adequate: true }
+      - { register: Com resumo, text: "Just to confirm: dedupe first, then route by severity?", adequate: true }
+      - { register: Inadequada, text: "I didn't understood.", adequate: false, note: "Depois de didn't, forma base: didn't understand." }
+      - { register: Inadequada, text: "What?", adequate: false, note: "Seco demais; soa impaciente. Adicione sorry + pedido." }
+  - idea: '"perguntar o significado de um termo"'
+    items:
+      - { register: Padrão, text: "What do you mean by 'fingerprint'?", adequate: true }
+      - { register: Com hipótese, text: "Do you mean the hash of the alert labels?", adequate: true }
+      - { register: Inadequada, text: "What means 'fingerprint'?", adequate: false, note: "Falta o auxiliar: what does X mean?" }
+      - { register: Inadequada, text: "Can you explain me 'fingerprint'?", adequate: false, note: "explain não leva pessoa direta: explain it to me." }
+
+brErrors:
+  - { wrong: "I didn't understood the alert flow.", right: "I didn't understand the alert flow.", why: "depois de didn't, verbo na forma base", tag: br.did-past }
+  - { wrong: "Did you said the threshold is per service?", right: "Did you say the threshold is per service?", why: "did + sujeito + forma base", tag: br.did-past }
+  - { wrong: "I don't understood what you mean.", right: "I don't understand what you mean.", why: "don't/didn't + forma base", tag: br.did-past }
+  - { wrong: "Can you explain me the routing?", right: "Can you explain the routing to me?", why: "explain + coisa + to me, nunca explain me", tag: br.explain-me }
+  - { wrong: "What means 'flapping'?", right: "What does 'flapping' mean?", why: "pergunta precisa do auxiliar does", tag: gram.question-forms }
+  - { wrong: "You mean the threshold or the receiver?", right: "Do you mean the threshold or the receiver?", why: "pergunta sim/não começa com do", tag: gram.question-forms }
+  - { wrong: "Sorry, what you said?", right: "Sorry, what did you say?", why: "wh-question no passado precisa de did", tag: gram.question-forms }
+  - { wrong: "I have a doubt about the webhook.", right: "I have a question about the webhook.", why: "doubt = desconfiança; question = dúvida", tag: br.doubt }
+  - { wrong: "Repeat, please.", right: "Could you say that again, please?", why: "imperativo seco soa rude; could you + verbo", tag: gram.modals-polite }
+  - { wrong: "Do you can speak slower?", right: "Can you speak slower? / Could you slow down?", why: "auxiliar duplo: ou do ou o modal", tag: br.do-modal }
+
+dialogue:
+  title: "A call com a Ana: entender de verdade o roteador de alertas"
+  lines:
+    - { speaker: Ana, text: "So the alerts hit the router first — it dedupes by fingerprint — and then the receiver maps each one to a channel." }
+    - { speaker: Yuri, text: "Sorry, I didn't catch the middle part. Did you say it dedupes by fingerprint?" }
+    - { speaker: Ana, text: "Right. Same fingerprint, same alert — the router collapses the repeats into one." }
+    - { speaker: Yuri, text: "Got it. And what do you mean by 'receiver' — the Slack integration?" }
+    - { speaker: Ana, text: "Exactly. It decides which channel gets the alert based on severity." }
+    - { speaker: Yuri, text: "Just to confirm, then: the router dedupes, and the receiver routes by severity. If I understood correctly, a sev1 always lands in the incidents channel." }
+    - { speaker: Ana, text: "Right. And sev3 only alerts during business hours — it never pages." }
+    - { speaker: Yuri, text: "Sorry, the call cut out on that last bit. Could you say it again?" }
+    - { speaker: Ana, text: "Severity three only alerts during business hours. It never pages anyone." }
+    - { speaker: Yuri, text: "Now I follow. Let me write this down before I forget." }
+  notes:
+    - '"didn''t catch the middle part" admite a falha e já aponta a lacuna — a repetição vem barata.'
+    - '"do you mean X or Y" transforma a dúvida em múltipla escolha para quem explica.'
+    - '"just to confirm" + paráfrase fecha o entendimento antes de agir — é o hábito que evita retrabalho.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "The webhook retries five times with exponential backoff — wait, no, that's the old version. The new one retries three times, with a fixed ten-second delay." }
+    - { speaker: Marcos, text: "Flapping means the alert fires and resolves, fires and resolves — like a door banging in the wind. We usually fix it by widening the threshold or adding a delay." }
+    - { speaker: Priya, text: "If anyone missed the last part of the recording, the action item is: Yuri owns the runbook update, and we review it Friday." }
+  questions:
+    - { id: M02-02-l1, type: multiple_choice, prompt: "How many times does the new webhook retry?", options: ["Five times", "Three times", "Ten times", "Until it succeeds"], answer: 1, explanation: "Ana se autocorrige: a versão nova tenta três vezes.", tags: [comp.listening] }
+    - { id: M02-02-l2, type: multiple_choice, prompt: "What does 'flapping' mean?", options: ["The alert fires and resolves over and over", "The alert never fires", "The dashboard is slow", "The door makes noise"], answer: 0, explanation: '"fires and resolves, fires and resolves"', tags: [comp.listening, vocab.observability] }
+    - { id: M02-02-l3, type: multiple_choice, prompt: "How do you usually fix flapping, according to Marcos?", options: ["Restart the router", "Delete the alert", "Widen the threshold or add a delay", "Silence the channel"], answer: 2, explanation: '"widen the threshold or add a delay"', tags: [comp.listening] }
+    - { id: M02-02-l4, type: fill_blank, prompt: "If anyone ___ the last part of the recording…", accepted: ["missed"], explanation: '"missed" = perdeu/não pegou a parte.', tags: [comp.listening] }
+    - { id: M02-02-l5, type: multiple_choice, prompt: "What is Yuri's action item?", options: ["Fix the webhook", "Update the onboarding doc", "Review Marcos's PR", "Own the runbook update"], answer: 3, explanation: '"Yuri owns the runbook update."', tags: [comp.listening] }
+    - { id: M02-02-l6, type: multiple_choice, prompt: "What does Ana do in the middle of her sentence?", options: ["She asks a question", "She corrects herself", "She repeats the last part", "She loses the call"], answer: 1, explanation: '"wait, no, that''s the old version" — autocorreção típica de fala natural.', tags: [comp.listening] }
+
+writing:
+  prompt: |
+    **Cenário:** numa call, a Ana explicou como o novo roteador de alertas funciona. Você entendeu o começo (o roteador faz *dedupe* por *fingerprint*), mas se perdeu na parte do *receiver* — e preferiu não fingir que entendeu.
+
+    **Tarefa:** escreva uma mensagem curta para a Ana no Slack (60–90 palavras): admita que perdeu uma parte, diga qual parte, pergunte o que ela quis dizer com um termo específico e confirme o que você entendeu.
+  constraints:
+    - { label: "Admissão (didn't catch / missed / lost)", pattern: "\\b(didn't (catch|understand|follow)|missed|lost)\\b" }
+    - { label: "Pergunta de esclarecimento (what do you mean / do you mean / could you…)", pattern: "\\b(what do you mean|do you mean|could you (explain|repeat|say|walk))\\b" }
+    - { label: "Confirmação do entendido (just to confirm / if I understood correctly / make sure I got)", pattern: "\\b(just to confirm|if I understood correctly|make sure I got)\\b" }
+    - { label: "Objeto técnico específico (router / receiver / threshold / fingerprint / severity / dedupe)", pattern: "\\b(router|receiver|threshold|fingerprint|severity|dedup)\\w*\\b" }
+  rubric:
+    - Admite a falha sem drama e sem culpar a pessoa
+    - Aponta a parte específica que faltou
+    - Confirma o que entendeu com as próprias palavras
+    - didn't + forma base; pergunta com auxiliar
+  model: >-
+    Sorry Ana — I didn't catch the middle of your explanation on the call. If I understood correctly,
+    the router dedupes alerts by fingerprint and then hands them to the receiver. What do you mean by
+    "receiver", exactly — is it the piece that maps severity to a channel? Could you walk me through that
+    part once more? No rush — a short voice note works.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, comp.listening, gram.question-forms]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos. Imagine que um colega explicou o pipeline de deploy rápido demais. Diga que não entendeu, pergunte sobre uma etapa específica e confirme o que você entendeu.
+    maxSeconds: 45
+    targetPhrases:
+      - I'm not sure I follow
+      - I didn't catch that
+      - could you say that again
+      - could you slow down
+      - what do you mean by
+      - do you mean
+      - just to confirm
+      - if I understood correctly
+      - let me make sure I got this
+      - could you walk me through
+      - the call cut out
+      - went over my head
+      - in other words
+      - sorry, what was that
+    checklist:
+      - Admiti rápido, sem drama e sem pedir desculpa três vezes?
+      - Apontei a parte específica que perdi?
+      - Ofereci uma interpretação para a pessoa confirmar?
+      - Fechei com um resumo do que entendi?
+
+quiz:
+  - { id: M02-02-q1, type: multiple_choice, prompt: "You missed a step on a call. What is the most professional response?", options: ["Nod and move on.", "Sorry, I didn't catch the middle part — could you repeat it?", "I don't understand anything.", "Ask later on Slack without saying why."], answer: 1, explanation: "Admissão rápida + parte específica + pedido educado.", tags: [comp.confidence, comp.listening] }
+  - { id: M02-02-q2, type: error_correction, prompt: "I didn't understood the routing.", accepted: ["I didn't understand the routing.", "I didn't understand the routing"], explanation: "didn't + forma base.", tags: [br.did-past] }
+  - { id: M02-02-q3, type: fill_blank, prompt: "Just to ___, the receiver routes by severity?", accepted: ["confirm"], explanation: '"just to confirm" abre a recapitulação.', tags: [comp.listening] }
+  - { id: M02-02-q4, type: multiple_choice, prompt: "Which option checks your interpretation?", options: ["Do you mean the threshold or the receiver?", "What means receiver?", "You mean receiver.", "Explain me receiver."], answer: 0, explanation: '"do you mean X or Y" oferece interpretações; as outras têm erro de forma.', tags: [gram.question-forms] }
+  - { id: M02-02-q5, type: translate, prompt: "Desculpa, não peguei a última parte. Pode repetir?", accepted: ["Sorry, I didn't catch the last part. Could you repeat it?", "Sorry, I didn't catch the last part. Can you repeat it?", "Sorry, I didn't catch the last part. Could you say that again?", "Sorry, I didn't catch the last part, could you repeat it?"], explanation: '"didn''t catch" + "could you repeat/say again".', tags: [comp.listening, br.did-past] }
+  - { id: M02-02-q6, type: error_correction, prompt: "Can you explain me the router?", accepted: ["Can you explain the router to me?", "Can you explain the router?", "Could you explain the router to me?", "Could you explain the router?"], explanation: "explain + coisa + to me; nunca explain me.", tags: [br.explain-me] }
+  - { id: M02-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["mean", "do", "what", "by", "you", "flapping"], answer: "what do you mean by flapping", explanation: '"what do you mean by X" = pergunta de significado.', tags: [gram.question-forms] }
+  - { id: M02-02-q8, type: match, prompt: "Associe o movimento à frase.", pairs: [{ left: "admitir", right: "I'm not sure I follow" }, { left: "pedir repetição", right: "could you say that again" }, { left: "checar interpretação", right: "do you mean X or Y" }, { left: "fechar o entendimento", right: "just to confirm" }], explanation: "Os quatro movimentos de quem não entendeu.", tags: [comp.listening, comp.confidence] }
+
+review:
+  count: 5
+  preferTags: [br.did-past, gram.question-forms, comp.listening]
+
+srsCards:
+  - { front: "não sei se estou acompanhando", back: "I'm not sure I follow.", tag: comp.listening }
+  - { front: "não peguei isso", back: "I didn't catch that.", tag: comp.listening }
+  - { front: "pode repetir o que disse?", back: "Could you say that again?", tag: gram.modals-polite }
+  - { front: "pode falar mais devagar?", back: "Could you slow down a bit?", tag: gram.modals-polite }
+  - { front: "o que você quer dizer com X?", back: "What do you mean by X?", tag: gram.question-forms }
+  - { front: "você quer dizer X ou Y?", back: "Do you mean X or Y?", tag: gram.question-forms }
+  - { front: "só para confirmar o entendido", back: "Just to confirm,…", tag: comp.listening }
+  - { front: "se eu entendi corretamente", back: "if I understood correctly", tag: comp.listening }
+  - { front: "deixa eu ver se entendi direito", back: "Let me make sure I got this.", tag: comp.listening }
+  - { front: "a chamada cortou", back: "the call cut out", tag: comp.listening }
+  - { front: "pode me guiar passo a passo?", back: "Could you walk me through it?", tag: topic.help }
+  - { front: "aquilo passou por cima de mim", back: "That went over my head.", tag: comp.listening }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
