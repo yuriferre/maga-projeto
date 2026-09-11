@@ -2,7 +2,7 @@
 # Regras: padrões conservadores (poucos falsos positivos). Quando em dúvida, não detectar.
 patterns:
   - id: doubt-question
-    pattern: "\\b(i have|i've got|i got|i still have|i just have) (a|one|another|a quick|a small|a little) doubt\\b|\\bany doubts?\\s*\\?"
+    pattern: "\\b(i have|i've got|i got|i still have|i just have|i had) (a|one|another|a quick|a small|a little) doubt\\b|\\bany doubts?\\s*\\?"
     wrong: "I have a doubt"
     right: "I have a question / I'm not sure about…"
     why: "doubt = desconfiança. Dúvida no sentido de pergunta é question."
@@ -119,7 +119,7 @@ patterns:
     tag: br.need-that-you
   # A lista de formas de passado é explícita porque \\w+ed pegaria "don't need" e "did you read".
   - id: did-past
-    pattern: "\\b(did not|didn't|do not|don't|does not|doesn't|did|do|does) (you |i |we |they |he |she |it )?(worked|tried|fixed|deployed|merged|checked|looked|asked|talked|finished|started|stopped|dropped|watched|waited|wanted|opened|closed|used|played|turned|failed|passed|helped|tested|created|updated|reviewed|approved|pushed|pulled|restarted|rolled|logged|saved|changed|added|removed|deleted|configured|installed|understood|went|got|took|made|spoke|told|heard|left|lost|ran|said|sold|ate|drank|drove|threw|wrote|wore|broke|chose|forgot|began|brought|thought|bought|caught|taught|meant|sent|spent|built|held|kept|knew|grew|flew|swam|stole|stood|sat|paid|met|felt|won|done|gone|been|seen|had|given|taken|written|broken|driven|eaten|fallen|forgotten|gotten|hidden|known|risen|shaken|shown|thrown|led)\\b"
+    pattern: "\\b(did not|didn't|do not|don't|does not|doesn't|did|do|does) (you |i |we |they |he |she |it )?(worked|tried|fixed|deployed|merged|checked|looked|asked|talked|finished|started|stopped|dropped|watched|waited|wanted|opened|closed|used|played|turned|failed|passed|helped|tested|created|updated|reviewed|approved|pushed|pulled|restarted|rolled|logged|saved|changed|added|removed|deleted|configured|installed|understood|went|got|took|made|spoke|told|heard|left|lost|ran|said|sold|ate|drank|drove|threw|wrote|wore|broke|chose|forgot|began|brought|thought|bought|caught|taught|meant|sent|spent|built|held|kept|knew|grew|flew|swam|stole|stood|sat|paid|met|felt|won|saw|done|gone|been|seen|had|given|taken|written|broken|driven|eaten|fallen|forgotten|gotten|hidden|known|risen|shaken|shown|thrown|led)\\b"
     wrong: "I didn't understood the error"
     right: "I didn't understand the error"
     why: "Depois de do/does/did, o verbo fica na forma base (didn't understand)."
@@ -155,3 +155,30 @@ patterns:
     right: "Send me the runbook / Send the runbook to me"
     why: 'Calque de "me manda o arquivo": send + pessoa + objeto, ou send + objeto + to + pessoa.'
     tag: br.send-to-me
+  - id: for-to
+    pattern: "\\bfor to \\w+"
+    wrong: "I read the doc for to find the flag"
+    right: "I read the doc to find the flag"
+    why: 'Calque de "para": o infinitivo de finalidade é só "to".'
+    tag: br.for-to
+  # Cada forma listada é sempre errada no inglês padrão; formas reais como
+  # "sawed" (serrar), "flied" (beisebol) e "costed" (orçar) ficam de fora.
+  - id: irregular-past
+    pattern: "\\b(readed|finded|knowed|teached|thinked|catched|bringed|buyed|paied|sayed|selled|telled|builded|meeted|runned|winned|losed|losted|heared|speaked|wroted|goed|comed|gived|maked|taked|doed|haved|getted|feeled|keeped|sleeped|eated|drinked|drived|throwed|growed|swimmed|beginned|stealed|breaked|choosed|forgotted|weared|standed|cutted|hitted|shutted|splitted|hurted|letted|falled)\\b"
+    wrong: "I readed the error message"
+    right: "I read the error message"
+    why: "Verbo irregular não leva -ed; a forma correta é a forma de passado própria."
+    tag: br.irregular-past
+  - id: more-er
+    pattern: "\\bmore (easy|fast|big|cheap|short|long|quick|hard|slow|clean)\\b"
+    wrong: "This doc is more easy to read"
+    right: "This doc is easier to read"
+    why: "Adjetivo curto faz comparativo com -er (easier, faster), não com more."
+    tag: br.more-er
+  # O lookahead protege usos atributivos como "in the internet age".
+  - id: in-the-internet
+    pattern: "\\bin the internet\\b(?! (age|era|world|industry))"
+    wrong: "I found the workaround in the internet"
+    right: "I found the workaround on the internet"
+    why: 'Em inglês se diz "on the internet".'
+    tag: br.in-the-internet

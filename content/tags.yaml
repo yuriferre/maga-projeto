@@ -73,6 +73,10 @@ tags:
   - { id: br.on-next,            group: br, label: "on/in next week" }
   - { id: br.send-to-me,         group: br, label: "send to me the X" }
   - { id: br.i-am-agree,         group: br, label: "I am agree" }
+  - { id: br.for-to,             group: br, label: "for to (para → to)" }
+  - { id: br.irregular-past,     group: br, label: "passado irregular com -ed (readed)" }
+  - { id: br.more-er,            group: br, label: "more + adjetivo -er (more easy)" }
+  - { id: br.in-the-internet,    group: br, label: "in the internet" }
   # Situação
   - { id: topic.daily,         group: topic, label: Daily standup }
   - { id: topic.help,          group: topic, label: Pedir ajuda }

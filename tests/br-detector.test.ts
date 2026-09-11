@@ -160,6 +160,51 @@ describe("detectBrErrors", () => {
     expect(tagsOf("Send the runbook to me.")).not.toContain("br.send-to-me");
     expect(tagsOf("She replied to me.")).not.toContain("br.send-to-me");
   });
+  it("flags 'for to' but not legitimate 'for' or 'to' sequences", () => {
+    expect(tagsOf("I read the doc for to find the flag.")).toContain("br.for-to");
+    expect(tagsOf("I checked the log for to see the error.")).toContain("br.for-to");
+    expect(tagsOf("For me, to read logs is the hard part.")).not.toContain("br.for-to");
+    expect(tagsOf("I bought it for two dollars.")).not.toContain("br.for-to");
+    expect(tagsOf("She works for TOTVS.")).not.toContain("br.for-to");
+  });
+  it("flags wrong -ed forms of irregular verbs only", () => {
+    expect(tagsOf("I readed the error message.")).toContain("br.irregular-past");
+    expect(tagsOf("We finded the root cause in the trace.")).toContain("br.irregular-past");
+    expect(tagsOf("He thinked the flag was deprecated.")).toContain("br.irregular-past");
+    const clean = [
+      "I read the log yesterday.",
+      "We seeded the database before the test.",
+      "She needed more time to read the RFC.",
+      "They agreed on the rollout plan.",
+      "He sawed through the branch with a hand saw.",
+      "The batter flied out to center field.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.irregular-past");
+  });
+  it("flags 'more + -er adjective' calques only", () => {
+    expect(tagsOf("This doc is more easy to read.")).toContain("br.more-er");
+    expect(tagsOf("The new UI is more fast.")).toContain("br.more-er");
+    const clean = [
+      "This doc is easier to read.",
+      "The new UI is faster.",
+      "It is more detailed than the old one.",
+      "It is more or less the same.",
+      "We need more specific examples.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.more-er");
+  });
+  it("flags 'in the internet' but not attributive 'internet' uses", () => {
+    expect(tagsOf("I found the workaround in the internet.")).toContain("br.in-the-internet");
+    expect(tagsOf("On the internet nobody knows.")).not.toContain("br.in-the-internet");
+    expect(tagsOf("In the internet age, docs are online.")).not.toContain("br.in-the-internet");
+    expect(tagsOf("I found it online.")).not.toContain("br.in-the-internet");
+  });
+  it("flags 'didn't saw' and 'had a doubt' after the catalog extensions", () => {
+    expect(tagsOf("I didn't saw your comment on the issue.")).toContain("br.did-past");
+    expect(tagsOf("I had a doubt about the chart.")).toContain("br.doubt");
+    expect(tagsOf("I saw your comment.")).not.toContain("br.did-past");
+    expect(tagsOf("I had doubts about his story.")).not.toContain("br.doubt");
+  });
   it("still flags the narrowed calques", () => {
     expect(tagsOf("Any doubts?")).toContain("br.doubt");
     expect(tagsOf("I have 30 years.")).toContain("br.have-years");
