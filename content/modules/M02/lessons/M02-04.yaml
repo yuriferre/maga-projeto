@@ -1,0 +1,291 @@
+id: M02-04
+module: M02
+order: 4
+title: "Interromper e retomar em reunião: Sorry to jump in, Going back to…"
+objective: >-
+  Ao final, você consegue entrar numa conversa sem atropelar ("sorry to jump in", "before we move
+  on"), devolver a vez depois de interromper ("you were saying?"), retomar o próprio ponto
+  ("as I was saying", "going back to…") e adiar um assunto sem descartá-lo ("can we park that?") —
+  os movimentos que mantêm uma reunião no trilho.
+durationMin: 35
+competencies: [SPK, VOC, LIS, CNF]
+tags: [topic.help, gram.softeners, gram.modals-polite, br.sorry-for-interrupt, comp.speaking, comp.confidence]
+prerequisites: [M02-03]
+
+context:
+  scenario: |
+    Reunião de planejamento de quinta. O Marcos percorre o checklist do release — freeze ao meio-dia,
+    corte da branch, pipeline de uma hora — e a conversa está prestes a andar sem resolver um ponto
+    seu: o alerta do `checkout` ainda estava ruidoso de manhã e pode bloquear o release.
+
+    Interromper direito é uma habilidade: entrar com licença, fazer o ponto em uma frase, devolver a
+    vez. E quando **você** é interrompido, retomar sem atrito ("as I was saying"). Quem facilita a
+    reunião ainda fecha o que ficou aberto com "going back to…" — o assunto não se perde.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: "Sorry to jump in, but…"
+    meaning: desculpa interromper, mas…
+    example: Sorry to jump in, but the checkout alert was still noisy this morning.
+    translation: Desculpa interromper, mas o alerta do checkout ainda estava ruidoso de manhã.
+    note: '"sorry to" + verbo; "sorry for" pede gerúndio (for interrupting).'
+  - term: Can I add something?
+    meaning: posso acrescentar uma coisa?
+    example: Can I add something before we move to the next item?
+    translation: Posso acrescentar uma coisa antes de irmos ao próximo item?
+    note: Pede a vez sem tomar a vez.
+  - term: "Before we move on,…"
+    meaning: antes de passarmos adiante
+    example: Before we move on — does the freeze include the docs repo?
+    translation: Antes de passarmos adiante — o freeze inclui o repositório de docs?
+    note: Segura a agenda por um ponto; use quando o assunto está quase virando.
+  - term: quick question before we continue
+    meaning: pergunta rápida antes de continuar
+    example: Quick question before we continue — who owns the rollback plan?
+    translation: Pergunta rápida antes de continuarmos — quem é o dono do plano de rollback?
+    note: Anuncia que a interrupção é curta — e cumpra a promessa.
+  - term: "Going back to X,…"
+    meaning: voltando ao ponto X
+    example: Going back to the alert — Yuri owns the follow-up ticket, right?
+    translation: Voltando ao alerta — o ticket de acompanhamento é seu, certo, Yuri?
+    note: Retoma um assunto aberto sem que ele se perca.
+  - term: "As I was saying,…"
+    meaning: como eu estava dizendo
+    example: As I was saying, the pipeline takes about an hour after the branch cut.
+    translation: Como eu estava dizendo, o pipeline leva cerca de uma hora depois do corte da branch.
+    note: Retoma o próprio ponto depois de uma interrupção — sem reclamar dela.
+  - term: Where were we?
+    meaning: onde estávamos?
+    example: Where were we? Right — the freeze at noon.
+    translation: Onde estávamos? Certo — o freeze ao meio-dia.
+    note: Recoloca o grupo no trilho depois de uma tangente.
+  - term: "Sorry, go on."
+    meaning: desculpa, continue
+    example: Sorry, go on — you were explaining the pipeline.
+    translation: Desculpa, continue — você estava explicando o pipeline.
+    note: Devolve a vez quando você interrompeu por engano ou o ponto se resolveu.
+  - term: You were saying?
+    meaning: você estava dizendo?
+    example: Thanks, Ana. Marcos — you were saying?
+    translation: Valeu, Ana. Marcos — você estava dizendo?
+    note: Devolve a palavra a quem foi interrompido; gesto de quem lidera bem.
+  - term: Let me just finish this thought.
+    meaning: deixa eu terminar esse raciocínio
+    example: Let me just finish this thought — then it's all yours.
+    translation: Deixa eu só terminar esse raciocínio — aí é tudo seu.
+    note: Segura a vez educadamente quando interrompem você no meio.
+  - term: Can we park that for now?
+    meaning: podemos deixar isso para depois?
+    example: Can we park the dashboard items for tomorrow's call?
+    translation: Podemos deixar os itens do dashboard para a call de amanhã?
+    note: '"park" = adiar com registro; o assunto vai para o parking lot, não para o limbo.'
+  - term: We're almost at time.
+    meaning: nosso tempo está quase acabando
+    example: We're almost at time — can we park the rest?
+    translation: Estamos quase no fim do tempo — podemos deixar o resto para depois?
+    note: '"at time" = fim do horário da reunião; abre o encerramento.'
+  - term: To your earlier point,…
+    meaning: voltando ao que você disse antes
+    example: To your earlier point about the freeze — the docs repo is exempt.
+    translation: Voltando ao que você disse antes sobre o freeze — o repositório de docs está isento.
+    note: Retoma o ponto de outra pessoa e dá crédito; fecha loops abertos.
+  - term: one thing before we go
+    meaning: uma última coisa antes de encerrar
+    example: One thing before we go — who sends the release notes?
+    translation: Uma última coisa antes de encerrarmos — quem envia as notas do release?
+    note: Abre o último item da reunião; mantenha curto de verdade.
+
+grammar:
+  title: "Entrar, devolver e retomar: a mecânica da interrupção educada"
+  explanation: |
+    **O ciclo completo de uma interrupção bem feita:**
+
+    | Momento | Frase | Função |
+    |---|---|---|
+    | Entrar | *Sorry to jump in — quick one.* | Pede licença e promete brevidade |
+    | Fazer o ponto | *Does the freeze include the docs repo?* | Uma frase, um ponto |
+    | Devolver a vez | *Thanks — Marcos, you were saying?* | A interrupção não rouba a palavra |
+    | Retomar o seu | *As I was saying, the pipeline takes an hour.* | Volta ao seu ponto sem atrito |
+    | Fechar o que ficou | *Going back to the alert — Yuri owns it.* | Assunto aberto não se perde |
+
+    **"sorry to" + verbo × "sorry for" + -ing:** *sorry to interrupt* e *sorry for interrupting* são certos; *sorry for interrupt* é o erro clássico — depois de "for" nunca vai infinitivo.
+
+    **Interromper é sobre tempo, não sobre volume:** "before we move on" segura a agenda porque o timing importa; "quick question" promete e entrega uma frase. Quem interrompe e monologa perde a licença social para a próxima.
+
+    **Adiar sem descartar:** "can we park that?" + dono + quando ("park it until tomorrow's call") — o parking lot é uma lista, não um lixo.
+  examples:
+    - { en: "Sorry to jump in — before we move past the freeze, does it cover the docs repo?", pt: "Desculpa interromper — antes de passarmos do freeze, ele cobre o repositório de docs?" }
+    - { en: "Thanks, Ana. Marcos — you were saying?", pt: "Valeu, Ana. Marcos — você estava dizendo?" }
+    - { en: "As I was saying, the pipeline takes about an hour after the cut.", pt: "Como eu estava dizendo, o pipeline leva cerca de uma hora depois do corte." }
+    - { en: "Can we park the dashboard items for tomorrow? We're almost at time.", pt: "Podemos deixar os itens do dashboard para amanhã? Estamos quase sem tempo." }
+    - { en: "Going back to the alert for one second — who owns the follow-up ticket?", pt: "Voltando ao alerta por um segundo — quem é o dono do ticket de acompanhamento?" }
+
+examples:
+  - en: "Sorry to jump in — quick one before we move on: does the freeze include the docs repo?"
+    pt: "Desculpa interromper — uma rápida antes de seguirmos: o freeze inclui o repositório de docs?"
+    context: Entrada com licença + promessa de brevidade + o ponto em uma frase.
+  - en: Can I add something? The checkout alert was noisy all morning — it could block Thursday.
+    pt: Posso acrescentar uma coisa? O alerta do checkout ficou ruidoso a manhã toda — pode bloquear quinta.
+    context: Pede a vez e já entrega o ponto com o impacto.
+  - en: Thanks, that answers it. Marcos — you were saying?
+    pt: Valeu, isso responde. Marcos — você estava dizendo?
+    context: Devolve a palavra a quem foi interrompido.
+  - en: "As I was saying: freeze at noon, branch cut right after, pipeline about an hour."
+    pt: "Como eu estava dizendo: freeze ao meio-dia, corte da branch logo depois, pipeline de uma hora."
+    context: Retoma o próprio ponto sem reclamar da interrupção.
+  - en: Let me just finish this thought — then the floor is yours.
+    pt: Deixa eu só terminar esse raciocínio — aí a palavra é sua.
+    context: Segura a vez educadamente quando interrompem você.
+  - en: We're almost at time — can we park the dashboard items for tomorrow's call?
+    pt: Estamos quase sem tempo — podemos deixar os itens do dashboard para a call de amanhã?
+    context: Adia com destino definido, não para o limbo.
+  - en: Going back to the alert for one second — Yuri, you own the follow-up ticket, right?
+    pt: Voltando ao alerta por um segundo — Yuri, o ticket de acompanhamento é seu, certo?
+    context: O facilitador fecha o loop que a interrupção abriu.
+
+variations:
+  - idea: '"entrar na conversa com um ponto urgente"'
+    items:
+      - { register: Padrão, text: "Sorry to jump in — the alert could block the release. Thirty seconds?", adequate: true }
+      - { register: Segurando a agenda, text: "Before we move on — quick one: who owns the rollback plan?", adequate: true }
+      - { register: Pedindo a vez, text: "Can I add something before the next item?", adequate: true }
+      - { register: Inadequada, text: "Sorry for interrupt.", adequate: false, note: 'Depois de "for" vai -ing: sorry for interrupting. Ou "sorry to interrupt".' }
+      - { register: Inadequada, text: "Wait wait wait — listen.", adequate: false, note: "Sem licença e sem brevidade; soa desesperado ou rude." }
+  - idea: '"retomar depois de interrompido"'
+    items:
+      - { register: Neutro, text: "As I was saying, the pipeline takes about an hour.", adequate: true }
+      - { register: Com gancho, text: "Going back to my point about the freeze — it starts at noon.", adequate: true }
+      - { register: Segurando a vez, text: "Let me just finish this — then it's yours.", adequate: true }
+      - { register: Inadequada, text: "Can you let me talk???", adequate: false, note: "Agressivo; 'let me just finish this thought' resolve sem guerra." }
+      - { register: Inadequada, text: "Anyway. As I said before you interrupted me…", adequate: false, note: "Passivo-agressivo; retome sem apontar a interrupção." }
+
+brErrors:
+  - { wrong: "Sorry for interrupt, but the alert is still noisy.", right: "Sorry to interrupt / Sorry for interrupting, but the alert is still noisy.", why: '"sorry to" + verbo ou "sorry for" + -ing; nunca "for" + infinitivo', tag: br.sorry-for-interrupt }
+  - { wrong: "Sorry for jump in — quick question.", right: "Sorry to jump in — quick question.", why: "mesmo padrão: to + verbo", tag: br.sorry-for-interrupt }
+  - { wrong: "Sorry to interrupting.", right: "Sorry to interrupt.", why: 'depois de "to" vai infinitivo, não -ing', tag: br.sorry-for-interrupt }
+  - { wrong: "I want to make a question before we move on.", right: "I have a quick question before we move on.", why: 'calque de "fazer uma pergunta"', tag: br.make-a-question }
+  - { wrong: "I didn't understood your point about the freeze.", right: "I didn't understand your point about the freeze.", why: "didn't + forma base", tag: br.did-past }
+  - { wrong: "We go back to the alert?", right: "Can we go back to the alert?", why: "pergunta precisa de modal/auxiliar", tag: gram.question-forms }
+  - { wrong: "Can we discuss about the freeze later?", right: "Can we discuss the freeze later?", why: "discuss não leva about", tag: br.discuss-about }
+  - { wrong: "Do you can add something before we go?", right: "Can you add something before we go?", why: "auxiliar duplo", tag: br.do-modal }
+  - { wrong: "I have a doubt about what Marcos said.", right: "I have a question about what Marcos said.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "I need that you finish your point first.", right: "I need you to finish your point first.", why: "need + pessoa + to", tag: br.need-that-you }
+
+dialogue:
+  title: "A reunião de release: interromper, devolver, retomar"
+  lines:
+    - { speaker: Priya, text: "Next item: Thursday's release. Marcos is walking us through the checklist." }
+    - { speaker: Marcos, text: "So the freeze starts at noon, we cut the branch right after, and then—" }
+    - { speaker: Yuri, text: "Sorry to jump in — before we move past the freeze: the checkout alert was still noisy this morning. Can we take thirty seconds on whether it blocks the release?" }
+    - { speaker: Priya, text: "Good catch. Thirty seconds — Ana?" }
+    - { speaker: Ana, text: "I reverted the threshold this morning. It's been quiet since — doesn't block." }
+    - { speaker: Yuri, text: "That's all I needed. Sorry again, Marcos — you were saying?" }
+    - { speaker: Marcos, text: "No worries. As I was saying: we cut the branch after the freeze, and the pipeline takes about an hour." }
+    - { speaker: Priya, text: "We're almost at time — can we park the dashboard items for tomorrow's call?" }
+    - { speaker: Marcos, text: "Works for me — that was all I had on the release anyway." }
+    - { speaker: Priya, text: "Then we're done. Going back to the alert for one second — Yuri, you own the follow-up ticket, right?" }
+  notes:
+    - '"sorry to jump in" + "before we move past" entra no timing certo: antes do assunto virar.'
+    - '"you were saying?" devolve a palavra — interromper não é roubar a vez.'
+    - '"going back to" no fim fecha o loop que a interrupção abriu — o alerta ganhou dono.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Before we wrap up — one thing: Thursday's release. Marcos, walk us through the checklist." }
+    - { speaker: Marcos, text: "Freeze at noon, branch cut right after, pipeline runs about an hour—" }
+    - { speaker: Ana, text: "Sorry to interrupt — quick one: does the freeze include the docs repo, or just the services?" }
+    - { speaker: Marcos, text: "Just the services. Docs can ship anytime." }
+    - { speaker: Ana, text: "Perfect, that's all. Go on." }
+  questions:
+    - { id: M02-04-l1, type: multiple_choice, prompt: "What does Priya ask Marcos to do?", options: ["Walk them through the checklist", "Cut the release branch", "Park the dashboard items", "Wrap up the meeting"], answer: 0, explanation: '"walk us through the checklist"', tags: [comp.listening] }
+    - { id: M02-04-l2, type: multiple_choice, prompt: "When does the freeze start?", options: ["At one pm", "Tomorrow", "At noon", "After the pipeline"], answer: 2, explanation: '"freeze at noon"', tags: [comp.listening] }
+    - { id: M02-04-l3, type: multiple_choice, prompt: "Why does Ana interrupt?", options: ["To complain about the freeze", "To ask whether the docs repo is included", "To end the meeting", "To take over the checklist"], answer: 1, explanation: '"does the freeze include the docs repo" — pergunta de escopo.', tags: [comp.listening, br.sorry-for-interrupt] }
+    - { id: M02-04-l4, type: fill_blank, prompt: "Sorry to ___ — quick one.", accepted: ["interrupt"], explanation: '"sorry to" + verbo.', tags: [br.sorry-for-interrupt, comp.listening] }
+    - { id: M02-04-l5, type: multiple_choice, prompt: "What does 'walk us through' mean here?", options: ["Show us the office", "Explain step by step", "Send us the document", "Repeat the last part"], answer: 1, explanation: '"walk someone through" = guiar passo a passo.', tags: [comp.listening] }
+    - { id: M02-04-l6, type: multiple_choice, prompt: "How does Ana's interruption end?", options: ["She keeps talking about docs", "Marcos asks her to wait", "She returns the floor with 'go on'", "Priya changes the subject"], answer: 2, explanation: '"Perfect, that''s all. Go on." — devolve a vez.', tags: [comp.listening] }
+
+writing:
+  prompt: |
+    **Cenário:** na reunião de planejamento, o grupo está prestes a virar o assunto sem decidir se o
+    alerta ruidoso do `checkout` bloqueia o release de quinta. Você precisa entrar na conversa, fazer
+    o ponto em uma frase e — depois da resposta — ajudar o grupo a voltar ao checklist e adiar os
+    itens que sobraram.
+
+    **Tarefa:** escreva (60–90 palavras) a sequência: a interrupção educada com o ponto urgente e o
+    motivo; depois, a frase que retoma o checklist e propõe adiar o que restou para amanhã.
+  constraints:
+    - { label: "Frase de interrupção educada (sorry to jump in / interrupt, before we move on, can I add)", pattern: "\\b(sorry to (jump in|interrupt)|before we (move on|wrap up|go)|can i add)\\b" }
+    - { label: "O ponto urgente com motivo (blocking / blocks / urgent / release / freeze)", pattern: "\\b(blocking|blocks|urgent|release|freeze)\\b" }
+    - { label: "Frase de retomada (going back to / back to / as I was saying / you were saying)", pattern: "\\b(going back to|back to|as i was saying|you were saying|where were we)\\b" }
+    - { label: "Adiar com destino (park / tomorrow / later / next call)", pattern: "\\b(park|tomorrow|later|next (call|meeting))\\b" }
+  rubric:
+    - Interrompe com licença e promete brevidade
+    - O ponto cabe em uma frase e traz o motivo
+    - Devolve ou retoma a vez sem atrito
+    - Adia com destino, não para o limbo
+  model: >-
+    Sorry to jump in — before we move past the freeze: the checkout alert was noisy all morning, and it
+    could block Thursday's release. Could we take thirty seconds on this? … Thanks, Ana — reverting the
+    threshold fixes it. Going back to the checklist, then: freeze at noon, branch cut right after. And
+    we're almost at time — can we park the dashboard items for tomorrow's call?
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.help, gram.softeners]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos. Você está numa reunião que está prestes a mudar de assunto sem resolver um ponto importante. Entre na conversa, faça seu ponto com motivo, devolva a vez e — no fim — retome um assunto aberto.
+    maxSeconds: 45
+    targetPhrases:
+      - sorry to jump in
+      - sorry to interrupt
+      - can I add something
+      - before we move on
+      - quick question before we continue
+      - going back to
+      - as I was saying
+      - where were we
+      - sorry, go on
+      - you were saying
+      - let me just finish this
+      - can we park that
+      - we're almost at time
+      - one thing before we go
+    checklist:
+      - Entrei com licença, sem atropelar?
+      - Meu ponto coube em uma frase, com motivo?
+      - Devolvi a vez a quem foi interrompido?
+      - Retomei o que ficou aberto, com dono e destino?
+
+quiz:
+  - { id: M02-04-q1, type: multiple_choice, prompt: "Which is the polite way to enter a conversation mid-meeting?", options: ["Stop, I want to talk.", "Sorry to jump in, but…", "Listen to me for a second.", "Wait wait wait."], answer: 1, explanation: '"sorry to jump in" pede licença sem roubar a vez.', tags: [gram.softeners, br.sorry-for-interrupt] }
+  - { id: M02-04-q2, type: error_correction, prompt: "Sorry for interrupt, but can I add something?", accepted: ["Sorry to interrupt, but can I add something?", "Sorry for interrupting, but can I add something?", "Sorry to interrupt, but can I add something", "Sorry for interrupting, but can I add something"], explanation: '"sorry to" + verbo ou "sorry for" + -ing.', tags: [br.sorry-for-interrupt] }
+  - { id: M02-04-q3, type: fill_blank, prompt: "___ back to the checklist — Marcos, you were saying?", accepted: ["Going"], explanation: '"going back to X" retoma o assunto anterior.', tags: [gram.softeners] }
+  - { id: M02-04-q4, type: multiple_choice, prompt: "You interrupted someone; your point is resolved. How do you return the floor?", options: ["Say nothing and wait.", "Anyway, moving on.", "Sorry — you were saying?", "Can you repeat everything?"], answer: 2, explanation: '"you were saying?" devolve a palavra a quem foi interrompido.', tags: [comp.speaking, comp.confidence] }
+  - { id: M02-04-q5, type: translate, prompt: "Desculpa interromper — posso acrescentar uma coisa antes de seguirmos?", accepted: ["Sorry to interrupt — can I add something before we move on?", "Sorry to interrupt, can I add something before we move on?", "Sorry to jump in — can I add something before we move on?", "Sorry to interrupt — can I add something before we continue?"], explanation: '"sorry to interrupt" + "can I add" + "before we move on".', tags: [br.sorry-for-interrupt, gram.softeners] }
+  - { id: M02-04-q6, type: error_correction, prompt: "Can we discuss about the freeze later?", accepted: ["Can we discuss the freeze later?", "Can we discuss the freeze later", "Can we talk about the freeze later?", "Can we talk about the freeze later"], explanation: "discuss não leva about; talk about sim.", tags: [br.discuss-about] }
+  - { id: M02-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["back", "going", "the", "to", "alert"], answer: "going back to the alert", explanation: '"going back to the alert" = voltando ao alerta.', tags: [gram.softeners] }
+  - { id: M02-04-q8, type: match, prompt: "Associe o movimento à frase.", pairs: [{ left: "entrar na conversa", right: "sorry to jump in" }, { left: "devolver a vez", right: "you were saying?" }, { left: "retomar o próprio ponto", right: "as I was saying" }, { left: "adiar com destino", right: "can we park that" }], explanation: "Os quatro movimentos da interrupção educada.", tags: [gram.softeners, comp.speaking] }
+
+review:
+  count: 5
+  preferTags: [br.sorry-for-interrupt, gram.softeners, gram.modals-polite]
+
+srsCards:
+  - { front: "desculpa interromper, mas…", back: "Sorry to jump in, but…", tag: br.sorry-for-interrupt }
+  - { front: "posso acrescentar uma coisa?", back: "Can I add something?", tag: gram.modals-polite }
+  - { front: "antes de passarmos adiante…", back: "Before we move on,…", tag: gram.softeners }
+  - { front: "pergunta rápida antes de continuar", back: "Quick question before we continue.", tag: gram.softeners }
+  - { front: "voltando ao ponto X…", back: "Going back to X,…", tag: gram.softeners }
+  - { front: "como eu estava dizendo…", back: "As I was saying,…", tag: gram.softeners }
+  - { front: "onde estávamos?", back: "Where were we?", tag: gram.question-forms }
+  - { front: "desculpa, continue", back: "Sorry, go on.", tag: comp.speaking }
+  - { front: "você estava dizendo?", back: "You were saying?", tag: comp.speaking }
+  - { front: "deixa eu terminar esse raciocínio", back: "Let me just finish this thought.", tag: comp.confidence }
+  - { front: "podemos deixar isso para depois?", back: "Can we park that for now?", tag: gram.softeners }
+  - { front: "nosso tempo está quase acabando", back: "We're almost at time.", tag: gram.softeners }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
