@@ -1,0 +1,290 @@
+id: M06-03
+module: M06
+order: 3
+title: "PR description: what / why / how to test / risks"
+objective: >-
+  Ao final, você escreve a descrição de um PR que o revisor lê uma vez e aprova
+  sem perguntar — o que muda, por quê, como testar e o que pode dar errado.
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.tickets-prs, comp.writing, comp.reading, topic.code-review, br.verify-if, br.i-am-agree, gram.imperative]
+prerequisites: [M06-02]
+
+context:
+  scenario: |
+    O título do PR diz o quê em uma linha. A descrição responde as quatro
+    perguntas que todo revisor faz — antes que ele precise perguntar:
+
+    - **What** — o que muda, em 1–2 frases
+    - **Why** — por que agora, link do ticket
+    - **How to test** — como o revisor confere sozinho
+    - **Risks** — o que pode dar errado, rollback, "out of scope"
+
+    ```
+    ## What
+    Returns 422 instead of 502 when the cart is empty.
+
+    ## Why
+    Empty carts crashed checkout — #412. Clients got an unreadable 502.
+
+    ## How to test
+    POST /checkout with an empty cart → expect 422 with error code EMPTY_CART.
+
+    ## Risks
+    Low — only the empty-cart path changes. Out of scope: cart validation.
+    ```
+
+    O revisor aprova o que entende. Dê a ele o mapa.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: "what / why / how to test / risks"
+    meaning: as quatro seções da descrição do PR
+    example: "What: returns 422. Why: fixes #412. How to test: POST an empty cart."
+    translation: "What: retorna 422. Why: corrige #412. How to test: POST com carrinho vazio."
+    note: "O template que responde as quatro perguntas do revisor."
+  - term: '"out of scope"'
+    meaning: fora do escopo — o que este PR não faz
+    example: "Out of scope: full cart validation — that's a follow-up."
+    translation: "Fora do escopo: validação completa do carrinho — fica para depois."
+    note: "Corta o scope creep e acalma o revisor."
+  - term: '"this PR"'
+    meaning: "este PR — a forma de se referir à mudança"
+    example: "This PR adds the timeout; it doesn't change the retry logic."
+    translation: "Este PR adiciona o timeout; não muda a lógica de retry."
+    note: '"This PR does X" — nunca "my PR" nem "I did".'
+  - term: '"follow-up"'
+    meaning: trabalho que fica para um próximo PR
+    example: "Migrating the old carts is a follow-up — tracked in #415."
+    translation: "Migrar os carrinhos antigos é um follow-up — rastreado em #415."
+    note: "Separa o que é deste PR do que vem depois."
+  - term: '"edge case"'
+    meaning: caso de borda — a entrada incomum que quebra
+    example: "Edge case: a cart with only expired coupons still counts as empty."
+    translation: "Caso de borda: carrinho só com cupons expirados ainda conta como vazio."
+    note: "Liste os edge cases que o PR cobre — e os que não cobre."
+  - term: '"rollback plan"'
+    meaning: plano de rollback — como desfazer se der errado
+    example: "Rollback: revert the commit — no schema changes, so it's safe."
+    translation: "Rollback: reverter o commit — sem mudança de schema, é seguro."
+    note: "Parte da seção de risks — o revisor quer saber a saída."
+  - term: '"safe to merge"'
+    meaning: seguro para mergear — sem riscos abertos
+    example: "Safe to merge: only the empty-cart path is affected."
+    translation: "Seguro para mergear: só o caminho do carrinho vazio é afetado."
+    note: "A frase que o revisor procura na seção de risks."
+  - term: '"steps to verify"'
+    meaning: passos para verificar — o teste manual do revisor
+    example: "Steps to verify: 1. POST an empty cart. 2. Expect 422 with EMPTY_CART."
+    translation: "Passos para verificar: 1. POST carrinho vazio. 2. Espera 422 com EMPTY_CART."
+    note: "Numerados e executáveis — como os steps to reproduce do ticket."
+  - term: '"depends on"'
+    meaning: depende de — outro PR que precisa entrar antes
+    example: "This PR depends on #410 — the 422 code only exists there."
+    translation: "Este PR depende do #410 — o código 422 só existe lá."
+    note: "Declare dependências — evita merge na ordem errada."
+  - term: '"touches"'
+    meaning: toca — as partes do sistema que a mudança afeta
+    example: "This touches the checkout handler and the error mapper."
+    translation: "Isso toca o handler do checkout e o mapeador de erros."
+    note: "O verbo informal para a área de impacto."
+  - term: '"covers"'
+    meaning: cobre — o que os testes garantem
+    example: "The new test covers empty carts and single-item carts."
+    translation: "O teste novo cobre carrinhos vazios e de um item só."
+    note: '"covered by tests" — a garantia que o revisor procura.'
+  - term: '"a screenshot / a log excerpt"'
+    meaning: evidência visual — antes/depois que o texto não mostra
+    example: "Screenshot: the client now shows 'cart is empty' instead of a 502."
+    translation: "Screenshot: o cliente agora mostra \"carrinho vazio\" em vez de 502."
+    note: "Mudança de UI ou comportamento visível? Anexe a evidência."
+
+grammar:
+  title: "A estrutura que responde antes da pergunta"
+  explanation: |
+    A descrição do PR é **prosa estruturada** — quatro seções com cabeçalho. Frases curtas, presente simples, sujeito = a mudança ("this PR returns", "the handler now checks"), não o autor ("I changed").
+
+    **O vocabulário de cada seção:**
+
+    - *What*: "this PR adds/returns/fixes/removes…"
+    - *Why*: "fixes #412", "clients were getting…", "this unblocks…"
+    - *How to test*: passos numerados no imperativo — "POST an empty cart → expect 422"
+    - *Risks*: "low risk — only X changes", "out of scope:", "rollback: revert the commit", "depends on #410"
+
+    **Erros BR:** "verify **if** it works" (é *check whether*), "I **am agree**" (é *I agree*), "I tested **in** staging" (é *on staging* — mas "I tested on staging" já é o correto), e a ausência de seção — um PR sem "how to test" devolve o trabalho para o revisor.
+  examples:
+    - { en: "This PR returns 422 for empty carts instead of letting them hit a 502.", pt: "Este PR retorna 422 para carrinhos vazios em vez de deixar cair num 502." }
+    - { en: "Why: empty carts crashed checkout — fixes #412.", pt: "Por quê: carrinhos vazios quebravam o checkout — corrige #412." }
+    - { en: "How to test: POST /checkout with an empty cart, expect 422 with EMPTY_CART.", pt: "Como testar: POST /checkout com carrinho vazio, espera 422 com EMPTY_CART." }
+    - { en: "Risks: low — only the empty-cart path changes. Rollback: revert the commit.", pt: "Riscos: baixo — só o caminho do carrinho vazio muda. Rollback: reverter o commit." }
+    - { en: "Out of scope: full cart validation — that's a follow-up.", pt: "Fora do escopo: validação completa — fica para um follow-up." }
+    - { en: "Check whether the client handles the 422 before merging.", pt: "Verifique se o cliente trata o 422 antes de mergear." }
+
+examples:
+  - en: "This PR returns 422 for empty carts instead of a 502 — fixes #412."
+    pt: "Este PR retorna 422 para carrinhos vazios em vez de 502 — corrige #412."
+    context: "What + why na mesma frase quando a mudança é pequena."
+  - en: "How to test: 1. POST an empty cart. 2. Expect 422 with code EMPTY_CART. 3. The client shows 'cart is empty'."
+    pt: "Como testar: 1. POST carrinho vazio. 2. Espera 422 com código EMPTY_CART. 3. O cliente mostra \"carrinho vazio\"."
+    context: "Passos numerados que o revisor executa sem perguntar."
+  - en: "Risks: low — only the empty-cart path is touched. Rollback: revert the commit, no schema changes."
+    pt: "Riscos: baixo — só o caminho do carrinho vazio é tocado. Rollback: reverter o commit, sem mudança de schema."
+    context: "Impacto + plano de saída."
+  - en: "Out of scope: cart-level discounts. That's the follow-up in #415."
+    pt: "Fora do escopo: descontos no nível do carrinho. Esse é o follow-up do #415."
+    context: "Corta o scope creep antes do comentário \"e por que não X?\"."
+  - en: "This PR depends on #410 — merge that one first."
+    pt: "Este PR depende do #410 — mergue aquele primeiro."
+    context: "Dependência declarada evita a ordem errada."
+  - en: "Edge case covered: a cart with only expired coupons is treated as empty."
+    pt: "Caso de borda coberto: carrinho só com cupons expirados é tratado como vazio."
+    context: "Liste os edge cases — mostra que você pensou."
+  - en: "The new test covers empty carts; multi-item carts are already covered."
+    pt: "O teste novo cobre carrinhos vazios; os de vários itens já estão cobertos."
+    context: '"covers" / "covered by" — a garantia de teste.'
+  - en: "Check whether the client handles the 422 — never 'verify if'."
+    pt: "Verifique se o cliente trata o 422 — nunca \"verify if\"."
+    context: '"check whether" é a forma idiomática.'
+
+variations:
+  - idea: '"as quatro seções"'
+    items:
+      - { register: "Boa", text: "## What — returns 422 for empty carts. ## Why — fixes #412. ## How to test — POST an empty cart. ## Risks — low, empty-cart path only.", adequate: true }
+      - { register: "Boa", text: "This PR fixes #412. Test: POST /checkout with an empty cart → 422. Risk: low — only that path changes.", adequate: true, note: "Versão compacta aceitável para PR pequeno." }
+      - { register: "Inadequada", text: "Fixed the bug.", adequate: false, note: "Sem what/why/test/risks — o revisor devolve com perguntas." }
+      - { register: "Inadequada", text: "I changed some stuff in checkout, please review.", adequate: false, note: "Vago, passado, focado no autor — a descrição é da mudança, não sua." }
+  - idea: '"declarar risco e escopo"'
+    items:
+      - { register: "Boa", text: "Risks: low — only the empty-cart path is touched. Out of scope: full validation.", adequate: true }
+      - { register: "Boa", text: "Safe to merge: no schema changes; rollback is a revert.", adequate: true }
+      - { register: "Inadequada", text: "No risks.", adequate: false, note: "Sem análise — diga o que foi considerado: \"low — only X changes\"." }
+      - { register: "Inadequada", text: "I am agree this is safe.", adequate: false, note: '"I am agree" é calque — "I agree this is safe".' }
+
+brErrors:
+  - { wrong: "Please verify if the 422 works.", right: "Please check whether the 422 works.", why: '"verify if" é calque — "check whether"', tag: br.verify-if }
+  - { wrong: "Can you verify if it's safe?", right: "Can you check whether it's safe?", why: '"check whether" é a forma idiomática', tag: br.verify-if }
+  - { wrong: "I am agree this is out of scope.", right: "I agree this is out of scope.", why: '"agree" é verbo — sem "am"', tag: br.i-am-agree }
+  - { wrong: "I am agree with the risks.", right: "I agree with the risks.", why: '"agree" é verbo — sem "am"', tag: br.i-am-agree }
+  - { wrong: "I have a doubt about the scope.", right: "I have a question about the scope.", why: "dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "Add the steps for reproduce the bug.", right: "Add the steps to reproduce the bug.", why: '"steps to" — infinitivo', tag: br.steps-for }
+  - { wrong: "The PR fix the empty-cart bug.", right: "The PR fixes the empty-cart bug.", why: "terceira pessoa: fixes", tag: br.third-person-s }
+  - { wrong: "The explanation is more clear now.", right: "The explanation is clearer now.", why: "clear é curto: clearer", tag: br.more-er }
+  - { wrong: "She said me to add a test.", right: "She told me to add a test.", why: "say → told com objeto indireto", tag: br.said-me }
+  - { wrong: "I will revert back the change.", right: "I will revert the change.", why: '"revert" já contém "back"', tag: br.revert-back }
+
+dialogue:
+  title: "O PR que não precisou de pergunta"
+  lines:
+    - { speaker: Ana, text: "Your last PR — I approved without a single question. The description did the work." }
+    - { speaker: Yuri, text: "The four sections — what, why, how to test, risks. I write them before the code, almost." }
+    - { speaker: Ana, text: "Walk me through it." }
+    - { speaker: Yuri, text: "What: one line — 'returns 422 for empty carts instead of a 502'. Why: the ticket — 'fixes #412, clients got an unreadable error'. How to test: steps the reviewer can run — 'POST an empty cart, expect 422'." }
+    - { speaker: Ana, text: "And risks?" }
+    - { speaker: Yuri, text: "Where most people go quiet. 'Low — only the empty-cart path is touched. Rollback: revert the commit. Out of scope: full cart validation.'" }
+    - { speaker: Ana, text: "The 'out of scope' is the underrated one." }
+    - { speaker: Yuri, text: "It kills the 'but why didn't you…' comment before it exists. Same for 'depends on' — declare it, or someone merges in the wrong order." }
+    - { speaker: Ana, text: "And the voice — 'this PR returns', not 'I returned'?" }
+    - { speaker: Yuri, text: "The change is the subject, not me. Present tense — the PR does the thing, I just wrote it." }
+  notes:
+    - "As seções respondem as perguntas do revisor antes que ele as faça."
+    - '"out of scope" e "depends on" matam as duas classes de comentário mais comuns.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "A good PR description answers four questions before I ask: what changes, why now, how do I test it, what can go wrong." }
+    - { speaker: Marcos, text: "The voice matters too — the change is the subject. 'This PR returns 422', present tense. Not 'I changed the code' — I just wrote it." }
+    - { speaker: Priya, text: "And the two underrated sections: 'out of scope' kills the scope-creep comment, and 'depends on' stops the wrong-order merge. Declare both." }
+  questions:
+    - { id: M06-03-l1, type: multiple_choice, prompt: "What are the four sections of a PR description?", options: ["title, body, footer, refs", "what, why, how to test, risks", "summary, diff, test, approve", "problem, solution, code, ship"], answer: 1, explanation: '"what changes, why now, how do I test it, what can go wrong."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-03-l2, type: multiple_choice, prompt: "What is the subject of the PR description?", options: ["the author", "the reviewer", "the change — 'this PR returns'", "the ticket"], answer: 2, explanation: '"the change is the subject — this PR returns 422."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-03-l3, type: fill_blank, prompt: "Check ___ the client handles the 422.", accepted: ["whether", "if"], explanation: '"check whether" — "if" também passa em inglês informal, mas "verify if" não.', tags: [br.verify-if] }
+    - { id: M06-03-l4, type: multiple_choice, prompt: "What does 'out of scope' kill?", options: ["the scope-creep comment", "the ticket", "the tests", "the rollback"], answer: 0, explanation: '"out of scope kills the scope-creep comment."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-03-l5, type: multiple_choice, prompt: "What does 'depends on' prevent?", options: ["merge conflicts", "wrong-order merges", "scope creep", "long reviews"], answer: 1, explanation: '"stops the wrong-order merge."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-03-l6, type: fill_blank, prompt: "Risks: low — only the empty-cart path is ___.", accepted: ["touched", "changed", "affected"], explanation: '"touched" — a área de impacto.', tags: [vocab.tickets-prs] }
+
+writing:
+  prompt: |
+    **Cenário:** você abriu o PR da correção do carrinho vazio. Título:
+    `fix(checkout): return 422 for empty cart`.
+
+    **Tarefa:** escreva a descrição do PR com as quatro seções (60–90 palavras): o
+    que muda, por quê (ticket #412), como o revisor testa, e os riscos +
+    rollback + o que ficou fora do escopo.
+  constraints:
+    - { label: "As quatro seções ou seu equivalente em prosa", pattern: "\\b(what|why|how to test|risks?|out of scope|rollback)\\b" }
+    - { label: "A mudança como sujeito (this PR + presente)", pattern: "\\b(this PR (returns|adds|fixes|removes|changes)|returns 422)\\b" }
+    - { label: "Passo de teste executável", pattern: "\\b(post|expect|run|check whether|verify)\\b" }
+    - { label: "Risco + saída declarados", pattern: "\\b(low|rollback|revert|safe to merge|out of scope|depends on)\\b" }
+  rubric:
+    - What + why + how to test + risks
+    - A mudança é o sujeito, no presente
+    - Passo de teste que o revisor executa
+    - '"check whether" (não "verify if"); "revert" sem "back"'
+  model: >-
+    What: this PR returns 422 for empty carts instead of a 502. Why: fixes #412 —
+    clients got an unreadable error. How to test: POST /checkout with an empty
+    cart, expect 422 with code EMPTY_CART; check whether the client shows "cart
+    is empty". Risks: low — only the empty-cart path is touched. Rollback:
+    revert the commit, no schema changes. Out of scope: full cart validation
+    (follow-up in #415).
+  minWords: 60
+  maxWords: 95
+  tags: [comp.writing, vocab.tickets-prs]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos apresentando o PR para o time — como numa daily, leia as quatro seções em voz alta.
+    maxSeconds: 45
+    targetPhrases:
+      - this PR returns
+      - what why how to test risks
+      - fixes number
+      - out of scope
+      - rollback
+      - revert the commit
+      - check whether
+      - safe to merge
+      - depends on
+      - edge case
+      - follow-up
+      - steps to verify
+      - the change is the subject
+      - present tense
+    checklist:
+      - Apresentei as quatro seções em ordem?
+      - A mudança foi o sujeito, no presente ("this PR returns")?
+      - '"check whether", não "verify if"?'
+      - Declarei risco, rollback e o que ficou fora do escopo?
+
+quiz:
+  - { id: M06-03-q1, type: multiple_choice, prompt: "Which is a complete PR description?", options: ["\"Fixed the bug.\"", "\"I changed checkout.\"", "\"Please review.\"", "\"What: returns 422 for empty carts. Why: #412. Test: POST an empty cart. Risks: low.\""], answer: 3, explanation: "As quatro seções respondem antes da pergunta.", tags: [vocab.tickets-prs] }
+  - { id: M06-03-q2, type: error_correction, prompt: "Please verify if the fix works — I am agree it's safe.", accepted: ["Please check whether the fix works — I agree it's safe.", "Please check whether the fix works — I agree it's safe", "Please check if the fix works — I agree it's safe."], explanation: "Dois calques: \"verify if\" → check whether; \"am agree\" → agree.", tags: [br.verify-if, br.i-am-agree] }
+  - { id: M06-03-q3, type: multiple_choice, prompt: "What belongs in 'risks'?", options: ["low, rollback plan, out of scope", "the ticket link", "the diff", "the reviewer's name"], answer: 0, explanation: "Impacto + plano de saída + o que não entra.", tags: [vocab.tickets-prs] }
+  - { id: M06-03-q4, type: fill_blank, prompt: "This PR ___ on #410 — merge that one first.", accepted: ["depends"], explanation: '"depends on" — declare a ordem.', tags: [vocab.tickets-prs] }
+  - { id: M06-03-q5, type: error_correction, prompt: "The PR fix the bug — add the steps for reproduce.", accepted: ["The PR fixes the bug — add the steps to reproduce.", "The PR fixes the bug — add the steps to reproduce", "This PR fixes the bug — add the steps to reproduce."], explanation: "Dois erros: fixes + steps to.", tags: [br.third-person-s, br.steps-for] }
+  - { id: M06-03-q6, type: translate, prompt: "Riscos: baixo — rollback é reverter o commit.", accepted: ["Risks: low — rollback is reverting the commit.", "Risks: low — rollback is reverting the commit", "Risks: low — rollback is a revert.", "Risks: low — rollback is to revert the commit."], explanation: '"rollback is" + revert sem "back".', tags: [vocab.tickets-prs, br.revert-back] }
+  - { id: M06-03-q7, type: multiple_choice, prompt: "The PR description's subject should be…", options: ["the author ('I changed')", "the reviewer", "the change ('this PR returns')", "the ticket"], answer: 2, explanation: "A mudança é o sujeito, no presente.", tags: [vocab.tickets-prs] }
+  - { id: M06-03-q8, type: match, prompt: "Associe a seção ao que ela responde.", pairs: [{ left: "What", right: "o que muda" }, { left: "Why", right: "por que agora + ticket" }, { left: "How to test", right: "passos que o revisor executa" }, { left: "Risks", right: "o que pode dar errado + rollback" }], explanation: "Quatro seções, quatro perguntas.", tags: [vocab.tickets-prs] }
+
+review:
+  count: 5
+  preferTags: [vocab.tickets-prs, br.verify-if, br.i-am-agree]
+
+srsCards:
+  - { front: "as quatro seções do PR", back: "what / why / how to test / risks", tag: vocab.tickets-prs }
+  - { front: "fora do escopo", back: "out of scope", tag: vocab.tickets-prs }
+  - { front: "verifique se funciona", back: "check whether it works", tag: br.verify-if }
+  - { front: "eu concordo", back: "I agree", tag: br.i-am-agree }
+  - { front: "plano de saída", back: "rollback plan", tag: vocab.tickets-prs }
+  - { front: "seguro para mergear", back: "safe to merge", tag: vocab.tickets-prs }
+  - { front: "depende de outro PR", back: "depends on #410", tag: vocab.tickets-prs }
+  - { front: "a mudança é o sujeito", back: "this PR returns", tag: vocab.tickets-prs }
+  - { front: "passos para o revisor testar", back: "steps to verify", tag: vocab.tickets-prs }
+  - { front: "trabalho para o próximo PR", back: "follow-up", tag: vocab.tickets-prs }
+  - { front: "caso de borda", back: "edge case", tag: vocab.tickets-prs }
+  - { front: "o que a mudança afeta", back: "touches", tag: vocab.tickets-prs }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
