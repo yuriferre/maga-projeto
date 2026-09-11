@@ -1,0 +1,282 @@
+id: M06-04
+module: M06
+order: 4
+title: "PR comments e respostas: good catch, addressed, PTAL, nit:, LGTM"
+objective: >-
+  Ao final, você lê e escreve comentários de review com o vocabulário certo —
+  nit:, blocking, good catch, addressed, PTAL, LGTM — e responde sem soar
+  defensivo nem vago.
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.tickets-prs, comp.writing, comp.reading, topic.code-review, br.i-am-agree, br.doubt, gram.imperative]
+prerequisites: [M06-03]
+
+context:
+  scenario: |
+    Review de PR é conversa com protocolo próprio — as mesmas siglas e
+    marcadores em todos os times:
+
+    - **nit:** — detalhe opcional, não bloqueia ("nit: extra blank line")
+    - **blocking** — precisa mudar antes do merge ("blocking: this leaks the token")
+    - **good catch** — obrigado por ter visto ("good catch — fixed")
+    - **addressed** — respondido/corrigido ("addressed in 3f2a1c")
+    - **PTAL** — "please take another look", depois das correções
+    - **LGTM** — "looks good to me", a aprovação em sigla
+    - **+1** — concordo; **done** — feito; **resolved** — thread fechada
+
+    E o tom: comentário é sobre o código, não sobre você. "Good catch"
+    desarma; "as I said" escala. Responda o ponto, agradeça o achado, marque
+    como resolvido.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: "nit:"
+    meaning: detalhe opcional — nitpick, não bloqueia
+    example: "nit: there's an extra blank line before the return."
+    translation: "nit: tem uma linha em branco a mais antes do return."
+    note: "Nitpick = implicância — use para o que não vale bloquear."
+  - term: blocking
+    meaning: bloqueia o merge — precisa mudar
+    example: "blocking: this logs the token — please remove before merge."
+    translation: "blocking: isso loga o token — remova antes do merge."
+    note: "O contrário do nit — use só quando é sério."
+  - term: "good catch"
+    meaning: boa pescaria — obrigado por ter notado
+    example: "Good catch — I missed the empty-check. Fixed in 3f2a1c."
+    translation: "Boa pescada — eu perdi a checagem de vazio. Corrigido em 3f2a1c."
+    note: "A resposta que desarma o comentário crítico."
+  - term: addressed
+    meaning: endereçado — o ponto foi tratado
+    example: "Addressed — moved the check before the loop in 3f2a1c."
+    translation: "Endereçado — movi a checagem para antes do loop em 3f2a1c."
+    note: "Sempre com o commit ou a explicação — \"addressed\" sozinho é vago."
+  - term: PTAL
+    meaning: please take another look — olha de novo depois das correções
+    example: "PTAL — pushed the fixes for all three comments."
+    translation: "PTAL — subi as correções dos três comentários."
+    note: "O ping padrão para pedir re-review."
+  - term: LGTM
+    meaning: looks good to me — aprovado
+    example: "LGTM — merge when CI is green."
+    translation: "LGTM — merge quando a CI estiver verde."
+    note: "Com condição quando cabe: \"LGTM once the nit is fixed\"."
+  - term: '"resolved"'
+    meaning: resolvido — fecha a thread do comentário
+    example: "Marking this resolved — the check moved in 3f2a1c."
+    translation: "Marcando como resolvido — a checagem moveu em 3f2a1c."
+    note: "Quem abriu a thread costuma fechar; quem corrigiu pode pedir."
+  - term: '"can you…" (a pergunta de review)'
+    meaning: o pedido do revisor — disfarçado de pergunta
+    example: "Can we make this async? — reads as 'please make this async'."
+    translation: "\"Podemos fazer isso async?\" — leia como \"faça isso async\"."
+    note: "Review americano pede com pergunta — não é opcional."
+  - term: '"out of curiosity"'
+    meaning: por curiosidade — pergunta que não bloqueia
+    example: "Out of curiosity — why not use the existing helper?"
+    translation: "Por curiosidade — por que não usar o helper existente?"
+    note: "Sinaliza pergunta genuína, não pedido de mudança."
+  - term: '"pushed"'
+    meaning: subi — o commit de correção foi enviado
+    example: "Pushed the fix — PTAL."
+    translation: "Subi a correção — PTAL."
+    note: "Sempre avise que subiu — o revisor não vê commit novo sozinho."
+  - term: '"as I said"'
+    meaning: como eu disse — soa defensivo, evite
+    example: '"As I said before" escalates — try "the reason was…" instead.'
+    translation: "\"Como eu já disse\" escala — prefira \"o motivo foi…\"."
+    note: "Review é sobre o código — defensividade desgasta."
+  - term: '"+1" / "seconded"'
+    meaning: concordo — eco sem repetir o argumento
+    example: "+1 on the timeout — hit this last week."
+    translation: "+1 no timeout — sofri com isso semana passada."
+    note: "O +1 com contexto vale mais que o vazio."
+
+grammar:
+  title: "A etiqueta do comentário de review"
+  explanation: |
+    Comentário de review segue três regras de tom:
+
+    - **Sobre o código, não a pessoa.** "This leaks the token", não "you leaked".
+    - **Pedido disfarçado de pergunta.** "Can we make this async?" = pedido. Responda tratando o ponto, não só a pergunta.
+    - **Prefixo que declara a força.** `nit:` opcional, `blocking:` obrigatório, `out of curiosity:` pergunta genuína.
+
+    **Respondendo:** agradeça o achado ("good catch"), diga o que fez com referência ("addressed in 3f2a1c", "fixed — pushed"), e peça re-review ("PTAL"). Nunca só "done" sem contexto, nunca "as I said".
+
+    **Erros BR:** "I **am agree**" (é *I agree*), "I have a **doubt** about this" (é *question*), "can you **to check**" (é *can you check*), e "I **didn't understood** the comment" (é *didn't understand* — did já carrega o passado).
+  examples:
+    - { en: "nit: extra blank line before the return.", pt: "nit: linha em branco a mais antes do return." }
+    - { en: "blocking: this logs the auth token — please remove it.", pt: "blocking: isso loga o token de auth — remova." }
+    - { en: "Good catch — fixed in 3f2a1c.", pt: "Boa pescada — corrigido em 3f2a1c." }
+    - { en: "Addressed — moved the check before the loop. PTAL.", pt: "Endereçado — movi a checagem para antes do loop. PTAL." }
+    - { en: "LGTM once the nit is fixed.", pt: "LGTM assim que o nit for corrigido." }
+    - { en: "I agree with the timeout — out of curiosity, why 30s and not 60s?", pt: "Concordo com o timeout — por curiosidade, por que 30s e não 60s?" }
+
+examples:
+  - en: "nit: extra blank line before the return."
+    pt: "nit: linha em branco a mais antes do return."
+    context: "Detalhe que não bloqueia — o prefixo declara isso."
+  - en: "blocking: this logs the auth token — please remove before merge."
+    pt: "blocking: isso loga o token de auth — remova antes do merge."
+    context: "O prefixo que realmente bloqueia — use só quando é sério."
+  - en: "Good catch — I missed the empty-check. Fixed in 3f2a1c."
+    pt: "Boa pescada — eu perdi a checagem. Corrigido em 3f2a1c."
+    context: "A resposta que desarma: agradece + corrige + referencia."
+  - en: "Addressed — moved the check before the loop. PTAL."
+    pt: "Endereçado — movi a checagem para antes do loop. PTAL."
+    context: '"addressed" + o que foi feito + pedido de re-review.'
+  - en: "Can we make this async? — reads as a request, not a question."
+    pt: "\"Podemos fazer isso async?\" — leia como pedido, não pergunta."
+    context: "Review americano pede com pergunta."
+  - en: "LGTM once the nit is fixed — merge when CI is green."
+    pt: "LGTM assim que o nit for corrigido — merge quando a CI estiver verde."
+    context: "Aprovação condicional: LGTM + a condição."
+  - en: "Out of curiosity — why not use the existing helper?"
+    pt: "Por curiosidade — por que não usar o helper existente?"
+    context: "Pergunta genuína que não bloqueia."
+  - en: "Pushed the fixes for all three comments — PTAL."
+    pt: "Subi as correções dos três comentários — PTAL."
+    context: "Avise que subiu — o revisor não vê commit novo sozinho."
+
+variations:
+  - idea: '"comentar no PR alheio"'
+    items:
+      - { register: "Boa", text: "nit: extra blank line before the return.", adequate: true }
+      - { register: "Boa", text: "blocking: this logs the token — please remove before merge.", adequate: true }
+      - { register: "Inadequada", text: "This is wrong. Fix it.", adequate: false, note: "Sem o porquê e sem prefixo — soa como ordem, não review." }
+      - { register: "Inadequada", text: "Why did you write this??", adequate: false, note: "Sobre a pessoa, não o código — escala desnecessariamente." }
+  - idea: '"responder ao comentário"'
+    items:
+      - { register: "Boa", text: "Good catch — fixed in 3f2a1c. PTAL.", adequate: true }
+      - { register: "Boa", text: "Addressed — moved the check before the loop.", adequate: true }
+      - { register: "Inadequada", text: "As I said, it works.", adequate: false, note: "Defensivo — responda o ponto: \"the reason it works is…\"." }
+      - { register: "Inadequada", text: "I am agree, done.", adequate: false, note: '"I am agree" é calque — "agreed, done" ou "I agree".' }
+
+brErrors:
+  - { wrong: "I am agree with the timeout.", right: "I agree with the timeout.", why: '"agree" é verbo — sem "am"', tag: br.i-am-agree }
+  - { wrong: "I am agree — PTAL.", right: "Agreed — PTAL.", why: '"agreed" ou "I agree" — nunca "am agree"', tag: br.i-am-agree }
+  - { wrong: "I have a doubt about this comment.", right: "I have a question about this comment.", why: "dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "I didn't understood the comment.", right: "I didn't understand the comment.", why: "did já carrega o passado", tag: br.did-past }
+  - { wrong: "I didn't saw your nit.", right: "I didn't see your nit.", why: "didn't + infinitivo", tag: br.did-past }
+  - { wrong: "Do you can check the fix?", right: "Can you check the fix?", why: "auxiliar duplo: ou do ou o modal, nunca os dois", tag: br.do-modal }
+  - { wrong: "The reviewer said me to change it.", right: "The reviewer told me to change it.", why: "say → told com objeto indireto", tag: br.said-me }
+  - { wrong: "Please verify if the nit is fixed.", right: "Please check whether the nit is fixed.", why: '"check whether"', tag: br.verify-if }
+  - { wrong: "The comment is more clear now.", right: "The comment is clearer now.", why: "clear é curto: clearer", tag: br.more-er }
+  - { wrong: "I will revert back the line.", right: "I will revert the line.", why: '"revert" já contém "back"', tag: br.revert-back }
+
+dialogue:
+  title: "A thread de review inteira"
+  lines:
+    - { speaker: Ana, text: "Left three comments on your PR — one blocking, two nits." }
+    - { speaker: Yuri, text: "Saw them. The blocking one's right — the handler logs the token. Good catch." }
+    - { speaker: Ana, text: "And the nits?" }
+    - { speaker: Yuri, text: "Both fair — blank line and the naming. Addressed all three in 3f2a1c. PTAL." }
+    - { speaker: Ana, text: "LGTM once CI is green. And thanks for not taking the blocking comment personally." }
+    - { speaker: Yuri, text: "It's about the code, not me — you caught a real leak." }
+    - { speaker: Ana, text: "Not everyone reads it that way. Yesterday someone answered a nit with 'as I said before'." }
+    - { speaker: Yuri, text: "That escalates. The rule I follow: thank the find, say what changed with the commit, ask for another look. Never 'as I said', never just 'done'." }
+    - { speaker: Ana, text: "And when the comment's a question — 'can we make this async'?" }
+    - { speaker: Yuri, text: "Read it as a request. Either do it or explain why not — 'tried that; it serializes the batches'. Answering just 'no' stalls the review." }
+  notes:
+    - "A thread real: comentário → good catch → addressed + commit → PTAL → LGTM."
+    - '"can we…" é pedido — responda com a mudança ou a razão, não com "no".'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Review has its own protocol. Nit means optional — don't block on it. Blocking means it must change before merge." }
+    - { speaker: Marcos, text: "When someone comments, thank the find — 'good catch' — then say what you did with the commit hash, and ask for another look: PTAL." }
+    - { speaker: Priya, text: "And remember, 'can we make this async' is a request, not a question. Do it or explain why not — a bare 'no' stalls the review." }
+  questions:
+    - { id: M06-04-l1, type: multiple_choice, prompt: "What does 'nit:' mean?", options: ["it must change", "optional — don't block", "a question", "an approval"], answer: 1, explanation: '"nit means optional — don''t block on it."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-04-l2, type: multiple_choice, prompt: "How do you respond to a comment?", options: ["'done'", "'as I said'", "'good catch' + what changed + PTAL", "silence — the commit speaks"], answer: 2, explanation: "Agradeça, diga o que mudou com o commit, peça re-review.", tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-04-l3, type: multiple_choice, prompt: "'Can we make this async?' is…", options: ["a real question", "a request — do it or explain why not", "a nit", "an approval"], answer: 1, explanation: '"a request, not a question."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-04-l4, type: fill_blank, prompt: "___ catch — fixed in 3f2a1c.", accepted: ["Good"], explanation: '"good catch" — obrigado por ter visto.', tags: [vocab.tickets-prs] }
+    - { id: M06-04-l5, type: multiple_choice, prompt: "What does 'LGTM once CI is green' mean?", options: ["rejected", "approved unconditionally", "needs re-review", "approved once CI passes"], answer: 3, explanation: "Aprovação condicional — LGTM + a condição.", tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-04-l6, type: fill_blank, prompt: "I ___ understand your comment — can you rephrase?", accepted: ["didn't", "did not", "don't", "do not"], explanation: "didn't + infinitivo (não \"didn't understood\").", tags: [br.did-past] }
+
+writing:
+  prompt: |
+    **Cenário:** sua PR do carrinho vazio recebeu três comentários:
+
+    1. `blocking: this logs the auth token — remove before merge`
+    2. `nit: extra blank line before the return`
+    3. `can we reuse the existing error mapper?`
+
+    **Tarefa:** escreva a resposta a cada comentário (60–90 palavras no total) —
+    agradeça o achado, diga o que mudou (commit 3f2a1c), e peça re-review.
+  constraints:
+    - { label: "Agradecimento ou reconhecimento do ponto", pattern: "\\b(good catch|fair point|right|thanks|agree[ds]?)\\b" }
+    - { label: "O que mudou, com referência", pattern: "\\b(addressed|fixed|removed|moved|pushed|3f2a1c)\\b" }
+    - { label: "Pedido de re-review", pattern: "\\b(PTAL|take another look|another look|re-?review)\\b" }
+    - { label: "Resposta ao pedido (a mudança ou a razão)", pattern: "\\b(reuse[ds]?|reused|mapper|why not|because|tried)\\b" }
+  rubric:
+    - Cada comentário recebe resposta (blocking, nit, pergunta-pedido)
+    - '"good catch"/"fair point" + o que mudou + referência'
+    - PTAL no final
+    - Sem "I am agree", "as I said", ou "done" vazio
+  model: >-
+    Good catch on the token — removed the log line entirely. Fair point on the
+    blank line; cleaned up. Re the mapper: tried reusing it, but it doesn't know
+    the EMPTY_CART code — kept the local one and added a note. All addressed in
+    3f2a1c — PTAL. I agree the token line was sloppy; thanks for catching it
+    before merge.
+  minWords: 60
+  maxWords: 95
+  tags: [comp.writing, vocab.tickets-prs]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos lendo os três comentários e suas respostas em voz alta — como se apresentasse a thread resolvida numa daily.
+    maxSeconds: 45
+    targetPhrases:
+      - good catch
+      - addressed in
+      - PTAL
+      - LGTM
+      - nit
+      - blocking
+      - out of curiosity
+      - can we make this
+      - fair point
+      - pushed the fix
+      - resolved
+      - I agree
+      - seconded
+      - merge when CI is green
+    checklist:
+      - Respondi os três comentários (blocking, nit, pedido)?
+      - '"good catch"/"fair point" + o que mudou + referência?'
+      - PTAL ao final?
+      - Sem "I am agree" nem "as I said"?
+
+quiz:
+  - { id: M06-04-q1, type: multiple_choice, prompt: "Which comment actually blocks the merge?", options: ["\"nit: blank line\"", "\"out of curiosity — why not async?\"", "\"blocking: this logs the token\"", "\"+1\""], answer: 2, explanation: "blocking: é o prefixo que exige mudança.", tags: [vocab.tickets-prs] }
+  - { id: M06-04-q2, type: error_correction, prompt: "I am agree — I didn't saw the nit. Fixed.", accepted: ["I agree — I didn't see the nit. Fixed.", "I agree — I didn't see the nit. Fixed", "Agreed — I didn't see the nit. Fixed.", "I agree — I did not see the nit. Fixed."], explanation: "Dois calques: \"am agree\" → agree; \"didn't saw\" → didn't see.", tags: [br.i-am-agree, br.did-past] }
+  - { id: M06-04-q3, type: multiple_choice, prompt: "The best reply to a valid blocking comment is…", options: ["\"as I said, it works\"", "\"done\"", "\"good catch — fixed in 3f2a1c. PTAL\"", "\"no\""], answer: 2, explanation: "Agradece + corrige com referência + pede re-review.", tags: [vocab.tickets-prs] }
+  - { id: M06-04-q4, type: fill_blank, prompt: "___ — pushed the fixes for all three comments.", accepted: ["PTAL"], explanation: "Please take another look.", tags: [vocab.tickets-prs] }
+  - { id: M06-04-q5, type: error_correction, prompt: "Do you can check the fix? I have a doubt.", accepted: ["Can you check the fix? I have a question.", "Can you check the fix? I have a question", "Can you check the fix? One question."], explanation: "Auxiliar duplo; dúvida-pergunta é question.", tags: [br.do-modal, br.doubt] }
+  - { id: M06-04-q6, type: translate, prompt: "Boa pescada — corrigido. Olha de novo, por favor.", accepted: ["Good catch — fixed. PTAL.", "Good catch — fixed. PTAL", "Good catch — fixed. Please take another look."], explanation: '"good catch" + "PTAL".', tags: [vocab.tickets-prs] }
+  - { id: M06-04-q7, type: multiple_choice, prompt: "'LGTM once the nit is fixed' means…", options: ["rejected", "approved after the small fix", "needs discussion", "a question"], answer: 1, explanation: "Aprovação condicional.", tags: [vocab.tickets-prs] }
+  - { id: M06-04-q8, type: match, prompt: "Associe o marcador à força.", pairs: [{ left: "nit:", right: "opcional — não bloqueia" }, { left: "blocking:", right: "precisa mudar" }, { left: "out of curiosity:", right: "pergunta genuína" }, { left: "LGTM", right: "aprovado" }], explanation: "O prefixo declara a força do comentário.", tags: [vocab.tickets-prs] }
+
+review:
+  count: 5
+  preferTags: [vocab.tickets-prs, br.i-am-agree, br.did-past]
+
+srsCards:
+  - { front: "detalhe opcional que não bloqueia", back: "nit:", tag: vocab.tickets-prs }
+  - { front: "precisa mudar antes do merge", back: "blocking:", tag: vocab.tickets-prs }
+  - { front: "obrigado por ter visto", back: "good catch", tag: vocab.tickets-prs }
+  - { front: "olha de novo depois das correções", back: "PTAL", tag: vocab.tickets-prs }
+  - { front: "aprovado", back: "LGTM", tag: vocab.tickets-prs }
+  - { front: "eu concordo", back: "I agree", tag: br.i-am-agree }
+  - { front: "eu não entendi o comentário", back: "I didn't understand the comment", tag: br.did-past }
+  - { front: "ponto tratado", back: "addressed", tag: vocab.tickets-prs }
+  - { front: "por curiosidade", back: "out of curiosity", tag: vocab.tickets-prs }
+  - { front: "subi a correção", back: "pushed the fix", tag: vocab.tickets-prs }
+  - { front: "pedido disfarçado de pergunta", back: "can we make this async?", tag: vocab.tickets-prs }
+  - { front: "concordo sem repetir", back: "+1 / seconded", tag: vocab.tickets-prs }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
