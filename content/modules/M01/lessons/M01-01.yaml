@@ -60,7 +60,7 @@ vocabulary:
     meaning: li X do começo ao fim
     example: I read through the deploy runbook.
     translation: Li o runbook de deploy inteiro.
-    note: '"read through" = leitura completa; "skimmed" = leitura rápida.'
+    note: '"read through" = leitura completa; "skimmed" = leitura rápida. No passado, "read" soa /red/.'
   - term: I'm going to shadow X on Y
     meaning: vou acompanhar alguém fazendo algo, para aprender
     example: I'm going to shadow Marcos on the staging deploy.
@@ -103,6 +103,7 @@ grammar:
     | Yesterday | past simple | Yesterday I **set up** kubectl and **opened** a PR. |
     | Today (plano) | be going to | Today I**'m going to** shadow Marcos on the deploy. |
     | Today (decisão agora) | will | I**'ll** ping you after the call. |
+    | Today (já agendado) | present continuous | Today I**'m deploying** notifications-api with Marcos. |
     | Em andamento desde antes | present perfect continuous | I**'ve been reading** the runbook since yesterday. |
 
     **Três armadilhas de brasileiro:**
@@ -161,7 +162,7 @@ brErrors:
   - { wrong: "I pretend to finish the setup today.", right: "I plan to finish the setup today.", why: "pretend = fingir", tag: br.pretend }
   - { wrong: "Today I do the deploy with Marcos.", right: "Today I'm going to do the deploy with Marcos.", why: "plano de hoje pede going to / will", tag: gram.future-plans }
   - { wrong: "Yesterday I have configured kubectl.", right: "Yesterday I configured kubectl.", why: "yesterday fecha o momento: past simple", tag: gram.present-perfect }
-  - { wrong: "I made a PR yesterday.", right: "I opened a PR yesterday.", why: "PR se abre (open/raise), não se faz", tag: vocab.standup }
+  - { wrong: "I made a PR yesterday.", right: "I opened a PR yesterday.", why: "PR se abre (open/raise); make a PR é menos idiomático", tag: vocab.standup }
   - { wrong: "I have a doubt about the runbook.", right: "I have a question about the runbook.", why: "doubt = desconfiança", tag: br.doubt }
   - { wrong: "I'm waiting the Grafana access.", right: "I'm waiting on/for the Grafana access.", why: "wait exige preposição", tag: br.waiting-no-prep }
   - { wrong: "Sorry, sorry, I'm new, sorry.", right: "I'm new here, so bear with me.", why: "uma vez basta; desculpa em série soa inseguro", tag: topic.daily }
@@ -181,7 +182,7 @@ dialogue:
   notes:
     - '"You go first" / "you''re up" = é a sua vez.'
     - '"Sort out" = resolver, providenciar. "On it" = já estou cuidando.'
-    - 'O update de Marcos tem 20 palavras e é perfeitamente aceitável: não precisa ser longo para ser bom.'
+    - 'O update de Marcos tem 17 palavras e é perfeitamente aceitável: não precisa ser longo para ser bom.'
 
 listening:
   lines:
@@ -254,8 +255,8 @@ quiz:
   - { id: M01-01-q4, type: fill_blank, prompt: "Today I'm ___ to shadow Marcos on the deploy.", accepted: ["going"], explanation: "Plano decidido: be going to.", tags: [gram.future-plans] }
   - { id: M01-01-q5, type: multiple_choice, prompt: "Which closing is the best?", options: ["…", "Everything is fine, no problems at all, all good.", "No blockers. That's it from me.", "Sorry, that's all, sorry."], answer: 2, explanation: "Curto, claro e marca o fim. Silêncio deixa dúvida; excesso soa como esconder algo; desculpa sem motivo soa inseguro.", tags: [topic.daily, vocab.standup] }
   - { id: M01-01-q6, type: error_correction, prompt: "I pretend to read the runbook today.", accepted: ["I plan to read the runbook today.", "I intend to read the runbook today.", "I'm going to read the runbook today.", "I plan to read the runbook today", "I intend to read the runbook today"], explanation: "pretend = fingir. Pretender é plan to / intend to.", tags: [br.pretend] }
-  - { id: M01-01-q7, type: translate, prompt: "Abri um PR pequeno ontem.", accepted: ["I opened a small PR yesterday.", "I opened a small PR yesterday", "Yesterday I opened a small PR.", "Yesterday I opened a small PR", "I raised a small PR yesterday.", "I raised a small PR yesterday"], explanation: "open / raise a PR. \"make a PR\" soa não-nativo.", tags: [vocab.standup, vocab.tickets-prs] }
-  - { id: M01-01-q8, type: match, prompt: "Associe a parte do update à frase.", pairs: [{ left: "yesterday", right: "I rotated the ingress certificates." }, { left: "today", right: "I'm going to review the alerting rules." }, { left: "blockers", right: "Still no access to Grafana." }], explanation: "Cada parte tem um tempo verbal: past simple, going to, presente.", tags: [topic.daily] }
+  - { id: M01-01-q7, type: translate, prompt: "Abri um PR pequeno ontem.", accepted: ["I opened a small PR yesterday.", "I opened a small PR yesterday", "Yesterday I opened a small PR.", "Yesterday I opened a small PR", "I raised a small PR yesterday.", "I raised a small PR yesterday"], explanation: "open / raise a PR é o mais natural; \"make a PR\" é menos idiomático.", tags: [vocab.standup, vocab.tickets-prs] }
+  - { id: M01-01-q8, type: match, prompt: "Associe a parte do update à frase.", pairs: [{ left: "yesterday", right: "I rotated the ingress certificates." }, { left: "today", right: "I'm going to review the alerting rules." }, { left: "blockers", right: "Still no access to Grafana." }], explanation: "Cada parte tem sua forma: past simple, going to e um aviso curto, muitas vezes sem verbo.", tags: [topic.daily] }
 
 review:
   count: 5
