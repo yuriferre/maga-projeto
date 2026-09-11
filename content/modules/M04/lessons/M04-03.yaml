@@ -1,0 +1,289 @@
+id: M04-03
+module: M04
+order: 3
+title: "READMEs e docs oficiais: skimming, prerequisites, caveats, deprecated, breaking change"
+objective: >-
+  Ao final, você faz skimming de uma doc oficial pelos headings, sabe quais
+  seções mudam seu plano (prerequisites, caveats, deprecated, breaking change)
+  e resume o que leu em uma frase.
+durationMin: 35
+competencies: [REA, VOC]
+tags: [topic.reading, comp.reading, comp.vocabulary, gram.passive, vocab.iac, br.according-with, br.more-er]
+prerequisites: [M04-02]
+
+context:
+  scenario: |
+    Você abre a doc do Helm para instalar um chart e lê de cima a baixo como se
+    fosse um artigo. Quarenta minutos depois descobre, na seção de caveats, que
+    o chart exige Kubernetes 1.28+ — e seu cluster é 1.26. A informação estava
+    lá o tempo todo, em "Prerequisites", três headings acima.
+
+    Doc oficial não é leitura linear: é mapa. Os headings dizem onde cada
+    resposta mora; `prerequisites` decide se você pode sequer começar;
+    `deprecated` e `breaking change` dizem se a doc ainda vale para a sua
+    versão. A aula ensina o skimming que teria poupado seus quarenta minutos.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: skimming
+    meaning: leitura rápida pelos headings para localizar a seção certa
+    example: "Don't read the whole page — skim the headings until you hit 'Upgrading'."
+    translation: "Não leia a página inteira — passe os headings até achar 'Upgrading'."
+    note: Skimming não é ler mal; é a leitura certa para doc de referência.
+  - term: headings
+    meaning: os títulos de seção que mapeiam a doc
+    example: "Scan the headings first: Prerequisites, Install, Upgrade, Caveats."
+    translation: "Varra os headings primeiro: Prerequisites, Install, Upgrade, Caveats."
+    note: Os headings são o índice — leia-os antes de qualquer parágrafo.
+  - term: prerequisites
+    meaning: o que precisa existir antes de começar
+    example: "Prerequisites: kubectl 1.28+, a running cluster, and cluster-admin rights."
+    translation: "Pré-requisitos: kubectl 1.28+, um cluster rodando e direitos de admin."
+    note: A seção que decide se a doc se aplica a você — leia primeiro.
+  - term: caveats
+    meaning: ressalvas — as condições e exceções que quebram o caminho feliz
+    example: "Check the caveats section: the chart doesn't support ARM nodes."
+    translation: "Veja a seção de ressalvas: o chart não suporta nós ARM."
+    note: Onde moram os "mas". Quem pula caveats descobre no meio do deploy.
+  - term: deprecated
+    meaning: descontinuado — existe, mas não use; será removido
+    example: "The flag --set-string is deprecated since v3.12 — use --set-json."
+    translation: "A flag --set-string está descontinuada desde a v3.12 — use --set-json."
+    note: Deprecated ainda funciona; a doc aponta o substituto logo em seguida.
+  - term: breaking change
+    meaning: mudança que quebra compatibilidade com versões anteriores
+    example: "Breaking change in v4: the values file format moved to v2 schema."
+    translation: "Mudança quebradora na v4: o formato do values mudou para o schema v2."
+    note: Linha que decide se o upgrade é trivial ou um projeto.
+  - term: "note / warning / important"
+    meaning: caixas de destaque com exceções e perigos
+    example: "There's a warning box: 'upgrade path only tested from 3.x'."
+    translation: "Tem uma caixa de aviso: 'caminho de upgrade testado só a partir da 3.x'."
+    note: Caixas de warning são caveats em negrito — nunca pule.
+  - term: "since version"
+    meaning: desde a versão — marca quando o recurso apareceu
+    example: "The --wait flag is available since version 3.10."
+    translation: "A flag --wait existe desde a versão 3.10."
+    note: Confira "since" contra a sua versão antes de copiar o exemplo.
+  - term: "see also"
+    meaning: veja também — links para seções relacionadas
+    example: "See also: the values schema reference for the full field list."
+    translation: "Veja também: a referência do schema de values para a lista completa."
+    note: Atalho da própria doc para a página que responde o detalhe seguinte.
+  - term: TL;DR da doc
+    meaning: o resumo no topo quando a doc é longa
+    example: "The install page has a TL;DR: three commands and you're done."
+    translation: "A página de instalação tem um TL;DR: três comandos e pronto."
+    note: Nem toda doc tem; quando tem, responde o caminho feliz em linhas.
+  - term: "the docs say"
+    meaning: a documentação diz — ao citar o que leu
+    example: "The docs say the flag is deprecated since 3.12."
+    translation: "A doc diz que a flag está descontinuada desde a 3.12."
+    note: 'Forma curta de citar fonte. Nunca "according with the docs".'
+  - term: "it's been moved to"
+    meaning: foi movido para — doc/recurso que mudou de lugar
+    example: "That section has been moved to the upgrading guide."
+    translation: "Aquela seção foi movida para o guia de upgrade."
+    note: Passiva típica de changelogs e avisos de doc.
+  - term: EOL / end of life
+    meaning: fim de vida — a versão não recebe mais suporte
+    example: "Version 2.x is EOL — the docs point to the 4.x migration guide."
+    translation: "A versão 2.x chegou ao fim de vida — a doc aponta o guia de migração da 4.x."
+    note: Doc de versão EOL existe, mas descreve algo que você não deveria usar.
+  - term: "default values"
+    meaning: os valores que valem quando você não configura nada
+    example: "Check the default values table — replicaCount defaults to 1."
+    translation: "Veja a tabela de valores padrão — replicaCount é 1 por padrão."
+    note: Metade das perguntas de configuração se responde na tabela de defaults.
+
+grammar:
+  title: "A voz passiva é o idioma das docs"
+  explanation: |
+    Docs oficiais quase não dizem quem fez — dizem o que aconteceu. A voz passiva (`is + particípio`) é o registro padrão:
+
+    | Doc diz | Ativa seria | Leitura |
+    |---|---|---|
+    | *the flag is deprecated* | we deprecated the flag | não use; troque pela indicada |
+    | *the option has been moved* | we moved the option | procure no lugar novo |
+    | *this feature is supported since 3.10* | we added it in 3.10 | confira sua versão |
+    | *upgrades are only tested from 3.x* | we only tested from 3.x | fora disso, por sua conta |
+
+    **O agente não importa — a condição sim.** "is deprecated" não pergunta quem descontinuou; informa que acabou. Por isso a passiva domina READMEs, changelogs e RFCs.
+
+    **Ordem de leitura do skimming:**
+    1. headings (o mapa)
+    2. prerequisites (posso começar?)
+    3. breaking changes / deprecated (a doc vale para a minha versão?)
+    4. caveats / warnings (o que quebra o caminho feliz?)
+    5. a seção que você veio buscar
+    6. see also (a próxima pergunta)
+  examples:
+    - { en: "The --set-string flag is deprecated since v3.12.", pt: "A flag --set-string está descontinuada desde a v3.12." }
+    - { en: "That section has been moved to the upgrading guide.", pt: "Aquela seção foi movida para o guia de upgrade." }
+    - { en: "This feature is supported since version 3.10.", pt: "Esse recurso é suportado desde a versão 3.10." }
+    - { en: "Upgrades are only tested from 3.x — earlier versions need a manual migration.", pt: "Upgrades são testados só a partir da 3.x — versões anteriores pedem migração manual." }
+    - { en: "Breaking change: the values file moved to the v2 schema.", pt: "Mudança quebradora: o arquivo values migrou para o schema v2." }
+
+examples:
+  - en: "Skim the headings before reading: Prerequisites, Install, Upgrade, Caveats."
+    pt: "Passe os headings antes de ler: Pré-requisitos, Instalação, Upgrade, Ressalvas."
+    context: Os headings são o mapa da doc.
+  - en: "Prerequisites say the chart needs Kubernetes 1.28+ — our cluster is 1.26."
+    pt: "Os pré-requisitos dizem que o chart exige Kubernetes 1.28+ — nosso cluster é 1.26."
+    context: A seção que decide se você pode sequer começar.
+  - en: "The flag you're using is deprecated since 3.12 — the docs point to --set-json."
+    pt: "A flag que você está usando está descontinuada desde a 3.12 — a doc aponta --set-json."
+    context: Deprecated = ainda funciona, mas há substituto indicado.
+  - en: "There's a breaking change in v4: the values format moved to the v2 schema."
+    pt: "Tem uma breaking change na v4: o formato do values migrou para o schema v2."
+    context: A linha que transforma upgrade trivial em projeto.
+  - en: "The caveats section says the chart doesn't support ARM nodes."
+    pt: "A seção de ressalvas diz que o chart não suporta nós ARM."
+    context: Caveats = os "mas" que quebram o caminho feliz.
+  - en: "According to the docs, upgrades are only tested from 3.x."
+    pt: "Segundo a doc, upgrades só são testados a partir da 3.x."
+    context: '"according to", nunca "according with".'
+  - en: "The install page has a TL;DR — three commands and you're done."
+    pt: "A página de instalação tem um TL;DR — três comandos e pronto."
+    context: O resumo no topo responde o caminho feliz.
+  - en: "That section has been moved — check 'see also' for the new location."
+    pt: "Aquela seção foi movida — veja 'see also' para o lugar novo."
+    context: Passiva típica de doc reorganizada.
+
+variations:
+  - idea: '"dizer que uma flag saiu de uso"'
+    items:
+      - { register: "Boa", text: "The flag is deprecated since v3.12 — use --set-json.", adequate: true }
+      - { register: "Boa", text: "The docs say it's deprecated; the replacement is --set-json.", adequate: true }
+      - { register: "Inadequada", text: "According with the docs, the flag is deprecated.", adequate: false, note: '"according with" não existe: "according to".' }
+      - { register: "Inadequada", text: "The flag is depreciated.", adequate: false, note: '"depreciated" = desvalorizado (finanças); descontinuado é "deprecated".' }
+  - idea: '"resumir uma doc em uma frase"'
+    items:
+      - { register: "Boa", text: "Bottom line: we can't upgrade past 1.26 — the chart needs 1.28.", adequate: true }
+      - { register: "Boa", text: "In short: install works on our cluster, but ARM nodes are out.", adequate: true }
+      - { register: "Inadequada", text: "The doc is more easy than I thinked.", adequate: false, note: 'Dois calques: "more easy" → easier; "thinked" → thought.' }
+      - { register: "Inadequada", text: "I readed the whole page for to find one flag.", adequate: false, note: '"readed" → read; "for to" → to.' }
+
+brErrors:
+  - { wrong: "According with the docs, the flag is deprecated.", right: "According to the docs, the flag is deprecated.", why: '"according to", nunca "according with"', tag: br.according-with }
+  - { wrong: "The doc is more easy to follow than the code.", right: "The doc is easier to follow than the code.", why: "easy é adjetivo curto: easier", tag: br.more-er }
+  - { wrong: "I thinked the flag was required.", right: "I thought the flag was required.", why: "think é irregular: thought", tag: br.irregular-past }
+  - { wrong: "I readed the prerequisites after installing.", right: "I read the prerequisites after installing.", why: "read é irregular: passado é read", tag: br.irregular-past }
+  - { wrong: "I skipped the caveats for to save time.", right: "I skipped the caveats to save time.", why: 'calque de "para": só "to"', tag: br.for-to }
+  - { wrong: "I found the migration guide in the internet.", right: "I found the migration guide on the internet.", why: '"on the internet"', tag: br.in-the-internet }
+  - { wrong: "I had a doubt about the values schema.", right: "I had a question about the values schema.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "I didn't saw the deprecation notice.", right: "I didn't see the deprecation notice.", why: "depois de didn't, forma base (see)", tag: br.did-past }
+  - { wrong: "The section is saying the flag moved.", right: "The section says the flag moved.", why: "para citar o conteúdo de um texto, use o simple present", tag: vocab.errors }
+
+dialogue:
+  title: "Quarenta minutos de doc que cabiam em três headings"
+  lines:
+    - { speaker: Marcos, text: "You read the Helm page top to bottom? Next time skim the headings first — Prerequisites, Install, Upgrade, Caveats." }
+    - { speaker: Yuri, text: "Yeah… forty minutes in, I hit the caveats: the chart needs Kubernetes 1.28 and we're on 1.26. The prerequisites said it three headings above." }
+    - { speaker: Marcos, text: "Classic. And the flag you were copying — 'set-string'? Check the warning box." }
+    - { speaker: Yuri, text: "\"Deprecated since v3.12 — use --set-json.\" It's been deprecated for two releases and the docs point straight to the replacement." }
+    - { speaker: Marcos, text: "Anything else that changes the plan?" }
+    - { speaker: Yuri, text: "A note says upgrades are only tested from 3.x — we're on 3.4, so we're covered. And there's a 'see also' pointing to the values schema reference." }
+    - { speaker: Marcos, text: "So what's the one-line summary?" }
+    - { speaker: Yuri, text: "Bottom line: we can't install the chart until the cluster is upgraded — and when we can, the flag is --set-json, not --set-string." }
+    - { speaker: Marcos, text: "That's the sentence. Forty minutes of doc, one line of signal." }
+  notes:
+    - 'Skimming = headings primeiro: prerequisites → breaking changes → caveats → a seção alvo.'
+    - 'A passiva domina a doc: "is deprecated", "has been moved", "are only tested".'
+    - 'O resumo de uma linha é o que vai para o canal ou para a nota.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Before you install, skim the headings and read Prerequisites first — the chart needs Kubernetes 1.28 or higher." }
+    - { speaker: Marcos, text: "Careful with that example — the flag is deprecated since 3.12. The docs point to set-json instead." }
+    - { speaker: Priya, text: "There's a warning box I almost skipped: upgrades are only tested from version 3.x. Anything older needs a manual migration." }
+  questions:
+    - { id: M04-03-l1, type: multiple_choice, prompt: "What does Ana say to read first?", options: ["The install commands", "The prerequisites", "The caveats", "The changelog"], answer: 1, explanation: '"skim the headings and read Prerequisites first."', tags: [comp.listening, topic.reading] }
+    - { id: M04-03-l2, type: multiple_choice, prompt: "What does the chart require?", options: ["Helm 4", "A paid license", "Kubernetes 1.28 or higher", "ARM nodes"], answer: 2, explanation: '"the chart needs Kubernetes 1.28 or higher."', tags: [comp.listening, vocab.iac] }
+    - { id: M04-03-l3, type: multiple_choice, prompt: "Why does Marcos warn about the example?", options: ["The syntax is wrong", "The flag is deprecated since 3.12", "The docs are offline", "The example is for Helm 2"], answer: 1, explanation: '"the flag is deprecated since 3.12" — o substituto é --set-json.', tags: [comp.listening, topic.reading] }
+    - { id: M04-03-l4, type: fill_blank, prompt: "The flag is ___ since 3.12 — use set-json instead.", accepted: ["deprecated"], explanation: "deprecated = existe, mas não use; será removida.", tags: [topic.reading, vocab.iac] }
+    - { id: M04-03-l5, type: multiple_choice, prompt: "What do versions older than 3.x need for the upgrade?", options: ["Nothing — it's automatic", "A manual migration", "A new cluster", "A support ticket"], answer: 1, explanation: '"anything older needs a manual migration."', tags: [comp.listening] }
+    - { id: M04-03-l6, type: multiple_choice, prompt: "Where was this upgrade rule written?", options: ["In a warning box in the docs", "In a Slack message", "In the changelog only", "Nowhere — it's tribal knowledge"], answer: 0, explanation: '"There''s a warning box I almost skipped."', tags: [comp.listening, topic.reading] }
+
+writing:
+  prompt: |
+    **Cenário:** a doc do chart que você vai instalar diz, em seções diferentes: *Prerequisites* — Kubernetes 1.28+, Helm 3.10+; *Breaking changes* — o formato do `values` mudou para o schema v2 na versão 4; *Caveats* — nós ARM não são suportados; e uma flag que você usava, `--set-string`, está *deprecated since v3.12* com `--set-json` como substituta. Seu cluster é 1.26.
+
+    **Tarefa:** escreva o resumo da doc para o time (60–90 palavras): o que você pode e não pode fazer agora, o que muda quando o cluster for atualizado e a conclusão de uma linha.
+  constraints:
+    - { label: "Vocabulário de doc", pattern: "\\b(prerequisites|caveats|deprecated|breaking change|heading|since version|eol|tl;dr)\\b" }
+    - { label: "Passiva típica de doc", pattern: "\\b(is|are|has been|have been) (deprecated|moved|tested|supported|documented|removed)\\b" }
+    - { label: "Condicional ou tempo para o plano", pattern: "\\b(until|once|when|after|before) (the|we|it|our)\\b" }
+    - { label: "Frase-resumo", pattern: "\\b(bottom line|in short|in other words)\\b" }
+  rubric:
+    - "Skimming evidente: prerequisites e caveats antes do caminho feliz"
+    - deprecated interpretado corretamente (substituto citado)
+    - O bloqueio (1.26 < 1.28) dito sem rodeios
+    - Fechamento com a frase de uma linha
+  model: >-
+    I skimmed the chart docs and the prerequisites are the blocker: the chart needs Kubernetes
+    1.28 and we're on 1.26, so install is out until the cluster is upgraded. The caveats add that
+    ARM nodes aren't supported. Two details for later: the values format moved to the v2 schema in
+    version 4, and --set-string is deprecated since 3.12 — the replacement is --set-json. Bottom
+    line: cluster upgrade first, chart second.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.reading, vocab.iac]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos resumindo em voz alta uma doc que você leu — a do cenário ou uma real. Diga os headings que importaram, o que bloqueia o plano e a conclusão de uma linha.
+    maxSeconds: 45
+    targetPhrases:
+      - the docs say
+      - according to the docs
+      - prerequisites
+      - caveats
+      - deprecated since
+      - breaking change
+      - it's been moved to
+      - only tested from
+      - the flag is deprecated
+      - bottom line
+      - in short
+      - we can't upgrade until
+      - end of life
+      - default values
+    checklist:
+      - Citei a fonte (the docs say / according to)?
+      - Disse o que bloqueia antes do caminho feliz?
+      - Usei passiva para o que a doc declara (is deprecated)?
+      - Fechei com a frase de uma linha?
+
+quiz:
+  - { id: M04-03-q1, type: multiple_choice, prompt: "What's the right order for skimming a long doc?", options: ["Read top to bottom carefully", "Start at the examples, then guess", "Only read the TL;DR", "Headings → prerequisites → breaking changes/caveats → your section"], answer: 3, explanation: "Headings são o mapa; prerequisites e caveats decidem se a doc se aplica.", tags: [topic.reading, comp.reading] }
+  - { id: M04-03-q2, type: error_correction, prompt: "According with the docs, the flag is deprecated.", accepted: ["According to the docs, the flag is deprecated.", "According to the docs, the flag is deprecated", "The docs say the flag is deprecated."], explanation: '"according to", nunca "according with".', tags: [br.according-with] }
+  - { id: M04-03-q3, type: multiple_choice, prompt: "'The flag is deprecated since 3.12' means…", options: ["it still works, but you should switch to the replacement", "it was removed in 3.12", "it's the newest flag", "it only works in 3.12"], answer: 0, explanation: "Deprecated = ainda funciona, está marcada para sair; a doc indica o substituto.", tags: [topic.reading, vocab.iac] }
+  - { id: M04-03-q4, type: fill_blank, prompt: "Breaking ___: the values file moved to the v2 schema.", accepted: ["change"], explanation: "breaking change = mudança que quebra compatibilidade.", tags: [topic.reading] }
+  - { id: M04-03-q5, type: error_correction, prompt: "The install guide is more easy than I thinked.", accepted: ["The install guide is easier than I thought.", "The install guide is easier than I thought", "The install guide is easier to follow than I thought."], explanation: 'Dois calques: "more easy" → easier; "thinked" → thought.', tags: [br.more-er, br.irregular-past] }
+  - { id: M04-03-q6, type: translate, prompt: "Essa seção foi movida para o guia de upgrade.", accepted: ["That section has been moved to the upgrading guide.", "That section has been moved to the upgrading guide", "This section has been moved to the upgrade guide."], explanation: 'Passiva de doc: "has been moved to".', tags: [gram.passive, topic.reading] }
+  - { id: M04-03-q7, type: multiple_choice, prompt: "Your cluster is 1.26 and the chart needs 1.28+. What changes first?", options: ["Nothing — install anyway", "The chart version", "The cluster — it's the prerequisite", "The values file"], answer: 2, explanation: "Prerequisite não cumprido = você não pode sequer começar.", tags: [topic.reading, comp.reading] }
+  - { id: M04-03-q8, type: match, prompt: "Associe a marca da doc ao significado.", pairs: [{ left: "deprecated", right: "still works, will be removed" }, { left: "breaking change", right: "breaks old versions" }, { left: "caveats", right: "exceptions and gotchas" }, { left: "EOL", right: "no more support" }], explanation: "Quatro marcas que mudam seu plano antes de você começar.", tags: [topic.reading] }
+
+review:
+  count: 5
+  preferTags: [topic.reading, gram.passive, br.according-with]
+
+srsCards:
+  - { front: "leitura rápida pelos headings", back: "skimming", tag: topic.reading }
+  - { front: "o que precisa existir antes de começar", back: "prerequisites", tag: topic.reading }
+  - { front: "ressalvas — as condições que quebram o caminho feliz", back: "caveats", tag: topic.reading }
+  - { front: "descontinuado (ainda funciona, vai sair)", back: "deprecated", tag: topic.reading }
+  - { front: "mudança que quebra compatibilidade", back: "breaking change", tag: topic.reading }
+  - { front: "foi movido para (passiva de doc)", back: "has been moved to", tag: gram.passive }
+  - { front: "segundo a doc", back: "according to the docs", tag: br.according-with }
+  - { front: "fim de vida (sem mais suporte)", back: "EOL / end of life", tag: topic.reading }
+  - { front: "li os pré-requisitos", back: "I read the prerequisites.", tag: br.irregular-past }
+  - { front: "a doc está mais fácil de seguir", back: "the doc is easier to follow", tag: br.more-er }
+  - { front: "veja também (link da própria doc)", back: "see also", tag: topic.reading }
+  - { front: "valores que valem sem configurar nada", back: "default values", tag: vocab.iac }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
