@@ -55,7 +55,7 @@ vocabulary:
     meaning: abri um pull request
     example: I opened a small PR to fix a typo in the Helm chart.
     translation: Abri um PR pequeno corrigindo um typo no chart do Helm.
-    note: '"open" ou "raise" a PR; "make a PR" soa não-nativo.'
+    note: '"open" e "raise" a PR destacam a abertura do pedido de revisão. "Make a PR" também ocorre no inglês natural.'
   - term: I read through X
     meaning: li X do começo ao fim
     example: I read through the deploy runbook.
@@ -162,7 +162,7 @@ brErrors:
   - { wrong: "I pretend to finish the setup today.", right: "I plan to finish the setup today.", why: "pretend = fingir", tag: br.pretend }
   - { wrong: "Today I do the deploy with Marcos.", right: "Today I'm going to do the deploy with Marcos.", why: "plano de hoje pede going to / will", tag: gram.future-plans }
   - { wrong: "Yesterday I have configured kubectl.", right: "Yesterday I configured kubectl.", why: "yesterday fecha o momento: past simple", tag: gram.present-perfect }
-  - { wrong: "I made a PR yesterday.", right: "I opened a PR yesterday.", why: "PR se abre (open/raise); make a PR é menos idiomático", tag: vocab.standup }
+  - { wrong: "I opened an PR yesterday.", right: "I opened a PR yesterday.", why: "PR começa com som de consoante: a PR. Open/raise destacam a abertura; make a PR também é válido.", tag: vocab.standup }
   - { wrong: "I have a doubt about the runbook.", right: "I have a question about the runbook.", why: "doubt = desconfiança", tag: br.doubt }
   - { wrong: "I'm waiting the Grafana access.", right: "I'm waiting on/for the Grafana access.", why: "wait exige preposição", tag: br.waiting-no-prep }
   - { wrong: "Sorry, sorry, I'm new, sorry.", right: "I'm new here, so bear with me.", why: "uma vez basta; desculpa em série soa inseguro", tag: topic.daily }
@@ -251,11 +251,11 @@ speaking:
 quiz:
   - { id: M01-01-q1, type: reorder, prompt: "Coloque as partes do update na ordem certa.", tokens: ["blockers", "today", "yesterday"], answer: "yesterday today blockers", explanation: "Ordem fixa do standup: o que fiz, o que vou fazer, o que me trava.", tags: [topic.daily, vocab.standup] }
   - { id: M01-01-q2, type: multiple_choice, prompt: "Yesterday I ___ the VPN.", options: ["have set up", "set up", "am setting up", "setup"], answer: 1, explanation: "yesterday fecha o momento: past simple. \"setup\" junto é substantivo.", tags: [gram.present-perfect, vocab.standup] }
-  - { id: M01-01-q3, type: error_correction, prompt: "Actually I'm working on the onboarding tasks now.", accepted: ["Currently I'm working on the onboarding tasks.", "Currently I'm working on the onboarding tasks now.", "I'm currently working on the onboarding tasks.", "Right now I'm working on the onboarding tasks.", "I'm working on the onboarding tasks now."], explanation: "actually = na verdade. Atualmente é currently / now / at the moment.", tags: [br.actually] }
+  - { id: M01-01-q3, type: error_correction, prompt: "Troque actually por currently, right now ou at the moment, ajustando só sua posição: Actually I'm working on the onboarding tasks now. (= atualmente)", accepted: ["Currently I'm working on the onboarding tasks.", "Currently I'm working on the onboarding tasks now.", "Currently, I'm working on the onboarding tasks.", "I'm currently working on the onboarding tasks.", "Right now I'm working on the onboarding tasks.", "Right now, I'm working on the onboarding tasks.", "At the moment I'm working on the onboarding tasks.", "At the moment, I'm working on the onboarding tasks.", "I'm working on the onboarding tasks now."], explanation: "Actually significa na verdade. Atualmente é currently, right now ou at the moment.", tags: [br.actually] }
   - { id: M01-01-q4, type: fill_blank, prompt: "Today I'm ___ to shadow Marcos on the deploy.", accepted: ["going"], explanation: "Plano decidido: be going to.", tags: [gram.future-plans] }
   - { id: M01-01-q5, type: multiple_choice, prompt: "Which closing is the best?", options: ["…", "Everything is fine, no problems at all, all good.", "No blockers. That's it from me.", "Sorry, that's all, sorry."], answer: 2, explanation: "Curto, claro e marca o fim. Silêncio deixa dúvida; excesso soa como esconder algo; desculpa sem motivo soa inseguro.", tags: [topic.daily, vocab.standup] }
   - { id: M01-01-q6, type: error_correction, prompt: "I pretend to read the runbook today.", accepted: ["I plan to read the runbook today.", "I intend to read the runbook today.", "I'm going to read the runbook today.", "I plan to read the runbook today", "I intend to read the runbook today"], explanation: "pretend = fingir. Pretender é plan to / intend to.", tags: [br.pretend] }
-  - { id: M01-01-q7, type: translate, prompt: "Abri um PR pequeno ontem.", accepted: ["I opened a small PR yesterday.", "I opened a small PR yesterday", "Yesterday I opened a small PR.", "Yesterday I opened a small PR", "I raised a small PR yesterday.", "I raised a small PR yesterday"], explanation: "open / raise a PR é o mais natural; \"make a PR\" é menos idiomático.", tags: [vocab.standup, vocab.tickets-prs] }
+  - { id: M01-01-q7, type: translate, prompt: "Traduza usando open ou raise: Abri um PR pequeno ontem.", accepted: ["I opened a small PR yesterday.", "I opened a small PR yesterday", "Yesterday I opened a small PR.", "Yesterday I opened a small PR", "I raised a small PR yesterday.", "I raised a small PR yesterday", "Yesterday I raised a small PR."], explanation: "Opened e raised destacam a abertura do PR. Made a PR também ocorre no inglês natural; este exercício pede praticar open ou raise.", tags: [vocab.standup, vocab.tickets-prs] }
   - { id: M01-01-q8, type: match, prompt: "Associe a parte do update à frase.", pairs: [{ left: "yesterday", right: "I rotated the ingress certificates." }, { left: "today", right: "I'm going to review the alerting rules." }, { left: "blockers", right: "Still no access to Grafana." }], explanation: "Cada parte tem sua forma: past simple, going to e um aviso curto, muitas vezes sem verbo.", tags: [topic.daily] }
 
 review:

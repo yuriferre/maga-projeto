@@ -119,7 +119,7 @@ grammar:
 
     **Horas e dias:** *by 4 pm*, *by EOD*, *by Friday*, *by the end of the week*. Com fuso: *by EOD my time* / *by 4 pm BRT*.
 
-    **Dois calques:** "until late" (não existe: *late* já basta, "I stayed late") e "lose the deadline" (é *miss the deadline*).
+    **Concisão e prazo:** "I stayed late" é uma forma concisa de dizer que ficou até tarde. "Until late" também existe, como em "I worked until late last night". Para não cumprir um prazo, use *miss the deadline*, não "lose the deadline".
   examples:
     - { en: "I'll have it done by Wednesday.", pt: "Vou ter isso pronto até quarta." }
     - { en: "I'll be on this until Wednesday.", pt: "Vou ficar nisso até quarta." }
@@ -148,7 +148,7 @@ examples:
     context: Update curto quando está tudo certo.
   - en: I stayed late yesterday to get the infra part done, so that piece is off my plate.
     pt: Fiquei até tarde ontem para terminar a parte de infra, então isso saiu da minha lista.
-    context: '"stayed late", não "until late". "off my plate" = fora da minha lista, já resolvido.'
+    context: '"stayed late" é uma forma concisa; "stayed until late" também é válido. "off my plate" = fora da minha lista, já resolvido.'
 
 variations:
   - idea: '"vai ficar pronto até quarta"'
@@ -168,7 +168,7 @@ variations:
 brErrors:
   - { wrong: "I will finish the dashboards until Wednesday.", right: "I'll have the dashboards done by Wednesday.", why: "until = duração; prazo é by", tag: br.until-by }
   - { wrong: "I'll be ready until 4 pm.", right: "I'll be ready by 4 pm.", why: "ready + prazo pede by", tag: br.until-by }
-  - { wrong: "I stayed until late to finish it.", right: "I stayed late to finish it.", why: '"until late" não existe', tag: br.until-late }
+  - { wrong: "I stayed until lately to finish it.", right: "I stayed late to finish it.", why: "Lately significa recentemente. Para até tarde, use late ou until late; stayed late é a forma concisa praticada aqui.", tag: br.until-late }
   - { wrong: "We lost the deadline.", right: "We missed the deadline.", why: "prazo se perde com miss", tag: br.lose-the-deadline }
   - { wrong: "The ETA is until Wednesday.", right: "The ETA is Wednesday.", why: "ETA já é um ponto no tempo; sem until", tag: gram.time-expressions }
   - { wrong: "I'll do it in two days. (querendo dizer 'em até dois dias')", right: "I'll do it within two days.", why: "in two days = daqui a dois dias; within = dentro de dois dias", tag: gram.time-expressions }
@@ -262,7 +262,7 @@ quiz:
   - { id: M01-03-q3, type: fill_blank, prompt: "I'll be on the dashboards ___ Wednesday, then I move to alerts.", accepted: ["until", "till"], explanation: "Duração (ficar nisso durante o tempo todo até quarta) = until.", tags: [gram.by-until] }
   - { id: M01-03-q4, type: multiple_choice, prompt: "Which one is the FIRMEST commitment?", options: ["I'm aiming for Wednesday.", "It should be done by Wednesday.", "It'll be done no later than Wednesday.", "Worst case, Wednesday."], answer: 2, explanation: "no later than = prazo duro. should = confiança razoável; aiming = meta com risco; worst case = contingência.", tags: [gram.time-expressions] }
   - { id: M01-03-q5, type: translate, prompt: "Vamos perder o prazo se a datasource atrasar.", accepted: ["We'll miss the deadline if the datasource slips.", "We'll miss the deadline if the datasource slips", "We will miss the deadline if the datasource slips.", "We will miss the deadline if the datasource slips", "We'll miss the deadline if the datasource is late.", "We'll miss the deadline if the datasource is late"], explanation: "Prazo se perde com miss; atrasar = slip / be late.", tags: [br.lose-the-deadline, vocab.standup] }
-  - { id: M01-03-q6, type: error_correction, prompt: "I stayed until late to finish the infra part.", accepted: ["I stayed late to finish the infra part.", "I stayed late to finish the infra part", "I worked late to finish the infra part.", "I worked late to finish the infra part"], explanation: '"until late" não existe; late já carrega a ideia.', tags: [br.until-late] }
+  - { id: M01-03-q6, type: error_correction, prompt: "Reformule de modo conciso usando stayed late ou worked late, sem mudar o restante: I stayed until late to finish the infra part.", accepted: ["I stayed late to finish the infra part.", "I stayed late to finish the infra part", "I worked late to finish the infra part.", "I worked late to finish the infra part"], explanation: "A frase original é válida. Stayed late e worked late são alternativas concisas para um standup; aqui a tarefa pede essa reformulação, não a correção de uma regra que proíba until late.", tags: [br.until-late] }
   - { id: M01-03-q7, type: multiple_choice, prompt: "I can move the cutover ___ two days of the dashboards landing.", options: ["by", "until", "within", "for"], answer: 2, explanation: "Janela de tempo relativa = within.", tags: [gram.time-expressions, gram.by-until] }
   - { id: M01-03-q8, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["more", "know", "by", "Tuesday", "I'll"], answer: "I'll know more by Tuesday", explanation: "Frase-padrão para prometer a próxima informação com data.", tags: [vocab.standup, gram.by-until] }
 

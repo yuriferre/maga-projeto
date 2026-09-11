@@ -4,6 +4,7 @@ import { ruleBasedFeedback } from "../server/writing-feedback.ts";
 import { wordOverlap } from "../shared/speech-compare.ts";
 import { parseMarkdown } from "../shared/mini-markdown.ts";
 import type { Lesson } from "../shared/schema.ts";
+import { checkExercise } from "../shared/scoring.ts";
 
 const bundle = loadContent("content");
 
@@ -66,6 +67,16 @@ function checkLesson(id: string, e: Expect) {
 }
 
 describe("M01 lessons", () => {
+  it.each(["three out of five", "3 out of 5", "three out of 5", "3 out of five"])("accepts the run proportion in %s runs", (proportion) => {
+    const q = bundle.lessons["M01-05"]!.quiz.find((q) => q.id === "M01-05-q4")!;
+    expect(checkExercise(q, `It passed in ${proportion} runs.`).correct).toBe(true);
+    expect(checkExercise(q, "It passed in five out of three runs.").correct).toBe(false);
+  });
+  it.each(["At the moment I'm", "At the moment, I'm", "Currently, I'm", "Right now, I'm"])("accepts the onboarding currently variant %s", (beginning) => {
+    const q = bundle.lessons["M01-01"]!.quiz.find((q) => q.id === "M01-01-q3")!;
+    expect(checkExercise(q, `${beginning} working on the onboarding tasks.`).correct).toBe(true);
+    expect(checkExercise(q, "Actually I'm working on the onboarding tasks now.").correct).toBe(false);
+  });
   it("passes cross-validation", () => {
     expect(crossValidate(bundle)).toEqual([]);
   });

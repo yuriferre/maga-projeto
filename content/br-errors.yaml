@@ -19,12 +19,8 @@ patterns:
     right: "I'll have it done by Friday"
     why: "until = duração; by = prazo."
     tag: br.until-by
-  - id: until-late
-    pattern: "\\b(stay|stayed|staying|work|worked|working) until late\\b"
-    wrong: "I stayed until late"
-    right: "I stayed late"
-    why: '"until late" não existe em inglês.'
-    tag: br.until-late
+  # br.until-late fica nos exercícios de reformulação: until late é válido,
+  # e uma regex não distingue preferência por concisão de erro gramatical.
   - id: giving-error
     pattern: "\\b(giving|gives|gave|is giving|it's giving)\\s+errors?\\b"
     wrong: "It's giving error"

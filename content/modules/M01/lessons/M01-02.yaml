@@ -175,7 +175,7 @@ variations:
 
 brErrors:
   - { wrong: "I'm working on this since yesterday.", right: "I've been working on this since yesterday.", why: "since/for pedem present perfect", tag: br.since-present }
-  - { wrong: "I didn't finish yet.", right: "I haven't finished yet.", why: '"yet" pede present perfect', tag: gram.still-yet-already }
+  - { wrong: "I didn't finished yet.", right: "I haven't finished yet. / I didn't finish yet.", why: "Depois de did, use finish, sem -ed. Didn't finish yet ocorre no inglês americano; haven't finished yet destaca o estado atual e é o foco desta aula.", tag: gram.still-yet-already }
   - { wrong: "I have a doubt about the runner.", right: "I have a question about the runner. / I'm not sure about…", why: '"doubt" = desconfiança, não dúvida', tag: br.doubt }
   - { wrong: "I will finish it until Friday.", right: "I'll have it done by Friday.", why: "until = duração; by = prazo", tag: br.until-by }
   - { wrong: "Actually I finished it. (querendo dizer \"atualmente\")", right: "I've finished it now. / It's done now.", why: "actually = na verdade", tag: br.actually }
@@ -184,7 +184,7 @@ brErrors:
   - { wrong: "I pretend to finish today.", right: "I intend to / I plan to finish today.", why: "pretend = fingir", tag: br.pretend }
   - { wrong: "I'm doing the deploy today. (plano)", right: "I'm going to deploy today. / I'll deploy today.", why: 'presente contínuo soa como "agora"; ok se está agendado', tag: gram.future-plans }
   - { wrong: "Can you explain me the runner setup?", right: "Can you explain the runner setup to me? / Can you walk me through the runner setup?", why: "explain não aceita objeto indireto direto", tag: br.explain-me }
-  - { wrong: "I stayed until late to fix it.", right: "I stayed late to fix it.", why: '"until late" não existe', tag: br.until-late }
+  - { wrong: "I stayed until lately to fix it.", right: "I stayed late to fix it.", why: "Lately significa recentemente, não até tarde. Stayed late é conciso; stayed until late também existe e não é erro por si só.", tag: br.until-late }
 
 dialogue:
   title: Standup, 10:00 BRT. Sete pessoas; trecho com quatro.
@@ -288,9 +288,9 @@ speaking:
       - Concisão
 
 quiz:
-  - { id: M01-02-q1, type: fill_blank, prompt: "I ___ (work) on this since Monday.", accepted: ["have been working", "'ve been working"], explanation: "since marca o ponto de início de algo que continua; isso é present perfect continuous. \"I'm working since\" é o calque mais comum do português.", tags: [gram.since-for, br.since-present] }
+  - { id: M01-02-q1, type: fill_blank, prompt: "I ___ (work) on this since Monday.", accepted: ["have been working", "'ve been working", "have worked", "'ve worked"], explanation: "since marca o início de um período que chega até agora. Have been working destaca a atividade em andamento; have worked também é válido aqui. Am working since não expressa esse período corretamente.", tags: [gram.since-for, br.since-present] }
   - { id: M01-02-q2, type: multiple_choice, prompt: "I'll finish it ___ Friday.", options: ["by", "until"], answer: 0, explanation: "by = prazo final. until diria que você vai ficar terminando durante toda a semana até sexta.", tags: [gram.by-until, br.until-by] }
-  - { id: M01-02-q3, type: error_correction, prompt: "I didn't finish yet.", accepted: ["I haven't finished yet.", "I haven't finished it yet.", "I haven't finished yet"], explanation: "yet aparece com present perfect em negativas e perguntas. \"didn't… yet\" é compreensível, mas marca não-nativo.", tags: [gram.still-yet-already, gram.present-perfect] }
+  - { id: M01-02-q3, type: error_correction, prompt: "Reescreva com present perfect para destacar o estado atual: I didn't finish yet.", accepted: ["I haven't finished yet.", "I haven't finished it yet.", "I haven't finished yet"], explanation: "Haven't finished yet destaca que a tarefa continua incompleta. Didn't finish yet também ocorre no inglês americano; a tarefa pede praticar present perfect.", tags: [gram.still-yet-already, gram.present-perfect] }
   - { id: M01-02-q4, type: multiple_choice, prompt: "Which one sounds evasive?", options: ["It's taking longer than expected; I'll need another day.", "It's almost done, almost."], answer: 1, explanation: "\"Almost done, almost\" não dá informação: quanto falta, o que trava, quando fica pronto. A alternativa (a) diz o problema e o novo prazo.", tags: [topic.daily, vocab.standup] }
   - { id: M01-02-q5, type: fill_blank, prompt: "I'm waiting ___ Ana's review.", accepted: ["on", "for"], explanation: "wait pede preposição. wait on e wait for são intercambiáveis aqui; \"waiting the review\" está errado.", tags: [br.waiting-no-prep] }
   - { id: M01-02-q6, type: error_correction, prompt: "I have a doubt about the runner.", accepted: ["I have a question about the runner.", "I have a question about the runner", "I'm not sure about the runner.", "I'm not sure about the runner"], explanation: "doubt é desconfiança (\"I doubt it will work\"). Dúvida no sentido de pergunta é question.", tags: [br.doubt] }

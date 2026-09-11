@@ -69,6 +69,14 @@ describe("detectBrErrors", () => {
     ];
     for (const s of clean) expect(detectBrErrors(s, patterns), s).toEqual([]);
   });
+  it.each([
+    "I stayed until late to fix it.",
+    "I worked until late last night.",
+    "We were working until late in the evening.",
+  ])("does not flag valid until late usage: %s", (sentence) => {
+    // A antiga asserção positiva confundia preferência por concisão com erro gramatical.
+    expect(detectBrErrors(sentence, patterns)).toEqual([]);
+  });
   it("flags 'actually' used as 'currently' only with an explicit present-time context", () => {
     expect(tagsOf("Actually I'm working at a bank now.")).toContain("br.actually");
     expect(tagsOf("Actually we are using Terraform these days.")).toContain("br.actually");
@@ -97,6 +105,5 @@ describe("detectBrErrors", () => {
     expect(tagsOf("We lost the deadline again.")).toContain("br.lose-the-deadline");
     expect(tagsOf("I'm waiting you in the call.")).toContain("br.waiting-no-prep");
     expect(tagsOf("We pretend to deploy on Friday.")).toContain("br.pretend");
-    expect(tagsOf("I stayed until late to fix it.")).toContain("br.until-late");
   });
 });

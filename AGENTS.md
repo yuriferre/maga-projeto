@@ -46,7 +46,7 @@ docs/      planejamento/ (spec), superpowers/plans/ (planos executáveis)
 - Nunca gere conteúdo genérico ou placeholder. Cada aula segue o formato de `docs/planejamento/03-exemplo-aula-M01-02.md` e é revisada por uma pessoa.
 - Depois de editar `content/`, rode `pnpm content:build`; o Vite não observa YAML.
 - Trechos de log/erro no teste inicial usam `format: pre` (renderização monoespaçada, sem mini-markdown).
-- Avaliação de módulo: 15 itens que cobrem todas as tags gram.*/br.* das aulas do módulo (teste de guarda), gabarito balanceado, escrita + fala com os mesmos motores das aulas. Aprovação: itens ≥ 75 %, escrita ≥ 3, fala ≥ 3.
+- Avaliação de módulo: 15 itens que cobrem todas as tags gram.*/br.*/vocab.* das aulas e de seus exercícios (teste de guarda), gabarito balanceado, escrita + fala com os mesmos motores das aulas. Aprovação: itens ≥ 75 %, escrita ≥ 3, fala ≥ 3.
 
 ## Testes
 
