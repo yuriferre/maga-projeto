@@ -51,7 +51,7 @@ vocabulary:
     example: I haven't figured out why yet.
     translation: Ainda não descobri por quê.
     note: '"figure out" = descobrir/entender; yet no fim.'
-  - term: Let's take that offline / to the parking lot
+  - term: Let's take that offline / let's park that
     meaning: vamos tratar disso fora do daily
     example: Let's take the smoke test discussion offline; I'll grab you after the call, Marcos.
     translation: Vamos discutir o smoke test depois; te chamo depois da call, Marcos.
@@ -98,14 +98,14 @@ vocabulary:
     note: Mantém o canal limpo; padrão de Slack.
   - term: "Heads up, timing:"
     meaning: aviso sobre horário/fuso
-    example: "Heads up, timing: 9 am BRT is 1 pm for Marcos, so he'll join late."
-    translation: "Aviso sobre horário: 9h BRT são 13h para o Marcos, então ele entra depois."
+    example: "Heads up, timing: 9 am BRT is 1 pm for Marcos in Dublin, so he'll join right after lunch."
+    translation: "Aviso sobre horário: 9h BRT são 13h para o Marcos em Dublin, então ele entra logo depois do almoço."
     note: Times distribuídos vivem disso.
 
 grammar:
   title: "Juntando tudo: tempos verbais ao longo da semana e a linguagem de decisão"
   explanation: |
-    Um update de fim de semana de trabalho percorre quatro tempos:
+    Um update no fim da semana de trabalho percorre quatro tempos:
 
     | Momento | Forma | Exemplo |
     |---|---|---|
@@ -114,13 +114,13 @@ grammar:
     | O estado agora | present perfect / present + *as of* | **As of last night**, staging **is** green. |
     | O plano | *the plan is to* / *going to* / *by* | **The plan is to** deploy **by** noon. |
 
-    **Linguagem de decisão** (quando o que você faz afeta os outros):
+    **Linguagem de decisão** (quando o que você faz afeta os outros), nesta ordem:
 
-    1. Contexto em uma frase: *The smoke test is flaky, three out of five.*
-    2. Opinião: *My recommendation is to deploy after the release.*
-    3. Motivo: *Given that the release is at 2 pm, I'd rather not rush it.*
-    4. Pedido de decisão: *Priya, can I get a decision on that?*
-    5. Fechamento: *Does that work for everyone?*
+    - **Contexto** em uma frase: *The smoke test is flaky, three out of five.*
+    - **Opinião**: *My recommendation is to deploy after the release.*
+    - **Motivo**: *Given that the release is at 2 pm, I'd rather not rush it.*
+    - **Pedido de decisão**: *Priya, can I get a decision on that?*
+    - **Fechamento**: *Does that work for everyone?*
 
     **Parking lot:** o que exige discussão sai do daily com uma frase (*let's take that offline*) e uma pessoa responsável por retomar.
 
@@ -130,7 +130,7 @@ grammar:
     - { en: "Yesterday the staging rollout passed.", pt: "Ontem o rollout de staging passou." }
     - { en: "As of last night, staging is green.", pt: "Desde ontem à noite, staging está verde." }
     - { en: "The plan is to deploy by noon.", pt: "O plano é fazer o deploy até o meio-dia." }
-    - { en: "Given that the release is at 2 pm, I'd rather not rush it.", pt: "Considerando que o release é às 14h, prefiro não correr." }
+    - { en: "Given that the release is at 2 pm, I'd rather not rush it.", pt: "Considerando que o release é às 14h, prefiro não fazer isso correndo." }
 
 examples:
   - en: Since Monday I've been on the checkout-worker migration. As of last night, the staging rollout is green.
@@ -177,7 +177,7 @@ brErrors:
   - { wrong: "The smoke test is giving error sometimes.", right: "The smoke test is flaky / fails intermittently.", why: "calque de 'dando erro'", tag: br.giving-error }
   - { wrong: "Let's discuss about the smoke test after.", right: "Let's discuss the smoke test after the call.", why: "discuss é transitivo direto", tag: br.discuss-about }
   - { wrong: "I have a doubt if we should deploy today.", right: "I'm not sure we should deploy today.", why: "doubt = desconfiança", tag: br.doubt }
-  - { wrong: "Actually the rollout is green. (= atualmente)", right: "As of last night, the rollout is green.", why: "actually = na verdade", tag: br.actually }
+  - { wrong: "Actually the rollout is green. (= atualmente)", right: "Currently the rollout is green. / As of last night, the rollout is green.", why: "actually = na verdade", tag: br.actually }
   - { wrong: "It passed 3 in 5 times.", right: "It passed three out of five times.", why: "proporção é out of", tag: gram.numbers-percentages }
   - { wrong: "Deploy tomorrow 9 am. (sem fuso, no Slack)", right: "Deploy tomorrow 9 am BRT.", why: "time distribuído: hora sem fuso é ambígua", tag: topic.async }
   - { wrong: "Hello everyone, hope you're doing well. As discussed…", right: "Quick recap: …", why: "no Slack, resumo na primeira linha", tag: vocab.slack }
@@ -196,7 +196,7 @@ dialogue:
     - { speaker: Ana, text: "Yes, if the deploy is done by noon I can shut the old cluster down in the afternoon." }
     - { speaker: Priya, text: "Then tomorrow 9 am it is. Yuri, post the recap in #platform. Anything for the parking lot?" }
     - { speaker: Yuri, text: "Two things: the smoke test root cause with Marcos, and who deletes the old Grafana dashboards. Not urgent." }
-    - { speaker: Priya, text: "Good. Smoke test after the call, dashboards next week. That's the round. Thanks all." }
+    - { speaker: Priya, text: "Good. Smoke test with Marcos after the call. Let me do a quick recap before we close." }
   notes:
     - '"Let''s keep it tight" = vamos ser breves.'
     - '"as of Tuesday" / "as of last night" marcam a data da informação.'
@@ -263,7 +263,7 @@ speaking:
       - parking lot
       - does that work
       - no blockers
-      - by
+      - by noon
     checklist:
       - Usei present perfect com "since" para a semana e past simple para o fato fechado?
       - Dei o problema com número (three out of five)?
