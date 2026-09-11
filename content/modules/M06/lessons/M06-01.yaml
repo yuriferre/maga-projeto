@@ -1,0 +1,278 @@
+id: M06-01
+module: M06
+order: 1
+title: "Ticket: título, contexto, steps to reproduce, expected × actual"
+objective: >-
+  Ao final, você escreve um ticket que outra pessoa consegue executar sem
+  perguntar nada: título que é uma ação, contexto mínimo, passos numerados no
+  imperativo e o par expected/actual que é o coração do bug.
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.tickets-prs, comp.writing, comp.reading, gram.imperative, br.steps-for, topic.code-review]
+prerequisites: [M03-05, M04-05]
+
+context:
+  scenario: |
+    O ticket que diz "the API is broken" não é um ticket — é um desabafo.
+    Quem pega ele amanhã não sabe o que quebrou, onde, nem como reproduzir.
+    Vai voltar com três perguntas e o bug espera mais um dia.
+
+    Um ticket bom tem quatro partes, nessa ordem:
+
+    - **Título**: imperativo ou substantivo de ação — "Fix 502 on /checkout when cart is empty" ou "502 on /checkout when cart is empty"
+    - **Contexto**: uma frase — o que você fazia, onde, quando
+    - **Steps to reproduce**: numerados, no imperativo — "Open the checkout page. Add nothing. Click pay."
+    - **Expected × Actual**: o que deveria acontecer × o que aconteceu — o bug é exatamente a distância entre os dois
+
+    Quem lê não deve precisar perguntar "mas o que você esperava?".
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: steps to reproduce
+    meaning: passos para reproduzir — a seção mais importante do ticket
+    example: "Steps to reproduce: 1. Open the checkout page. 2. Leave the cart empty. 3. Click pay."
+    translation: "Passos para reproduzir: 1. Abra a página de checkout. 2. Deixe o carrinho vazio. 3. Clique em pagar."
+    note: 'Sempre "to reproduce", nunca "for reproduce" — calque clássico.'
+  - term: expected × actual
+    meaning: esperado × real — o par que define o bug
+    example: "Expected: an error message. Actual: a 502 with no details."
+    translation: "Esperado: uma mensagem de erro. Real: um 502 sem detalhes."
+    note: "O bug é a distância entre os dois; sem esse par, não há ticket."
+  - term: "it's broken"
+    meaning: está quebrado — vago demais, não abre ticket
+    example: "'The API is broken' tells nobody anything — broken how?"
+    translation: "\"A API está quebrada\" não diz nada — quebrada como?"
+    note: "O anti-título: sempre especifique O QUE quebrou e ONDE."
+  - term: "happens when"
+    meaning: acontece quando — o gatilho do bug
+    example: "The 502 happens when the cart is empty."
+    translation: "O 502 acontece quando o carrinho está vazio."
+    note: '"happens when" liga o sintoma ao gatilho — o mínimo de um bug.'
+  - term: environment
+    meaning: ambiente — onde o bug aparece (prod, staging, local)
+    example: "Environment: staging, Chrome 120, user with empty cart."
+    translation: "Ambiente: staging, Chrome 120, usuário com carrinho vazio."
+    note: "Uma linha de ambiente poupa uma pergunta inteira."
+  - term: workaround
+    meaning: solução paliativa — o que funciona enquanto não corrige
+    example: "Workaround: add any item to the cart first."
+    translation: "Paliativo: adicione qualquer item ao carrinho antes."
+    note: "Se existe, inclua — desbloqueia quem está sofrendo com o bug."
+  - term: severity
+    meaning: severidade — o impacto do bug
+    example: "Severity: high — users can't check out with an empty cart state."
+    translation: "Severidade: alta — usuários não conseguem finalizar com carrinho em estado vazio."
+    note: "high/medium/low ou blocker/major/minor — ajuda a priorizar."
+  - term: "can't reproduce"
+    meaning: não consigo reproduzir — a resposta que o ticket ruim recebe
+    example: "If the ticket is vague, the answer is 'can't reproduce'."
+    translation: "Se o ticket é vago, a resposta é \"não consigo reproduzir\"."
+    note: "A frase que mata tickets mal escritos — os steps existem para evitá-la."
+  - term: "a one-liner"
+    meaning: uma linha só — descrição mínima e suficiente
+    example: "Context can be a one-liner: 'found while testing the empty-cart flow on staging'."
+    translation: "O contexto pode ser uma linha: \"encontrado testando o fluxo de carrinho vazio em staging\"."
+    note: "Contexto é uma frase, não um parágrafo — o grosso vai nos steps."
+  - term: "attach a screenshot"
+    meaning: anexar um print — evidência do erro
+    example: "Attach a screenshot of the 502 and the request id."
+    translation: "Anexe um print do 502 e o request id."
+    note: '"attach X" — evidência; "attached is the log" na hora de fechar.'
+  - term: "steps (numbered)"
+    meaning: passos numerados — cada ação em uma linha, no imperativo
+    example: "1. Log in. 2. Open /checkout. 3. Click pay with an empty cart."
+    translation: "1. Faça login. 2. Abra /checkout. 3. Clique em pagar com o carrinho vazio."
+    note: "Numerados e no imperativo — quem lê executa na sequência."
+  - term: "the fix"
+    meaning: a correção — o que fecha o ticket
+    example: "The fix was a null check on the cart payload."
+    translation: "A correção foi um null check no payload do carrinho."
+    note: 'No fechamento: "the fix was X" ou "fixed by PR #123".'
+
+grammar:
+  title: "Ticket bom = imperativo nos steps + expected × actual"
+  explanation: |
+    O ticket tem duas gramáticas distintas. Nos **steps**, imperativo puro — ações que o leitor executa: *open the page, click pay, wait for the response*. Nos **expected/actual**, a descrição do comportamento — presente ou passado conforme o caso: *expected: a clear error; actual: a 502*.
+
+    **A anatomia do ticket que funciona:**
+
+    | Seção | Forma | Exemplo |
+    |---|---|---|
+    | Título | imperativo ou substantivo | *Fix 502 on /checkout* |
+    | Contexto | uma frase | *Found while testing the empty-cart flow on staging.* |
+    | Steps | numerados, imperativo | *1. Open /checkout. 2. Leave the cart empty.* |
+    | Expected | o que deveria | *Expected: a validation error.* |
+    | Actual | o que aconteceu | *Actual: a 502 with no details.* |
+
+    **Erros BR:** "steps **for** reproduce" (é *to*), "verify **if** it works" (é *check whether*), "I **did** a commit" (é *committed*), e o título que desabafo — "API broken again" não é título.
+  examples:
+    - { en: "Steps to reproduce: 1. Log in. 2. Open /checkout. 3. Click pay.", pt: "Passos para reproduzir: 1. Faça login. 2. Abra /checkout. 3. Clique em pagar." }
+    - { en: "Expected: a validation error. Actual: a 502.", pt: "Esperado: um erro de validação. Real: um 502." }
+    - { en: "It happens when the cart is empty.", pt: "Acontece quando o carrinho está vazio." }
+    - { en: "Environment: staging, Chrome 120.", pt: "Ambiente: staging, Chrome 120." }
+    - { en: "Workaround: add an item to the cart first.", pt: "Paliativo: adicione um item ao carrinho antes." }
+    - { en: "Attach a screenshot of the error.", pt: "Anexe um print do erro." }
+
+examples:
+  - en: "Title: 502 on POST /checkout when the cart is empty."
+    pt: "Título: 502 no POST /checkout quando o carrinho está vazio."
+    context: "O título já diz o sintoma, o endpoint e o gatilho."
+  - en: "Steps to reproduce: 1. Log in. 2. Open /checkout. 3. Leave the cart empty. 4. Click pay."
+    pt: "Passos para reproduzir: 1. Faça login. 2. Abra /checkout. 3. Deixe o carrinho vazio. 4. Clique em pagar."
+    context: "Numerados, imperativo, executáveis por quem nunca viu o bug."
+  - en: "Expected: a validation error saying the cart is empty. Actual: a 502 with an empty body."
+    pt: "Esperado: um erro de validação dizendo que o carrinho está vazio. Real: um 502 com body vazio."
+    context: "O par expected/actual define o bug."
+  - en: "Environment: staging only — prod handles this correctly."
+    pt: "Ambiente: só staging — produção trata isso corretamente."
+    context: "Uma linha que evita a pergunta \"acontece em prod?\"."
+  - en: "Workaround: users can add any item and remove it — the error clears."
+    pt: "Paliativo: usuários podem adicionar qualquer item e remover — o erro some."
+    context: "Desbloqueia quem está sofrendo enquanto a correção não vem."
+  - en: "I can't reproduce it on prod — only on staging with a fresh account."
+    pt: "Não consigo reproduzir em prod — só em staging com conta nova."
+    context: '"can''t reproduce" + o que diferencia os ambientes.'
+  - en: "Attach the HAR file and a screenshot of the 502."
+    pt: "Anexe o HAR e um print do 502."
+    context: "Evidência anexada: o que o revisor precisa ver."
+  - en: "Severity: high — every new user hits this on first checkout."
+    pt: "Severidade: alta — todo usuário novo passa por isso no primeiro checkout."
+    context: "Severidade com a razão — não só a etiqueta."
+
+variations:
+  - idea: '"pedir mais detalhes num ticket vago"'
+    items:
+      - { register: "Boa", text: "Can you add the steps to reproduce and the expected vs actual?", adequate: true }
+      - { register: "Boa", text: "What were you expecting to see? I can't reproduce it from this.", adequate: true }
+      - { register: "Inadequada", text: "This ticket is bad.", adequate: false, note: "Crítica sem direção — diga O QUE falta." }
+      - { register: "Inadequada", text: "Add the steps for reproduce.", adequate: false, note: '"steps to reproduce" — infinitivo de finalidade.' }
+  - idea: '"fechar um ticket com a correção"'
+    items:
+      - { register: "Boa", text: "Fixed by PR #123 — the cart payload needed a null check.", adequate: true }
+      - { register: "Boa", text: "Closing this — the fix landed in staging; please verify.", adequate: true }
+      - { register: "Inadequada", text: "Fixed.", adequate: false, note: "Sem o quê nem onde — diga o que fechou o bug." }
+      - { register: "Inadequada", text: "I did a commit that fixed it.", adequate: false, note: '"committed" é o verbo; "did a commit" é calque.' }
+
+brErrors:
+  - { wrong: "Add the steps for reproduce the bug.", right: "Add the steps to reproduce the bug.", why: '"passos para reproduzir" é "steps to reproduce"', tag: br.steps-for }
+  - { wrong: "Please verify if the bug still happens.", right: "Please check whether the bug still happens.", why: '"verify if" é calque — "check whether" ou "verify" transitivo', tag: br.verify-if }
+  - { wrong: "Merge the fix in main.", right: "Merge the fix into main.", why: "merge de branch é \"into\"", tag: br.merge-in }
+  - { wrong: "We should revert back the change.", right: "We should revert the change.", why: '"revert" já contém "back"', tag: br.revert-back }
+  - { wrong: "I did a commit that fixed the bug.", right: "I committed a fix for the bug.", why: '"committed" é o verbo; "did a commit" é calque', tag: vocab.tickets-prs }
+  - { wrong: "The ticket have the steps.", right: "The ticket has the steps.", why: "terceira pessoa: has", tag: br.third-person-s }
+  - { wrong: "The response returns the datas.", right: "The response returns the data.", why: "data é incontável", tag: br.uncountable }
+  - { wrong: "I have a doubt about the ticket.", right: "I have a question about the ticket.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The new ticket is more clear.", right: "The new ticket is clearer.", why: "clear é adjetivo curto: clearer", tag: br.more-er }
+  - { wrong: "He said me the bug is fixed.", right: "He told me the bug is fixed.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "O ticket que volta com perguntas"
+  lines:
+    - { speaker: Priya, text: "This ticket says 'checkout is broken' — I can't do anything with that." }
+    - { speaker: Yuri, text: "Fair. Let me rewrite it. Title: '502 on POST /checkout when the cart is empty'." }
+    - { speaker: Priya, text: "Better. Context?" }
+    - { speaker: Yuri, text: "One line: 'found while testing the empty-cart flow on staging'. Then the steps — 1. Log in. 2. Open /checkout. 3. Leave the cart empty. 4. Click pay." }
+    - { speaker: Priya, text: "And the heart of it — expected versus actual?" }
+    - { speaker: Yuri, text: "Expected: a validation error saying the cart is empty. Actual: a 502 with an empty body." }
+    - { speaker: Priya, text: "Environment and severity?" }
+    - { speaker: Yuri, text: "Staging only — prod handles it correctly. Severity high: every new user hits this on first checkout. Workaround exists: add an item and remove it." }
+    - { speaker: Priya, text: "Now it's a ticket — I can reproduce that without asking you anything. Attach the HAR file and we're done." }
+  notes:
+    - 'o ticket rescreve ao vivo: título com sintoma+endpoint+gatilho, contexto de uma linha, steps numerados, expected×actual, ambiente, severidade, workaround.'
+    - '"I can reproduce that without asking you anything" é o critério de pronto.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A good ticket answers four questions before I ask them: what broke, where, how do I reproduce it, and what should have happened instead." }
+    - { speaker: Ana, text: "The steps are the make-or-break — numbered, imperative, no assumed knowledge. 'Click pay with an empty cart', not 'the bug happens'." }
+    - { speaker: Marcos, text: "And if there's a workaround, put it in — it unblocks the person suffering right now while the fix is still days away." }
+  questions:
+    - { id: M06-01-l1, type: multiple_choice, prompt: "What are the four questions a good ticket answers?", options: ["who, when, why, how much", "what broke, where, how to reproduce, what should have happened", "severity, priority, owner, deadline", "title, labels, assignee, sprint"], answer: 1, explanation: '"what broke, where, how do I reproduce it, what should have happened."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-01-l2, type: multiple_choice, prompt: "What makes the steps 'make-or-break'?", options: ["numbered, imperative, no assumed knowledge", "they're long", "they use screenshots", "they're in English"], answer: 0, explanation: '"numbered, imperative, no assumed knowledge."', tags: [comp.listening, gram.imperative] }
+    - { id: M06-01-l3, type: fill_blank, prompt: "Steps ___ reproduce: open the page, click pay.", accepted: ["to"], explanation: '"steps to reproduce" — infinitivo de finalidade.', tags: [br.steps-for] }
+    - { id: M06-01-l4, type: multiple_choice, prompt: "Why include a workaround?", options: ["it closes the ticket", "it's required by policy", "it replaces the fix", "it unblocks the person suffering while the fix is days away"], answer: 3, explanation: '"it unblocks the person suffering right now while the fix is still days away."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-01-l5, type: multiple_choice, prompt: "'Expected: validation error. Actual: 502' — this pair is…", options: ["optional", "the heart of the ticket — the distance between the two is the bug", "only for UI bugs", "the same as severity"], answer: 1, explanation: "Expected × actual define o bug.", tags: [vocab.tickets-prs] }
+    - { id: M06-01-l6, type: fill_blank, prompt: "I can't ___ it on prod — only on staging.", accepted: ["reproduce"], explanation: '"can''t reproduce" — a resposta que o ticket vago recebe.', tags: [vocab.tickets-prs] }
+
+writing:
+  prompt: |
+    **Cenário:** você achou um bug — ao fazer checkout com o carrinho vazio em staging, a API retorna 502 com body vazio em vez de um erro de validação. Prod trata corretamente. O paliativo: adicionar e remover um item limpa o erro.
+
+    **Tarefa:** escreva o ticket em texto corrido (60–90 palavras): título, contexto de uma linha, steps numerados no imperativo, expected × actual, ambiente, severidade e workaround.
+  constraints:
+    - { label: "Steps com infinitivo de finalidade", pattern: "\\bsteps? to reproduce\\b" }
+    - { label: "Par expected × actual", pattern: "\\b(expected|actual)\\b" }
+    - { label: "Gatilho ou ambiente", pattern: "\\b(happens? when|staging|prod(uction)?|environment|workaround|severity)\\b" }
+    - { label: "Imperativo nos passos", pattern: "\\b(open|log in|click|add|leave|attach|verify|check)\\b" }
+  rubric:
+    - Título com sintoma + endpoint + gatilho
+    - Steps numerados, imperativo, executáveis
+    - Expected × actual presente
+    - Ambiente + severidade + workaround
+  model: >-
+    Title: 502 on POST /checkout when the cart is empty. Context: found while testing the
+    empty-cart flow on staging. Steps to reproduce: 1. Log in. 2. Open /checkout. 3. Leave the
+    cart empty. 4. Click pay. Expected: a validation error saying the cart is empty. Actual: a 502
+    with an empty body. Environment: staging only — prod handles this correctly. Severity: high —
+    every new user hits this. Workaround: add an item and remove it.
+  minWords: 60
+  maxWords: 95
+  tags: [comp.writing, vocab.tickets-prs]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos lendo o ticket em voz alta — título, contexto, steps, expected × actual, ambiente e workaround.
+    maxSeconds: 45
+    targetPhrases:
+      - steps to reproduce
+      - expected
+      - actual
+      - happens when
+      - environment
+      - workaround
+      - severity
+      - can't reproduce
+      - attach a screenshot
+      - the fix
+      - log in
+      - click pay
+      - on staging
+      - it's broken
+    checklist:
+      - Li o título com sintoma + endpoint + gatilho?
+      - Steps no imperativo, numerados?
+      - Expected × actual claro?
+      - '"Steps to reproduce", não "for reproduce"?'
+
+quiz:
+  - { id: M06-01-q1, type: multiple_choice, prompt: "Which is a good ticket title?", options: ["\"Checkout is broken again\"", "\"Bug in the API\"", "\"502 on POST /checkout when the cart is empty\"", "\"Please look at checkout\""], answer: 2, explanation: "Sintoma + endpoint + gatilho em uma linha.", tags: [vocab.tickets-prs] }
+  - { id: M06-01-q2, type: error_correction, prompt: "Add the steps for reproduce the bug.", accepted: ["Add the steps to reproduce the bug.", "Add the steps to reproduce the bug", "Add steps to reproduce the bug.", "Add steps to reproduce the bug"], explanation: '"steps to reproduce" — infinitivo de finalidade, não "for".', tags: [br.steps-for] }
+  - { id: M06-01-q3, type: multiple_choice, prompt: "The pair 'expected × actual' is…", options: ["optional", "the same as severity", "the heart of the ticket — the distance between them is the bug", "only for UI bugs"], answer: 2, explanation: "O bug é a distância entre expected e actual.", tags: [vocab.tickets-prs] }
+  - { id: M06-01-q4, type: fill_blank, prompt: "Please ___ whether the bug still happens.", accepted: ["check", "verify"], explanation: '"check whether" ou "verify" transitivo — nunca "verify if".', tags: [br.verify-if] }
+  - { id: M06-01-q5, type: error_correction, prompt: "I did a commit that fixed the bug.", accepted: ["I committed a fix for the bug.", "I committed a fix for the bug", "I committed the fix.", "I committed the fix"], explanation: '"committed" é o verbo; "did a commit" é calque.', tags: [vocab.tickets-prs] }
+  - { id: M06-01-q6, type: translate, prompt: "Acontece quando o carrinho está vazio.", accepted: ["It happens when the cart is empty.", "It happens when the cart is empty", "The bug happens when the cart is empty."], explanation: '"happens when" liga sintoma a gatilho.', tags: [vocab.tickets-prs] }
+  - { id: M06-01-q7, type: multiple_choice, prompt: "Which line belongs in a ticket?", options: ["\"it's broken, fix it\"", "\"environment: staging only — prod handles it correctly\"", "\"the bug is bad\"", "\"idk when it started\""], answer: 1, explanation: "Ambiente em uma linha evita a pergunta óbvia.", tags: [vocab.tickets-prs] }
+  - { id: M06-01-q8, type: match, prompt: "Associe a seção ao conteúdo.", pairs: [{ left: "steps to reproduce", right: "numbered, imperative actions" }, { left: "expected × actual", right: "what should happen vs what happened" }, { left: "workaround", right: "what unblocks now" }, { left: "severity", right: "the impact" }], explanation: "Quatro seções, quatro papéis no ticket.", tags: [vocab.tickets-prs] }
+
+review:
+  count: 5
+  preferTags: [vocab.tickets-prs, gram.imperative, br.steps-for, br.verify-if]
+
+srsCards:
+  - { front: "passos para reproduzir", back: "steps to reproduce", tag: br.steps-for }
+  - { front: "esperado × real", back: "expected × actual", tag: vocab.tickets-prs }
+  - { front: "acontece quando o carrinho está vazio", back: "happens when the cart is empty", tag: vocab.tickets-prs }
+  - { front: "ambiente: staging", back: "environment: staging", tag: vocab.tickets-prs }
+  - { front: "solução paliativa", back: "workaround", tag: vocab.tickets-prs }
+  - { front: "severidade: alta", back: "severity: high", tag: vocab.tickets-prs }
+  - { front: "não consigo reproduzir", back: "can't reproduce", tag: vocab.tickets-prs }
+  - { front: "anexe um print", back: "attach a screenshot", tag: gram.imperative }
+  - { front: "verifique se o fix funciona", back: "check whether the fix works", tag: br.verify-if }
+  - { front: "merge na main", back: "merge into main", tag: br.merge-in }
+  - { front: "reverter o deploy", back: "revert the deploy", tag: br.revert-back }
+  - { front: "fiz um commit com a correção", back: "I committed the fix", tag: vocab.tickets-prs }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
