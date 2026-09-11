@@ -4,7 +4,7 @@ Instruções para qualquer assistente de código (Claude Code, Codex, Cursor, et
 
 ## O projeto
 
-Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: etapas E0–E3 entregues (motor de aula + aula M01-02 + teste inicial e painel + SRS e glossário). Próximas: E4 Claude API, E5 conteúdo do Nível 1, E6 adaptação.
+Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: etapas E0–E3 entregues (motor de aula + aula M01-02 + teste inicial e painel + SRS e glossário). A E4 (Claude API) está fora do roteiro por decisão do usuário (sem créditos de API): tudo segue por regras e heurísticas locais, sem LLM. Próximas: E5 conteúdo do Nível 1, E6 adaptação.
 
 ## Comandos
 
