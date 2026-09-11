@@ -70,3 +70,32 @@ describe("content/modules/M02/assessment.yaml", () => {
     expect(checkExercise(q, "Can you explain me what 'flapping' means?").correct).toBe(false);
   });
 });
+
+describe("content/modules/M03/assessment.yaml", () => {
+  const m03 = bundle.moduleAssessments["M03"]!;
+  it("requires fixing both do-modal and send-to-me word order", () => {
+    const q = m03.items.find((q) => q.id === "M03-A09")!;
+    expect(checkExercise(q, "Can you send me the runbook?").correct).toBe(true);
+    expect(checkExercise(q, "Could you send the runbook to me?").correct).toBe(true);
+    expect(checkExercise(q, "Do you can send me the runbook?").correct).toBe(false);
+    expect(checkExercise(q, "Can you send to me the runbook?").correct).toBe(false);
+  });
+  it("requires both waiting on/for and present perfect continuous for since", () => {
+    const q = m03.items.find((q) => q.id === "M03-A11")!;
+    expect(checkExercise(q, "I've been waiting on your reply since Monday.").correct).toBe(true);
+    expect(checkExercise(q, "I've been waiting for your reply since Monday.").correct).toBe(true);
+    expect(checkExercise(q, "I'm waiting on your reply since Monday.").correct).toBe(false);
+    expect(checkExercise(q, "I've been waiting your reply since Monday.").correct).toBe(false);
+  });
+  it("requires dropping the preposition before next sprint", () => {
+    const q = m03.items.find((q) => q.id === "M03-A05")!;
+    expect(checkExercise(q, "The rollout continues next sprint.").correct).toBe(true);
+    expect(checkExercise(q, "The rollout continues on next sprint.").correct).toBe(false);
+  });
+  it("requires didn't + base form and need + you + to", () => {
+    const q = m03.items.find((q) => q.id === "M03-A13")!;
+    expect(checkExercise(q, "I didn't see the flag — I need you to resend it.").correct).toBe(true);
+    expect(checkExercise(q, "I didn't saw the flag — I need you to resend it.").correct).toBe(false);
+    expect(checkExercise(q, "I didn't see the flag — I need that you resend it.").correct).toBe(false);
+  });
+});

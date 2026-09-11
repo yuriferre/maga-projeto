@@ -1,0 +1,74 @@
+# Avaliação do módulo M03: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M03
+title: "Avaliação do módulo M03: Slack e Teams no dia a dia"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita com autoavaliação ≥ 3,5, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M03-A01, type: multiple_choice, prompt: "A staging rebuild finished early and nobody needs to do anything. Which opener fits?", options: ["Heads up: staging is back — check your jobs.", "FYI: staging is back early — no action needed.", "@channel staging is back", "Sorry to bother — staging is back."], answer: 1, explanation: "Ciência pura sem ação = FYI + 'no action needed'. Heads up promete impacto; @channel notifica todo mundo.", tags: [vocab.slack] }
+  - { id: M03-A02, type: error_correction, prompt: "I have a doubt — I want to make a question about the freeze window.", accepted: ["I have a question about the freeze window.", "I have a question about the freeze window", "Quick question about the freeze window.", "Quick question about the freeze window", "I want to ask a question about the freeze window.", "I want to ask a question about the freeze window"], explanation: 'Dois calques: "doubt" por question e "make a question" por ask a question — ou só "quick question:".', tags: [br.doubt, br.make-a-question] }
+  - { id: M03-A03, type: error_correction, prompt: "Priya said me the deploy window moved.", accepted: ["Priya told me the deploy window moved.", "Priya told me the deploy window moved", "Priya said the deploy window moved.", "Priya said the deploy window moved", "Priya said to me the deploy window moved.", "Priya said to me the deploy window moved"], explanation: "say não leva objeto indireto sem to; o natural é tell + pessoa.", tags: [br.said-me] }
+  - { id: M03-A04, type: fill_blank, prompt: "Sorry to ___ — quick question about the cert rotation.", accepted: ["interrupt", "jump in"], explanation: '"sorry to" + verbo; "sorry for interrupt" estaria errado.', tags: [br.sorry-for-interrupt] }
+  - { id: M03-A05, type: error_correction, prompt: "The rollout continues on next sprint.", accepted: ["The rollout continues next sprint.", "The rollout continues next sprint"], explanation: "next + período dispensa preposição.", tags: [br.on-next] }
+  - { id: M03-A06, type: multiple_choice, prompt: "Which sentence uses by/until correctly?", options: ["I'll send the logs until Friday.", "I'll be online by 6 my time.", "I'll send the logs by Friday.", "I'll be online until Friday is fine."], answer: 2, explanation: "by = prazo (send by Friday); until = duração (online until 6).", tags: [br.until-by, gram.time-expressions] }
+  - { id: M03-A07, type: translate, prompt: "Vou pegar isso amanhã de manhã no meu horário — sua noite.", accepted: ["I'll pick this up tomorrow morning my time — your night.", "I'll pick this up tomorrow morning, my time — your night.", "I'll pick this up tomorrow morning my time — your night", "I'll pick this up first thing tomorrow my time — your night."], explanation: '"pick this up" + fuso declarado e traduzido para quem lê.', tags: [gram.future-plans, vocab.slack] }
+  - { id: M03-A08, type: error_correction, prompt: "I am agree with the escalation.", accepted: ["I agree with the escalation.", "I agree with the escalation"], explanation: 'Calque de "estou de acordo": agree já é verbo, sem be.', tags: [br.i-am-agree] }
+  - { id: M03-A09, type: error_correction, prompt: "Do you can send to me the runbook?", accepted: ["Can you send me the runbook?", "Can you send me the runbook", "Could you send me the runbook?", "Could you send me the runbook", "Can you send the runbook to me?", "Can you send the runbook to me", "Could you send the runbook to me?", "Could you send the runbook to me"], explanation: "Duas correções: auxiliar duplo (can you) e ordem (send me the X / send the X to me).", tags: [br.do-modal, br.send-to-me] }
+  - { id: M03-A10, type: error_correction, prompt: "Ask to Marcos about the freeze policy.", accepted: ["Ask Marcos about the freeze policy.", "Ask Marcos about the freeze policy"], explanation: 'Calque de "pergunte para o Marcos": ask + pessoa, sem to.', tags: [br.ask-to] }
+  - { id: M03-A11, type: error_correction, prompt: "I'm waiting your reply since Monday.", accepted: ["I've been waiting on your reply since Monday.", "I've been waiting on your reply since Monday", "I've been waiting for your reply since Monday.", "I've been waiting for your reply since Monday", "I have been waiting on your reply since Monday.", "I have been waiting for your reply since Monday."], explanation: "Duas correções: wait on/for + since pede present perfect continuous.", tags: [br.waiting-no-prep, br.since-present] }
+  - { id: M03-A12, type: multiple_choice, prompt: "Which message softens a non-urgent follow-up correctly?", options: ["Circling back on the sign-off — no rush, just flagging before the freeze.", "Circling back — I NEED an answer NOW.", "Circling back. Why is this taking so long?", "Circling back — this is the third time I ask."], answer: 0, explanation: "Follow-up leve traz referência + suavizador; as outras cobram sem contexto ou com tom agressivo.", tags: [vocab.slack, gram.softeners] }
+  - { id: M03-A13, type: error_correction, prompt: "I didn't saw the flag — I need that you resend it.", accepted: ["I didn't see the flag — I need you to resend it.", "I didn't see the flag — I need you to resend it", "I didn't see the flag — I need you to resend it.", "I did not see the flag — I need you to resend it."], explanation: "Duas correções: didn't + forma base; need + pessoa + to.", tags: [br.did-past, br.need-that-you] }
+  - { id: M03-A14, type: match, prompt: "Associe a situação à abertura certa.", pairs: [{ left: "sinalizar sem alarme", right: "wanted to flag" }, { left: "silêncio = concordo", right: "unless any objections" }, { left: "incerteza honesta", right: "I think it might be" }, { left: "sem pressa", right: "when you get a chance" }], explanation: "Hedging e fórmulas: cada abertura marca o tamanho do pedido ou da afirmação.", tags: [gram.hedging, vocab.slack] }
+  - { id: M03-A15, type: error_correction, prompt: "According with the calendar, I pretend to deploy Friday.", accepted: ["According to the calendar, I plan to deploy Friday.", "According to the calendar, I plan to deploy Friday", "According to the calendar, I intend to deploy Friday.", "According to the calendar, I intend to deploy Friday", "According to the calendar, I'm planning to deploy Friday.", "According to the calendar, I'm going to deploy Friday."], explanation: "according to + plan/intend — 'pretend' é fingir.", tags: [br.according-with, br.pretend] }
+
+writing:
+  prompt: |
+    **Cenário:** fim do dia de sexta. Você deve cinco mensagens ao time: (1) um pedido — acesso ao doc da rotação de plantão, porque você acompanha semana que vem; (2) um aviso — staging reconstrói hoje à noite, ninguém precisa agir; (3) um follow-up — o aceite do cert de segunda segue pendente e o freeze é amanhã; (4) uma escalada leve — a fila dobrou desde segunda e, se continuar, vai para a Ana; (5) uma desculpa por atraso — a atualização do runbook que era para terça só saiu hoje, falha sua, já pronta.
+
+    **Tarefa:** escreva as cinco mensagens numeradas (80–120 palavras no total), cada uma com a fórmula do tipo certo.
+  constraints:
+    - { label: "Pedido com modal (could/can you)", pattern: "\\b(could|can|would) you\\b" }
+    - { label: "Aviso marcado como ciência (FYI / no action needed / heads up)", pattern: "\\b(fyi|heads up|no action needed|for visibility)\\b" }
+    - { label: "Follow-up com referência (following up on / circling back)", pattern: "\\b(following up on|circling back|quick nudge)\\b" }
+    - { label: "Escalada leve ou desculpa (wanted to flag / escalating to / sorry for the delay)", pattern: "\\b(wanted to flag|escalating to|sorry for the delay|my bad|dropped the ball)\\b" }
+    - { label: "Referência temporal (Monday / tomorrow / next week / EOD)", pattern: "\\b(monday|tuesday|wednesday|thursday|friday|tomorrow|next (week|sprint)|eod)\\b" }
+  rubric:
+    - Cada mensagem usa a fórmula do tipo certo
+    - Pedido com contexto; aviso sem exigir ação
+    - Follow-up com referência; escalada com fato e limiar
+    - Desculpa curta com o que foi feito
+  model: >-
+    1. Hi Marcos — could you add me to the on-call rotation doc? Context: I'm shadowing next
+    week. 2. FYI: staging rebuilds tonight — no action needed, just expect it down after 8.
+    3. Circling back on the cert sign-off from Monday — freeze is tomorrow and I still need
+    the approval. 4. Wanted to flag: the queue doubled since Monday; if it holds tonight,
+    escalating to @Ana. 5. Sorry for the delay on the runbook update — I dropped the ball;
+    it's done now.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.slack, topic.async]
+
+speaking:
+  prompt: "Grave 45 segundos como se fosse um voice note para o time: um aviso, um follow-up com referência e uma desculpa curta por atraso — cada um com a fórmula certa."
+  maxSeconds: 45
+  targetPhrases:
+    - FYI
+    - heads up
+    - no action needed
+    - following up on
+    - circling back
+    - quick nudge
+    - wanted to flag
+    - escalating to
+    - sorry for the delay
+    - my bad
+    - I'll pick it up
+    - by EOD my time
+    - next week
+    - give me a shout
+  checklist:
+    - Aviso marcado como ciência?
+    - Follow-up com a referência?
+    - Desculpa de uma linha com o que foi feito?
+    - Prazos com fuso declarado?
