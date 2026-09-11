@@ -1,0 +1,285 @@
+id: M04-04
+module: M04
+order: 4
+title: "Issues e PRs no GitHub: reproduzir, comentar, same here, can confirm, workaround"
+objective: >-
+  Ao final, você lê uma issue com método (título → steps to reproduce →
+  expected × actual → comentários úteis) e sabe comentar algo que agrega:
+  confirmar com dados, compartilhar workaround, ou simplesmente +1.
+durationMin: 35
+competencies: [REA, VOC]
+tags: [topic.code-review, vocab.tickets-prs, comp.reading, comp.writing, br.i-am-agree, br.said-me, br.did-past]
+prerequisites: [M04-03]
+
+context:
+  scenario: |
+    Seu `helm upgrade` quebrou com o mesmo erro de uma issue aberta no repo do
+    Argo CD. A issue tem 40 comentários: metade é "same here", mas no meio tem
+    um "can confirm on 2.9.3" com workaround que resolve seu caso. Você lê a
+    issue inteira procurando a resposta e quase perde o comentário que importa.
+
+    Issue boa tem anatomia: `steps to reproduce`, `expected` × `actual`,
+    versões afetadas e — nos comentários — confirmações com dados e
+    workarounds. A aula ensina a ler isso com método e a comentar algo que
+    agrega em vez de poluir.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: steps to reproduce
+    meaning: os passos mínimos para alguém ver o mesmo erro
+    example: "Steps to reproduce: 1. helm upgrade with values v2 …"
+    translation: "Passos para reproduzir: 1. helm upgrade com values v2…"
+    note: A primeira coisa a ler — se você reproduz, a issue é sua.
+  - term: expected vs actual
+    meaning: o esperado × o que aconteceu de fato
+    example: "Expected: sync succeeds. Actual: sync hangs at 'waiting for health'."
+    translation: "Esperado: o sync termina. Real: trava em 'waiting for health'."
+    note: O coração do report — a diferença entre os dois é o bug.
+  - term: "same here"
+    meaning: acontece comigo também — apoio sem dado novo
+    example: "Same here on 2.9.3 — sync hangs at the same step."
+    translation: "Mesmo aqui na 2.9.3 — o sync trava na mesma etapa."
+    note: Válido, mas fraco sozinho; some sua versão para virar dado.
+  - term: "can confirm"
+    meaning: posso confirmar — reproduzi no meu ambiente
+    example: "Can confirm on EKS 1.28 — same error after the upgrade."
+    translation: "Posso confirmar no EKS 1.28 — mesmo erro depois do upgrade."
+    note: 'Mais forte que "same here": você reproduziu e diz onde.'
+  - term: workaround
+    meaning: a solução paliativa enquanto o fix não vem
+    example: "Workaround: pin the image to 2.9.1 until the fix lands."
+    translation: "Gambi… solução paliativa: fixar a imagem na 2.9.1 até o fix sair."
+    note: O comentário mais valioso de uma issue aberta.
+  - term: "+1 on this"
+    meaning: contem comigo / apoio — voto de prioridade
+    example: "+1 on this — it blocks our prod rollout."
+    translation: "+1 nisso — está bloqueando nosso rollout de prod."
+    note: Com contexto (o que bloqueia) vale mais que "+1" puro.
+  - term: "reproduced on"
+    meaning: reproduzido em — diz em que versão/ambiente o bug apareceu
+    example: "Reproduced on k3s 1.28 and EKS 1.29."
+    translation: "Reproduzido no k3s 1.28 e EKS 1.29."
+    note: Dado que mapeia a abrangência do bug.
+  - term: "not stale"
+    meaning: ainda é um problema — resposta ao bot que fecha issues
+    example: "Not stale — still happening on the latest release."
+    translation: "Não está velha — ainda acontece na versão mais recente."
+    note: Comentário padrão para impedir o stale-bot de fechar a issue.
+  - term: "as a workaround"
+    meaning: como paliativo — marcador do comentário que resolve
+    example: "As a workaround, downgrade the controller to 2.9.1."
+    translation: "Como paliativo, faça downgrade do controller para 2.9.1."
+    note: Procure essa frase ao ler uma issue aberta.
+  - term: maintainers
+    meaning: os responsáveis pelo projeto — quem decide
+    example: "The maintainers asked for a minimal repro."
+    translation: "Os mantenedores pediram uma reprodução mínima."
+    note: Comentário de maintainer tem peso de decisão.
+  - term: "minimal repro"
+    meaning: o menor caso que ainda mostra o bug
+    example: "Can you share a minimal repro — one values file that triggers it?"
+    translation: "Você pode compartilhar uma repro mínima — um values que dispare?"
+    note: O pedido mais comum dos mantenedores.
+  - term: "it's tracked in"
+    meaning: está sendo acompanhado em — a issue existe e é conhecida
+    example: "That's tracked in issue #4821 — no need to open a new one."
+    translation: "Isso está sendo acompanhado na issue #4821 — não abra outra."
+    note: "Evite duplicar: procure a issue antes de abrir."
+  - term: pinned issue
+    meaning: issue fixada no topo — a mais importante do momento
+    example: "Check the pinned issues first — the incident is already tracked."
+    translation: "Veja as issues fixadas primeiro — o incidente já está sendo acompanhado."
+    note: As pinned respondem "alguém já sabe disso?".
+  - term: "fixed in"
+    meaning: corrigido na versão X — o comentário que fecha a issue
+    example: "Fixed in 2.9.4 — upgrade and it goes away."
+    translation: "Corrigido na 2.9.4 — atualize e o erro some."
+    note: "A resposta final: a versão onde o fix saiu."
+
+grammar:
+  title: "O comentário que agrega tem três formas"
+  explanation: |
+    Comentar issue é escrita curta com propósito. Três formas valem a pena:
+
+    | Forma | Quando usar | Exemplo |
+    |---|---|---|
+    | **confirmar com dado** | você reproduziu | *Can confirm on EKS 1.28 — same error, started after the 2.9.3 upgrade.* |
+    | **compartilhar workaround** | você achou paliativo | *As a workaround, pin the image to 2.9.1.* |
+    | **votar com contexto** | a issue te bloqueia | *+1 on this — blocks our prod rollout.* |
+
+    **O que NÃO comentar:** "same here" sozinho (não agrega), "any update?" (cobrança sem dado), me too solto. Se quiser registrar apoio sem ruído, use a reação 👍 no post original.
+
+    **Citar é diferente de relatar.** "The maintainer *says* it's fixed in 2.9.4" (o texto diz) × "She *told* me it's fixed" (a pessoa me disse). "Said me" e "told to me" são os calques clássicos aqui.
+
+    **Concordar em issue é "agree", não "I am agree".** "I agree with the workaround" — `agree` já é verbo; `I am agree` é calque de "eu estou de acordo".
+  examples:
+    - { en: "Can confirm on GKE 1.29 — sync hangs at 'waiting for health' after the upgrade.", pt: "Posso confirmar no GKE 1.29 — o sync trava na mesma etapa depois do upgrade." }
+    - { en: "As a workaround, pin the controller image to 2.9.1.", pt: "Como paliativo, fixe a imagem do controller na 2.9.1." }
+    - { en: "Expected: sync completes. Actual: it hangs at 'waiting for health' for 10 minutes.", pt: "Esperado: o sync termina. Real: trava em 'waiting for health' por 10 minutos." }
+    - { en: "+1 on this — it's blocking our staging deploys since Monday.", pt: "+1 nisso — está bloqueando nossos deploys de staging desde segunda." }
+    - { en: "The maintainer says it's fixed in 2.9.4.", pt: "O mantenedor diz que foi corrigido na 2.9.4." }
+
+examples:
+  - en: "Steps to reproduce: 1. helm upgrade with the v2 values 2. watch the sync hang."
+    pt: "Passos para reproduzir: 1. helm upgrade com o values v2 2. observe o sync travar."
+    context: A anatomia do report começa aqui.
+  - en: "Expected: the app syncs in two minutes. Actual: it hangs at 'waiting for health'."
+    pt: "Esperado: o app sincroniza em dois minutos. Real: trava em 'waiting for health'."
+    context: Expected × actual — a diferença é o bug.
+  - en: "Can confirm on EKS 1.28 — same hang right after the 2.9.3 upgrade."
+    pt: "Posso confirmar no EKS 1.28 — mesmo travamento logo após o upgrade para 2.9.3."
+    context: Confirmação com versão e gatilho vale mais que "same here".
+  - en: "As a workaround, pin the image to 2.9.1 — confirmed working on our cluster."
+    pt: "Como paliativo, fixe a imagem na 2.9.1 — confirmado funcionando no nosso cluster."
+    context: O comentário que todo mundo procura numa issue aberta.
+  - en: "+1 on this — it blocks our prod rollout planned for Friday."
+    pt: "+1 nisso — está bloqueando nosso rollout de prod planejado para sexta."
+    context: Voto com contexto (o que bloqueia) tem peso real.
+  - en: "Not stale — still reproducible on the latest release."
+    pt: "Não está velha — ainda reproduzível na versão mais recente."
+    context: Resposta padrão ao stale-bot.
+  - en: "The maintainer told me it's a known race condition — fixed in 2.9.4."
+    pt: "O mantenedor me disse que é uma race condition conhecida — corrigida na 2.9.4."
+    context: '"told me", nunca "said me".'
+  - en: "That's already tracked in #4821 — the workaround there works for us."
+    pt: "Isso já está sendo acompanhado na #4821 — o paliativo de lá funciona para nós."
+    context: Antes de abrir issue nova, procure a existente.
+
+variations:
+  - idea: '"confirmar o bug com dado"'
+    items:
+      - { register: "Boa", text: "Can confirm on EKS 1.28 — same error after the 2.9.3 upgrade.", adequate: true }
+      - { register: "Boa", text: "Reproduced on k3s 1.28 and EKS 1.29.", adequate: true }
+      - { register: "Fraca", text: "same here", adequate: true, note: "Válido mas não agrega — some a versão para virar dado." }
+      - { register: "Inadequada", text: "I am agree, it happened with me too.", adequate: false, note: '"I am agree" é calque: "I agree — it happened to me too."' }
+  - idea: '"compartilhar a saída"'
+    items:
+      - { register: "Boa", text: "As a workaround, downgrade the controller to 2.9.1.", adequate: true }
+      - { register: "Boa", text: "Workaround: set healthCheck.timeout to 30s.", adequate: true }
+      - { register: "Inadequada", text: "Any update? It's been a week.", adequate: false, note: "Cobrança sem dado não move a issue; workaround ou confirmação, sim." }
+      - { register: "Inadequada", text: "I fixed on me by downgrading.", adequate: false, note: 'Calque de "em mim": "I fixed it on my side / for me".' }
+
+brErrors:
+  - { wrong: "I am agree with the workaround.", right: "I agree with the workaround.", why: 'agree já é verbo; "I am agree" é calque de "estou de acordo"', tag: br.i-am-agree }
+  - { wrong: "The maintainer said me it's fixed in 2.9.4.", right: "The maintainer told me it's fixed in 2.9.4.", why: "say não leva objeto indireto sem to; tell + pessoa", tag: br.said-me }
+  - { wrong: "I didn't saw the pinned issue before opening a new one.", right: "I didn't see the pinned issue before opening a new one.", why: "depois de didn't, forma base (see)", tag: br.did-past }
+  - { wrong: "It happened with me too.", right: "It happened to me too.", why: 'calque de "comigo": acontecer com alguém é "to me"', tag: vocab.tickets-prs }
+  - { wrong: "I fixed on my cluster by downgrading.", right: "I fixed it on my side by downgrading.", why: '"fix" leva o objeto (it); "on my side" para o ambiente', tag: vocab.tickets-prs }
+  - { wrong: "I readed the whole thread for to find the workaround.", right: "I read the whole thread to find the workaround.", why: 'dois calques: readed → read; "for to" → to', tag: br.irregular-past }
+  - { wrong: "I have a doubt about the repro steps.", right: "I have a question about the repro steps.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The workaround is more easy than upgrading.", right: "The workaround is easier than upgrading.", why: "easy é adjetivo curto: easier", tag: br.more-er }
+  - { wrong: "Waiting your confirmation on the repro.", right: "Waiting on your confirmation of the repro.", why: "wait exige preposição (on/for)", tag: br.waiting-no-prep }
+  - { wrong: "She writed the repro steps in the issue.", right: "She wrote the repro steps in the issue.", why: "write é irregular: wrote", tag: br.irregular-past }
+
+dialogue:
+  title: "A issue do Argo CD com 40 comentários"
+  lines:
+    - { speaker: Yuri, text: "Found an Argo CD issue with our exact error — 40 comments. How do you read this without losing the answer?" }
+    - { speaker: Ana, text: "Start with the report itself: steps to reproduce, expected versus actual, versions affected. Then scan comments for two things: 'can confirm' with a version, and the word 'workaround'." }
+    - { speaker: Yuri, text: "The steps reproduce our case — expected: sync completes; actual: hangs at 'waiting for health' since 2.9.3." }
+    - { speaker: Ana, text: "Now the comments. What's signal in there?" }
+    - { speaker: Yuri, text: "Lots of 'same here' — noise. But comment 23 says 'can confirm on EKS 1.28' and comment 31 has 'as a workaround, pin the image to 2.9.1' — someone tested it." }
+    - { speaker: Ana, text: "That's the one. And if you want to add something useful?" }
+    - { speaker: Yuri, text: "Confirm with our data: 'can confirm on GKE 1.29, started right after the 2.9.3 upgrade'. And if the workaround works for us, say so." }
+    - { speaker: Ana, text: "And if it doesn't?" }
+    - { speaker: Yuri, text: "Then a short '+1 — blocks our prod rollout' adds weight. No 'any update?' comments." }
+    - { speaker: Ana, text: "Right. One more rule: before opening a new issue, grep the tracker — chances are it's already tracked." }
+  notes:
+    - 'Leitura: steps → expected × actual → comentários com "can confirm" e "workaround".'
+    - 'Comentar: confirmação com dado, workaround, ou +1 com contexto. "same here" sozinho é ruído.'
+    - 'O workaround testado por alguém é o comentário mais valioso de uma issue aberta.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Before you open a new issue, search the tracker — this exact error is already tracked in 4821, and comment 31 has a tested workaround." }
+    - { speaker: Marcos, text: "I read the whole thread. Half of it is 'same here' — but one comment says 'can confirm on EKS 1.28' and another pins the image to 2.9.1 as a workaround." }
+    - { speaker: Priya, text: "If you comment, add data: your version, your platform, and when it started. 'Any update?' just adds noise." }
+  questions:
+    - { id: M04-04-l1, type: multiple_choice, prompt: "What should you do before opening a new issue?", options: ["Ask in Slack", "Search the tracker — it's probably tracked", "Upgrade first", "Post '+1'"], answer: 1, explanation: '"search the tracker — this exact error is already tracked in 4821."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M04-04-l2, type: multiple_choice, prompt: "Which comment is signal, according to Marcos?", options: ["'same here'", "'any update?'", "'me too'", "'can confirm on EKS 1.28'"], answer: 3, explanation: "Confirmação com versão é dado; 'same here' sozinho é ruído.", tags: [comp.listening] }
+    - { id: M04-04-l3, type: multiple_choice, prompt: "What is the workaround mentioned?", options: ["Upgrade to 2.9.4", "Restart the controller", "Pin the image to 2.9.1", "Disable the health check"], answer: 2, explanation: '"pins the image to 2.9.1 as a workaround."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M04-04-l4, type: fill_blank, prompt: "As a ___, pin the image to 2.9.1.", accepted: ["workaround"], explanation: "workaround = solução paliativa enquanto o fix não sai.", tags: [vocab.tickets-prs, comp.listening] }
+    - { id: M04-04-l5, type: multiple_choice, prompt: "What does Priya say a useful comment includes?", options: ["Your version, platform, and when it started", "Just 'same here'", "A complaint about the delay", "A link to your fork"], answer: 0, explanation: '"your version, your platform, and when it started" — dado, não cobrança.', tags: [comp.listening, comp.writing] }
+    - { id: M04-04-l6, type: multiple_choice, prompt: "Why is 'any update?' a bad comment?", options: ["It's rude", "It closes the issue", "Maintainers never read it", "It adds noise without new information"], answer: 3, explanation: '"just adds noise" — cobrança sem dado não move a issue.', tags: [comp.listening, vocab.tickets-prs] }
+
+writing:
+  prompt: |
+    **Cenário:** você leu a issue argo-cd#4821 (`sync hangs at 'waiting for health'`): os passos reproduzem o seu caso, o bug começou na 2.9.3, e o comentário 31 sugere fixar a imagem na 2.9.1 como workaround — você testou e funcionou no seu GKE 1.29.
+
+    **Tarefa:** escreva o comentário que você postaria na issue (60–90 palavras): a confirmação com os seus dados e o resultado do workaround. Nada de "same here" vazio.
+  constraints:
+    - { label: "Confirmação com dado", pattern: "\\b(can confirm|reproduced|same (here|issue|error)|confirmed)\\b" }
+    - { label: "Versão e plataforma", pattern: "\\b(gke|eks|k3s|aks|cluster|\\d\\.\\d+|version|v?2\\.9)\\b" }
+    - { label: "Workaround citado ou testado", pattern: "\\b(workaround|as a workaround|pin|downgrade|fix(ed)? (it|the|on|for))\\b" }
+    - { label: "Resultado", pattern: "\\b(works|worked|fixed|solved|resolved|goes away|no longer)\\b" }
+  rubric:
+    - Confirmação com versão e plataforma
+    - Resultado do workaround declarado
+    - Sem "any update?", sem "same here" vazio
+    - Sem "I am agree" nem "happened with me"
+  model: >-
+    Can confirm on GKE 1.29 — the sync hangs at "waiting for health" right after the 2.9.3
+    upgrade, same steps as the report. The workaround in comment 31 worked for us: pinned the
+    controller image to 2.9.1 and the sync completes in about two minutes again. Happy to share
+    our values file if it helps the repro. Until the fix lands, we're staying on 2.9.1.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.tickets-prs, topic.code-review]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos resumindo uma issue em voz alta — os passos, expected × actual, e o comentário que resolveu (o cenário da escrita ou uma issue real). Termine com o que você comentaria.
+    maxSeconds: 45
+    targetPhrases:
+      - steps to reproduce
+      - expected versus actual
+      - can confirm
+      - same here
+      - workaround
+      - as a workaround
+      - plus one on this
+      - reproduced on
+      - not stale
+      - it's tracked in
+      - fixed in
+      - the maintainer says
+      - minimal repro
+      - it happened to me too
+    checklist:
+      - Citei steps e expected × actual antes dos comentários?
+      - Diferenciei "can confirm" com dado de "same here" vazio?
+      - Fechei com o que eu comentaria?
+      - Nada de "said me" ou "I am agree"?
+
+quiz:
+  - { id: M04-04-q1, type: multiple_choice, prompt: "Reading a long issue, which comments matter most?", options: ["Every 'same here'", "'can confirm' with versions and 'workaround' comments", "The newest ones only", "The maintainer's avatar"], answer: 1, explanation: "Confirmações com versão mapeiam abrangência; workarounds resolvem seu caso agora.", tags: [vocab.tickets-prs, comp.reading] }
+  - { id: M04-04-q2, type: error_correction, prompt: "I am agree with the proposed workaround.", accepted: ["I agree with the proposed workaround.", "I agree with the proposed workaround", "I agree — the workaround works."], explanation: '"agree" já é verbo; "I am agree" é calque.', tags: [br.i-am-agree] }
+  - { id: M04-04-q3, type: multiple_choice, prompt: "Best comment to add to an issue that blocks you?", options: ["any update?", "same here", "+1 — this blocks our prod rollout on Friday", "bump"], answer: 2, explanation: "+1 com contexto (o que bloqueia e quando) é o único 'voto' que agrega.", tags: [vocab.tickets-prs, comp.writing] }
+  - { id: M04-04-q4, type: fill_blank, prompt: "Expected: the sync completes. ___: it hangs at 'waiting for health'.", accepted: ["Actual"], explanation: "expected × actual — a diferença é o bug.", tags: [vocab.tickets-prs] }
+  - { id: M04-04-q5, type: error_correction, prompt: "The maintainer said me it's fixed in 2.9.4.", accepted: ["The maintainer told me it's fixed in 2.9.4.", "The maintainer told me it's fixed in 2.9.4", "The maintainer said it's fixed in 2.9.4."], explanation: '"said me" não existe: tell + pessoa, ou "said it''s fixed".', tags: [br.said-me] }
+  - { id: M04-04-q6, type: translate, prompt: "Aconteceu comigo também — reproduzi no GKE 1.29.", accepted: ["It happened to me too — reproduced on GKE 1.29.", "It happened to me too — reproduced on GKE 1.29", "Same here — reproduced on GKE 1.29."], explanation: '"happened to me", nunca "with me".', tags: [vocab.tickets-prs] }
+  - { id: M04-04-q7, type: multiple_choice, prompt: "A maintainer comments 'not stale — still reproducible on latest'. What does that mean?", options: ["It's still a real problem — don't let the bot close it", "The issue is closed", "The fix is out", "The issue is a duplicate"], answer: 0, explanation: '"not stale" mantém a issue viva contra o stale-bot.', tags: [vocab.tickets-prs] }
+  - { id: M04-04-q8, type: match, prompt: "Associe o termo de issue ao papel.", pairs: [{ left: "steps to reproduce", right: "how to trigger the bug" }, { left: "workaround", right: "temporary fix" }, { left: "can confirm", right: "reproduced it on my setup" }, { left: "fixed in", right: "the version where it's solved" }], explanation: "A anatomia da issue em quatro termos.", tags: [vocab.tickets-prs] }
+
+review:
+  count: 5
+  preferTags: [vocab.tickets-prs, br.i-am-agree, br.said-me]
+
+srsCards:
+  - { front: "passos para reproduzir o bug", back: "steps to reproduce", tag: vocab.tickets-prs }
+  - { front: "esperado × real", back: "expected vs actual", tag: vocab.tickets-prs }
+  - { front: "posso confirmar (reproduzi)", back: "can confirm on <version>", tag: vocab.tickets-prs }
+  - { front: "solução paliativa", back: "workaround", tag: vocab.tickets-prs }
+  - { front: "+1 com contexto", back: "+1 on this — it blocks…", tag: vocab.tickets-prs }
+  - { front: "ainda é um problema (contra o stale-bot)", back: "not stale", tag: vocab.tickets-prs }
+  - { front: "já está sendo acompanhado na issue…", back: "it's tracked in #…", tag: vocab.tickets-prs }
+  - { front: "corrigido na versão X", back: "fixed in 2.9.4", tag: vocab.tickets-prs }
+  - { front: "concordo com o workaround", back: "I agree with the workaround.", tag: br.i-am-agree }
+  - { front: "o mantenedor me disse que foi corrigido", back: "The maintainer told me it's fixed.", tag: br.said-me }
+  - { front: "aconteceu comigo também", back: "it happened to me too", tag: vocab.tickets-prs }
+  - { front: "o menor caso que mostra o bug", back: "minimal repro", tag: vocab.tickets-prs }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
