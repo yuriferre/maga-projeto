@@ -1,0 +1,289 @@
+id: M04-02
+module: M04
+order: 2
+title: "Stack traces e logs estruturados: ler de baixo para cima"
+objective: >-
+  Ao final, você lê um stack trace de baixo para cima até o primeiro "Caused by"
+  que é seu, e navega um log estruturado por nível, timestamp e correlation id
+  em vez de ler linha por linha.
+durationMin: 35
+competencies: [REA, VOC]
+tags: [vocab.errors, vocab.observability, topic.reading, comp.reading, comp.vocabulary, br.did-past, br.irregular-past]
+prerequisites: [M04-01]
+
+context:
+  scenario: |
+    O `checkout` crashou e o log entrega 200 linhas de stack trace em Java.
+    Você lê de cima para baixo e afoga em `at org.springframework…`. A resposta
+    estava no fundo: `Caused by: java.lang.NullPointerException` apontando para
+    `CheckoutService.java:142` — código seu, não do framework.
+
+    Stack trace se lê de baixo para cima: cada `Caused by` é uma camada mais
+    funda da causa. Log estruturado não se lê — se filtra: primeiro o nível,
+    depois o timestamp do incidente, depois o correlation id. A aula ensina
+    as duas navegações.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: stack trace
+    meaning: a pilha de chamadas congelada no momento do erro
+    example: "The stack trace is 200 lines, but only three of them are ours."
+    translation: "O stack trace tem 200 linhas, mas só três são nossas."
+    note: Quase toda linha é framework; as suas são as que têm seu package.
+  - term: "caused by:"
+    meaning: causado por — a camada seguinte da causa, mais funda
+    example: "Caused by: java.lang.NullPointerException at CheckoutService.java:142."
+    translation: "Causado por: NullPointerException na linha 142 do CheckoutService."
+    note: O último "Caused by" da cadeia costuma ser a root cause.
+  - term: frame
+    meaning: cada linha "at pacote.Classe.metodo" dentro do trace
+    example: "Skip the framework frames — look for frames with your package name."
+    translation: "Pule os frames de framework — procure os que têm o seu package."
+    note: Frame nosso = pista; frame de framework = contexto.
+  - term: read it bottom-up
+    meaning: ler o trace de baixo para cima
+    example: "Read the trace bottom-up — the root cause sits at the last 'Caused by'."
+    translation: "Leia o trace de baixo para cima — a causa raiz está no último 'Caused by'."
+    note: O topo diz o que explodiu; o fundo diz por quê.
+  - term: log level
+    meaning: "severidade da linha: ERROR, WARN, INFO, DEBUG"
+    example: "Filter ERROR first, then look at the WARN lines right before it."
+    translation: "Filtre ERROR primeiro, depois olhe os WARN logo antes."
+    note: WARN costuma ser o aviso que antecede o ERROR — o "antes" importa.
+  - term: timestamp
+    meaning: o horário exato de cada linha
+    example: "The first ERROR has timestamp 14:03:12 — everything before that is normal."
+    translation: "O primeiro ERROR tem timestamp 14:03:12 — tudo antes disso é normal."
+    note: Ancora a leitura no momento do incidente; logs fora da janela são ruído.
+  - term: correlation id / request id
+    meaning: identificador que costura todas as linhas de uma mesma requisição
+    example: "Follow correlation id 7f3a — those twelve lines are one single request."
+    translation: "Siga o correlation id 7f3a — essas doze linhas são uma única requisição."
+    note: Num log com milhares de requests, o id é o fio que isola a sua.
+  - term: structured log
+    meaning: log em campos (JSON), não em texto livre
+    example: "It's a structured log — each line is JSON with level, msg and request_id."
+    translation: "É um log estruturado — cada linha é JSON com level, msg e request_id."
+    note: Campos se filtram; texto livre se lê. Não leia JSON linha a linha.
+  - term: "the real error is at the bottom"
+    meaning: o erro de verdade está no fundo do trace
+    example: "Don't stop at the first line — the real error is at the bottom."
+    translation: "Não pare na primeira linha — o erro de verdade está no fundo."
+    note: O topo mostra o sintoma ("500 returned"); o fundo mostra a causa.
+  - term: signal vs noise
+    meaning: sinal × ruído — linhas úteis × volume
+    example: "Ninety percent of the log is noise; the ERROR and the WARN before it are the signal."
+    translation: "Noventa por cento do log é ruído; o ERROR e o WARN anterior são o sinal."
+    note: Ler tudo é ler nada — filtre até sobrar sinal.
+  - term: grep / filter by
+    meaning: filtrar o log por termo ou campo
+    example: "Grep for the correlation id, then filter by level=ERROR."
+    translation: "Filtre pelo correlation id e depois por level=ERROR."
+    note: Duas filtragens encadeadas isolam a requisição e a falha.
+  - term: context lines
+    meaning: as linhas em volta do erro que contam a história
+    example: "Show me ten context lines before the exception — the WARN explains it."
+    translation: "Me mostra dez linhas de contexto antes da exceção — o WARN explica."
+    note: Erro sem contexto é meia história; peça as linhas antes e depois.
+  - term: rollout / previous version
+    meaning: a versão anterior — referência para comparar o comportamento
+    example: "The trace doesn't exist in the previous version's logs — it came with the deploy."
+    translation: "Esse trace não existe nos logs da versão anterior — veio com o deploy."
+    note: Comparar com a versão anterior separa bug novo de comportamento antigo.
+  - term: "the trace points to"
+    meaning: o trace aponta para — ao relatar a leitura
+    example: "The trace points to line 142 in CheckoutService."
+    translation: "O trace aponta para a linha 142 do CheckoutService."
+    note: Forma curta de dizer onde a investigação deve começar.
+
+grammar:
+  title: "O trace conta a história de fora para dentro"
+  explanation: |
+    Um stack trace é uma pilha: **a última coisa que aconteceu está no topo, a primeira está no fundo.**
+
+    ```
+    java.lang.RuntimeException: checkout failed          ← o que explodiu (sintoma)
+        at com.shop.CheckoutController.checkout(…)
+    Caused by: java.lang.NullPointerException            ← a causa
+        at com.shop.CheckoutService.applyCoupon(CheckoutService.java:142)  ← seu frame
+        at com.shop.CheckoutService.checkout(…)
+    Caused by: java.lang.IllegalStateException           ← a causa da causa (root)
+    ```
+
+    **`Caused by` desce um nível de causa.** Cada um é a resposta para "mas por quê?". O último é a root cause.
+
+    **Procure seu package.** `at org.springframework…` e `at java.base…` são o caminho do framework. Os frames com `com.suaempresa` são onde você age.
+
+    **Log estruturado se filtra, não se lê.** `{"level":"ERROR","ts":"14:03:12","req":"7f3a","msg":"coupon lookup failed"}` — a ordem de leitura é: 1) `level=ERROR`, 2) timestamp da janela do incidente, 3) `req` para seguir a requisição, 4) as linhas WARN que vieram logo antes.
+
+    **Presente para o comportamento, passado para o evento.** Ao relatar: "the service *returns* 500 when the coupon is missing" (comportamento) × "the service *returned* 500 at 14:03" (o evento que você investigou).
+  examples:
+    - { en: "Caused by: java.lang.NullPointerException at CheckoutService.applyCoupon(CheckoutService.java:142).", pt: "Causado por: NullPointerException em applyCoupon, linha 142." }
+    - { en: "{\"level\":\"WARN\",\"ts\":\"14:03:10\",\"req\":\"7f3a\",\"msg\":\"coupon service slow\"}", pt: "WARN dois segundos antes do erro — a pista do contexto." }
+    - { en: "The service returns 500 when the coupon field is missing.", pt: "O serviço retorna 500 quando o campo de cupom falta." }
+    - { en: "The last 'Caused by' points to our code, not to the framework.", pt: "O último 'Caused by' aponta para o nosso código, não para o framework." }
+    - { en: "Filter by request id 7f3a, then look at the WARN lines before the ERROR.", pt: "Filtre pelo request id 7f3a e olhe os WARN antes do ERROR." }
+
+examples:
+  - en: "Read the trace bottom-up — the last 'Caused by' is the root cause."
+    pt: "Leia o trace de baixo para cima — o último 'Caused by' é a causa raiz."
+    context: O topo é o sintoma; o fundo é a causa.
+  - en: "Skip the Spring frames — the one that matters says com.shop.CheckoutService:142."
+    pt: "Pule os frames do Spring — o que importa diz com.shop.CheckoutService:142."
+    context: Frames com seu package são os acionáveis.
+  - en: "The ERROR at 14:03:12 has request id 7f3a — follow that id and you get all twelve lines."
+    pt: "O ERROR de 14:03:12 tem request id 7f3a — seguindo o id você pega as doze linhas."
+    context: O correlation id costura a requisição inteira.
+  - en: "There's a WARN two seconds before the ERROR: 'coupon service slow' — that's the context."
+    pt: "Tem um WARN dois segundos antes do ERROR: 'coupon service lento' — esse é o contexto."
+    context: O WARN anterior ao ERROR costuma explicar a causa.
+  - en: "Ninety percent of that log is noise — filter level=ERROR inside the incident window."
+    pt: "Noventa por cento desse log é ruído — filtre ERROR na janela do incidente."
+    context: Filtrar é a forma de leitura do log estruturado.
+  - en: "The trace doesn't appear in the previous version's logs — it came with today's deploy."
+    pt: "O trace não aparece nos logs da versão anterior — veio com o deploy de hoje."
+    context: Comparar versões separa bug novo de comportamento antigo.
+  - en: "I didn't see the second 'Caused by' — I stopped at the first one."
+    pt: "Não vi o segundo 'Caused by' — parei no primeiro."
+    context: '"didn''t see", nunca "didn''t saw".'
+  - en: "We found the error in the last frame, not in the framework lines."
+    pt: "Achamos o erro no último frame, não nas linhas do framework."
+    context: '"found" é a forma correta — "finded" não existe.'
+
+variations:
+  - idea: '"dizer onde a causa está no trace"'
+    items:
+      - { register: "Boa", text: "The last 'Caused by' points to CheckoutService.java:142.", adequate: true }
+      - { register: "Boa", text: "The real error is at the bottom — everything above is framework noise.", adequate: true }
+      - { register: "Inadequada", text: "I didn't saw the last 'Caused by'.", adequate: false, note: 'Depois de didn''t, forma base: "I didn''t see".' }
+      - { register: "Inadequada", text: "We finded the root cause at the bottom.", adequate: false, note: 'find é irregular: "we found".' }
+  - idea: '"pedir contexto de log"'
+    items:
+      - { register: "Boa", text: "Can you pull the ten lines before that ERROR?", adequate: true }
+      - { register: "Boa", text: "Filter by request id and show me the WARN right before it.", adequate: true }
+      - { register: "Inadequada", text: "Send me all the logs from today.", adequate: false, note: "Milhares de linhas sem filtro = ninguém lê; peça a janela e o id." }
+      - { register: "Inadequada", text: "I need that you send me the log.", adequate: false, note: 'Calque de "preciso que você": "I need you to send me the log."' }
+
+brErrors:
+  - { wrong: "I didn't saw the last Caused by.", right: "I didn't see the last Caused by.", why: "depois de didn't, sempre a forma base (see)", tag: br.did-past }
+  - { wrong: "We finded the error in the last frame.", right: "We found the error in the last frame.", why: "find é irregular: found", tag: br.irregular-past }
+  - { wrong: "I thinked the error was in the framework.", right: "I thought the error was in the framework.", why: "think é irregular: thought", tag: br.irregular-past }
+  - { wrong: "The trace says me the line number.", right: "The trace says the line number.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I need that you send me the full log.", right: "I need you to send me the full log.", why: 'calque de "preciso que você": need + pessoa + to', tag: br.need-that-you }
+  - { wrong: "Can you send to me the trace?", right: "Can you send me the trace?", why: "send + pessoa + objeto", tag: br.send-to-me }
+  - { wrong: "I filtered the log for to see only errors.", right: "I filtered the log to see only errors.", why: 'calque de "para": finalidade é só "to"', tag: br.for-to }
+  - { wrong: "The new log format is more easy to grep.", right: "The new log format is easier to grep.", why: "easy é adjetivo curto: easier", tag: br.more-er }
+  - { wrong: "It's giving timeout in every request.", right: "It's timing out on every request.", why: '"giving" é calque; o verbo da falha vem direto', tag: br.giving-error }
+
+dialogue:
+  title: "O crash do checkout: 200 linhas, três nossas"
+  lines:
+    - { speaker: Ana, text: "The checkout pod crashed at 14:03. Here's the trace — 200 lines. Where do you start?" }
+    - { speaker: Yuri, text: "At the bottom, right? Let me scroll… there are two 'Caused by' blocks. The last one says NullPointerException at CheckoutService.applyCoupon, line 142." }
+    - { speaker: Ana, text: "That's your frame — com.shop is our package. What did the top say?" }
+    - { speaker: Yuri, text: "'RuntimeException: checkout failed' — that's just the symptom. The real error is the NPE at line 142." }
+    - { speaker: Ana, text: "Now the gateway log. It's structured — how do you find the request?" }
+    - { speaker: Yuri, text: "Filter level=ERROR inside the 14:03 window, grab the request id — 7f3a — and follow it. Twelve lines, all one request." }
+    - { speaker: Ana, text: "Anything before the ERROR?" }
+    - { speaker: Yuri, text: "A WARN at 14:03:10 — 'coupon service slow'. So the sequence is: coupon service slow, lookup failed, NPE at line 142. Bottom line: applyCoupon doesn't handle a missing coupon." }
+    - { speaker: Ana, text: "That's the whole story in one sentence. That's what goes in the incident notes." }
+  notes:
+    - 'Trace se lê de baixo para cima: o topo é sintoma, o último "Caused by" é a causa.'
+    - 'Log estruturado: level → janela de tempo → request id → WARN anterior.'
+    - 'A frase final de Yuri é o "resumo de uma linha" que a trilha pede.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Don't read the trace top to bottom — scroll to the last 'Caused by' first. That one points to line 142 in our service." }
+    - { speaker: Marcos, text: "The gateway log is JSON. I filtered level equals ERROR between 14:00 and 14:05, found request 7f3a, and pulled all its lines — there are twelve." }
+    - { speaker: Priya, text: "There's a WARN two seconds before the crash: 'coupon service slow'. That warning is the context, not the error itself." }
+  questions:
+    - { id: M04-02-l1, type: multiple_choice, prompt: "Where does Ana say to start reading the trace?", options: ["At the top line", "At the last 'Caused by'", "At the first Spring frame", "At the timestamp"], answer: 1, explanation: '"scroll to the last Caused by first" — a causa raiz está no fundo.', tags: [comp.listening, vocab.errors] }
+    - { id: M04-02-l2, type: multiple_choice, prompt: "How did Marcos find the failing request?", options: ["He filtered ERROR in the 14:00–14:05 window, then followed the request id", "He read all the lines", "He grepped for 'coupon'", "He sorted by timestamp"], answer: 0, explanation: "Filtro por nível + janela de tempo, depois seguir o request id.", tags: [comp.listening, vocab.observability] }
+    - { id: M04-02-l3, type: multiple_choice, prompt: "How many lines belong to request 7f3a?", options: ["Two", "Five", "Twelve", "Two hundred"], answer: 2, explanation: '"pulled all its lines — there are twelve."', tags: [comp.listening] }
+    - { id: M04-02-l4, type: fill_blank, prompt: "Scroll to the last '___ by' first — that's the root cause.", accepted: ["Caused"], explanation: '"Caused by" desce um nível de causa; o último é a raiz.', tags: [vocab.errors, comp.listening] }
+    - { id: M04-02-l5, type: multiple_choice, prompt: "What is the WARN line's role, according to Priya?", options: ["It's the error itself", "It's noise to ignore", "It's the fix", "It's context — what happened right before the crash"], answer: 3, explanation: '"the context, not the error itself" — o WARN anterior explica o ERROR.', tags: [comp.listening, vocab.observability] }
+    - { id: M04-02-l6, type: multiple_choice, prompt: "The trace points to line 142 in 'our service'. Why does that matter?", options: ["It's a framework bug, not ours", "It's our code — that's where we can act", "Line numbers don't matter", "It's the slowest line"], answer: 1, explanation: "Frames com o seu package são onde você pode corrigir.", tags: [comp.listening, vocab.errors] }
+
+writing:
+  prompt: |
+    **Cenário:** o `checkout` crashou às 14:03. O trace tem dois blocos `Caused by` e termina em `NullPointerException at CheckoutService.applyCoupon(CheckoutService.java:142)`. No log do gateway (JSON), o request `7f3a` tem um `WARN "coupon service slow"` dois segundos antes do `ERROR`.
+
+    **Tarefa:** escreva a nota de incidente (60–90 palavras): o que o trace diz, onde ele aponta, o que o log mostrou antes do erro e a frase-resumo de uma linha.
+  constraints:
+    - { label: "Vocabulário de trace/log", pattern: "\\b(stack trace|caused by|frame|log level|timestamp|correlation id|request id|warn|error)\\b" }
+    - { label: "Apontamento da causa", pattern: "\\b(points? to|root cause|at the bottom|last caused by)\\b" }
+    - { label: "Sequência temporal (before/after/window)", pattern: "\\b(before|after|window|two seconds|14:0\\d)\\b" }
+    - { label: "Frase-resumo", pattern: "\\b(bottom line|in other words|it means)\\b" }
+  rubric:
+    - Trace lido de baixo para cima (último Caused by)
+    - Frame nosso identificado (CheckoutService:142)
+    - WARN citado como contexto antes do ERROR
+    - Fechamento com a frase de uma linha
+  model: >-
+    Incident note: the checkout pod crashed at 14:03. The stack trace has two "Caused by" blocks;
+    the last one points to CheckoutService.applyCoupon, line 142 — our code, not the framework. In
+    the gateway log, request 7f3a shows a WARN "coupon service slow" two seconds before the ERROR,
+    so the coupon lookup was already degrading. Bottom line: applyCoupon throws an NPE when the
+    coupon service doesn't answer in time.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.errors, vocab.observability]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos relatando um trace em voz alta — o que explodiu, onde o último "Caused by" aponta, o que o log mostrou antes e a frase-resumo. Use o cenário da escrita ou um trace real.
+    maxSeconds: 45
+    targetPhrases:
+      - the trace points to
+      - the last caused by
+      - root cause
+      - read it bottom-up
+      - our frame
+      - framework noise
+      - request id
+      - filter by level
+      - two seconds before the error
+      - the warn before it
+      - bottom line
+      - it means
+      - the real error is at the bottom
+      - context lines
+    checklist:
+      - Comecei pelo último "Caused by"?
+      - Identifiquei o frame do nosso código?
+      - Citei o WARN como contexto antes do ERROR?
+      - Fechei com a frase de uma linha?
+
+quiz:
+  - { id: M04-02-q1, type: multiple_choice, prompt: "In a stack trace, the root cause is usually…", options: ["the first line", "the last 'Caused by'", "the longest frame", "the framework lines"], answer: 1, explanation: "Cada 'Caused by' desce um nível; o último é a raiz.", tags: [vocab.errors, comp.reading] }
+  - { id: M04-02-q2, type: error_correction, prompt: "We finded the root cause in the last frame.", accepted: ["We found the root cause in the last frame.", "We found the root cause in the last frame", "We found the root cause at the last frame."], explanation: "find é irregular: found.", tags: [br.irregular-past] }
+  - { id: M04-02-q3, type: multiple_choice, prompt: "Which frames should you look for first in a 200-line trace?", options: ["The ones with your own package name", "The ones with java.base or org.springframework", "The shortest ones", "The ones without line numbers"], answer: 0, explanation: "Frames com seu package são os acionáveis; o resto é o caminho do framework.", tags: [vocab.errors] }
+  - { id: M04-02-q4, type: fill_blank, prompt: "Follow the ___ id — those twelve lines are one single request.", accepted: ["correlation", "request", "correlation/request", "request/correlation"], explanation: "correlation/request id costura todas as linhas de uma requisição.", tags: [vocab.observability] }
+  - { id: M04-02-q5, type: error_correction, prompt: "I didn't saw the WARN before the ERROR.", accepted: ["I didn't see the WARN before the ERROR.", "I didn't see the WARN before the ERROR", "I did not see the WARN before the ERROR."], explanation: "Depois de didn't, forma base: see.", tags: [br.did-past] }
+  - { id: M04-02-q6, type: translate, prompt: "O trace aponta para a linha 142 — o erro de verdade está no fundo.", accepted: ["The trace points to line 142 — the real error is at the bottom.", "The trace points to line 142 — the real error is at the bottom", "The trace points to line 142; the real error is at the bottom."], explanation: '"points to" + "the real error is at the bottom".', tags: [vocab.errors] }
+  - { id: M04-02-q7, type: multiple_choice, prompt: "How do you read a structured (JSON) log?", options: ["Line by line, top to bottom", "Translate each line first", "Filter by level, then timestamp window, then request id", "Only the ERROR lines matter"], answer: 2, explanation: "Log estruturado se filtra: nível → janela → id → linhas em volta.", tags: [vocab.observability, comp.reading] }
+  - { id: M04-02-q8, type: match, prompt: "Associe o campo do log ao papel dele.", pairs: [{ left: "level", right: "severity (ERROR/WARN/INFO)" }, { left: "timestamp", right: "when the line was written" }, { left: "request id", right: "ties one request's lines together" }, { left: "msg", right: "what happened" }], explanation: "Quatro campos, quatro papéis na navegação.", tags: [vocab.observability] }
+
+review:
+  count: 5
+  preferTags: [vocab.errors, vocab.observability, br.irregular-past]
+
+srsCards:
+  - { front: "a pilha de chamadas no momento do erro", back: "stack trace", tag: vocab.errors }
+  - { front: "causado por (desce um nível de causa)", back: "caused by:", tag: vocab.errors }
+  - { front: "ler o trace de baixo para cima", back: "read the trace bottom-up", tag: vocab.errors }
+  - { front: "o erro de verdade está no fundo", back: "the real error is at the bottom", tag: vocab.errors }
+  - { front: "severidade da linha (ERROR/WARN/INFO)", back: "log level", tag: vocab.observability }
+  - { front: "id que costura as linhas de uma requisição", back: "correlation / request id", tag: vocab.observability }
+  - { front: "as linhas em volta do erro", back: "context lines", tag: vocab.observability }
+  - { front: "sinal × ruído no log", back: "signal vs noise", tag: vocab.observability }
+  - { front: "o trace aponta para a linha 142", back: "the trace points to line 142", tag: vocab.errors }
+  - { front: "não vi o último Caused by", back: "I didn't see the last 'Caused by'.", tag: br.did-past }
+  - { front: "achamos a causa raiz no último frame", back: "we found the root cause in the last frame", tag: br.irregular-past }
+  - { front: "filtrar o log por nível", back: "filter the log by level", tag: vocab.observability }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

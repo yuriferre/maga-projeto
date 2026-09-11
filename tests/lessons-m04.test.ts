@@ -10,4 +10,5 @@ describe("M04 lessons", () => {
   });
   // Cada aula nova adiciona uma linha (T3–T7 do plano 2026-09-11-e5-m04).
   checkLesson(bundle, "M04-01", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: [] });
+  checkLesson(bundle, "M04-02", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M04-01"] });
 });
