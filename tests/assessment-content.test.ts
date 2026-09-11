@@ -116,3 +116,31 @@ describe("content/modules/M04/assessment.yaml", () => {
     expect(checkExercise(q, "We found the cause for to close the ticket.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M05/assessment.yaml", () => {
+  const m05 = bundle.moduleAssessments["M05"]!;
+  it("requires both third-person -s and 'arrives at'", () => {
+    const q = m05.items.find((q) => q.id === "M05-A02")!;
+    expect(checkExercise(q, "This service talks to the database and the packet arrives at the pod.").correct).toBe(true);
+    expect(checkExercise(q, "This service talk to the database and the packet arrives at the pod.").correct).toBe(false);
+    expect(checkExercise(q, "This service talks to the database and the packet arrive on the pod.").correct).toBe(false);
+  });
+  it("requires both 'deploy to' and 'runs on'", () => {
+    const q = m05.items.find((q) => q.id === "M05-A05")!;
+    expect(checkExercise(q, "We deploy to staging and the app runs on AWS.").correct).toBe(true);
+    expect(checkExercise(q, "We deploy in staging and the app runs on AWS.").correct).toBe(false);
+    expect(checkExercise(q, "We deploy to staging and the app runs in AWS.").correct).toBe(false);
+  });
+  it("requires both 'listens on' and bare 'data'", () => {
+    const q = m05.items.find((q) => q.id === "M05-A06")!;
+    expect(checkExercise(q, "The service listens on port 8080 and returns the data.").correct).toBe(true);
+    expect(checkExercise(q, "The service listens in port 8080 and returns the data.").correct).toBe(false);
+    expect(checkExercise(q, "The service listens on port 8080 and returns the datas.").correct).toBe(false);
+  });
+  it("requires both 'on the right' and 'sits'", () => {
+    const q = m05.items.find((q) => q.id === "M05-A09")!;
+    expect(checkExercise(q, "On the right is the database, and the queue sits at the bottom.").correct).toBe(true);
+    expect(checkExercise(q, "In the right is the database, and the queue sits at the bottom.").correct).toBe(false);
+    expect(checkExercise(q, "On the right is the database, and the queue sit at the bottom.").correct).toBe(false);
+  });
+});
