@@ -1,0 +1,8 @@
+id: M06
+assessment:
+  title: Module assessment
+  description: "15 itens mistos cobrindo as tags do módulo + escrita (5 textos: 3 tickets + 2 PRs condensados, autoavaliados) + gravação de um resumo falado (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 3,5, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 3.5
+  speakingMin: 3
