@@ -72,6 +72,7 @@ tags:
   - { id: br.ask-to,             group: br, label: "ask to him/her" }
   - { id: br.on-next,            group: br, label: "on/in next week" }
   - { id: br.send-to-me,         group: br, label: "send to me the X" }
+  - { id: br.i-am-agree,         group: br, label: "I am agree" }
   # Situação
   - { id: topic.daily,         group: topic, label: Daily standup }
   - { id: topic.help,          group: topic, label: Pedir ajuda }

@@ -11,4 +11,5 @@ describe("M03 lessons", () => {
   // Cada aula nova adiciona uma linha (T3–T7 do plano 2026-09-11-e5-m03).
   checkLesson(bundle, "M03-01", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M01-01"] });
   checkLesson(bundle, "M03-02", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M03-01"] });
+  checkLesson(bundle, "M03-03", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M03-02"] });
 });

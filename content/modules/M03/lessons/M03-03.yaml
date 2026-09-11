@@ -1,0 +1,286 @@
+id: M03-03
+module: M03
+order: 3
+title: "Responder e fechar: on it, will do, done, thanks for flagging"
+objective: >-
+  Ao final, você consegue responder a pedidos no Slack com o nível de compromisso certo —
+  ack ("got it"), compromisso ("will do", "on it"), fechamento ("done", "resolved —
+  closing this") — e sabe que "looking into it" não promete data nenhuma.
+durationMin: 35
+competencies: [WRI, VOC, REA]
+tags: [vocab.slack, comp.writing, comp.reading, gram.future-plans, br.said-me, br.send-to-me, br.i-am-agree]
+prerequisites: [M03-02]
+
+context:
+  scenario: |
+    Quarta-feira, 14h. Três pedidos chegam no canal do time em vinte minutos: a Priya pede
+    o ETA da correção do cert, o Marcos avisa que o alerta de latência voltou a disparar e
+    a Ana pergunta quem pega o ticket novo do dashboard. Cada um pede uma resposta de um
+    nível diferente — e responder "ok" para os três deixaria os três sem resposta.
+
+    Responder no Slack é um contrato de compromisso: "got it" diz só que você leu; "on it"
+    diz que está fazendo agora; "will do" promete sem data; "done ✅" fecha. E quando a
+    resposta certa é "não posso", dizer isso cedo é melhor que sumir.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: on it
+    meaning: estou cuidando disso agora
+    example: "On it — reverting the threshold now."
+    translation: "Cuidando disso — revertendo o threshold agora."
+    note: "Compromisso de ação imediata; não use se vai começar depois."
+  - term: will do
+    meaning: farei — compromisso sem data
+    example: "Will do — expect the updated runbook this week."
+    translation: "Farei — esperem o runbook atualizado esta semana."
+    note: Promete a ação, não o prazo; se houver prazo, declare-o.
+  - term: got it
+    meaning: entendi / recebi
+    example: "Got it — thanks for the heads up."
+    translation: "Entendi — obrigado pelo aviso."
+    note: É só recebimento; quem pede ação espera mais que "got it".
+  - term: "done ✅"
+    meaning: feito — o loop fecha
+    example: "Done ✅ — the threshold is back to the old value."
+    translation: "Feito ✅ — o threshold voltou ao valor antigo."
+    note: "Fechamento sempre traz o que mudou, não só 'done'."
+  - term: thanks for flagging
+    meaning: obrigado por sinalizar/chamar atenção
+    example: "Thanks for flagging — I hadn't noticed the retry spike."
+    translation: "Obrigado por sinalizar — eu não tinha notado o pico de retries."
+    note: A resposta padrão quando alguém te traz um problema; nunca soa mal.
+  - term: sounds good
+    meaning: parece bom / por mim ok
+    example: "Sounds good — go ahead with the rollback."
+    translation: "Parece bom — pode seguir com o rollback."
+    note: Aprovação leve entre pares; decisão formal pede frase completa.
+  - term: taking a look / looking into it
+    meaning: investigando — sem promessa de resultado nem data
+    example: "Taking a look at the retry spike — will update in an hour."
+    translation: "Dando uma olhada no pico de retries — atualizo em uma hora."
+    note: Ack honesto para investigação; combine com uma previsão de update.
+  - term: "resolved — closing this"
+    meaning: resolvido, fechando o assunto
+    example: "Resolved — closing this thread. Fix is in the runbook."
+    translation: "Resolvido — fechando a thread. A correção está no runbook."
+    note: Fecha a thread para quem lê depois; deixe a causa em uma linha.
+  - term: all set
+    meaning: tudo certo / pronto
+    example: "You're all set — the access should work now."
+    translation: "Tudo certo — o acesso deve funcionar agora."
+    note: "Confirma que o pedido da pessoa foi atendido."
+  - term: that's on me
+    meaning: a responsabilidade/culpa é minha
+    example: "My bad — that's on me, I forgot to update the secret."
+    translation: "Foi mal — culpa minha, esqueci de atualizar o secret."
+    note: Assumir direto, sem rodeio, é o registro certo para erro próprio.
+  - term: I'll take it
+    meaning: eu pego essa (voluntariando-se)
+    example: "I'll take it — the dashboard ticket is close to what I fixed last week."
+    translation: "Eu pego — o ticket do dashboard é parecido com o que corrigi semana passada."
+    note: Voluntariar-se com o motivo ajuda quem distribui o trabalho.
+  - term: good catch
+    meaning: boa pega — você viu algo que passou
+    example: "Good catch on the cert date — that would've expired mid-freeze."
+    translation: "Boa pega na data do cert — ia expirar no meio do freeze."
+    note: Reconhecer o achado dos outros mantém o canal seguro para flaggar.
+  - term: "let me get back to you"
+    meaning: deixa eu verificar e eu volto
+    example: "Not sure about the ETA — let me get back to you by 3."
+    translation: "Não tenho certeza do ETA — deixa eu verificar e volto até as 15h."
+    note: Sempre com prazo de retorno; "let me see" sozinho é sumir.
+  - term: ack / acked
+    meaning: confirmado (registro técnico curto)
+    example: "Acked — I'll watch the deploy."
+    translation: "Confirmado — vou acompanhar o deploy."
+    note: O mais curto dos acks; comum entre quem opera junto todo dia.
+
+grammar:
+  title: "Níveis de compromisso: ack ≠ promessa ≠ feito"
+  explanation: |
+    **A escala do "sim" no Slack:**
+
+    | Frase | O que promete |
+    |---|---|
+    | *got it / acked / 👀* | Li. Nada mais. |
+    | *taking a look / looking into it* | Estou investigando, sem data |
+    | *will do* | Farei, sem data declarada |
+    | *on it* | Estou fazendo agora |
+    | *I'll do it by 3 / today* | Farei, com prazo |
+    | *done ✅ / resolved* | Feito — e aqui está o que mudou |
+
+    **O erro clássico é responder um nível abaixo do pedido.** "Can you review my PR?" respondido com "got it" deixa a pessoa sem saber se você vai revisar. Combine o nível ao pedido — e se a resposta é "não consigo", diga cedo.
+
+    **Futuro para compromisso:** *will* e *going to* marcam promessa ("I'll pick it up tomorrow", "I'm going to close the ticket today"). O presente contínuo marca o que já está em curso ("I'm looking into it"). "I'll do and tell you" é calque de "faço e te falo" — o natural é *I'll do it and let you know*.
+
+    **Fechamento traz o resultado:** "done" sozinho faz quem lê perguntar "done como?". "Done ✅ — threshold reverted, deploy green" fecha de verdade.
+  examples:
+    - { en: "On it — redeploying with the old threshold now.", pt: "Cuidando disso — subindo de novo com o threshold antigo agora." }
+    - { en: "Will do — I'll update the runbook today.", pt: "Farei — vou atualizar o runbook hoje." }
+    - { en: "Got it, thanks for flagging — I'll watch the next deploy.", pt: "Entendi, obrigado por sinalizar — vou acompanhar o próximo deploy." }
+    - { en: "Can't take it this week — I'll flag it in the channel so someone picks it up.", pt: "Não consigo pegar esta semana — vou sinalizar no canal para alguém pegar." }
+    - { en: "Done ✅ — cert rotated, staging green, prod untouched.", pt: "Feito ✅ — cert rotacionado, staging verde, prod intacta." }
+
+examples:
+  - en: "On it — reverting the threshold now, will update in ten."
+    pt: "Cuidando disso — revertendo o threshold agora, atualizo em dez."
+    context: Ação imediata com previsão de update.
+  - en: "Will do — the runbook update goes out today."
+    pt: "Farei — a atualização do runbook sai hoje."
+    context: Compromisso com prazo declarado.
+  - en: "Thanks for flagging — I hadn't noticed the retry spike. Taking a look now."
+    pt: "Obrigado por sinalizar — eu não tinha notado o pico de retries. Olhando agora."
+    context: Receber um flag bem é metade da resposta.
+  - en: "Good catch on the cert date. That's on me — I scheduled it mid-freeze by mistake."
+    pt: "Boa pega na data do cert. Culpa minha — agendei no meio do freeze por engano."
+    context: Reconhecer o achado e assumir o erro na mesma mensagem.
+  - en: "I'll take it — the dashboard ticket overlaps with the panel I fixed last week."
+    pt: "Eu pego — o ticket do dashboard se sobrepõe ao painel que corrigi semana passada."
+    context: Voluntariar-se com o motivo.
+  - en: "Not sure about the ETA — let me get back to you by 3 with a real answer."
+    pt: "Não tenho certeza do ETA — deixa eu verificar e volto até as 15h com resposta de verdade."
+    context: '"Não sei" com prazo de retorno, nunca o sumiço.'
+  - en: "Done ✅ — rotation complete, alerts back to normal. Resolved — closing this thread."
+    pt: "Feito ✅ — rotação completa, alertas normalizados. Resolvido — fechando a thread."
+    context: Fechamento com o que mudou em uma linha.
+  - en: "She told me to close the ticket once the fix is verified — not before."
+    pt: "Ela me disse para fechar o ticket depois de verificar a correção — não antes."
+    context: '"told me", nunca "said me".'
+
+variations:
+  - idea: '"alguém pede um review urgente"'
+    items:
+      - { register: "Ack + ação", text: "On it — will have comments in thirty.", adequate: true }
+      - { register: "Ack honesto", text: "Taking a look now — I'll get back to you by 4 either way.", adequate: true }
+      - { register: "Inadequada", text: "got it", adequate: false, note: "Só confirma leitura; quem pediu não sabe se o review sai hoje ou nunca." }
+      - { register: "Inadequada", text: "(silêncio)", adequate: false, note: "No assíncrono, o vácuo lê-se como 'não' — ou como 'esqueceu'." }
+  - idea: '"encerrar uma thread resolvida"'
+    items:
+      - { register: "Boa", text: "Done ✅ — cert rotated, alerts green. Closing this thread.", adequate: true }
+      - { register: "Boa", text: "Resolved — root cause was the expired cert, fix is in the runbook.", adequate: true }
+      - { register: "Inadequada", text: "done", adequate: false, note: '"done" sem o que mudou obriga quem lê a perguntar "done como?".' }
+      - { register: "Inadequada", text: "It's fixed, I think.", adequate: false, note: "Fechamento duvidoso: ou está verificado, ou não está." }
+
+brErrors:
+  - { wrong: "She said me to close the ticket.", right: "She told me to close the ticket.", why: "say não leva objeto indireto sem to; tell + pessoa", tag: br.said-me }
+  - { wrong: "Can you send to me the runbook?", right: "Can you send me the runbook?", why: "send + pessoa + objeto", tag: br.send-to-me }
+  - { wrong: "I am agree with the plan.", right: "I agree with the plan.", why: 'calque de "estou de acordo": agree já é verbo, sem be', tag: br.i-am-agree }
+  - { wrong: "I'm working on it since this morning.", right: "I've been working on it since this morning.", why: "since pede present perfect (continuous)", tag: br.since-present }
+  - { wrong: "I didn't saw your ping.", right: "I didn't see your ping.", why: "depois de did, verbo na forma base", tag: br.did-past }
+  - { wrong: "Waiting your confirmation to merge.", right: "Waiting on your confirmation to merge.", why: "wait exige on/for", tag: br.waiting-no-prep }
+  - { wrong: "I'll do and tell you.", right: "I'll do it and let you know.", why: 'calque de "faço e te falo": let me/you know é a forma natural', tag: gram.future-plans }
+  - { wrong: "Thanks for the feedbacks.", right: "Thanks for the feedback.", why: "feedback é incontável em inglês", tag: vocab.slack }
+  - { wrong: "Do you can confirm the ETA?", right: "Can you confirm the ETA?", why: "auxiliar duplo", tag: br.do-modal }
+  - { wrong: "ok", right: "On it — update by 3. / Will do, today.", why: '"ok" não diz se você vai fazer nem quando', tag: vocab.slack }
+
+dialogue:
+  title: "Quarta às 14h: três pedidos, três níveis de resposta"
+  lines:
+    - { speaker: Priya, text: "Yuri — ETA on the cert fix? The release notes go out at 5." }
+    - { speaker: Yuri, text: "Taking a look now — let me get back to you by 3 with a real number." }
+    - { speaker: Marcos, text: "Heads up: the latency alert is firing again after the rollback. Not sure it's the same issue." }
+    - { speaker: Yuri, text: "Thanks for flagging — on it. Good catch if it's a different cause; I'll post what I find in thread." }
+    - { speaker: Ana, text: "Who's picking up the dashboard ticket? It's been sitting for two days." }
+    - { speaker: Yuri, text: "I'll take it — it overlaps with the panel fix from last week. ETA end of day tomorrow." }
+    - { speaker: Priya, text: "And the cert ETA — anything yet?" }
+    - { speaker: Yuri, text: "Done checking: the fix is verified, cert rotated. Done ✅ — resolved, closing this." }
+  notes:
+    - '"let me get back to you by 3" — o "não sei" honesto sempre vem com prazo de retorno.'
+    - '"on it" para o que está em curso; "I''ll take it" para o que você vai pegar; "done" para o que já saiu.'
+    - 'Cada resposta dá o próximo passo: quando atualiza, quem pega, o que mudou.'
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Can someone review my PR today? It's ten lines, blocking the next ticket." }
+    - { speaker: Ana, text: "I'll take it — but after the key rotation. Expect comments by 4." }
+    - { speaker: Priya, text: "Quick update on the freeze: we're keeping Thursday. Marcos, can you confirm your deploy is in before noon?" }
+    - { speaker: Marcos, text: "Will do — I'll have it merged by 11 and I'll let you know." }
+    - { speaker: Ana, text: "And Yuri's dashboard ticket — resolved, by the way. Closing that thread now." }
+  questions:
+    - { id: M03-03-l1, type: multiple_choice, prompt: "What does Marcos ask for?", options: ["A PR review today", "A deploy window", "A new ticket", "Help with the freeze"], answer: 0, explanation: '"Can someone review my PR today?"', tags: [comp.listening] }
+    - { id: M03-03-l2, type: multiple_choice, prompt: "When will Ana review the PR?", options: ["Right now", "After the key rotation, comments by 4", "Tomorrow", "She won't"], answer: 1, explanation: '"I''ll take it — but after the key rotation. Expect comments by 4."', tags: [comp.listening] }
+    - { id: M03-03-l3, type: fill_blank, prompt: "I'll have it merged by 11 and I'll ___ you know.", accepted: ["let"], explanation: '"let you know" = te aviso.', tags: [comp.listening, gram.future-plans] }
+    - { id: M03-03-l4, type: multiple_choice, prompt: "What is Marcos committing to?", options: ["Just acknowledging the message", "Reviewing the PR", "Moving the freeze", "Merging by 11 and confirming"], answer: 3, explanation: '"will do" + prazo declarado (by 11) + fechamento (let you know).', tags: [comp.listening, gram.future-plans] }
+    - { id: M03-03-l5, type: multiple_choice, prompt: "What is the status of Yuri's dashboard ticket?", options: ["Still open", "Blocked", "Resolved — Ana is closing the thread", "Reassigned to Marcos"], answer: 2, explanation: '"resolved, by the way. Closing that thread now."', tags: [comp.listening] }
+    - { id: M03-03-l6, type: multiple_choice, prompt: "Why is Ana's 'expect comments by 4' better than just 'I'll take it'?", options: ["It uses more words", "It sounds more formal", "It declares when the result arrives", "It avoids committing"], answer: 2, explanation: "O compromisso ganha data revisável — quem pede sabe quando cobrar.", tags: [comp.listening, vocab.slack] }
+
+writing:
+  prompt: |
+    **Cenário:** três mensagens chegaram para você no canal. (1) A Priya pergunta o ETA do seu review — você consegue olhar hoje, mas só depois das 15h. (2) O Marcos flaggou que o alerta voltou — você vai investigar agora. (3) A Ana pergunta se o ticket do dashboard pode esperar até sexta — pode, e você confirma.
+
+    **Tarefa:** escreva as três respostas (60–90 palavras no total), cada uma no nível de compromisso certo e com o próximo passo.
+  constraints:
+    - { label: "Ack de ação ou compromisso (on it / taking a look / will do)", pattern: "\\b(on it|taking a look|looking into it|will do|i'll)\\b" }
+    - { label: "Recebimento de flag ou pedido (thanks for flagging / got it)", pattern: "\\b(thanks for flagging|got it|good catch)\\b" }
+    - { label: "Prazo ou previsão declarada (by 3 / today / Friday)", pattern: "\\b(by \\d|today|tomorrow|friday|eod)\\b" }
+    - { label: "Fechamento com resultado (done / resolved / closing)", pattern: "\\b(done|resolved|closing)\\b" }
+  rubric:
+    - Cada resposta no nível certo (ack ≠ compromisso ≠ feito)
+    - Próximo passo ou prazo declarado
+    - Flag recebido com agradecimento
+    - Sem "ok" vazio nem "got it" onde pedem ação
+  model: >-
+    Priya — taking a look after 3 today; I'll get back to you with the ETA by 4 either way.
+    Marcos — thanks for flagging, on it now; I'll post what I find in thread. Ana — the
+    dashboard ticket can wait until Friday, will do; marking it done on my end once reviewed.
+  minWords: 50
+  maxWords: 90
+  tags: [comp.writing, vocab.slack, gram.future-plans]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos respondendo em voz alta a pedidos do seu dia — um ack com investigação, um compromisso com prazo e um fechamento com resultado.
+    maxSeconds: 45
+    targetPhrases:
+      - on it
+      - will do
+      - got it
+      - thanks for flagging
+      - taking a look
+      - looking into it
+      - let me get back to you
+      - I'll take it
+      - done
+      - resolved
+      - good catch
+      - that's on me
+      - sounds good
+      - I'll let you know
+    checklist:
+      - Cada resposta combinou o nível ao pedido?
+      - Declarei prazo ou próximo passo?
+      - O fechamento disse o que mudou?
+      - Recebi o flag com agradecimento, sem defesa?
+
+quiz:
+  - { id: M03-03-q1, type: multiple_choice, prompt: "'Can you review my PR today?' — which reply actually answers?", options: ["got it", "ok", "On it — comments by 4.", "noted"], answer: 2, explanation: "O pedido pede ação hoje; só 'on it' + prazo responde.", tags: [vocab.slack] }
+  - { id: M03-03-q2, type: error_correction, prompt: "She said me to close the ticket.", accepted: ["She told me to close the ticket.", "She told me to close the ticket", "She said to close the ticket.", "She said to close the ticket"], explanation: '"said me" não existe: tell + pessoa, ou "said to close".', tags: [br.said-me] }
+  - { id: M03-03-q3, type: multiple_choice, prompt: "'Thanks for flagging' is the right response when…", options: ["someone brings you a problem you hadn't seen", "you want to end the conversation", "you disagree with the plan", "the task is done"], answer: 0, explanation: "É a recepção padrão de um flag — agradecer antes de agir.", tags: [vocab.slack] }
+  - { id: M03-03-q4, type: fill_blank, prompt: "Not sure about the ETA — let me ___ back to you by 3.", accepted: ["get"], explanation: '"let me get back to you" + prazo = "não sei" honesto.', tags: [vocab.slack] }
+  - { id: M03-03-q5, type: error_correction, prompt: "I am agree with the plan.", accepted: ["I agree with the plan.", "I agree with the plan"], explanation: 'Calque de "estou de acordo": agree já é verbo, sem be.', tags: [br.i-am-agree] }
+  - { id: M03-03-q6, type: translate, prompt: "Feito — cert rotacionado, alertas normalizados. Resolvido, fechando a thread.", accepted: ["Done — cert rotated, alerts back to normal. Resolved, closing the thread.", "Done ✅ — cert rotated, alerts green. Resolved — closing this thread.", "Done — cert rotated, alerts normal. Resolved, closing this."], explanation: "Fechamento com o que mudou + 'resolved — closing'.", tags: [vocab.slack] }
+  - { id: M03-03-q7, type: match, prompt: "Associe a frase ao nível de compromisso.", pairs: [{ left: "got it", right: "só li" }, { left: "on it", right: "fazendo agora" }, { left: "will do", right: "farei, sem data" }, { left: "done ✅", right: "feito" }], explanation: "A escala: ack < investigando < promessa < ação < feito.", tags: [vocab.slack] }
+  - { id: M03-03-q8, type: multiple_choice, prompt: "Which closing actually closes the loop?", options: ["done", "Done ✅ — threshold reverted, deploy green.", "fixed it", "it's done I think"], answer: 1, explanation: "Fechamento traz o que mudou; 'done' sozinho obriga a perguntar.", tags: [vocab.slack] }
+
+review:
+  count: 5
+  preferTags: [vocab.slack, br.said-me, br.i-am-agree]
+
+srsCards:
+  - { front: "estou cuidando disso agora", back: "on it", tag: vocab.slack }
+  - { front: "farei (sem data)", back: "will do", tag: vocab.slack }
+  - { front: "entendi / recebi", back: "got it", tag: vocab.slack }
+  - { front: "obrigado por sinalizar", back: "thanks for flagging", tag: vocab.slack }
+  - { front: "investigando (sem prometer data)", back: "taking a look / looking into it", tag: vocab.slack }
+  - { front: "deixa eu verificar e volto até as 15h", back: "let me get back to you by 3", tag: vocab.slack }
+  - { front: "eu pego essa", back: "I'll take it", tag: vocab.slack }
+  - { front: "boa pega (no alerta)", back: "good catch", tag: vocab.slack }
+  - { front: "culpa minha", back: "that's on me", tag: vocab.slack }
+  - { front: "resolvido, fechando a thread", back: "resolved — closing this thread", tag: vocab.slack }
+  - { front: "eu concordo com o plano", back: "I agree with the plan.", tag: br.i-am-agree }
+  - { front: "faço e te aviso", back: "I'll do it and let you know.", tag: gram.future-plans }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
