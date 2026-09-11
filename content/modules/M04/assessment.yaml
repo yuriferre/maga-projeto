@@ -1,0 +1,76 @@
+# Avaliação do módulo M04: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M04
+title: "Avaliação do módulo M04: lendo logs, erros e documentação"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita com autoavaliação ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M04-A01, type: multiple_choice, prompt: "'Unable to reach the API: connection refused' — what does it tell you?", options: ["The credentials are wrong", "The DNS name doesn't resolve", "Something answered and the port is closed", "The request timed out silently"], answer: 2, explanation: "refused = resposta negativa ativa (porta fechada); denied seria permissão, timeout seria silêncio.", tags: [vocab.errors] }
+  - { id: M04-A02, type: error_correction, prompt: "I didn't saw the last Caused by in the trace.", accepted: ["I didn't see the last Caused by in the trace.", "I didn't see the last Caused by in the trace", "I did not see the last Caused by in the trace.", "I did not see the last Caused by in the trace"], explanation: "Depois de didn't, a forma base: see.", tags: [br.did-past] }
+  - { id: M04-A03, type: multiple_choice, prompt: "A structured log has 10k lines and one failing request. Your first three moves?", options: ["Read every line top to bottom", "level=ERROR → incident time window → follow the request id", "grep for 'error' → sort by message → read the last page", "Ask someone to summarize it"], answer: 1, explanation: "Log estruturado se filtra: nível, janela do incidente, id da requisição — depois as linhas em volta.", tags: [vocab.observability] }
+  - { id: M04-A04, type: fill_blank, prompt: "That section has ___ moved to the upgrade guide.", accepted: ["been"], explanation: 'Passiva de doc: "has been moved to".', tags: [gram.passive, vocab.iac] }
+  - { id: M04-A05, type: error_correction, prompt: "According with the docs, the chart needs Kubernetes 1.28.", accepted: ["According to the docs, the chart needs Kubernetes 1.28.", "According to the docs, the chart needs Kubernetes 1.28", "The docs say the chart needs Kubernetes 1.28.", "The docs say the chart needs Kubernetes 1.28"], explanation: '"according to", nunca "according with".', tags: [br.according-with] }
+  - { id: M04-A06, type: error_correction, prompt: "I am agree — it happened with me too on GKE.", accepted: ["I agree — it happened to me too on GKE.", "I agree — it happened to me too on GKE", "I agree; it happened to me too on GKE.", "I agree — it happened to me as well on GKE.", "I agree — same here on GKE.", "I agree — same here on GKE"], explanation: 'Dois calques: "I am agree" → I agree; "with me" → to me.', tags: [br.i-am-agree, vocab.tickets-prs] }
+  - { id: M04-A07, type: error_correction, prompt: "The spec said me to use exponential backoff.", accepted: ["The spec told me to use exponential backoff.", "The spec told me to use exponential backoff", "The spec says to use exponential backoff.", "The spec says to use exponential backoff", "The spec says I should use exponential backoff."], explanation: "say não leva objeto indireto sem to; tell + pessoa, ou says + o conteúdo.", tags: [br.said-me] }
+  - { id: M04-A08, type: error_correction, prompt: "I grepped the log for to isolate the request.", accepted: ["I grepped the log to isolate the request.", "I grepped the log to isolate the request", "I filtered the log to isolate the request.", "I filtered the log to isolate the request"], explanation: 'Calque de "para": finalidade é só "to".', tags: [br.for-to] }
+  - { id: M04-A09, type: error_correction, prompt: "We finded the cause for to close the ticket.", accepted: ["We found the cause to close the ticket.", "We found the cause to close the ticket", "We found the root cause to close the ticket.", "We found the cause and closed the ticket."], explanation: 'Duas correções: finded → found; "for to" → to.', tags: [br.irregular-past, br.for-to] }
+  - { id: M04-A10, type: multiple_choice, prompt: "Which comparative is correct?", options: ["The new doc is easier to skim.", "The new doc is more easy to skim.", "The new doc is more easier to skim.", "The new doc is easiest to skim than the old."], answer: 0, explanation: "easy é adjetivo curto: easier — sem more, sem dobrar.", tags: [br.more-er] }
+  - { id: M04-A11, type: multiple_choice, prompt: "Which comment adds the most to an open issue?", options: ["'any update? it's been a week'", "'same here'", "'me too, please fix'", "'can confirm on EKS 1.28 — started after the 2.9.3 upgrade; workaround: pin to 2.9.1'"], answer: 3, explanation: "Confirmação com versão + gatilho + workaround testado é o comentário que agrega.", tags: [vocab.tickets-prs] }
+  - { id: M04-A12, type: error_correction, prompt: "The job is giving timeout on every run.", accepted: ["The job is timing out on every run.", "The job is timing out on every run", "The job keeps timing out on every run.", "The job times out on every run.", "The job times out on every run"], explanation: '"giving timeout" é calque de "dando timeout"; o verbo é time out.', tags: [br.giving-error] }
+  - { id: M04-A13, type: translate, prompt: "O log diz que ninguém respondeu — em outras palavras, timeout, não refused.", accepted: ["The log says nobody answered — in other words, a timeout, not a refusal.", "The log says nobody answered — in other words, a timeout, not a refusal", "The log says nothing answered — in other words, it timed out, not refused.", "The log says nothing answered — in other words, it timed out, not refused"], explanation: '"the log says" + "in other words" para citar e interpretar.', tags: [vocab.errors] }
+  - { id: M04-A14, type: match, prompt: "Associe o marcador ao papel na mensagem de erro.", pairs: [{ left: "expected X, got Y", right: "the comparison that is the bug" }, { left: "failed to", right: "the action that broke" }, { left: "caused by", right: "one level deeper into the cause" }, { left: "status code", right: "the numeric category of the response" }], explanation: "Quatro marcadores, quatro papéis na anatomia do erro.", tags: [vocab.errors] }
+  - { id: M04-A15, type: multiple_choice, prompt: "In an RFC, 'clients MUST retry' vs 'clients SHOULD retry' means…", options: ["MUST is mandatory; SHOULD is a recommendation you can justify skipping", "Both are mandatory", "SHOULD is mandatory; MUST is optional", "Both are optional style notes"], answer: 0, explanation: "RFC 2119: MUST = obrigação; SHOULD = recomendação que pede justificativa para ignorar.", tags: [vocab.observability, comp.reading] }
+
+writing:
+  prompt: |
+    **Cenário:** três leituras novas chegaram para resumir em uma frase cada:
+
+    1. Doc do `google_compute_instance`: `machine_type` está em Argument Reference; `cpu_platform` está em Attributes Reference (computado).
+    2. Erro do `terraform apply`: `Error: creating instance: expected a list of strings, got a string`.
+    3. Issue `repo#900`: o report tem steps + expected × actual; o comentário 12 diz "as a workaround, set replicas to 1" e três pessoas confirmaram.
+
+    **Tarefa:** escreva três resumos de uma frase (60–90 palavras no total), um por leitura — o que o texto diz e o que significa para quem vai agir.
+  constraints:
+    - { label: "Vocabulário de doc (argument/attribute/computed)", pattern: "\\b(argument|attribute|computed|reference|required|set)\\b" }
+    - { label: "Interpretação do erro (expected/got ou equivalente)", pattern: "\\b(expected|got|type|list|string)\\b" }
+    - { label: "Issue: workaround ou confirmação", pattern: "\\b(workaround|confirmed|reproduced|steps|comment)\\b" }
+    - { label: "Marcador de resumo", pattern: "\\b(says|means|in other words|bottom line|the doc|the error|the issue)\\b" }
+  rubric:
+    - "Uma frase por leitura, com o que diz + o que significa"
+    - "Doc: configura (argument) × lê de volta (attribute)"
+    - "Erro: o problema é o tipo, não o valor"
+    - "Issue: o workaround testado é a resposta"
+  model: >-
+    One sentence per reading. The doc says machine_type is an argument you set, while cpu_platform
+    is a computed attribute you read back. The error says terraform expected a list of strings and
+    got a string — it means the type is wrong, not the value. And the issue's comment 12 has a
+    confirmed workaround: set replicas to 1 until the fix lands. Bottom line: configure the
+    argument, fix the type, apply the workaround.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.reading, vocab.iac, vocab.tickets-prs]
+
+speaking:
+  prompt: "Grave 45 segundos resumindo em voz alta uma leitura técnica — uma das três da escrita ou uma real da sua semana. Diga o que o texto diz, o que significa e a frase-resumo."
+  maxSeconds: 45
+  targetPhrases:
+    - the doc says
+    - the error means
+    - it means
+    - in other words
+    - the trace points to
+    - root cause
+    - expected two, got one
+    - computed attribute
+    - workaround
+    - can confirm
+    - breaking change
+    - deprecated
+    - bottom line
+    - request id
+  checklist:
+    - Separei "o que diz" de "o que significa"?
+    - Uma frase de resumo no final?
+    - Termos técnicos pronunciados sem travar?
+    - Nada de "said me", "didn't saw" ou "I am agree"?

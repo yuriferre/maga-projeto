@@ -99,3 +99,20 @@ describe("content/modules/M03/assessment.yaml", () => {
     expect(checkExercise(q, "I didn't see the flag — I need that you resend it.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M04/assessment.yaml", () => {
+  const m04 = bundle.moduleAssessments["M04"]!;
+  it("requires both 'I agree' and 'happened to me'", () => {
+    const q = m04.items.find((q) => q.id === "M04-A06")!;
+    expect(checkExercise(q, "I agree — it happened to me too on GKE.").correct).toBe(true);
+    expect(checkExercise(q, "I agree — same here on GKE.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree — it happened to me too on GKE.").correct).toBe(false);
+    expect(checkExercise(q, "I agree — it happened with me too on GKE.").correct).toBe(false);
+  });
+  it("requires both 'found' and bare 'to'", () => {
+    const q = m04.items.find((q) => q.id === "M04-A09")!;
+    expect(checkExercise(q, "We found the cause to close the ticket.").correct).toBe(true);
+    expect(checkExercise(q, "We finded the cause to close the ticket.").correct).toBe(false);
+    expect(checkExercise(q, "We found the cause for to close the ticket.").correct).toBe(false);
+  });
+});
