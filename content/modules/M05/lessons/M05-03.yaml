@@ -1,0 +1,284 @@
+id: M05-03
+module: M05
+order: 3
+title: "Preposições e verbos de infraestrutura: deploy to, run on, expose via, listen on"
+objective: >-
+  Ao final, você diz onde cada coisa roda, onde foi deployada, por que porta
+  escuta e para onde aponta — com as preposições certas, sem calques.
+durationMin: 35
+competencies: [SPK, VOC, PRO]
+tags: [vocab.architecture, topic.architecture, comp.speaking, comp.vocabulary, gram.prepositions-infra, br.listen-in, br.arrive-on]
+prerequisites: [M05-02]
+
+context:
+  scenario: |
+    "A aplicação roda na AWS" sai como "runs in AWS". "O serviço escuta na
+    porta 8080" vira "listens in port 8080". "Foi deployado para staging" vira
+    "deployed in staging". Três preposições, três calques — e o colega
+    entende, mas cada erro marca você como falante de português.
+
+    A infra tem pares verbo-preposição fixos que não negociam:
+
+    `deploy to` · `run on` · `listen on` · `expose via` · `point to` ·
+    `connect to` · `hosted on` · `arrive at`
+
+    Não é regra lógica — é convenção, como "depend on" e "wait for". A aula é
+    aprender cada par como uma unidade, não como verbo + preposição soltos.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: deploy to
+    meaning: fazer deploy PARA um ambiente — to, nunca in
+    example: "We deploy to staging first, then to production."
+    translation: "Fazemos deploy para staging primeiro, depois para produção."
+    note: 'O destino do deploy é "to": deploy to prod, deploy to the cluster, deploy to AWS.'
+  - term: run on
+    meaning: roda EM/NA — a plataforma onde executa
+    example: "The service runs on Kubernetes; the workers run on spot instances."
+    translation: "O serviço roda em Kubernetes; os workers rodam em spot instances."
+    note: 'A plataforma/sistema é "on": runs on AWS, runs on Linux, runs on port 8080 não — porta é "listen on".'
+  - term: listen on
+    meaning: escuta NA porta/interface — on, nunca in
+    example: "The API listens on port 8080; the metrics endpoint listens on 9090."
+    translation: "A API escuta na porta 8080; o endpoint de métricas escuta na 9090."
+    note: '"listen in port" é calque de "escuta na porta" — em inglês é sempre "on".'
+  - term: expose via
+    meaning: expõe POR meio de — o canal pelo qual é acessível
+    example: "The metrics are exposed via a /metrics endpoint."
+    translation: "As métricas são expostas via um endpoint /metrics."
+    note: 'O mecanismo é "via" ou "through": exposed via HTTPS, via an endpoint, via the gateway.'
+  - term: point to
+    meaning: aponta PARA — DNS, config, referência
+    example: "The DNS record points to the load balancer."
+    translation: "O registro DNS aponta para o load balancer."
+    note: '"points at" também existe (dedo apontando), mas "points to" é o padrão em DNS/config.'
+  - term: connect to
+    meaning: conecta-se A — estabelece conexão com
+    example: "The service connects to the database over TLS."
+    translation: "O serviço conecta-se ao banco por TLS."
+    note: '"connects in" é calque — conexão é sempre "to".'
+  - term: hosted on
+    meaning: hospedado EM/NA — onde o serviço mora
+    example: "The docs are hosted on GitHub Pages; the app is hosted on AWS."
+    translation: "A doc está hospedada no GitHub Pages; a app está hospedada na AWS."
+    note: 'Para o provedor/plataforma é "on": hosted on AWS, on Vercel, on-prem.'
+  - term: arrive at
+    meaning: chega A — a um ponto técnico
+    example: "The packet arrives at the server on port 443."
+    translation: "O pacote chega ao servidor na porta 443."
+    note: '"arrive on/in" é calque — ponto técnico é "at" (ou "reaches").'
+  - term: "behind (a proxy)"
+    meaning: atrás de — protegido pelo proxy/firewall
+    example: "The database sits behind a proxy and isn't reachable directly."
+    translation: "O banco fica atrás de um proxy e não é alcançável diretamente."
+    note: '"Behind" para posição protegida; "in front of" para quem está na frente.'
+  - term: "on the same network / subnet"
+    meaning: na mesma rede/sub-rede
+    example: "The service and the cache run on the same subnet."
+    translation: "O serviço e o cache rodam na mesma sub-rede."
+    note: 'Rede também é "on": on the VPC, on the subnet, on the corporate network.'
+  - term: "over (a protocol)"
+    meaning: através de — o protocolo de transporte
+    example: "The services communicate over HTTPS and gRPC."
+    translation: "Os serviços se comunicam por HTTPS e gRPC."
+    note: 'O protocolo do transporte é "over" ou "via": over TLS, over the wire.'
+  - term: "reachable at"
+    meaning: alcançável em — endereço/porta onde responde
+    example: "The health check is reachable at /healthz."
+    translation: "O health check é alcançável em /healthz."
+    note: 'Endereço onde responde é "at": reachable at an IP, at a path.'
+
+grammar:
+  title: "Verbo de infra + preposição é um par fechado"
+  explanation: |
+    Não tente deduzir a preposição pela lógica — cada verbo de infra tem a sua, e o português engana. A tabela que vale memorizar:
+
+    | Par | Significado | Exemplo |
+    |---|---|---|
+    | deploy **to** | para o ambiente | *deploy to staging* |
+    | run **on** | na plataforma | *runs on Kubernetes* |
+    | listen **on** | na porta/interface | *listens on port 8080* |
+    | expose **via** | pelo canal | *exposed via /metrics* |
+    | point **to** | para o destino | *DNS points to the LB* |
+    | connect **to** | a um endpoint | *connects to the database* |
+    | hosted **on** | na plataforma | *hosted on AWS* |
+    | arrive **at** | a um ponto | *arrives at the server* |
+    | communicate **over** | pelo protocolo | *over TLS* |
+
+    **Os três calques mais comuns do brasileiro:**
+
+    1. *"listens in port"* → listens **on** port ("escutar na" vira "in", e é errado)
+    2. *"deployed in prod"* → deployed **to** prod ("deployado para" vira "in")
+    3. *"runs in AWS"* → runs **on** AWS ("roda na" vira "in")
+
+    **Regra prática:** plataforma e porta = **on**; destino e direção = **to**; ponto técnico de chegada = **at**; canal/mecanismo = **via/over**.
+  examples:
+    - { en: "We deploy to staging first, then to production.", pt: "Fazemos deploy para staging primeiro, depois para produção." }
+    - { en: "The service runs on Kubernetes.", pt: "O serviço roda em Kubernetes." }
+    - { en: "The API listens on port 8080.", pt: "A API escuta na porta 8080." }
+    - { en: "The metrics are exposed via a /metrics endpoint.", pt: "As métricas são expostas via um endpoint /metrics." }
+    - { en: "The DNS record points to the load balancer.", pt: "O registro DNS aponta para o load balancer." }
+    - { en: "The services communicate over TLS.", pt: "Os serviços se comunicam por TLS." }
+
+examples:
+  - en: "We deploy to staging on every merge, and to production once a day."
+    pt: "Fazemos deploy para staging a cada merge, e para produção uma vez por dia."
+    context: "deploy to + ambiente."
+  - en: "The app runs on Kubernetes; the batch jobs run on spot instances."
+    pt: "A app roda em Kubernetes; os jobs batch rodam em spot instances."
+    context: "run on + plataforma."
+  - en: "The API listens on 8080; the admin interface listens on 9090."
+    pt: "A API escuta na 8080; a interface admin escuta na 9090."
+    context: "listen on + porta."
+  - en: "Metrics are exposed via a /metrics endpoint, scraped every 30 seconds."
+    pt: "As métricas são expostas via um endpoint /metrics, coletadas a cada 30 segundos."
+    context: "expose via + canal."
+  - en: "The CNAME points to the load balancer; the A record points to the CDN."
+    pt: "O CNAME aponta para o load balancer; o registro A aponta para a CDN."
+    context: "point to + destino de DNS."
+  - en: "The service connects to Postgres over TLS on port 5432."
+    pt: "O serviço conecta-se ao Postgres por TLS na porta 5432."
+    context: "connect to + over + on — três pares em uma frase."
+  - en: "The request arrives at the pod on port 3000."
+    pt: "A request chega ao pod na porta 3000."
+    context: "arrive at + on — chega AO ponto, NA porta."
+  - en: "The docs are hosted on GitHub Pages; the API is hosted on AWS."
+    pt: "A doc está hospedada no GitHub Pages; a API está hospedada na AWS."
+    context: "hosted on + provedor."
+
+variations:
+  - idea: '"dizer onde o serviço escuta"'
+    items:
+      - { register: "Boa", text: "The API listens on port 8080.", adequate: true }
+      - { register: "Boa", text: "It's reachable on 8080 inside the cluster.", adequate: true }
+      - { register: "Inadequada", text: "The API listens in port 8080.", adequate: false, note: '"escuta na" é "on", não "in": listens ON port 8080.' }
+      - { register: "Inadequada", text: "The API listens at port 8080.", adequate: false, note: '"at" é para ponto de chegada (arrives at); porta de escuta é "on".' }
+  - idea: '"dizer onde a app roda"'
+    items:
+      - { register: "Boa", text: "The service runs on Kubernetes.", adequate: true }
+      - { register: "Boa", text: "It's hosted on AWS, in us-east-1.", adequate: true }
+      - { register: "Inadequada", text: "The service runs in Kubernetes.", adequate: false, note: '"roda em" plataforma é "on": runs ON.' }
+      - { register: "Inadequada", text: "The service runs at Kubernetes.", adequate: false, note: '"at" é para ponto/endereço, não plataforma: runs ON.' }
+
+brErrors:
+  - { wrong: "The service listens in port 8080.", right: "The service listens on port 8080.", why: "serviço escuta ON a porta", tag: br.listen-in }
+  - { wrong: "It listens in the interface.", right: "It listens on the interface.", why: "interface também é \"on\"", tag: br.listen-in }
+  - { wrong: "The request arrives on the server.", right: "The request arrives at the server.", why: '"arrive on" é calque — é "arrives at"', tag: br.arrive-on }
+  - { wrong: "The packet arrived in the pod.", right: "The packet arrived at the pod.", why: '"arrived in" para infra é calque — é "at"', tag: br.arrive-on }
+  - { wrong: "We deploy in staging every day.", right: "We deploy to staging every day.", why: "destino do deploy é \"to\"", tag: gram.prepositions-infra }
+  - { wrong: "The app runs in AWS.", right: "The app runs on AWS.", why: "plataforma é \"on\"", tag: gram.prepositions-infra }
+  - { wrong: "The DNS points in the load balancer.", right: "The DNS points to the load balancer.", why: "apontar PARA é \"to\"", tag: gram.prepositions-infra }
+  - { wrong: "The request go through the proxy.", right: "The request goes through the proxy.", why: "terceira pessoa leva -s: goes", tag: br.third-person-s }
+  - { wrong: "The system returns the datas.", right: "The system returns the data.", why: "data é incontável", tag: br.uncountable }
+  - { wrong: "I have a doubt about the port.", right: "I have a question about the port.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+
+dialogue:
+  title: "Onde cada coisa roda?"
+  lines:
+    - { speaker: Marcos, text: "Where does all of this actually run?" }
+    - { speaker: Yuri, text: "Everything's hosted on AWS, in us-east-1. The services run on Kubernetes — the EKS cluster." }
+    - { speaker: Marcos, text: "And the database?" }
+    - { speaker: Yuri, text: "Postgres on RDS — managed, so we don't run it ourselves. Redis runs on ElastiCache, same thing." }
+    - { speaker: Marcos, text: "How does traffic get in? I mean, where does DNS point?" }
+    - { speaker: Yuri, text: "The CNAME points to the load balancer, the LB forwards to the gateway, and the gateway routes to the services. The API listens on 8080, the admin interface on 9090." }
+    - { speaker: Marcos, text: "And metrics — how are they exposed?" }
+    - { speaker: Yuri, text: "Via a /metrics endpoint on each pod — Prometheus scrapes them every 30 seconds. Everything inside the cluster talks over TLS." }
+    - { speaker: Marcos, text: "Got it — hosted on AWS, runs on EKS, listens on 8080, exposed via /metrics. That's clean." }
+  notes:
+    - 'cada resposta traz um par verbo-preposição: hosted on, runs on, points to, listens on, exposed via, talks over.'
+    - 'Marcos fecha ecoando os pares — a repetição é a memorização.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Quick infra rundown: everything's hosted on AWS, us-east-1. Services run on EKS, Postgres runs on RDS, Redis on ElastiCache." }
+    - { speaker: Marcos, text: "Traffic comes in through the CNAME — it points to the load balancer, which forwards to the gateway. The API listens on 8080, admin on 9090." }
+    - { speaker: Priya, text: "Metrics are exposed via /metrics on each pod, and Prometheus scrapes them every 30 seconds. Inside the cluster, everything talks over TLS." }
+  questions:
+    - { id: M05-03-l1, type: multiple_choice, prompt: "Where is everything hosted?", options: ["on GCP", "on AWS, us-east-1", "on-prem", "on Vercel"], answer: 1, explanation: '"hosted on AWS, us-east-1."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-03-l2, type: fill_blank, prompt: "The API listens ___ port 8080.", accepted: ["on"], explanation: "porta de escuta é \"on\".", tags: [gram.prepositions-infra, br.listen-in] }
+    - { id: M05-03-l3, type: multiple_choice, prompt: "How are metrics exposed?", options: ["via a /metrics endpoint", "via syslog", "via email", "via the CNAME"], answer: 0, explanation: '"exposed via /metrics on each pod."', tags: [comp.listening] }
+    - { id: M05-03-l4, type: multiple_choice, prompt: "What does the CNAME point to?", options: ["the gateway", "the database", "the load balancer", "the CDN"], answer: 2, explanation: '"it points to the load balancer."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-03-l5, type: fill_blank, prompt: "The service connects to Postgres ___ TLS.", accepted: ["over", "via"], explanation: "o protocolo do transporte é \"over\"/\"via\".", tags: [gram.prepositions-infra] }
+    - { id: M05-03-l6, type: multiple_choice, prompt: "Where do the services run?", options: ["on RDS", "on ElastiCache", "on EKS", "on the load balancer"], answer: 2, explanation: '"services run on EKS."', tags: [comp.listening, vocab.architecture] }
+
+writing:
+  prompt: |
+    **Cenário:** o colega novo quer o mapa de infra completo em texto. O seu: hospedado na AWS (us-east-1), serviços em EKS, Postgres em RDS, Redis em ElastiCache; CNAME aponta para o load balancer, que repassa ao gateway; API escuta na 8080, admin na 9090; métricas via /metrics; TLS interno.
+
+    **Tarefa:** escreva o mapa em texto corrido (60–90 palavras): onde cada coisa roda, como o tráfego entra e por onde se escuta.
+  constraints:
+    - { label: "Verbo-preposição de plataforma (run on / hosted on)", pattern: "\\b(runs? on|hosted on|deploy(s|ed)? to)\\b" }
+    - { label: "Verbo-preposição de escuta/exposição (listen on / exposed via)", pattern: "\\b(listens? on|exposed via|reachable at)\\b" }
+    - { label: "Verbo-preposição de direção (point to / connect to / arrive at)", pattern: "\\b(points? to|connects? to|arrives? at|forwards? to)\\b" }
+    - { label: "Componente de infra nomeado", pattern: "\\b(aws|eks|rds|kubernetes|load balancer|gateway|dns|cname|metrics|tls|api)\\b" }
+  rubric:
+    - Plataforma com "on" (runs on, hosted on)
+    - Porta com "on" (listens on)
+    - Destino com "to" (points to, connects to)
+    - Canal com "via"/"over" (exposed via, over TLS)
+  model: >-
+    Everything's hosted on AWS, in us-east-1. The services run on EKS; Postgres runs on RDS and
+    Redis on ElastiCache. Traffic comes in through the CNAME, which points to the load balancer,
+    which forwards to the gateway. The API listens on 8080, the admin interface on 9090. Metrics are
+    exposed via /metrics on each pod, and inside the cluster everything talks over TLS.
+  minWords: 55
+  maxWords: 85
+  tags: [comp.writing, vocab.architecture, topic.architecture]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos descrevendo onde cada coisa roda e como o tráfego entra — plataforma, portas, DNS, protocolos.
+    maxSeconds: 45
+    targetPhrases:
+      - hosted on
+      - runs on
+      - listens on
+      - exposed via
+      - points to
+      - connects to
+      - arrives at
+      - over TLS
+      - deploy to
+      - on the same subnet
+      - reachable at
+      - forwards to
+      - sits behind
+      - talks to
+    checklist:
+      - Usei "on" para plataforma e porta (runs on, listens on)?
+      - Usei "to" para destino (deploy to, points to, connects to)?
+      - Usei "via"/"over" para canal e protocolo?
+      - Nenhum "listen in port" ou "arrive on the server"?
+
+quiz:
+  - { id: M05-03-q1, type: multiple_choice, prompt: "The API ___ port 8080.", options: ["listens in", "listens at", "listens to", "listens on"], answer: 3, explanation: "porta de escuta é \"on\" — listens on port 8080.", tags: [gram.prepositions-infra, br.listen-in] }
+  - { id: M05-03-q2, type: error_correction, prompt: "We deploy in staging first, and the app runs in AWS.", accepted: ["We deploy to staging first, and the app runs on AWS.", "We deploy to staging first, and the app runs on AWS", "We deploy to staging first and the app runs on AWS."], explanation: "Dois calques: deploy TO staging, runs ON AWS.", tags: [gram.prepositions-infra] }
+  - { id: M05-03-q3, type: fill_blank, prompt: "The DNS record points ___ the load balancer.", accepted: ["to"], explanation: "apontar PARA é \"to\".", tags: [gram.prepositions-infra] }
+  - { id: M05-03-q4, type: error_correction, prompt: "The request arrives on the server at 14:02.", accepted: ["The request arrives at the server at 14:02.", "The request arrives at the server at 14:02", "The request reaches the server at 14:02.", "The request reaches the server at 14:02"], explanation: '"arrive on" é calque — ponto técnico é "arrive at" (ou "reaches").', tags: [br.arrive-on] }
+  - { id: M05-03-q5, type: multiple_choice, prompt: "Metrics are exposed ___ a /metrics endpoint.", options: ["via", "in", "on", "to"], answer: 0, explanation: "o canal/mecanismo é \"via\" (ou \"through\").", tags: [gram.prepositions-infra] }
+  - { id: M05-03-q6, type: translate, prompt: "O serviço conecta-se ao banco por TLS.", accepted: ["The service connects to the database over TLS.", "The service connects to the database over TLS", "The service connects to the DB over TLS.", "The service connects to the database via TLS."], explanation: "connects to + over TLS — dois pares.", tags: [gram.prepositions-infra] }
+  - { id: M05-03-q7, type: multiple_choice, prompt: "Which sentence is correct?", options: ["The docs are hosted in GitHub Pages.", "The docs are hosted on GitHub Pages.", "The docs are hosted at GitHub Pages.", "The docs are hosted to GitHub Pages."], explanation: "hospedado NA plataforma é \"on\": hosted on.", tags: [gram.prepositions-infra], answer: 1 }
+  - { id: M05-03-q8, type: match, prompt: "Associe o par verbo-preposição.", pairs: [{ left: "deploy ___", right: "to (o ambiente)" }, { left: "run ___", right: "on (a plataforma)" }, { left: "listen ___", right: "on (a porta)" }, { left: "expose ___", right: "via (o canal)" }], explanation: "Plataforma e porta = on; destino = to; canal = via.", tags: [gram.prepositions-infra] }
+
+review:
+  count: 5
+  preferTags: [gram.prepositions-infra, br.listen-in, br.arrive-on]
+
+srsCards:
+  - { front: "deploy para staging", back: "deploy to staging", tag: gram.prepositions-infra }
+  - { front: "roda em Kubernetes", back: "runs on Kubernetes", tag: gram.prepositions-infra }
+  - { front: "escuta na porta 8080", back: "listens on port 8080", tag: br.listen-in }
+  - { front: "exposto via /metrics", back: "exposed via /metrics", tag: gram.prepositions-infra }
+  - { front: "aponta para o load balancer", back: "points to the load balancer", tag: gram.prepositions-infra }
+  - { front: "conecta-se ao banco", back: "connects to the database", tag: gram.prepositions-infra }
+  - { front: "hospedado na AWS", back: "hosted on AWS", tag: gram.prepositions-infra }
+  - { front: "a request chega ao servidor", back: "the request arrives at the server", tag: br.arrive-on }
+  - { front: "comunicam-se por TLS", back: "communicate over TLS", tag: gram.prepositions-infra }
+  - { front: "alcançável em /healthz", back: "reachable at /healthz", tag: gram.prepositions-infra }
+  - { front: "na mesma sub-rede", back: "on the same subnet", tag: gram.prepositions-infra }
+  - { front: "deploy para produção", back: "deploy to production", tag: gram.prepositions-infra }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
