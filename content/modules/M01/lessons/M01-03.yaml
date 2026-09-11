@@ -1,0 +1,290 @@
+id: M01-03
+module: M01
+order: 3
+title: "Tempo e prazos: ETA, EOD, by × until, within"
+objective: >-
+  Ao final, você consegue dar e pedir prazos com precisão: distingue by (prazo) de until (duração) e within
+  (janela), usa ETA, EOD e COB sem tradução literal, e escolhe entre "should be done by", "aiming for" e
+  "no later than" conforme a confiança que tem no prazo.
+durationMin: 40
+competencies: [SPK, VOC, LIS]
+tags: [topic.daily, gram.by-until, gram.time-expressions, br.until-by, br.until-late, br.lose-the-deadline, vocab.standup, comp.speaking]
+prerequisites: [M01-02]
+
+context:
+  scenario: |
+    Sexta-feira, daily das 10h BRT. O time combinou entregar a migração dos dashboards do Grafana para o novo cluster **até quarta**. Você está no meio: os dashboards de infra já foram, os de aplicação dependem de uma datasource que o time de dados só libera na terça.
+
+    Priya quer saber uma data. Marcos pergunta se dá para adiantar o corte dos alertas. Ana precisa que você termine **antes** do release de quinta, porque ela vai desligar o cluster antigo.
+
+    Você precisa dizer três coisas com clareza: o que está pronto, uma previsão honesta (com a confiança certa) e o que acontece se a datasource atrasar. Sem prometer o que não controla, sem soar vago.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: ETA
+    meaning: previsão de quando algo fica pronto
+    example: What's the ETA on the dashboards? — Wednesday, if the datasource lands on Tuesday.
+    translation: Qual a previsão dos dashboards? — Quarta, se a datasource chegar na terça.
+    note: 'Fala-se letra a letra. "an ETA on/for X"; o horário é "an ETA of 4 pm".'
+  - term: EOD / COB
+    meaning: fim do dia de trabalho (end of day / close of business)
+    example: I'll have the infra dashboards done by EOD.
+    translation: Termino os dashboards de infra até o fim do dia.
+    note: Sempre "by EOD", nunca "until EOD". COB é mais formal e comum nos EUA.
+  - term: by (Wednesday)
+    meaning: prazo final (no máximo até)
+    example: The migration should be done by Wednesday.
+    translation: A migração deve estar pronta até quarta.
+    note: Ponto no tempo. É o que você quer dizer quase sempre com "até".
+  - term: until (Wednesday)
+    meaning: duração (durante o tempo todo até)
+    example: I'll be on the dashboards until Wednesday.
+    translation: Vou ficar nos dashboards até quarta.
+    note: Descreve o período, não o prazo. "I'll finish until Wednesday" está errado.
+  - term: within (two days)
+    meaning: dentro de uma janela de tempo
+    example: I can move the alert cutover within two days of the datasource landing.
+    translation: Consigo virar os alertas em até dois dias depois de a datasource chegar.
+    note: Janela relativa, não data fixa.
+  - term: should be done by
+    meaning: estimativa em que você confia
+    example: The app dashboards should be done by Wednesday.
+    translation: Os dashboards de aplicação devem estar prontos até quarta.
+    note: '"should" = confiança razoável, sem garantia.'
+  - term: I'm aiming for (Wednesday)
+    meaning: meta com risco assumido
+    example: I'm aiming for Wednesday, but it depends on the datasource.
+    translation: Minha meta é quarta, mas depende da datasource.
+    note: '"aiming for" + data; "aiming to" + verbo.'
+  - term: no later than
+    meaning: prazo duro, sem margem
+    example: Ana needs everything migrated no later than Wednesday EOD.
+    translation: A Ana precisa de tudo migrado até quarta no fim do dia, sem falta.
+    note: Formal-neutro; use quando o prazo é de outra pessoa.
+  - term: at the latest
+    meaning: no máximo (data limite)
+    example: I'll know by Tuesday morning at the latest.
+    translation: Vou saber até terça de manhã, no máximo.
+    note: Vem no fim da frase.
+  - term: on track (for)
+    meaning: dentro do previsto
+    example: We're on track for Wednesday.
+    translation: Estamos dentro do prazo para quarta.
+    note: 'Oposto: "behind schedule".'
+  - term: behind schedule / running late
+    meaning: atrasado em relação ao plano
+    example: The app dashboards are running a day late.
+    translation: Os dashboards de aplicação estão um dia atrasados.
+    note: '"running late" = atrasando; "a day late" quantifica.'
+  - term: push (something) back / bring (something) forward
+    meaning: adiar / adiantar uma data
+    example: Can we push the cutover back to Thursday? — I'd rather bring the infra part forward.
+    translation: Podemos adiar a virada para quinta? — Prefiro adiantar a parte de infra.
+    note: '"push back" adia; "bring forward" adianta.'
+  - term: miss the deadline
+    meaning: perder o prazo
+    example: If the datasource slips, we'll miss the Wednesday deadline.
+    translation: Se a datasource atrasar, perdemos o prazo de quarta.
+    note: '"lose the deadline" é calque; prazo se perde com miss.'
+  - term: I'll know more by (Tuesday)
+    meaning: terei mais informação até tal data
+    example: I'll know more by Tuesday morning.
+    translation: Vou saber mais até terça de manhã.
+    note: Dá uma data para a próxima atualização; evita a pergunta "e agora?".
+  - term: worst case
+    meaning: no pior cenário
+    example: Worst case, the app dashboards land on Thursday morning.
+    translation: No pior caso, os dashboards de aplicação chegam quinta de manhã.
+    note: 'Sem "in the": "worst case, …". Par: "best case".'
+
+grammar:
+  title: "by × until × within: prazo, duração e janela"
+  explanation: |
+    Três palavras que o português junta em "até":
+
+    | Palavra | Ideia | Pergunta que responde | Exemplo |
+    |---|---|---|---|
+    | **by** | prazo: no máximo até um ponto | *Quando tem que estar pronto?* | I'll have it done **by** Wednesday. |
+    | **until** | duração: durante todo o tempo até | *Até quando você fica nisso?* | I'll be on this **until** Wednesday. |
+    | **within** | janela: dentro de um período | *Em quanto tempo?* | I'll do it **within** two days. |
+
+    **Teste rápido:** se a frase é sobre *terminar* ou *entregar*, é **by**. "I will finish until Friday" não existe em inglês.
+
+    **Confiança no prazo, do mais firme ao mais solto:**
+
+    - *no later than* Wednesday → prazo duro
+    - *should be done by* Wednesday → confiança razoável
+    - *I'm aiming for* Wednesday → meta com risco
+    - *worst case,* Thursday → cenário de contingência
+
+    **Horas e dias:** *by 4 pm*, *by EOD*, *by Friday*, *by the end of the week*. Com fuso: *by EOD my time* / *by 4 pm BRT*.
+
+    **Dois calques:** "until late" (não existe: *late* já basta, "I stayed late") e "lose the deadline" (é *miss the deadline*).
+  examples:
+    - { en: "I'll have it done by Wednesday.", pt: "Vou ter isso pronto até quarta." }
+    - { en: "I'll be on this until Wednesday.", pt: "Vou ficar nisso até quarta." }
+    - { en: "I can do it within two days.", pt: "Consigo fazer em até dois dias." }
+    - { en: "We'll miss the deadline if the datasource slips.", pt: "Vamos perder o prazo se a datasource atrasar." }
+    - { en: "I stayed late to finish the infra dashboards.", pt: "Fiquei até tarde para terminar os dashboards de infra." }
+
+examples:
+  - en: The infra dashboards are done. The app dashboards should be done by Wednesday, assuming the datasource lands on Tuesday.
+    pt: Os dashboards de infra estão prontos. Os de aplicação devem estar prontos até quarta, supondo que a datasource chegue na terça.
+    context: Previsão honesta com a condição explícita.
+  - en: What's the ETA on the alert cutover? — Within a day of the app dashboards, so Thursday morning worst case.
+    pt: Qual a previsão da virada dos alertas? — Até um dia depois dos dashboards de aplicação, então quinta de manhã no pior caso.
+    context: ETA pedido e dado com janela e pior caso.
+  - en: I'm aiming for Wednesday, but I'll know more by Tuesday morning.
+    pt: Minha meta é quarta, mas vou saber mais até terça de manhã.
+    context: Meta com risco e data da próxima informação.
+  - en: Ana needs the old cluster gone no later than Thursday, so Wednesday EOD is a hard deadline for me.
+    pt: A Ana precisa do cluster antigo desligado até quinta, sem falta; então quarta no fim do dia é prazo duro para mim.
+    context: Prazo de outra pessoa vira o seu.
+  - en: Can we push the cutover back a day? I'd rather not rush it on release day.
+    pt: Podemos adiar a virada um dia? Prefiro não fazer isso correndo no dia do release.
+    context: Pedir para adiar com motivo.
+  - en: We're on track for Wednesday. Nothing blocking me right now.
+    pt: Estamos dentro do prazo para quarta. Nada me bloqueando agora.
+    context: Update curto quando está tudo certo.
+  - en: I stayed late yesterday to get the infra part done, so that piece is off the table.
+    pt: Fiquei até tarde ontem para terminar a parte de infra, então isso está resolvido.
+    context: '"stayed late", não "until late". "off the table" = resolvido / fora de discussão.'
+
+variations:
+  - idea: '"vai ficar pronto até quarta"'
+    items:
+      - { register: Prazo duro, text: "It'll be done no later than Wednesday.", adequate: true }
+      - { register: Confiança razoável, text: "It should be done by Wednesday.", adequate: true }
+      - { register: Meta com risco, text: "I'm aiming for Wednesday.", adequate: true }
+      - { register: Inadequada, text: "I will finish it until Wednesday.", adequate: false, note: '"until" descreve duração; prazo é "by".' }
+      - { register: Inadequada, text: "Maybe Wednesday, maybe not, we'll see.", adequate: false, note: Vago; não dá para planejar em cima disso. }
+  - idea: '"vai atrasar"'
+    items:
+      - { register: Neutro, text: "This is running a day late; new ETA is Thursday.", adequate: true }
+      - { register: Com causa, text: "The datasource slipped, so the app dashboards will land Thursday instead of Wednesday.", adequate: true }
+      - { register: Inadequada, text: "We will lose the deadline.", adequate: false, note: Prazo se perde com "miss". }
+      - { register: Inadequada, text: "I don't know when, it depends of a lot of things.", adequate: false, note: '"depends on"; e dê pelo menos um pior caso.' }
+
+brErrors:
+  - { wrong: "I will finish the dashboards until Wednesday.", right: "I'll have the dashboards done by Wednesday.", why: "until = duração; prazo é by", tag: br.until-by }
+  - { wrong: "I'll be ready until 4 pm.", right: "I'll be ready by 4 pm.", why: "ready + prazo pede by", tag: br.until-by }
+  - { wrong: "I stayed until late to finish it.", right: "I stayed late to finish it.", why: '"until late" não existe', tag: br.until-late }
+  - { wrong: "We lost the deadline.", right: "We missed the deadline.", why: "prazo se perde com miss", tag: br.lose-the-deadline }
+  - { wrong: "The ETA is until Wednesday.", right: "The ETA is Wednesday.", why: "ETA já é um ponto no tempo; sem until", tag: gram.time-expressions }
+  - { wrong: "I'll do it in two days. (querendo dizer 'em até dois dias')", right: "I'll do it within two days.", why: "in two days = daqui a dois dias; within = dentro de dois dias", tag: gram.time-expressions }
+  - { wrong: "It depends of the datasource.", right: "It depends on the datasource.", why: "depend on", tag: br.depend-of }
+  - { wrong: "I'm aiming to Wednesday.", right: "I'm aiming for Wednesday.", why: "aiming for + data; aiming to + verbo", tag: gram.time-expressions }
+  - { wrong: "Give me an ETA of the migration.", right: "Give me an ETA on the migration.", why: "ETA on/for + assunto; ETA of + horário", tag: gram.time-expressions }
+
+dialogue:
+  title: "Daily de sexta, 10:00 BRT. O prazo da migração dos dashboards é quarta."
+  lines:
+    - { speaker: Priya, text: "Yuri, where are we on the Grafana migration? I need a date for the release notes." }
+    - { speaker: Yuri, text: "The infra dashboards are done as of yesterday. The app dashboards depend on the new datasource, which the data team is releasing on Tuesday. So the app part should be done by Wednesday, and I'll know more by Tuesday morning at the latest.", note: "Pronto / dependência / previsão com condição / data da próxima informação." }
+    - { speaker: Marcos, text: "Any chance we can bring the alert cutover forward? I'd like it before the release." }
+    - { speaker: Yuri, text: "Not really. The cutover has to happen within a day of the app dashboards, so Thursday morning at the earliest. I'd rather not rush it on release day." }
+    - { speaker: Ana, text: "Just so it's clear: I'm shutting the old cluster down on Thursday afternoon, so I need everything migrated no later than Thursday noon." }
+    - { speaker: Yuri, text: "Understood. Worst case, if the datasource slips, I'll flag it on Tuesday and we push the shutdown back a day. Does that work?" }
+    - { speaker: Ana, text: "Works for me. Just don't leave it for Wednesday night." }
+    - { speaker: Priya, text: "Good. Wednesday for the dashboards, Thursday noon hard deadline. Next." }
+  notes:
+    - '"as of yesterday" = desde ontem / com data de ontem.'
+    - '"at the earliest" = no mínimo (data); "at the latest" = no máximo.'
+    - '"Does that work?" = funciona para vocês? Pergunta padrão para fechar um combinado.'
+    - 'Repare que ninguém diz "until": prazos são sempre "by" e "no later than".'
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Quick update on the node pool: the upgrade should be done by EOD today. Worst case, tomorrow morning. I'll ping the channel when it's through." }
+    - { speaker: Ana, text: "I'm on the certificate rotation until Monday, then I'm picking up the alerting rules. The rotation has to be done no later than Sunday night, because the old certs expire on Monday." }
+    - { speaker: Priya, text: "Reminder: the release is Thursday at 2 pm BRT. Anything that isn't merged by Wednesday EOD waits for the next one." }
+  questions:
+    - { id: M01-03-l1, type: multiple_choice, prompt: "When should the node pool upgrade be done?", options: ["By EOD today", "Until tomorrow", "Within a week", "On Monday"], answer: 0, explanation: '"the upgrade should be done by EOD today"', tags: [comp.listening, gram.by-until] }
+    - { id: M01-03-l2, type: multiple_choice, prompt: "How long will Ana be on the certificate rotation?", options: ["Until Sunday night", "Until Monday", "Until Thursday", "Until EOD"], answer: 1, explanation: '"I''m on the certificate rotation until Monday" — duração, por isso until.', tags: [comp.listening, gram.by-until] }
+    - { id: M01-03-l3, type: fill_blank, prompt: "The rotation must be done no later than ___ night.", accepted: ["Sunday"], explanation: '"no later than Sunday night, because the old certs expire on Monday"', tags: [comp.listening] }
+    - { id: M01-03-l4, type: multiple_choice, prompt: "What happens to a PR that is not merged by Wednesday EOD?", options: ["It is merged on Thursday morning", "It is closed", "Priya merges it herself", "It waits for the next release"], answer: 3, explanation: '"Anything that isn''t merged by Wednesday EOD waits for the next one."', tags: [comp.listening, gram.by-until] }
+    - { id: M01-03-l5, type: multiple_choice, prompt: '"Worst case, tomorrow morning" means…', options: ["It will definitely be tomorrow", "Tomorrow morning is the latest it should slip to", "It is already late", "He does not know"], answer: 1, explanation: "worst case = pior cenário: o mais tarde que deve acontecer.", tags: [gram.time-expressions] }
+    - { id: M01-03-l6, type: multiple_choice, prompt: "When is the release?", options: ["Wednesday EOD", "Monday", "Thursday at 2 pm BRT", "Sunday night"], answer: 2, explanation: '"the release is Thursday at 2 pm BRT"', tags: [comp.listening] }
+
+writing:
+  prompt: |
+    **Cenário:** você está migrando os alertas do Prometheus para o novo cluster. A parte de infra está pronta desde ontem. A parte de aplicação depende de um endpoint que o time de backend libera na terça. O time precisa de tudo migrado antes do release de quinta às 14h BRT. Você acha que consegue até quarta se o endpoint chegar; no pior caso, quinta de manhã.
+
+    **Tarefa:** escreva seu update de standup (60–90 palavras) com uma previsão honesta: o que está pronto, o prazo com a confiança certa, a condição e o pior caso.
+  constraints:
+    - { label: 'Prazo com "by" (by Wednesday / by EOD / by Thursday…)', pattern: "\\bby (wednesday|thursday|tuesday|monday|friday|eod|noon|\\d|the end|end of|tomorrow|today)" }
+    - { label: '"should be done by", "aiming for" ou "no later than"', pattern: "\\b(should be done by|aiming for|no later than)\\b" }
+    - { label: '"worst case" ou "at the latest"', pattern: "\\b(worst case|at the latest)\\b" }
+    - { label: 'Nenhum "until" como prazo' }
+  rubric:
+    - Previsão com a confiança certa (should / aiming / no later than)
+    - by × until × within corretos
+    - Condição e pior caso explícitos
+    - Concisão e registro
+  model: >-
+    The infra alerts are migrated as of yesterday. The app alerts depend on the new backend endpoint, which
+    lands on Tuesday, so that part should be done by Wednesday EOD. Worst case, if the endpoint slips, the app
+    alerts land on Thursday morning, still before the 2 pm release. I'll know more by Tuesday at the latest and
+    I'll flag it in the channel right away. No blockers on my side for now.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, topic.daily, gram.by-until, gram.time-expressions]
+
+speaking:
+  modeA:
+    prompt: Grave um update de 45 segundos sobre uma tarefa sua com prazo (real ou o do cenário). Dê o que está pronto, uma previsão com a confiança certa, a condição e o pior caso.
+    maxSeconds: 45
+    targetPhrases:
+      - should be done by
+      - I'm aiming for
+      - no later than
+      - at the latest
+      - worst case
+      - by EOD
+      - within
+      - on track
+      - running late
+      - a day late
+      - push back
+      - bring forward
+      - miss the deadline
+      - I'll know more by
+      - ETA
+    checklist:
+      - Disse o que já está pronto?
+      - Usei "by" (não "until") para o prazo?
+      - Marquei a confiança (should / aiming / no later than)?
+      - Dei a condição e o pior caso?
+
+quiz:
+  - { id: M01-03-q1, type: multiple_choice, prompt: "I'll have the report ready ___ Friday.", options: ["until", "by", "within", "since"], answer: 1, explanation: "Prazo (no máximo até) = by. until é duração.", tags: [gram.by-until, br.until-by] }
+  - { id: M01-03-q2, type: error_correction, prompt: "I will finish the migration until Wednesday.", accepted: ["I will finish the migration by Wednesday.", "I'll finish the migration by Wednesday.", "I'll have the migration done by Wednesday.", "I will have the migration done by Wednesday.", "I will finish the migration by Wednesday", "I'll finish the migration by Wednesday"], explanation: "Terminar + prazo pede by. \"finish until\" não existe.", tags: [br.until-by, gram.by-until] }
+  - { id: M01-03-q3, type: fill_blank, prompt: "I'll be on the dashboards ___ Wednesday, then I move to alerts.", accepted: ["until", "till"], explanation: "Duração (ficar nisso durante o tempo todo até quarta) = until.", tags: [gram.by-until] }
+  - { id: M01-03-q4, type: multiple_choice, prompt: "Which one is the FIRMEST commitment?", options: ["I'm aiming for Wednesday.", "It should be done by Wednesday.", "It'll be done no later than Wednesday.", "Worst case, Wednesday."], answer: 2, explanation: "no later than = prazo duro. should = confiança razoável; aiming = meta com risco; worst case = contingência.", tags: [gram.time-expressions] }
+  - { id: M01-03-q5, type: translate, prompt: "Vamos perder o prazo se a datasource atrasar.", accepted: ["We'll miss the deadline if the datasource slips.", "We'll miss the deadline if the datasource slips", "We will miss the deadline if the datasource slips.", "We will miss the deadline if the datasource slips", "We'll miss the deadline if the datasource is late.", "We'll miss the deadline if the datasource is late"], explanation: "Prazo se perde com miss; atrasar = slip / be late.", tags: [br.lose-the-deadline, vocab.standup] }
+  - { id: M01-03-q6, type: error_correction, prompt: "I stayed until late to finish the infra part.", accepted: ["I stayed late to finish the infra part.", "I stayed late to finish the infra part", "I worked late to finish the infra part.", "I worked late to finish the infra part"], explanation: '"until late" não existe; late já carrega a ideia.', tags: [br.until-late] }
+  - { id: M01-03-q7, type: multiple_choice, prompt: "I can move the cutover ___ two days of the dashboards landing.", options: ["by", "until", "within", "for"], answer: 2, explanation: "Janela de tempo relativa = within.", tags: [gram.time-expressions, gram.by-until] }
+  - { id: M01-03-q8, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["more", "know", "by", "Tuesday", "I'll"], answer: "I'll know more by Tuesday", explanation: "Frase-padrão para prometer a próxima informação com data.", tags: [vocab.standup, gram.by-until] }
+
+review:
+  count: 5
+  preferTags: [gram.by-until, br.until-by, gram.present-perfect]
+
+srsCards:
+  - { front: "vou ter isso pronto até quarta (prazo)", back: "I'll have it done by Wednesday", tag: gram.by-until }
+  - { front: "vou ficar nisso até quarta (duração)", back: "I'll be on this until Wednesday", tag: gram.by-until }
+  - { front: "em até dois dias", back: "within two days", tag: gram.time-expressions }
+  - { front: "deve estar pronto até quarta", back: "It should be done by Wednesday", tag: gram.time-expressions }
+  - { front: "minha meta é quarta", back: "I'm aiming for Wednesday", tag: gram.time-expressions }
+  - { front: "sem falta até quarta", back: "no later than Wednesday", tag: gram.time-expressions }
+  - { front: "no pior caso, quinta de manhã", back: "Worst case, Thursday morning", tag: vocab.standup }
+  - { front: "vou saber mais até terça", back: "I'll know more by Tuesday", tag: vocab.standup }
+  - { front: "estamos dentro do prazo", back: "We're on track", tag: vocab.standup }
+  - { front: "perder o prazo", back: "miss the deadline", tag: br.lose-the-deadline }
+  - { front: "fiquei até tarde", back: "I stayed late", tag: br.until-late }
+  - { front: "adiar / adiantar uma data", back: "push it back / bring it forward", tag: vocab.standup }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

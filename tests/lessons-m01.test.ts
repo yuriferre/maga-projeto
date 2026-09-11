@@ -70,4 +70,5 @@ describe("M01 lessons", () => {
     expect(crossValidate(bundle)).toEqual([]);
   });
   checkLesson("M01-01", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: [] });
+  checkLesson("M01-03", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M01-02"] });
 });
