@@ -205,6 +205,50 @@ describe("detectBrErrors", () => {
     expect(tagsOf("I saw your comment.")).not.toContain("br.did-past");
     expect(tagsOf("I had doubts about his story.")).not.toContain("br.doubt");
   });
+  it("flags 'listen in port' but not 'listen on' or 'listen in on'", () => {
+    expect(tagsOf("The service listens in port 8080.")).toContain("br.listen-in");
+    expect(tagsOf("It listens in the interface.")).toContain("br.listen-in");
+    expect(tagsOf("The service listens on port 8080.")).not.toContain("br.listen-in");
+    expect(tagsOf("I'd like to listen in on the call.")).not.toContain("br.listen-in");
+  });
+  it("flags pluralized uncountable nouns only", () => {
+    expect(tagsOf("The response returns the datas.")).toContain("br.uncountable");
+    expect(tagsOf("Thanks for the feedbacks.")).toContain("br.uncountable");
+    expect(tagsOf("We need more informations about the deploy.")).toContain("br.uncountable");
+    const clean = [
+      "The response returns the data.",
+      "Thanks for the feedback.",
+      "We need more information about the deploy.",
+      "The equipment list is long.",
+      "That software runs on every node.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.uncountable");
+  });
+  it("flags missing third-person -s on infra subjects only", () => {
+    expect(tagsOf("The request go through the gateway.")).toContain("br.third-person-s");
+    expect(tagsOf("This service talk to the database.")).toContain("br.third-person-s");
+    expect(tagsOf("The load balancer route traffic to pods.")).toContain("br.third-person-s");
+    const clean = [
+      "The request goes through the gateway.",
+      "The requests go through the gateway.",
+      "The services talk to the database.",
+      "The request can go through.",
+      "I go through the gateway config.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.third-person-s");
+  });
+  it("flags 'arrive on/in + infra target' only", () => {
+    expect(tagsOf("The request arrives on the server.")).toContain("br.arrive-on");
+    expect(tagsOf("The packet arrived in the pod.")).toContain("br.arrive-on");
+    const clean = [
+      "The request arrives at the gateway.",
+      "The request gets to the server.",
+      "She arrives on time every day.",
+      "He arrived in São Paulo last night.",
+      "The plane arrives on the runway.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.arrive-on");
+  });
   it("still flags the narrowed calques", () => {
     expect(tagsOf("Any doubts?")).toContain("br.doubt");
     expect(tagsOf("I have 30 years.")).toContain("br.have-years");

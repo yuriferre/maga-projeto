@@ -77,6 +77,10 @@ tags:
   - { id: br.irregular-past,     group: br, label: "passado irregular com -ed (readed)" }
   - { id: br.more-er,            group: br, label: "more + adjetivo -er (more easy)" }
   - { id: br.in-the-internet,    group: br, label: "in the internet" }
+  - { id: br.listen-in,          group: br, label: "listen in (a porta é on)" }
+  - { id: br.uncountable,        group: br, label: "incontável com plural (datas)" }
+  - { id: br.third-person-s,     group: br, label: "3ª pessoa sem -s (the request go)" }
+  - { id: br.arrive-on,          group: br, label: "arrive on/in + alvo de infra" }
   # Situação
   - { id: topic.daily,         group: topic, label: Daily standup }
   - { id: topic.help,          group: topic, label: Pedir ajuda }
