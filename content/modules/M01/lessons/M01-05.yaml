@@ -1,0 +1,305 @@
+id: M01-05
+module: M01
+order: 5
+title: "Standup completo com 3 personas + parking lot"
+objective: >-
+  Ao final, você conduz uma rodada inteira de standup: dá o seu update com as três partes e o prazo certo,
+  responde a follow-ups sem se perder, joga o que não cabe no daily para o parking lot e escreve o follow-up
+  no Slack depois da call, com tom e formato de time distribuído.
+durationMin: 45
+competencies: [SPK, LIS, VOC, CNF]
+tags: [topic.daily, topic.async, vocab.standup, vocab.slack, gram.present-perfect, gram.by-until, gram.since-for, br.since-present, br.until-by, br.waiting-no-prep, comp.speaking]
+prerequisites: [M01-03, M01-04]
+
+context:
+  scenario: |
+    Quinta-feira, daily das 10h BRT, 15 minutos, quatro pessoas: Priya (scrum master), Ana (SRE), Marcos (platform) e você. Release hoje às 14h BRT.
+
+    Sua semana: na segunda você começou a migração do `checkout-worker`; terça e quarta destravou permissões e testou o rollout com o chart do Marcos; ontem à noite o rollout em staging passou. Hoje você quer fazer o deploy em produção **antes** do release, mas o job de smoke test está intermitente (passou 3 de 5 vezes) e você ainda não sabe por quê. A Ana precisa do cluster antigo desligado até amanhã. O Marcos vai perguntar sobre o smoke test; a Priya vai querer uma decisão: deploy antes ou depois do release.
+
+    Duas coisas não cabem no daily e vão para o *parking lot*: a discussão sobre a causa do smoke test intermitente e a dúvida sobre quem apaga os dashboards antigos. Depois da call, você escreve o follow-up no canal `#platform` com o que ficou combinado.
+  roles: [Priya (scrum master), Ana (SRE), Marcos (platform engineer)]
+
+vocabulary:
+  - term: Let's go around
+    meaning: vamos passar por todo mundo (abre a rodada)
+    example: Morning all. Let's go around — Ana, you're up.
+    translation: Bom dia. Vamos passar por todos. Ana, é a sua vez.
+    note: Quem conduz diz; você responde ao "you're up".
+  - term: Since Monday I've been…
+    meaning: resumo da semana (começou e continua)
+    example: Since Monday I've been on the checkout-worker migration.
+    translation: Desde segunda estou na migração do checkout-worker.
+    note: since + present perfect; nunca "I'm on it since Monday".
+  - term: As of last night, X is…
+    meaning: estado desde ontem à noite (com data)
+    example: As of last night, the staging rollout is green.
+    translation: Desde ontem à noite, o rollout de staging está verde.
+    note: '"as of" marca o momento da informação.'
+  - term: The plan is to…
+    meaning: o plano é… (decisão que depende de confirmação)
+    example: The plan is to deploy to prod before the 2 pm release.
+    translation: O plano é fazer o deploy em produção antes do release das 14h.
+    note: Mais suave que "I will"; convida objeção.
+  - term: flaky / intermittent
+    meaning: instável, falha de forma intermitente
+    example: "The smoke test is flaky: it passed three out of five runs."
+    translation: "O smoke test está instável: passou em três de cinco execuções."
+    note: '"three out of five" = 3 de 5.'
+  - term: I haven't figured out why yet
+    meaning: ainda não descobri o motivo
+    example: I haven't figured out why yet.
+    translation: Ainda não descobri por quê.
+    note: '"figure out" = descobrir/entender; yet no fim.'
+  - term: Let's take that offline / to the parking lot
+    meaning: vamos tratar disso fora do daily
+    example: Let's take the smoke test discussion offline; I'll grab you after the call, Marcos.
+    translation: Vamos discutir o smoke test depois; te chamo depois da call, Marcos.
+    note: '"take it offline" = fora da reunião (não tem a ver com internet).'
+  - term: Can I get a decision on X?
+    meaning: preciso que alguém decida X
+    example: Priya, can I get a decision on deploying before or after the release?
+    translation: "Priya, preciso de uma decisão: deploy antes ou depois do release?"
+    note: Pede decisão sem tomar sozinho o que não é seu.
+  - term: My recommendation is…
+    meaning: minha recomendação é…
+    example: My recommendation is to deploy after the release, given the flaky smoke test.
+    translation: Minha recomendação é fazer o deploy depois do release, dado o smoke test instável.
+    note: Dê a opinião antes de pedir a decisão.
+  - term: given that…
+    meaning: considerando que…
+    example: Given that the release is at 2 pm, I'd rather not deploy right before it.
+    translation: Considerando que o release é às 14h, prefiro não fazer o deploy logo antes.
+    note: Conecta o motivo à decisão.
+  - term: I'd rather (not)…
+    meaning: eu preferiria (não)…
+    example: I'd rather not rush it.
+    translation: Prefiro não fazer isso correndo.
+    note: '"I''d rather" + verbo sem to.'
+  - term: Does that work for everyone?
+    meaning: funciona para todo mundo? (fecha um combinado)
+    example: Deploy tomorrow at 9, shutdown after that. Does that work for everyone?
+    translation: Deploy amanhã às 9, desligamento depois. Funciona para todos?
+    note: Convida objeção uma última vez antes de fechar.
+  - term: "To recap / Quick recap:"
+    meaning: resumindo o que ficou combinado
+    example: "Quick recap: prod deploy tomorrow 9 am BRT, Ana shuts the old cluster down after."
+    translation: "Resumindo: deploy em prod amanhã 9h BRT, Ana desliga o cluster antigo depois."
+    note: Abre o follow-up no Slack.
+  - term: "Action items:"
+    meaning: tarefas combinadas, com dono
+    example: "Action items: Yuri — deploy; Marcos — look into the smoke test; Ana — shutdown."
+    translation: "Ações: Yuri, deploy; Marcos, investigar o smoke test; Ana, desligamento."
+    note: Nome + travessão + ação.
+  - term: Thread below for X
+    meaning: detalhe na thread abaixo
+    example: Thread below for the smoke test details.
+    translation: Detalhes do smoke test na thread abaixo.
+    note: Mantém o canal limpo; padrão de Slack.
+  - term: "Heads up, timing:"
+    meaning: aviso sobre horário/fuso
+    example: "Heads up, timing: 9 am BRT is 1 pm for Marcos, so he'll join late."
+    translation: "Aviso sobre horário: 9h BRT são 13h para o Marcos, então ele entra depois."
+    note: Times distribuídos vivem disso.
+
+grammar:
+  title: "Juntando tudo: tempos verbais ao longo da semana e a linguagem de decisão"
+  explanation: |
+    Um update de fim de semana de trabalho percorre quatro tempos:
+
+    | Momento | Forma | Exemplo |
+    |---|---|---|
+    | A semana até agora | present perfect (continuous) + *since* | **Since Monday I've been** on the migration. |
+    | Um fato fechado | past simple | **Yesterday** the staging rollout **passed**. |
+    | O estado agora | present perfect / present + *as of* | **As of last night**, staging **is** green. |
+    | O plano | *the plan is to* / *going to* / *by* | **The plan is to** deploy **by** noon. |
+
+    **Linguagem de decisão** (quando o que você faz afeta os outros):
+
+    1. Contexto em uma frase: *The smoke test is flaky, three out of five.*
+    2. Opinião: *My recommendation is to deploy after the release.*
+    3. Motivo: *Given that the release is at 2 pm, I'd rather not rush it.*
+    4. Pedido de decisão: *Priya, can I get a decision on that?*
+    5. Fechamento: *Does that work for everyone?*
+
+    **Parking lot:** o que exige discussão sai do daily com uma frase (*let's take that offline*) e uma pessoa responsável por retomar.
+
+    **Follow-up no Slack:** *Quick recap* → decisões → *Action items* com dono → *Heads up, timing* se houver fuso. Curto; detalhe vai para a thread.
+  examples:
+    - { en: "Since Monday I've been on the migration.", pt: "Desde segunda estou na migração." }
+    - { en: "Yesterday the staging rollout passed.", pt: "Ontem o rollout de staging passou." }
+    - { en: "As of last night, staging is green.", pt: "Desde ontem à noite, staging está verde." }
+    - { en: "The plan is to deploy by noon.", pt: "O plano é fazer o deploy até o meio-dia." }
+    - { en: "Given that the release is at 2 pm, I'd rather not rush it.", pt: "Considerando que o release é às 14h, prefiro não correr." }
+
+examples:
+  - en: Since Monday I've been on the checkout-worker migration. As of last night, the staging rollout is green.
+    pt: Desde segunda estou na migração do checkout-worker. Desde ontem à noite, o rollout de staging está verde.
+    context: "Abertura do update de quinta: semana + estado atual."
+  - en: The smoke test is flaky, three out of five runs, and I haven't figured out why yet.
+    pt: O smoke test está instável, três de cinco execuções, e ainda não descobri por quê.
+    context: Problema com número e honestidade.
+  - en: My recommendation is to deploy to prod tomorrow morning rather than right before the release. Priya, can I get a decision on that?
+    pt: Minha recomendação é fazer o deploy em prod amanhã de manhã, não logo antes do release. Priya, preciso de uma decisão.
+    context: Opinião + pedido de decisão, sem decidir sozinho.
+  - en: Marcos, let's take the smoke test discussion offline; I'll grab you after the call.
+    pt: Marcos, vamos discutir o smoke test depois; te chamo depois da call.
+    context: Parking lot com dono e momento.
+  - en: Ana, that means the old cluster shutdown moves to tomorrow afternoon. Does that work for you?
+    pt: Ana, isso significa que o desligamento do cluster antigo passa para amanhã à tarde. Funciona para você?
+    context: Nomear o impacto na outra pessoa e perguntar.
+  - en: "Quick recap from standup: prod deploy of checkout-worker tomorrow at 9 am BRT; old cluster shutdown after that."
+    pt: "Resumo do standup: deploy do checkout-worker em prod amanhã às 9h BRT; desligamento do cluster antigo depois."
+    context: Primeira linha do follow-up no Slack.
+  - en: "Action items: Yuri — prod deploy 9 am; Marcos — look into the flaky smoke test (thread below); Ana — shutdown after the deploy."
+    pt: "Ações: Yuri, deploy 9h; Marcos, investigar o smoke test instável (thread abaixo); Ana, desligamento depois do deploy."
+    context: Ações com dono; detalhe na thread.
+
+variations:
+  - idea: '"proponho adiar o deploy"'
+    items:
+      - { register: Neutro (daily), text: "My recommendation is to deploy tomorrow morning instead. Can I get a decision?", adequate: true }
+      - { register: Direto (time próximo), text: "I'd push the deploy to tomorrow 9 am. Objections?", adequate: true }
+      - { register: Formal (canal amplo), text: "Given the flaky smoke test, I propose moving the production deploy to tomorrow 9 am BRT.", adequate: true }
+      - { register: Inadequada, text: "I don't know, maybe we deploy, maybe not, what do you think?", adequate: false, note: Sem recomendação; empurra a decisão sem dado. }
+      - { register: Inadequada, text: "I will not deploy today, period.", adequate: false, note: Decide sozinho algo que afeta o release de todos. }
+  - idea: '"follow-up no Slack"'
+    items:
+      - { register: Neutro, text: "Quick recap: deploy tomorrow 9 am BRT. Action items: Yuri — deploy; Ana — shutdown after. Thread below for the smoke test.", adequate: true }
+      - { register: Informal, text: "Recap 👇 deploy tomorrow 9 BRT, Ana shuts old cluster after. Smoke test stuff in thread.", adequate: true, note: Com time próximo e canal informal. }
+      - { register: Inadequada, text: "Hello everyone, hope you are well. As discussed in our meeting today, we have decided…", adequate: false, note: '"no hello" e sem preâmbulo; o Slack pede o resumo na primeira linha.' }
+      - { register: Inadequada, text: "deploy tomorrow", adequate: false, note: Sem hora, sem fuso, sem dono. }
+
+brErrors:
+  - { wrong: "I'm on the migration since Monday.", right: "I've been on the migration since Monday.", why: "since pede present perfect", tag: br.since-present }
+  - { wrong: "I will deploy until noon.", right: "I'll deploy by noon.", why: "prazo = by", tag: br.until-by }
+  - { wrong: "I'm waiting Ana's confirmation.", right: "I'm waiting on Ana's confirmation.", why: "wait exige preposição", tag: br.waiting-no-prep }
+  - { wrong: "The smoke test is giving error sometimes.", right: "The smoke test is flaky / fails intermittently.", why: "calque de 'dando erro'", tag: br.giving-error }
+  - { wrong: "Let's discuss about the smoke test after.", right: "Let's discuss the smoke test after the call.", why: "discuss é transitivo direto", tag: br.discuss-about }
+  - { wrong: "I have a doubt if we should deploy today.", right: "I'm not sure we should deploy today.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "Actually the rollout is green. (= atualmente)", right: "As of last night, the rollout is green.", why: "actually = na verdade", tag: br.actually }
+  - { wrong: "It passed 3 in 5 times.", right: "It passed three out of five times.", why: "proporção é out of", tag: gram.numbers-percentages }
+  - { wrong: "Deploy tomorrow 9 am. (sem fuso, no Slack)", right: "Deploy tomorrow 9 am BRT.", why: "time distribuído: hora sem fuso é ambígua", tag: topic.async }
+  - { wrong: "Hello everyone, hope you're doing well. As discussed…", right: "Quick recap: …", why: "no Slack, resumo na primeira linha", tag: vocab.slack }
+
+dialogue:
+  title: "Daily de quinta, 10:00 BRT. Release às 14h. Rodada completa."
+  lines:
+    - { speaker: Priya, text: "Morning all. Release day, so let's keep it tight. Let's go around — Ana first." }
+    - { speaker: Ana, text: "Yesterday I finished the alerting rules for the new cluster. Today I'm on release support. One dependency: I'm shutting the old cluster down tomorrow, so I need checkout-worker off it by then. No blockers." }
+    - { speaker: Priya, text: "Noted. Marcos?" }
+    - { speaker: Marcos, text: "Base chart is merged as of Tuesday. Today I'm pairing with the data team on the new datasource. Nothing blocking me. Yuri, how did the rollout go with the chart?" }
+    - { speaker: Yuri, text: "Good, thanks. Since Monday I've been on the checkout-worker migration. As of last night, the staging rollout is green. The one thing is the smoke test: it's flaky, three out of five runs, and I haven't figured out why yet.", note: "Semana + estado atual + o problema com número." }
+    - { speaker: Marcos, text: "Is it the readiness probe? We had that on notifications-api." }
+    - { speaker: Yuri, text: "Could be. Let's take that offline; I'll grab you after the call. The decision I need now: the plan was to deploy to prod before the 2 pm release, but given the flaky test, my recommendation is to deploy tomorrow at 9 am BRT instead. Priya, can I get a decision on that?", note: "Parking lot + recomendação + pedido de decisão." }
+    - { speaker: Priya, text: "Ana, does tomorrow 9 am work with your shutdown?" }
+    - { speaker: Ana, text: "Yes, if the deploy is done by noon I can shut the old cluster down in the afternoon." }
+    - { speaker: Priya, text: "Then tomorrow 9 am it is. Yuri, post the recap in #platform. Anything for the parking lot?" }
+    - { speaker: Yuri, text: "Two things: the smoke test root cause with Marcos, and who deletes the old Grafana dashboards. Not urgent." }
+    - { speaker: Priya, text: "Good. Smoke test after the call, dashboards next week. That's the round. Thanks all." }
+  notes:
+    - '"Let''s keep it tight" = vamos ser breves.'
+    - '"as of Tuesday" / "as of last night" marcam a data da informação.'
+    - '"Then tomorrow 9 am it is" = fica combinado amanhã às 9.'
+    - 'O parking lot tem dois itens, cada um com destino: depois da call e semana que vem.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Quick recap before we close. Prod deploy of checkout-worker moves to tomorrow at 9 am BRT, that's 1 pm for Marcos in Dublin. Ana shuts the old cluster down tomorrow afternoon, after Yuri confirms the deploy is done." }
+    - { speaker: Marcos, text: "And I'll look into the flaky smoke test with Yuri after this call. My bet is the readiness probe, but I want to see the logs first. If it's the probe, it's a five-minute fix." }
+    - { speaker: Ana, text: "One more thing for the parking lot: the old Grafana dashboards. Nobody owns them right now. I'd say we archive the folder next week rather than delete it, in case someone needs the history." }
+    - { speaker: Priya, text: "Agreed, archive next week, Ana owns it. Yuri, please post the action items in #platform with the times in BRT and Dublin. That's it, thanks everyone." }
+  questions:
+    - { id: M01-05-l1, type: multiple_choice, prompt: "When is the prod deploy now?", options: ["Today before the release", "Tomorrow afternoon", "Next week", "Tomorrow at 9 am BRT"], answer: 3, explanation: '"moves to tomorrow at 9 am BRT"', tags: [comp.listening, topic.async] }
+    - { id: M01-05-l2, type: fill_blank, prompt: "9 am BRT is ___ pm for Marcos in Dublin.", accepted: ["1", "one"], explanation: '"that''s 1 pm for Marcos in Dublin"', tags: [comp.listening, topic.async] }
+    - { id: M01-05-l3, type: multiple_choice, prompt: "What does Ana wait for before shutting the old cluster down?", options: ["Marcos's logs", "Yuri confirming the deploy is done", "The release", "Priya's approval"], answer: 1, explanation: '"after Yuri confirms the deploy is done"', tags: [comp.listening] }
+    - { id: M01-05-l4, type: multiple_choice, prompt: "What does Marcos think causes the flaky test?", options: ["The datasource", "The base chart", "The readiness probe", "The old cluster"], answer: 2, explanation: '"My bet is the readiness probe"', tags: [comp.listening] }
+    - { id: M01-05-l5, type: multiple_choice, prompt: '"If it''s the probe, it''s a five-minute fix" means…', options: ["the fix is quick", "it will take five minutes to find", "the probe runs every five minutes", "he needs five more minutes"], answer: 0, explanation: "a five-minute fix = correção rápida.", tags: [vocab.standup] }
+    - { id: M01-05-l6, type: multiple_choice, prompt: "What will happen to the old Grafana dashboards?", options: ["Deleted today", "Migrated tomorrow", "Nothing was decided", "Archived next week"], answer: 3, explanation: '"archive the folder next week rather than delete it"', tags: [comp.listening] }
+    - { id: M01-05-l7, type: fill_blank, prompt: "Yuri should post the action items with the times in BRT and ___.", accepted: ["Dublin"], explanation: '"with the times in BRT and Dublin"', tags: [comp.listening, topic.async] }
+    - { id: M01-05-l8, type: multiple_choice, prompt: "Who owns archiving the dashboards?", options: ["Yuri", "Marcos", "Ana", "Priya"], answer: 2, explanation: '"archive next week, Ana owns it"', tags: [comp.listening, vocab.standup] }
+
+writing:
+  prompt: |
+    **Cenário:** o daily acabou. Ficou combinado: deploy do `checkout-worker` em produção amanhã às 9h BRT (13h em Dublin, onde está o Marcos); a Ana desliga o cluster antigo amanhã à tarde depois de você confirmar; o Marcos investiga o smoke test instável com você depois da call; os dashboards antigos do Grafana serão arquivados semana que vem pela Ana.
+
+    **Tarefa:** escreva o follow-up no canal `#platform` (80–120 palavras): resumo na primeira linha, decisões, ações com dono e horário com fuso. Sem "hello", sem preâmbulo; detalhe vai para a thread.
+  constraints:
+    - { label: 'Começa com "Quick recap" ou "Recap"', pattern: "^\\s*(quick )?recap\\b" }
+    - { label: '"Action items"', pattern: "\\baction items\\b" }
+    - { label: "Horário com fuso (BRT e Dublin)", pattern: "\\bbrt\\b[\\s\\S]*\\bdublin\\b|\\bdublin\\b[\\s\\S]*\\bbrt\\b" }
+    - { label: '"thread" para o detalhe', pattern: "\\bthread\\b" }
+  rubric:
+    - Resumo na primeira linha, sem preâmbulo
+    - Decisões e ações com dono
+    - Horário com fuso
+    - Concisão e tom de Slack
+  model: >-
+    Quick recap from standup: the checkout-worker prod deploy moves to tomorrow at 9 am BRT (1 pm Dublin);
+    the old cluster shutdown happens tomorrow afternoon, after I confirm the deploy is done. Action items:
+    Yuri — prod deploy at 9 am BRT and confirmation in this channel; Marcos — look into the flaky smoke test
+    with me right after the call; Ana — shut the old cluster down after my confirmation, and archive the old
+    Grafana dashboards next week. Thread below for the smoke test details. Shout if I missed anything.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.slack, topic.async]
+
+speaking:
+  modeA:
+    prompt: "Grave a sua rodada inteira em até 60 segundos, como se fosse quinta-feira do cenário: semana desde segunda, estado atual, o problema com número, sua recomendação, o pedido de decisão e o que vai para o parking lot."
+    maxSeconds: 60
+    targetPhrases:
+      - since Monday I've been
+      - as of last night
+      - the plan is to
+      - flaky
+      - out of
+      - I haven't figured out why yet
+      - my recommendation is
+      - given that
+      - I'd rather
+      - can I get a decision
+      - let's take that offline
+      - parking lot
+      - does that work
+      - no blockers
+      - by
+    checklist:
+      - Usei present perfect com "since" para a semana e past simple para o fato fechado?
+      - Dei o problema com número (three out of five)?
+      - Recomendei antes de pedir a decisão?
+      - Mandei o que não cabe para o parking lot com dono?
+      - Fiquei abaixo de 60 segundos?
+
+quiz:
+  - { id: M01-05-q1, type: fill_blank, prompt: "Since Monday I ___ (be) on the migration.", accepted: ["have been", "'ve been"], explanation: "since + present perfect.", tags: [gram.since-for, br.since-present] }
+  - { id: M01-05-q2, type: multiple_choice, prompt: "Which one asks for a decision without deciding alone?", options: ["I will not deploy today.", "Maybe we deploy, maybe not.", "My recommendation is tomorrow 9 am. Priya, can I get a decision on that?", "Whatever you want."], answer: 2, explanation: "Recomendação + pedido de decisão. As outras decidem sozinho ou não dizem nada.", tags: [topic.daily, vocab.standup] }
+  - { id: M01-05-q3, type: error_correction, prompt: "Let's discuss about the smoke test after the call.", accepted: ["Let's discuss the smoke test after the call.", "Let's discuss the smoke test after the call", "Let's take the smoke test offline.", "Let's talk about the smoke test after the call."], explanation: "discuss é transitivo direto: discuss X. (talk about X também vale.)", tags: [br.discuss-about] }
+  - { id: M01-05-q4, type: translate, prompt: "Passou em três de cinco execuções.", accepted: ["It passed three out of five runs.", "It passed three out of five runs", "It passed three out of five times.", "It passed three out of five times", "It passed 3 out of 5 runs.", "It passed 3 out of 5 runs"], explanation: "Proporção: X out of Y.", tags: [gram.numbers-percentages, vocab.standup] }
+  - { id: M01-05-q5, type: multiple_choice, prompt: '"Let''s take that offline" means…', options: ["let's disconnect from the internet", "let's discuss it outside this meeting", "let's cancel it", "let's do it without the team"], answer: 1, explanation: "take it offline = tratar fora da reunião.", tags: [vocab.standup] }
+  - { id: M01-05-q6, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["work", "does", "that", "everyone", "for"], answer: "does that work for everyone", explanation: "Fechamento padrão de um combinado.", tags: [vocab.standup, gram.question-forms] }
+  - { id: M01-05-q7, type: multiple_choice, prompt: "Which Slack follow-up is the best first line?", options: ["Quick recap: prod deploy tomorrow 9 am BRT (1 pm Dublin).", "Hello everyone, hope you are well.", "As discussed in our meeting today…", "deploy tomorrow"], answer: 0, explanation: "Resumo na primeira linha, com hora e fuso. Sem preâmbulo; sem hora é ambíguo.", tags: [vocab.slack, topic.async] }
+  - { id: M01-05-q8, type: match, prompt: "Associe a etapa da decisão à frase.", pairs: [{ left: "contexto", right: "The smoke test is flaky, three out of five." }, { left: "recomendação", right: "My recommendation is to deploy tomorrow." }, { left: "motivo", right: "Given that the release is at 2 pm, I'd rather not rush it." }, { left: "pedido de decisão", right: "Can I get a decision on that?" }], explanation: "Contexto → recomendação → motivo → pedido de decisão → fechamento.", tags: [topic.daily] }
+
+review:
+  count: 5
+  preferTags: [gram.since-for, gram.by-until, br.waiting-no-prep]
+
+srsCards:
+  - { front: "desde segunda estou na migração", back: "Since Monday I've been on the migration", tag: gram.since-for }
+  - { front: "desde ontem à noite, o rollout está verde", back: "As of last night, the rollout is green", tag: vocab.standup }
+  - { front: "o plano é fazer o deploy até o meio-dia", back: "The plan is to deploy by noon", tag: gram.by-until }
+  - { front: "passou em três de cinco execuções", back: "It passed three out of five runs", tag: gram.numbers-percentages }
+  - { front: "ainda não descobri por quê", back: "I haven't figured out why yet", tag: gram.present-perfect }
+  - { front: "vamos tratar disso fora do daily", back: "Let's take that offline", tag: vocab.standup }
+  - { front: "minha recomendação é…", back: "My recommendation is…", tag: vocab.standup }
+  - { front: "considerando que o release é às 14h", back: "Given that the release is at 2 pm", tag: vocab.standup }
+  - { front: "preciso de uma decisão sobre isso", back: "Can I get a decision on that?", tag: vocab.standup }
+  - { front: "funciona para todo mundo?", back: "Does that work for everyone?", tag: vocab.standup }
+  - { front: "resumindo (Slack)", back: "Quick recap:", tag: vocab.slack }
+  - { front: "ações combinadas, com dono", back: "Action items:", tag: vocab.slack }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

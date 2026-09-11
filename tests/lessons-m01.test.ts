@@ -72,4 +72,5 @@ describe("M01 lessons", () => {
   checkLesson("M01-01", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: [] });
   checkLesson("M01-03", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M01-02"] });
   checkLesson("M01-04", { vocabMin: 12, dialogueMin: 6, listening: 6, quiz: 8, cardsMin: 10, maxSeconds: 45, prerequisites: ["M01-02"] });
+  checkLesson("M01-05", { vocabMin: 12, dialogueMin: 12, listening: 8, quiz: 8, cardsMin: 10, maxSeconds: 60, prerequisites: ["M01-03", "M01-04"] });
 });
