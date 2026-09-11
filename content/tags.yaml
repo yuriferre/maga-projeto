@@ -81,6 +81,10 @@ tags:
   - { id: br.uncountable,        group: br, label: "incontável com plural (datas)" }
   - { id: br.third-person-s,     group: br, label: "3ª pessoa sem -s (the request go)" }
   - { id: br.arrive-on,          group: br, label: "arrive on/in + alvo de infra" }
+  - { id: br.steps-for,          group: br, label: "steps for reproduce" }
+  - { id: br.verify-if,          group: br, label: "verify if (verifique se)" }
+  - { id: br.merge-in,           group: br, label: "merge in <branch>" }
+  - { id: br.revert-back,        group: br, label: "revert back (redundante)" }
   # Situação
   - { id: topic.daily,         group: topic, label: Daily standup }
   - { id: topic.help,          group: topic, label: Pedir ajuda }

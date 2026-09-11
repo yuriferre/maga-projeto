@@ -249,6 +249,49 @@ describe("detectBrErrors", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.arrive-on");
   });
+  it("flags 'steps for reproduce' but not 'steps to reproduce'", () => {
+    expect(tagsOf("Add steps for reproduce the bug.")).toContain("br.steps-for");
+    expect(tagsOf("The ticket needs steps for reproducing it.")).toContain("br.steps-for");
+    const clean = [
+      "Add steps to reproduce the bug.",
+      "The steps for the deploy are in the wiki.",
+      "Three steps for a clean build.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.steps-for");
+  });
+  it("flags 'verify if' but not 'check whether' or bare 'verify'", () => {
+    expect(tagsOf("Please verify if the fix works.")).toContain("br.verify-if");
+    expect(tagsOf("Can you verify if the pod is up?")).toContain("br.verify-if");
+    const clean = [
+      "Please check whether the fix works.",
+      "Please check if the fix works.",
+      "Please verify the fix before merging.",
+      "Verify the signature before deploying.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.verify-if");
+  });
+  it("flags 'merge in <branch>' but not 'merge into' or 'merge in the changes'", () => {
+    expect(tagsOf("Merge the PR in main.")).toContain("br.merge-in");
+    expect(tagsOf("We merged it in develop yesterday.")).toContain("br.merge-in");
+    const clean = [
+      "Merge the PR into main.",
+      "We merged it into develop.",
+      "Merge in the latest changes from main.",
+      "The fix was merged last week.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.merge-in");
+  });
+  it("flags 'revert back' but not bare 'revert'", () => {
+    expect(tagsOf("We should revert back the deploy.")).toContain("br.revert-back");
+    expect(tagsOf("It was reverted back to v1.2.")).toContain("br.revert-back");
+    const clean = [
+      "We should revert the deploy.",
+      "It was reverted to v1.2.",
+      "We rolled back the deploy.",
+      "Go back to the previous version.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.revert-back");
+  });
   it("still flags the narrowed calques", () => {
     expect(tagsOf("Any doubts?")).toContain("br.doubt");
     expect(tagsOf("I have 30 years.")).toContain("br.have-years");

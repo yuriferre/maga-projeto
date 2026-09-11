@@ -210,3 +210,30 @@ patterns:
     right: "The request arrives at the server / reaches the server"
     why: 'Chegar a um ponto técnico é "arrive at" (ou reaches/hits); on/in é para lugar geográfico ou "on time".'
     tag: br.arrive-on
+  # "steps for reproduce" é calque de "passos para reproduzir"; "steps for <outra coisa>" é correto.
+  - id: steps-for-reproduce
+    pattern: "\\bsteps? for reproduc(t|e|ing|ion)\\b"
+    wrong: "Add steps for reproduce the bug"
+    right: "Add steps to reproduce the bug"
+    why: '"Passos para reproduzir" é "steps to reproduce" — infinitivo de finalidade.'
+    tag: br.steps-for
+  # "verify if" é calque de "verifique se"; o inglês pede "check whether/if" ou "verify" transitivo.
+  - id: verify-if
+    pattern: "\\bverif(y|ies|ied|ying) if\\b"
+    wrong: "Please verify if the fix works"
+    right: "Please check whether the fix works / verify the fix"
+    why: '"Verify" não leva "if" — é "check whether/if" ou "verify" + objeto direto.'
+    tag: br.verify-if
+  # "merge in <branch>" é calque; restrito a nomes de branch para não pegar "merge in the changes".
+  - id: merge-in
+    pattern: "\\bmerge[sd]?( \\w+){0,3} in (the )?(main|master|develop|development|trunk|staging|prod|production|feature|release)\\b"
+    wrong: "Merge the PR in main"
+    right: "Merge the PR into main"
+    why: "Merge de branch/PR é \"into\": merge into main."
+    tag: br.merge-in
+  - id: revert-back
+    pattern: "\\brevert(s|ed|ing)? back\\b"
+    wrong: "We should revert back the deploy"
+    right: "We should revert the deploy / roll back the deploy"
+    why: '"revert" já contém "back" — "revert back" é redundante.'
+    tag: br.revert-back
