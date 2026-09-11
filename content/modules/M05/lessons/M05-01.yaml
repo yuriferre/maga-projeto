@@ -1,0 +1,281 @@
+id: M05-01
+module: M05
+order: 1
+title: "Componentes e relações: there is/are, sits behind, talks to, is fronted by, backed by"
+objective: >-
+  Ao final, você descreve os componentes de uma arquitetura e como eles se
+  relacionam — quem fica na frente, quem fica atrás, quem fala com quem —
+  com os verbos e a concordância certos.
+durationMin: 35
+competencies: [SPK, VOC, PRO]
+tags: [vocab.architecture, topic.architecture, comp.speaking, comp.vocabulary, gram.present-simple-process, br.third-person-s, br.uncountable]
+prerequisites: [M01-01]
+
+context:
+  scenario: |
+    O colega novo pergunta "como o checkout funciona?" e você começa a falar.
+    "Tem um gateway, aí tem uns services, aí tem o banco…" — vago demais para
+    quem vai operar o sistema amanhã.
+
+    Descrever arquitetura é dizer o que existe (`there is/are`) e como as
+    peças se ligam (`sits behind`, `talks to`, `is fronted by`, `backed by`).
+    São quatro verbos de relação que cobrem 90 % das descrições — e cada um
+    carrega uma direção: frente × trás, quem chama × quem responde.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: "there is / there are"
+    meaning: existe / existem — para listar o que compõe o sistema
+    example: "There are three services behind the gateway: checkout, payments and search."
+    translation: "Existem três serviços atrás do gateway: checkout, pagamentos e busca."
+    note: Singular com "there is", plural com "there are" — e depois "there's" para os dois na fala.
+  - term: sits behind
+    meaning: fica atrás de — protegido por outro componente
+    example: "The database sits behind the API — nothing reaches it directly."
+    translation: "O banco fica atrás da API — nada chega a ele diretamente."
+    note: Posição na arquitetura, não geografia. "Sits behind the gateway" = só o gateway fala com ele.
+  - term: talks to
+    meaning: fala com — chama, se comunica com
+    example: "The checkout service talks to the payments API and to the database."
+    translation: "O serviço de checkout fala com a API de pagamentos e com o banco."
+    note: Quem inicia a chamada "talks to"; quem responde "is talked to by" (raro, soa passivo demais).
+  - term: is fronted by
+    meaning: é precedido por — tem X na frente recebendo o tráfego
+    example: "The services are fronted by an API gateway."
+    translation: "Os serviços são precedidos por um API gateway."
+    note: Passiva útil quando o que importa é quem recebe o tráfego primeiro.
+  - term: backed by
+    meaning: sustentado por — tem X como base/suporte atrás
+    example: "The API is backed by a Postgres cluster and a Redis cache."
+    translation: "A API é sustentada por um cluster Postgres e um cache Redis."
+    note: '"Backed by" para a fundação; "fronted by" para a fachada.'
+  - term: component
+    meaning: componente — cada caixa da arquitetura
+    example: "The main components are the CDN, the gateway, two services and a queue."
+    translation: "Os componentes principais são a CDN, o gateway, dois serviços e uma fila."
+    note: Palavra neutra para qualquer peça; mais preciso que "thing" ou "stuff".
+  - term: upstream / downstream
+    meaning: a montante / a jusante — quem chama × quem é chamado
+    example: "The gateway is upstream of the services; the database is downstream."
+    translation: "O gateway está a montante dos serviços; o banco está a jusante."
+    note: Upstream = para quem veio a chamada; downstream = para onde ela vai.
+  - term: "it handles"
+    meaning: ele lida com — processa, responde por
+    example: "The gateway handles auth and rate limiting."
+    translation: "O gateway lida com autenticação e rate limiting."
+    note: Verbo de responsabilidade; mais preciso que "does".
+  - term: "in front of"
+    meaning: na frente de — posição na arquitetura
+    example: "There's a load balancer in front of the services."
+    translation: "Tem um load balancer na frente dos serviços."
+    note: Equivalente simples de "fronted by" na fala.
+  - term: entry point
+    meaning: ponto de entrada — onde o tráfego chega
+    example: "The CDN is the entry point for all public traffic."
+    translation: "A CDN é o ponto de entrada de todo o tráfego público."
+    note: Toda descrição de arquitetura começa pelo entry point.
+  - term: "on the path"
+    meaning: no caminho — componente por onde a request passa
+    example: "The auth service is on the path of every request."
+    translation: "O serviço de auth está no caminho de toda request."
+    note: Útil para apontar onde uma falha pode estar.
+  - term: async worker
+    meaning: trabalhador assíncrono — processa fora do caminho da request
+    example: "The queue feeds async workers that send the emails."
+    translation: "A fila alimenta workers assíncronos que mandam os e-mails."
+    note: Distingue o que responde na hora do que processa depois.
+  - term: "it looks like"
+    meaning: parece ser — ao descrever sem certeza total
+    example: "It looks like the cache sits in front of the read path."
+    translation: "Parece que o cache fica na frente do caminho de leitura."
+    note: Hedging honesto quando você ainda está entendendo a arquitetura.
+
+grammar:
+  title: "Descrever arquitetura é simple present puro"
+  explanation: |
+    Arquitetura é **estado, não evento** — descreve-se no present simple: *the gateway handles auth*, *the API talks to the database*, *there are three services*.
+
+    **As quatro relações que cobrem quase tudo:**
+
+    | Relação | Verbo | Exemplo |
+    |---|---|---|
+    | Existe | there is / there are | *There are two services.* |
+    | Está protegido por | sits behind / is fronted by | *The DB sits behind the API.* |
+    | Chama | talks to / calls | *Checkout talks to payments.* |
+    | Sustenta | backed by | *The API is backed by Postgres.* |
+
+    **A terceira pessoa leva -s.** *The request goes*, *the service talks*, *the load balancer routes*. Brasileiro dropa o -s porque o português não o tem — "the request go" é o erro mais comum da descrição de sistemas.
+
+    **Incontáveis não têm plural.** *data*, *information*, *feedback*, *software*, *equipment*, *knowledge* — nunca com -s: "the response returns the **data**", não "the datas".
+  examples:
+    - { en: "There are three services behind the gateway.", pt: "Existem três serviços atrás do gateway." }
+    - { en: "The database sits behind the API — nothing reaches it directly.", pt: "O banco fica atrás da API — nada chega a ele diretamente." }
+    - { en: "The checkout service talks to payments and to the queue.", pt: "O serviço de checkout fala com pagamentos e com a fila." }
+    - { en: "The services are fronted by a CDN.", pt: "Os serviços são precedidos por uma CDN." }
+    - { en: "The API is backed by Postgres and Redis.", pt: "A API é sustentada por Postgres e Redis." }
+    - { en: "The gateway handles auth, rate limiting and routing.", pt: "O gateway lida com auth, rate limiting e roteamento." }
+
+examples:
+  - en: "There are four main components: the CDN, the gateway, the services and the queue."
+    pt: "Existem quatro componentes principais: a CDN, o gateway, os serviços e a fila."
+    context: Listar o que existe antes de dizer como se ligam.
+  - en: "The database sits behind the API — only the API talks to it."
+    pt: "O banco fica atrás da API — só a API fala com ele."
+    context: '"sits behind" + "talks to" juntos contam a proteção.'
+  - en: "The checkout service talks to payments synchronously and to the queue asynchronously."
+    pt: "O serviço de checkout fala com pagamentos de forma síncrona e com a fila de forma assíncrona."
+    context: '"talks to" com o modo de comunicação.'
+  - en: "Everything public is fronted by the CDN; everything internal sits behind the gateway."
+    pt: "Tudo que é público é precedido pela CDN; tudo interno fica atrás do gateway."
+    context: '"fronted by" × "sits behind" — fachada × fundo.'
+  - en: "The search API is backed by an index cluster and a Redis cache."
+    pt: "A API de busca é sustentada por um cluster de índices e um cache Redis."
+    context: '"backed by" para a fundação.'
+  - en: "The queue feeds async workers — they handle the emails after the request returns."
+    pt: "A fila alimenta workers assíncronos — eles processam os e-mails depois que a request retorna."
+    context: Assíncrono sai do caminho da request.
+  - en: "The request goes through the gateway, not around it."
+    pt: "A request passa pelo gateway, não em volta dele."
+    context: '"goes" com -s — terceira pessoa.'
+  - en: "It looks like the cache sits in front of the read path — let me confirm."
+    pt: "Parece que o cache fica na frente do caminho de leitura — deixa eu confirmar."
+    context: Hedging honesto quando você ainda está mapeando.
+
+variations:
+  - idea: '"dizer quem fala com quem"'
+    items:
+      - { register: "Boa", text: "The checkout service talks to the payments API.", adequate: true }
+      - { register: "Boa", text: "Checkout calls payments; payments calls the PSP.", adequate: true }
+      - { register: "Inadequada", text: "The checkout service talk to payments.", adequate: false, note: 'Terceira pessoa leva -s: "talks to".' }
+      - { register: "Inadequada", text: "Checkout talks with payments.", adequate: false, note: '"talks with" é conversa entre pessoas; componente "talks to".' }
+  - idea: '"dizer que algo existe na arquitetura"'
+    items:
+      - { register: "Boa", text: "There's a Redis cache in front of the database.", adequate: true }
+      - { register: "Boa", text: "There are two queues — one for emails, one for webhooks.", adequate: true }
+      - { register: "Inadequada", text: "It has a Redis cache.", adequate: false, note: '"It has" soa solto; "there is" descreve o que existe na arquitetura.' }
+      - { register: "Inadequada", text: "Have a Redis cache in the system.", adequate: false, note: 'Calque de "tem um cache": "there''s a cache".' }
+
+brErrors:
+  - { wrong: "The request go through the gateway.", right: "The request goes through the gateway.", why: "terceira pessoa leva -s: the request goes", tag: br.third-person-s }
+  - { wrong: "This service talk to the database.", right: "This service talks to the database.", why: "terceira pessoa leva -s: talks", tag: br.third-person-s }
+  - { wrong: "The response returns the datas.", right: "The response returns the data.", why: "data é incontável — sem plural", tag: br.uncountable }
+  - { wrong: "We need more informations about the system.", right: "We need more information about the system.", why: "information é incontável", tag: br.uncountable }
+  - { wrong: "The service listens in port 8080.", right: "The service listens on port 8080.", why: "serviço escuta ON a porta", tag: br.listen-in }
+  - { wrong: "The request arrives on the gateway.", right: "The request arrives at the gateway.", why: 'chegar a um ponto técnico é "arrive at"', tag: br.arrive-on }
+  - { wrong: "I have a doubt about the architecture.", right: "I have a question about the architecture.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "It have three services behind the gateway.", right: "There are three services behind the gateway.", why: 'calque de "tem": existir é "there are"', tag: vocab.architecture }
+  - { wrong: "The API is more fast with the cache.", right: "The API is faster with the cache.", why: "fast é adjetivo curto: faster", tag: br.more-er }
+  - { wrong: "She said me the queue is async.", right: "She told me the queue is async.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "O colega novo pergunta: como o checkout funciona?"
+  lines:
+    - { speaker: Marcos, text: "New here — walk me through the checkout system. What are the main components?" }
+    - { speaker: Yuri, text: "There are four: the CDN in front, the API gateway, two services — checkout and payments — and a Postgres cluster at the back." }
+    - { speaker: Marcos, text: "So the CDN fronts everything?" }
+    - { speaker: Yuri, text: "Everything public, yes. The gateway sits behind the CDN and handles auth and rate limiting. The services sit behind the gateway." }
+    - { speaker: Marcos, text: "And who talks to the database?" }
+    - { speaker: Yuri, text: "Only the services — nothing reaches Postgres directly. Checkout also talks to a queue that feeds the email workers." }
+    - { speaker: Marcos, text: "Wait, the emails are async?" }
+    - { speaker: Yuri, text: "Right — the request returns before the email goes out. The queue is downstream of checkout, the workers are downstream of the queue." }
+    - { speaker: Marcos, text: "Got it. So: CDN in front, gateway, services, DB at the back, queue and workers off the path. That's clear." }
+  notes:
+    - '"there are" lista; "sits behind/fronted by/talks to/backed by" descrevem as relações.'
+    - 'upstream × downstream dão direção à conversa.'
+    - 'Marcos fecha repetindo a arquitetura em uma linha — a checagem de entendimento.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Quick overview for the new folks: there's a CDN in front, then the gateway, then two services — checkout and payments — and Postgres at the back." }
+    - { speaker: Marcos, text: "Important detail: only the services talk to the database. Nothing reaches Postgres directly — the gateway doesn't even see it." }
+    - { speaker: Priya, text: "And the emails are async — checkout puts them on a queue, and the workers send them after the request returns. That's why the API feels fast." }
+  questions:
+    - { id: M05-01-l1, type: multiple_choice, prompt: "What is in front of everything public?", options: ["The gateway", "The checkout service", "Postgres", "The CDN"], answer: 3, explanation: '"there''s a CDN in front, then the gateway…"', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-01-l2, type: multiple_choice, prompt: "Who talks to the database?", options: ["Only the services", "The gateway", "The CDN", "Everyone"], answer: 0, explanation: '"only the services talk to the database."', tags: [comp.listening] }
+    - { id: M05-01-l3, type: multiple_choice, prompt: "Why does the API feel fast, according to Priya?", options: ["The CDN caches everything", "Postgres is fast", "Emails are async — the request returns before they're sent", "The workers are fast"], answer: 2, explanation: '"emails are async — workers send them after the request returns."', tags: [comp.listening, vocab.architecture] }
+    - { id: M05-01-l4, type: fill_blank, prompt: "There ___ two services behind the gateway.", accepted: ["are"], explanation: '"there are" com plural.', tags: [gram.present-simple-process, comp.listening] }
+    - { id: M05-01-l5, type: multiple_choice, prompt: "The gateway 'sits behind' the CDN means…", options: ["it's slower", "it's deprecated", "the CDN receives traffic first, then the gateway", "it's in another region"], answer: 2, explanation: "sits behind = posição atrás na cadeia; quem vem antes recebe primeiro.", tags: [comp.listening, vocab.architecture] }
+    - { id: M05-01-l6, type: multiple_choice, prompt: "'The queue feeds async workers' means…", options: ["the workers feed the queue", "the workers are down", "the queue is upstream of the CDN", "the queue delivers jobs to the workers"], answer: 3, explanation: "A fila entrega trabalhos aos workers — downstream.", tags: [comp.listening, vocab.architecture] }
+
+writing:
+  prompt: |
+    **Cenário:** um colega novo pediu no Slack: "how does checkout work?". Sua arquitetura: CDN → API gateway (auth + rate limiting) → dois serviços (checkout, payments) → Postgres no fundo; checkout também fala com uma fila que alimenta workers de e-mail.
+
+    **Tarefa:** escreva a descrição em texto corrido (60–90 palavras): o que existe, quem fica na frente/atrás e quem fala com quem.
+  constraints:
+    - { label: "Listagem do que existe", pattern: "\\bthere (is|are|'s)\\b" }
+    - { label: "Verbo de relação de posição ou comunicação", pattern: "\\b(sits? behind|fronted by|talks? to|backed by|in front of)\\b" }
+    - { label: "Componente de infra nomeado", pattern: "\\b(cdn|gateway|service|database|postgres|queue|worker|cache|api)\\b" }
+    - { label: "Direção ou modo (upstream/downstream/async/sync)", pattern: "\\b(upstream|downstream|async|async(hronous)?|sync|synchronous|directly|only)\\b" }
+  rubric:
+    - Componentes listados com there is/are
+    - Relações com sits behind / talks to / backed by
+    - Quem fala com o banco fica claro
+    - Terceira pessoa com -s; data/information sem plural
+  model: >-
+    There are four main components: a CDN in front, an API gateway behind it, two services —
+    checkout and payments — and Postgres at the back. The gateway handles auth and rate limiting.
+    Only the services talk to the database; nothing reaches it directly. Checkout also talks to a
+    queue that feeds async workers — the emails go out after the request returns. Bottom line:
+    everything public is fronted by the CDN, everything internal sits behind the gateway.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.architecture, topic.architecture]
+
+speaking:
+  modeA:
+    prompt: Grave 45 segundos descrevendo a arquitetura do cenário (ou a sua real) em voz alta — o que existe, quem fica na frente/atrás e quem fala com quem.
+    maxSeconds: 45
+    targetPhrases:
+      - there are three services
+      - sits behind
+      - talks to
+      - is fronted by
+      - backed by
+      - in front of
+      - the gateway handles
+      - only the services talk to
+      - upstream of
+      - downstream of
+      - the entry point
+      - on the path
+      - it looks like
+      - the request goes through
+    checklist:
+      - Listei os componentes com there is/are?
+      - Disse quem fica na frente e quem fica atrás?
+      - Deixei claro quem fala com o banco?
+      - Terceira pessoa com -s em todas as frases?
+
+quiz:
+  - { id: M05-01-q1, type: multiple_choice, prompt: "'The database sits behind the API' means…", options: ["the API is slower", "the DB is deprecated", "the API protects it — nothing reaches the DB directly", "they're in different regions"], answer: 2, explanation: "sits behind = posição atrás na cadeia, protegido por quem vem antes.", tags: [vocab.architecture] }
+  - { id: M05-01-q2, type: error_correction, prompt: "The request go through the gateway.", accepted: ["The request goes through the gateway.", "The request goes through the gateway", "Requests go through the gateway.", "Requests go through the gateway"], explanation: "Terceira pessoa do singular leva -s: goes.", tags: [br.third-person-s] }
+  - { id: M05-01-q3, type: multiple_choice, prompt: "Which verb pair describes 'front × back' of an architecture?", options: ["talks to / listens in", "arrives on / sits behind", "fronted by / backed by", "handles / exists"], answer: 2, explanation: "fronted by = quem recebe o tráfego; backed by = a fundação.", tags: [vocab.architecture] }
+  - { id: M05-01-q4, type: fill_blank, prompt: "The API is ___ by a Postgres cluster and a Redis cache.", accepted: ["backed"], explanation: '"backed by" = sustentado por (a fundação).', tags: [vocab.architecture] }
+  - { id: M05-01-q5, type: error_correction, prompt: "The response returns all the datas to the client.", accepted: ["The response returns all the data to the client.", "The response returns all the data to the client", "The response returns the data to the client.", "The response returns the data to the client"], explanation: "data é incontável — sem plural.", tags: [br.uncountable] }
+  - { id: M05-01-q6, type: translate, prompt: "Só os serviços falam com o banco — nada chega a ele diretamente.", accepted: ["Only the services talk to the database — nothing reaches it directly.", "Only the services talk to the database — nothing reaches it directly", "Only the services talk to the DB — nothing reaches it directly."], explanation: '"talks to" + "nothing reaches it directly" = a proteção em uma frase.', tags: [vocab.architecture] }
+  - { id: M05-01-q7, type: multiple_choice, prompt: "Which sentence describes architecture correctly?", options: ["It have three services behind the gateway.", "There is three services behind the gateway.", "The gateway have three services.", "There are three services behind the gateway."], answer: 3, explanation: '"there are" + plural; "it have"/"there is three" são calques.', tags: [gram.present-simple-process, vocab.architecture] }
+  - { id: M05-01-q8, type: match, prompt: "Associe o verbo à relação.", pairs: [{ left: "sits behind", right: "protected by what comes first" }, { left: "talks to", right: "calls / communicates with" }, { left: "backed by", right: "supported by at the base" }, { left: "fronted by", right: "receives traffic first" }], explanation: "Quatro verbos de relação, quatro direções.", tags: [vocab.architecture] }
+
+review:
+  count: 5
+  preferTags: [vocab.architecture, br.third-person-s, br.uncountable]
+
+srsCards:
+  - { front: "existem dois serviços", back: "there are two services", tag: gram.present-simple-process }
+  - { front: "fica atrás de (protegido por)", back: "sits behind", tag: vocab.architecture }
+  - { front: "fala com / chama", back: "talks to", tag: vocab.architecture }
+  - { front: "é precedido por (recebe o tráfego depois)", back: "is fronted by", tag: vocab.architecture }
+  - { front: "sustentado por (a fundação)", back: "backed by", tag: vocab.architecture }
+  - { front: "a montante / a jusante", back: "upstream / downstream", tag: vocab.architecture }
+  - { front: "ele lida com (responsabilidade)", back: "it handles", tag: vocab.architecture }
+  - { front: "ponto de entrada", back: "entry point", tag: vocab.architecture }
+  - { front: "a request passa pelo gateway", back: "the request goes through the gateway", tag: br.third-person-s }
+  - { front: "a resposta retorna os dados", back: "the response returns the data", tag: br.uncountable }
+  - { front: "o serviço escuta na porta 8080", back: "the service listens on port 8080", tag: br.listen-in }
+  - { front: "parece que o cache fica na frente", back: "it looks like the cache sits in front", tag: vocab.architecture }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
