@@ -45,4 +45,13 @@ describe("M06 lessons", () => {
     maxSeconds: 45,
     prerequisites: ["M06-03"],
   });
+  checkLesson(bundle, "M06-05", {
+    vocabMin: 12,
+    dialogueMin: 10,
+    listening: 8,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 60,
+    prerequisites: ["M06-01", "M06-02", "M06-03", "M06-04"],
+  });
 });

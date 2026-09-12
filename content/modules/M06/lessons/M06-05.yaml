@@ -1,0 +1,297 @@
+id: M06-05
+module: M06
+order: 5
+title: "Prática: três tickets e dois PRs a partir de cenários"
+objective: >-
+  Ao final, você produz sozinho o kit completo do módulo: três tickets
+  acionáveis e dois PRs com descrição e respostas de review — tudo o que um
+  colega consegue agir em cima sem perguntar.
+durationMin: 45
+competencies: [WRI, REA, VOC]
+tags: [vocab.tickets-prs, comp.writing, comp.reading, topic.code-review, gram.imperative, br.steps-for, br.merge-in, br.revert-back, br.verify-if]
+prerequisites: [M06-01, M06-02, M06-03, M06-04]
+
+context:
+  scenario: |
+    Semana de integração: três cenários pedem tickets, dois pedem PRs.
+
+    **Ticket 1 — o 502:** `POST /checkout` com carrinho vazio quebra em 502.
+    Título com sintoma + endpoint + gatilho; contexto; passos numerados;
+    expected × actual; workaround ("add an item first").
+
+    **Ticket 2 — o timeout:** `GET /reports` demora 40s e a UI cancela em 30s.
+    Severidade, ambiente (staging), regressão (funcionava na v2.3).
+
+    **Ticket 3 — a doc:** o README diz `listen on port 8080` mas o default é
+    9090. Ticket de docs: menor, mas ainda com expected × actual.
+
+    **PR 1:** a correção do 502 — `fix(checkout): return 422 for empty cart`,
+    descrição com what/why/test/risks.
+
+    **PR 2:** a correção do README — `docs(readme): fix the default port`,
+    com a thread de review: nit + blocking + PTAL + LGTM.
+
+    Cinco textos, cada um seguindo o molde das aulas — o revisor age sem
+    perguntar.
+  roles: [Ana (SRE), Marcos (platform engineer), Priya (scrum master)]
+
+vocabulary:
+  - term: '"a full ticket"'
+    meaning: o ticket completo — título, contexto, passos, expected × actual
+    example: "A full ticket: title with symptom+endpoint, context, steps, expected vs actual."
+    translation: "Um ticket completo: título com sintoma+endpoint, contexto, passos, expected vs actual."
+    note: "O que a M06-01 ensinou — agora em produção."
+  - term: '"severity / impact"'
+    meaning: severidade e impacto — quão ruim e para quem
+    example: "Severity: medium — staging only, but blocks the release test."
+    translation: "Severidade: média — só staging, mas bloqueia o teste de release."
+    note: "Severity = quão ruim; impact = para quem."
+  - term: '"a regression"'
+    meaning: regressão — o que funcionava e quebrou
+    example: "Regression: the endpoint returned 200 on v2.3."
+    translation: "Regressão: o endpoint retornava 200 na v2.3."
+    note: "Regressão muda a prioridade — alguém quebrou o que funcionava."
+  - term: '"repro rate"'
+    meaning: taxa de reprodução — sempre, às vezes, raro
+    example: "Repro: 100% — every empty cart hits the 502."
+    translation: "Repro: 100% — todo carrinho vazio dá 502."
+    note: "always/sometimes/rarely ou porcentagem — informa a investigação."
+  - term: '"the review loop"'
+    meaning: o ciclo do review — comentário, correção, re-review, aprovação
+    example: "The loop: comment → good catch → addressed → PTAL → LGTM."
+    translation: "O ciclo: comentário → good catch → addressed → PTAL → LGTM."
+    note: "O protocolo inteiro da M06-04 em uma linha."
+  - term: '"mergeable"'
+    meaning: mergeável — pronto para entrar
+    example: "Once the blocking is addressed and CI is green, it's mergeable."
+    translation: "Quando o blocking for endereçado e a CI estiver verde, é mergeável."
+    note: "O estado final do PR."
+  - term: '"actionable"'
+    meaning: acionável — dá para agir sem perguntar
+    example: "A ticket is actionable when the steps reproduce it every time."
+    translation: "Um ticket é acionável quando os passos o reproduzem sempre."
+    note: "A palavra-métrica do módulo inteiro."
+  - term: '"as of v2.3"'
+    meaning: desde a v2.3 — marca a versão onde mudou
+    example: "Broken as of v2.4 — worked on v2.3."
+    translation: "Quebrado desde a v2.4 — funcionava na v2.3."
+    note: "O marcador temporal da regressão."
+  - term: '"needs-triage"'
+    meaning: precisa de triagem — ainda não priorizado
+    example: "Label it needs-triage — the on-call picks it up tomorrow."
+    translation: "Rotule como needs-triage — o plantonista pega amanhã."
+    note: "O label que diz \"alguém precisa olhar e priorizar\"."
+  - term: '"won''t fix" / "by design"'
+    meaning: não vamos corrigir / é assim mesmo — a resposta de triagem
+    example: "Closing as by design — the timeout is intentional for huge reports."
+    translation: "Fechando como by design — o timeout é intencional para relatórios grandes."
+    note: "Nem todo ticket vira correção — a resposta honesta também é válida."
+  - term: '"the paper trail"'
+    meaning: o rastro escrito — ticket → PR → comentários → merge
+    example: "The paper trail: ticket #412 → PR #413 → review → squash and merge."
+    translation: "O rastro: ticket #412 → PR #413 → review → squash and merge."
+    note: "Seis meses depois, é assim que você descobre por que a mudança entrou."
+  - term: '"self-contained"'
+    meaning: autocontido — lê-se sem contexto externo
+    example: "Keep the ticket self-contained — the reader shouldn't need Slack history."
+    translation: "Mantenha o ticket autocontido — o leitor não deve precisar do histórico do Slack."
+    note: "A regra de ouro: o texto se sustenta sozinho."
+
+grammar:
+  title: "Revisão do módulo: o texto que se sustenta sozinho"
+  explanation: |
+    Os cinco textos da prática usam as convenções das quatro aulas juntas:
+
+    - **Ticket** (M06-01): título = sintoma + endpoint + gatilho; contexto; passos numerados no imperativo; expected × actual; workaround; severity.
+    - **Commit/PR title** (M06-02): `tipo(escopo): imperativo`, ~50 chars.
+    - **PR description** (M06-03): what / why / how to test / risks.
+    - **Review** (M06-04): nit: / blocking: / good catch / addressed / PTAL / LGTM.
+
+    **Auto-revisão antes de enviar:** o texto é *self-contained*? Os passos reproduzem? O PR declara risco e escopo? A resposta ao comentário agradece e referencia o commit?
+
+    **Erros BR a vigiar:** "steps **for** reproduce", "merge **in** main", "revert **back**", "verify **if**", "I **am agree**" — os cinco calques do módulo.
+  examples:
+    - { en: "Title: '502 on POST /checkout with empty cart' — symptom, endpoint, trigger.", pt: "Título: \"502 no POST /checkout com carrinho vazio\" — sintoma, endpoint, gatilho." }
+    - { en: "Severity: medium — staging only, but it blocks the release test.", pt: "Severidade: média — só staging, mas bloqueia o teste de release." }
+    - { en: "Regression: returned 200 on v2.3 — broken as of v2.4.", pt: "Regressão: retornava 200 na v2.3 — quebrou na v2.4." }
+    - { en: "docs(readme): fix the default port — 9090, not 8080.", pt: "docs(readme): corrige a porta padrão — 9090, não 8080." }
+    - { en: "Good catch — the port example was stale. Addressed in 9c4d2e. PTAL.", pt: "Boa pescada — o exemplo da porta estava velho. Endereçado em 9c4d2e. PTAL." }
+    - { en: "Keep the ticket self-contained — no Slack archaeology needed.", pt: "Mantenha o ticket autocontido — sem arqueologia de Slack." }
+
+examples:
+  - en: "Ticket: '502 on POST /checkout with empty cart'. Steps: 1. POST an empty cart. 2. Observe 502. Expected: 422 with EMPTY_CART. Actual: 502."
+    pt: "Ticket: \"502 no POST /checkout com carrinho vazio\". Passos: 1. POST carrinho vazio. 2. Observa 502. Expected: 422 com EMPTY_CART. Actual: 502."
+    context: "O ticket completo em miniatura — título, passos, expected × actual."
+  - en: "Severity: high — production. Repro: 100%. Workaround: add an item before checkout."
+    pt: "Severidade: alta — produção. Repro: 100%. Workaround: adicionar um item antes do checkout."
+    context: "O bloco que prioriza e desbloqueia."
+  - en: "Regression: GET /reports returned in 3s on v2.3; times out at 40s as of v2.4."
+    pt: "Regressão: GET /reports retornava em 3s na v2.3; estoura em 40s desde a v2.4."
+    context: "Regressão com versão — muda a prioridade."
+  - en: "fix(checkout): return 422 for empty cart — docs(readme): fix the default port."
+    pt: "fix(checkout): retorna 422 para carrinho vazio — docs(readme): corrige a porta padrão."
+    context: "Os dois títulos conventional dos PRs."
+  - en: "How to test: POST an empty cart → expect 422 with EMPTY_CART. Risks: low — empty-cart path only."
+    pt: "Como testar: POST carrinho vazio → espera 422 com EMPTY_CART. Riscos: baixo — só o caminho do carrinho vazio."
+    context: "A descrição do PR em duas linhas."
+  - en: "nit: stale port in the example. blocking: the README still says 8080. Good catch — addressed in 9c4d2e. PTAL. LGTM."
+    pt: "nit: porta velha no exemplo. blocking: o README ainda diz 8080. Boa pescada — endereçado em 9c4d2e. PTAL. LGTM."
+    context: "A thread de review inteira em uma linha."
+  - en: "Label it needs-triage — the on-call prioritizes tomorrow."
+    pt: "Rotule como needs-triage — o plantonista prioriza amanhã."
+    context: "O label que diz \"alguém precisa priorizar\"."
+  - en: "Merge into main when CI is green — never 'merge in'."
+    pt: "Merge na main quando a CI estiver verde — nunca \"merge in\"."
+    context: "O calque a vigiar no texto final."
+
+variations:
+  - idea: '"o ticket completo"'
+    items:
+      - { register: "Boa", text: "Title: '502 on POST /checkout with empty cart'. Steps: 1. POST empty cart → 502. Expected: 422. Actual: 502. Workaround: add an item first.", adequate: true }
+      - { register: "Boa", text: "'Docs mismatch: README says port 8080, default is 9090.' Expected: README matches the default.", adequate: true }
+      - { register: "Inadequada", text: "Checkout is broken, please fix.", adequate: false, note: "Sem passos, sem expected × actual — não reproduz." }
+      - { register: "Inadequada", text: "The steps for reproduce: open the app.", adequate: false, note: '"steps to reproduce" — e "open the app" não reproduz nada.' }
+  - idea: '"a thread de review"'
+    items:
+      - { register: "Boa", text: "blocking: the README still says 8080. → Good catch — addressed in 9c4d2e. PTAL. → LGTM.", adequate: true }
+      - { register: "Boa", text: "nit: stale example. → Fixed — pushed. PTAL.", adequate: true }
+      - { register: "Inadequada", text: "I am agree, it's done.", adequate: false, note: '"I am agree" é calque — "agreed, done".' }
+      - { register: "Inadequada", text: "As I said, it's fine.", adequate: false, note: "Defensivo — responda o ponto, não a pessoa." }
+
+brErrors:
+  - { wrong: "The steps for reproduce are below.", right: "The steps to reproduce are below.", why: '"steps to" — infinitivo de finalidade', tag: br.steps-for }
+  - { wrong: "Merge the PR in main.", right: "Merge the PR into main.", why: "merge de branch é \"into\"", tag: br.merge-in }
+  - { wrong: "We can revert back the docs change.", right: "We can revert the docs change.", why: '"revert" já contém "back"', tag: br.revert-back }
+  - { wrong: "Please verify if the ticket reproduces.", right: "Please check whether the ticket reproduces.", why: '"check whether"', tag: br.verify-if }
+  - { wrong: "I am agree it's a regression.", right: "I agree it's a regression.", why: '"agree" é verbo — sem "am"', tag: br.i-am-agree }
+  - { wrong: "The ticket is more clear with steps.", right: "The ticket is clearer with steps.", why: "clear é curto: clearer", tag: br.more-er }
+  - { wrong: "I have a doubt about the severity.", right: "I have a question about the severity.", why: "dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The report timeout in 40 seconds.", right: "The report times out in 40 seconds.", why: "phrasal verb: times out", tag: br.third-person-s }
+  - { wrong: "She said me the workaround.", right: "She told me the workaround.", why: "say → told com objeto indireto", tag: br.said-me }
+  - { wrong: "I didn't saw the expected section.", right: "I didn't see the expected section.", why: "didn't + infinitivo", tag: br.did-past }
+
+dialogue:
+  title: "A semana de integração"
+  lines:
+    - { speaker: Priya, text: "Integration week — five texts to review. Three tickets, two PRs. Walk me through them." }
+    - { speaker: Yuri, text: "Ticket one: '502 on POST /checkout with empty cart'. Context, three numbered steps, expected 422 versus actual 502, workaround — add an item first. Severity: high, production." }
+    - { speaker: Priya, text: "Actionable. Ticket two?" }
+    - { speaker: Yuri, text: "'GET /reports times out at 40s — UI cancels at 30s.' Staging only, but it's a regression — returned in 3s on v2.3. That bumps the priority." }
+    - { speaker: Priya, text: "And the third?" }
+    - { speaker: Yuri, text: "Docs ticket: 'README says port 8080, default is 9090.' Small, but still expected versus actual — the README should match the code." }
+    - { speaker: Ana, text: "Now the PRs." }
+    - { speaker: Yuri, text: "PR one: 'fix(checkout): return 422 for empty cart'. Description — what, why with the ticket link, how to test with the POST, risks: low, rollback is a revert." }
+    - { speaker: Ana, text: "I left a blocking on the docs PR — the README still said 8080 in the example." }
+    - { speaker: Yuri, text: "Good catch — addressed in 9c4d2e, pushed. PTAL." }
+    - { speaker: Ana, text: "LGTM once CI is green. Merge into main after." }
+    - { speaker: Priya, text: "That's the whole paper trail — ticket to merge, no questions asked. Self-contained." }
+  notes:
+    - "Os cinco textos do módulo em uma conversa — ticket, regressão, docs, PR, review."
+    - "Cada texto se sustenta sozinho — o revisor age sem Slack."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "A full ticket is self-contained — title with symptom and endpoint, numbered steps, expected versus actual, workaround, severity. No Slack archaeology needed." }
+    - { speaker: Marcos, text: "For the PR, the title is conventional — type, scope, imperative. The description answers what, why, how to test, risks. Then the review loop: nit, blocking, good catch, addressed, PTAL, LGTM." }
+    - { speaker: Priya, text: "And watch the calques: 'steps to reproduce' not 'for', 'merge into main' not 'in', 'revert' without 'back', 'check whether' not 'verify if'. The paper trail — ticket, PR, review, merge — is how you find out why a change went in, six months later." }
+  questions:
+    - { id: M06-05-l1, type: multiple_choice, prompt: "What makes a ticket self-contained?", options: ["it's short", "no external context needed — title, steps, expected × actual", "it has a label", "it's in English"], answer: 1, explanation: '"no Slack archaeology needed."', tags: [comp.listening, vocab.tickets-prs] }
+    - { id: M06-05-l2, type: fill_blank, prompt: "The steps ___ reproduce are numbered.", accepted: ["to"], explanation: '"steps to reproduce" — infinitivo.', tags: [br.steps-for] }
+    - { id: M06-05-l3, type: multiple_choice, prompt: "What marks a regression in a ticket?", options: ["the workaround", "the severity label", "'returned 200 on v2.3 — broken as of v2.4'", "the repro rate"], answer: 2, explanation: "Funcionava numa versão, quebrou em outra.", tags: [vocab.tickets-prs] }
+    - { id: M06-05-l4, type: multiple_choice, prompt: "The PR title follows which convention?", options: ["type(scope): imperative", "free text", "past tense + scope", "ticket number only"], answer: 0, explanation: "tipo(escopo): imperativo.", tags: [gram.imperative, vocab.tickets-prs] }
+    - { id: M06-05-l5, type: multiple_choice, prompt: "The review loop order is…", options: ["LGTM → comment → fix", "fix → comment → merge", "approve → test → merge", "comment → good catch → addressed → PTAL → LGTM"], answer: 3, explanation: "Comentário, reconhecimento, correção, re-review, aprovação.", tags: [vocab.tickets-prs] }
+    - { id: M06-05-l6, type: fill_blank, prompt: "Merge ___ main when CI is green.", accepted: ["into"], explanation: '"merge into" — nunca "merge in".', tags: [br.merge-in] }
+    - { id: M06-05-l7, type: multiple_choice, prompt: "What is 'the paper trail'?", options: ["the git log only", "the Slack thread", "ticket → PR → review → merge — how you find why a change went in", "the CI history"], answer: 2, explanation: "O rastro escrito que explica a mudança meses depois.", tags: [vocab.tickets-prs] }
+    - { id: M06-05-l8, type: fill_blank, prompt: "___ the commit — no 'back'.", accepted: ["Revert", "revert"], explanation: '"revert" já contém "back".', tags: [br.revert-back] }
+
+writing:
+  prompt: |
+    **Cenário:** escreva um dos cinco textos da semana, por extenso:
+
+    > O README do serviço `reports` diz `listen on port 8080`, mas o default
+    > real é 9090 — e o PR de correção recebeu um comentário `blocking: the
+    > example still says 8080`.
+
+    **Tarefa:** escreva o ticket de docs (título + expected × actual) **e** a
+    resposta ao comentário blocking, em texto corrido (80–120 palavras).
+  constraints:
+    - { label: "Título do ticket com sintoma + local", pattern: "\\b(readme|docs?|port|default)\\b" }
+    - { label: "Expected × actual declarados", pattern: "\\b(expected|actual|should|says|is)\\b" }
+    - { label: "Resposta de review (reconhecimento + correção + referência)", pattern: "\\b(good catch|fair|right|addressed|fixed|pushed|commit|\\b[0-9a-f]{5,}\\b)\\b" }
+    - { label: "Pedido de re-review ou aprovação", pattern: "\\b(PTAL|another look|LGTM|re-?review|merge)\\b" }
+  rubric:
+    - "Ticket: título com o sintoma + expected × actual"
+    - "Resposta ao blocking: good catch + o que mudou + referência"
+    - PTAL ou LGTM no final
+    - Sem "steps for", "merge in", "revert back", "verify if", "I am agree"
+  model: >-
+    Docs ticket: 'README says port 8080, the actual default is 9090'. Expected:
+    the README matches the code so a new user can connect on the first try.
+    Actual: it says 8080, which is stale since the v2.4 default changed — users
+    who follow it can't connect at all. On the blocking comment — good catch, I
+    missed the example block entirely. Addressed: fixed the example to 9090 in
+    9c4d2e and grepped the whole repo for other stale ports — that was the only
+    one. Pushed. PTAL when you have a minute.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.tickets-prs]
+
+speaking:
+  modeA:
+    prompt: Grave 60 segundos fazendo o debrief da semana — resuma os três tickets e os dois PRs em voz alta, como numa retrospectiva.
+    maxSeconds: 60
+    targetPhrases:
+      - the ticket is self-contained
+      - steps to reproduce
+      - expected versus actual
+      - workaround
+      - severity
+      - regression
+      - as of
+      - conventional commits
+      - the four sections
+      - good catch
+      - addressed in
+      - PTAL
+      - LGTM
+      - merge into main
+      - the paper trail
+      - actionable
+    checklist:
+      - Resumi os três tickets (o 502, o timeout, a doc)?
+      - Descrevi os dois PRs e a thread de review?
+      - '"steps to", "merge into", "revert" sem "back", "check whether"?'
+      - Mencionei o paper trail — ticket → PR → review → merge?
+
+quiz:
+  - { id: M06-05-q1, type: multiple_choice, prompt: "Which ticket is actionable?", options: ["\"Checkout is broken.\"", "\"'502 on POST /checkout with empty cart'. Steps: POST empty cart → 502. Expected: 422. Actual: 502. Workaround: add an item.\"", "\"Something's wrong with checkout.\"", "\"See Slack for details.\""], answer: 1, explanation: "Título + passos + expected × actual + workaround.", tags: [vocab.tickets-prs] }
+  - { id: M06-05-q2, type: error_correction, prompt: "Add the steps for reproduce, then merge the fix in main.", accepted: ["Add the steps to reproduce, then merge the fix into main.", "Add the steps to reproduce, then merge the fix into main", "Add the steps to reproduce, then merge it into main."], explanation: "Dois calques: \"steps to\" + \"merge into\".", tags: [br.steps-for, br.merge-in] }
+  - { id: M06-05-q3, type: multiple_choice, prompt: "A regression in a ticket is marked by…", options: ["worked on v2.3, broken as of v2.4", "the workaround", "the severity label", "the repro rate"], answer: 0, explanation: "Funcionava numa versão, quebrou na outra.", tags: [vocab.tickets-prs] }
+  - { id: M06-05-q4, type: fill_blank, prompt: "Please ___ whether the ticket reproduces on staging.", accepted: ["check"], explanation: '"check whether" — nunca "verify if".', tags: [br.verify-if] }
+  - { id: M06-05-q5, type: error_correction, prompt: "I am agree — we can revert back the docs change.", accepted: ["I agree — we can revert the docs change.", "I agree — we can revert the docs change", "Agreed — we can revert the docs change."], explanation: "Dois calques: agree sem \"am\" + revert sem \"back\".", tags: [br.i-am-agree, br.revert-back] }
+  - { id: M06-05-q6, type: translate, prompt: "O ticket é autocontido — os passos reproduzem sempre.", accepted: ["The ticket is self-contained — the steps reproduce it every time.", "The ticket is self-contained — the steps reproduce it every time", "The ticket is self-contained — the steps reproduce it."], explanation: '"self-contained" + "reproduce".', tags: [vocab.tickets-prs] }
+  - { id: M06-05-q7, type: multiple_choice, prompt: "The full paper trail is…", options: ["commit → push → deploy", "Slack → ticket → merge", "issue → close → done", "ticket → PR → review → merge"], answer: 3, explanation: "O rastro que explica a mudança meses depois.", tags: [vocab.tickets-prs] }
+  - { id: M06-05-q8, type: match, prompt: "Associe o marcador ao papel.", pairs: [{ left: "severity", right: "quão ruim é" }, { left: "repro rate", right: "com que frequência quebra" }, { left: "needs-triage", right: "ainda não priorizado" }, { left: "by design", right: "é assim mesmo — não vira correção" }], explanation: "Quatro marcadores de triagem.", tags: [vocab.tickets-prs] }
+
+review:
+  count: 5
+  preferTags: [vocab.tickets-prs, br.steps-for, br.merge-in, br.verify-if]
+
+srsCards:
+  - { front: "o ticket se sustenta sozinho", back: "self-contained", tag: vocab.tickets-prs }
+  - { front: "dá para agir sem perguntar", back: "actionable", tag: vocab.tickets-prs }
+  - { front: "o que funcionava e quebrou", back: "regression", tag: vocab.tickets-prs }
+  - { front: "desde a v2.4", back: "as of v2.4", tag: vocab.tickets-prs }
+  - { front: "taxa de reprodução", back: "repro rate", tag: vocab.tickets-prs }
+  - { front: "ainda não priorizado", back: "needs-triage", tag: vocab.tickets-prs }
+  - { front: "é assim mesmo — não vira correção", back: "by design / won't fix", tag: vocab.tickets-prs }
+  - { front: "o rastro ticket → PR → merge", back: "the paper trail", tag: vocab.tickets-prs }
+  - { front: "o ciclo do review", back: "comment → addressed → PTAL → LGTM", tag: vocab.tickets-prs }
+  - { front: "passos para reproduzir", back: "steps to reproduce", tag: br.steps-for }
+  - { front: "merge na main", back: "merge into main", tag: br.merge-in }
+  - { front: "reverter a mudança", back: "revert the change", tag: br.revert-back }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
