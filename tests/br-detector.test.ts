@@ -292,6 +292,50 @@ describe("detectBrErrors", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.revert-back");
   });
+  it("flags 'estimative' but not 'estimate/estimation'", () => {
+    expect(tagsOf("My estimative is 3 story points.")).toContain("br.estimative");
+    expect(tagsOf("The estimatives were off.")).toContain("br.estimative");
+    const clean = [
+      "My estimate is 3 story points.",
+      "The estimation session took an hour.",
+      "I underestimated the work.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.estimative");
+  });
+  it("flags 'have a compromise' (compromisso) but not the real 'compromise'", () => {
+    expect(tagsOf("I have a compromise at 3pm, can we move?")).toContain("br.compromise");
+    expect(tagsOf("She has a compromise with the client.")).toContain("br.compromise");
+    const clean = [
+      "We reached a compromise on the scope.",
+      "Security is not something we can compromise.",
+      "Let's compromise between speed and quality.",
+      "It's a fair compromise.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.compromise");
+  });
+  it("flags 'if + will' at a clause start but not 'if' meaning whether", () => {
+    expect(tagsOf("If we will need more nodes, the cost goes up.")).toContain("br.if-will");
+    expect(tagsOf("If it will rain, the demo moves indoors.")).toContain("br.if-will");
+    const clean = [
+      "If we need more nodes, the cost goes up.",
+      "I don't know if it will work.",
+      "Can you check if the job will run tonight?",
+      "Tell me if they will join.",
+      "If it works, we ship it.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.if-will");
+  });
+  it("flags 'it/this/that make sense' without -s", () => {
+    expect(tagsOf("It make sense to split the epic.")).toContain("br.it-makes-sense");
+    expect(tagsOf("That make sense?")).toContain("br.it-makes-sense");
+    const clean = [
+      "It makes sense to split the epic.",
+      "Does it make sense?",
+      "The changes that make it safer are small.",
+      "Make sense of the data first.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.it-makes-sense");
+  });
   it("still flags the narrowed calques", () => {
     expect(tagsOf("Any doubts?")).toContain("br.doubt");
     expect(tagsOf("I have 30 years.")).toContain("br.have-years");

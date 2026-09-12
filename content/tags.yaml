@@ -94,3 +94,9 @@ tags:
   - { id: topic.code-review,   group: topic, label: Code review }
   - { id: topic.incident-call, group: topic, label: Incident call }
   - { id: topic.interview,     group: topic, label: Entrevista }
+  - { id: br.estimative,        group: br, label: "estimative (estimate)" }
+  - { id: br.compromise,        group: br, label: "have a compromise (compromisso)" }
+  - { id: br.if-will,           group: br, label: "if + will em condicional" }
+  - { id: br.it-makes-sense,    group: br, label: "it/this/that make sense (sem -s)" }
+  - { id: vocab.agile,         group: vocab, label: "Backlog, refinamento e estimativas" }
+  - { id: topic.refinement,    group: topic, label: "Refinamento e planning" }

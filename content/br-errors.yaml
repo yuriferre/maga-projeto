@@ -237,3 +237,34 @@ patterns:
     right: "We should revert the deploy / roll back the deploy"
     why: '"revert" já contém "back" — "revert back" é redundante.'
     tag: br.revert-back
+  # "estimative" não existe em inglês — o substantivo é "estimate" (estimativa).
+  - id: estimative
+    pattern: "\\bestimatives?\\b"
+    wrong: "My estimative is 3 story points"
+    right: "My estimate is 3 story points"
+    why: '"Estimativa" em inglês é "estimate" (ou "estimation" para o processo) — "estimative" não existe.'
+    tag: br.estimative
+  # "compromise" = concessão/acordo; "compromisso" (compromisso assumido, agenda) é "commitment".
+  # Só a forma "have/has/had a compromise" é calque; o substantivo/verbo solto é inglês correto.
+  - id: have-a-compromise
+    pattern: "\\b(have|has|had) a compromise\\b"
+    wrong: "I have a compromise at 3pm"
+    right: "I have a commitment at 3pm / I have an appointment at 3pm"
+    why: '"Compromise" é ceder dos dois lados; compromisso assumido é "commitment" (ou "appointment" para horário).'
+    tag: br.compromise
+  # "if + will" em condicional é calque de "se nós vamos"; exige fronteira de frase para
+  # não pegar "if" = "se" (whether) em "I don't know if it will work".
+  - id: if-will
+    pattern: "(?:^|[.!?—;,]\\s*)if\\s+(we|i|you|they|it|he|she|the \\w+) will\\b"
+    wrong: "If we will need more nodes, the cost goes up"
+    right: "If we need more nodes, the cost goes up"
+    why: 'Condicional real: "if" + presente, o "will" vai na oração principal.'
+    tag: br.if-will
+  # 3ª pessoa sem -s fora dos sujeitos de infra: "it/this/that make sense".
+  # A fronteira de frase (ou verbo de opinião) protege "Does it make sense?".
+  - id: it-makes-sense
+    pattern: "(?:^|[.!?—;,]\\s*|\\b(?:think|say|guess|believe|hope|know|mean)\\s+)(it|this|that) make sense\\b"
+    wrong: "It make sense to split the epic"
+    right: "It makes sense to split the epic"
+    why: 'Terceira pessoa leva -s: "it makes sense".'
+    tag: br.it-makes-sense
