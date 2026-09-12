@@ -27,7 +27,7 @@ export function Dashboard() {
       </div>
       <RecommendationCard rec={data.recommendation} />
       <div className="grid gap-6 md:grid-cols-2">
-        <PlacementCard latest={data.placement.latest} />
+        <PlacementCard latest={data.placement.latest} checkpoint={data.checkpoint} />
         <StreakCard streak={data.streak} />
         <SrsCard srs={data.srs} />
         <Card>

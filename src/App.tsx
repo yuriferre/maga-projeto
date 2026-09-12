@@ -7,6 +7,7 @@ import { ModuleAssessment } from "./pages/ModuleAssessment.tsx";
 import { LevelAssessment } from "./pages/LevelAssessment.tsx";
 import { Lesson } from "./pages/Lesson.tsx";
 import { Placement } from "./pages/Placement.tsx";
+import { Checkpoint } from "./pages/Checkpoint.tsx";
 import { Review } from "./pages/Review.tsx";
 import { Glossary } from "./pages/Glossary.tsx";
 import { TagDrill } from "./pages/TagDrill.tsx";
@@ -26,6 +27,7 @@ const router = createBrowserRouter([
       { path: "tags/:tag", element: <TagDrill /> },
       { path: "glossary", element: <Glossary /> },
       { path: "placement", element: <Placement /> },
+      { path: "checkpoint", element: <Checkpoint /> },
     ],
   },
 ]);

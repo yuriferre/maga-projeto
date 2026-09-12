@@ -17,6 +17,7 @@ import { ruleBasedFeedback } from "./writing-feedback.ts";
 import { computeSpeakingMetrics } from "./speaking-metrics.ts";
 import { wordOverlap } from "../shared/speech-compare.ts";
 import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs, type PlacementSpeakingMetrics } from "./placement.ts";
+import { checkpointDue } from "./checkpoint.ts";
 import { computeAssessmentResult, levelEligibility, missingForAssessment, moduleEligibility, parseAssessmentRecord, type AssessmentInputs } from "./assessment.ts";
 import { weekStart } from "./time.ts";
 import { buildDashboard } from "./dashboard.ts";
@@ -139,7 +140,8 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
     const parsed = AttemptBody.safeParse(await c.req.json().catch(() => null));
     if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
     const { lessonId, block, exerciseId } = parsed.data;
-    if (lessonId === "placement") {
+    if (lessonId === "placement" || lessonId === "checkpoint") {
+      // O checkpoint reusa o conjunto do teste inicial (mesmo formato, comparação direta).
       if (block !== "placement") return c.json({ error: "o teste inicial usa o bloco placement" }, 400);
       if (!placementIds.has(exerciseId)) return c.json({ error: "exercício não pertence ao teste inicial" }, 400);
     } else if (assessmentIds.has(lessonId)) {
@@ -268,6 +270,57 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   });
 
   app.route("/api/placement", placement);
+
+  // ---------- checkpoint de 4 semanas (mesmo formato do teste inicial, ref "checkpoint") ----------
+  const checkpoint = new Hono();
+  const checkpointInputs = (): PlacementInputs => {
+    const since = latestAssessment(db, "checkpoint", "checkpoint")?.ts ?? "";
+    return {
+      attempts: latestAttemptsSince(db, "checkpoint", "placement", since),
+      writing: latestWritingSince(db, "checkpoint", since),
+      speaking: latestSpeakingSince(db, "checkpoint", since),
+    };
+  };
+
+  checkpoint.get("/state", (c) => {
+    const latestRow = latestAssessment(db, "checkpoint", "checkpoint");
+    const inputs = checkpointInputs();
+    return c.json({
+      ...checkpointDue(db, new Date(now())),
+      latest: latestRow ? parsePlacementAssessment(latestRow) : null,
+      run: { answered: [...inputs.attempts.keys()], writing: inputs.writing ?? null, speaking: inputs.speaking ?? null },
+    });
+  });
+
+  checkpoint.post("/writing", async (c) => {
+    const parsed = WritingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const feedback = ruleBasedFeedback(parsed.data.text, pl.writing, content.brErrors, parsed.data.selfScore);
+    const id = insertWriting(db, { lessonId: "checkpoint", text: parsed.data.text, feedback, score: feedback.score }, now());
+    return c.json({ id, feedback });
+  });
+
+  checkpoint.post("/speaking", async (c) => {
+    const parsed = PlacementSpeakingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const { readAloud, transcript, durationSec, selfConfidence } = parsed.data;
+    const readAloudPct = readAloud.length === 0 ? null : readAloud.reduce((sum, r) => sum + wordOverlap(r.transcript, r.target), 0) / readAloud.length;
+    const metrics: PlacementSpeakingMetrics = { ...computeSpeakingMetrics(transcript, durationSec, pl.speaking.modeA, content.brErrors), readAloudPct };
+    const id = insertSpeaking(db, { lessonId: "checkpoint", mode: "A", transcript, metrics, score: metrics.score, selfConfidence: selfConfidence ?? null }, now());
+    return c.json({ id, metrics });
+  });
+
+  checkpoint.post("/finish", (c) => {
+    const inputs = checkpointInputs();
+    const missing = missingForFinish(pl, inputs);
+    if (missing.exercises.length > 0 || missing.writing) return c.json({ error: "checkpoint incompleto", missing }, 409);
+    const ts = now();
+    const result = computePlacementResult(pl, inputs, ts);
+    const id = insertAssessment(db, { kind: "checkpoint", ref: "checkpoint", score: result }, ts);
+    return c.json({ assessment: { id, ts, result } });
+  });
+
+  app.route("/api/checkpoint", checkpoint);
 
   // ---------- avaliação de módulo ----------
   const moduleAssessment = new Hono();

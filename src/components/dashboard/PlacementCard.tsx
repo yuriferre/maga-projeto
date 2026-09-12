@@ -4,7 +4,7 @@ import { placement } from "../../lib/content.ts";
 import { Button } from "../ui/Button.tsx";
 import { Card } from "../ui/Card.tsx";
 
-export function PlacementCard({ latest }: { latest: PlacementAssessment | null }) {
+export function PlacementCard({ latest, checkpoint }: { latest: PlacementAssessment | null; checkpoint: { due: boolean; nextAt: string | null } }) {
   if (!latest) {
     return (
       <Card>
@@ -24,6 +24,12 @@ export function PlacementCard({ latest }: { latest: PlacementAssessment | null }
         <Link to="/placement"><Button variant="secondary">Ver resultado</Button></Link>
         <Link to="/trilha"><Button variant="ghost">Ir para a trilha</Button></Link>
       </div>
+      {checkpoint.due && (
+        <div className="mt-3 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+          Checkpoint de 4 semanas disponível — mesmo formato do teste, para comparar a evolução.
+          <Link to="/checkpoint" className="ml-2 font-medium text-indigo-700 hover:underline">Fazer o checkpoint</Link>
+        </div>
+      )}
     </Card>
   );
 }

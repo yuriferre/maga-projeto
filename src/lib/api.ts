@@ -42,6 +42,7 @@ const put = <T>(path: string, body: unknown) => request<T>(path, { method: "PUT"
 
 export type LessonStatus = { progress: LessonProgressRow | null; completion: CompletionStatus };
 export type PlacementState = { latest: PlacementAssessment | null; run: { answered: string[]; writing: WritingRow | null; speaking: SpeakingRow | null } };
+export type CheckpointState = PlacementState & { due: boolean; lastAt: string | null; nextAt: string | null };
 export type ReadAloudEntry = { target: string; transcript: string };
 export type ModuleSummary = { passed: boolean; latest: AssessmentRecord | null };
 export type ModuleAssessmentState = {
@@ -75,6 +76,13 @@ export const api = {
   submitPlacementSpeaking: (body: { readAloud: ReadAloudEntry[]; transcript: string; durationSec: number; selfConfidence?: number }) =>
     post<{ id: number; metrics: PlacementSpeakingMetrics }>("/api/placement/speaking", body),
   finishPlacement: () => post<{ assessment: PlacementAssessment }>("/api/placement/finish"),
+
+  // checkpoint de 4 semanas (mesmo formato do teste inicial)
+  checkpointState: () => request<CheckpointState>("/api/checkpoint/state"),
+  submitCheckpointWriting: (body: { text: string; selfScore?: number }) => post<{ id: number; feedback: WritingFeedback }>("/api/checkpoint/writing", body),
+  submitCheckpointSpeaking: (body: { readAloud: ReadAloudEntry[]; transcript: string; durationSec: number; selfConfidence?: number }) =>
+    post<{ id: number; metrics: SpeakingMetrics }>("/api/checkpoint/speaking", body),
+  finishCheckpoint: () => post<{ assessment: PlacementAssessment }>("/api/checkpoint/finish"),
 
   // avaliação de módulo
   moduleAssessmentState: (id: string) => request<ModuleAssessmentState>(`/api/modules/${id}/assessment/state`),

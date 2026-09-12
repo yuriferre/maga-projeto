@@ -7,6 +7,7 @@ import {
 } from "./repo.ts";
 import { weakTags } from "./warmup.ts";
 import { recommendation, type Recommendation } from "./recommend.ts";
+import { checkpointDue } from "./checkpoint.ts";
 import { computeStreak, localDate, overlapMs, weekBounds, weekStart } from "./time.ts";
 import { parsePlacementAssessment, type PlacementAssessment, type PlacementResult } from "./placement.ts";
 
@@ -21,6 +22,7 @@ export type Dashboard = {
   timeline: Array<{ id: number; kind: string; ref: string; ts: string; summary: { level?: number; pct?: number } }>;
   srs: CardCounts & { accuracy30d: RadarSample };
   recommendation: Recommendation;
+  checkpoint: { due: boolean; lastAt: string | null; nextAt: string | null };
 };
 
 const DAY = 864e5;
@@ -68,5 +70,6 @@ export function buildDashboard(db: Db, content: ContentBundle, nowIso: string, d
     timeline,
     srs,
     recommendation: recommendation(db, content, new Date(nowIso)),
+    checkpoint: checkpointDue(db, new Date(nowIso)),
   };
 }
