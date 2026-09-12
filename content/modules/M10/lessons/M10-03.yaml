@@ -1,0 +1,282 @@
+id: M10-03
+module: M10
+order: 3
+title: "Verbos de troubleshooting: narrow down, rule out, reproduce, roll back, bisect"
+objective: >-
+  Ao final, você narra a investigação com os verbos certos — "narrowed it
+  down to", "ruled out the network", "can't reproduce locally", "rolled
+  back", "bisected the commits" — e cada um carrega um movimento distinto.
+durationMin: 35
+competencies: [SPK, WRI, VOC]
+tags: [vocab.troubleshoot, comp.speaking, comp.writing, br.steps-for, br.verify-if]
+prerequisites: [M10-02]
+
+context:
+  scenario: |
+    O deploy do billing continua quebrando e a pergunta da Priya é "onde
+    estamos?". Cada verbo de troubleshooting responde um movimento diferente
+    da caça:
+
+    **narrow down** fecha o cerco ("narrowed it down to the probe layer"),
+    **rule out** elimina hipótese ("ruled out the network — pings are
+    fine"), **reproduce** testa a receita ("can't reproduce it locally —
+    prod only"), **roll back** desfaz a mudança ("rolled back to the last
+    green image") e **bisect** corta o histórico ao meio ("bisected the 30
+    commits — the culprit is the auth patch"). Juntos, são o play-by-play
+    da investigação.
+  roles: [Yuri (platform engineer), Ana (SRE), Priya (tech lead)]
+
+vocabulary:
+  - term: "to narrow down"
+    meaning: estreitar — fechar o cerco
+    example: "We narrowed it down to the probe layer."
+    translation: "Estreitamos até a camada do probe."
+    note: '"narrow it down to X" — separável: narrow the list down.'
+  - term: "to rule out"
+    meaning: descartar — eliminar hipótese com evidência
+    example: "Ruled out the network — pings and DNS are fine."
+    translation: "Descartamos a rede — pings e DNS estão bons."
+    note: "Sempre com o motivo: rule out X + a evidência."
+  - term: "to reproduce"
+    meaning: reproduzir — fazer o bug acontecer de propósito
+    example: "I can reproduce it on prod but not locally."
+    translation: "Consigo reproduzir em prod, mas não localmente."
+    note: '"can''t reproduce" é meio caminho do bug report.'
+  - term: "to roll back"
+    meaning: reverter — voltar à versão boa
+    example: "We rolled back to the last green image."
+    translation: "Revertemos para a última imagem verde."
+    note: '"roll back to X" — a reversão, não "revert back".'
+  - term: "to bisect"
+    meaning: bissectar — cortar o histórico ao meio
+    example: "Bisected the 30 commits — the culprit is the auth patch."
+    translation: "Bissectamos os 30 commits — o culpado é o patch de auth."
+    note: '"git bisect" — busca binária no histórico.'
+  - term: "to isolate"
+    meaning: isolar — separar a variável
+    example: "I isolated the variable — it's the header, not the payload."
+    translation: "Isolei a variável — é o header, não o payload."
+    note: "Testar uma variável por vez."
+  - term: "to pinpoint"
+    meaning: apontar com precisão — cravar o ponto
+    example: "Pinpointed the failure to the readiness check."
+    translation: "Apontei a falha para o readiness check."
+    note: "Mais forte que 'found' — o ponto exato."
+  - term: "to dig into"
+    meaning: cavar — investigar a fundo
+    example: "Digging into the probe logs now."
+    translation: "Cavando os logs do probe agora."
+    note: "O update de meio de investigação."
+  - term: "to trigger"
+    meaning: disparar — provocar o comportamento
+    example: "The deploy triggers the 401s every time."
+    translation: "O deploy dispara os 401 toda vez."
+    note: "O que provoca o sintoma."
+  - term: "a dead end"
+    meaning: beco sem saída — hipótese que não levou a nada
+    example: "The network theory was a dead end."
+    translation: "A teoria da rede foi um beco sem saída."
+    note: "Declare os becos — poupa os outros de repetir."
+  - term: "to poke around"
+    meaning: fuçar — explorar sem hipótese ainda
+    example: "Poked around the logs before forming a theory."
+    translation: "Fucei os logs antes de formar uma teoria."
+    note: "A fase exploratória, antes do narrow down."
+  - term: "smoking gun"
+    meaning: prova definitiva — a evidência que fecha o caso
+    example: "The 401 timestamps were the smoking gun."
+    translation: "Os timestamps dos 401 foram a prova definitiva."
+    note: "A evidência que amarra a cadeia."
+
+grammar:
+  title: "Os cinco movimentos da investigação"
+  explanation: |
+    Cada verbo marca um estágio da caça — e tem sua preposição:
+
+    | Verbo | Movimento | Formato |
+    |---|---|---|
+    | **poke around** | explorar | *poked around the logs* |
+    | **reproduce** | confirmar a receita | *can/can't reproduce it (on prod)* |
+    | **narrow down** | fechar o cerco | *narrowed it down to X* |
+    | **rule out** | eliminar | *ruled out X — evidência* |
+    | **roll back** | desfazer | *rolled back to X* |
+    | **bisect** | cortar ao meio | *bisected the commits* |
+
+    Duas armadilhas BR: "**roll back**" já é a reversão — "revert back"
+    é redundante. E "reproduce" vai com "**to**" nos passos — "steps to
+    reproduce", nunca "steps for reproduce".
+  examples:
+    - { en: "Poked around the logs, then narrowed it down to the probe layer.", pt: "Fucei os logs, depois estreitei até a camada do probe." }
+    - { en: "Ruled out the network — pings and DNS resolve fine.", pt: "Descartei a rede — pings e DNS resolvem bem." }
+    - { en: "Can't reproduce it locally — it's prod-only, which points to config.", pt: "Não consigo reproduzir localmente — só em prod, o que aponta para config." }
+    - { en: "Rolled back to the last green image to confirm it wasn't the release.", pt: "Reverti para a última imagem verde para confirmar que não era o release." }
+    - { en: "Bisected the 30 commits between green and red — the auth patch is the culprit.", pt: "Bissectei os 30 commits entre o verde e o vermelho — o patch de auth é o culpado." }
+    - { en: "The 401 timestamps were the smoking gun — every failed pod hit the auth wall.", pt: "Os timestamps dos 401 foram a prova definitiva — todo pod que falhou bateu no muro de auth." }
+
+examples:
+  - en: "We narrowed it down to the readiness probe — everything else is green."
+    pt: "Estreitamos até o readiness probe — todo o resto está verde."
+    context: "O cerco fechando — de tudo para uma camada."
+  - en: "Ruled out the network early — DNS resolves and latency is normal."
+    pt: "Descartei a rede cedo — DNS resolve e a latência está normal."
+    context: "Descarte com evidência na mesma frase."
+  - en: "I can't reproduce it locally — it only fails on prod."
+    pt: "Não consigo reproduzir localmente — só falha em prod."
+    context: "O meio caminho do bug report."
+  - en: "Rolled back to the previous image — still failing, so the release isn't it."
+    pt: "Reverti para a imagem anterior — continua falhando, então não é o release."
+    context: "Roll back como teste, não como correção."
+  - en: "Bisected the commits between last green and first red — 15 left to check."
+    pt: "Bissectei os commits entre o último verde e o primeiro vermelho — faltam 15."
+    context: "Busca binária no histórico."
+  - en: "The database theory was a dead end — connections are fine."
+    pt: "A teoria do banco foi um beco sem saída — as conexões estão boas."
+    context: "Declare o beco para ninguém repetir."
+  - en: "Isolated the variable — it's the header, not the payload."
+    pt: "Isolei a variável — é o header, não o payload."
+    context: "Uma variável por vez."
+  - en: "The 401 timestamps were the smoking gun."
+    pt: "Os timestamps dos 401 foram a prova definitiva."
+    context: "A evidência que fecha o caso."
+
+variations:
+  - idea: '"o play-by-play da investigação"'
+    items:
+      - { register: "Boa", text: "Narrowed it down to the probe — ruled out network and database, can't reproduce locally, bisecting the commits now.", adequate: true }
+      - { register: "Boa", text: "So far: reproduced on prod, rolled back to confirm it's not the image, and the 401 timestamps are the smoking gun.", adequate: true }
+      - { register: "Inadequada", text: "I'm looking at stuff and trying things.", adequate: false, note: "Sem os verbos, ninguém sabe em que estágio da caça você está." }
+      - { register: "Inadequada", text: "Ruled out the network.", adequate: false, note: "Descarte sem evidência não convence — 'ruled out X — pings are fine'." }
+  - idea: '"roll back como teste vs como correção"'
+    items:
+      - { register: "Boa", text: "Rolled back to the last green image — still failing, so the release isn't the culprit.", adequate: true }
+      - { register: "Boa", text: "Rolling back now as a mitigation while we bisect — users shouldn't wait for the root cause.", adequate: true }
+      - { register: "Inadequada", text: "I'll revert back the deploy.", adequate: false, note: '"revert back" é redundante — "roll back" ou "revert".' }
+      - { register: "Inadequada", text: "Rolled it back, and I'm sure that fixed it.", adequate: false, note: "Rollback sem verificar o sintoma depois é chute — 'rolled back — still failing' é informação." }
+
+brErrors:
+  - { wrong: "I followed the steps for reproduce the bug.", right: "I followed the steps to reproduce the bug.", why: '"steps to reproduce"', tag: br.steps-for }
+  - { wrong: "I need verify if the probe is up.", right: "I need to verify if the probe is up.", why: '"verify if" aceito, mas precisa do to', tag: br.verify-if }
+  - { wrong: "I'll revert back the deploy.", right: "I'll roll back the deploy.", why: '"revert back" é redundante', tag: br.revert-back }
+  - { wrong: "After to narrow it down, I found the cause.", right: "After narrowing it down, I found the cause.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "The probe not responds to the check.", right: "The probe doesn't respond to the check.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same bug of last sprint.", right: "It's the same bug as last sprint.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "I catched the 401s in the logs.", right: "I caught the 401s in the logs.", why: "caught, não catched", tag: br.irregular-past }
+  - { wrong: "We didn't reproduced it on staging.", right: "We didn't reproduce it on staging.", why: "didn't + base", tag: br.did-past }
+  - { wrong: "It works in my machine, must be prod config.", right: "It works on my machine, must be prod config.", why: '"on my machine"', tag: br.in-my-machine }
+  - { wrong: "Can you explain me how the bisect works?", right: "Can you explain how the bisect works to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "O play-by-play da caça"
+  lines:
+    - { speaker: Priya, text: "Where are we on the billing deploys?" }
+    - { speaker: Yuri, text: "Narrowed it down to the probe layer — ruled out the network, pings and DNS are fine." }
+    - { speaker: Ana, text: "Can you reproduce it on staging?" }
+    - { speaker: Yuri, text: "No — can't reproduce it locally or on staging. Prod-only, which points to config." }
+    - { speaker: Priya, text: "And the release theory?" }
+    - { speaker: Yuri, text: "Rolled back to the last green image as a test — still failing. The release itself isn't the culprit." }
+    - { speaker: Ana, text: "So we bisect?" }
+    - { speaker: Yuri, text: "Already on it — bisected the 30 commits between green and red. The auth patch is the culprit; the 401 timestamps were the smoking gun." }
+    - { speaker: Priya, text: "Good hunting. The database theory — dead end?" }
+    - { speaker: Yuri, text: "Dead end — connection pool is healthy. Writing up the chain now." }
+  notes:
+    - "cada verbo um movimento: narrowed down, ruled out, can't reproduce, rolled back, bisected."
+    - "'writing up the chain' — a narrativa vira documento do post-mortem."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Five verbs carry a whole investigation: poke around when you have no theory, reproduce to confirm the recipe, narrow down to close in, rule out to eliminate, and bisect to cut the history in half." }
+    - { speaker: Priya, text: "When you rule something out, attach the evidence — 'ruled out the network, pings are fine'. A theory discarded without evidence is just a guess you got bored of." }
+    - { speaker: Yuri, text: "'Can't reproduce' isn't a failure — it's information. If it only fails on prod, the diff between prod and staging just became your suspect list." }
+    - { speaker: Priya, text: "And roll back has two jobs — as a test, 'rolled back, still failing' tells you the release isn't it; as a mitigation, it buys users relief while you hunt the root cause." }
+  questions:
+    - { id: M10-03-l1, type: multiple_choice, prompt: "The five verbs, in investigation order:", options: ["bisect → reproduce → narrow down", "poke around → reproduce → narrow down → rule out → bisect", "rule out → poke around", "reproduce → roll back"], answer: 1, explanation: "Explorar, confirmar, estreitar, eliminar, cortar.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-03-l2, type: multiple_choice, prompt: "When you rule something out, attach…", options: ["a guess", "a new theory", "the evidence — 'ruled out the network, pings are fine'", "a rollback"], answer: 2, explanation: "Descarte sem evidência é palpite.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-03-l3, type: fill_blank, prompt: "___ it down to the probe layer.", accepted: ["Narrowed", "narrowed"], explanation: '"narrow it down to X" — fechar o cerco.', tags: [vocab.troubleshoot] }
+    - { id: M10-03-l4, type: error_correction, prompt: "I'll revert back the deploy.", accepted: ["I'll roll back the deploy.", "I'll revert the deploy.", "I'll roll back the deploy"], explanation: '"revert back" é redundante.', tags: [br.revert-back] }
+    - { id: M10-03-l5, type: multiple_choice, prompt: "'Can't reproduce it locally' means…", options: ["the bug doesn't exist", "give up", "it's information — the prod/staging diff is your suspect list", "it's a network issue"], answer: 2, explanation: "A diferença entre ambientes virou suspeita.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-03-l6, type: multiple_choice, prompt: "Rolling back 'as a test' tells you…", options: ["the bug is fixed", "users are happy", "the release is the culprit", "whether the release is the culprit — 'still failing' clears it"], answer: 3, explanation: "Rollback como teste, não correção.", tags: [comp.listening, vocab.troubleshoot] }
+
+writing:
+  prompt: |
+    **Cenário:** Priya pede o play-by-play da investigação do billing para
+    o post-mortem. Você fuçou os logs, confirmou a receita em prod (não
+    reproduz local), descartou rede e banco, testou rollback (ainda falha)
+    e bissectou os commits até achar o patch de auth.
+
+    **Tarefa:** escreva 80–120 palavras narrando a investigação com os
+    verbos do módulo — poke around, reproduce, narrow down, rule out,
+    roll back, bisect — cada um com o resultado.
+  constraints:
+    - { label: "Verbos de investigação", pattern: "\\b(narrowed? (it )?down|ruled? out|reproduc\\w+|rolled back|bisect\\w*|isolat\\w+|poked around)\\b" }
+    - { label: "Evidência nos descartes", pattern: "\\b(fine|healthy|normal|timestamps|logs|pings|dns)\\b" }
+    - { label: "Resultado de cada passo", pattern: "\\b(still failing|no luck|prod.only|culprit|smoking gun|dead end)\\b" }
+  rubric:
+    - "Cada verbo com o movimento certo"
+    - "Descartes com evidência"
+    - "Rollback como teste, com resultado"
+    - "Bisect até o culpado"
+  model: >-
+    Investigation play-by-play. Poked around the logs first — 401s on the
+    probe endpoint. Reproduced on prod easily; can't reproduce locally, so
+    it's a config diff. Narrowed it down to the probe layer: ruled out the
+    network — pings and DNS are fine — and the database — the pool is
+    healthy. Rolled back to the last green image as a test: still failing,
+    so the release isn't the culprit. Bisected the 30 commits between green
+    and red — the auth patch is it. The 401 timestamps were the smoking gun.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.troubleshoot]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos narrando a investigação em voz: o que explorou, o que descartou (com evidência), o rollback como teste e o bisect até o culpado."
+    maxSeconds: 45
+    targetPhrases:
+      - narrowed it down to
+      - ruled out
+      - can't reproduce
+      - rolled back
+      - still failing
+      - bisected the commits
+      - the culprit
+      - smoking gun
+      - dead end
+      - poke around
+      - dig into
+      - pinpoint
+    checklist:
+      - Verbos na ordem da investigação
+      - Descartes com evidência
+      - Rollback com resultado
+      - Culpado nomeado no fim
+
+quiz:
+  - { id: M10-03-q1, type: multiple_choice, prompt: "'Narrowed it down to the probe layer' means…", options: ["the probe is fixed", "we guessed it's the probe", "the search closed in — everything else is cleared", "the probe is broken"], answer: 2, explanation: "O cerco fechou — resto descartado.", tags: [vocab.troubleshoot] }
+  - { id: M10-03-q2, type: error_correction, prompt: "I followed the steps for reproduce the bug.", accepted: ["I followed the steps to reproduce the bug.", "I followed the steps to reproduce the bug"], explanation: '"steps to reproduce".', tags: [br.steps-for] }
+  - { id: M10-03-q3, type: multiple_choice, prompt: "A rollback that still fails proves…", options: ["nothing", "the release isn't the culprit — it was a test, not a fix", "you should give up", "the release was bad"], answer: 1, explanation: "Rollback como teste de hipótese.", tags: [vocab.troubleshoot] }
+  - { id: M10-03-q4, type: fill_blank, prompt: "Ruled ___ the network — pings are fine.", accepted: ["out"], explanation: '"rule out X" — eliminar com evidência.', tags: [vocab.troubleshoot] }
+  - { id: M10-03-q5, type: error_correction, prompt: "I need verify if the probe is up.", accepted: ["I need to verify if the probe is up.", "I need to verify if the probe is up"], explanation: '"need to verify".', tags: [br.verify-if] }
+  - { id: M10-03-q6, type: translate, prompt: "Bissectei os 30 commits entre o verde e o vermelho — o patch de auth é o culpado.", accepted: ["I bisected the 30 commits between green and red — the auth patch is the culprit.", "Bisected the 30 commits between green and red — the auth patch is the culprit."], explanation: "Bisect + culprit.", tags: [vocab.troubleshoot] }
+  - { id: M10-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["reproduce", "it", "can't", "I", "locally"], answer: "I can't reproduce it locally", explanation: '"can''t reproduce" — o meio caminho do bug report.', tags: [vocab.troubleshoot] }
+  - { id: M10-03-q8, type: multiple_choice, prompt: "A theory discarded without evidence is…", options: ["a dead end", "just a guess you got bored of — attach the evidence", "a smoking gun", "a culprit"], answer: 1, explanation: "Descarte pede evidência.", tags: [vocab.troubleshoot] }
+
+srsCards:
+  - { front: "narrow down", back: "Fechar o cerco — 'narrowed it down to X'.", tag: vocab.troubleshoot }
+  - { front: "rule out", back: "Eliminar hipótese — sempre com a evidência.", tag: vocab.troubleshoot }
+  - { front: "reproduce", back: "Fazer o bug acontecer — 'can't reproduce locally'.", tag: vocab.troubleshoot }
+  - { front: "roll back", back: "Reverter para a versão boa — 'rolled back to X'.", tag: vocab.troubleshoot }
+  - { front: "bisect", back: "Busca binária no histórico — 'bisected the commits'.", tag: vocab.troubleshoot }
+  - { front: "dead end", back: "Hipótese que não levou a nada — declare.", tag: vocab.troubleshoot }
+  - { front: "smoking gun", back: "A evidência que fecha o caso.", tag: vocab.troubleshoot }
+  - { front: "isolate", back: "Separar a variável — uma por vez.", tag: vocab.troubleshoot }
+  - { front: "pinpoint", back: "Cravar o ponto exato da falha.", tag: vocab.troubleshoot }
+  - { front: "poke around", back: "Explorar sem teoria ainda — a fase inicial.", tag: vocab.troubleshoot }
+
+review:
+  preferTags: [vocab.troubleshoot, br.steps-for, br.verify-if]
+  notes: "Revisão prioriza os verbos de investigação e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
