@@ -698,4 +698,45 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.normalized");
   });
+
+  it("flags 'confirm me' and 'say me' but not 'tell me'", () => {
+    expect(tagsOf("Can you confirm me the deploy is live?")).toContain("br.confirm-me");
+    expect(tagsOf("Say me when it's done.")).toContain("br.confirm-me");
+    const clean = [
+      "Can you confirm the deploy is live?",
+      "Tell me when it's done.",
+      "Can you confirm it to me?",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.confirm-me");
+  });
+  it("flags 'listen you' but not 'hear you' or 'listen to you'", () => {
+    expect(tagsOf("I can't listen you — speak up.")).toContain("br.listen-you");
+    expect(tagsOf("Listen him carefully.")).toContain("br.listen-you");
+    const clean = [
+      "I can't hear you — speak up.",
+      "Listen to me carefully.",
+      "I can hear you fine.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.listen-you");
+  });
+  it("flags 'the call fell' but not 'night fell'", () => {
+    expect(tagsOf("The call fell twice already.")).toContain("br.call-fell");
+    expect(tagsOf("My connection fell — can you hear me?")).toContain("br.call-fell");
+    const clean = [
+      "The call dropped twice already.",
+      "Night fell during the incident.",
+      "The line went dead.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.call-fell");
+  });
+  it("flags 'stay in the line' but not 'stay in line'", () => {
+    expect(tagsOf("Stay in the line while I check.")).toContain("br.in-the-line");
+    expect(tagsOf("Hold in the line, please.")).toContain("br.in-the-line");
+    const clean = [
+      "Stay on the line while I check.",
+      "Please stay in line — no cutting.",
+      "Hold on a second.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-the-line");
+  });
 });

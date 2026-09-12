@@ -137,3 +137,8 @@ tags:
   - { id: br.thanks-patience, group: br, label: "thanks for the patience (your)" }
   - { id: br.asap-missing-as, group: br, label: "as soon possible (as soon as)" }
   - { id: br.normalized,      group: br, label: "service normalized (recovered)" }
+  - { id: br.confirm-me,    group: br, label: "confirm me (confirm / tell me)" }
+  - { id: br.listen-you,    group: br, label: "listen you (hear / listen to)" }
+  - { id: br.call-fell,     group: br, label: "the call fell (dropped)" }
+  - { id: br.in-the-line,   group: br, label: "stay in the line (on)" }
+  - { id: vocab.bridge,     group: vocab, label: "Incident call: papéis e protocolo" }

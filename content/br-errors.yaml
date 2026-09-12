@@ -509,3 +509,31 @@ patterns:
     right: "The service recovered after the rollback"
     why: '"Normalizou" em update é "recovered" ou "is back to normal" — normalized é calque.'
     tag: br.normalized
+  # "confirm me / say me" — "me confirma/me diz": confirm não leva pessoa como objeto direto.
+  - id: confirm-me
+    pattern: "\\b(confirm|say|reply|answer)\\s+me\\b"
+    wrong: "Can you confirm me the deploy is live?"
+    right: "Can you confirm the deploy is live? / tell me"
+    why: '"Me confirma" é "confirm it" ou "tell me" — confirm não leva "me" antes.'
+    tag: br.confirm-me
+  # "listen you" — "te escuto": escutar alguém é "hear you" ou "listen TO you".
+  - id: listen-you
+    pattern: "\\blisten\\s+(you|him|her|them|us)\\b"
+    wrong: "I can't listen you — speak up"
+    right: "I can't hear you / listen to you"
+    why: '"Escutar alguém" é "hear you"; "listen" pede "to" — "listen to you".'
+    tag: br.listen-you
+  # "the call fell" — "a ligação caiu" é "dropped"; sujeitos restritos a call/connection/line.
+  - id: call-fell
+    pattern: "\\b(call|calls|connection|meeting|line)s?\\s+(fell|fall|falls)\\b"
+    wrong: "The call fell twice already"
+    right: "The call dropped twice already"
+    why: '"A ligação caiu" é "the call dropped" — fell é calque de "caiu".'
+    tag: br.call-fell
+  # "stay in the line" — "fica na linha" é "on the line"; verbos restritos a stay/hold/wait.
+  - id: in-the-line
+    pattern: "\\b(stay|stays|hold|holds|wait|waits|stand|stands)\\s+in the line\\b"
+    wrong: "Stay in the line while I check"
+    right: "Stay on the line while I check"
+    why: '"Na linha" (telefone) é "on the line" — "in line" é fila.'
+    tag: br.in-the-line
