@@ -432,4 +432,51 @@ describe("detectBrErrors", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.worths");
   });
+
+  // M10: troubleshooting
+  it("flags 'it not works' (missing doesn't) but not legit negatives", () => {
+    expect(tagsOf("It not works on staging.")).toContain("br.it-not-works");
+    expect(tagsOf("The job not fails anymore.")).toContain("br.it-not-works");
+    const clean = [
+      "It doesn't work on staging.",
+      "It is not working yet.",
+      "It's not broken, it's a feature.",
+      "It was not fine yesterday.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.it-not-works");
+  });
+  it("flags 'after to reproduce' (gerund after preposition)", () => {
+    expect(tagsOf("After to reproduce the bug, I checked the logs.")).toContain("br.after-to");
+    expect(tagsOf("Roll back before to investigate.")).toContain("br.after-to");
+    expect(tagsOf("It fails without to retry.")).toContain("br.after-to");
+    const clean = [
+      "After reproducing the bug, I checked the logs.",
+      "Roll back before investigating.",
+      "The key to fixing it is the lock.",
+      "A way to fix it exists.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.after-to");
+  });
+  it("flags 'the same problem of' but not 'same kind of'", () => {
+    expect(tagsOf("It's the same problem of yesterday.")).toContain("br.same-of");
+    expect(tagsOf("Same error of last week.")).toContain("br.same-of");
+    const clean = [
+      "It's the same problem as yesterday.",
+      "The same kind of error came back.",
+      "Same as before.",
+      "A different problem this time.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.same-of");
+  });
+  it("flags 'works in my machine' but not 'machine learning'", () => {
+    expect(tagsOf("It works in my machine, weird.")).toContain("br.in-my-machine");
+    expect(tagsOf("The test passes in my machine.")).toContain("br.in-my-machine");
+    const clean = [
+      "It works on my machine.",
+      "It runs in my VM, not on the host.",
+      "The model fails in my machine learning pipeline.",
+      "Works fine locally.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-my-machine");
+  });
 });

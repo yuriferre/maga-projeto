@@ -110,3 +110,8 @@ tags:
   - { id: br.according-to-me, group: br, label: "according to me (in my view)" }
   - { id: br.worths,          group: br, label: "it worths (it's worth)" }
   - { id: vocab.review,       group: vocab, label: "Code review: comentários e léxico" }
+  - { id: br.it-not-works,    group: br, label: "it not works (doesn't)" }
+  - { id: br.after-to,        group: br, label: "after/before/without to X (gerúndio)" }
+  - { id: br.same-of,         group: br, label: "same problem of (as)" }
+  - { id: br.in-my-machine,   group: br, label: "in my machine (on)" }
+  - { id: vocab.troubleshoot, group: vocab, label: "Troubleshooting e narrativa de bug" }

@@ -327,3 +327,33 @@ patterns:
     right: "It's worth the refactor"
     why: '"Worth" não é verbo — "it''s worth it" ou "worth doing".'
     tag: br.worths
+  # "it not works" — o auxiliar sumiu. A forma com -s depois de "not" é sempre
+  # errada ("does not work" leva a base), então a lista de verbos basta.
+  - id: it-not-works
+    pattern: "\\bnot\\s+(works|fails|returns|fixes|helps|seems|starts|runs|responds|deploys|succeeds|crashes|loads|merges|builds|passes|breaks)\\b"
+    wrong: "It not works on staging"
+    right: "It doesn't work on staging"
+    why: '"Not" precisa de auxiliar: doesn''t + forma base (não leva -s).'
+    tag: br.it-not-works
+  # "after/before/without to X" — depois de preposição vem gerúndio, não infinitivo.
+  - id: after-to
+    pattern: "\\b(after|before|without)\\s+to\\s+\\w+"
+    wrong: "After to reproduce the bug, I checked the logs"
+    right: "After reproducing the bug, I checked the logs"
+    why: 'Depois de after/before/without, gerúndio: "after reproducing".'
+    tag: br.after-to
+  # "the same problem of yesterday" é calque de "o mesmo de" — inglês usa "same as".
+  # Lista fechada: "same kind of error" (correto) fica fora.
+  - id: same-of
+    pattern: "\\bsame\\s+(problem|issue|error|bug|thing|version|behavior|result|question|one|message|failure|symptom|fix|cause)\\s+of\\b"
+    wrong: "It's the same problem of yesterday"
+    right: "It's the same problem as yesterday"
+    why: '"The same X as" — "same X of" é calque. ("Same kind of" é outra estrutura.)'
+    tag: br.same-of
+  # "works in my machine" é calque de "na minha máquina" — inglês usa "on".
+  - id: in-my-machine
+    pattern: "\\b(works?|runs?|fails?|passes?|breaks?|crashes?|deploys?|builds?|fine|broken|green|red)\\s+in my machine\\b(?!\\s*learning)"
+    wrong: "It works in my machine"
+    right: "It works on my machine"
+    why: '"On my machine" — "in my machine" é calque. ("In my machine learning" é outra coisa.)'
+    tag: br.in-my-machine
