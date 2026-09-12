@@ -1,0 +1,293 @@
+id: M12-01
+module: M12
+order: 1
+title: "Vocabulário: image, pod, node, deployment, service, ingress, probe, sidecar"
+objective: >-
+  Ao final, você nomeia as peças do cluster sem hesitar — "the pod on the
+  node", "the deployment owns the pods", "the service fronts the pods",
+  "the ingress routes external traffic" — e posiciona uma falha na camada
+  certa.
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.k8s, comp.speaking]
+prerequisites: [M05-05, M10-05]
+
+context:
+  scenario: |
+    O time assume o `checkout-api` no cluster compartilhado. Na
+    apresentação do serviço, a Ana desenha a arquitetura no quadro e você
+    precisa acompanhar cada camada em inglês.
+
+    A hierarquia: uma **image** é o pacote imutável; um **pod** (menor
+    unidade) roda a imagem num **node** (a máquina); um **deployment**
+    declara quantos pods devem existir; um **service** dá um IP/DNS
+    estável na frente dos pods; um **ingress** roteia tráfego externo
+    para os services; tudo vive num **namespace** (a pasta lógica do
+    cluster); e cada container pode ter **probes** (health checks) e um
+    **sidecar** (container auxiliar no mesmo pod).
+
+    Nove peças, uma frase por camada — e o truque de sempre: quando algo
+    quebra, primeiro você descobre EM qual camada.
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "image"
+    meaning: a imagem — o pacote imutável que o pod executa
+    example: "The new image is v2.4.1 — the tag is in the registry."
+    translation: "A nova imagem é a v2.4.1 — a tag está no registry."
+    note: "Imutável — você nunca edita, publica outra tag."
+  - term: "pod"
+    meaning: o pod — a menor unidade, um ou mais containers
+    example: "The checkout pods run three replicas across two nodes."
+    translation: "Os pods do checkout rodam três réplicas em dois nodes."
+    note: "Efêmero — morre e o deployment recria."
+  - term: "node"
+    meaning: o node — a máquina onde os pods rodam
+    example: "The pod is scheduled on node-3 — it's running out of disk."
+    translation: "O pod está alocado no node-3 — está ficando sem disco."
+    note: "Pods ON nodes — nunca 'in the node'."
+  - term: "deployment"
+    meaning: o deployment — declara o estado desejado dos pods
+    example: "The deployment owns the pods — scale it to four replicas."
+    translation: "O deployment é dono dos pods — escale para quatro réplicas."
+    note: "Você não mexe no pod — mexe no deployment."
+  - term: "service"
+    meaning: o service — IP/DNS estável na frente dos pods
+    example: "The service fronts the pods — pods die, the service IP stays."
+    translation: "O service fica na frente dos pods — pods morrem, o IP fica."
+    note: "ClusterIP (interno), NodePort, LoadBalancer."
+  - term: "ingress"
+    meaning: o ingress — roteia tráfego externo para os services
+    example: "The ingress routes api.example.com to the checkout service."
+    translation: "O ingress roteia api.example.com para o service do checkout."
+    note: "A porta de entrada HTTP(S) — TLS e path-based routing."
+  - term: "namespace"
+    meaning: o namespace — a pasta lógica que isola recursos
+    example: "Checkout lives in the payments namespace."
+    translation: "O checkout vive no namespace payments."
+    note: "Isolamento lógico — RBAC e quotas por namespace."
+  - term: "probe"
+    meaning: a probe — health check do container
+    example: "The liveness probe restarts the pod; the readiness probe gates traffic."
+    translation: "A liveness probe reinicia o pod; a readiness controla o tráfego."
+    note: "Liveness = está vivo? Readiness = aceita tráfego?"
+  - term: "sidecar"
+    meaning: o sidecar — container auxiliar no mesmo pod
+    example: "The log-shipping sidecar streams stdout to Loki."
+    translation: "O sidecar de logs manda o stdout para o Loki."
+    note: "Divide o pod — app + auxiliar (logs, proxy, auth)."
+  - term: "replica"
+    meaning: a réplica — cada cópia idêntica do pod
+    example: "Three replicas behind the service — any can take the request."
+    translation: "Três réplicas atrás do service — qualquer uma atende."
+    note: "O número que o deployment mantém."
+  - term: "to schedule"
+    meaning: alocar — o scheduler escolhe o node do pod
+    example: "The pod got scheduled on node-3 — the node with free memory."
+    translation: "O pod foi alocado no node-3 — o node com memória livre."
+    note: "O scheduler decide ONDE o pod nasce."
+  - term: "kubectl"
+    meaning: o kubectl — a CLI do cluster
+    example: "kubectl get pods -n payments — that's the first command."
+    translation: "kubectl get pods -n payments — o primeiro comando."
+    note: '"kube-C-T-L" ou "kube-control" — os dois se ouvem.'
+
+grammar:
+  title: "A hierarquia em frases: quem possui quem"
+  explanation: |
+    O vocabulário de K8s é uma hierarquia de posse — e cada relação tem
+    seu verbo:
+
+    - o **deployment** *owns* os pods — "the deployment owns three
+      replicas"
+    - o pod *runs on* o node — "the pod is scheduled **on** node-3"
+      (on, nunca in)
+    - o **service** *fronts* os pods — "the service fronts the checkout
+      pods"
+    - o **ingress** *routes to* o service — "the ingress routes
+      api.example.com to the service"
+    - a **probe** *checks* o container — "the liveness probe checks the
+      container every 10s"
+    - o **sidecar** *shares* o pod — "the sidecar shares the pod's
+      network"
+
+    A frase completa de diagnóstico navega a hierarquia: "the ingress
+    routes to the service, the service fronts the pods, the pods run on
+    the nodes" — quatro camadas, um caminho de tráfego.
+  examples:
+    - { en: "The deployment owns three replicas — kill a pod and it recreates one.", pt: "O deployment é dono de três réplicas — mate um pod e ele recria." }
+    - { en: "The pod is scheduled on node-3 — the node with free memory.", pt: "O pod está alocado no node-3 — o node com memória livre." }
+    - { en: "The service fronts the pods — the pods die, the IP stays.", pt: "O service fica na frente dos pods — os pods morrem, o IP fica." }
+    - { en: "The ingress routes api.example.com to the checkout service.", pt: "O ingress roteia api.example.com para o service do checkout." }
+    - { en: "The liveness probe restarts the container; the readiness probe gates the traffic.", pt: "A liveness probe reinicia o container; a readiness controla o tráfego." }
+    - { en: "The logging sidecar shares the pod's network — it sees stdout directly.", pt: "O sidecar de logs divide a rede do pod — vê o stdout direto." }
+
+examples:
+  - en: "The image tag is v2.4.1 — immutable, published to the registry."
+    pt: "A tag da imagem é v2.4.1 — imutável, publicada no registry."
+    context: "Image = pacote imutável."
+  - en: "Three replicas behind the service — the deployment keeps them alive."
+    pt: "Três réplicas atrás do service — o deployment as mantém vivas."
+    context: "Deployment mantém o número declarado."
+  - en: "The pod got scheduled on node-3 — the scheduler picks the node, not you."
+    pt: "O pod foi alocado no node-3 — o scheduler escolhe o node, não você."
+    context: "Schedule = alocar no node."
+  - en: "Checkout lives in the payments namespace — RBAC scoped to it."
+    pt: "O checkout vive no namespace payments — RBAC com escopo nele."
+    context: "Namespace = isolamento lógico."
+  - en: "The ingress terminates TLS and routes /api to the service."
+    pt: "O ingress termina o TLS e roteia /api para o service."
+    context: "Ingress = a porta de entrada externa."
+  - en: "The readiness probe gates traffic — a failing pod stops receiving requests."
+    pt: "A readiness probe controla o tráfego — pod que falha para de receber requisições."
+    context: "Readiness ≠ liveness — gates vs restarts."
+  - en: "The log-shipping sidecar tails stdout and streams it to Loki."
+    pt: "O sidecar de logs faz tail no stdout e manda para o Loki."
+    context: "Sidecar = auxiliar no mesmo pod."
+  - en: "kubectl get pods -n payments — the first command of every investigation."
+    pt: "kubectl get pods -n payments — o primeiro comando de toda investigação."
+    context: "A CLI por onde tudo começa."
+
+variations:
+  - idea: '"onde a falha mora"'
+    items:
+      - { register: "Boa", text: "Traffic dies at the ingress — the service never sees the request.", adequate: true }
+      - { register: "Boa", text: "The pod is fine — the service fronts it, but the readiness probe keeps it out of rotation.", adequate: true }
+      - { register: "Inadequada", text: "Kubernetes is broken — nothing works.", adequate: false, note: "Sem camada, sem diagnóstico — localize: ingress? service? pod? node?" }
+      - { register: "Inadequada", text: "It's a code bug — skip the cluster.", adequate: false, note: "Pode ser, mas confirme a camada antes — metade dos 'bugs' é readiness probe." }
+  - idea: '"explicar a arquitetura"'
+    items:
+      - { register: "Boa", text: "The ingress routes to the service, the service fronts three pods, the pods run on two nodes.", adequate: true }
+      - { register: "Boa", text: "The deployment owns the pods — scale the deployment, never the pod.", adequate: true }
+      - { register: "Inadequada", text: "There's containers and stuff in the cloud.", adequate: false, note: "'Stuff' não nomeia camada — image, pod, deployment, service, ingress." }
+      - { register: "Inadequada", text: "The pod fronts the deployment.", adequate: false, note: "Hierarquia invertida — o deployment owns os pods, o service fronts os pods." }
+
+brErrors:
+  - { wrong: "The pod is scheduled in the node.", right: "The pod is scheduled on the node.", why: "on the node", tag: br.in-the-node }
+  - { wrong: "The pod is died — no logs.", right: "The pod is dead — no logs.", why: "dead (adj.) ou died (passado)", tag: br.is-died }
+  - { wrong: "I need see the service config.", right: "I need to see the service config.", why: "need to see", tag: br.need-see }
+  - { wrong: "The deployment is running since Monday.", right: "The deployment has been running since Monday.", why: "has been + -ing + since", tag: br.is-ing-since }
+  - { wrong: "The probe not restarts the container.", right: "The probe doesn't restart the container.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same architecture of the old cluster.", right: "It's the same architecture as the old cluster.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "Node-3 is more busy than node-7.", right: "Node-3 is busier than node-7.", why: "busy leva -ier", tag: br.more-er }
+  - { wrong: "The service depends in the pods being ready.", right: "The service depends on the pods being ready.", why: "depends on", tag: br.depends-in }
+  - { wrong: "I catched the pod name from kubectl.", right: "I caught the pod name from kubectl.", why: "caught, não catched", tag: br.irregular-past }
+  - { wrong: "Can you explain me the sidecar?", right: "Can you explain the sidecar to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "O tour do checkout-api"
+  lines:
+    - { speaker: Ana, text: "Quick tour of checkout on the shared cluster — ingress at the edge, service in the middle, pods at the bottom." }
+    - { speaker: Yuri, text: "Walk me through the layers — where does traffic land first?" }
+    - { speaker: Ana, text: "The ingress. It terminates TLS and routes api.payments.internal to the checkout service." }
+    - { speaker: Yuri, text: "And the service fronts the pods — how many replicas?" }
+    - { speaker: Marcos, text: "Three — the deployment owns them. Kill one, it recreates." }
+    - { speaker: Yuri, text: "Scheduled on which nodes?" }
+    - { speaker: Ana, text: "The scheduler picks — currently two pods on node-3, one on node-7." }
+    - { speaker: Yuri, text: "Health checks?" }
+    - { speaker: Marcos, text: "Liveness restarts the container, readiness gates traffic — a failing pod leaves the service rotation." }
+    - { speaker: Yuri, text: "And that second container in the pod?" }
+    - { speaker: Ana, text: "The log sidecar — shares the pod's network, streams stdout to Loki. Everything lives in the payments namespace." }
+    - { speaker: Yuri, text: "Got it — ingress routes, service fronts, deployment owns, scheduler places. Nine pieces, one path." }
+  notes:
+    - "a hierarquia como conversa — cada resposta nomeia uma camada e seu verbo."
+    - "'got it' no fecho — você resume a arquitetura em uma linha."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Kubernetes is nine nouns and a hierarchy. The image is the immutable package; the pod runs it; the node hosts the pod; the deployment declares how many pods should exist." }
+    - { speaker: Marcos, text: "Then the networking: the service is the stable front — pods die, the service IP stays. The ingress is the edge — it routes external traffic to services and terminates TLS." }
+    - { speaker: Priya, text: "The namespace is the logical folder — RBAC and quotas scope to it. And inside the pod, probes check health and the sidecar does auxiliary work — logging, proxying, auth." }
+    - { speaker: Yuri, text: "The mental model that matters: you never touch a pod — you scale the deployment, and the scheduler decides which node gets it. Pods are cattle, not pets." }
+  questions:
+    - { id: M12-01-l1, type: multiple_choice, prompt: "The stable piece in front of the pods is…", options: ["the ingress", "the service — pods die, its IP stays", "the deployment", "the namespace"], answer: 1, explanation: "Service = IP/DNS estável.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-01-l2, type: multiple_choice, prompt: "You scale…", options: ["the pod", "the node", "the deployment — never the pod directly", "the image"], answer: 2, explanation: "O deployment é dono dos pods.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-01-l3, type: fill_blank, prompt: "The pod is scheduled ___ node-3.", accepted: ["on"], explanation: "Pods ON nodes.", tags: [br.in-the-node, vocab.k8s] }
+    - { id: M12-01-l4, type: error_correction, prompt: "The deployment is running since Monday.", accepted: ["The deployment has been running since Monday.", "The deployment has been running since Monday"], explanation: "has been + -ing + since.", tags: [br.is-ing-since] }
+    - { id: M12-01-l5, type: multiple_choice, prompt: "The liveness probe ___ the container; the readiness probe ___ traffic.", options: ["gates / restarts", "restarts / gates", "scales / routes", "routes / owns"], answer: 1, explanation: "Liveness reinicia, readiness controla tráfego.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-01-l6, type: multiple_choice, prompt: "The sidecar…", options: ["runs on a separate node", "replaces the probe", "shares the pod — auxiliary work like logging or proxying", "owns the deployment"], answer: 2, explanation: "Container auxiliar no mesmo pod.", tags: [comp.listening, vocab.k8s] }
+
+writing:
+  prompt: |
+    **Cenário:** um colega novo pergunta no canal como o `checkout-api` está
+    montado no cluster — do TLS ao pod.
+
+    **Tarefa:** escreva 80–120 palavras descrevendo o caminho do tráfego:
+    ingress → service → pods → nodes, onde mora o deployment, o
+    namespace, as probes e o sidecar de logs.
+  constraints:
+    - { label: "Cadeia de tráfego", pattern: "\\b(ingress|service|pod|node|route|front)\\b" }
+    - { label: "Posse e escala", pattern: "\\b(deployment|replica|scale|own|scheduler|schedule)\\b" }
+    - { label: "Saúde e auxiliares", pattern: "\\b(probe|liveness|readiness|sidecar|namespace)\\b" }
+    - { label: "Preposições", pattern: "\\b(on|to|in)\\b" }
+  rubric:
+    - "Cadeia ingress → service → pods → nodes"
+    - "Deployment owns / scheduler places"
+    - "Liveness × readiness distinguidas"
+    - "Namespace e sidecar citados"
+  model: >-
+    The checkout-api path: the ingress terminates TLS and routes
+    api.payments.internal to the checkout service. The service fronts
+    three pods — pods die, the service IP stays. The deployment owns the
+    replicas; scale it, never the pods. The scheduler places the pods on
+    the nodes — currently two on node-3, one on node-7. Each pod has a
+    liveness probe that restarts the container and a readiness probe that
+    gates traffic. The log sidecar shares the pod's network and streams
+    stdout to Loki. Everything lives in the payments namespace.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.k8s]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando a arquitetura do checkout-api: o caminho do tráfego (ingress → service → pods → nodes), quem é dono de quem e o que probes e sidecar fazem."
+    maxSeconds: 45
+    targetPhrases:
+      - the ingress routes
+      - the service fronts
+      - the deployment owns
+      - scheduled on
+      - liveness probe
+      - readiness probe
+      - sidecar
+      - namespace
+      - replicas
+      - node
+      - pod
+      - image
+    checklist:
+      - Cadeia de tráfego completa
+      - Verbos corretos (routes/fronts/owns/scheduled on)
+      - Liveness × readiness
+      - Namespace e sidecar
+
+quiz:
+  - { id: M12-01-q1, type: multiple_choice, prompt: "Pods run ___ nodes.", options: ["on — 'scheduled on node-3'", "in", "at", "inside"], answer: 0, explanation: "Sempre 'on the node'.", tags: [vocab.k8s, br.in-the-node] }
+  - { id: M12-01-q2, type: error_correction, prompt: "The pod is died — no logs.", accepted: ["The pod is dead — no logs.", "The pod died — no logs.", "The pod is dead — no logs"], explanation: "dead (adj.) ou died (passado simples).", tags: [br.is-died] }
+  - { id: M12-01-q3, type: multiple_choice, prompt: "'The service fronts the pods' means…", options: ["the service restarts pods", "pods own the service", "the service is the stable entry point — pods die, its IP stays", "the service schedules pods"], answer: 2, explanation: "Fronts = fica na frente, estável.", tags: [vocab.k8s] }
+  - { id: M12-01-q4, type: fill_blank, prompt: "The ___ probe restarts the container; the readiness probe gates traffic.", accepted: ["liveness"], explanation: "Liveness reinicia; readiness controla.", tags: [vocab.k8s] }
+  - { id: M12-01-q5, type: error_correction, prompt: "I need see the service config.", accepted: ["I need to see the service config.", "I need to see the service config"], explanation: "need to + infinitivo.", tags: [br.need-see] }
+  - { id: M12-01-q6, type: translate, prompt: "O ingress roteia o tráfego externo para o service; o deployment é dono dos pods.", accepted: ["The ingress routes external traffic to the service; the deployment owns the pods.", "The ingress routes external traffic to the service — the deployment owns the pods."], explanation: "routes to + owns.", tags: [vocab.k8s] }
+  - { id: M12-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["replicas", "three", "deployment", "the", "owns"], answer: "the deployment owns three replicas", explanation: "Deployment owns replicas.", tags: [vocab.k8s] }
+  - { id: M12-01-q8, type: multiple_choice, prompt: "The sidecar…", options: ["is a bigger pod", "runs on the ingress", "is the node agent", "shares the pod — auxiliary work like log shipping"], answer: 3, explanation: "Auxiliar no mesmo pod.", tags: [vocab.k8s] }
+
+srsCards:
+  - { front: "image", back: "O pacote imutável — publica outra tag, nunca edita.", tag: vocab.k8s }
+  - { front: "pod", back: "A menor unidade — efêmera, o deployment recria.", tag: vocab.k8s }
+  - { front: "node", back: "A máquina — pods rodam ON o node.", tag: vocab.k8s }
+  - { front: "deployment", back: "Declara o estado desejado — owns the pods.", tag: vocab.k8s }
+  - { front: "service", back: "IP/DNS estável na frente dos pods — fronts.", tag: vocab.k8s }
+  - { front: "ingress", back: "Roteia tráfego externo para services — TLS + paths.", tag: vocab.k8s }
+  - { front: "namespace", back: "A pasta lógica — RBAC e quotas por namespace.", tag: vocab.k8s }
+  - { front: "probe", back: "Health check — liveness reinicia, readiness controla tráfego.", tag: vocab.k8s }
+  - { front: "sidecar", back: "Container auxiliar no mesmo pod — logs, proxy, auth.", tag: vocab.k8s }
+  - { front: "schedule", back: "O scheduler escolhe o node — 'scheduled on node-3'.", tag: vocab.k8s }
+
+review:
+  preferTags: [vocab.k8s, br.in-the-node, br.is-died]
+  notes: "Revisão prioriza o léxico de K8s e as preposições do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
