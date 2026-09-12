@@ -100,3 +100,8 @@ tags:
   - { id: br.it-makes-sense,    group: br, label: "it/this/that make sense (sem -s)" }
   - { id: vocab.agile,         group: vocab, label: "Backlog, refinamento e estimativas" }
   - { id: topic.refinement,    group: topic, label: "Refinamento e planning" }
+  - { id: br.morale,          group: br, label: "team moral (morale)" }
+  - { id: br.do-mistake,      group: br, label: "do a mistake (make)" }
+  - { id: br.ed-ing,          group: br, label: "I'm boring (bored) — -ing por -ed" }
+  - { id: vocab.feedback,     group: vocab, label: "Feedback, retro e 1:1" }
+  - { id: topic.retro,        group: topic, label: "Retrospectiva e 1:1" }

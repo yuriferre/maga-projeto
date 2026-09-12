@@ -268,3 +268,33 @@ patterns:
     right: "It makes sense to split the epic"
     why: 'Terceira pessoa leva -s: "it makes sense".'
     tag: br.it-makes-sense
+  # "moral" (ética) ≠ "morale" (moral do time). Só dispara com sujeito de grupo;
+  # "the moral of the story" e "moral support" ficam fora.
+  - id: moral-vs-morale
+    pattern: "\\b(team|group|company|crew|squad|engineering|dev) moral\\b(?!s)"
+    wrong: "The team moral is low after the incident"
+    right: "The team morale is low after the incident"
+    why: '"Morale" (com e) = moral/ânimo do time; "moral" é ética ou a lição da história.'
+    tag: br.morale
+  # "do a mistake" é calque de "fazer um erro" — em inglês se "make a mistake".
+  - id: do-a-mistake
+    pattern: "\\b(do|did|done|doing) a mistake\\b"
+    wrong: "We did a mistake in the last deploy"
+    right: "We made a mistake in the last deploy"
+    why: '"Make a mistake", nunca "do a mistake".'
+    tag: br.do-mistake
+  # -ing no lugar de -ed na 1ª pessoa: "I'm boring" quase sempre quer dizer "I'm bored".
+  # Restrito a "I'm/I am" + lista fechada de emoções; "they're annoying" é inglês correto.
+  - id: i-am-boring
+    pattern: "\\b(i'm|i am)\\s+(boring|confusing|frustrating|annoying|embarrassing|disappointing|worrying|surprising)\\b"
+    wrong: "I'm boring in these long meetings"
+    right: "I'm bored in these long meetings"
+    why: 'Quem sente leva -ed ("I''m bored"); o que causa a sensação leva -ing ("the meeting is boring").'
+    tag: br.ed-ing
+  # "a feedback" com artigo: feedback é incontável. Lookahead protege "a feedback loop/signal".
+  - id: article-feedback
+    pattern: "\\b(a|an|one|another|this|that) feedback\\b(?!\\s+(loop|loops|cycle|cycles|mechanism|signal|signals|control|system))"
+    wrong: "She gave me a feedback about my presentation"
+    right: "She gave me some feedback about my presentation / a piece of feedback"
+    why: "Feedback é incontável — some feedback, a piece of feedback. ('A feedback loop' é outra coisa.)"
+    tag: br.uncountable

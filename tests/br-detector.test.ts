@@ -345,4 +345,47 @@ describe("detectBrErrors", () => {
     expect(tagsOf("I'm waiting you in the call.")).toContain("br.waiting-no-prep");
     expect(tagsOf("We pretend to deploy on Friday.")).toContain("br.pretend");
   });
+  it("flags 'team moral' (morale) but not moral as ethics", () => {
+    expect(tagsOf("The team moral is low after the incident.")).toContain("br.morale");
+    expect(tagsOf("Our group moral improved after the retro.")).toContain("br.morale");
+    const clean = [
+      "The moral of the story is: test restores.",
+      "Moral support matters in a crisis.",
+      "The team morale is low after the incident.",
+      "A moral dilemma, not a technical one.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.morale");
+  });
+  it("flags 'do a mistake' but not 'make a mistake'", () => {
+    expect(tagsOf("We did a mistake in the last deploy.")).toContain("br.do-mistake");
+    expect(tagsOf("I did a mistake — let me fix it.")).toContain("br.do-mistake");
+    const clean = [
+      "We made a mistake in the last deploy.",
+      "The mistake we did the analysis on was mine.",
+      "Do your best, mistakes happen.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.do-mistake");
+  });
+  it("flags first-person '-ing' feelings (I'm boring) but not legit uses", () => {
+    expect(tagsOf("I'm boring in these long meetings.")).toContain("br.ed-ing");
+    expect(tagsOf("I am frustrating with the flaky tests.")).toContain("br.ed-ing");
+    const clean = [
+      "I'm bored in these long meetings.",
+      "They're annoying, honestly.",
+      "I'm interested in the topic.",
+      "The talk was boring.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.ed-ing");
+  });
+  it("flags 'a feedback' (uncountable) but not 'a feedback loop'", () => {
+    expect(tagsOf("She gave me a feedback about my presentation.")).toContain("br.uncountable");
+    expect(tagsOf("I got another feedback yesterday.")).toContain("br.uncountable");
+    const clean = [
+      "The system has a feedback loop.",
+      "That feedback signal is noisy.",
+      "She gave me some feedback about my presentation.",
+      "The feedback was useful.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.uncountable");
+  });
 });
