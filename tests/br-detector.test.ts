@@ -616,4 +616,45 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.sorry-for-late");
   });
+
+  it("flags 'on the cloud' but not 'on the cloud provider'", () => {
+    expect(tagsOf("The service runs on the cloud.")).toContain("br.on-the-cloud");
+    expect(tagsOf("We host everything on the cloud now.")).toContain("br.on-the-cloud");
+    const clean = [
+      "The service runs in the cloud.",
+      "It runs on the cloud provider's platform.",
+      "It's on the cloud platform we chose.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.on-the-cloud");
+  });
+  it("flags 'provisionate' but not 'provision'", () => {
+    expect(tagsOf("Terraform will provisionate the VM.")).toContain("br.provisionate");
+    expect(tagsOf("It provisionated the cluster yesterday.")).toContain("br.provisionate");
+    const clean = [
+      "Terraform will provision the VM.",
+      "Provisioning is automated.",
+      "The provisioned cluster is ready.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.provisionate");
+  });
+  it("flags 'migrate for AWS' but not 'migrate to AWS' or 'migrate for pricing'", () => {
+    expect(tagsOf("We want to migrate for AWS next quarter.")).toContain("br.migrate-for");
+    expect(tagsOf("The migration for GCP is planned.")).toContain("br.migrate-for");
+    const clean = [
+      "We want to migrate to AWS next quarter.",
+      "The migration to GCP is planned.",
+      "We migrate for better pricing, not for the brand.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.migrate-for");
+  });
+  it("flags 'recommend to use' but not 'recommend to the team'", () => {
+    expect(tagsOf("I recommend to use spot instances.")).toContain("br.recommend-to");
+    expect(tagsOf("She recommends to deploy on GCP.")).toContain("br.recommend-to");
+    const clean = [
+      "I recommend using spot instances.",
+      "I recommend to the team that we use spot instances.",
+      "She recommended AWS to us.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.recommend-to");
+  });
 });
