@@ -115,3 +115,7 @@ tags:
   - { id: br.same-of,         group: br, label: "same problem of (as)" }
   - { id: br.in-my-machine,   group: br, label: "in my machine (on)" }
   - { id: vocab.troubleshoot, group: vocab, label: "Troubleshooting e narrativa de bug" }
+  - { id: br.depends-in,      group: br, label: "depends in (on)" }
+  - { id: br.suggested-me,    group: br, label: "suggested me to (that I)" }
+  - { id: br.apply-terraform, group: br, label: "apply the terraform (terraform apply)" }
+  - { id: br.was-succeeded,   group: br, label: "was succeeded (succeeded)" }
