@@ -537,3 +537,33 @@ patterns:
     right: "Stay on the line while I check"
     why: '"Na linha" (telefone) é "on the line" — "in line" é fila.'
     tag: br.in-the-line
+  # "in Friday" — "na sexta" é "on Friday"; o (?!') protege "in Friday's post-mortem".
+  - id: in-weekday
+    pattern: "\\bin (monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b(?!')"
+    wrong: "The post-mortem is in Friday"
+    right: "The post-mortem is on Friday"
+    why: 'Dia da semana pede "on" — "on Friday".'
+    tag: br.in-weekday
+  # "was wrote" — passiva com passado em vez de particípio; lista fechada de irregulares.
+  - id: was-past
+    pattern: "\\b(was|were|been)\\s+(wrote|ran|forgot|chose|spoke|broke|took|ate|drove|gave|fell|began|knew|grew|flew|threw|wore|saw|stole|swam|went|drank)\\b"
+    wrong: "The rollback was ran at 17:52"
+    right: "The rollback was run at 17:52"
+    why: 'Depois de was/were/been vem o particípio — "was run", "was written".'
+    tag: br.was-past
+  # "contributed for" — "contribuiu para" é "contributed to"; só formas verbais,
+  # "a contribution for the victims" fica fora.
+  - id: contributed-for
+    pattern: "\\bcontribut(e|ed|es|ing)\\s+for\\b"
+    wrong: "The missing test contributed for the outage"
+    right: "The missing test contributed to the outage"
+    why: '"Contribuir para" é "contribute to".'
+    tag: br.contributed-for
+  # "the incident of Friday" — "o incidente de sexta" é "Friday's incident" ou "on Friday";
+  # substantivos e dias em listas fechadas.
+  - id: of-weekday
+    pattern: "\\b(incident|post-?mortem|deploy|rollback|outage|alert|meeting|call|release)\\s+of\\s+(monday|tuesday|wednesday|thursday|friday|saturday|sunday)\\b"
+    wrong: "The incident of Friday hit the checkout"
+    right: "Friday's incident hit the checkout / the incident on Friday"
+    why: '"O incidente de sexta" é "Friday''s incident" ou "the incident on Friday".'
+    tag: br.of-weekday

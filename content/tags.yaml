@@ -142,3 +142,10 @@ tags:
   - { id: br.call-fell,     group: br, label: "the call fell (dropped)" }
   - { id: br.in-the-line,   group: br, label: "stay in the line (on)" }
   - { id: vocab.bridge,     group: vocab, label: "Incident call: papéis e protocolo" }
+  - { id: br.in-weekday,     group: br, label: "in Friday (on Friday)" }
+  - { id: br.was-past,       group: br, label: "was wrote/ran (was written/run)" }
+  - { id: br.contributed-for, group: br, label: "contributed for (to)" }
+  - { id: br.of-weekday,     group: br, label: "the incident of Friday (Friday's)" }
+  - { id: vocab.postmortem,  group: vocab, label: "Post-mortem: blameless e timeline" }
+  - { id: gram.passive-blameless, group: gram, label: "Passiva blameless (foco no fato)" }
+  - { id: gram.timeline,     group: gram, label: "Timeline de incidente (tempos e ordem)" }

@@ -739,4 +739,47 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-the-line");
   });
+
+  it("flags 'in Friday' but not 'in Friday's post-mortem'", () => {
+    expect(tagsOf("The post-mortem is in Friday.")).toContain("br.in-weekday");
+    expect(tagsOf("We met in Monday and shipped in Tuesday.")).toContain("br.in-weekday");
+    const clean = [
+      "The post-mortem is on Friday.",
+      "In Friday's post-mortem we noted the gap.",
+      "The incident happened in March.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-weekday");
+  });
+  it("flags 'was wrote/ran/forgot' — passive with past instead of participle", () => {
+    expect(tagsOf("The report was wrote by the scribe.")).toContain("br.was-past");
+    expect(tagsOf("The rollback was ran at 17:52.")).toContain("br.was-past");
+    expect(tagsOf("The alert was forgot in the noise.")).toContain("br.was-past");
+    const clean = [
+      "The report was written by the scribe.",
+      "The rollback was run at 17:52.",
+      "The alert was forgotten in the noise.",
+      "The team was worried.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.was-past");
+  });
+  it("flags 'contributed for' but not 'contribution for'", () => {
+    expect(tagsOf("The missing test contributed for the outage.")).toContain("br.contributed-for");
+    expect(tagsOf("Several factors contributed for the delay.")).toContain("br.contributed-for");
+    const clean = [
+      "The missing test contributed to the outage.",
+      "She made a contribution for the victims.",
+      "He contributed to the post-mortem.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.contributed-for");
+  });
+  it("flags 'the incident of Friday' but not 'day of' phrases", () => {
+    expect(tagsOf("The incident of Friday hit the checkout.")).toContain("br.of-weekday");
+    expect(tagsOf("The deploy of Monday caused it.")).toContain("br.of-weekday");
+    const clean = [
+      "Friday's incident hit the checkout.",
+      "The incident on Friday hit the checkout.",
+      "The best day of the week is Friday.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.of-weekday");
+  });
 });
