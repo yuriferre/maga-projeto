@@ -1,0 +1,287 @@
+id: M07-04
+module: M07
+order: 4
+title: "Levantando perguntas de escopo e riscos no refinamento"
+objective: >-
+  Ao final, você faz as perguntas que protegem a sprint — "Does it make sense
+  to…?", "What happens if…?", "Is X in scope?" — e aponta risco, ambiguidade e
+  dependência sem soar bloqueiro.
+durationMin: 35
+competencies: [SPK, LIS]
+tags: [br.it-makes-sense, vocab.agile, topic.refinement, comp.speaking, comp.listening, gram.hedging]
+prerequisites: [M07-03]
+
+context:
+  scenario: |
+    O refinamento falha em silêncio: ninguém pergunta, a story entra na sprint
+    vaga, e a ambiguidade explode no meio do trabalho. Perguntar não é travar —
+    é o trabalho do refinamento.
+
+    O kit de perguntas é curto: **"Does it make sense to…?"** testa uma
+    proposta; **"What happens if…?"** abre o risco; **"Is X in scope?"**
+    delimita; **"What are we assuming here?"** expõe a premissa; e **"What's
+    the acceptance criterion for…?"** cobra o critério que falta. Cada pergunta
+    boa poupa um dia de retrabalho.
+  roles: [Priya (product owner), Ana (SRE), Yuri (platform engineer)]
+
+vocabulary:
+  - term: "does it make sense to"
+    meaning: faz sentido — testa uma proposta sem atacá-la
+    example: "Does it make sense to migrate before we have the spike results?"
+    translation: "Faz sentido migrar antes de termos os resultados do spike?"
+    note: 'Pergunta: "does it make sense"; afirmação: "it makes sense" (com s).'
+  - term: "in scope / out of scope"
+    meaning: dentro / fora do escopo — o limite da story
+    example: "Is multi-region in scope for this story, or out?"
+    translation: "Multi-região está dentro do escopo desta história, ou fora?"
+    note: "A pergunta que evita o scope creep antes dele nascer."
+  - term: "what are we assuming"
+    meaning: o que estamos assumindo — expõe a premissa
+    example: "What are we assuming about the data quality here?"
+    translation: "O que estamos assumindo sobre a qualidade dos dados aqui?"
+    note: "A premissa invisível é o risco mais comum da estimativa."
+  - term: "a dependency"
+    meaning: dependência — o que precisa existir antes
+    example: "This story has a dependency on the billing spike."
+    translation: "Esta história tem uma dependência no spike de cobrança."
+    note: '"has a dependency on X" = depende de X.'
+  - term: "a blocker"
+    meaning: bloqueio — o que impede a story de andar
+    example: "The missing credentials are a blocker — we can't start."
+    translation: "As credenciais faltando são um bloqueio — não dá para começar."
+    note: "Mais forte que dependency: blocker = não anda, ponto."
+  - term: "to flag a risk"
+    meaning: sinalizar um risco — nomeá-lo antes que vire incidente
+    example: "I want to flag a risk: the provider's rate limit is undocumented."
+    translation: "Quero sinalizar um risco: o rate limit do provedor não está documentado."
+    note: '"flag" = levantar a bandeira — o verbo de quem avisa cedo.'
+  - term: "an edge case"
+    meaning: caso de borda — o cenário raro que quebra
+    example: "Edge case: what happens if two webhooks arrive at the same second?"
+    translation: "Caso de borda: o que acontece se dois webhooks chegarem no mesmo segundo?"
+    note: "Edge cases vivem nos acceptance criteria — ou viram bug."
+  - term: "to clarify"
+    meaning: esclarecer — pedir a definição que falta
+    example: "Can you clarify what 'fast' means in this criterion?"
+    translation: "Você pode esclarecer o que \"rápido\" significa nesse critério?"
+    note: '"clarify X", "clarify whether…" — o verbo anti-ambiguidade.'
+  - term: "the happy path"
+    meaning: o caminho feliz — quando tudo funciona
+    example: "The criteria only cover the happy path — no failure cases."
+    translation: "Os critérios só cobrem o caminho feliz — nenhum caso de falha."
+    note: "Critério que só cobre happy path está incompleto."
+  - term: "a concern"
+    meaning: uma preocupação — o risco nomeado com calma
+    example: "One concern: the migration window is only two hours."
+    translation: "Uma preocupação: a janela de migração é de só duas horas."
+    note: '"a concern" é o jeito profissional de dizer "isso me preocupa".'
+  - term: "to push for clarity"
+    meaning: insistir por clareza — não sair sem a resposta
+    example: "I'm pushing for clarity on the retry semantics before we estimate."
+    translation: "Estou insistindo por clareza na semântica de retry antes de estimarmos."
+    note: "Push for clarity ≠ ser difícil — é cobrar o critério que falta."
+  - term: "an open question"
+    meaning: pergunta em aberto — o que ninguém respondeu ainda
+    example: "Open question: who owns the fallback if the migration fails?"
+    translation: "Pergunta em aberto: quem é dono do fallback se a migração falhar?"
+    note: "Liste as open questions — story com pergunta aberta não está pronta."
+  - term: "in scope creep territory"
+    meaning: território de scope creep — onde a conversa está indo
+    example: "We're entering scope creep territory — dashboards belong to another story."
+    translation: "Estamos entrando em território de scope creep — dashboards pertencem a outra história."
+    note: "Frase completa para apontar o deslize sem acusar ninguém."
+  - term: "worth a spike"
+    meaning: vale um spike — quando a pergunta precisa de investigação
+    example: "Whether the provider supports retries is worth a spike."
+    translation: "Se o provedor suporta retries vale um spike."
+    note: '"worth a spike" transforma a open question em ação.'
+
+grammar:
+  title: "Perguntas que protegem: does it make sense × it makes sense"
+  explanation: |
+    A dupla que mais tropeça: na **pergunta**, "does it make sense" (sem s —
+    o does já carrega a terceira pessoa); na **afirmação**, "it makes sense"
+    (com s). "It make sense" é o erro clássico.
+
+    | Pergunta | Uso | Exemplo |
+    |---|---|---|
+    | Does it make sense to…? | testa uma proposta | *Does it make sense to split it?* |
+    | What happens if…? | abre o risco | *What happens if the spike fails?* |
+    | Is X in scope? | delimita | *Is multi-region in scope?* |
+    | What are we assuming? | expõe premissa | *What are we assuming about the data?* |
+    | Who owns X? | cobra dono | *Who owns the rollback?* |
+
+    **Erros BR:** "it **make** sense" (é *makes*), "does it **makes** sense"
+    (o does já conjuga — é *make*), "I **have** a doubt" (é *question*), e
+    perguntar "why not?" quando a pergunta certa era "what happens if?".
+  examples:
+    - { en: "Does it make sense to estimate before the spike?", pt: "Faz sentido estimar antes do spike?" }
+    - { en: "It makes sense to split — the criteria grew.", pt: "Faz sentido dividir — os critérios cresceram." }
+    - { en: "What happens if the provider can't retry?", pt: "O que acontece se o provedor não tiver retry?" }
+    - { en: "Is multi-region in scope for this story?", pt: "Multi-região está no escopo desta história?" }
+    - { en: "What are we assuming about the data quality?", pt: "O que estamos assumindo sobre a qualidade dos dados?" }
+    - { en: "I want to flag a risk: the rate limit is undocumented.", pt: "Quero sinalizar um risco: o rate limit não está documentado." }
+
+examples:
+  - en: "Does it make sense to add dashboards to this story, or is that scope creep?"
+    pt: "Faz sentido adicionar dashboards a esta história, ou isso é scope creep?"
+    context: "A pergunta testa a proposta E já nomeia o risco."
+  - en: "What happens if the migration takes longer than the window?"
+    pt: "O que acontece se a migração levar mais que a janela?"
+    context: "O risco do plano — aberto antes de estimar."
+  - en: "Is the dead-letter queue in scope here, or a separate story?"
+    pt: "A dead-letter queue está no escopo aqui, ou é uma história separada?"
+    context: "Delimitar escopo é o trabalho do refinamento."
+  - en: "One concern: nobody owns the fallback if this fails."
+    pt: "Uma preocupação: ninguém é dono do fallback se isso falhar."
+    context: '"a concern" levanta o risco sem drama.'
+  - en: "Can you clarify what 'reasonable time' means — seconds or minutes?"
+    pt: "Pode esclarecer o que \"tempo razoável\" significa — segundos ou minutos?"
+    context: "Critério vago vira pergunta de clarificação."
+  - en: "Open question: does the spike answer the rate limit too, or just retries?"
+    pt: "Pergunta em aberto: o spike responde o rate limit também, ou só retries?"
+    context: "Listar open questions protege a estimativa."
+  - en: "The criteria only cover the happy path — what about timeouts?"
+    pt: "Os critérios só cobrem o caminho feliz — e os timeouts?"
+    context: "Apontar o buraco nos critérios é agregar valor."
+  - en: "Whether the provider supports idempotent retries is worth a spike."
+    pt: "Se o provedor suporta retries idempotentes vale um spike."
+    context: "A open question vira ação: worth a spike."
+
+variations:
+  - idea: '"a proposta parece grande demais"'
+    items:
+      - { register: "Boa", text: "Does it make sense to split the dashboard part into its own story?", adequate: true }
+      - { register: "Boa", text: "Is the dashboard in scope here? It feels like a separate story.", adequate: true }
+      - { register: "Inadequada", text: "It make sense to split this.", adequate: false, note: "Terceira pessoa: it makes sense." }
+      - { register: "Inadequada", text: "This is too big. Next.", adequate: false, note: "Sem pergunta nem proposta — diga O QUE dividir." }
+  - idea: '"ninguém falou do risco óbvio"'
+    items:
+      - { register: "Boa", text: "I want to flag a risk: the migration window is only two hours.", adequate: true }
+      - { register: "Boa", text: "What happens if the provider can't do retries? Who owns the fallback?", adequate: true }
+      - { register: "Inadequada", text: "This will fail.", adequate: false, note: "Profecia sem pergunta — transforme em 'what happens if'." }
+      - { register: "Inadequada", text: "I have a doubt about the risk.", adequate: false, note: "Dúvida-pergunta é question, não doubt." }
+
+brErrors:
+  - { wrong: "It make sense to split the story.", right: "It makes sense to split the story.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "Does it makes sense to migrate first?", right: "Does it make sense to migrate first?", why: "o does já conjuga — o verbo fica no infinitivo", tag: br.it-makes-sense }
+  - { wrong: "That make sense?", right: "Does that make sense?", why: "pergunta precisa do auxiliar does", tag: br.it-makes-sense }
+  - { wrong: "I have a doubt about the scope.", right: "I have a question about the scope.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The story depends of the spike.", right: "The story depends on the spike.", why: '"depends on" — "depend of" é calque', tag: br.depend-of }
+  - { wrong: "Can you explain me the criterion?", right: "Can you explain the criterion to me?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+  - { wrong: "We need that the PO clarify the scope.", right: "We need the PO to clarify the scope.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "My estimative changes with the answer.", right: "My estimate changes with the answer.", why: '"estimative" não existe — é "estimate"', tag: br.estimative }
+  - { wrong: "The question is more easy than it looks.", right: "The question is easier than it looks.", why: "easy é adjetivo curto: easier", tag: br.more-er }
+  - { wrong: "He said me the scope was fixed.", right: "He told me the scope was fixed.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "A story que cresceu na reunião"
+  lines:
+    - { speaker: Priya, text: "Next story: webhook retries plus a retry dashboard." }
+    - { speaker: Yuri, text: "Quick scope check — is the dashboard in scope for this story, or is that a separate one?" }
+    - { speaker: Priya, text: "Hmm. Originally it was just retries. The dashboard came up yesterday." }
+    - { speaker: Yuri, text: "Then I'd say we're entering scope creep territory. Does it make sense to split the dashboard into its own story?" }
+    - { speaker: Ana, text: "Agreed. And before we estimate the retry part — what are we assuming about the provider's rate limit? It's undocumented." }
+    - { speaker: Priya, text: "Open question. Is it worth a spike?" }
+    - { speaker: Yuri, text: "Yes — rate limit and idempotent retries, same spike. One more: the criteria only cover the happy path. What happens on timeout?" }
+    - { speaker: Ana, text: "Good catch. Criteria need a failure case: 'on timeout, the event lands in the dead-letter queue'." }
+    - { speaker: Priya, text: "So: split the dashboard, spike for the rate limit, and criteria with a failure case. That story finally makes sense." }
+  notes:
+    - "quatro perguntas em sequência: in scope → scope creep → assuming → worth a spike → happy path."
+    - '"that story finally makes sense" — o fecho do PO depois das perguntas.'
+
+listening:
+  lines:
+    - { speaker: Ana, text: "The questions that save sprints are boring: is it in scope, what are we assuming, what happens if it fails, who owns the fallback. Nobody asks them because they sound obvious — until they aren't." }
+    - { speaker: Priya, text: "I'd rather answer ten questions in refinement than explain one exploded scope in the retrospective. Questions are cheap; surprises are expensive." }
+    - { speaker: Ana, text: "And the phrasing matters — 'does it make sense to split this?' invites discussion. 'This is too big' invites defensiveness." }
+  questions:
+    - { id: M07-04-l1, type: multiple_choice, prompt: "Which are the 'boring questions that save sprints'?", options: ["who, what, when, where", "is it in scope, what are we assuming, what happens if it fails, who owns the fallback", "how much and how long", "yes or no questions only"], answer: 1, explanation: "As quatro perguntas listadas literalmente.", tags: [comp.listening, vocab.agile] }
+    - { id: M07-04-l2, type: multiple_choice, prompt: "Why are the questions cheap, per Priya?", options: ["they're easy to ask", "one exploded scope costs more than ten questions", "they're optional", "the PO likes them"], answer: 1, explanation: '"ten questions in refinement" vs "one exploded scope in the retrospective".', tags: [comp.listening, topic.refinement] }
+    - { id: M07-04-l3, type: fill_blank, prompt: "Does it ___ sense to split this?", accepted: ["make"], explanation: "Com does, o verbo fica no infinitivo: make.", tags: [br.it-makes-sense] }
+    - { id: M07-04-l4, type: multiple_choice, prompt: "'Does it make sense to split this?' vs 'This is too big' — the first…", options: ["is weaker", "is formal only", "invites discussion instead of defensiveness", "takes longer"], answer: 2, explanation: "A pergunta convida à discussão; a afirmação defende.", tags: [comp.listening, br.it-makes-sense] }
+    - { id: M07-04-l5, type: fill_blank, prompt: "I'd rather answer ten questions than explain one exploded ___.", accepted: ["scope"], explanation: '"exploded scope" — o escopo que estourou.', tags: [vocab.agile] }
+    - { id: M07-04-l6, type: multiple_choice, prompt: "Nobody asks the boring questions because…", options: ["they sound obvious — until they aren't", "they're forbidden", "there's no time", "the PO answers everything"], answer: 0, explanation: '"they sound obvious — until they aren''t."', tags: [comp.listening] }
+
+writing:
+  prompt: |
+    **Cenário:** depois do refinamento, o PO pediu suas perguntas de escopo por escrito — vão para o ticket da story antes da estimativa.
+
+    **Tarefa:** escreva 50–80 palavras com pelo menos três perguntas: uma de escopo ("is X in scope?"), uma de risco ("what happens if…?"), uma de premissa ("what are we assuming?") — mais uma proposta de ação (split, spike, ou critério novo).
+  constraints:
+    - { label: "Pergunta de escopo", pattern: "\\b(in scope|out of scope|scope creep)\\b" }
+    - { label: "Pergunta de risco", pattern: "\\bwhat happens if\\b" }
+    - { label: "Premissa ou dono", pattern: "\\b(assuming|assume|who owns|dependency|blocker)\\b" }
+    - { label: "Ação proposta", pattern: "\\b(split|spike|clarify|criteria|worth)\\b" }
+  rubric:
+    - Três perguntas nos formatos pedidos
+    - Ação proposta concreta (split/spike/critério)
+    - Tom de pergunta, não de bloqueio
+    - '"it makes sense" com s, se usado'
+  model: >-
+    Before we estimate the retry story, three questions. Scope: is the retry
+    dashboard in scope, or does it make sense to split it into its own story?
+    Risk: what happens if the provider's rate limit is lower than expected —
+    who owns the fallback? Assumption: what are we assuming about idempotent
+    retries? That's worth a spike before the number.
+  minWords: 50
+  maxWords: 85
+  tags: [comp.writing, vocab.agile, br.it-makes-sense]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos fazendo as perguntas de escopo de uma story grande demais: delimite o escopo, abra o risco, exponha a premissa e proponha a ação."
+    maxSeconds: 45
+    targetPhrases:
+      - does it make sense to
+      - in scope
+      - out of scope
+      - what are we assuming
+      - a dependency
+      - a blocker
+      - flag a risk
+      - edge case
+      - clarify
+      - happy path
+      - a concern
+      - open question
+      - worth a spike
+      - scope creep
+    checklist:
+      - Uma pergunta de escopo (in scope?)
+      - Uma pergunta de risco (what happens if?)
+      - Uma premissa ou dono (assuming / who owns)
+      - Uma ação proposta (split, spike, critério)
+
+quiz:
+  - { id: M07-04-q1, type: multiple_choice, prompt: "'Does it make sense to split this?' is better than 'this is too big' because it…", options: ["is shorter", "uses simpler words", "ends the discussion", "invites discussion instead of defensiveness"], answer: 3, explanation: "Pergunta convida; afirmação defende.", tags: [br.it-makes-sense, topic.refinement] }
+  - { id: M07-04-q2, type: error_correction, prompt: "It make sense to send a spike first.", accepted: ["It makes sense to send a spike first.", "It makes sense to send a spike first"], explanation: "Terceira pessoa: makes.", tags: [br.it-makes-sense] }
+  - { id: M07-04-q3, type: multiple_choice, prompt: "'Is the dashboard in scope?' is a question about…", options: ["estimates", "deadlines", "ownership", "boundaries — what belongs to the story"], answer: 3, explanation: "In scope = dentro dos limites da story.", tags: [vocab.agile] }
+  - { id: M07-04-q4, type: error_correction, prompt: "Does it makes sense to migrate first?", accepted: ["Does it make sense to migrate first?", "Does it make sense to migrate first"], explanation: "O does já conjuga — o verbo fica no infinitivo: make.", tags: [br.it-makes-sense] }
+  - { id: M07-04-q5, type: multiple_choice, prompt: "A story whose criteria only cover the happy path is…", options: ["ready to estimate", "missing failure cases", "a spike", "out of scope"], answer: 1, explanation: "Critérios completos cobrem falha, não só o caminho feliz.", tags: [vocab.agile, topic.refinement] }
+  - { id: M07-04-q6, type: translate, prompt: "O que acontece se o provedor não tiver retry?", accepted: ["What happens if the provider can't retry?", "What happens if the provider can't retry", "What happens if the provider doesn't support retries?"], explanation: '"what happens if" — a pergunta de risco.', tags: [vocab.agile, gram.conditionals-real] }
+  - { id: M07-04-q7, type: reorder, prompt: "Monte a frase: / o risco / sinalizar / quero / o rate limit", tokens: ["I", "want", "to", "flag", "a", "risk:", "the", "rate", "limit", "is", "undocumented."], answer: "I want to flag a risk: the rate limit is undocumented.", explanation: '"flag a risk" = levantar a bandeira cedo.', tags: [vocab.agile] }
+  - { id: M07-04-q8, type: multiple_choice, prompt: "'What are we assuming about the data?' exposes…", options: ["the estimate", "the hidden premise behind the estimate", "the deadline", "the owner"], answer: 1, explanation: "A premissa invisível é o risco mais comum.", tags: [vocab.agile, gram.hedging] }
+
+review:
+  count: 5
+  preferTags: [br.it-makes-sense, vocab.agile, topic.refinement]
+
+srsCards:
+  - { front: "does it make sense to…?", back: "testa uma proposta — com does, o verbo fica 'make' (sem s)", tag: br.it-makes-sense }
+  - { front: "it makes sense", back: "afirmação: terceira pessoa com s — nunca 'it make sense'", tag: br.it-makes-sense }
+  - { front: "in scope / out of scope", back: "dentro/fora do escopo — a pergunta que delimita", tag: vocab.agile }
+  - { front: "what are we assuming", back: "expõe a premissa escondida na estimativa", tag: vocab.agile }
+  - { front: "a blocker", back: "o que impede a story de andar — mais forte que dependency", tag: vocab.agile }
+  - { front: "to flag a risk", back: "levantar a bandeira cedo — 'I want to flag a risk:…'", tag: vocab.agile }
+  - { front: "the happy path", back: "o caminho sem falhas — critério que só cobre isso está incompleto", tag: vocab.agile }
+  - { front: "an edge case", back: "o cenário raro que quebra — mora nos acceptance criteria", tag: vocab.agile }
+  - { front: "an open question", back: "pergunta sem resposta — story com open question não está pronta", tag: vocab.agile }
+  - { front: "a concern", back: '"isso me preocupa" com tom profissional', tag: vocab.agile }
+  - { front: "worth a spike", back: "a open question que vira ação", tag: vocab.agile }
+  - { front: "to push for clarity", back: "insistir pela resposta — sem soar bloqueiro", tag: vocab.agile }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
