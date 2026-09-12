@@ -1,0 +1,291 @@
+id: M12-04
+module: M12
+order: 4
+title: "Recursos e escala: requests/limits, HPA, we're over-provisioned"
+objective: >-
+  Ao final, você discute capacidade com o vocabulário certo — "requests
+  too low starve the pod", "limits too low get it throttled or killed",
+  "the HPA scales on CPU", "we're over-provisioned — three replicas sit
+  at 10%" — e conecta cada sintoma de M12-02 à configuração que o causa.
+durationMin: 35
+competencies: [VOC, SPK, PRO]
+tags: [vocab.k8s, comp.speaking, comp.writing]
+prerequisites: [M12-03]
+
+context:
+  scenario: |
+    A conta de infra subiu 30% e a Priya quer revisar capacidade serviço
+    a serviço. O `checkout-api` é o primeiro da lista.
+
+    O vocabulário é o par **requests/limits**: *request* é o que o
+    scheduler reserva (e o que decide se há node para o pod); *limit* é
+    o teto que o kernel impõe (CPU → throttle, memória → OOMKill). Em
+    cima deles vive o **HPA** — o horizontal pod autoscaler, que sobe e
+    desce réplicas conforme a métrica. E as duas frases de diagnóstico:
+    "**we're over-provisioned**" (pedimos demais, sobra parado) e
+    "**we're under-provisioned**" (pedimos de menos, falta no pico).
+
+    A pergunta que guia tudo: o que o uso real diz sobre o que declaramos?
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "request"
+    meaning: o pedido — o recurso que o scheduler reserva
+    example: "The pod requests 250m CPU — that's what the scheduler counts."
+    translation: "O pod pede 250m de CPU — é o que o scheduler conta."
+    note: "Request baixo demais = pod apertado; alto demais = node 'cheio' no papel."
+  - term: "limit"
+    meaning: o teto — o que o kernel impõe
+    example: "The memory limit is 512Mi — cross it and the pod is OOMKilled."
+    translation: "O limite de memória é 512Mi — passe e o pod é OOMKilled."
+    note: "Limit de CPU → throttle; de memória → OOMKill."
+  - term: "HPA"
+    meaning: o autoscaler horizontal — sobe/desce réplicas por métrica
+    example: "The HPA scales on CPU — at 70% it adds replicas."
+    translation: "O HPA escala por CPU — a 70% adiciona réplicas."
+    note: "Horizontal = mais pods; vertical = pods maiores (VPA)."
+  - term: "over-provisioned"
+    meaning: superprovisionado — pedimos mais do que usamos
+    example: "We're over-provisioned — three replicas sit at 10% CPU."
+    translation: "Estamos superprovisionados — três réplicas a 10% de CPU."
+    note: "Dinheiro parado — request ≫ uso real."
+  - term: "under-provisioned"
+    meaning: subprovisionado — pedimos menos do que precisa
+    example: "We're under-provisioned — the pods throttle at every peak."
+    translation: "Estamos subprovisionados — os pods são freados a cada pico."
+    note: "Request < uso real = throttle, OOMKill, pending."
+  - term: "to right-size"
+    meaning: dimensionar certo — ajustar requests ao uso real
+    example: "Right-size the requests — look at actual usage, not guesses."
+    translation: "Dimensione os requests — olhe o uso real, não palpites."
+    note: "O verbo da revisão de capacidade."
+  - term: "headroom"
+    meaning: folga — o espaço livre para picos
+    example: "Keep 30% headroom — the peak doubles the baseline."
+    translation: "Mantenha 30% de folga — o pico dobra a base."
+    note: "Headroom = quanto sobra para o inesperado."
+  - term: "to scale out / in"
+    meaning: escalar para fora/dentro — mais/menos réplicas
+    example: "The HPA scales out at peak and back in at night."
+    translation: "O HPA escala para fora no pico e para dentro à noite."
+    note: "Scale out = mais pods; scale up = pods maiores (não confundir)."
+  - term: "utilization"
+    meaning: utilização — o uso real vs. o pedido
+    example: "CPU utilization is 10% of the request — wasted spend."
+    translation: "A utilização de CPU é 10% do request — gasto desperdiçado."
+    note: "A métrica que denuncia over-provisioning."
+  - term: "burst"
+    meaning: o pico súbito — consumo acima do normal por pouco tempo
+    example: "The pod can burst above its request if the node has room."
+    translation: "O pod pode estourar acima do request se o node tiver espaço."
+    note: "Burstable QoS — entre request e limit."
+  - term: "OOM"
+    meaning: out of memory — a morte por memória
+    example: "It OOM'd again — the limit is too tight for the peak."
+    translation: "Deu OOM de novo — o limite está apertado para o pico."
+    note: '"It OOM''d" — o verbo informal.'
+  - term: "cold start"
+    meaning: partida a frio — o tempo até o pod ficar pronto
+    example: "Cold start is 40 seconds — the HPA reacts faster than pods boot."
+    translation: "A partida a frio é 40 segundos — o HPA reage mais rápido que o boot."
+    note: "Por que HPA precisa de headroom — réplicas novas demoram."
+
+grammar:
+  title: "Requests × limits: o que cada lado causa quando erra"
+  explanation: |
+    A tabela de dor do K8s — cada sintoma de M12-02 é um request/limit
+    errado:
+
+    | configuração errada | o sintoma |
+    |---|---|
+    | request > capacidade livre | **Pending** — nenhum node cabe |
+    | memory limit < uso | **OOMKilled** — o kernel mata |
+    | cpu limit < uso | **throttled** — lento no pico |
+    | request ≫ uso real | **over-provisioned** — dinheiro parado |
+    | request ≪ uso real | **under-provisioned** — falta no pico |
+
+    A conversa de capacidade gira em três frases: "what does actual usage
+    say" (a medição), "we're over/under-provisioned" (o diagnóstico) e
+    "right-size the requests / raise the limit / let the HPA scale on
+    CPU" (a ação).
+
+    E a distinção que separa júnior de pleno: **limit de memória mata,
+    limit de CPU frena** — OOMKilled × throttled não são sinônimos.
+  examples:
+    - { en: "The request is what the scheduler reserves — set it too high and the pod is pending forever.", pt: "O request é o que o scheduler reserva — alto demais e o pod fica pendente para sempre." }
+    - { en: "The memory limit is the kill line — cross it and you're OOMKilled.", pt: "O limite de memória é a linha da morte — passe e você é OOMKilled." }
+    - { en: "The CPU limit doesn't kill — it throttles: the pod lives, just slow.", pt: "O limite de CPU não mata — frena: o pod vive, só lento." }
+    - { en: "The HPA scales on CPU — at 70% utilization it adds replicas, at night it scales back in.", pt: "O HPA escala por CPU — a 70% de utilização adiciona réplicas, à noite reduz." }
+    - { en: "We're over-provisioned — three replicas sit at 10% CPU. Right-size the request.", pt: "Estamos superprovisionados — três réplicas a 10% de CPU. Dimensione o request certo." }
+    - { en: "We're under-provisioned — pods throttle at every peak. Raise the limit or scale out earlier.", pt: "Estamos subprovisionados — pods freados a cada pico. Suba o limite ou escale antes." }
+
+examples:
+  - en: "The pod requests 250m CPU and 512Mi — that's the reservation the scheduler makes."
+    pt: "O pod pede 250m de CPU e 512Mi — é a reserva que o scheduler faz."
+    context: "Request = a reserva, não o teto."
+  - en: "Memory limit at 512Mi — cross it and the kernel OOM-kills the container."
+    pt: "Limite de memória em 512Mi — passe e o kernel mata o container por OOM."
+    context: "Memory limit → OOMKilled."
+  - en: "CPU limit at 500m — the pod throttles at peak instead of dying."
+    pt: "Limite de CPU em 500m — o pod é freado no pico em vez de morrer."
+    context: "CPU limit → throttle, não kill."
+  - en: "The HPA scales on CPU — 70% target, min 3 replicas, max 10."
+    pt: "O HPA escala por CPU — alvo de 70%, mínimo 3 réplicas, máximo 10."
+    context: "HPA = min, max, métrica-alvo."
+  - en: "We're over-provisioned — utilization is 10% of the request. That's wasted spend."
+    pt: "Estamos superprovisionados — utilização a 10% do request. É gasto desperdiçado."
+    context: "Over-provisioned = request ≫ uso."
+  - en: "We're under-provisioned — the pods throttle every lunchtime peak."
+    pt: "Estamos subprovisionados — os pods são freados a cada pico de almoço."
+    context: "Under-provisioned = request ≪ uso."
+  - en: "Right-size the requests from actual usage — 250m is a guess, the p95 says 80m."
+    pt: "Dimensione os requests pelo uso real — 250m é palpite, o p95 diz 80m."
+    context: "Right-size = medir, não chutar."
+  - en: "Cold start is 40s — keep headroom so the HPA doesn't lag behind the spike."
+    pt: "Partida a frio é 40s — mantenha folga para o HPA não ficar atrás do pico."
+    context: "Headroom cobre o tempo de boot."
+
+variations:
+  - idea: '"o diagnóstico de capacidade"'
+    items:
+      - { register: "Boa", text: "Utilization is 10% of the request — we're over-provisioned. Right-size it down.", adequate: true }
+      - { register: "Boa", text: "Pods throttle every peak — we're under-provisioned. Raise the CPU limit.", adequate: true }
+      - { register: "Inadequada", text: "Add more replicas, that fixes everything.", adequate: false, note: "Mais réplicas com requests errados escala o desperdício — meça antes." }
+      - { register: "Inadequada", text: "Set the limit to zero so nothing dies.", adequate: false, note: "Sem limit não há teto — um pod come o node inteiro e evicta os vizinhos." }
+  - idea: '"throttle vs OOMKill"'
+    items:
+      - { register: "Boa", text: "CPU limit throttles — the pod slows down. Memory limit kills — OOMKilled, restart count up.", adequate: true }
+      - { register: "Boa", text: "It's OOMKilled, not throttled — exit 137, the pod actually died.", adequate: true }
+      - { register: "Inadequada", text: "Throttled and OOMKilled are the same thing.", adequate: false, note: "Um frena, o outro mata — o fix é diferente (CPU vs memória)." }
+      - { register: "Inadequada", text: "Just remove all limits, no more problems.", adequate: false, note: "Sem limit = noisy neighbor — um pod pode derrubar o node." }
+
+brErrors:
+  - { wrong: "The pod is running since Monday without issues.", right: "The pod has been running since Monday without issues.", why: "has been + -ing + since", tag: br.is-ing-since }
+  - { wrong: "I need see the actual usage first.", right: "I need to see the actual usage first.", why: "need to see", tag: br.need-see }
+  - { wrong: "The pod is died on the memory limit.", right: "The pod died on the memory limit.", why: "died ou is dead", tag: br.is-died }
+  - { wrong: "The HPA not scales on memory.", right: "The HPA doesn't scale on memory.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same setup of the other service.", right: "It's the same setup as the other service.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "The pods are scheduled in the nodes.", right: "The pods are scheduled on the nodes.", why: "on the node", tag: br.in-the-node }
+  - { wrong: "After to raise the limit, it stopped throttling.", right: "After raising the limit, it stopped throttling.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "We choosed a lower request.", right: "We chose a lower request.", why: "chose, não choosed", tag: br.irregular-past }
+  - { wrong: "Priya suggested me to add an HPA.", right: "Priya suggested that I add an HPA.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "The node is more cheap than a bigger one.", right: "The node is cheaper than a bigger one.", why: "cheap leva -er", tag: br.more-er }
+
+dialogue:
+  title: "A revisão de capacidade do checkout"
+  lines:
+    - { speaker: Priya, text: "Infra bill is up 30% — let's right-size, starting with checkout. What does actual usage say?" }
+    - { speaker: Yuri, text: "Three replicas, CPU at 10% of the request, memory at 40% — we're over-provisioned on CPU." }
+    - { speaker: Priya, text: "And yet latency spiked at lunch yesterday?" }
+    - { speaker: Yuri, text: "Right — that's the twist. The CPU limit is 500m; at peak the pods hit it and throttle. Request too high, limit too low." }
+    - { speaker: Ana, text: "So over-provisioned on the request, under-provisioned on the limit." }
+    - { speaker: Yuri, text: "Exactly. Right-size the request down to 100m — matches p95 — and raise the limit to 1 CPU so it can burst." }
+    - { speaker: Marcos, text: "And the HPA?" }
+    - { speaker: Yuri, text: "It scales on CPU at 70%, min 3, max 10 — but cold start is 40 seconds, so we keep headroom instead of chasing the spike." }
+    - { speaker: Priya, text: "Memory?" }
+    - { speaker: Yuri, text: "Limit stays 512Mi — it's never crossed 200Mi. No OOM risk." }
+    - { speaker: Priya, text: "Approved — request down, limit up, HPA stays. That should cut the bill and the throttling." }
+  notes:
+    - "o paradoxo real: request alto (over-provisioned) + limit baixo (throttled) no mesmo pod."
+    - "cada número vem do uso real — 'the p95 says', não palpite."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Requests and limits answer different questions. The request is the reservation — what the scheduler counts when it picks a node. The limit is the ceiling — what the kernel enforces while the pod runs." }
+    - { speaker: Ana, text: "Get the request too high and the pod is pending — no node can fit it. Get it too low and you're under-provisioned: the pod squeezes into a node and fights for scraps." }
+    - { speaker: Marcos, text: "Limits split by resource: cross the memory limit and you're OOMKilled — dead, exit 137. Cross the CPU limit and you're throttled — alive but slow. Different symptoms, different fixes." }
+    - { speaker: Yuri, text: "And the HPA scales replicas on a metric — CPU at 70% is the classic. But remember cold start: a new pod takes 40 seconds to serve, so the HPA needs headroom — you don't scale to zero margin and expect it to save you." }
+  questions:
+    - { id: M12-04-l1, type: multiple_choice, prompt: "The request is…", options: ["the ceiling the kernel enforces", "the reservation the scheduler counts when placing the pod", "the number of replicas", "the HPA target"], answer: 1, explanation: "Request = reserva do scheduler.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-04-l2, type: multiple_choice, prompt: "Crossing the CPU limit vs the memory limit:", options: ["both kill the pod", "CPU throttles (slow), memory OOMKills (dead, exit 137)", "both just slow it", "memory throttles, CPU kills"], answer: 1, explanation: "Throttle ≠ kill — sintomas e fixes diferentes.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-04-l3, type: fill_blank, prompt: "Utilization is 10% of the request — we're ___-provisioned.", accepted: ["over"], explanation: "Over-provisioned — dinheiro parado.", tags: [vocab.k8s] }
+    - { id: M12-04-l4, type: error_correction, prompt: "The pod is running since Monday.", accepted: ["The pod has been running since Monday.", "The pod has been running since Monday"], explanation: "has been + -ing + since.", tags: [br.is-ing-since] }
+    - { id: M12-04-l5, type: multiple_choice, prompt: "Why does the HPA need headroom?", options: ["it's cheaper", "pods boot slowly — a 40s cold start can't chase a spike", "limits require it", "the scheduler demands it"], answer: 1, explanation: "Réplica nova demora — a folga cobre o boot.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-04-l6, type: multiple_choice, prompt: "Request too high → …; request too low → …", options: ["pending / under-provisioned and fighting for scraps", "OOM / evicted", "throttled / pending", "evicted / OOM"], answer: 0, explanation: "Alto demais = homeless; baixo demais = apertado.", tags: [comp.listening, vocab.k8s] }
+
+writing:
+  prompt: |
+    **Cenário:** a revisão de capacidade fechou e a Priya quer o resumo por
+    escrito: o diagnóstico (over no request, under no limit), os números
+    e as mudanças aprovadas.
+
+    **Tarefa:** escreva 80–120 palavras com o plano: uso real vs.
+    requests, throttle no pico, request para 100m, limit para 1 CPU, HPA
+    com headroom e o efeito esperado na conta.
+  constraints:
+    - { label: "Requests/limits", pattern: "\\b(request|limit|cpu|memory|utilization)\\b" }
+    - { label: "Diagnóstico", pattern: "\\b(over.?provisioned|under.?provisioned|throttl|oom|right.?size)\\b" }
+    - { label: "Escala", pattern: "\\b(hpa|replicas?|scale|headroom|cold start|burst)\\b" }
+    - { label: "Evidência", pattern: "\\b(\\d+m?i?|p95|percent|%|peak|usage)\\b" }
+  rubric:
+    - "Diagnóstico duplo (over request / under limit)"
+    - "Números concretos"
+    - "Ações: request ↓, limit ↑, HPA + headroom"
+    - "Efeito esperado"
+  model: >-
+    Capacity review for checkout — the numbers told a paradox. Three
+    replicas run at 10% of the CPU request: over-provisioned, wasted
+    spend. But the CPU limit sits at 500m, so pods throttle at every
+    lunch peak: under-provisioned at the ceiling. The fix is both
+    directions — right-size the request down to 100m, matching p95, and
+    raise the limit to 1 CPU so pods can burst. The HPA stays at 70%,
+    min 3, max 10, and we keep headroom because cold start is 40 seconds.
+    Memory is fine at 512Mi — never crossed 200Mi. Expected effect:
+    cheaper bill, no noon throttling.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.k8s]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando o diagnóstico de capacidade de um serviço: requests vs limits, o que está over/under-provisioned e o que mudaria."
+    maxSeconds: 45
+    targetPhrases:
+      - request
+      - limit
+      - over-provisioned
+      - under-provisioned
+      - getting throttled
+      - OOMKilled
+      - the HPA scales on CPU
+      - right-size
+      - headroom
+      - cold start
+      - utilization
+      - burst
+    checklist:
+      - Request × limit distinguidos
+      - Diagnóstico com números
+      - Throttle vs OOMKill
+      - HPA + headroom
+
+quiz:
+  - { id: M12-04-q1, type: multiple_choice, prompt: "Request too high means the pod is…", options: ["OOMKilled", "throttled", "pending — no node can fit the reservation", "evicted"], answer: 2, explanation: "Request alto = homeless.", tags: [vocab.k8s] }
+  - { id: M12-04-q2, type: error_correction, prompt: "I need see the actual usage first.", accepted: ["I need to see the actual usage first.", "I need to see the actual usage first"], explanation: "need to see.", tags: [br.need-see] }
+  - { id: M12-04-q3, type: multiple_choice, prompt: "CPU limit crossed → …; memory limit crossed → …", options: ["OOMKilled / throttled", "evicted / pending", "throttled / OOMKilled — slow vs dead", "pending / evicted"], answer: 2, explanation: "CPU frena, memória mata.", tags: [vocab.k8s] }
+  - { id: M12-04-q4, type: fill_blank, prompt: "Three replicas at 10% CPU — we're ___-provisioned.", accepted: ["over"], explanation: "Over-provisioned = request ≫ uso.", tags: [vocab.k8s] }
+  - { id: M12-04-q5, type: error_correction, prompt: "The pods are scheduled in the nodes.", accepted: ["The pods are scheduled on the nodes.", "The pods are scheduled on the nodes"], explanation: "on the node.", tags: [br.in-the-node] }
+  - { id: M12-04-q6, type: translate, prompt: "Dimensione o request pelo uso real — o p95 diz 80m, não 250m.", accepted: ["Right-size the request from actual usage — p95 says 80m, not 250m.", "Right-size the request from actual usage — the p95 says 80m, not 250m."], explanation: "Right-size = medir, não chutar.", tags: [vocab.k8s] }
+  - { id: M12-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["scales", "hpa", "the", "cpu", "on"], answer: "the hpa scales on cpu", explanation: "HPA + métrica.", tags: [vocab.k8s] }
+  - { id: M12-04-q8, type: multiple_choice, prompt: "The HPA keeps headroom because…", options: ["it looks better", "limits require it", "the scheduler demands it", "cold start is 40s — new pods can't chase a spike instantly"], answer: 3, explanation: "Boot demora — a folga cobre.", tags: [vocab.k8s] }
+
+srsCards:
+  - { front: "request", back: "A reserva do scheduler — alto demais = pending.", tag: vocab.k8s }
+  - { front: "limit", back: "O teto do kernel — CPU frena, memória mata.", tag: vocab.k8s }
+  - { front: "HPA", back: "Autoscaler horizontal — min, max, métrica-alvo.", tag: vocab.k8s }
+  - { front: "over-provisioned", back: "Request ≫ uso — dinheiro parado.", tag: vocab.k8s }
+  - { front: "under-provisioned", back: "Request ≪ uso — falta no pico.", tag: vocab.k8s }
+  - { front: "right-size", back: "Dimensionar pelo uso real — p95, não palpite.", tag: vocab.k8s }
+  - { front: "headroom", back: "A folga para picos — cobre o cold start.", tag: vocab.k8s }
+  - { front: "burst", back: "Estourar acima do request se o node tem espaço.", tag: vocab.k8s }
+  - { front: "cold start", back: "Os 40s até o pod novo servir — por que HPA precisa de folga.", tag: vocab.k8s }
+  - { front: "scale out / in", back: "Mais/menos réplicas (≠ scale up: pods maiores).", tag: vocab.k8s }
+
+review:
+  preferTags: [vocab.k8s, br.is-ing-since, br.need-see]
+  notes: "Revisão prioriza requests/limits e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
