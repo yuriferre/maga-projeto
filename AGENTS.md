@@ -4,7 +4,7 @@ Instruções para qualquer assistente de código (Claude Code, Codex, Cursor, et
 
 ## O projeto
 
-Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: **MVP E0–E6 completo** — E5 entregue (30 aulas, 6 avaliações de módulo, avaliação de nível 1) e E6 mergeado (recomendação diária, drill por tag, checkpoint de 4 semanas, export/import JSON). Nível 2 em andamento: M07–M11 mergeados, M12 na `feat/e5-m12` (5 aulas + avaliação; 118 tags, 61 padrões BR). A E4 (Claude API) está fora do roteiro por decisão do usuário (sem créditos de API): tudo segue por regras e heurísticas locais, sem LLM.
+Plataforma local de treinamento de inglês para profissionais de DevOps, Cloud e SRE, falantes de português. Uso pessoal, um usuário, sem autenticação. O planejamento completo está em `docs/planejamento/` (plano geral, trilha de 5 níveis e 32 módulos, aula de exemplo). Estado atual: **MVP E0–E6 completo** — E5 entregue (30 aulas, 6 avaliações de módulo, avaliação de nível 1) e E6 mergeado (recomendação diária, drill por tag, checkpoint de 4 semanas, export/import JSON). Nível 2 em andamento: M07–M12 mergeados, M13 na `feat/e5-m13` (5 aulas + avaliação; 124 tags, 65 padrões BR). Nível 2 = M07–M14 — a avaliação de nível 2 só depois do M14. A E4 (Claude API) está fora do roteiro por decisão do usuário (sem créditos de API): tudo segue por regras e heurísticas locais, sem LLM.
 
 ## Comandos
 
