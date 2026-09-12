@@ -1,0 +1,293 @@
+id: M15-02
+module: M15
+order: 2
+title: "Primeira atualização: what / impact / current status / next update at"
+objective: >-
+  Ao final, você escreve a primeira atualização de um incidente em
+  quatro batidas — o que é, o impacto, o status agora e quando vem a
+  próxima — curta o bastante para ler em dez segundos.
+durationMin: 35
+competencies: [WRI]
+tags: [vocab.incident, comp.writing]
+prerequisites: [M15-01]
+
+context:
+  scenario: |
+    14h03: SEV2 confirmado — checkout parcial, 40% de erro. A Priya
+    olha para você: "**first update on the status page, five
+    minutes**". O relógio corre e a página está em branco.
+
+    A primeira atualização não explica — ela **enquadra**. Quatro
+    batidas, nessa ordem:
+
+    - **what** — o que está acontecendo, em uma frase sem causa
+      ("we're seeing elevated errors on checkout")
+    - **impact** — quem sente e o que não consegue fazer
+    - **current status** — investigating, sempre — nunca prometa causa
+      que ainda não existe
+    - **next update at** — o horário exato da próxima, que é a parte
+      que acalma
+
+    O que fica de fora: causa ("a culpa foi o deploy"), ETA de solução
+    ("resolvemos em dez minutos") e jargão interno. A primeira
+    atualização compra tempo — ela não gasta.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (support lead)]
+
+vocabulary:
+  - term: "we're seeing"
+    meaning: 'o relato do sintoma — "estamos vendo", sem compromisso de causa'
+    example: "We're seeing elevated error rates on the payments API."
+    translation: "Estamos vendo taxas de erro elevadas na API de pagamentos."
+    note: "O abridor clássico: fato observado, zero especulação."
+  - term: "elevated"
+    meaning: elevado — o adjetivo neutro do status page
+    example: "Elevated latency on checkout since 14:03 UTC."
+    translation: "Latência elevada no checkout desde 14:03 UTC."
+    note: "'Elevated errors/latency' — mais sóbrio que 'errors exploded'."
+  - term: "investigating"
+    meaning: investigando — o status honesto do início
+    example: "We're investigating the cause and will update shortly."
+    translation: "Estamos investigando a causa e atualizamos em breve."
+    note: "Nunca 'we found the cause' antes de ter — investigating é o default."
+  - term: "next update"
+    meaning: a próxima atualização — sempre com horário
+    example: "Next update at 14:30 UTC."
+    translation: "Próxima atualização às 14:30 UTC."
+    note: "Com timezone — 'at 3pm' sem zona é uma promessa ambígua."
+  - term: "shortly"
+    meaning: em breve — quando o horário ainda não existe
+    example: "We'll share more shortly."
+    translation: "Compartilharemos mais em breve."
+    note: "Último recurso — prefira sempre 'next update at HH:MM'."
+  - term: "confirmed"
+    meaning: confirmado — quando o sintoma já é fato
+    example: "Confirmed: checkout fails for web users."
+    translation: "Confirmado: checkout falha para usuários web."
+    note: "Sobe o tom de 'we're seeing' quando o dado fecha."
+  - term: "posted"
+    meaning: postada — a atualização que já está no ar
+    example: "First update is posted on the status page."
+    translation: "A primeira atualização está na status page."
+    note: "'Update posted' — a frase que fecha a tarefa."
+  - term: "initial report"
+    meaning: o relato inicial — a primeira notificação
+    example: "The initial report goes out before we know the cause."
+    translation: "O relato inicial sai antes de sabermos a causa."
+    note: "Speed > precisão na primeira — causa vem depois."
+  - term: "on it"
+    meaning: cuidando disso — quem assumiu a frente
+    example: "Yuri is on it — updates every thirty minutes."
+    translation: "O Yuri está nisso — atualizações a cada 30 minutos."
+    note: "Nomeia o dono da atualização, não só do incidente."
+  - term: "no action required"
+    meaning: nenhuma ação necessária — para o leitor não fazer nada
+    example: "No action required on your side."
+    translation: "Nenhuma ação necessária do seu lado."
+    note: "Fecha a ansiedade do leitor — 'não é com você'."
+  - term: "as of"
+    meaning: "desde / a partir de — marca o recorte temporal"
+    example: "As of 14:10 UTC, error rate is at 40%."
+    translation: "Desde as 14:10 UTC, a taxa de erro está em 40%."
+    note: "Congela o dado no tempo — essencial em update."
+  - term: "we'll update"
+    meaning: 'a promessa de cadência — "vamos atualizar"'
+    example: "We'll update this page every thirty minutes."
+    translation: "Vamos atualizar esta página a cada 30 minutos."
+    note: "Promete cadência, não solução."
+
+grammar:
+  title: "A ordem da primeira atualização: present continuous + timestamp + next update at"
+  explanation: |
+    A primeira atualização tem esqueleto fixo — quatro linhas:
+
+    ```
+    We're seeing elevated errors on checkout.        ← what
+    Users can't complete purchases on the web.       ← impact
+    We're investigating.                             ← status
+    Next update at 14:30 UTC.                        ← cadência
+    ```
+
+    - O **what** usa present continuous: "we're seeing", "users are
+      experiencing" — acontece agora.
+    - O **impact** nomeia quem e o quê: "web users can't check out".
+    - O **status** é uma palavra: investigating. Nunca "we think it's
+      the deploy" — causa sem prova vira retratação depois.
+    - O **next update** carrega horário com timezone: "at 14:30 UTC" —
+      nunca "soon", nunca "asap".
+
+    E a regra de ouro: **não prometa o que você não controla**.
+    "Fixed by 15:00" é dívida; "next update at 14:30" é compromisso.
+  examples:
+    - { en: "We're seeing elevated error rates on the payments API.", pt: "Estamos vendo taxas de erro elevadas na API de pagamentos." }
+    - { en: "Users can't complete purchases on the web; mobile works.", pt: "Usuários não conseguem concluir compras na web; mobile funciona." }
+    - { en: "We're investigating — no cause confirmed yet.", pt: "Estamos investigando — nenhuma causa confirmada ainda." }
+    - { en: "Next update at 14:30 UTC.", pt: "Próxima atualização às 14:30 UTC." }
+    - { en: "As of 14:10 UTC, about a third of checkouts are affected.", pt: "Desde 14:10 UTC, cerca de um terço dos checkouts é afetado." }
+    - { en: "No action required on your side.", pt: "Nenhuma ação necessária do seu lado." }
+
+examples:
+  - en: "We're seeing elevated errors on checkout — investigating."
+    pt: "Estamos vendo erros elevados no checkout — investigando."
+    context: "As duas primeiras linhas, mínimas."
+  - en: "Web users can't complete purchases; mobile checkout is unaffected."
+    pt: "Usuários web não conseguem concluir compras; o checkout mobile não é afetado."
+    context: "Impacto com recorte."
+  - en: "We're investigating the cause — next update at 14:30 UTC."
+    pt: "Estamos investigando a causa — próxima atualização às 14:30 UTC."
+    context: "Status + cadência."
+  - en: "As of 14:10 UTC, roughly a third of web checkouts are failing."
+    pt: "Desde 14:10 UTC, cerca de um terço dos checkouts web falha."
+    context: "'As of' congela o número."
+  - en: "Confirmed: the issue affects web checkout only — no action required on your side."
+    pt: "Confirmado: o problema afeta só o checkout web — nenhuma ação do seu lado."
+    context: "Confirmed + fecha a ansiedade."
+  - en: "First update posted; next one lands at 15:00 UTC even if nothing changes."
+    pt: "Primeira atualização postada; a próxima sai às 15:00 UTC mesmo sem novidade."
+    context: "Cadência é promessa — cumpre mesmo vazio."
+  - en: "We're seeing degraded checkout — not a full outage."
+    pt: "Estamos vendo checkout degradado — não é queda total."
+    context: "Calibrar o adjetivo evita pânico."
+  - en: "Yuri is on it — updates every thirty minutes on the status page."
+    pt: "O Yuri está nisso — atualizações a cada 30 minutos na status page."
+    context: "Nomeia o dono e a cadência."
+
+variations:
+  - idea: '"a primeira linha"'
+    items:
+      - { register: "Boa", text: "We're seeing elevated errors on checkout — investigating.", adequate: true }
+      - { register: "Boa", text: "Confirmed: checkout fails for web users — more at 14:30 UTC.", adequate: true }
+      - { register: "Inadequada", text: "Something is wrong with checkout!!!", adequate: false, note: "Sem fato, sem escopo — 'we're seeing elevated errors' diz o mesmo com calma." }
+      - { register: "Inadequada", text: "The deploy broke everything — rolling back now.", adequate: false, note: "Causa não confirmada na primeira linha vira retratação pública." }
+  - idea: '"fechando com a próxima atualização"'
+    items:
+      - { register: "Boa", text: "Next update at 14:30 UTC.", adequate: true }
+      - { register: "Boa", text: "We'll update every thirty minutes, next at 15:00 UTC.", adequate: true }
+      - { register: "Inadequada", text: "We'll fix it as soon possible.", adequate: false, note: "'As soon as possible' — e nunca prometa fix, prometa update." }
+      - { register: "Inadequada", text: "Should be back in ten minutes.", adequate: false, note: "ETA sem controle é dívida — dê o horário da próxima notícia, não da solução." }
+
+brErrors:
+  - { wrong: "We'll update you as soon possible.", right: "We'll update you as soon as possible.", why: "as soon as", tag: br.asap-missing-as }
+  - { wrong: "In this moment the checkout is down.", right: "Right now the checkout is down.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "Thanks for the patience while we investigate.", right: "Thanks for your patience while we investigate.", why: "your patience", tag: br.thanks-patience }
+  - { wrong: "The API not responds to payments.", right: "The API doesn't respond to payments.", why: "doesn't respond", tag: br.it-not-works }
+  - { wrong: "It depends of the region.", right: "It depends on the region.", why: "depends on", tag: br.depend-of }
+  - { wrong: "We are investigating since one hour.", right: "We've been investigating for an hour.", why: "for an hour / since 13:00", tag: br.is-ing-since }
+  - { wrong: "Can you explain me the status page?", right: "Can you explain the status page to me?", why: "explain X to me", tag: br.explain-me }
+  - { wrong: "The team have a workaround.", right: "The team has a workaround.", why: "the team has", tag: br.third-person-s }
+  - { wrong: "I need the fix until 15:00.", right: "I need the fix by 15:00.", why: "by + prazo", tag: br.until-by }
+  - { wrong: "She said me to post the update.", right: "She told me to post the update.", why: "told me", tag: br.said-me }
+
+dialogue:
+  title: "Cinco minutos para a primeira atualização"
+  lines:
+    - { speaker: Priya, text: "SEV2 confirmed. First update on the status page — five minutes. Draft it." }
+    - { speaker: Yuri, text: "'We're seeing elevated errors on checkout. Web users can't complete purchases; mobile is unaffected. We're investigating. Next update at 14:30 UTC.'" }
+    - { speaker: Ana, text: "Can we say it's the deploy?" }
+    - { speaker: Yuri, text: "Not confirmed — if we name a cause now and we're wrong, we retract in public." }
+    - { speaker: Priya, text: "Right. 'We're investigating' is the status — cause comes when it's proven." }
+    - { speaker: Ana, text: "And the workaround — should we mention mobile?" }
+    - { speaker: Yuri, text: "It's in the impact line: 'mobile is unaffected'. That's the workaround without the word." }
+    - { speaker: Priya, text: "Post it. Then the cadence: every thirty minutes, even if the update is 'still investigating'." }
+    - { speaker: Yuri, text: "Posted. Next one lands at 14:30 UTC, no matter what." }
+  notes:
+    - "o rascunho inteiro em 4 linhas dentro da fala do Yuri — copie o formato."
+    - "a regra da causa: nunca nomeie antes de provar — 'investigating' é o status honesto."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The first update has four beats, in order: what — 'we're seeing elevated errors on checkout'. Impact — 'web users can't complete purchases'. Status — 'we're investigating', always investigating until the cause is proven. And the next update, with an exact time and timezone." }
+    - { speaker: Yuri, text: "What stays out: the cause you haven't proven, the ETA you don't control, and internal jargon. 'It was the deploy' becomes a public retraction if you're wrong. 'Fixed by three' is a promise you can't keep. The update buys time — don't spend it." }
+    - { speaker: Ana, text: "The line that calms people isn't 'sorry' — it's 'next update at 14:30 UTC'. A scheduled promise beats an apology. And 'no action required on your side' closes the reader's anxiety: not your problem, we'll tell you when it is." }
+  questions:
+    - { id: M15-02-l1, type: multiple_choice, prompt: "The four beats of the first update, in order:", options: ["cause, impact, ETA, apology", "what, impact, status, next update", "apology, cause, fix, thanks", "impact, cause, workaround, ETA"], answer: 1, explanation: "What → impact → investigating → next update.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-02-l2, type: multiple_choice, prompt: "The status of the first update is always…", options: ["resolved", "the suspected cause", "the ETA", "investigating"], answer: 3, explanation: "Investigating até a causa ser provada.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-02-l3, type: fill_blank, prompt: "Next update ___ 14:30 UTC.", accepted: ["at"], explanation: '"Next update at" — horário exato com timezone.', tags: [vocab.incident] }
+    - { id: M15-02-l4, type: error_correction, prompt: "We'll update you as soon possible.", accepted: ["We'll update you as soon as possible.", "We'll update you as soon as possible", "Next update at 14:30 UTC."], explanation: "as soon as — ou melhor: horário exato.", tags: [br.asap-missing-as] }
+    - { id: M15-02-l5, type: multiple_choice, prompt: "Naming the deploy as cause in the first update risks…", options: ["nothing — it's probably right", "a public retraction if you're wrong", "sounding too technical", "upsetting the deploy author"], answer: 1, explanation: "Causa sem prova vira retratação.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-02-l6, type: multiple_choice, prompt: "The line that calms readers most is…", options: ["'we're very sorry'", "'fixed soon'", "'it's not our fault'", "'next update at 14:30 UTC'"], answer: 3, explanation: "Promessa agendada > desculpa.", tags: [comp.listening, vocab.incident] }
+
+writing:
+  prompt: |
+    **Cenário:** é você quem escreve a primeira atualização do SEV2 na
+    status page — cinco minutos, quatro batidas.
+
+    **Tarefa:** escreva a atualização em 40–70 palavras: what (we're
+    seeing…), impact (quem não consegue o quê), status (investigating)
+    e next update com horário e timezone. Sem causa e sem ETA.
+  constraints:
+    - { label: "What (sintoma observado)", pattern: "\\b(we'?re seeing|we are seeing|elevated|errors|experiencing)\\b" }
+    - { label: "Impact (quem + o quê)", pattern: "\\b(users|can'?t|cannot|unable|checkout|purchases)\\b" }
+    - { label: "Status", pattern: "\\b(investigating|confirmed)\\b" }
+    - { label: "Next update com horário", pattern: "\\b(next update at|\\d{2}:\\d{2}|utc)\\b" }
+  rubric:
+    - "As quatro batidas na ordem"
+    - "Sem causa não provada e sem ETA"
+    - "Horário com timezone"
+    - "Sem calques (as soon as, your patience)"
+  model: >-
+    We're seeing elevated error rates on the checkout API — about a
+    third of web purchases are failing right now. Mobile checkout is
+    unaffected. We're actively investigating the cause. No action
+    required on your side. Next update at 14:30 UTC.
+  minWords: 40
+  maxWords: 70
+  tags: [comp.writing, vocab.incident]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos lendo e defendendo a primeira atualização: as quatro batidas, por que não nomear a causa ainda e a cadência da próxima."
+    maxSeconds: 45
+    targetPhrases:
+      - we're seeing
+      - elevated errors
+      - users can't
+      - we're investigating
+      - next update at
+      - no action required
+      - as of
+      - confirmed
+      - partial outage
+      - customer-facing
+      - every thirty minutes
+      - the cause isn't confirmed
+      - posted on the status page
+      - web checkout
+      - mobile is unaffected
+      - we'll update
+    checklist:
+      - As quatro batidas na ordem
+      - Por que a causa fica de fora
+      - Cadência com horário e timezone
+      - "Sem 'as soon possible'"
+
+quiz:
+  - { id: M15-02-q1, type: multiple_choice, prompt: "The four beats of the first update are…", options: ["cause, fix, ETA, thanks", "apology, cause, impact, fix", "what, impact, status, next update", "impact, blame, workaround, ETA"], answer: 2, explanation: "What → impact → investigating → next update.", tags: [vocab.incident] }
+  - { id: M15-02-q2, type: error_correction, prompt: "Thanks for the patience — we'll fix it as soon possible.", accepted: ["Thanks for your patience — we'll update you as soon as possible.", "Thanks for your patience — we'll update you as soon as possible", "Thanks for bearing with us — next update at 14:30 UTC."], explanation: 'Dois erros: "your patience" + "as soon as" (ou horário exato).', tags: [br.thanks-patience, br.asap-missing-as] }
+  - { id: M15-02-q3, type: multiple_choice, prompt: "In the first update, the cause…", options: ["goes first, even if unconfirmed", "is guessed from the latest deploy", "is required by the status page", "stays out until it's proven"], answer: 3, explanation: "Investigating é o status honesto.", tags: [vocab.incident] }
+  - { id: M15-02-q4, type: fill_blank, prompt: "___ of 14:10 UTC, about a third of checkouts are affected.", accepted: ["As"], explanation: '"As of" congela o dado no tempo.', tags: [vocab.incident] }
+  - { id: M15-02-q5, type: error_correction, prompt: "In this moment the team investigates the 502s.", accepted: ["Right now the team is investigating the 502s.", "Right now the team is investigating the 502s", "At this moment the team is investigating the 502s."], explanation: "right now / at this moment.", tags: [br.in-this-moment] }
+  - { id: M15-02-q6, type: translate, prompt: "Próxima atualização às 14:30 UTC — nenhuma ação do seu lado.", accepted: ["Next update at 14:30 UTC — no action required on your side.", "Next update at 14:30 UTC — no action required on your side"], explanation: '"next update at" + "no action required on your side".', tags: [vocab.incident] }
+  - { id: M15-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["seeing", "elevated", "errors", "we're", "on", "checkout"], answer: "we're seeing elevated errors on checkout", explanation: '"we''re seeing elevated errors on X".', tags: [vocab.incident] }
+  - { id: M15-02-q8, type: multiple_choice, prompt: "The strongest way to close the update is…", options: ["'sorry for the inconvenience!!!'", "'fixed by 15:00, promise'", "'next update at 14:30 UTC'", "'we'll see what happens'"], answer: 2, explanation: "Promessa agendada, com timezone.", tags: [vocab.incident] }
+
+srsCards:
+  - { front: "we're seeing", back: "O abridor: 'we're seeing elevated errors on checkout'.", tag: vocab.incident }
+  - { front: "elevated", back: "Neutro: 'elevated errors/latency'.", tag: vocab.incident }
+  - { front: "investigating", back: "O status honesto — causa só quando provada.", tag: vocab.incident }
+  - { front: "next update at", back: "Horário + timezone — nunca 'soon'.", tag: vocab.incident }
+  - { front: "no action required", back: "Fecha a ansiedade: 'on your side'.", tag: vocab.incident }
+  - { front: "as of", back: "Recorte temporal: 'as of 14:10 UTC'.", tag: vocab.incident }
+  - { front: "confirmed", back: "Sobe o tom quando o fato fecha.", tag: vocab.incident }
+  - { front: "on it", back: "O dono: 'Yuri is on it — updates every 30 min'.", tag: vocab.incident }
+  - { front: "we'll update", back: "Promete cadência, não solução.", tag: vocab.incident }
+  - { front: "shortly", back: "Último recurso — prefira horário exato.", tag: vocab.incident }
+  - { front: "initial report", back: "Sai antes da causa — speed > precisão.", tag: vocab.incident }
+
+review:
+  preferTags: [vocab.incident, br.asap-missing-as, br.thanks-patience]
+  notes: "Revisão prioriza as quatro batidas e os calques de promessa."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
