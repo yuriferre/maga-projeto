@@ -1,0 +1,299 @@
+id: M10-05
+module: M10
+order: 5
+title: "Explicar um bug e a correção numa thread e em voz"
+objective: >-
+  Integra o módulo num relato completo: narrar o problema em quatro
+  batidas, declarar a causa com os conectores, contar a investigação com
+  os verbos certos e fechar propondo a correção em camadas — na thread e
+  numa atualização falada.
+durationMin: 40
+competencies: [SPK, WRI, VOC]
+tags: [vocab.troubleshoot, comp.speaking, comp.writing, br.it-not-works, br.after-to]
+prerequisites: [M10-01, M10-02, M10-03, M10-04]
+
+context:
+  scenario: |
+    O dia inteiro do billing em uma só entrega: a thread escrita com a
+    narrativa completa (symptom → context → tried → found → root cause →
+    fix em camadas) e um resumo falado de 60 segundos para a call de
+    encerramento.
+
+    **Na thread:** as quatro batidas, a revelação com "turned out to be",
+    a cadeia com "led to"/"which caused", o play-by-play com os verbos de
+    investigação e a proposta quickest/proper com trade-off e
+    recomendação.
+
+    **Na call:** o mesmo conteúdo em 60 segundos de voz — "quick recap:
+    deploys timed out since the 14h patch; it turned out to be the probe
+    requiring auth; we whitelisted the path for now and the dedicated
+    endpoint lands this sprint". Tudo que a thread tem, com metade das
+    palavras.
+  roles: [Yuri (platform engineer), Ana (SRE), Priya (tech lead)]
+
+vocabulary:
+  - term: "quick recap"
+    meaning: resumo rápido — a abertura da fala
+    example: "Quick recap: deploys timed out since the 14h patch."
+    translation: "Resumo rápido: deploys estouraram desde o patch das 14h."
+    note: "A frase de abertura de qualquer update falado."
+  - term: "write-up"
+    meaning: o relato escrito — a thread virando documento
+    example: "Full write-up in the thread — this is the short version."
+    translation: "Relato completo na thread — esta é a versão curta."
+    note: "A fala aponta para o escrito — não o substitui."
+  - term: "wrap-up"
+    meaning: fechamento — a conclusão do incidente
+    example: "Wrap-up: fix shipped, endpoint scheduled, post-mortem Friday."
+    translation: "Fechamento: correção entregue, endpoint agendado, post-mortem sexta."
+    note: "O bloco final — estado + próximos passos."
+  - term: "to sum up"
+    meaning: resumindo — o fecho em uma frase
+    example: "To sum up: one missing header caused the whole outage."
+    translation: "Resumindo: um header ausente causou a interrupção toda."
+    note: "O recibo de uma linha para quem chegou atrasado."
+  - term: "action items"
+    meaning: itens de ação — o que sai do incidente
+    example: "Action items: the dedicated endpoint and a probe test."
+    translation: "Itens de ação: o endpoint dedicado e um teste do probe."
+    note: "Cada item com dono e prazo."
+  - term: "follow-up"
+    meaning: acompanhamento — a tarefa que evita a recaída
+    example: "Follow-up: add a regression test for the probe auth."
+    translation: "Acompanhamento: adicionar um teste de regressão para o auth do probe."
+    note: "O item que garante que não volta."
+  - term: "status update"
+    meaning: atualização de status — o formato periódico
+    example: "Status update every 30 minutes while it's red."
+    translation: "Atualização de status a cada 30 minutos enquanto estiver vermelho."
+    note: "A cadência que mantém a thread informada."
+  - term: "impact"
+    meaning: impacto — quem sentiu o quê
+    example: "Impact: billing deploys blocked for 3 hours, no user-facing downtime."
+    translation: "Impacto: deploys de billing travados por 3 horas, sem downtime visível."
+    note: "Declare o impacto separado do sintoma."
+  - term: "resolved"
+    meaning: resolvido — o estado final
+    example: "Marking as resolved — monitoring for another hour."
+    translation: "Marcando como resolvido — monitorando por mais uma hora."
+    note: '"resolved" + monitoramento — o fecho honesto.'
+  - term: "lesson learned"
+    meaning: lição aprendida — o que muda daqui pra frente
+    example: "Lesson learned: auth changes need a probe checklist."
+    translation: "Lição aprendida: mudanças de auth precisam de checklist de probe."
+    note: "O aprendizado que o post-mortem registra."
+  - term: "to keep posted"
+    meaning: manter informado — a promessa de update
+    example: "I'll keep you posted — next update in 30."
+    translation: "Vou mantê-los informados — próximo update em 30."
+    note: "O compromisso de cadência na thread."
+  - term: "heads-up"
+    meaning: aviso prévio — o alerta antes do impacto
+    example: "Heads-up: deploys will pause for 10 minutes during the fix."
+    translation: "Aviso: deploys vão pausar por 10 minutos durante a correção."
+    note: "Avisar antes vale mais que explicar depois."
+  - term: "on track"
+    meaning: nos trilhos — andando como previsto
+    example: "Fix is on track — whitelisting ships in 10."
+    translation: "A correção está nos trilhos — o whitelist entra em 10."
+    note: "O update de meio caminho."
+
+grammar:
+  title: "O relato completo: escrito e falado"
+  explanation: |
+    A simulação junta as quatro aulas em dois formatos do mesmo relato:
+
+    | Bloco | Na thread | Na voz |
+    |---|---|---|
+    | abertura | *Symptom: …* | *Quick recap: …* |
+    | investigação | *What I tried: … — still failing* | *we ruled out…, narrowed it down to…* |
+    | causa | *It turned out to be… which caused…* | *it turned out to be…* |
+    | proposta | *quickest fix / proper fix + trade-off* | *for now …, this sprint…* |
+    | fecho | *Action items: …* | *To sum up: …* |
+
+    A versão falada corta detalhes, não blocos — cada batida vira uma
+    frase, e o "to sum up" fecha com a essência em uma linha.
+  examples:
+    - { en: "Quick recap: deploys timed out since the 14h patch — it turned out to be the probe.", pt: "Resumo rápido: deploys estouraram desde o patch das 14h — acabou sendo o probe." }
+    - { en: "We ruled out the network, narrowed it down to the probe, and bisected to the auth patch.", pt: "Descartamos a rede, estreitamos até o probe e bissectamos até o patch de auth." }
+    - { en: "The quickest fix shipped — the proper fix lands this sprint.", pt: "A correção rápida entrou — a de verdade entra nesta sprint." }
+    - { en: "Impact: billing deploys blocked for 3 hours — no user-facing downtime.", pt: "Impacto: deploys de billing travados por 3 horas — sem downtime visível." }
+    - { en: "Action items: dedicated endpoint, probe regression test, post-mortem Friday.", pt: "Itens de ação: endpoint dedicado, teste de regressão do probe, post-mortem sexta." }
+    - { en: "To sum up: one missing header caused the whole outage — resolved and monitored.", pt: "Resumindo: um header ausente causou a interrupção toda — resolvido e monitorado." }
+
+examples:
+  - en: "Quick recap: deploys timed out after the 14h release — consistent, every single one."
+    pt: "Resumo rápido: deploys estouraram depois do release das 14h — consistente, todos."
+    context: "A abertura falada — sintoma em uma frase."
+  - en: "Full write-up in the thread; short version: probe auth, whitelist shipped, endpoint scheduled."
+    pt: "Relato completo na thread; versão curta: auth do probe, whitelist entregue, endpoint agendado."
+    context: "A fala aponta para o escrito."
+  - en: "Status update every 30 minutes while it's red — I'll keep you posted."
+    pt: "Atualização de status a cada 30 minutos enquanto estiver vermelho — mantenho informados."
+    context: "A cadência prometida."
+  - en: "Impact: billing deploys blocked for 3 hours — no user-facing downtime."
+    pt: "Impacto: deploys de billing travados por 3 horas — sem downtime visível."
+    context: "Impacto declarado separado do sintoma."
+  - en: "Heads-up: the whitelist deploys in 10 — deploys pause briefly."
+    pt: "Aviso: o whitelist entra em 10 — deploys pausam brevemente."
+    context: "O aviso antes do impacto da correção."
+  - en: "Wrap-up: fix shipped, endpoint scheduled for this sprint, post-mortem Friday."
+    pt: "Fechamento: correção entregue, endpoint agendado para a sprint, post-mortem sexta."
+    context: "O bloco final — estado + próximos passos."
+  - en: "Lesson learned: auth changes need a probe checklist — follow-up ticket is open."
+    pt: "Lição aprendida: mudanças de auth precisam de checklist de probe — ticket de acompanhamento aberto."
+    context: "O aprendizado com o follow-up."
+  - en: "To sum up: a missing header led to 401s, which caused the timeouts — resolved, monitoring."
+    pt: "Resumindo: um header ausente levou aos 401, que causaram os timeouts — resolvido, monitorando."
+    context: "O recibo de uma linha para quem chegou atrasado."
+
+variations:
+  - idea: '"o update falado de 60 segundos"'
+    items:
+      - { register: "Boa", text: "Quick recap: deploys timed out since 14h. Turned out to be the probe requiring auth — a side effect of the security patch. We whitelisted the path for now; the dedicated endpoint lands this sprint.", adequate: true }
+      - { register: "Boa", text: "Short version: one missing header caused the whole thing. Fixed with a workaround today, proper fix scheduled, post-mortem Friday.", adequate: true }
+      - { register: "Inadequada", text: "So basically there was a problem with the probe and the auth and the headers and the 401s and the pods, and we did stuff and it's fixed.", adequate: false, note: "O recorte falado corta detalhes, não estrutura — cada batida precisa de uma frase." }
+      - { register: "Inadequada", text: "Everything's resolved, no need for details.", adequate: false, note: "'Resolvido' sem narrativa não ensina ninguém a evitar a próxima vez." }
+  - idea: '"fechar a thread com o resumo"'
+    items:
+      - { register: "Boa", text: "Wrap-up: whitelist shipped at 18h, deploys green. Action items: dedicated endpoint (me, this sprint) + probe regression test (Ana). Post-mortem Friday.", adequate: true }
+      - { register: "Boa", text: "Marking as resolved — monitoring for another hour. Lesson learned: auth changes get a probe checklist.", adequate: true }
+      - { register: "Inadequada", text: "Fixed it. Closing the thread.", adequate: false, note: "Fecho sem action items desperdiça o incidente — o aprendizado morre na thread." }
+      - { register: "Inadequada", text: "Long story, read the logs if you want.", adequate: false, note: "A thread é o documento — 'leia os logs' não é write-up." }
+
+brErrors:
+  - { wrong: "The fix not works on staging.", right: "The fix doesn't work on staging.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "After to ship the fix, we monitor.", right: "After shipping the fix, we monitor.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "It's the same outage of March.", right: "It's the same outage as in March.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "The whitelist works in my machine.", right: "The whitelist works on my machine.", why: '"on my machine"', tag: br.in-my-machine }
+  - { wrong: "I telled the team about the probe.", right: "I told the team about the probe.", why: "told, não telled", tag: br.irregular-past }
+  - { wrong: "We didn't catched it in review.", right: "We didn't catch it in review.", why: "didn't + base", tag: br.did-past }
+  - { wrong: "The endpoint is more secure than we thinked.", right: "The endpoint is more secure than we thought.", why: "thought, não thinked", tag: br.irregular-past }
+  - { wrong: "I need verify if the fix landed.", right: "I need to verify if the fix landed.", why: '"need to verify"', tag: br.verify-if }
+  - { wrong: "Can you explain me the impact?", right: "Can you explain the impact to me?", why: "explain + to me", tag: br.explain-me }
+  - { wrong: "The recap was more short than needed.", right: "The recap was shorter than needed.", why: "short leva -er", tag: br.more-er }
+
+dialogue:
+  title: "O fechamento: thread e call"
+  lines:
+    - { speaker: Priya, text: "Yuri, give us the recap on the call — then the thread version." }
+    - { speaker: Yuri, text: "Quick recap: billing deploys timed out since the 14h release — consistent, every single one." }
+    - { speaker: Yuri, text: "We ruled out the network and the database, narrowed it down to the readiness probe, and bisected the commits to the security patch." }
+    - { speaker: Yuri, text: "It turned out to be the probe endpoint requiring auth — a side effect of the patch. The 401s led to unready pods, which caused the timeouts." }
+    - { speaker: Yuri, text: "The quickest fix — whitelisting the probe path — shipped at 18h. The proper fix, a dedicated health endpoint, lands this sprint. To sum up: one missing header caused the whole outage." }
+    - { speaker: Priya, text: "Clean. Impact?" }
+    - { speaker: Yuri, text: "Billing deploys blocked for about 3 hours — no user-facing downtime." }
+    - { speaker: Ana, text: "And the follow-ups?" }
+    - { speaker: Yuri, text: "Action items: the dedicated endpoint is mine this sprint, the probe regression test is Ana's, post-mortem Friday. Lesson learned: auth changes get a probe checklist." }
+    - { speaker: Priya, text: "Put the full write-up in the thread — this call version was the short one." }
+    - { speaker: Yuri, text: "Already drafted — marking the incident resolved, monitoring for another hour. I'll keep everyone posted." }
+  notes:
+    - "a versão falada inteira em quatro falas — cada bloco vira uma frase."
+    - "impacto, action items com dono, lesson learned — o fecho completo."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The spoken recap keeps every block but cuts every detail: symptom, cause, fix, next steps — one sentence each, sixty seconds total. If you can't say it in a minute, the write-up probably rambles too." }
+    - { speaker: Ana, text: "Always point from the voice to the text — 'full write-up in the thread'. The call is the summary; the thread is the document. Mixing them up means the details die in a recording nobody re-listens to." }
+    - { speaker: Yuri, text: "'To sum up' is the line for whoever joined late — 'to sum up: one missing header caused the outage'. One sentence, and the latecomer is caught up without scrolling." }
+    - { speaker: Priya, text: "And never close without action items — owner and date on each. An incident with no follow-ups is a bug that gets to come back." }
+  questions:
+    - { id: M10-05-l1, type: multiple_choice, prompt: "The 60-second recap keeps…", options: ["every detail", "only the fix", "only the symptom", "every block — one sentence each"], answer: 3, explanation: "Corta detalhes, não estrutura.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-05-l2, type: multiple_choice, prompt: "The call points to the thread because…", options: ["calls are recorded", "threads are optional", "the thread is the document — details die in recordings", "it's faster"], answer: 2, explanation: "A voz resume; o texto documenta.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-05-l3, type: fill_blank, prompt: "Quick ___: deploys timed out since the 14h patch.", accepted: ["recap"], explanation: '"quick recap" — a abertura falada.', tags: [vocab.troubleshoot] }
+    - { id: M10-05-l4, type: error_correction, prompt: "After to ship the fix, we monitor.", accepted: ["After shipping the fix, we monitor.", "After shipping the fix, we monitor"], explanation: "after + gerúndio.", tags: [br.after-to] }
+    - { id: M10-05-l5, type: multiple_choice, prompt: "'To sum up' serves…", options: ["the post-mortem", "whoever joined late — one sentence catches them up", "the speaker", "the logs"], answer: 1, explanation: "O recibo de uma linha para o atrasado.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-05-l6, type: multiple_choice, prompt: "An incident closed without action items…", options: ["is efficient", "is fine if resolved", "lets the bug come back — owner and date on each item", "saves time"], answer: 2, explanation: "Sem follow-up, o bug volta.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-05-l7, type: fill_blank, prompt: "Full write-___ in the thread — this is the short version.", accepted: ["up"], explanation: '"write-up" — o relato escrito.', tags: [vocab.troubleshoot] }
+    - { id: M10-05-l8, type: multiple_choice, prompt: "Declaring 'impact' separately means…", options: ["repeating the symptom", "blaming someone", "who felt what — deploys blocked 3h, no user downtime", "the root cause"], answer: 2, explanation: "Impacto ≠ sintoma — declare os dois.", tags: [comp.listening, vocab.troubleshoot] }
+
+writing:
+  prompt: |
+    **Cenário:** a call de encerramento acabou e a Priya pediu o write-up
+    completo na thread do `#billing` — o relato inteiro do incidente do
+    probe/auth, do sintoma ao fechamento.
+
+    **Tarefa:** escreva 90–130 palavras com a narrativa completa: as quatro
+    batidas, a causa com os conectores, a proposta em camadas e o
+    fechamento com action items (dono + prazo) e lesson learned.
+  constraints:
+    - { label: "Narrativa em batidas", pattern: "\\b(symptom|context|tried|found|noticed)\\b" }
+    - { label: "Causa com conectores", pattern: "\\b(turned out|because of|led to|which caused|root cause)\\b" }
+    - { label: "Proposta em camadas", pattern: "\\b(quickest fix|proper fix|workaround|band-aid)\\b" }
+    - { label: "Fechamento", pattern: "\\b(action items?|lesson learned|follow-up|resolved|monitoring)\\b" }
+  rubric:
+    - "Quatro batidas + causa declarada"
+    - "Cadeia com 'led to'/'which caused'"
+    - "Proposta quickest/proper com trade-off"
+    - "Action items com dono e lesson learned"
+  model: >-
+    Full write-up on today's billing incident. Symptom: deploys timing out
+    after 10 minutes, consistent since the 14h release. What I tried:
+    rolled back — still failing; restarted the runner — no luck. What I
+    found: health check green, pods never ready. It turned out to be the
+    probe requiring auth — a side effect of the security patch — which
+    caused 401s and led to the timeouts. The quickest fix, whitelisting the
+    path, shipped at 18h; the proper fix, a dedicated endpoint, lands this
+    sprint. Action items: endpoint (me), regression test (Ana). Lesson
+    learned: auth changes need a probe checklist.
+  minWords: 90
+  maxWords: 130
+  tags: [comp.writing, vocab.troubleshoot]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos com o recap falado do incidente: abertura, investigação, causa, correção em camadas e fechamento — uma frase por bloco."
+    maxSeconds: 60
+    targetPhrases:
+      - quick recap
+      - turned out to be
+      - side effect
+      - led to
+      - which caused
+      - ruled out
+      - narrowed it down
+      - bisected
+      - the quickest fix
+      - the proper fix
+      - for now
+      - action items
+      - lesson learned
+      - to sum up
+      - resolved
+      - keep you posted
+    checklist:
+      - Um bloco por frase — 60 segundos
+      - Causa declarada com conector
+      - Proposta em camadas
+      - Fecha com action items ou to sum up
+
+quiz:
+  - { id: M10-05-q1, type: multiple_choice, prompt: "The spoken recap of an incident should be…", options: ["every detail of the thread", "only the root cause", "every block, one sentence each — about a minute", "a reading of the logs"], answer: 2, explanation: "Estrutura inteira, detalhe cortado.", tags: [vocab.troubleshoot] }
+  - { id: M10-05-q2, type: error_correction, prompt: "The fix not works on staging.", accepted: ["The fix doesn't work on staging.", "The fix doesn't work on staging"], explanation: "doesn't + base.", tags: [br.it-not-works] }
+  - { id: M10-05-q3, type: multiple_choice, prompt: "'Full write-up in the thread' means the call…", options: ["replaces the write-up", "is the summary — the thread is the document", "wasn't needed", "is the document"], answer: 1, explanation: "Voz resume, texto documenta.", tags: [vocab.troubleshoot] }
+  - { id: M10-05-q4, type: fill_blank, prompt: "To ___ up: one missing header caused the outage.", accepted: ["sum"], explanation: '"to sum up" — o recibo de uma linha.', tags: [vocab.troubleshoot] }
+  - { id: M10-05-q5, type: error_correction, prompt: "I telled the team about the probe.", accepted: ["I told the team about the probe.", "I told the team about the probe"], explanation: "told, não telled.", tags: [br.irregular-past] }
+  - { id: M10-05-q6, type: translate, prompt: "Itens de ação: o endpoint dedicado é meu nesta sprint; post-mortem sexta.", accepted: ["Action items: the dedicated endpoint is mine this sprint; post-mortem Friday.", "Action items: the dedicated endpoint is mine this sprint, post-mortem Friday."], explanation: "Action items com dono e prazo.", tags: [vocab.troubleshoot] }
+  - { id: M10-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["posted", "keep", "I'll", "you"], answer: "I'll keep you posted", explanation: '"keep you posted" — a promessa de update.', tags: [vocab.troubleshoot] }
+  - { id: M10-05-q8, type: multiple_choice, prompt: "An incident closed with no follow-ups is…", options: ["efficient", "a bug that gets to come back", "fully resolved", "a good wrap-up"], answer: 1, explanation: "Sem action items, o aprendizado morre.", tags: [vocab.troubleshoot] }
+
+srsCards:
+  - { front: "quick recap", back: "A abertura do update falado — 'quick recap: …'.", tag: vocab.troubleshoot }
+  - { front: "write-up", back: "O relato escrito — a fala aponta para ele.", tag: vocab.troubleshoot }
+  - { front: "to sum up", back: "O fecho de uma linha para quem chegou atrasado.", tag: vocab.troubleshoot }
+  - { front: "action items", back: "O que sai do incidente — dono e prazo em cada um.", tag: vocab.troubleshoot }
+  - { front: "lesson learned", back: "O aprendizado que o post-mortem registra.", tag: vocab.troubleshoot }
+  - { front: "impact", back: "Quem sentiu o quê — separado do sintoma.", tag: vocab.troubleshoot }
+  - { front: "resolved", back: "O estado final — + monitoramento honesto.", tag: vocab.troubleshoot }
+  - { front: "keep posted", back: "A promessa de cadência de updates.", tag: vocab.troubleshoot }
+  - { front: "heads-up", back: "O aviso antes do impacto.", tag: vocab.troubleshoot }
+  - { front: "follow-up", back: "A tarefa que evita a recaída.", tag: vocab.troubleshoot }
+
+review:
+  preferTags: [vocab.troubleshoot, br.it-not-works, br.after-to]
+  notes: "Revisão prioriza o fechamento de incidente e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
