@@ -1,0 +1,297 @@
+id: M14-05
+module: M14
+order: 5
+title: "Simulação: apresentar a proposta de migração de um serviço para outro provedor"
+objective: >-
+  Ao final, você apresenta a proposta completa: o mapa de serviços, a
+  justificativa com critério e trade-off, os números da pricing page e
+  as respostas para as perguntas difíceis — o [SIM] do módulo.
+durationMin: 40
+competencies: [SPK, VOC]
+tags: [vocab.cloud, vocab.finops, gram.hedging, comp.speaking]
+prerequisites: [M14-01, M14-02, M14-03, M14-04]
+
+context:
+  scenario: |
+    A revisão da proposta: o worker de pagamentos roda em EC2 hoje —
+    2M requests/dia, espichado — e a recomendação é Cloud Run no GCP.
+    A Priya e a Ana fazem as perguntas difíceis.
+
+    A apresentação em quatro batidas:
+
+    - **o mapa** — "EC2 today, Cloud Run on GCP — the serverless
+      equivalent for a bursty job"
+    - **a justificativa** — "a better fit because the job is bursty
+      and Cloud Run bills per request; the trade-off is egress and the
+      prepaid AWS credits"
+    - **os números** — "$0.40 per million after the free tier, ~$340 a
+      month at our volume — egress billed separately"
+    - **o contrário** — "if the load went steady, I'd pick provisioned
+      on AWS — I'd re-run the calculator at 3x traffic first"
+
+    E a postura: pergunta difícil não é ataque — é o teste que a
+    proposta precisa passar.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (SRE), Marcos (backend)]
+
+vocabulary:
+  - term: "the proposal"
+    meaning: a proposta — a recomendação + os números
+    example: "The proposal: move the payments worker from EC2 to Cloud Run on GCP."
+    translation: "A proposta: mover o worker de pagamentos do EC2 para Cloud Run no GCP."
+    note: "Proposta = recomendação + critério + números."
+  - term: "the ask"
+    meaning: o pedido — o que a proposta quer aprovado
+    example: "The ask: approve a two-week pilot on Cloud Run, then we re-evaluate."
+    translation: "O pedido: aprovar um piloto de duas semanas no Cloud Run, depois reavaliamos."
+    note: "Toda apresentação fecha com o ask."
+  - term: "a pilot"
+    meaning: o piloto — o teste antes de migrar de verdade
+    example: "Run a pilot first — two weeks on Cloud Run, one service only."
+    translation: "Rode um piloto antes — duas semanas no Cloud Run, um serviço só."
+    note: "A proposta boa pede piloto, não big bang."
+  - term: "data migration"
+    meaning: a migração de dados — a parte pesada
+    example: "The hard part is the data migration — the state store stays on AWS."
+    translation: "A parte pesada é a migração de dados — o state store fica na AWS."
+    note: "Serviço sem estado migra fácil; dados são o problema."
+  - term: "lock-in"
+    meaning: o aprisionamento — o custo de sair depois
+    example: "Cloud Run is less lock-in than Lambda — it runs plain containers."
+    translation: "Cloud Run prende menos que Lambda — roda containers comuns."
+    note: "Lock-in = o custo de saída futura — entra no trade-off."
+  - term: "the pilot criteria"
+    meaning: os critérios do piloto — o que define sucesso
+    example: "Pilot criteria: p99 latency under 400ms and cost under $400/month."
+    translation: "Critérios do piloto: latência p99 abaixo de 400ms e custo abaixo de $400/mês."
+    note: "Piloto sem critério de sucesso vira migração disfarçada."
+  - term: "the rollback plan"
+    meaning: o plano de volta — como desfaz a migração
+    example: "Rollback plan: the worker stays deployable on EC2 until the pilot passes."
+    translation: "Plano de volta: o worker continua deployável no EC2 até o piloto passar."
+    note: "Toda proposta de migração tem caminho de volta."
+  - term: "hard questions"
+    meaning: as perguntas difíceis — o teste da proposta
+    example: "Hard questions are the test — 'what about IAM?' is the one to expect."
+    translation: "Perguntas difíceis são o teste — 'e o IAM?' é a que esperar."
+    note: "Quem apresenta espera as perguntas difíceis."
+  - term: "fair point"
+    meaning: ponto válido — conceder antes de responder
+    example: "Fair point — IAM roles don't map one-to-one; that's the pilot's first task."
+    translation: "Ponto válido — os papéis de IAM não mapeiam 1:1; é a primeira tarefa do piloto."
+    note: '"Fair point" + a resposta — conceder não é perder.'
+  - term: "the blast radius"
+    meaning: o raio de dano — o que o piloto pode quebrar
+    example: "The pilot's blast radius is one worker — payments stays on AWS."
+    translation: "O raio de dano do piloto é um worker — pagamentos ficam na AWS."
+    note: "Piloto bom = blast radius pequeno."
+  - term: "re-evaluate"
+    meaning: reavaliar — a decisão depois do piloto
+    example: "After two weeks we re-evaluate against the criteria — not before."
+    translation: "Depois de duas semanas reavaliamos contra os critérios — não antes."
+    note: "Re-evaluate = a decisão com dados, não com opinião."
+  - term: "the bottom line"
+    meaning: o resultado final — o número que importa
+    example: "Bottom line: ~$340 a month on Cloud Run versus $520 on EC2 — 35% cheaper."
+    translation: "Resultado: ~$340/mês no Cloud Run contra $520 no EC2 — 35% mais barato."
+    note: "Bottom line = o número que fica na cabeça."
+
+grammar:
+  title: "A apresentação que aguenta pergunta difícil"
+  explanation: |
+    A proposta sobrevive a perguntas quando cada resposta tem forma:
+
+    - **pergunta de custo** → número + fonte: "At our volume it's
+      ~$340 a month — the calculator says so, egress billed separately."
+    - **pergunta de risco** → blast radius + rollback: "The pilot
+      touches one worker; EC2 stays deployable until it passes."
+    - **pergunta de feature** → parity honesta: "Fair point — IAM roles
+      don't map one-to-one; that's the pilot's first task."
+    - **pergunta contrafactual** → segunda condicional: "If traffic
+      tripled, per-request pricing would lose to provisioned — I'd
+      re-run the numbers."
+
+    E a regra de postura: **conceder antes de responder** — "fair
+    point", "that's the right question" — e nunca defender além do
+    piloto: a proposta pede duas semanas, não um compromisso eterno.
+  examples:
+    - { en: "The proposal: move the payments worker from EC2 to Cloud Run — the serverless fit for a bursty job.", pt: "A proposta: mover o worker de pagamentos do EC2 para Cloud Run — o encaixe serverless para um job espichado." }
+    - { en: "Bottom line: ~$340 a month versus $520 on EC2 — 35% cheaper at our volume.", pt: "Resultado: ~$340/mês contra $520 no EC2 — 35% mais barato no nosso volume." }
+    - { en: "Fair point on IAM — roles don't map one-to-one; that's the pilot's first task.", pt: "Ponto válido no IAM — papéis não mapeiam 1:1; é a primeira tarefa do piloto." }
+    - { en: "The blast radius is one worker — payments stays on AWS, and EC2 stays deployable until the pilot passes.", pt: "O raio de dano é um worker — pagamentos ficam na AWS, e o EC2 continua deployável até o piloto passar." }
+    - { en: "If traffic tripled, per-request pricing would lose — I'd re-run the calculator first.", pt: "Se o tráfego triplicasse, o preço por request perderia — eu rodaria a calculadora antes." }
+    - { en: "The ask: approve a two-week pilot with criteria — p99 under 400ms, cost under $400.", pt: "O pedido: aprovar um piloto de duas semanas com critérios — p99 abaixo de 400ms, custo abaixo de $400." }
+
+examples:
+  - en: "The proposal in one line: EC2 today, Cloud Run on GCP — the serverless equivalent for a bursty job."
+    pt: "A proposta em uma linha: EC2 hoje, Cloud Run no GCP — o equivalente serverless para um job espichado."
+    context: "A abertura."
+  - en: "Why it fits: the job is bursty, and Cloud Run bills per request — idle hours cost nothing."
+    pt: "Por que encaixa: o job é espichado, e o Cloud Run cobra por request — horas ociosas não custam nada."
+    context: "A justificativa."
+  - en: "The trade-offs: egress billed separately, the prepaid AWS credits, and the IAM mapping."
+    pt: "Os trade-offs: egress cobrado à parte, os créditos AWS pré-pagos e o mapeamento de IAM."
+    context: "Os três custos nomeados."
+  - en: "Bottom line: ~$340 a month on Cloud Run versus $520 on EC2 — 35% cheaper."
+    pt: "Resultado: ~$340/mês no Cloud Run contra $520 no EC2 — 35% mais barato."
+    context: "O número que fica."
+  - en: "Fair point on the data — the state store stays on AWS; the worker is stateless, so it moves cleanly."
+    pt: "Ponto válido nos dados — o state store fica na AWS; o worker é stateless, então migra limpo."
+    context: "Concedendo e respondendo."
+  - en: "The ask: a two-week pilot, one worker, criteria written down — p99 under 400ms, cost under $400."
+    pt: "O pedido: piloto de duas semanas, um worker, critérios escritos — p99 abaixo de 400ms, custo abaixo de $400."
+    context: "O fecho com o pedido."
+  - en: "If the load went steady, I'd pick provisioned on AWS — the flat rate would beat per-request."
+    pt: "Se a carga ficasse estável, eu escolheria provisionado na AWS — a taxa fixa venceria o por-request."
+    context: "A contrafactual preparada."
+  - en: "After two weeks we re-evaluate against the criteria — the pilot decides, not the pitch."
+    pt: "Depois de duas semanas reavaliamos contra os critérios — o piloto decide, não o pitch."
+    context: "A decisão com dados."
+
+variations:
+  - idea: '"respondendo pergunta difícil"'
+    items:
+      - { register: "Boa", text: "Fair point — IAM roles don't map one-to-one; that's the pilot's first task.", adequate: true }
+      - { register: "Boa", text: "The blast radius is one worker — EC2 stays deployable until the pilot passes.", adequate: true }
+      - { register: "Inadequada", text: "That's not a problem. Trust me.", adequate: false, note: "'Trust me' não responde nada — conceda o ponto e mostre onde a resposta mora." }
+      - { register: "Inadequada", text: "It'll definitely work — GCP is better.", adequate: false, note: "Defesa além do piloto é torcida — a proposta pede duas semanas com critérios." }
+  - idea: '"o ask que fecha a apresentação"'
+    items:
+      - { register: "Boa", text: "The ask: a two-week pilot with written criteria — p99 under 400ms, cost under $400.", adequate: true }
+      - { register: "Boa", text: "Approve the pilot and we re-evaluate in two weeks — the data decides.", adequate: true }
+      - { register: "Inadequada", text: "So… can we migrate?", adequate: false, note: "'Can we migrate' é big bang — o ask certo é o piloto com critérios." }
+      - { register: "Inadequada", text: "Let's just try it and see.", adequate: false, note: "Piloto sem critério de sucesso vira migração disfarçada." }
+
+brErrors:
+  - { wrong: "I recommend to run the pilot first.", right: "I recommend running the pilot first.", why: "recommend + gerúndio", tag: br.recommend-to }
+  - { wrong: "We want to migrate for Cloud Run.", right: "We want to migrate to Cloud Run.", why: "migrate to", tag: br.migrate-for }
+  - { wrong: "The worker runs on the cloud today.", right: "The worker runs in the cloud today.", why: "in the cloud", tag: br.on-the-cloud }
+  - { wrong: "Terraform will provisionate the pilot env.", right: "Terraform will provision the pilot env.", why: "provision", tag: br.provisionate }
+  - { wrong: "It depends of the traffic pattern.", right: "It depends on the traffic pattern.", why: "depends on", tag: br.depend-of }
+  - { wrong: "The proposal it's 35% cheaper.", right: "The proposal is 35% cheaper.", why: "is", tag: br.third-person-s }
+  - { wrong: "The pilot not touches payments.", right: "The pilot doesn't touch payments.", why: "doesn't touch", tag: br.it-not-works }
+  - { wrong: "She said me the criteria were fine.", right: "She told me the criteria were fine.", why: "told me", tag: br.said-me }
+  - { wrong: "We are on AWS since 2021.", right: "We've been on AWS since 2021.", why: "present perfect + since", tag: br.since-present }
+  - { wrong: "Explain me the egress clause.", right: "Explain the egress clause to me.", why: "explain X to me", tag: br.explain-me }
+
+dialogue:
+  title: "A apresentação da proposta"
+  lines:
+    - { speaker: Yuri, text: "The proposal in one line: the payments worker moves from EC2 to Cloud Run on GCP — the serverless fit for a bursty job." }
+    - { speaker: Yuri, text: "Why it fits: 2M requests a day in short spikes — Cloud Run bills per request, so idle hours cost nothing." }
+    - { speaker: Yuri, text: "Bottom line: ~$340 a month versus $520 on EC2 — 35% cheaper at our volume, egress billed separately and already counted." }
+    - { speaker: Priya, text: "What about the data?" }
+    - { speaker: Yuri, text: "Fair point — the state store stays on AWS; the worker is stateless, so it moves cleanly. Data migration isn't part of this proposal." }
+    - { speaker: Ana, text: "IAM mapping?" }
+    - { speaker: Yuri, text: "That's the pilot's first task — roles don't map one-to-one, and I'm not claiming they do." }
+    - { speaker: Marcos, text: "Devil's advocate: what if traffic triples?" }
+    - { speaker: Yuri, text: "If traffic tripled, per-request pricing would lose to provisioned — I'd re-run the calculator before committing. That's exactly what the pilot is for." }
+    - { speaker: Priya, text: "And if the pilot fails?" }
+    - { speaker: Yuri, text: "Rollback is built in — EC2 stays deployable until the criteria pass. The blast radius is one worker; payments stays on AWS." }
+    - { speaker: Priya, text: "So the ask?" }
+    - { speaker: Yuri, text: "A two-week pilot, one worker, written criteria — p99 under 400ms, cost under $400. After two weeks we re-evaluate — the data decides, not the pitch." }
+    - { speaker: Priya, text: "Approved. Good proposal — you answered the hard questions before I asked the last one." }
+  notes:
+    - "a apresentação inteira: proposta → critério → números → três perguntas difíceis → rollback → o ask."
+    - "repare nas concessões: 'fair point' antes de cada resposta."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A migration proposal has four beats: the map — what's moving where; the justification — a better fit because, with the trade-off named; the numbers — the calculator, the fine print; and the counterfactual — what changes the answer." }
+    - { speaker: Ana, text: "Hard questions aren't attacks — they're the test the proposal needs to pass. Concede first — 'fair point' — then answer where the answer lives: the blast radius, the rollback, the pilot criteria." }
+    - { speaker: Marcos, text: "The counterfactual is second conditional — 'if traffic tripled, per-request would lose'. You show the answer changes and you know exactly what changes it." }
+    - { speaker: Priya, text: "And the close is the ask — never 'can we migrate'. A two-week pilot, one worker, written criteria. The pilot decides, not the pitch." }
+  questions:
+    - { id: M14-05-l1, type: multiple_choice, prompt: "The four beats of the proposal:", options: ["greeting, slides, demo, thanks", "map, justification with trade-off, numbers, counterfactual", "problem, solution, price, deadline", "features, features, features, price"], answer: 1, explanation: "Mapa → justificativa → números → contrafactual.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-05-l2, type: multiple_choice, prompt: "Hard questions are…", options: ["attacks", "the test the proposal needs to pass — concede, then answer", "interruptions", "a bad sign"], answer: 1, explanation: "O teste — concede com 'fair point' e responde.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-05-l3, type: fill_blank, prompt: "The ___ radius is one worker — payments stays on AWS.", accepted: ["blast"], explanation: "Blast radius — o que o piloto pode quebrar.", tags: [vocab.cloud] }
+    - { id: M14-05-l4, type: error_correction, prompt: "We want to migrate for Cloud Run.", accepted: ["We want to migrate to Cloud Run.", "We want to migrate to Cloud Run"], explanation: "migrate to.", tags: [br.migrate-for] }
+    - { id: M14-05-l5, type: multiple_choice, prompt: "The right ask is…", options: ["'can we migrate?'", "a two-week pilot with written criteria — the pilot decides, not the pitch", "'trust me'", "'let's just try it'"], answer: 1, explanation: "Piloto com critérios escritos.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-05-l6, type: multiple_choice, prompt: "'Fair point' before an answer…", options: ["admits defeat", "is filler", "concedes the valid point, then answers where the answer lives", "changes the subject"], answer: 2, explanation: "Conceder não é perder — é preparar a resposta.", tags: [comp.listening, vocab.cloud] }
+
+writing:
+  prompt: |
+    **Cenário:** a proposta por escrito — a versão curta que vai no
+    documento de decisão.
+
+    **Tarefa:** escreva 90–130 palavras com as quatro batidas: o que
+    migra (EC2 → Cloud Run), a justificativa com critério e trade-offs,
+    os números (modelo, estimativa, letra miúda) e o ask (piloto de
+    duas semanas com critérios escritos).
+  constraints:
+    - { label: "O que migra", pattern: "\\b(ec2|cloud run|gcp|worker|migrat)\\b" }
+    - { label: "Justificativa + trade-off", pattern: "\\b(better fit|bursty|per.request|trade.?off|egress|credits)\\b" }
+    - { label: "Números", pattern: "\\b(\\$|month|million|calculator|cheaper|bottom line)\\b" }
+    - { label: "O ask", pattern: "\\b(pilot|criteria|weeks|re.?evaluat|rollback|blast radius)\\b" }
+  rubric:
+    - "As quatro batidas presentes"
+    - "Trade-offs nomeados (egress, credits, IAM)"
+    - "Números com fonte (calculadora)"
+    - "Ask = piloto com critérios"
+  model: >-
+    Proposal: move the payments worker from EC2 to Cloud Run on GCP —
+    the serverless fit for a bursty job. At 2M requests a day in short
+    spikes, per-request billing means idle hours cost nothing. Bottom
+    line: ~$340 a month versus $520 on EC2, 35% cheaper — calculator
+    estimate, egress billed separately and already counted. Trade-offs:
+    the prepaid AWS credits, the IAM mapping — roles don't map
+    one-to-one — and the learning curve. If the load went steady, I'd
+    pick provisioned on AWS instead. The ask: a two-week pilot, one
+    worker, written criteria — p99 under 400ms, cost under $400.
+    Rollback: EC2 stays deployable until the pilot passes.
+  minWords: 90
+  maxWords: 130
+  tags: [comp.writing, vocab.cloud]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos apresentando a proposta: o que migra e por quê, os números, um trade-off nomeado, a resposta para a pergunta difícil e o ask."
+    maxSeconds: 60
+    targetPhrases:
+      - the proposal
+      - a better fit for
+      - bills per request
+      - the trade-off is
+      - egress billed separately
+      - fair point
+      - the blast radius
+      - a two-week pilot
+      - written criteria
+      - we re-evaluate
+      - bottom line
+      - lock-in
+    checklist:
+      - Proposta em uma linha
+      - Justificativa + trade-off
+      - Número com fonte
+      - Ask = piloto com critérios
+
+quiz:
+  - { id: M14-05-q1, type: multiple_choice, prompt: "The proposal opens with…", options: ["the pricing table", "an apology", "the map in one line — what moves where", "the SLA"], answer: 2, explanation: "O mapa em uma linha.", tags: [vocab.cloud] }
+  - { id: M14-05-q2, type: error_correction, prompt: "I recommend to run the pilot first.", accepted: ["I recommend running the pilot first.", "I recommend running the pilot first"], explanation: "recommend + gerúndio.", tags: [br.recommend-to] }
+  - { id: M14-05-q3, type: multiple_choice, prompt: "'The blast radius is one worker' answers…", options: ["the risk question — what the pilot can break", "the cost question", "the SLA question", "the IAM question"], answer: 0, explanation: "Raio de dano = a resposta do risco.", tags: [vocab.cloud] }
+  - { id: M14-05-q4, type: fill_blank, prompt: "After two weeks we ___ against the criteria — the data decides.", accepted: ["re-evaluate", "reevaluate"], explanation: "Re-evaluate = decisão com dados.", tags: [vocab.cloud] }
+  - { id: M14-05-q5, type: error_correction, prompt: "The worker runs on the cloud today.", accepted: ["The worker runs in the cloud today.", "The worker runs in the cloud today"], explanation: "in the cloud.", tags: [br.on-the-cloud] }
+  - { id: M14-05-q6, type: translate, prompt: "Resultado: ~$340/mês no Cloud Run contra $520 no EC2 — 35% mais barato.", accepted: ["Bottom line: ~$340 a month on Cloud Run versus $520 on EC2 — 35% cheaper.", "The bottom line: ~$340 a month on Cloud Run versus $520 on EC2 — 35% cheaper."], explanation: '"bottom line" + "versus" + a porcentagem.', tags: [vocab.cloud, vocab.finops] }
+  - { id: M14-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["decides", "pilot", "the", "pitch", "not", "the"], answer: "the pilot decides not the pitch", explanation: "O piloto decide — não o pitch.", tags: [vocab.cloud] }
+  - { id: M14-05-q8, type: multiple_choice, prompt: "'Fair point — IAM roles don't map one-to-one' is…", options: ["conceding and losing", "changing the subject", "conceding the valid point, then placing the answer in the pilot's first task", "avoiding the question"], answer: 2, explanation: "Concede o ponto e responde.", tags: [vocab.cloud] }
+
+srsCards:
+  - { front: "the proposal", back: "Recomendação + critério + números — em uma linha.", tag: vocab.cloud }
+  - { front: "the ask", back: "O pedido que fecha — piloto com critérios.", tag: vocab.cloud }
+  - { front: "a pilot", back: "Duas semanas, um serviço — nunca big bang.", tag: vocab.cloud }
+  - { front: "lock-in", back: "O custo de saída futura — entra no trade-off.", tag: vocab.cloud }
+  - { front: "pilot criteria", back: "p99 < 400ms, custo < $400 — o que define sucesso.", tag: vocab.cloud }
+  - { front: "the rollback plan", back: "EC2 deployável até o piloto passar.", tag: vocab.cloud }
+  - { front: "fair point", back: "Conceder antes de responder — não é perder.", tag: vocab.cloud }
+  - { front: "blast radius", back: "O que o piloto pode quebrar — um worker.", tag: vocab.cloud }
+  - { front: "re-evaluate", back: "A decisão com dados — depois do piloto.", tag: vocab.cloud }
+  - { front: "bottom line", back: "O número que fica — $340 vs $520.", tag: vocab.cloud }
+
+review:
+  preferTags: [vocab.cloud, br.migrate-for, br.recommend-to]
+  notes: "Revisão prioriza a apresentação e os calques de cloud."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
