@@ -1,0 +1,299 @@
+id: M09-05
+module: M09
+order: 5
+title: "Prática: revisar 3 PRs e responder a 3 reviews"
+objective: >-
+  Integra o módulo numa rodada real de review: comentar três PRs com o peso
+  certo (nit × non-blocking × blocking), nomear os problemas pelo léxico, e
+  responder aos comentários recebidos fechando o ciclo com PTAL.
+durationMin: 40
+competencies: [WRI, REA, VOC]
+tags: [vocab.review, topic.code-review, comp.writing, comp.reading, br.did-comment, br.seems-me]
+prerequisites: [M09-01, M09-02, M09-03, M09-04]
+
+context:
+  scenario: |
+    Sexta-feira de review. **Três PRs na fila**: o PR de cache da Ana (um
+    `86400` sem nome e um branch morto — dois nits e um dead code), o PR de
+    retry do Marcos (um contador sem lock — blocking, e um `catch` que
+    engole erro — non-blocking), e o PR de docs do estagiário (só
+    boilerplate e nomes — review gentil, tudo nit).
+
+    **E o seu PR** de invalidação de cache recebeu três comentários: um bug
+    real na ordem das operações (good catch), um pedido de rename que
+    pioraria o código (I'd keep it — here's why) e uma dúvida sobre o TTL
+    (good question — contexto). Fecha tudo com PTAL.
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "review round"
+    meaning: rodada de review — a sessão de comentários
+    example: "First review round: three PRs in the queue."
+    translation: "Primeira rodada de review: três PRs na fila."
+    note: "A unidade de trabalho do reviewer — 'a round of reviews'."
+  - term: "gentle review"
+    meaning: review gentil — o tom para PR de quem está aprendendo
+    example: "The intern's PR gets a gentle review — all nits, no blocking."
+    translation: "O PR do estagiário recebe review gentil — só nits, nada bloqueante."
+    note: "Ajuste o tom ao contexto do autor — docs de intern ≠ hotfix."
+  - term: "the queue"
+    meaning: a fila — os PRs esperando review
+    example: "Three PRs in the queue before lunch."
+    translation: "Três PRs na fila antes do almoço."
+    note: '"review queue" — a fila de PRs abertos.'
+  - term: "to batch comments"
+    meaning: agrupar comentários — uma notificação, não dez
+    example: "Batch the comments — one review, not seven separate pings."
+    translation: "Agrupe os comentários — um review, não sete pings separados."
+    note: "Comentário avulso vira spam — 'start a review' agrupa."
+  - term: "overall"
+    meaning: no geral — o veredito depois dos comentários
+    example: "Overall this looks good — just the counter issue."
+    translation: "No geral está bom — só a questão do contador."
+    note: "O resumo que o autor lê primeiro."
+  - term: "approve"
+    meaning: aprovar — o veredito que libera o merge
+    example: "Approved — the atomic increment fixed it."
+    translation: "Aprovado — o incremento atômico resolveu."
+    note: "O estado final — 'LGTM' é a forma curta."
+  - term: "to spot"
+    meaning: enxergar — achar o problema escondido
+    example: "Nice spot on the ordering — the invalidate ran first."
+    translation: "Boa pescada na ordem — a invalidação rodou primeiro."
+    note: '"to spot X" = achar X — o elogio ao reviewer.'
+  - term: "ordering matters"
+    meaning: a ordem importa — o motivo clássico de discordar
+    example: "I'd keep the loop — ordering matters for the retry sequence."
+    translation: "Eu manteria o loop — a ordem importa para a sequência de retry."
+    note: "O motivo que sustenta a discordância."
+  - term: "the fix landed"
+    meaning: a correção entrou — ciclo fechado
+    example: "The fix landed — PTAL when you can."
+    translation: "A correção entrou — PTAL quando puder."
+    note: '"land" = entrar no branch — o fecho do review.'
+  - term: "drive-by review"
+    meaning: review de passagem — rápido e superficial
+    example: "This isn't a drive-by — the ordering bug took a real read."
+    translation: "Isso não é review de passagem — o bug de ordem exigiu leitura real."
+    note: "O que evitar em PRs com risco real."
+  - term: "to merge"
+    meaning: mergear — o destino de todo PR
+    example: "Merge once the comments are addressed."
+    translation: "Mergeie quando os comentários forem resolvidos."
+    note: '"once X lands" — depois que X entrar.'
+  - term: "the next reader"
+    meaning: o próximo leitor — para quem o review escreve
+    example: "Name it for the next reader — you won't remember in a month."
+    translation: "Nomeie para o próximo leitor — você não vai lembrar em um mês."
+    note: "A razão de todo nit de legibilidade."
+  - term: "self-review"
+    meaning: auto-revisão — ler o próprio diff antes de pedir review
+    example: "A self-review caught the debug log I left in."
+    translation: "Uma auto-revisão pegou o log de debug que deixei."
+    note: "Ler o próprio diff antes de abrir — pega o óbvio."
+  - term: "to unblock"
+    meaning: desbloquear — liberar o que estava travado
+    example: "Approving now — sorry it sat in the queue."
+    translation: "Aprovando agora — desculpa ter ficado na fila."
+    note: "PR parado bloqueia alguém — review é desbloqueio."
+
+grammar:
+  title: "A rodada completa: comentar, nomear, responder, fechar"
+  explanation: |
+    A prática junta as quatro aulas numa rodada real: **comentar** com peso
+    rotulado (*nit: / non-blocking / blocking*), **nomear** pelo léxico
+    (*magic number, dead code, race condition*), **responder** fechando o
+    ciclo (*good catch — addressed in 4f2a1c*, *I'd keep it — here's why*,
+    *good question — contexto*) e **pedir re-review** (*PTAL*).
+
+    | Papel | Ação | Frase-modelo |
+    |---|---|---|
+    | reviewer | peso + léxico | *Blocking: race condition — the invalidate runs first.* |
+    | autor | concordar | *Good catch — addressed in 4f2a1c.* |
+    | autor | discordar | *I'd keep it — ordering matters here.* |
+    | autor | esclarecer | *Good question — the TTL is intentional.* |
+    | autor | fechar | *All addressed — PTAL.* |
+  examples:
+    - { en: "Blocking: race condition — the invalidate can run before the write.", pt: "Bloqueante: condição de corrida — a invalidação pode rodar antes da escrita." }
+    - { en: "nit: 86400 → SECONDS_PER_DAY. Non-blocking: dead code on 55–70.", pt: "nit: 86400 → SECONDS_PER_DAY. Sem bloqueio: código morto nas 55–70." }
+    - { en: "Good catch — the ordering bug is real. Addressed in 4f2a1c.", pt: "Boa pescada — o bug de ordem é real. Resolvido em 4f2a1c." }
+    - { en: "I'd keep the name — here's why: it matches the domain event.", pt: "Eu manteria o nome — aqui está o porquê: casa com o evento do domínio." }
+    - { en: "Good question — the TTL is intentional, it survives restarts.", pt: "Boa pergunta — o TTL é proposital, sobrevive a restarts." }
+    - { en: "Overall this looks good — approve once the counter lands.", pt: "No geral está bom — aprovo quando o contador entrar." }
+
+examples:
+  - en: "Review round: three PRs in the queue — cache, retry, and the docs PR."
+    pt: "Rodada de review: três PRs na fila — cache, retry e o PR de docs."
+    context: "A fila é a unidade — um review por vez, comentários agrupados."
+  - en: "Ana's cache PR: nit on 86400 — name it. Dead code on 55–70 — the flag's gone."
+    pt: "PR de cache da Ana: nit no 86400 — nomeie. Código morto nas 55–70 — a flag sumiu."
+    context: "Dois pesos leves — nit e apagar dead code."
+  - en: "Marcos's retry PR: blocking — the counter isn't atomic, this would break under concurrent writes."
+    pt: "PR de retry do Marcos: bloqueante — o contador não é atômico, isso quebraria com escritas concorrentes."
+    context: "O único blocking da rodada — risco real nomeado."
+  - en: "The intern's docs PR gets a gentle review — all nits, no blocking, lots of 'nice'."
+    pt: "O PR de docs do estagiário recebe review gentil — só nits, nada bloqueante, muito 'nice'."
+    context: "Tom ajustado ao autor — incentivo, não tribunal."
+  - en: "Good catch on the ordering — the invalidate ran first. Addressed in 4f2a1c."
+    pt: "Boa pescada na ordem — a invalidação rodou primeiro. Resolvido em 4f2a1c."
+    context: "Concordar com commit — o ciclo do autor."
+  - en: "I'd keep the name — here's why: it matches the domain event from the spec."
+    pt: "Eu manteria o nome — aqui está o porquê: casa com o evento do domínio da spec."
+    context: "Discordância com motivo — o rename pioraria."
+  - en: "Good question — the TTL is intentional; it survives pod restarts by design."
+    pt: "Boa pergunta — o TTL é proposital; sobrevive a restarts de pod por design."
+    context: "Dúvida respondida com contexto — 'that's intentional' em outra forma."
+  - en: "All comments addressed — PTAL. And thanks: the ordering bug was a real spot."
+    pt: "Todos os comentários resolvidos — PTAL. E obrigado: o bug de ordem foi uma bela pescada."
+    context: "Fecho completo: resolvido + PTAL + agradecimento."
+
+variations:
+  - idea: '"três PRs, três tons diferentes"'
+    items:
+      - { register: "Boa", text: "Cache PR: two nits. Retry PR: one blocking — the counter. Docs PR: gentle, all nits.", adequate: true }
+      - { register: "Boa", text: "Reviewed all three — labeled each comment nit/non-blocking/blocking so nobody guesses.", adequate: true }
+      - { register: "Inadequada", text: "Left comments on everything at the same intensity.", adequate: false, note: "Sem rótulo de peso, nit e blocking se confundem." }
+      - { register: "Inadequada", text: "The docs PR is fine whatever, approved.", adequate: false, note: "Drive-by no PR de quem aprende perde a chance de ensinar." }
+  - idea: '"fechar o ciclo no seu próprio PR"'
+    items:
+      - { register: "Boa", text: "Good catch — addressed in 4f2a1c. On the rename, I'd keep it — ordering matters. PTAL.", adequate: true }
+      - { register: "Boa", text: "All comments answered: the bug fix landed, the name stays with a note, the TTL is intentional.", adequate: true }
+      - { register: "Inadequada", text: "Pushed fixes. (no replies)", adequate: false, note: "Push sem resposta deixa cada thread aberta." }
+      - { register: "Inadequada", text: "I disagree with the rename, that's all.", adequate: false, note: "Discordância sem motivo lê como teimosia." }
+
+brErrors:
+  - { wrong: "I did a comment on all three PRs.", right: "I left a comment on all three PRs.", why: '"leave a comment"', tag: br.did-comment }
+  - { wrong: "The ordering bug seems me real.", right: "The ordering bug seems real to me.", why: "seems + to me", tag: br.seems-me }
+  - { wrong: "It worths a blocking label.", right: "It's worth a blocking label.", why: "worth não é verbo", tag: br.worths }
+  - { wrong: "According to me the TTL is fine.", right: "In my view the TTL is fine.", why: "in my view", tag: br.according-to-me }
+  - { wrong: "I am agree the counter needs a lock.", right: "I agree the counter needs a lock.", why: "agree é verbo", tag: br.i-am-agree }
+  - { wrong: "The new helper is more clear.", right: "The new helper is clearer.", why: "adjetivo curto leva -er", tag: br.more-er }
+  - { wrong: "He said me the flag was removed.", right: "He told me the flag was removed.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I have a doubt about the TTL.", right: "I have a question about the TTL.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "Can you explain me the ordering?", right: "Can you explain the ordering to me?", why: "explain + to me", tag: br.explain-me }
+  - { wrong: "We did a mistake on the counter.", right: "We made a mistake on the counter.", why: '"make a mistake"', tag: br.do-mistake }
+
+dialogue:
+  title: "Sexta de review: três PRs e o seu"
+  lines:
+    - { speaker: Yuri, text: "Review round — three PRs in the queue before lunch." }
+    - { speaker: Ana, text: "My cache PR first — how does it look?" }
+    - { speaker: Yuri, text: "Two nits: 86400 is a magic number — name it. And lines 55–70 are dead code, the flag's gone. Non-blocking both." }
+    - { speaker: Ana, text: "Done and deleted — thanks." }
+    - { speaker: Marcos, text: "And mine? The retry one." }
+    - { speaker: Yuri, text: "One blocking: the counter isn't atomic — this would break under concurrent writes. Could we use the atomic increment? Non-blocking: the catch swallows the error — worth a log line." }
+    - { speaker: Marcos, text: "Fair — atomic increment and the log, pushing now." }
+    - { speaker: Priya, text: "And your PR, Yuri — left three comments. The ordering one is real." }
+    - { speaker: Yuri, text: "Good catch — the invalidate ran first, addressed in 4f2a1c. On the rename — I'd keep it, ordering matters for the sequence. And the TTL question — intentional, it survives restarts." }
+    - { speaker: Priya, text: "All three make sense. Resolve the threads and it's approved." }
+    - { speaker: Yuri, text: "All comments addressed — PTAL when you can. Nice spot on the ordering, by the way." }
+  notes:
+    - "três tons: nits rotulados para a Ana, blocking com risco para o Marcos, e o ciclo fechado no próprio PR."
+    - "'nice spot' — agradecer o reviewer que achou o bug real fecha a rodada bem."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A good review round has a rhythm: batch your comments, label the weight on each, and end with the overall — 'looks good except the counter'. The author reads the overall first." }
+    - { speaker: Marcos, text: "Self-review before opening is the cheapest review there is — I read my own diff and catch the debug log before anyone sees it." }
+    - { speaker: Ana, text: "And the tone rule nobody writes down: the intern's docs PR gets a gentle review — all nits, encouragement where it's earned. The same rigor, a different temperature." }
+    - { speaker: Priya, text: "Last thing: a PR sitting in the queue blocks somebody. Reviewing isn't a favor — it's unblocking." }
+  questions:
+    - { id: M09-05-l1, type: multiple_choice, prompt: "The author reads first…", options: ["the overall — the summary after the comments", "the nits", "the blocking label", "the line comments"], answer: 0, explanation: "O 'overall' é o resumo — escreva-o.", tags: [comp.listening, vocab.review] }
+    - { id: M09-05-l2, type: multiple_choice, prompt: "Self-review is 'the cheapest review' because…", options: ["it's free", "nobody else reviews", "it skips CI", "reading your own diff catches the obvious before anyone sees it"], answer: 3, explanation: "O próprio diff pega o óbvio primeiro.", tags: [comp.listening, vocab.review] }
+    - { id: M09-05-l3, type: fill_blank, prompt: "Good ___ — the invalidate ran first. Addressed in 4f2a1c.", accepted: ["catch"], explanation: '"good catch" + o commit — o par que fecha o ciclo.', tags: [vocab.review] }
+    - { id: M09-05-l4, type: multiple_choice, prompt: "The intern's docs PR gets a 'gentle review' — meaning…", options: ["skip the review", "only compliments", "all nits and earned encouragement — same rigor, different temperature", "approve without reading"], answer: 2, explanation: "Rigor igual, temperatura ajustada ao autor.", tags: [comp.listening, topic.code-review] }
+    - { id: M09-05-l5, type: error_correction, prompt: "I did a comment on all three PRs.", accepted: ["I left a comment on all three PRs.", "I left a comment on all three PRs"], explanation: '"leave a comment" — "do a comment" é calque.', tags: [br.did-comment] }
+    - { id: M09-05-l6, type: multiple_choice, prompt: "'Reviewing isn't a favor — it's unblocking' means…", options: ["a queued PR blocks somebody — reviewing is part of the job", "reviews are optional", "block the PR", "favors are bad"], answer: 0, explanation: "PR parado na fila bloqueia alguém.", tags: [comp.listening, vocab.review] }
+    - { id: M09-05-l7, type: fill_blank, prompt: "All comments addressed — ___ when you can.", accepted: ["PTAL", "ptal"], explanation: "PTAL — please take another look.", tags: [vocab.review] }
+    - { id: M09-05-l8, type: multiple_choice, prompt: "Batching comments matters because…", options: ["it's faster", "GitHub requires it", "seven separate pings read as spam — one review groups them", "it hides the nits"], answer: 2, explanation: "Um review agrupado, não sete notificações.", tags: [comp.listening, vocab.review] }
+
+writing:
+  prompt: |
+    **Cenário:** a rodada de sexta acabou. O gestor pede o resumo no canal do
+    time: o que você comentou nos três PRs (com peso rotulado) e como ficou o
+    ciclo do seu próprio PR.
+
+    **Tarefa:** escreva 80–120 palavras: por PR, o ponto principal nomeado
+    pelo léxico + o peso (nit/non-blocking/blocking); depois o estado do seu
+    PR — o que foi addressed, o que você manteve e por quê, e o PTAL.
+  constraints:
+    - { label: "Léxico de review", pattern: "\\b(magic number|dead code|race condition|side effect|nit|refactor)\\b" }
+    - { label: "Peso rotulado", pattern: "\\b(blocking|non-blocking|nit)\\b" }
+    - { label: "Ciclo fechado", pattern: "\\b(good catch|addressed|i.d keep|ptal|landed)\\b" }
+    - { label: "Motivo ou contexto", pattern: "\\b(because|ordering|intentional|atomic|here.s why)\\b" }
+  rubric:
+    - Cada PR com léxico + peso
+    - "Seu PR: addressed / kept + motivo / intencional"
+    - Fecha com PTAL
+    - Tom consistente com o autor
+  model: >-
+    Friday's review round. Ana's cache PR: 86400 is a magic number — name
+    it; lines 55–70 are dead code, the flag's gone. Both non-blocking.
+    Marcos's retry PR: one blocking — the counter isn't atomic and would
+    break under concurrent writes; also non-blocking, the catch swallows
+    the error. Docs PR: gentle review, all nits. My PR: the ordering bug was
+    a good catch — addressed in 4f2a1c; the rename I kept because ordering
+    matters; the TTL is intentional. All addressed — PTAL.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.review]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos narrando a rodada de review: o que comentou em cada PR (léxico + peso) e como fechou o ciclo no seu próprio PR."
+    maxSeconds: 60
+    targetPhrases:
+      - review round
+      - magic number
+      - dead code
+      - race condition
+      - blocking
+      - non-blocking
+      - nit
+      - good catch
+      - addressed in
+      - I'd keep it
+      - here's why
+      - that's intentional
+      - PTAL
+      - the fix landed
+      - gentle review
+      - the next reader
+    checklist:
+      - Cada PR nomeado pelo léxico
+      - Peso declarado por comentário
+      - "Seu PR: addressed + kept com motivo"
+      - Fecha com PTAL
+
+quiz:
+  - { id: M09-05-q1, type: multiple_choice, prompt: "The retry PR's counter without a lock is…", options: ["a nit", "blocking — it would break under concurrent writes", "non-blocking", "dead code"], answer: 1, explanation: "Race condition real = blocking.", tags: [vocab.review] }
+  - { id: M09-05-q2, type: error_correction, prompt: "I did a comment on the cache PR.", accepted: ["I left a comment on the cache PR.", "I left a comment on the cache PR"], explanation: '"leave a comment".', tags: [br.did-comment] }
+  - { id: M09-05-q3, type: multiple_choice, prompt: "86400 without a name is…", options: ["a race condition", "a side effect", "dead code", "a magic number — name it SECONDS_PER_DAY"], answer: 3, explanation: "Literal sem nome → constante nomeada.", tags: [vocab.review] }
+  - { id: M09-05-q4, type: error_correction, prompt: "The ordering bug seems me real.", accepted: ["The ordering bug seems real to me.", "The ordering bug seems real to me"], explanation: "seems + to me.", tags: [br.seems-me] }
+  - { id: M09-05-q5, type: multiple_choice, prompt: "Responding to a wrong rename suggestion:", options: ["\"No.\"", "(silence)", "\"Whatever.\"", "\"I'd keep it — ordering matters for the sequence.\""], answer: 3, explanation: "Discordância + motivo.", tags: [vocab.review] }
+  - { id: M09-05-q6, type: translate, prompt: "Todos os comentários resolvidos — PTAL quando puder.", accepted: ["All comments addressed — PTAL when you can.", "All comments addressed — PTAL when you can", "All comments addressed — PTAL when you have a minute."], explanation: "O fecho: addressed + PTAL.", tags: [vocab.review] }
+  - { id: M09-05-q7, type: reorder, prompt: "Monte a frase: / bloqueante / contador / não é atômico / quebraria", tokens: ["Blocking:", "the", "counter", "isn't", "atomic", "—", "this", "would", "break", "under", "concurrent", "writes."], answer: "Blocking: the counter isn't atomic — this would break under concurrent writes.", explanation: "Rótulo + mecanismo + risco em would.", tags: [vocab.review] }
+  - { id: M09-05-q8, type: multiple_choice, prompt: "The intern's docs PR gets…", options: ["a blocking review", "no review", "a gentle review — all nits, earned encouragement", "a rewrite request"], answer: 2, explanation: "Mesmo rigor, temperatura ajustada.", tags: [vocab.review, topic.code-review] }
+
+review:
+  count: 6
+  preferTags: [vocab.review, br.did-comment, topic.code-review]
+
+srsCards:
+  - { front: "review round", back: "a sessão de comentários — 'three PRs in the queue'", tag: vocab.review }
+  - { front: "batch the comments", back: "um review agrupado, não sete pings", tag: vocab.review }
+  - { front: "overall", back: "o resumo que o autor lê primeiro — 'overall this looks good'", tag: vocab.review }
+  - { front: "gentle review", back: "mesmo rigor, temperatura ajustada — o PR do intern", tag: vocab.review }
+  - { front: "nice spot", back: "o agradecimento ao reviewer — 'nice spot on the ordering'", tag: vocab.review }
+  - { front: "the fix landed", back: "a correção entrou — 'landed in 4f2a1c, PTAL'", tag: vocab.review }
+  - { front: "self-review", back: "ler o próprio diff antes — pega o óbvio de graça", tag: vocab.review }
+  - { front: "to unblock", back: "PR parado bloqueia alguém — review é desbloqueio", tag: vocab.review }
+  - { front: "the next reader", back: "para quem o review escreve — 'name it for the next reader'", tag: vocab.review }
+  - { front: "ordering matters", back: "o motivo clássico de manter o código como está", tag: vocab.review }
+  - { front: "left a comment", back: "o verbo de review — nunca 'did a comment'", tag: br.did-comment }
+  - { front: "seems to me", back: "\"me parece\" vira 'seems X to me' — nunca 'seems me'", tag: br.seems-me }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
