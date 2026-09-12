@@ -1,0 +1,292 @@
+id: M16-02
+module: M16
+order: 2
+title: "Informação sob pressão: can someone confirm…, I'm seeing…"
+objective: >-
+  Ao final, você pede e dá informação na bridge sem ruído: pede
+  confirmação com dono, reporta o que vê com fonte, e lida com áudio
+  ruim sem constrangimento.
+durationMin: 35
+competencies: [SPK, LIS]
+tags: [vocab.bridge, comp.speaking, comp.listening]
+prerequisites: [M16-01]
+
+context:
+  scenario: |
+    Bridge aberta, papéis distribuídos — e agora a informação precisa
+    fluir sob pressão, com áudio picotando e quinze pessoas ouvindo.
+
+    O formato da informação na bridge é sempre **fonte + fato**:
+
+    - "**can someone confirm** the deploy is live?" — pedido com
+      verbo de certeza
+    - "**I'm seeing** 502s on the payments graph" — o que EU vejo,
+      na fonte que eu olho
+    - "**say again** / **come again**" — o pedido de repetição sem
+      cerimônia
+    - "**read back**" — repetir a ordem de volta para confirmar
+
+    A bridge não perdoa vago: "it's broken" não é informação;
+    "I'm seeing 40% errors on the payments graph" é. Cada fala
+    carrega de onde veio o dado.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend), Ana (comms lead)]
+
+vocabulary:
+  - term: "can someone confirm"
+    meaning: 'alguém confirma — o pedido de verificação aberto' 
+    example: "Can someone confirm the rollback finished?"
+    translation: "Alguém confirma que o rollback terminou?"
+    note: "Melhor com nome: 'Marcos, can you confirm…'."
+  - term: "I'm seeing"
+    meaning: 'estou vendo — o relato da sua tela, com sua fonte' 
+    example: "I'm seeing 502s spike on the payments graph."
+    translation: "Estou vendo 502s disparando no gráfico de pagamentos."
+    note: "Fonte embutida: 'on the payments graph' — onde você olha."
+  - term: "say again"
+    meaning: 'repita — o pedido direto quando o áudio falha' 
+    example: "Say again — you cut out halfway through."
+    translation: "Repita — você picotou no meio."
+    note: "Sem desculpa: 'say again' é o protocolo."
+  - term: "come again"
+    meaning: 'como é? — a versão informal do say again' 
+    example: "Come again? The audio dropped for a second."
+    translation: "Como é? O áudio caiu por um segundo."
+    note: "Mais informal — ok na bridge, evite no board."
+  - term: "you're breaking up"
+    meaning: 'sua voz está picotando — o aviso de áudio ruim' 
+    example: "You're breaking up — repeat the last part."
+    translation: "Você está picotando — repita a última parte."
+    note: "Diagnostica o áudio, não a pessoa."
+  - term: "read back"
+    meaning: 'repita de volta — confirmar a ordem ouvindo de novo' 
+    example: "Read back the command before you run it."
+    translation: "Repita o comando antes de rodar."
+    note: "Herança da aviação — a ordem só vale repetida."
+  - term: "confirm/deny"
+    meaning: 'confirma ou nega — a pergunta binária que corta dúvida' 
+    example: "Confirm or deny: is the EU region affected?"
+    translation: "Confirma ou nega: a região EU é afetada?"
+    note: "Resposta de uma palavra — sim ou não."
+  - term: "copy that"
+    meaning: 'entendido — a confirmação de uma palavra' 
+    example: "'Rolling back now.' — 'Copy that.'"
+    translation: "'Revertendo agora.' — 'Entendido.'"
+    note: "Copy / copy that / roger — a trilha de confirmações."
+  - term: "on my screen"
+    meaning: 'na minha tela — a fonte declarada do fato' 
+    example: "On my screen the error rate is flat at zero."
+    translation: "Na minha tela a taxa de erro está zerada."
+    note: "Quando duas telas divergem, a fonte importa."
+  - term: "checking / looking"
+    meaning: 'verificando — o já-volto honesto' 
+    example: "Checking — give me thirty seconds on the logs."
+    translation: "Verificando — me dê trinta segundos nos logs."
+    note: "Compre tempo com verbo, não com silêncio."
+  - term: "stand by"
+    meaning: 'aguarde — segure a pergunta, a resposta vem' 
+    example: "Stand by — pulling up the dashboard now."
+    translation: "Aguarde — abrindo o dashboard agora."
+    note: "Também aviação — 'stand by' = estou buscando."
+  - term: "negative"
+    meaning: 'não — a negativa de uma palavra, sem ruído' 
+    example: "'Is EU affected?' — 'Negative — EU is clean.'"
+    translation: "'A EU é afetada?' — 'Negativo — a EU está limpa.'"
+    note: "Negative / affirmative — o binário sem ambiguidade."
+
+grammar:
+  title: "Fato com fonte: 'I'm seeing X on Y', pergunta binária, e a ordem repetida"
+  explanation: |
+    A informação útil na bridge tem três formas:
+
+    - **Reporte com fonte:** "I'm seeing 502s **on the payments
+      graph**" — o que + onde você olha. Sem fonte, vira rumor.
+    - **Pedido binário:** "**confirm or deny** — is the EU region
+      affected?" — a pergunta que aceita uma palavra de resposta.
+    - **Confirmação repetida:** "read back the command" — a ordem
+      ouvida de novo é a ordem entendida.
+
+    Para o áudio ruim: "**you're breaking up**" (a voz picota),
+    "**you cut out**" (sumiu no meio), "**say again**" (repita).
+    Nenhum pede desculpa — na bridge, pedir repetição é procedimento,
+    não fraqueza.
+
+    E o tempo de busca: "**stand by**" ou "**checking — thirty
+    seconds**" compram silêncio produtivo.
+  examples:
+    - { en: "I'm seeing 502s on the payments graph — climbing since 14:03.", pt: "Estou vendo 502s no gráfico de pagamentos — subindo desde 14:03." }
+    - { en: "Marcos, can you confirm the rollback finished?", pt: "Marcos, você confirma que o rollback terminou?" }
+    - { en: "Confirm or deny: is the EU region affected?", pt: "Confirma ou nega: a região EU é afetada?" }
+    - { en: "Read back the command — 'kubectl rollout undo'?", pt: "Repita o comando — 'kubectl rollout undo'?" }
+    - { en: "You're breaking up — say again the last part.", pt: "Você está picotando — repita a última parte." }
+    - { en: "Stand by — pulling the logs now.", pt: "Aguarde — puxando os logs agora." }
+
+examples:
+  - en: "Can someone confirm the deploy is live? Marcos?"
+    pt: "Alguém confirma que o deploy subiu? Marcos?"
+    context: "Pedido aberto que vira pedido com nome."
+  - en: "I'm seeing elevated latency on the dashboard — p99 at 8s."
+    pt: "Estou vendo latência elevada no dashboard — p99 em 8s."
+    context: "Fato + fonte + número."
+  - en: "Say again — you cut out right at the important part."
+    pt: "Repita — você sumiu bem na parte importante."
+    context: "O pedido de repetição sem cerimônia."
+  - en: "Read back: 'kubectl rollout undo deployment/api' — correct?"
+    pt: "Repita: 'kubectl rollout undo deployment/api' — correto?"
+    context: "A ordem confirmada ouvindo de volta."
+  - en: "'Is the EU region affected?' — 'Negative, EU is clean.'"
+    pt: "'A EU é afetada?' — 'Negativo, a EU está limpa.'"
+    context: "O binário sem ambiguidade."
+  - en: "Stand by — I'm pulling up the trace now."
+    pt: "Aguarde — estou abrindo o trace agora."
+    context: "Tempo comprado com verbo."
+  - en: "On my screen the error rate is zero — can someone double-check?"
+    pt: "Na minha tela a taxa está zerada — alguém confere?"
+    context: "Fonte declarada + verificação cruzada."
+  - en: "Copy that — rolling back now, will report when done."
+    pt: "Entendido — revertendo agora, reporto quando terminar."
+    context: "Confirmação + promessa de retorno."
+
+variations:
+  - idea: '"pedindo informação"'
+    items:
+      - { register: "Boa", text: "Marcos, can you confirm the rollback finished?", adequate: true }
+      - { register: "Boa", text: "Confirm or deny: is EU affected?", adequate: true }
+      - { register: "Inadequada", text: "Does anyone know anything?", adequate: false, note: "Vazio — peça um fato específico a uma pessoa: 'Marcos, confirm the rollback'." }
+      - { register: "Inadequada", text: "Can you confirm me the status?", adequate: false, note: "'Confirm the status' ou 'tell me the status' — confirm não leva 'me'." }
+  - idea: '"áudio ruim"'
+    items:
+      - { register: "Boa", text: "You're breaking up — say again the last part.", adequate: true }
+      - { register: "Boa", text: "Come again? The call dropped for a second.", adequate: true }
+      - { register: "Inadequada", text: "Sorry sorry sorry, I can't listen you.", adequate: false, note: "'I can't hear you' — e uma desculpa basta; 'say again' é protocolo." }
+      - { register: "Inadequada", text: "(silêncio — fingir que ouviu)", adequate: false, note: "Fingir que ouviu na bridge é perigoso — 'say again' sempre." }
+
+brErrors:
+  - { wrong: "Can you confirm me the deploy is live?", right: "Can you confirm the deploy is live?", why: "confirm sem me", tag: br.confirm-me }
+  - { wrong: "I can't listen you — speak up.", right: "I can't hear you — speak up.", why: "hear you", tag: br.listen-you }
+  - { wrong: "The call fell in the middle of your sentence.", right: "The call dropped in the middle of your sentence.", why: "dropped", tag: br.call-fell }
+  - { wrong: "Stay in the line — the SME is joining.", right: "Stay on the line — the SME is joining.", why: "on the line", tag: br.in-the-line }
+  - { wrong: "Say me the error rate again.", right: "Tell me the error rate again.", why: "tell me", tag: br.confirm-me }
+  - { wrong: "In this moment I'm seeing the spike.", right: "Right now I'm seeing the spike.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The graph not show the drop.", right: "The graph doesn't show the drop.", why: "doesn't show", tag: br.it-not-works }
+  - { wrong: "It depends of which dashboard.", right: "It depends on which dashboard.", why: "depends on", tag: br.depend-of }
+  - { wrong: "I need that you check the logs.", right: "I need you to check the logs.", why: "need you to", tag: br.need-that-you }
+  - { wrong: "The latency climb on my screen.", right: "The latency climbs on my screen.", why: "climbs", tag: br.third-person-s }
+
+dialogue:
+  title: "Fatos na bridge"
+  lines:
+    - { speaker: Priya, text: "What are we seeing? Facts with sources, please." }
+    - { speaker: Yuri, text: "I'm seeing 502s on the payments graph — climbing since 14:03, now at 40%." }
+    - { speaker: Priya, text: "Marcos, can you confirm the 13:58 deploy touched the payments config?" }
+    - { speaker: Marcos, text: "Stand by — checking the diff now." }
+    - { speaker: Ana, text: "Support says mobile checkouts are fine — can someone confirm on the metrics?" }
+    - { speaker: Yuri, text: "Confirming — on my screen, mobile error rate is zero. Confirmed." }
+    - { speaker: Marcos, text: "You're breaking up, Priya — say again?" }
+    - { speaker: Priya, text: "The deploy: did it touch payments config — yes or no?" }
+    - { speaker: Marcos, text: "Confirmed — config value changed at 13:58. Read back: 'rollback the 13:58 deploy', correct?" }
+    - { speaker: Priya, text: "Correct — go ahead. Yuri, watch the graph and call the drop." }
+  notes:
+    - "cada fala tem fonte: 'on the payments graph', 'on my screen', 'support says'."
+    - "'confirm or deny', 'read back', 'stand by' — o protocolo inteiro em uso real."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Information on a bridge is source plus fact. 'I'm seeing 502s on the payments graph' — not 'it's broken'. Ask with a name attached: 'Marcos, can you confirm?' beats 'does anyone know?'. And the binary question cuts noise: 'confirm or deny — is EU affected?'" }
+    - { speaker: Marcos, text: "Bad audio has its own protocol. 'You're breaking up' diagnoses the audio, not the person. 'Say again' asks for the repeat without apology. And 'read back' — the order heard again is the order understood. We borrowed all of it from aviation, where a misheard command kills." }
+    - { speaker: Yuri, text: "Buying time is a verb: 'stand by', 'checking — thirty seconds'. Silence on a bridge reads as a dropped call, so you announce the lookup. And when screens disagree, the source settles it: 'on my screen it's zero — can someone double-check?'" }
+  questions:
+    - { id: M16-02-l1, type: multiple_choice, prompt: "A good report on the bridge is…", options: ["'it's broken'", "source + fact — 'I'm seeing 502s on the payments graph'", "a theory about the cause", "an apology"], answer: 1, explanation: "O quê + onde você olha.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-02-l2, type: multiple_choice, prompt: "'Read back the command' exists because…", options: ["the scribe needs notes", "people like rituals", "it slows things down", "the order heard again is the order understood"], answer: 3, explanation: "Herança da aviação — ordem repetida é ordem entendida.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-02-l3, type: fill_blank, prompt: "You're ___ up — say again the last part.", accepted: ["breaking"], explanation: '"breaking up" — o áudio picotando.', tags: [vocab.bridge] }
+    - { id: M16-02-l4, type: error_correction, prompt: "I can't listen you — the audio is bad.", accepted: ["I can't hear you — the audio is bad.", "I can't hear you — the audio is bad"], explanation: "hear you.", tags: [br.listen-you] }
+    - { id: M16-02-l5, type: multiple_choice, prompt: "'Stand by — pulling the logs' does what silence can't:", options: ["fills the awkward gap", "announces the lookup — silence reads as a dropped call", "impresses the IC", "buys time for the scribe"], answer: 1, explanation: "Silêncio na bridge parece queda.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-02-l6, type: multiple_choice, prompt: "'Confirm or deny' works because it…", options: ["sounds military", "is polite", "accepts a one-word answer — no room for hedging", "blames quickly"], answer: 2, explanation: "Pergunta binária corta ruído.", tags: [comp.listening, vocab.bridge] }
+
+writing:
+  prompt: |
+    **Cenário:** o scribe (você) registra na thread o que a bridge
+    levantou nos primeiros dez minutos.
+
+    **Tarefa:** escreva 60–90 palavras com os fatos e as confirmações:
+    o que cada pessoa viu e em qual fonte, o que foi confirmado, o que
+    ainda é suspeita e quem está verificando o quê agora.
+  constraints:
+    - { label: "Fato com fonte", pattern: "\\b(seeing|on the|graph|dashboard|screen|logs)\\b" }
+    - { label: "Confirmado × suspeita", pattern: "\\b(confirmed|denied|suspect|unconfirmed|prime)\\b" }
+    - { label: "Quem verifica o quê", pattern: "\\b(marcos|priya|ana|checking|stand by|looking)\\b" }
+    - { label: "Números", pattern: "\\b(\\d+%|40%|502|p99|\\d{2}:\\d{2})\\b" }
+  rubric:
+    - "Todo fato com fonte"
+    - "Confirmado separado de suspeita"
+    - "Quem verifica o quê"
+    - "Sem calques"
+  model: >-
+    Facts so far: Yuri sees 502s on the payments graph — climbing
+    since 14:03, now at 40%. Mobile is confirmed clean — error rate
+    zero on the mobile dashboard. The 13:58 deploy is the prime
+    suspect: Marcos confirmed it touched the payments config; a
+    config value changed. Still unconfirmed: whether the value alone
+    explains the 502s. Marcos is checking the diff; Priya is deciding
+    on the rollback.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.bridge]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos como IC pedindo e organizando informação: uma pergunta com nome, uma pergunta binária, um pedido de repetição e um 'stand by' com tempo."
+    maxSeconds: 45
+    targetPhrases:
+      - can someone confirm
+      - can you confirm
+      - i'm seeing
+      - on the payments graph
+      - confirm or deny
+      - say again
+      - you're breaking up
+      - read back
+      - copy that
+      - stand by
+      - on my screen
+      - negative
+      - checking
+      - what are we seeing
+      - facts with sources
+      - you cut out
+    checklist:
+      - "Pedido com nome ('Marcos, can you confirm')"
+      - "Pergunta binária ('confirm or deny')"
+      - "Repetição sem cerimônia ('say again')"
+      - "Fonte declarada em cada fato"
+
+quiz:
+  - { id: M16-02-q1, type: multiple_choice, prompt: "The strongest way to ask on a bridge is…", options: ["'Marcos, can you confirm the rollback finished?'", "'does anyone know the status?'", "'maybe someone should check?'", "'what's going on??'"], answer: 0, explanation: "Nome + verbo de certeza.", tags: [vocab.bridge] }
+  - { id: M16-02-q2, type: error_correction, prompt: "Can you confirm me the EU region is clean?", accepted: ["Can you confirm the EU region is clean?", "Can you confirm the EU region is clean", "Can you confirm to me the EU region is clean?"], explanation: "confirm sem me.", tags: [br.confirm-me] }
+  - { id: M16-02-q3, type: multiple_choice, prompt: "'I'm seeing 502s on the payments graph' works because it has…", options: ["a cause and a fix", "source and fact — what you see and where", "an apology and an ETA", "a theory"], answer: 1, explanation: "Fato com fonte declarada.", tags: [vocab.bridge] }
+  - { id: M16-02-q4, type: fill_blank, prompt: "Read ___ the command before you run it.", accepted: ["back"], explanation: '"read back" — a ordem ouvida de novo.', tags: [vocab.bridge] }
+  - { id: M16-02-q5, type: error_correction, prompt: "The call fell right when she was talking.", accepted: ["The call dropped right when she was talking.", "The call dropped right when she was talking"], explanation: "dropped.", tags: [br.call-fell] }
+  - { id: M16-02-q6, type: translate, prompt: "Confirma ou nega: a região EU é afetada?", accepted: ["Confirm or deny: is the EU region affected?", "Confirm or deny — is the EU region affected?"], explanation: '"confirm or deny" — a pergunta binária.', tags: [vocab.bridge] }
+  - { id: M16-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["up", "breaking", "you're", "again", "say"], answer: "you're breaking up say again", explanation: '"you''re breaking up" + "say again".', tags: [vocab.bridge] }
+  - { id: M16-02-q8, type: multiple_choice, prompt: "When two dashboards disagree, the bridge settles it with…", options: ["the loudest voice", "the newest graph", "the declared source — 'on my screen it's zero, double-check'", "a vote"], answer: 2, explanation: "A fonte declarada resolve.", tags: [vocab.bridge] }
+
+srsCards:
+  - { front: "can someone confirm", back: "Pedido de verificação — melhor com nome.", tag: vocab.bridge }
+  - { front: "I'm seeing", back: "Fato + fonte: 'on the payments graph'.", tag: vocab.bridge }
+  - { front: "say again", back: "Repita — protocolo, não fraqueza.", tag: vocab.bridge }
+  - { front: "you're breaking up", back: "O áudio picota — diagnóstico do áudio.", tag: vocab.bridge }
+  - { front: "read back", back: "Repita a ordem — herança da aviação.", tag: vocab.bridge }
+  - { front: "confirm or deny", back: "A pergunta binária que corta ruído.", tag: vocab.bridge }
+  - { front: "copy that", back: "Entendido — a confirmação de uma palavra.", tag: vocab.bridge }
+  - { front: "on my screen", back: "A fonte declarada quando telas divergem.", tag: vocab.bridge }
+  - { front: "stand by", back: "Aguarde — silêncio na bridge parece queda.", tag: vocab.bridge }
+  - { front: "negative", back: "Não — o binário sem ambiguidade.", tag: vocab.bridge }
+  - { front: "you cut out", back: "Sumiu no meio — 'you cut out halfway'.", tag: vocab.bridge }
+
+review:
+  preferTags: [vocab.bridge, br.confirm-me, br.listen-you]
+  notes: "Revisão prioriza fato com fonte, pergunta binária e os calques de áudio."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
