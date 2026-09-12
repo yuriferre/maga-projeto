@@ -1,0 +1,296 @@
+id: M13-01
+module: M13
+order: 1
+title: "E-mail profissional: assunto, abertura, corpo, fechamento; formal × neutro"
+objective: >-
+  Ao final, você escreve um e-mail completo que não soa traduzido:
+  assunto que carrega o pedido, abertura com contexto em uma linha, corpo
+  em parágrafos curtos, fecho com ação clara — e sabe quando "Hi all,
+  quick note" vence "Dear Sir or Madam".
+durationMin: 35
+competencies: [WRI, VOC]
+tags: [vocab.email-docs, gram.formal-register, comp.writing]
+prerequisites: [M03-05, M06-05]
+
+context:
+  scenario: |
+    O storage subiu 40% na conta e a Priya pede um e-mail formal para o
+    financeiro — com cópia para o gestor. É o primeiro e-mail "sério" do
+    módulo: nem chat, nem bilhete.
+
+    A anatomia tem quatro partes, e cada uma carrega uma decisão:
+
+    - **assunto** — o pedido já aparece aqui: "Cost review: storage up
+      40% — approval needed" (não "Important" nem "Question")
+    - **abertura** — contexto em uma linha: "Following up on the storage
+      spike from last week" (não "I hope this email finds you well"
+      quando você pode ir direto)
+    - **corpo** — um parágrafo por ideia, fatos antes do pedido
+    - **fecho** — ação + prazo + assinatura: "Could you approve by
+      Friday? Best regards, Yuri"
+
+    Formal × neutro: "Dear Mr. Santos" existe, mas dentro da empresa o
+    neutro ("Hi Priya") é o padrão — formal demais soa traduzido,
+    informal demais soa relaxado.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "subject line"
+    meaning: a linha de assunto — o pedido já aqui
+    example: "Subject: 'Cost review: storage up 40% — approval needed by Friday'"
+    translation: "Assunto: 'Revisão de custo: storage +40% — aprovação até sexta'"
+    note: "Tema + ação + prazo — nunca só 'Important'."
+  - term: "following up on"
+    meaning: retomando — a abertura que dá contexto
+    example: "Following up on the storage spike from last week's review."
+    translation: "Retomando o pico de storage da revisão da semana passada."
+    note: "Uma linha de contexto — depois, direto ao ponto."
+  - term: "to loop in"
+    meaning: incluir — colocar alguém na conversa
+    example: "Looping in Marcos — he owns the storage bucket."
+    translation: "Incluindo o Marcos — ele é dono do bucket."
+    note: '"Looping in X" — o CC explicado no corpo.'
+  - term: "action items"
+    meaning: os itens de ação — quem faz o quê
+    example: "Action items: Marcos rightsizes the bucket; I send the new estimate."
+    translation: "Itens de ação: Marcos dimensiona o bucket; eu mando a nova estimativa."
+    note: "Lista no fim do e-mail — dono + tarefa."
+  - term: "by EOD Friday"
+    meaning: até sexta, fim do dia — o prazo no fecho
+    example: "Could you approve by EOD Friday? The invoice closes Monday."
+    translation: "Pode aprovar até sexta fim do dia? A fatura fecha segunda."
+    note: "EOD = end of day — o prazo vai no pedido, não na despedida."
+  - term: "please see attached"
+    meaning: veja em anexo — o anexo formal
+    example: "Please see the attached cost breakdown."
+    translation: "Veja o detalhamento de custo em anexo."
+    note: '"Attached", nunca "in attachment" — o calque do módulo.'
+  - term: "best regards"
+    meaning: a assinatura neutra-formal
+    example: "Best regards, Yuri — Platform Engineering."
+    translation: "Atenciosamente, Yuri — Platform Engineering."
+    note: '"Best regards" — nunca "best regrets" (arrependimentos).'
+  - term: "I look forward to"
+    meaning: aguardo — o retorno esperado
+    example: "I look forward to your approval."
+    translation: "Aguardo sua aprovação."
+    note: '"Aguardo retorno" vira "I look forward to" — nunca "I wait".'
+  - term: "as discussed"
+    meaning: como conversado — referência à decisão anterior
+    example: "As discussed in the review, the bucket needs a lifecycle rule."
+    translation: "Como conversado na revisão, o bucket precisa de regra de lifecycle."
+    note: "Ancora o e-mail na conversa — sem reexplicar."
+  - term: "cc'd"
+    meaning: em cópia — quem recebe para saber
+    example: "I've cc'd Priya for visibility — no action needed from her."
+    translation: "Coloquei a Priya em cópia para visibilidade — sem ação dela."
+    note: '"Cc''d" — nunca "in copy".'
+  - term: "a heads-up"
+    meaning: um aviso prévio — o e-mail de antecipação
+    example: "Quick heads-up: the invoice closes Monday, so approval can't slip."
+    translation: "Um aviso rápido: a fatura fecha segunda, a aprovação não pode escorregar."
+    note: "O e-mail que existe só para avisar."
+  - term: "to flag"
+    meaning: sinalizar — apontar algo que precisa de atenção
+    example: "Flagging this early: storage will hit the budget cap in June."
+    translation: "Sinalizando cedo: o storage vai bater o teto do orçamento em junho."
+    note: '"Thanks for flagging" — a resposta padrão.'
+
+grammar:
+  title: "Formal × neutro: o registro certo para a distância"
+  explanation: |
+    O registro escolhe pela distância, não pela formalidade em si:
+
+    | registro | abertura | fecho | quando |
+    |---|---|---|---|
+    | formal | "Dear Ms. Santos," | "Sincerely," | fora da empresa, jurídico, primeiro contato |
+    | neutro | "Hi Priya," | "Best regards," | o padrão interno — 90% dos e-mails |
+    | informal | "Hey Marcos," | "Thanks! / — Yuri" | time próximo, chat-like |
+
+    O que soa traduzido (calques do português corporativo):
+    - "I hope this email finds you well" — existe, mas dentro da empresa
+      soa cerimonioso; vá direto: "Quick question on the invoice."
+    - "I wait your reply" → "**I look forward to your reply**"
+    - "please find in attachment" → "**please see attached**"
+    - "best regrets" → "**best regards**"
+    - "sorry for late" → "**sorry for the delay**"
+
+    Regra de ouro: fatos → pedido → prazo. O leitor deve saber o que você
+    quer na primeira frase do corpo.
+  examples:
+    - { en: "Hi team — following up on the storage spike; the invoice closes Monday, so I'd like approval by Friday.", pt: "Oi time — retomando o pico de storage; a fatura fecha segunda, então gostaria da aprovação até sexta." }
+    - { en: "Dear Ms. Santos, I'm writing about the contract renewal attached.", pt: "Prezada Sra. Santos, escrevo sobre a renovação de contrato em anexo." }
+    - { en: "Quick heads-up: storage hits the budget cap in June — flagging early.", pt: "Aviso rápido: o storage bate o teto do orçamento em junho — sinalizando cedo." }
+    - { en: "Looping in Marcos, who owns the bucket — action items at the bottom.", pt: "Incluindo o Marcos, dono do bucket — itens de ação no final." }
+    - { en: "Please see the attached breakdown — happy to walk through the numbers.", pt: "Veja o detalhamento em anexo — posso passar pelos números." }
+    - { en: "I look forward to your sign-off. Best regards, Yuri.", pt: "Aguardo seu aval. Atenciosamente, Yuri." }
+
+examples:
+  - en: "Subject: 'Cost review: storage +40% — approval needed by Friday' — the ask is in the subject."
+    pt: "Assunto: 'Revisão de custo: storage +40% — aprovação até sexta' — o pedido já está no assunto."
+    context: "Assunto = tema + ação + prazo."
+  - en: "Hi Priya — following up on last week's review: storage came in 40% over."
+    pt: "Oi Priya — retomando a revisão da semana passada: o storage veio 40% acima."
+    context: "Abertura neutra + contexto em uma linha."
+  - en: "The spike is the artifact bucket — it kept every build since March."
+    pt: "O pico é o bucket de artefatos — guardou todos os builds desde março."
+    context: "Corpo: um parágrafo, um fato."
+  - en: "Looping in Marcos — he owns the bucket and already drafted the lifecycle rule."
+    pt: "Incluindo o Marcos — ele é dono do bucket e já rascunhou a regra."
+    context: "CC explicado no corpo."
+  - en: "Could you approve the cleanup by EOD Friday? The invoice closes Monday."
+    pt: "Pode aprovar a limpeza até sexta fim do dia? A fatura fecha segunda."
+    context: "Pedido + prazo — a pergunta do e-mail."
+  - en: "Please see the attached cost breakdown — the delta is all artifact storage."
+    pt: "Veja o detalhamento em anexo — o delta é todo de artefatos."
+    context: "Anexo referenciado com 'attached'."
+  - en: "I look forward to your sign-off — happy to walk through the numbers."
+    pt: "Aguardo seu aval — posso passar pelos números."
+    context: "O fecho antes da assinatura."
+  - en: "Best regards, Yuri — Platform Engineering."
+    pt: "Atenciosamente, Yuri — Platform Engineering."
+    context: "A assinatura neutra-formal."
+
+variations:
+  - idea: '"o assunto que carrega o pedido"'
+    items:
+      - { register: "Boa", text: "Subject: 'Storage +40% — approval needed by Friday'", adequate: true }
+      - { register: "Boa", text: "Subject: 'Action needed: bucket cleanup before Monday's invoice'", adequate: true }
+      - { register: "Inadequada", text: "Subject: 'Important'", adequate: false, note: "Vazio — o assunto diz tema + ação + prazo, não a urgência abstrata." }
+      - { register: "Inadequada", text: "Subject: 'Hi'", adequate: false, note: "Sem conteúdo — o leitor não sabe por que abrir." }
+  - idea: '"formal × neutro"'
+    items:
+      - { register: "Boa", text: "'Hi Priya — quick question on the invoice.' (neutro, interno)", adequate: true }
+      - { register: "Boa", text: "'Dear Ms. Santos — I'm writing about the contract renewal.' (formal, externo)", adequate: true }
+      - { register: "Inadequada", text: "'Dear Sir or Madam' para a tech lead do seu time", adequate: false, note: "Formal demais soa traduzido — interno é 'Hi Priya'." }
+      - { register: "Inadequada", text: "'Heyyy' para o financeiro", adequate: false, note: "Informal demais para fora do time — o neutro é o piso." }
+
+brErrors:
+  - { wrong: "Please find the report in attachment.", right: "Please find the report attached.", why: '"attached", não "in attachment"', tag: br.in-attachment }
+  - { wrong: "Best regrets, Yuri", right: "Best regards, Yuri", why: "regards ≠ regrets", tag: br.best-regrets }
+  - { wrong: "I wait your reply to proceed.", right: "I look forward to your reply.", why: '"I look forward to" / "I await"', tag: br.i-wait-reply }
+  - { wrong: "Sorry for late — the review ran over.", right: "Sorry for the delay — the review ran over.", why: "sorry for the delay", tag: br.sorry-for-late }
+  - { wrong: "Can you send to me the breakdown?", right: "Can you send me the breakdown?", why: "send me / send it to me", tag: br.send-to-me }
+  - { wrong: "I have a doubt about the invoice.", right: "I have a question about the invoice.", why: "question, não doubt", tag: br.doubt }
+  - { wrong: "I need that you approve by Friday.", right: "I need you to approve by Friday.", why: "need + you + to", tag: br.need-that-you }
+  - { wrong: "The invoice is more big than expected.", right: "The invoice is bigger than expected.", why: "big leva -er", tag: br.more-er }
+  - { wrong: "I'm waiting the approval since Monday.", right: "I've been waiting for the approval since Monday.", why: "waiting for + present perfect", tag: br.waiting-no-prep }
+  - { wrong: "Ask to Marcos about the bucket.", right: "Ask Marcos about the bucket.", why: "ask + pessoa, sem to", tag: br.ask-to }
+
+dialogue:
+  title: "Revisando o e-mail do financeiro"
+  lines:
+    - { speaker: Priya, text: "Draft me the e-mail to finance about the storage spike — I'll review before you send." }
+    - { speaker: Yuri, text: "Subject: 'Cost review: storage +40% — approval needed by Friday'. The ask is already in the subject." }
+    - { speaker: Priya, text: "Good. Opening line?" }
+    - { speaker: Yuri, text: "'Hi Carla — following up on the storage spike from last week's review.' One line of context, then the facts." }
+    - { speaker: Priya, text: "And the body?" }
+    - { speaker: Yuri, text: "One paragraph: the artifact bucket kept every build since March — that's the whole delta. Then I'm looping in Marcos, who owns the bucket." }
+    - { speaker: Priya, text: "The ask?" }
+    - { speaker: Yuri, text: "'Could you approve the bucket cleanup by EOD Friday? The invoice closes Monday.' — ask plus deadline." }
+    - { speaker: Priya, text: "Attachment?" }
+    - { speaker: Yuri, text: "'Please see the attached cost breakdown' — and the close: 'I look forward to your sign-off. Best regards, Yuri.'" }
+    - { speaker: Priya, text: "Clean. Send it — and next time, flag the spike before the invoice lands." }
+  notes:
+    - "o e-mail inteiro em 9 falas — assunto, contexto, fato, CC, pedido+prazo, anexo, fecho."
+    - "repare que nada soa traduzido: 'following up on', 'looping in', 'please see attached'."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "An e-mail has four parts, and each carries one decision. The subject carries the ask — 'Cost review: approval needed by Friday'. The opening carries one line of context. The body is one paragraph per fact. The close is the action plus the deadline." }
+    - { speaker: Marcos, text: "Register is about distance, not ceremony. 'Dear Mr. Santos' is for outside the company; inside, 'Hi Priya' is the standard. Too formal sounds translated — 'I hope this e-mail finds you well' in an internal thread reads like a form letter." }
+    - { speaker: Yuri, text: "The tells of translation are the same four: 'I wait your reply' for 'I look forward to your reply', 'in attachment' for 'attached', 'best regrets' for 'best regards', 'sorry for late' for 'sorry for the delay'." }
+    - { speaker: Priya, text: "And the golden rule: facts, then ask, then deadline. The reader knows what you want by the first sentence of the body — everything after that is just evidence." }
+  questions:
+    - { id: M13-01-l1, type: multiple_choice, prompt: "The subject line should carry…", options: ["just the topic", "a greeting", "topic + action + deadline — 'approval needed by Friday'", "the whole e-mail"], answer: 2, explanation: "O pedido já está no assunto.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-01-l2, type: multiple_choice, prompt: "Inside the company, the default opening is…", options: ["'Dear Sir or Madam'", "'Hi Priya' — neutral, direct", "'Heyyy'", "'To whom it may concern'"], answer: 1, explanation: "Neutro é o padrão interno.", tags: [comp.listening, gram.formal-register] }
+    - { id: M13-01-l3, type: fill_blank, prompt: "Please see the ___ cost breakdown.", accepted: ["attached"], explanation: '"attached" — nunca "in attachment".', tags: [br.in-attachment, vocab.email-docs] }
+    - { id: M13-01-l4, type: error_correction, prompt: "I wait your reply to proceed.", accepted: ["I look forward to your reply to proceed.", "I look forward to your reply to proceed", "I await your reply to proceed.", "I'll wait for your reply to proceed."], explanation: '"I look forward to" / "I await" / "wait for".', tags: [br.i-wait-reply] }
+    - { id: M13-01-l5, type: multiple_choice, prompt: "The golden rule of the body is…", options: ["greeting, small talk, then the ask", "the ask first, then apologize", "facts, then the ask, then the deadline — the reader knows by sentence one", "everything in one long paragraph"], answer: 2, explanation: "Fatos → pedido → prazo.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-01-l6, type: multiple_choice, prompt: "Which closing is correct?", options: ["'Best regrets,'", "'Sorry for late,'", "'I wait your approval,'", "'I look forward to your sign-off. Best regards,'"], answer: 3, explanation: "Os quatro calques numa questão só.", tags: [comp.listening, br.best-regrets] }
+
+writing:
+  prompt: |
+    **Cenário:** escreva o e-mail para o financeiro sobre o pico de
+    storage — para Carla, com cópia para a Priya.
+
+    **Tarefa:** 80–120 palavras com a anatomia completa: assunto com
+    tema+ação+prazo, abertura de contexto, um fato (o bucket de
+    artefatos), CC explicado, pedido com prazo e fecho formal-neutro.
+  constraints:
+    - { label: "Assunto e abertura", pattern: "\\b(subject|hi |following up|heads.?up)\\b" }
+    - { label: "Contexto e fato", pattern: "\\b(storage|bucket|spike|artifact|invoice|40%)\\b" }
+    - { label: "Pedido + prazo", pattern: "\\b(approve|approval|by (eod|friday)|deadline|sign.?off)\\b" }
+    - { label: "Fecho formal-neutro", pattern: "\\b(look forward|best regards|kind regards|attached|cc)\\b" }
+  rubric:
+    - "Assunto com tema + ação + prazo"
+    - "Um parágrafo por ideia"
+    - "Pedido com prazo explícito"
+    - "Sem calques (attached, regards, look forward)"
+  model: >-
+    Subject: 'Cost review: storage +40% — approval needed by Friday'.
+    Hi Carla — following up on the storage spike from last week's review.
+    The delta is the artifact bucket: it kept every build since March, so
+    storage came in 40% over. I've cc'd Priya for visibility; Marcos,
+    who owns the bucket, has drafted the lifecycle rule. Could you
+    approve the cleanup by EOD Friday? The invoice closes Monday. Please
+    see the attached cost breakdown — happy to walk through the numbers.
+    I look forward to your sign-off. Best regards, Yuri — Platform
+    Engineering.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.email-docs]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos lendo em voz alta a estrutura do e-mail que você escreveria: o assunto, a abertura, o pedido com prazo e o fecho."
+    maxSeconds: 45
+    targetPhrases:
+      - following up on
+      - please see attached
+      - looping in
+      - approval needed by Friday
+      - I look forward to
+      - best regards
+      - as discussed
+      - cc'd
+      - action items
+      - heads-up
+      - sign-off
+      - flagging this early
+    checklist:
+      - Assunto com ação + prazo
+      - Abertura direta
+      - Pedido + prazo explícitos
+      - Fecho neutro-formal correto
+
+quiz:
+  - { id: M13-01-q1, type: multiple_choice, prompt: "The best subject line is…", options: ["'Storage +40% — approval needed by Friday'", "'Important'", "'Question'", "'Hi team'"], answer: 0, explanation: "Tema + ação + prazo.", tags: [vocab.email-docs] }
+  - { id: M13-01-q2, type: error_correction, prompt: "Best regrets, Yuri", accepted: ["Best regards, Yuri", "Kind regards, Yuri", "Best regards, Yuri."], explanation: "regards ≠ regrets.", tags: [br.best-regrets] }
+  - { id: M13-01-q3, type: multiple_choice, prompt: "Inside the company, the default register is…", options: ["formal — 'Dear Mr.'", "informal — 'Hey'", "no greeting", "neutral — 'Hi Priya'"], answer: 3, explanation: "Neutro = o padrão interno.", tags: [gram.formal-register, vocab.email-docs] }
+  - { id: M13-01-q4, type: fill_blank, prompt: "I'm ___ in Marcos — he owns the bucket.", accepted: ["looping"], explanation: '"Looping in X" — o CC explicado.', tags: [vocab.email-docs] }
+  - { id: M13-01-q5, type: error_correction, prompt: "Sorry for late — the review ran over.", accepted: ["Sorry for the delay — the review ran over.", "Sorry I'm late — the review ran over.", "Sorry for the delay — the review ran over"], explanation: "sorry for the delay / sorry I'm late.", tags: [br.sorry-for-late] }
+  - { id: M13-01-q6, type: translate, prompt: "Veja o detalhamento de custo em anexo — posso passar pelos números.", accepted: ["Please see the attached cost breakdown — happy to walk through the numbers.", "Please see the attached cost breakdown — I'm happy to walk through the numbers."], explanation: '"see attached" — o anexo sem calque.', tags: [vocab.email-docs, br.in-attachment] }
+  - { id: M13-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["forward", "your", "look", "to", "i", "sign-off"], answer: "i look forward to your sign-off", explanation: '"I look forward to" — o "aguardo" correto.', tags: [vocab.email-docs, br.i-wait-reply] }
+  - { id: M13-01-q8, type: multiple_choice, prompt: "The close of the e-mail carries…", options: ["just the signature", "a new topic", "the action + the deadline, then the sign-off", "a summary of everything"], answer: 2, explanation: "Ação + prazo + assinatura.", tags: [vocab.email-docs] }
+
+srsCards:
+  - { front: "subject line", back: "Tema + ação + prazo — 'approval needed by Friday'.", tag: vocab.email-docs }
+  - { front: "following up on", back: "A abertura de contexto — uma linha só.", tag: vocab.email-docs }
+  - { front: "looping in", back: "Incluir alguém na conversa — o CC explicado.", tag: vocab.email-docs }
+  - { front: "please see attached", back: "O anexo — nunca 'in attachment'.", tag: vocab.email-docs }
+  - { front: "I look forward to", back: "O 'aguardo retorno' correto.", tag: vocab.email-docs }
+  - { front: "best regards", back: "A assinatura neutra-formal — nunca 'regrets'.", tag: vocab.email-docs }
+  - { front: "cc'd", back: "Em cópia — nunca 'in copy'.", tag: vocab.email-docs }
+  - { front: "heads-up", back: "O aviso prévio — 'flagging this early'.", tag: vocab.email-docs }
+  - { front: "as discussed", back: "Ancora na conversa — 'as discussed in the review'.", tag: vocab.email-docs }
+  - { front: "to flag", back: "Sinalizar cedo — 'thanks for flagging'.", tag: vocab.email-docs }
+
+review:
+  preferTags: [vocab.email-docs, br.in-attachment, br.best-regrets]
+  notes: "Revisão prioriza o registro de e-mail e os calques do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
