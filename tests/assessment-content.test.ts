@@ -500,3 +500,37 @@ describe("M14 assessment variants", () => {
     expect(checkExercise(q, "She told me egress is more cheap than ingress at our volume.").correct).toBe(false);
   });
 });
+
+describe("M15 assessment variants", () => {
+  const m15 = bundle.moduleAssessments["M15"]!;
+  it("requires 'right now' and 'doesn't work'", () => {
+    const q = m15.items.find((q) => q.id === "M15-A02")!;
+    expect(checkExercise(q, "Right now it doesn't work for EU users.").correct).toBe(true);
+    expect(checkExercise(q, "In this moment it doesn't work for EU users.").correct).toBe(false);
+    expect(checkExercise(q, "Right now it not works for EU users.").correct).toBe(false);
+  });
+  it("requires 'your patience' and 'recovered'", () => {
+    const q = m15.items.find((q) => q.id === "M15-A04")!;
+    expect(checkExercise(q, "Thanks for your patience — the service recovered overnight.").correct).toBe(true);
+    expect(checkExercise(q, "Thanks for the patience — the service recovered overnight.").correct).toBe(false);
+    expect(checkExercise(q, "Thanks for your patience — the service normalized overnight.").correct).toBe(false);
+  });
+  it("requires 'by Friday' and 'as soon as'", () => {
+    const q = m15.items.find((q) => q.id === "M15-A06")!;
+    expect(checkExercise(q, "The post-mortem arrives by Friday — we reply as soon as possible.").correct).toBe(true);
+    expect(checkExercise(q, "The post-mortem arrives until Friday — we reply as soon as possible.").correct).toBe(false);
+    expect(checkExercise(q, "The post-mortem arrives by Friday — we reply as soon possible.").correct).toBe(false);
+  });
+  it("requires both fixes on A11", () => {
+    const q = m15.items.find((q) => q.id === "M15-A11")!;
+    expect(checkExercise(q, "Right now the API has recovered for most users.").correct).toBe(true);
+    expect(checkExercise(q, "In this moment the API has recovered for most users.").correct).toBe(false);
+    expect(checkExercise(q, "Right now the API normalized for most users.").correct).toBe(false);
+  });
+  it("requires 'your patience' and 'as soon as' on A13", () => {
+    const q = m15.items.find((q) => q.id === "M15-A13")!;
+    expect(checkExercise(q, "Thanks for your patience — we'll post news as soon as possible.").correct).toBe(true);
+    expect(checkExercise(q, "Thanks for the patience — we'll post news as soon as possible.").correct).toBe(false);
+    expect(checkExercise(q, "Thanks for your patience — we'll post news as soon possible.").correct).toBe(false);
+  });
+});
