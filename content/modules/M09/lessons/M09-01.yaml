@@ -1,0 +1,292 @@
+id: M09-01
+module: M09
+order: 1
+title: "Sugerindo sem impor: consider, what do you think about, nit:"
+objective: >-
+  Ao final, você sugere mudanças num review sem soar mandão — "consider…",
+  "what do you think about…", "nit:" para detalhes — e marca o que é
+  non-blocking para não travar o PR à toa.
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.review, topic.code-review, comp.writing, comp.reading, br.seems-me, br.according-to-me]
+prerequisites: [M06-05]
+
+context:
+  scenario: |
+    Review é escrita assíncrona sem tom de voz — "change this" lê como ordem,
+    mesmo quando a intenção era sugestão. O vocabulário de sugestão existe
+    justamente para isso: **consider** ("consider extracting this"),
+    **what do you think about** ("what do you think about a helper?"),
+    **nit:** para o detalhe cosmético, e **non-blocking** para o que não
+    precisa travar o merge.
+
+    A pergunta retórica é a arma do bom reviewer: transforma ordem em
+    convite — "could we name this after what it returns?" em vez de "rename
+    this". O autor decide; você aponta a direção.
+  roles: [Yuri (platform engineer, reviewer), Marcos (backend, autor do PR), Ana (SRE)]
+
+vocabulary:
+  - term: "consider + -ing"
+    meaning: considere — a sugestão aberta
+    example: "Consider extracting this into a helper — it's used three times."
+    translation: "Considere extrair isso para um helper — é usado três vezes."
+    note: '"consider extracting" (gerúndio) — nunca "consider to extract".'
+  - term: "what do you think about"
+    meaning: o que você acha de — convida em vez de mandar
+    example: "What do you think about moving this check into the pipeline?"
+    translation: "O que você acha de mover essa verificação para o pipeline?"
+    note: "A pergunta transforma a sugestão em decisão do autor."
+  - term: "nit:"
+    meaning: detalhe cosmético — o prefixo que diz "só se quiser"
+    example: "nit: extra blank line here."
+    translation: "nit: linha em branco a mais aqui."
+    note: "nitpick — o autor pode ignorar sem responder."
+  - term: "non-blocking"
+    meaning: não trava o merge — sugestão sem exigência
+    example: "Non-blocking: this could be a map, but fine as is."
+    translation: "Sem bloqueio: isso poderia ser um map, mas está ok assim."
+    note: "Declara explicitamente que o merge não depende disso."
+  - term: "suggestion"
+    meaning: sugestão — o rótulo do comentário opcional
+    example: "suggestion: rename `data` to `podList` for clarity."
+    translation: "sugestão: renomear `data` para `podList` por clareza."
+    note: "Convenção de alguns times, como o 'nit:'."
+  - term: "could we"
+    meaning: poderíamos — a forma interrogativa de sugerir
+    example: "Could we extract the retry logic into its own function?"
+    translation: "Poderíamos extrair a lógica de retry para uma função própria?"
+    note: '"could we X" soa como time decidindo junto.'
+  - term: "it might be worth"
+    meaning: pode valer a pena — sugestão com hedge
+    example: "It might be worth caching this — it runs on every request."
+    translation: "Pode valer a pena cachear isso — roda a cada request."
+    note: '"worth" nunca é verbo: it''s worth X / worth doing.'
+  - term: "up to you"
+    meaning: você decide — entrega a decisão ao autor
+    example: "I'd extract it, but up to you."
+    translation: "Eu extrairia, mas você decide."
+    note: "O fecho que tira o peso da sugestão."
+  - term: "a small thing"
+    meaning: uma coisinha — minimiza o tamanho do pedido
+    example: "A small thing: the comment says 'rety' — 'retry'."
+    translation: "Uma coisinha: o comentário diz \"rety\" — \"retry\"."
+    note: "Diminutivo honesto para typos e detalhes."
+  - term: "for readability"
+    meaning: por legibilidade — a justificativa padrão de estilo
+    example: "Consider a guard clause here, for readability."
+    translation: "Considere uma guard clause aqui, por legibilidade."
+    note: "Justifica o nit com o motivo, não com gosto."
+  - term: "guard clause"
+    meaning: retorno antecipado que reduz aninhamento
+    example: "A guard clause for the empty case would flatten this."
+    translation: "Uma guard clause para o caso vazio achataria isso."
+    note: "Vocabulário de review: early return no topo da função."
+  - term: "to my eye"
+    meaning: aos meus olhos — hedge de percepção
+    example: "To my eye this reads as two responsibilities — could we split it?"
+    translation: "Aos meus olhos isso lê como duas responsabilidades — poderíamos dividir?"
+    note: "Hedge que admite: posso estar errado."
+  - term: "not a big deal"
+    meaning: não é grande coisa — desdramatiza o pedido
+    example: "Not a big deal, but the test name could say what breaks."
+    translation: "Não é grande coisa, mas o nome do teste poderia dizer o que quebra."
+    note: "Desdramatiza sem perder o ponto."
+  - term: "feel free to ignore"
+    meaning: sinta-se livre para ignorar — o máximo do non-blocking
+    example: "Feel free to ignore — personal preference for early returns."
+    translation: "Sinta-se livre para ignorar — preferência pessoal por early returns."
+    note: "Quando a sugestão é gosto, diga que é gosto."
+
+grammar:
+  title: "Sugestão = hedge + gerúndio + rótulo de peso"
+  explanation: |
+    Comentário de review em inglês tem duas peças: o **modo de pedir** e o
+    **rótulo de peso**. Pedir: *consider + -ing*, *could we…*, *what do you
+    think about + -ing*, *it might be worth + -ing* — todos com gerúndio,
+    nunca com *to* depois de consider. Rotular o peso: *nit:* (cosmético),
+    *non-blocking* (não trava), *suggestion:* (opcional), *blocking*
+    (precisa antes do merge).
+
+    | Peso | Rótulo | Exemplo |
+    |---|---|---|
+    | cosmético | *nit:* | *nit: typo — 'rety'* |
+    | opcional | *non-blocking* / *suggestion:* | *non-blocking: could be a map* |
+    | exigido | *blocking* | *blocking: this leaks the token* |
+
+    **Erros BR:** "it seems **me** fine" (*seems fine to me*), "**according
+    to me**" (*in my view*), "consider **to extract**" (*consider
+    extracting*), "it **worths**" (*it's worth*).
+  examples:
+    - { en: "Consider extracting the retry block — it's used three times.", pt: "Considere extrair o bloco de retry — é usado três vezes." }
+    - { en: "What do you think about a guard clause for the empty case?", pt: "O que você acha de uma guard clause para o caso vazio?" }
+    - { en: "nit: 'rety' in the comment — 'retry'.", pt: "nit: \"rety\" no comentário — \"retry\"." }
+    - { en: "Non-blocking: this could be a map, but fine as is.", pt: "Sem bloqueio: isso poderia ser um map, mas está ok assim." }
+    - { en: "It might be worth caching this — it runs on every request.", pt: "Pode valer a pena cachear isso — roda a cada request." }
+    - { en: "Could we name this after what it returns?", pt: "Poderíamos nomear isso pelo que retorna?" }
+
+examples:
+  - en: "Consider extracting this into a helper — it shows up in three places."
+    pt: "Considere extrair isso para um helper — aparece em três lugares."
+    context: "Sugestão com o porquê — o padrão de ouro do review."
+  - en: "What do you think about moving the check into the pipeline itself?"
+    pt: "O que você acha de mover a verificação para dentro do pipeline?"
+    context: "A pergunta deixa a decisão com o autor."
+  - en: "nit: 'occured' → 'occurred'. Feel free to ignore the rest."
+    pt: "nit: \"occured\" → \"occurred\". Sinta-se livre para ignorar o resto."
+    context: "nit para typo — pequeno, rotulado, sem exigência."
+  - en: "Non-blocking: a map would read cleaner here, but this works."
+    pt: "Sem bloqueio: um map leria mais limpo aqui, mas isso funciona."
+    context: "Marca o peso — o merge não depende."
+  - en: "It might be worth a guard clause for the empty case — flattens the nesting."
+    pt: "Pode valer uma guard clause para o caso vazio — achata o aninhamento."
+    context: "Hedge (might) + razão — sugestão que não impõe."
+  - en: "Could we name this after what it returns? `data` hides that it's a pod list."
+    pt: "Poderíamos nomear isso pelo que retorna? `data` esconde que é uma lista de pods."
+    context: "Could we + o motivo — o nome tem defesa."
+  - en: "To my eye this function has two responsibilities — could we split it?"
+    pt: "Aos meus olhos essa função tem duas responsabilidades — poderíamos dividi-la?"
+    context: "Hedge de percepção + a sugestão."
+  - en: "A small thing, for readability: the test name could say what breaks."
+    pt: "Uma coisinha, por legibilidade: o nome do teste poderia dizer o que quebra."
+    context: "Justificativa de estilo com motivo, não gosto."
+
+variations:
+  - idea: '"sugerir um extract sem mandar"'
+    items:
+      - { register: "Boa", text: "Consider extracting this — it's used three times.", adequate: true }
+      - { register: "Boa", text: "Could we pull this into a helper? Same logic in three places.", adequate: true }
+      - { register: "Inadequada", text: "Extract this.", adequate: false, note: "Ordem sem motivo — o padrão que gera atrito." }
+      - { register: "Inadequada", text: "This is duplicated everywhere, sloppy.", adequate: false, note: "Ataca o autor, não o código." }
+  - idea: '"marcar um detalhe que não trava"'
+    items:
+      - { register: "Boa", text: "nit: extra blank line here.", adequate: true }
+      - { register: "Boa", text: "Non-blocking: could be a map, but fine as is.", adequate: true }
+      - { register: "Inadequada", text: "This blank line is wrong, fix it before merge.", adequate: false, note: "Blocking por cosmético — desperdiça a moeda do review." }
+      - { register: "Inadequada", text: "Fix: blank line. And the name. And the order. And…", adequate: false, note: "Sem rótulo, dez nits leem como dez exigências." }
+
+brErrors:
+  - { wrong: "The code seems me fine.", right: "The code seems fine to me.", why: "o pronome vai depois de to", tag: br.seems-me }
+  - { wrong: "According to me, we should revert.", right: "In my view, we should revert.", why: "according to leva fonte externa; opinião própria é in my view", tag: br.according-to-me }
+  - { wrong: "It worths the refactor.", right: "It's worth the refactor.", why: "worth não é verbo", tag: br.worths }
+  - { wrong: "I did a comment on your PR.", right: "I left a comment on your PR.", why: '"leave a comment" — "do a comment" é calque', tag: br.did-comment }
+  - { wrong: "He said me the code was fine.", right: "He told me the code was fine.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I need that you review this PR.", right: "I need you to review this PR.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "I have a doubt about this line.", right: "I have a question about this line.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "Can you explain me this condition?", right: "Can you explain this condition to me?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+  - { wrong: "It make sense to split this.", right: "It makes sense to split this.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "We did a mistake in the retry logic.", right: "We made a mistake in the retry logic.", why: '"make a mistake"', tag: br.do-mistake }
+
+dialogue:
+  title: "Reviewando o PR do colega — sugestão sem ordem"
+  lines:
+    - { speaker: Yuri, text: "Left a few comments on the retry PR — mostly nits, two real ones." }
+    - { speaker: Marcos, text: "Hit me. The big one first." }
+    - { speaker: Yuri, text: "Consider extracting the backoff block — it's used in three places now. What do you think?" }
+    - { speaker: Marcos, text: "Fair — it grew. I'll pull it into a helper." }
+    - { speaker: Yuri, text: "And the timeout name — could we call it after what it returns? `timeout` hides that it's milliseconds." }
+    - { speaker: Marcos, text: "`timeoutMs`? Sure. And the rest?" }
+    - { speaker: Yuri, text: "nit: 'occured' in the comment. Non-blocking: the loop could be a map, but it reads fine. That's it — looks good to me." }
+    - { speaker: Marcos, text: "Thanks — the labels help. I know exactly what I can skip." }
+  notes:
+    - "dois pesos diferentes: 'consider'/'could we' para o real, 'nit'/'non-blocking' para o resto."
+    - "'left a comment' é o verbo de review — nunca 'did a comment'."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "The best reviewers label weight. 'nit:' means ignore me if you want. 'non-blocking' means merge whenever. No label at all reads like 'do this' — and that's how a suggestion becomes a fight." }
+    - { speaker: Marcos, text: "I used to write 'change this to X' and wondered why people pushed back. Same fix, different shape: 'what do you think about X' gets a yes nine times out of ten." }
+    - { speaker: Ana, text: "One rule of thumb: if you'd feel silly defending it in the retro, it's a nit — label it and move on." }
+  questions:
+    - { id: M09-01-l1, type: multiple_choice, prompt: "What does 'nit:' tell the author?", options: ["this is required", "a cosmetic detail — ignore it if you want", "the PR is rejected", "the code is broken"], answer: 1, explanation: "nit = nitpick — detalhe sem exigência.", tags: [comp.listening, vocab.review] }
+    - { id: M09-01-l2, type: multiple_choice, prompt: "An unlabeled suggestion tends to read as…", options: ["a question", "a compliment", "'do this' — and suggestions become fights", "a nit"], answer: 2, explanation: "Sem rótulo de peso, sugestão lê como ordem.", tags: [comp.listening, vocab.review] }
+    - { id: M09-01-l3, type: fill_blank, prompt: "___-blocking: the map version reads nicer, but merge as is.", accepted: ["non", "Non"], explanation: '"non-blocking" — não trava o merge.', tags: [vocab.review] }
+    - { id: M09-01-l4, type: multiple_choice, prompt: "Marcos's rule of thumb for nits:", options: ["always fix them first", "never write them", "send them privately", "if you'd feel silly defending it in the retro — label it and move on"], answer: 3, explanation: "Se não defende numa retro, é nit.", tags: [comp.listening, vocab.review] }
+    - { id: M09-01-l5, type: error_correction, prompt: "The code seems me fine.", accepted: ["The code seems fine to me.", "The code seems fine to me"], explanation: '"seems fine to me" — o pronome vai depois de to.', tags: [br.seems-me] }
+    - { id: M09-01-l6, type: multiple_choice, prompt: "'What do you think about X?' works because…", options: ["it's shorter", "it's formal", "it hands the decision to the author", "it's a nit"], answer: 2, explanation: "A pergunta converte ordem em decisão do autor.", tags: [comp.listening, vocab.review] }
+
+writing:
+  prompt: |
+    **Cenário:** o PR do colega adiciona retry com backoff ao cliente HTTP.
+    Funciona, mas você quer sugerir três coisas sem impor: extrair o backoff
+    para um helper, um nome melhor para `timeout`, e um typo no comentário.
+
+    **Tarefa:** escreva 60–90 palavras de comentário de review: uma sugestão
+    real com consider ou could we, um nit rotulado, e declare o que é
+    non-blocking. Termine sinalizando aprovação.
+  constraints:
+    - { label: "Sugestão sem impor", pattern: "\\b(consider|could we|what do you think|it might be worth)\\b" }
+    - { label: "Rótulo de peso", pattern: "\\b(nit|non-blocking|suggestion|blocking)\\b" }
+    - { label: "Motivo da sugestão", pattern: "\\b(because|used|reads?|clarity|readable|hides)\\b" }
+  rubric:
+    - Sugestão real com hedge ou pergunta
+    - nit rotulado como tal
+    - Peso declarado (blocking × non-blocking)
+    - Fecha com aprovação ou LGTM
+  model: >-
+    Two suggestions, one nit. Consider extracting the backoff block into a
+    helper — it's used in three places now, and a helper keeps them in sync.
+    Could we rename `timeout` to `timeoutMs`? The unit isn't obvious from the
+    name. nit: "occured" in the comment — "occurred". Non-blocking on all of
+    these; the logic looks right and the tests cover the retry path. LGTM
+    once the name lands.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.review]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos lendo seus comentários de review em voz alta: uma sugestão com consider ou could we, um nit rotulado e o fecho com aprovação."
+    maxSeconds: 45
+    targetPhrases:
+      - consider extracting
+      - what do you think about
+      - could we
+      - nit
+      - non-blocking
+      - suggestion
+      - it might be worth
+      - up to you
+      - feel free to ignore
+      - for readability
+      - guard clause
+      - a small thing
+      - to my eye
+      - looks good to me
+    checklist:
+      - Sugestão com hedge ou pergunta
+      - nit declarado como nit
+      - Motivo junto da sugestão
+      - Fecha com o que aprova
+
+quiz:
+  - { id: M09-01-q1, type: multiple_choice, prompt: "'nit:' on a comment means…", options: ["the PR is blocked", "a bug was found", "a cosmetic detail — safe to ignore", "the reviewer is angry"], answer: 2, explanation: "nit = nitpick: cosmético, sem exigência.", tags: [vocab.review] }
+  - { id: M09-01-q2, type: error_correction, prompt: "According to me, the retry should be exponential.", accepted: ["In my view, the retry should be exponential.", "In my view, the retry should be exponential", "I think the retry should be exponential."], explanation: '"according to" leva fonte externa; opinião própria é "in my view".', tags: [br.according-to-me] }
+  - { id: M09-01-q3, type: multiple_choice, prompt: "Which suggestion does NOT impose?", options: ["\"What do you think about a map here?\"", "\"Change this to a map.\"", "\"This is wrong, use a map.\"", "\"Use a map or I'm not approving.\""], answer: 0, explanation: "A pergunta entrega a decisão ao autor.", tags: [vocab.review] }
+  - { id: M09-01-q4, type: error_correction, prompt: "It worths extracting this into a helper.", accepted: ["It's worth extracting this into a helper.", "It's worth extracting this into a helper", "It's worth it to extract this into a helper."], explanation: '"worth" não é verbo — it''s worth.', tags: [br.worths] }
+  - { id: M09-01-q5, type: multiple_choice, prompt: "'non-blocking' on a review comment declares…", options: ["the CI didn't run", "the suggestion doesn't gate the merge", "the author is offline", "the comment was deleted"], answer: 1, explanation: "O merge não depende desse ponto.", tags: [vocab.review] }
+  - { id: M09-01-q6, type: translate, prompt: "Considere extrair isso — aparece em três lugares.", accepted: ["Consider extracting this — it shows up in three places.", "Consider extracting this — it shows up in three places", "Consider extracting this — it's used in three places."], explanation: "consider + gerúndio + o motivo.", tags: [vocab.review] }
+  - { id: M09-01-q7, type: reorder, prompt: "Monte a frase: / você acha / uma guard clause / para o caso vazio", tokens: ["What", "do", "you", "think", "about", "a", "guard", "clause", "for", "the", "empty", "case?"], answer: "What do you think about a guard clause for the empty case?", explanation: "A pergunta que convida em vez de mandar.", tags: [vocab.review] }
+  - { id: M09-01-q8, type: multiple_choice, prompt: "Why do reviewers label weight (nit / non-blocking)?", options: ["it's required by GitHub", "it makes comments longer", "unlabeled suggestions read as orders — labels prevent fights", "it's a formality"], answer: 2, explanation: "Sem rótulo, sugestão lê como ordem.", tags: [vocab.review, topic.code-review] }
+
+review:
+  count: 5
+  preferTags: [vocab.review, br.seems-me, br.according-to-me]
+
+srsCards:
+  - { front: "consider + -ing", back: "a sugestão aberta — 'consider extracting', nunca 'consider to'", tag: vocab.review }
+  - { front: "what do you think about", back: "entrega a decisão ao autor — + gerúndio", tag: vocab.review }
+  - { front: "nit:", back: "detalhe cosmético — 'nit: typo' — o autor pode ignorar", tag: vocab.review }
+  - { front: "non-blocking", back: "não trava o merge — declare o peso", tag: vocab.review }
+  - { front: "it might be worth", back: "sugestão com hedge — 'worth' nunca é verbo", tag: vocab.review }
+  - { front: "could we", back: "sugerir em forma de pergunta — 'could we extract?'", tag: vocab.review }
+  - { front: "up to you", back: "o fecho que entrega a decisão — 'I'd extract it, but up to you'", tag: vocab.review }
+  - { front: "guard clause", back: "early return que achata aninhamento", tag: vocab.review }
+  - { front: "seems to me × seems me", back: "\"me parece\" vira 'seems fine to me' — nunca 'seems me'", hint: "the code seems fine to me", tag: br.seems-me }
+  - { front: "in my view × according to me", back: "opinião própria é 'in my view' — 'according to' leva fonte externa", hint: "according to the docs", tag: br.according-to-me }
+  - { front: "left a comment", back: "o verbo de review — 'I left a comment', nunca 'did a comment'", tag: br.did-comment }
+  - { front: "it's worth × it worths", back: "\"worth\" não é verbo — 'it's worth it' / 'worth doing'", tag: br.worths }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
