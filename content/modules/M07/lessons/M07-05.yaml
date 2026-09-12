@@ -1,0 +1,305 @@
+id: M07-05
+module: M07
+order: 5
+title: "Simulação: refinamento de uma story de infraestrutura com PO e dev"
+objective: >-
+  Integração total: você participa do refinamento de uma story de
+  infraestrutura de verdade — lê os critérios, faz as perguntas de escopo,
+  dá a estimativa com hedge e a condição, e registra os riscos.
+durationMin: 45
+competencies: [SPK, LIS, VOC]
+tags: [vocab.agile, topic.refinement, comp.speaking, comp.listening, gram.conditionals-real, gram.hedging, br.if-will, br.it-makes-sense, br.estimative]
+prerequisites: [M07-01, M07-02, M07-03, M07-04]
+
+context:
+  scenario: |
+    Quinta-feira, refinamento. Na tela, uma story de infraestrutura de
+    verdade: "As an SRE, I want automated database backups with point-in-time
+    recovery so that we can restore any state from the last 30 days."
+
+    Os critérios estão pela metade, há um spike pendente sobre o custo de
+    storage, e o PO quer um número. É a reunião inteira em uma story:
+
+    - vocabulário (story, criteria, spike, scope creep, in scope)
+    - estimativa cautelosa (I'd say, roughly, anywhere between, it depends on)
+    - condicionais (if we go with, unless, as long as, even if)
+    - perguntas (does it make sense, what happens if, what are we assuming)
+
+    O objetivo: sair da reunião com a story estimada, os riscos nomeados e
+    nenhum compromisso que você não possa cumprir.
+  roles: [Priya (product owner), Marcos (dev), Yuri (platform engineer)]
+
+vocabulary:
+  - term: "point-in-time recovery"
+    meaning: recuperação para um ponto no tempo — o restore cirúrgico
+    example: "Point-in-time recovery lets us restore the DB as of 3pm yesterday."
+    translation: "Recuperação para ponto no tempo permite restaurar o BD como era às 15h de ontem."
+    note: "PITR — a story técnica típica de infraestrutura."
+  - term: "to refine a story"
+    meaning: refinar uma história — o trabalho da reunião
+    example: "Let's refine the backup story before Thursday's planning."
+    translation: "Vamos refinar a história de backups antes do planning de quinta."
+    note: '"refine" é o verbo; a reunião é o "refinement".'
+  - term: "walking through the story"
+    meaning: percorrer a história — ler os critérios em voz alta
+    example: "Let me walk through the story: PITR, 30 days, any state."
+    translation: "Deixa eu percorrer a história: PITR, 30 dias, qualquer estado."
+    note: '"walk through" abre a discussão — lê o que está escrito.'
+  - term: "the criteria are half-baked"
+    meaning: os critérios estão pela metade — incompletos
+    example: "The criteria are half-baked — no failure case, no RPO."
+    translation: "Os critérios estão pela metade — sem caso de falha, sem RPO."
+    note: '"half-baked" = mal cozinhado — a imagem é literal.'
+  - term: "to put a number on it"
+    meaning: dar um número — estimar o tamanho
+    example: "Can we put a number on it, or is it still too fuzzy?"
+    translation: "Conseguimos dar um número, ou ainda está vago demais?"
+    note: '"put a number on it" = a hora da estimativa.'
+  - term: "a known unknown"
+    meaning: incógnita conhecida — o que sabemos que não sabemos
+    example: "Storage cost is a known unknown — that's what the spike is for."
+    translation: "O custo de storage é uma incógnita conhecida — é para isso que serve o spike."
+    note: "Nomeie os known unknowns — eles justificam o hedge."
+  - term: "to take it offline"
+    meaning: resolver fora da reunião — estacionar o detalhe
+    example: "The exact retention math — let's take it offline with the spike."
+    translation: "A matemática exata de retenção — vamos resolver offline com o spike."
+    note: '"take it offline" tira o detalhe da reunião sem descartá-lo.'
+  - term: "a stretch"
+    meaning: um exagero — além do razoável
+    example: "Five points with this many unknowns is a stretch."
+    translation: "Cinco pontos com tantas incógnitas é um exagero."
+    note: '"a stretch" = puxado demais — para baixo OU para cima.'
+  - term: "to timebox it"
+    meaning: limitar no tempo — dar um prazo ao spike
+    example: "Let's timebox the spike to two days."
+    translation: "Vamos limitar o spike a dois dias."
+    note: '"timebox" como verbo — o spike sem timebox vira projeto.'
+  - term: "the sweet spot"
+    meaning: o ponto ideal — equilíbrio custo-benefício
+    example: "Five points is the sweet spot — not optimistic, not padded."
+    translation: "Cinco pontos é o ponto ideal — nem otimista, nem inflado."
+    note: "A estimativa nem apertada nem folgada."
+  - term: "action items"
+    meaning: itens de ação — o que sai da reunião com dono
+    example: "Action items: spike for storage cost, rewrite the failure criteria."
+    translation: "Itens de ação: spike para custo de storage, reescrever os critérios de falha."
+    note: "Toda reunião termina com action items com dono."
+  - term: "let's recap"
+    meaning: vamos recapitular — o fecho da discussão
+    example: "Let's recap: split the dashboard, spike the cost, five points."
+    translation: "Vamos recapitular: dividir o dashboard, spike no custo, cinco pontos."
+    note: '"recap" = o resumo final que fixa as decisões.'
+  - term: "on the record"
+    meaning: registrado — o que fica escrito no ticket
+    example: "On the record: this estimate assumes the spike comes back clean."
+    translation: "Registrado: esta estimativa assume que o spike volta limpo."
+    note: '"on the record" = a condição escrita — a proteção da estimativa.'
+  - term: "a reasonable estimate"
+    meaning: uma estimativa razoável — defensável e honesta
+    example: "Five points is a reasonable estimate given the unknowns."
+    translation: "Cinco pontos é uma estimativa razoável dadas as incógnitas."
+    note: "O oposto de 'firm number' — razoável, não garantido."
+
+grammar:
+  title: "A reunião inteira em frases: vocabulário + hedge + condicional + pergunta"
+  explanation: |
+    A simulação junta as três aulas: nomeie a estrutura (story, spike,
+    criteria), estime com hedge e faixa (I'd say, anywhere between), ligue
+    decisão a consequência (if we go with, unless, as long as) e faça as
+    perguntas que protegem (does it make sense, what happens if, in scope?).
+
+    | Momento | Frase-modelo |
+    |---|---|
+    | Abrir | *Let me walk through the story first.* |
+    | Delimitar | *Is the dashboard in scope here?* |
+    | Estimar | *I'd say anywhere between three and five.* |
+    | Condicionar | *As long as the spike comes back clean.* |
+    | Arriscar | *What happens if the cost doubles?* |
+    | Fechar | *Let's recap — action items on the record.* |
+
+    **Erros BR:** "if we **will** estimate" (é *if we estimate*), "my
+    **estimative**" (é *estimate*), "it **make** sense" (é *makes*), e sair da
+    reunião sem action items — reunião sem próxima ação não aconteceu.
+  examples:
+    - { en: "Let me walk through the story before we estimate.", pt: "Deixa eu percorrer a história antes de estimarmos." }
+    - { en: "The criteria are half-baked — no failure case.", pt: "Os critérios estão pela metade — sem caso de falha." }
+    - { en: "I'd say five points, as long as the spike is clean.", pt: "Eu diria cinco pontos, desde que o spike seja limpo." }
+    - { en: "If we go with managed backups, we trade cost for ops time.", pt: "Se escolhermos backups gerenciados, trocamos custo por tempo de ops." }
+    - { en: "Does it make sense to timebox the spike to two days?", pt: "Faz sentido limitar o spike a dois dias?" }
+    - { en: "On the record: the estimate assumes clean spike results.", pt: "Registrado: a estimativa assume resultados limpos do spike." }
+
+examples:
+  - en: "Walking through the story: PITR, 30-day retention, restore to any state."
+    pt: "Percorrendo a história: PITR, retenção de 30 dias, restaurar para qualquer estado."
+    context: "A abertura — ler o que está escrito antes de opinar."
+  - en: "The acceptance criteria are half-baked — they cover the happy path but no restore failure."
+    pt: "Os critérios de aceite estão pela metade — cobrem o caminho feliz mas não a falha de restore."
+    context: "Apontar o que falta nos critérios antes de estimar."
+  - en: "Storage cost is a known unknown — I'd timebox a spike to two days."
+    pt: "O custo de storage é uma incógnita conhecida — eu limitaria um spike a dois dias."
+    context: "known unknown + ação: timebox no spike."
+  - en: "I'd say anywhere between three and five points — it depends on the spike."
+    pt: "Eu diria algo entre três e cinco pontos — depende do spike."
+    context: "Hedge + faixa + dependência — a estimativa completa."
+  - en: "If we go with managed backups, we trade storage cost for ops time — unless the cost doubles."
+    pt: "Se escolhermos backups gerenciados, trocamos custo de storage por tempo de ops — a menos que o custo dobre."
+    context: "Decisão + trade-off + exceção numa frase."
+  - en: "Even if the spike is clean, the restore testing alone is worth two points."
+    pt: "Mesmo se o spike for limpo, só o teste de restore já vale dois pontos."
+    context: '"even if" mantém o piso da estimativa.'
+  - en: "Let's recap: spike timeboxed to two days, criteria get a failure case, estimate at five on the record."
+    pt: "Vamos recapitular: spike limitado a dois dias, critérios ganham caso de falha, estimativa em cinco registrada."
+    context: "O recap que fecha a reunião — decisões escritas."
+  - en: "Does it make sense to split the restore-testing part into its own story?"
+    pt: "Faz sentido dividir a parte de teste de restore em sua própria história?"
+    context: "A pergunta que propõe o split sem impor."
+
+variations:
+  - idea: '"o PO quer um número agora"'
+    items:
+      - { register: "Boa", text: "I'd say five, as long as the spike comes back clean — can we put that on the record?", adequate: true }
+      - { register: "Boa", text: "Anywhere between three and five — I'd rather revisit after the spike.", adequate: true }
+      - { register: "Inadequada", text: "Five.", adequate: false, note: "Número seco vira compromisso — falta o hedge e a condição." }
+      - { register: "Inadequada", text: "I can't estimate anything.", adequate: false, note: "Dê a faixa ou o palpite — 'nothing' não ajuda." }
+  - idea: '"a discussão está descendo ao detalhe errado"'
+    items:
+      - { register: "Boa", text: "Let's take the retention math offline — it's blocking the estimate.", adequate: true }
+      - { register: "Boa", text: "Can we park that and decide scope first?", adequate: true }
+      - { register: "Inadequada", text: "We're wasting time.", adequate: false, note: "Queixa sem saída — proponha 'take it offline'." }
+      - { register: "Inadequada", text: "It make sense to move on.", adequate: false, note: "Terceira pessoa: it makes sense." }
+
+brErrors:
+  - { wrong: "If we will go with managed backups, ops gets easier.", right: "If we go with managed backups, ops gets easier.", why: 'condicional: "if" + presente', tag: br.if-will }
+  - { wrong: "My estimative is five points.", right: "My estimate is five points.", why: '"estimative" não existe — é "estimate"', tag: br.estimative }
+  - { wrong: "It make sense to timebox the spike.", right: "It makes sense to timebox the spike.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "I have a compromise, so I'll miss the recap.", right: "I have a commitment, so I'll miss the recap.", why: "compromise = concessão; compromisso é commitment", tag: br.compromise }
+  - { wrong: "The estimate depends of the spike.", right: "The estimate depends on the spike.", why: '"depends on" — "depend of" é calque', tag: br.depend-of }
+  - { wrong: "We need that the PO clarify the criteria.", right: "We need the PO to clarify the criteria.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "Unless it will fail, we ship Friday.", right: "Unless it fails, we ship Friday.", why: "presente depois de unless", tag: br.if-will }
+  - { wrong: "The criteria are more clear now.", right: "The criteria are clearer now.", why: "clear é adjetivo curto: clearer", tag: br.more-er }
+  - { wrong: "I have a doubt about the RPO.", right: "I have a question about the RPO.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "Can you explain me the retention math?", right: "Can you explain the retention math to me?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+
+dialogue:
+  title: "Refinando a story de backups"
+  lines:
+    - { speaker: Priya, text: "Next up: the backup story. As an SRE, I want automated backups with point-in-time recovery — restore any state from the last 30 days." }
+    - { speaker: Yuri, text: "Let me walk through the criteria first — automated daily snapshots, PITR to any point in 30 days… and that's it. Honestly, they're half-baked. What happens if a restore fails?" }
+    - { speaker: Marcos, text: "Good catch — there's no failure criterion. 'On restore failure, alert fires and the snapshot is kept.'" }
+    - { speaker: Priya, text: "Adding it. Scope check: is monitoring the backups in scope here?" }
+    - { speaker: Yuri, text: "I'd say that's scope creep — monitoring deserves its own story. Does it make sense to split it?" }
+    - { speaker: Priya, text: "Fair — I'll write a separate monitoring story. Now, the number?" }
+    - { speaker: Marcos, text: "I'd say a three — managed backups do most of the work." }
+    - { speaker: Yuri, text: "I'd push back — storage cost is a known unknown. If we go with managed, we're trading cost for ops time; if the 30-day retention doubles the bill, that's a problem." }
+    - { speaker: Priya, text: "So the estimate depends on the storage cost." }
+    - { speaker: Yuri, text: "Exactly. I'd say anywhere between three and five — five to be safe, unless the spike says the cost is trivial." }
+    - { speaker: Marcos, text: "Is the spike already scheduled?" }
+    - { speaker: Yuri, text: "Let's timebox it — two days, starting tomorrow. Even if it comes back clean, restore testing alone is worth two points." }
+    - { speaker: Priya, text: "Let's recap: monitoring becomes its own story, criteria get a failure case, spike is timeboxed to two days, and the estimate is five on the record — pending the spike. Works?" }
+    - { speaker: Yuri, text: "Works. As long as the spike lands before planning, we keep the five — if it finds surprises, we revisit." }
+  notes:
+    - "a simulação completa: walk through → critério faltando → scope check → split → push back → faixa com condição → recap com action items."
+    - '"on the record — pending the spike" = a estimativa protegida por escrito.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A good refinement ends with three things written down: the estimate with its conditions, the action items with owners, and the open questions that didn't get answered." }
+    - { speaker: Marcos, text: "If you only remember one habit: never let a number leave the room without its 'as long as' attached. The estimate is the number plus the condition — not just the number." }
+    - { speaker: Priya, text: "And the recap isn't optional. 'So we're saying five points, spike by Thursday, monitoring is a separate story' — that's what makes the meeting real." }
+  questions:
+    - { id: M07-05-l1, type: multiple_choice, prompt: "What three things end up written after a good refinement?", options: ["the estimate, the owner, the deadline", "the estimate with conditions, action items with owners, open questions", "the story, the epic, the sprint", "the votes, the risks, the jokes"], answer: 1, explanation: "Estimativa + condições, action items + donos, open questions.", tags: [comp.listening, topic.refinement] }
+    - { id: M07-05-l2, type: multiple_choice, prompt: "The one habit Marcos insists on:", options: ["estimate fast", "always round up", "never let a number leave without its 'as long as'", "avoid hedges"], answer: 2, explanation: "A estimativa é número + condição — não só o número.", tags: [comp.listening, gram.hedging] }
+    - { id: M07-05-l3, type: fill_blank, prompt: "The estimate is the number plus the ___, not just the number.", accepted: ["condition"], explanation: "Número sem condição é promessa cega.", tags: [vocab.agile, gram.hedging] }
+    - { id: M07-05-l4, type: multiple_choice, prompt: "Why is the recap not optional?", options: ["it's polite", "the PO requires it", "it fills time", "it makes the meeting real — decisions get said out loud"], answer: 3, explanation: "O recap fixa as decisões em voz alta.", tags: [comp.listening, vocab.agile] }
+    - { id: M07-05-l5, type: error_correction, prompt: "If we will split the monitoring, the story gets smaller.", accepted: ["If we split the monitoring, the story gets smaller.", "If we split the monitoring, the story gets smaller"], explanation: '"if" + presente — nunca "if we will".', tags: [br.if-will] }
+    - { id: M07-05-l6, type: multiple_choice, prompt: "'Five points on the record, pending the spike' means…", options: ["five is final", "the spike is optional", "five with the spike as the written condition", "the number was rejected"], answer: 2, explanation: "On the record = a condição escrita junto com o número.", tags: [vocab.agile] }
+    - { id: M07-05-l7, type: fill_blank, prompt: "Let's ___ it to two days — a spike without an end becomes a project.", accepted: ["timebox"], explanation: '"timebox" como verbo — limitar no tempo.', tags: [vocab.agile] }
+    - { id: M07-05-l8, type: multiple_choice, prompt: "Monitoring the backups turned out to be…", options: ["part of the backup story", "scope creep — its own story", "a spike", "an epic"], answer: 1, explanation: "Cresceu dentro da story → split.", tags: [vocab.agile, topic.refinement] }
+
+writing:
+  prompt: |
+    **Cenário:** o refinamento acabou e o PO pediu o resumo por escrito no ticket — o registro oficial da decisão.
+
+    **Tarefa:** escreva 80–110 palavras com: a story refinada (o que ela cobre), o que foi split e por quê, a estimativa com hedge e a condição on the record, o spike com timebox, e os action items com donos.
+  constraints:
+    - { label: "Vocabulário de backlog", pattern: "\\b(story|spike|criteria|scope creep|split)\\b" }
+    - { label: "Hedge na estimativa", pattern: "\\b(i'd say|roughly|anywhere between|estimate|points)\\b" }
+    - { label: "Condicional real", pattern: "\\b(if we|unless|as long as|even if)\\b" }
+    - { label: "Recap com donos", pattern: "\\b(action items?|recap|on the record|timebox)\\b" }
+  rubric:
+    - O que a story cobre agora (escopo pós-split)
+    - Estimativa com hedge + condição escrita
+    - Spike com timebox declarado
+    - Action items com donos
+  model: >-
+    Refinement recap for the backup story. Scope: PITR with 30-day retention —
+    monitoring was split into its own story after we flagged the scope creep.
+    Criteria now include a failure case: on restore failure, an alert fires.
+    Estimate: I'd say five points on the record, as long as the storage-cost
+    spike comes back clean — if it finds surprises, we revisit. Action items:
+    Yuri runs the spike, timeboxed to two days; Priya writes the monitoring
+    story; Marcos adds the failure criterion.
+  minWords: 75
+  maxWords: 115
+  tags: [comp.writing, vocab.agile, gram.conditionals-real]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos como se fosse sua fala no refinamento: percorra a story, aponte o critério que falta, delimite o escopo, dê a estimativa com hedge e condição, e feche com o recap."
+    maxSeconds: 60
+    targetPhrases:
+      - walk through the story
+      - the criteria are half-baked
+      - in scope
+      - scope creep
+      - does it make sense to
+      - I'd say
+      - anywhere between
+      - it depends on
+      - if we go with
+      - unless
+      - as long as
+      - even if
+      - a known unknown
+      - on the record
+      - let's recap
+      - action items
+    checklist:
+      - Percorre a story antes de opinar
+      - Aponta o que falta nos critérios
+      - Estimativa com hedge + condição
+      - Fecha com recap e action items
+
+quiz:
+  - { id: M07-05-q1, type: multiple_choice, prompt: "Why walk through the story before estimating?", options: ["reading what's written beats reacting to the title", "it's tradition", "it fills time", "the PO requires it"], answer: 0, explanation: "Ler os critérios em voz alta expõe os buracos.", tags: [topic.refinement, vocab.agile] }
+  - { id: M07-05-q2, type: error_correction, prompt: "If we will timebox the spike, it stays small.", accepted: ["If we timebox the spike, it stays small.", "If we timebox the spike, it stays small"], explanation: '"if" + presente — nunca "if we will".', tags: [br.if-will] }
+  - { id: M07-05-q3, type: multiple_choice, prompt: "A 'known unknown' is…", options: ["a solved problem", "something we know we don't know — worth a spike", "a hidden bug", "a firm number"], answer: 1, explanation: "O que sabemos que não sabemos — justifica o spike.", tags: [vocab.agile] }
+  - { id: M07-05-q4, type: error_correction, prompt: "It make sense to put the estimate on the record.", accepted: ["It makes sense to put the estimate on the record.", "It makes sense to put the estimate on the record"], explanation: "Terceira pessoa: makes.", tags: [br.it-makes-sense] }
+  - { id: M07-05-q5, type: multiple_choice, prompt: "'Five points on the record, pending the spike' protects you because…", options: ["five is a safe number", "the record is formal", "spikes are fast", "the condition is written — if the spike surprises, you revisit"], answer: 3, explanation: "A condição escrita é a proteção da estimativa.", tags: [vocab.agile, gram.hedging] }
+  - { id: M07-05-q6, type: translate, prompt: "Vamos recapitular: spike de dois dias, cinco pontos registrados.", accepted: ["Let's recap: a two-day spike, five points on the record.", "Let's recap: a two-day spike, five points on the record", "Let's recap: timebox the spike to two days, five points on the record."], explanation: '"recap" + "on the record" — o fecho que fixa as decisões.', tags: [vocab.agile] }
+  - { id: M07-05-q7, type: reorder, prompt: "Monte a frase: / o custo dobrar / se / revisitamos / a estimativa", tokens: ["If", "the", "cost", "doubles,", "we", "revisit", "the", "estimate."], answer: "If the cost doubles, we revisit the estimate.", explanation: "if + presente na condição; a consequência no presente.", tags: [gram.conditionals-real, br.if-will] }
+  - { id: M07-05-q8, type: multiple_choice, prompt: "The monitoring work was split because…", options: ["it was too easy", "it was scope creep — it grew inside another story", "the PO disliked it", "it was already done"], answer: 1, explanation: "Cresceu sem decisão → split na story própria.", tags: [vocab.agile, topic.refinement] }
+
+review:
+  count: 5
+  preferTags: [vocab.agile, gram.conditionals-real, br.it-makes-sense]
+
+srsCards:
+  - { front: "walk through the story", back: "percorrer a story em voz alta — a abertura do refinamento", tag: vocab.agile }
+  - { front: "half-baked", back: "mal cozinhado — critérios pela metade", tag: vocab.agile }
+  - { front: "a known unknown", back: "o que sabemos que não sabemos — justifica spike e hedge", tag: vocab.agile }
+  - { front: "put a number on it", back: "dar a estimativa — a hora do número", tag: vocab.agile }
+  - { front: "take it offline", back: "resolver o detalhe fora da reunião — sem descartar", tag: vocab.agile }
+  - { front: "to timebox", back: "limitar no tempo — spike sem timebox vira projeto", tag: vocab.agile }
+  - { front: "on the record", back: "a condição escrita junto com o número — a proteção da estimativa", tag: vocab.agile }
+  - { front: "let's recap", back: "o resumo final que fixa as decisões e os donos", tag: vocab.agile }
+  - { front: "action items", back: "o que sai da reunião — sempre com dono", tag: vocab.agile }
+  - { front: "the sweet spot", back: "a estimativa nem apertada nem inflada", tag: vocab.agile }
+  - { front: "a stretch", back: "exagerado demais — para cima ou para baixo", tag: vocab.agile }
+  - { front: "a reasonable estimate", back: "defensável e honesta — o oposto de 'firm number'", tag: vocab.agile }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
