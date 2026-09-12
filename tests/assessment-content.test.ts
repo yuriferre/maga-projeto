@@ -408,3 +408,48 @@ describe("content/modules/M12/assessment.yaml", () => {
     expect(checkExercise(q, "Can you explain to me why the HPA depends in CPU?").correct).toBe(false);
   });
 });
+
+describe("M13 assessment variants", () => {
+  const m13 = bundle.moduleAssessments["M13"]!;
+  it("requires both 'look forward' and 'attached'", () => {
+    const q = m13.items.find((q) => q.id === "M13-A02")!;
+    expect(checkExercise(q, "I look forward to your reply — please find the spec attached.").correct).toBe(true);
+    expect(checkExercise(q, "I wait your reply — please find the spec attached.").correct).toBe(false);
+    expect(checkExercise(q, "I look forward to your reply — please find the spec in attachment.").correct).toBe(false);
+  });
+  it("requires both 'the delay' and 'regards'", () => {
+    const q = m13.items.find((q) => q.id === "M13-A04")!;
+    expect(checkExercise(q, "Sorry for the delay on the update. Best regards, Yuri").correct).toBe(true);
+    expect(checkExercise(q, "Sorry for late on the update. Best regards, Yuri").correct).toBe(false);
+    expect(checkExercise(q, "Sorry for the delay on the update. Best regrets, Yuri").correct).toBe(false);
+  });
+  it("requires both 'send me' and 'waiting for'", () => {
+    const q = m13.items.find((q) => q.id === "M13-A06")!;
+    expect(checkExercise(q, "Can you send me the report? I've been waiting for your answer since Monday.").correct).toBe(true);
+    expect(checkExercise(q, "Can you send to me the report? I've been waiting for your answer since Monday.").correct).toBe(false);
+    expect(checkExercise(q, "Can you send me the report? I'm waiting your answer since Monday.").correct).toBe(false);
+  });
+  it("requires 'doesn't work', 'returns' and singular 'information'", () => {
+    const q = m13.items.find((q) => q.id === "M13-A08")!;
+    expect(checkExercise(q, "The tool doesn't work — it returns the information raw.").correct).toBe(true);
+    expect(checkExercise(q, "The tool not works — it returns the information raw.").correct).toBe(false);
+    expect(checkExercise(q, "The tool doesn't work — it return the information raw.").correct).toBe(false);
+    expect(checkExercise(q, "The tool doesn't work — it returns the informations raw.").correct).toBe(false);
+  });
+  it("requires 'told me', 'ask Marcos', 'question' and 'into main'", () => {
+    const q = m13.items.find((q) => q.id === "M13-A12")!;
+    expect(checkExercise(q, "She told me to ask Marcos — I have a question about the merge into main.").correct).toBe(true);
+    expect(checkExercise(q, "She said me to ask Marcos — I have a question about the merge into main.").correct).toBe(false);
+    expect(checkExercise(q, "She told me to ask to Marcos — I have a question about the merge into main.").correct).toBe(false);
+    expect(checkExercise(q, "She told me to ask Marcos — I have a doubt about the merge into main.").correct).toBe(false);
+    expect(checkExercise(q, "She told me to ask Marcos — I have a question about the merge in main.").correct).toBe(false);
+  });
+  it("requires 'closer', 'need you to', 'on the channel' and 'ask a question'", () => {
+    const q = m13.items.find((q) => q.id === "M13-A15")!;
+    expect(checkExercise(q, "The deadline is closer — I need you to listen on the channel and ask a question if it stalls.").correct).toBe(true);
+    expect(checkExercise(q, "The deadline is more close — I need you to listen on the channel and ask a question if it stalls.").correct).toBe(false);
+    expect(checkExercise(q, "The deadline is closer — I need that you listen on the channel and ask a question if it stalls.").correct).toBe(false);
+    expect(checkExercise(q, "The deadline is closer — I need you to listen in the channel and ask a question if it stalls.").correct).toBe(false);
+    expect(checkExercise(q, "The deadline is closer — I need you to listen on the channel and make a question if it stalls.").correct).toBe(false);
+  });
+});

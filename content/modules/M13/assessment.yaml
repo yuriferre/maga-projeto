@@ -1,0 +1,86 @@
+# Avaliação do módulo M13: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M13
+title: "Avaliação do módulo M13: E-mails e documentação"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 4, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M13-A01, type: multiple_choice, prompt: "The subject line of a work e-mail should carry…", options: ["a greeting", "topic + action + deadline — 'approval needed by Friday'", "the word 'urgent'", "just the topic"], answer: 1, explanation: "O pedido já está no assunto.", tags: [vocab.email-docs] }
+  - { id: M13-A02, type: error_correction, prompt: "I wait your reply — please find the spec in attachment.", accepted: ["I look forward to your reply — please find the spec attached.", "I look forward to your reply — please find the spec attached", "I await your reply — the spec is attached."], explanation: 'Dois calques: "I look forward to" + "attached".', tags: [br.i-wait-reply, br.in-attachment] }
+  - { id: M13-A03, type: multiple_choice, prompt: "Writing to your own tech lead, the right opening is…", options: ["'Dear Mr. Santos,'", "'To whom it may concern,'", "'Dear Sir or Madam,'", "'Hi Priya —'"], answer: 3, explanation: "Interno = neutro; formal demais soa traduzido.", tags: [gram.formal-register, vocab.email-docs] }
+  - { id: M13-A04, type: error_correction, prompt: "Sorry for late on the update. Best regrets, Yuri", accepted: ["Sorry for the delay on the update. Best regards, Yuri", "Sorry for the delay on the update. Best regards, Yuri.", "Sorry I'm late on the update. Best regards, Yuri"], explanation: 'Dois calques: "the delay" + "regards".', tags: [br.sorry-for-late, br.best-regrets] }
+  - { id: M13-A05, type: fill_blank, prompt: "___ reminder: the approval is still open — the invoice closes Monday.", accepted: ["Gentle", "gentle"], explanation: "Gentle reminder — cobre sem pesar.", tags: [vocab.email-docs] }
+  - { id: M13-A06, type: error_correction, prompt: "Can you send to me the report? I'm waiting your answer since Monday.", accepted: ["Can you send me the report? I've been waiting for your answer since Monday.", "Can you send me the report? I have been waiting for your answer since Monday."], explanation: 'Dois erros: "send me" + "waiting for" com present perfect.', tags: [br.send-to-me, br.waiting-no-prep] }
+  - { id: M13-A07, type: multiple_choice, prompt: "A README instructs the reader in…", options: ["the conditional — 'you could run it'", "the imperative — 'run it from the root'", "the passive — 'it should be run'", "questions — 'will you run it?'"], answer: 1, explanation: "Imperativo = o registro esperado em doc.", tags: [gram.imperative] }
+  - { id: M13-A08, type: error_correction, prompt: "The tool not works — it return the informations raw.", accepted: ["The tool doesn't work — it returns the information raw.", "The tool doesn't work — it returns the raw data.", "The tool does not work — it returns the information raw."], explanation: 'Três erros: "doesn''t work" + "returns" + "information" incontável.', tags: [br.it-not-works, br.third-person-s, br.uncountable] }
+  - { id: M13-A09, type: translate, prompt: "Drene o worker — esperado: `deployment scaled`. Se travar além de 60s, vá para o rollback.", accepted: ["Drain the worker — expect: `deployment scaled`. If it hangs past 60s, go to rollback.", "Drain the worker. Expect: `deployment scaled`. If it hangs past 60s, go to the rollback."], explanation: "Imperativo + expect + critério de parada.", tags: [vocab.email-docs, gram.imperative] }
+  - { id: M13-A10, type: error_correction, prompt: "Verify if the pod is running — if not, revert back the scale.", accepted: ["Check whether the pod is running — if not, revert the scale.", "Check whether the pod is running — if not, roll back the scale.", "Verify the pod is running — if not, revert the scale."], explanation: 'Dois calques: "check whether" + "revert" sem back.', tags: [br.verify-if, br.revert-back] }
+  - { id: M13-A11, type: multiple_choice, prompt: "'Expect:' in a runbook step means…", options: ["the command to run", "the rollback path", "the precondition", "the output that means success"], answer: 3, explanation: "O resultado esperado — sem ele ninguém sabe se deu certo.", tags: [vocab.email-docs] }
+  - { id: M13-A12, type: error_correction, prompt: "She said me to ask to Marcos — I have a doubt about the merge in main.", accepted: ["She told me to ask Marcos — I have a question about the merge into main.", "She told me to ask Marcos — I have a question about merging into main."], explanation: 'Quatro erros: "told me" + "ask Marcos" + "question" + "into main".', tags: [br.said-me, br.ask-to, br.doubt, br.merge-in] }
+  - { id: M13-A13, type: error_correction, prompt: "I read the doc for find the answer — I found it in the internet.", accepted: ["I read the doc to find the answer — I found it on the internet.", "I read the doc to find the answer — I found it on the internet"], explanation: 'Dois calques: "to find" + "on the internet".', tags: [br.for-to, br.in-the-internet] }
+  - { id: M13-A14, type: error_correction, prompt: "I need see the queue — explain me the drain step.", accepted: ["I need to see the queue — walk me through the drain step.", "I need to see the queue — explain the drain step to me."], explanation: 'Dois calques: "need to see" + "walk me through".', tags: [br.need-see, br.explain-me] }
+  - { id: M13-A15, type: error_correction, prompt: "The deadline is more close — I need that you listen in the channel and make a question if it stalls.", accepted: ["The deadline is closer — I need you to listen on the channel and ask a question if it stalls.", "The deadline is closer — I need you to watch the channel and ask a question if it stalls."], explanation: 'Quatro erros: "closer" + "need you to" + "listen on" + "ask a question".', tags: [br.more-er, br.need-that-you, br.listen-in, br.make-a-question] }
+
+writing:
+  prompt: |
+    **Cenário:** entrega dupla do módulo. O acesso ao bucket segue
+    pendente há uma semana (ticket quinta, e-mail segunda, ping ontem)
+    e o restart do worker de pagamentos precisa de runbook antes do
+    fim do plantão da Priya.
+
+    **Tarefa:** escreva as duas peças, separadas por uma linha "---":
+    (a) a escalada — contexto, histórico, impacto na sexta, pedido com
+    duas saídas, fecho neutro; (b) o runbook — header com janela,
+    precondições com trava, passos com comando + expect + parada,
+    verificação, rollback e escalada com canal. 120–160 palavras.
+  constraints:
+    - { label: "Escalada: contexto + histórico", pattern: "\\b(blocked|week|ticket|monday|ping|escalat)\\b" }
+    - { label: "Escalada: impacto + pedido", pattern: "\\b(friday|risk|unblock|approv|help)\\b" }
+    - { label: "Runbook: passos com expect", pattern: "\\b(drain|scale|expect|queue|kubectl|step)\\b" }
+    - { label: "Runbook: rollback + canal", pattern: "\\b(rollback|roll back|page|on-call|verify|proceed)\\b" }
+  rubric:
+    - "Escalada: fatos → impacto → pedido com duas saídas"
+    - "Runbook: passo = comando + expect + parada"
+    - "Rollback completo + escalada com canal"
+    - "Registro certo: neutro no e-mail, imperativo no runbook"
+  model: >-
+    Hi Priya — escalating the artifacts-bucket access. We've been
+    blocked for a week: ticket opened Thursday, e-mail Monday, a ping
+    yesterday — no response. Friday's invoice cut is at risk: the
+    cleanup can't start without read access. Could you help unblock
+    it, or point me at whoever owns the approval? Happy to jump on a
+    call. Thanks in advance. Best regards, Yuri. --- Restarting the
+    payments worker — ~15 min, window 20:00–22:00. You need: kubectl
+    access, a green pipeline, the worker idle. If the pipeline is red,
+    do not proceed. 1. Drain the worker: `kubectl scale deploy/worker
+    --replicas=0`. Expect: `deployment scaled`. 2. Wait for
+    `queue-len` 0 — if it stalls past 5 minutes, stop. 3. Scale back
+    to 3. Verify: three Running pods. Rollback: scale to 3, re-enable
+    the cron. If it still fails, page #payments-oncall — do not retry
+    twice. Last verified: 2026-09-12.
+  minWords: 120
+  maxWords: 160
+  tags: [comp.writing, vocab.email-docs]
+
+speaking:
+  prompt: "Grave 60 segundos entregando a semana para a Priya: o que a escalada diz (contexto, histórico, impacto, pedido), o que o runbook cobre (precondições, passos, rollback, escalada) e o que falta."
+  maxSeconds: 60
+  targetPhrases:
+    - blocked for a week
+    - friday's cut is at risk
+    - help unblock
+    - attempt history
+    - drain the worker
+    - expect
+    - do not proceed
+    - rollback
+    - page the on-call
+    - verify
+    - sign-off
+    - last verified
+  checklist:
+    - "Escalada: contexto + histórico + impacto + pedido"
+    - "Runbook: precondições + passos + rollback + escalada"
+    - "Fatos antes do pedido"
+    - "O que falta: sign-off + dry run"
