@@ -1,0 +1,76 @@
+# Avaliação do módulo M07: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M07
+title: "Avaliação do módulo M07: refinamento, estimativas e riscos"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M07-A01, type: multiple_choice, prompt: "Which story is ready to estimate?", options: ["\"Improve performance — make it fast.\"", "\"Add retries — the PO mentioned it once.\"", "\"As a user, I can see retry history. Criteria: shows last 10 attempts, timestamps in UTC. No open dependencies.\"", "\"Backups and monitoring and maybe a dashboard.\""], answer: 2, explanation: "Formato de story + critérios + sem bloqueios = definition of ready.", tags: [vocab.agile] }
+  - { id: M07-A02, type: error_correction, prompt: "My estimative is five points, but I have a compromise at 3pm.", accepted: ["My estimate is five points, but I have a commitment at 3pm.", "My estimate is five points, but I have a commitment at 3pm", "My estimate is five points, but I have an appointment at 3pm."], explanation: "Dois calques: estimate (não estimative) + commitment (compromise é concessão).", tags: [br.estimative, br.compromise] }
+  - { id: M07-A03, type: multiple_choice, prompt: "Which estimate would survive a real refinement?", options: ["\"I'd say roughly five points — it depends on the spike.\"", "\"Five points, guaranteed.\"", "\"No idea, honestly.\"", "\"However many the PO wants.\""], answer: 0, explanation: "Hedge + número + dependência — a estimativa que se defende.", tags: [gram.hedging, vocab.agile] }
+  - { id: M07-A04, type: fill_blank, prompt: "The estimate holds ___ long as the storage cost stays flat.", accepted: ["as"], explanation: '"as long as" = desde que — a condição da estimativa.', tags: [gram.conditionals-real] }
+  - { id: M07-A05, type: error_correction, prompt: "If we will choose managed backups, ops gets easier.", accepted: ["If we choose managed backups, ops gets easier.", "If we choose managed backups, ops gets easier", "If we go with managed backups, ops gets easier."], explanation: 'Condicional: "if" + presente; o "will" vai na oração principal.', tags: [br.if-will, gram.conditionals-real] }
+  - { id: M07-A06, type: error_correction, prompt: "It make sense — the story depends of the spike.", accepted: ["It makes sense — the story depends on the spike.", "It makes sense — the story depends on the spike"], explanation: "Dois erros: makes (3ª pessoa) + depends on.", tags: [br.it-makes-sense, br.depend-of] }
+  - { id: M07-A07, type: multiple_choice, prompt: "The team can't estimate because nobody knows if the provider supports retries. The right move is…", options: ["estimate high to be safe", "skip the story this sprint", "vote anyway", "a two-day spike to answer the retry question"], answer: 3, explanation: "Pergunta técnica sem resposta → spike com timebox.", tags: [vocab.agile] }
+  - { id: M07-A08, type: fill_blank, prompt: "We've been refining this story ___ Monday — it keeps growing.", accepted: ["since"], explanation: '"since" + present perfect continuous para "desde segunda".', tags: [br.since-present] }
+  - { id: M07-A09, type: error_correction, prompt: "Let's discuss about the scope — I have a doubt.", accepted: ["Let's discuss the scope — I have a question.", "Let's discuss the scope — I have a question"], explanation: "Dois calques: discuss sem about + question (não doubt).", tags: [br.discuss-about, br.doubt] }
+  - { id: M07-A10, type: error_correction, prompt: "He said me we need that the criteria stay fixed.", accepted: ["He told me we need the criteria to stay fixed.", "He told me we need the criteria to stay fixed"], explanation: 'Dois calques: told me + "need X to" (não "need that").', tags: [br.said-me, br.need-that-you] }
+  - { id: M07-A11, type: multiple_choice, prompt: "Mid-refinement, someone adds 'and a dashboard' to the retry story. This is…", options: ["a spike", "scope creep — candidate for a split", "a blocker", "the acceptance criteria"], answer: 1, explanation: "Cresceu sem decisão dentro da story = scope creep → split.", tags: [vocab.agile] }
+  - { id: M07-A12, type: fill_blank, prompt: "Let's ___ the spike to two days — otherwise it becomes a project.", accepted: ["timebox"], explanation: '"timebox" como verbo — limitar no tempo.', tags: [vocab.agile] }
+  - { id: M07-A13, type: error_correction, prompt: "Can you explain me the criteria? The new version is more clear.", accepted: ["Can you explain the criteria to me? The new version is clearer.", "Can you explain the criteria to me? The new version is clearer", "Can you explain the criteria? The new version is clearer."], explanation: "Dois erros: explain + to me + clearer (curto).", tags: [br.explain-me, br.more-er] }
+  - { id: M07-A14, type: translate, prompt: "Se o spike voltar limpo, eu diria três pontos.", accepted: ["If the spike comes back clean, I'd say three points.", "If the spike comes back clean, I'd say three points", "If the spike is clean, I'd say three points."], explanation: "if + presente + hedge — condicional e estimativa juntos.", tags: [gram.conditionals-real, gram.hedging, vocab.agile] }
+  - { id: M07-A15, type: match, prompt: "Associe cada termo do refinamento ao que ele significa.", pairs: [{ left: "spike", right: "timeboxed investigation — answers a question" }, { left: "scope creep", right: "the story growing without a decision" }, { left: "on the record", right: "the condition written next to the estimate" }, { left: "action items", right: "what leaves the meeting, with owners" }], explanation: "O vocabulário operacional do refinamento.", tags: [vocab.agile] }
+
+writing:
+  prompt: |
+    **Cenário:** você saiu do refinamento da story de backups (PITR, 30 dias de
+    retenção). O PO pede o resumo oficial para o ticket.
+
+    **Tarefa:** escreva o recap do refinamento em texto corrido (80–120
+    palavras): o que a story cobre, o que foi split (monitoring → story
+    própria), a estimativa com hedge e a condição registrada, o spike com
+    timebox e os action items com donos.
+  constraints:
+    - { label: "Vocabulário de refinamento", pattern: "\\b(story|spike|criteria|scope creep|split|backlog)\\b" }
+    - { label: "Estimativa com hedge", pattern: "\\b(i'd say|roughly|anywhere between|estimate|points|ballpark)\\b" }
+    - { label: "Condicional registrada", pattern: "\\b(if we|unless|as long as|even if|assuming)\\b" }
+    - { label: "Action items com dono", pattern: "\\b(action items?|recap|on the record|timebox|owner|owns)\\b" }
+  rubric:
+    - Escopo pós-split declarado
+    - Estimativa com hedge + condição escrita
+    - Spike com timebox
+    - Action items com donos
+  model: >-
+    Refinement recap for the backup story. Scope: automated snapshots with
+    point-in-time recovery and 30-day retention; the monitoring work was scope
+    creep and became its own story. Criteria now include a failure case —
+    on restore failure, an alert fires. Estimate: I'd say five points on the
+    record, as long as the storage-cost spike comes back clean; if it finds
+    surprises, we revisit before planning. Action items: Yuri runs the spike,
+    timeboxed to two days; Priya writes the monitoring story; Marcos adds the
+    failure criterion.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.agile]
+
+speaking:
+  prompt: "Grave 60 segundos como sua fala de fechamento no refinamento: percorra a story, aponte o que faltava nos critérios, delimite o escopo, dê a estimativa com hedge e condição, e feche com o recap."
+  maxSeconds: 60
+  targetPhrases:
+    - walk through the story
+    - acceptance criteria
+    - half-baked
+    - in scope
+    - scope creep
+    - does it make sense
+    - I'd say
+    - anywhere between
+    - it depends on
+    - as long as
+    - unless
+    - a known unknown
+    - timebox
+    - on the record
+    - let's recap
+    - action items

@@ -176,3 +176,38 @@ describe("content/modules/M06/assessment.yaml", () => {
     expect(checkExercise(q, "The commit fixes the bug — the reviewer said me to push.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M07/assessment.yaml", () => {
+  const m07 = bundle.moduleAssessments["M07"]!;
+  it("requires both 'estimate' and 'commitment'", () => {
+    const q = m07.items.find((q) => q.id === "M07-A02")!;
+    expect(checkExercise(q, "My estimate is five points, but I have a commitment at 3pm.").correct).toBe(true);
+    expect(checkExercise(q, "My estimative is five points, but I have a commitment at 3pm.").correct).toBe(false);
+    expect(checkExercise(q, "My estimate is five points, but I have a compromise at 3pm.").correct).toBe(false);
+  });
+  it("requires both 'makes' and 'depends on'", () => {
+    const q = m07.items.find((q) => q.id === "M07-A06")!;
+    expect(checkExercise(q, "It makes sense — the story depends on the spike.").correct).toBe(true);
+    expect(checkExercise(q, "It make sense — the story depends on the spike.").correct).toBe(false);
+    expect(checkExercise(q, "It makes sense — the story depends of the spike.").correct).toBe(false);
+  });
+  it("requires both bare 'discuss' and 'question'", () => {
+    const q = m07.items.find((q) => q.id === "M07-A09")!;
+    expect(checkExercise(q, "Let's discuss the scope — I have a question.").correct).toBe(true);
+    expect(checkExercise(q, "Let's discuss about the scope — I have a question.").correct).toBe(false);
+    expect(checkExercise(q, "Let's discuss the scope — I have a doubt.").correct).toBe(false);
+  });
+  it("requires both 'told me' and 'need the criteria to'", () => {
+    const q = m07.items.find((q) => q.id === "M07-A10")!;
+    expect(checkExercise(q, "He told me we need the criteria to stay fixed.").correct).toBe(true);
+    expect(checkExercise(q, "He said me we need the criteria to stay fixed.").correct).toBe(false);
+    expect(checkExercise(q, "He told me we need that the criteria stay fixed.").correct).toBe(false);
+  });
+  it("requires both 'explain to me' and 'clearer'", () => {
+    const q = m07.items.find((q) => q.id === "M07-A13")!;
+    expect(checkExercise(q, "Can you explain the criteria to me? The new version is clearer.").correct).toBe(true);
+    expect(checkExercise(q, "Can you explain the criteria? The new version is clearer.").correct).toBe(true);
+    expect(checkExercise(q, "Can you explain me the criteria? The new version is clearer.").correct).toBe(false);
+    expect(checkExercise(q, "Can you explain the criteria to me? The new version is more clear.").correct).toBe(false);
+  });
+});
