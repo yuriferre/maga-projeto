@@ -1,0 +1,288 @@
+id: M12-03
+module: M12
+order: 3
+title: "Troubleshooting narrado: let me describe the pod, the liveness probe is failing"
+objective: >-
+  Ao final, você conduz um troubleshooting de K8s pensando em voz alta —
+  "let me describe the pod", "events first", "I'll tail the logs", "the
+  liveness probe is failing" — cada comando anunciado antes de rodar,
+  cada achado transformado em hipótese.
+durationMin: 35
+competencies: [SPK, PRO, VOC]
+tags: [vocab.k8s, comp.speaking, br.need-see, br.is-ing-since]
+prerequisites: [M12-02]
+
+context:
+  scenario: |
+    O `checkout-api` está 502 no ar e você pega o teclado com a Ana
+    olhando. Pair troubleshooting tem uma regra: **narre antes de
+    rodar** — quem observa precisa seguir seu raciocínio.
+
+    A sequência clássica, toda narrável: `get pods` ("what's the state?")
+    → `describe pod` ("let me describe the pod — events at the bottom")
+    → `logs` ("I'll tail the logs") → `logs --previous` ("let me check
+    the previous container — it restarted") → `get events` ("pull the
+    events for the namespace") → hipótese ("the liveness probe is failing
+    — that's why it restarts").
+
+    Cada comando é uma frase de intenção + uma frase de leitura. O inglês
+    é simples; o valor está em não deixar silêncio enquanto digita.
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend)]
+
+vocabulary:
+  - term: "let me describe the pod"
+    meaning: deixa eu descrever o pod — o comando narrado
+    example: "Let me describe the pod — the events sit at the bottom."
+    translation: "Deixa eu descrever o pod — os eventos ficam no final."
+    note: "kubectl describe pod — a primeira parada depois do get."
+  - term: "I'll tail the logs"
+    meaning: vou acompanhar os logs — o -f ao vivo
+    example: "I'll tail the logs while you hit the endpoint."
+    translation: "Vou acompanhar os logs enquanto você bate no endpoint."
+    note: "kubectl logs -f — tail como verbo."
+  - term: "the previous container"
+    meaning: o container anterior — o que morreu antes do restart
+    example: "Logs --previous shows why the last container died."
+    translation: "Logs --previous mostra por que o último container morreu."
+    note: "Depois do restart, os logs do container morto."
+  - term: "events"
+    meaning: os eventos — a linha do tempo do objeto
+    example: "The events show 'Failed' on the liveness probe three times."
+    translation: "Os eventos mostram 'Failed' na liveness probe três vezes."
+    note: "kubectl get events / o fim do describe — sempre olhe."
+  - term: "to exec into"
+    meaning: entrar no container — shell dentro do pod
+    example: "Let me exec into the pod and check if it can resolve the DB."
+    translation: "Deixa eu entrar no pod e ver se resolve o DB."
+    note: "kubectl exec -it — investigar de dentro."
+  - term: "to port-forward"
+    meaning: encaminhar a porta — acessar o service/pod localmente
+    example: "I'll port-forward 8080 and hit it from my machine."
+    translation: "Vou fazer port-forward da 8080 e bater da minha máquina."
+    note: "kubectl port-forward — isola a rede do caminho."
+  - term: "the liveness probe is failing"
+    meaning: a liveness está falhando — causa dos restarts
+    example: "The liveness probe is failing — that's why the pod restarts."
+    translation: "A liveness probe está falhando — por isso o pod reinicia."
+    note: "A frase-diagnóstico do crash loop mais comum."
+  - term: "to narrow it down"
+    meaning: estreitar — cortar camadas do problema
+    example: "The service responds on port-forward — that narrows it down to the ingress."
+    translation: "O service responde no port-forward — isso estreita para o ingress."
+    note: "O M10 volta: cada teste elimina uma camada."
+  - term: "what's the state"
+    meaning: qual o estado — a pergunta de abertura
+    example: "What's the state — Running but not ready, or crash-looping?"
+    translation: "Qual o estado — Running mas não ready, ou crash loop?"
+    note: "A primeira pergunta antes de qualquer comando."
+  - term: "to hit the endpoint"
+    meaning: bater no endpoint — gerar a requisição de teste
+    example: "Hit the endpoint while I watch the logs."
+    translation: "Bata no endpoint enquanto eu observo os logs."
+    note: '"hit" — a requisição de teste manual.'
+  - term: "it can't resolve"
+    meaning: não resolve — o DNS falha
+    example: "The pod can't resolve the DB hostname — DNS is the suspect."
+    translation: "O pod não resolve o hostname do DB — o DNS é o suspeito."
+    note: '"can''t resolve" — o sintoma clássico de DNS.'
+  - term: "rollout status"
+    meaning: o estado do rollout — o deploy em andamento
+    example: "Rollout status says the deployment is stuck at 2 of 3."
+    translation: "O rollout status diz que o deployment travou em 2 de 3."
+    note: "kubectl rollout status — o deploy parou no meio?"
+
+grammar:
+  title: "Narrar o terminal: intenção + leitura"
+  explanation: |
+    O troubleshooting em pair tem dois tempos verbais por comando:
+
+    - **intenção** — o que vai rodar: "let me describe the pod", "I'll
+      tail the logs", "let me exec into it", "I'm gonna check the
+      events"
+    - **leitura** — o que apareceu: "the probe is failing", "events show
+      Failed three times", "the tag doesn't exist", "it can't resolve
+      the DB"
+
+    E a frase que conecta os dois é a hipótese: "**that's why** the pod
+    restarts", "**so** it narrows down to the ingress", "**which
+    means** the tag was never pushed".
+
+    O erro a evitar é o silêncio — e o calque "I need see" no lugar de
+    "I need to see" / "let me see".
+  examples:
+    - { en: "Let me describe the pod — events sit at the bottom, that's where the probe failures show.", pt: "Deixa eu descrever o pod — os eventos ficam no final, é onde as falhas de probe aparecem." }
+    - { en: "I'll tail the logs — hit the endpoint and let's see what it prints.", pt: "Vou acompanhar os logs — bata no endpoint e vamos ver o que sai." }
+    - { en: "The container restarted an hour ago — let me check the previous logs.", pt: "O container reiniciou há uma hora — deixa eu ver os logs anteriores." }
+    - { en: "It can't resolve the DB hostname — that narrows it down to DNS.", pt: "Não resolve o hostname do DB — isso estreita para o DNS." }
+    - { en: "The service responds on port-forward — so the problem is upstream, at the ingress.", pt: "O service responde no port-forward — então o problema está acima, no ingress." }
+    - { en: "The liveness probe is failing every 30 seconds — that's why it restarts.", pt: "A liveness probe falha a cada 30 segundos — por isso reinicia." }
+
+examples:
+  - en: "Let me describe the pod — 'Liveness probe failed: Get /healthz: connection refused', three times."
+    pt: "Deixa eu descrever o pod — 'Liveness probe failed: Get /healthz: connection refused', três vezes."
+    context: "describe → events no fim → a falha nomeada."
+  - en: "I'll tail the logs — hit the endpoint and watch with me."
+    pt: "Vou acompanhar os logs — bata no endpoint e observe comigo."
+    context: "Tail narrado + pedido ao pair."
+  - en: "Restart count is 12 — let me pull the previous container's logs."
+    pt: "A contagem de restarts é 12 — deixa eu pegar os logs do container anterior."
+    context: "--previous: os logs do que morreu."
+  - en: "Let me exec into the pod — I want to see if it can resolve the DB hostname."
+    pt: "Deixa eu entrar no pod — quero ver se resolve o hostname do DB."
+    context: "exec -it — investigar de dentro."
+  - en: "I'll port-forward to the service — if it responds, the problem is upstream."
+    pt: "Vou fazer port-forward para o service — se responder, o problema está acima."
+    context: "Port-forward como teste de camada."
+  - en: "Rollout status is stuck at 2 of 3 — the third pod never goes ready."
+    pt: "O rollout status travou em 2 de 3 — o terceiro pod nunca fica pronto."
+    context: "O deploy parado no meio."
+  - en: "The events show 'FailedScheduling' — that's why it's been pending."
+    pt: "Os eventos mostram 'FailedScheduling' — por isso está pendente."
+    context: "Events explicam o estado."
+  - en: "That narrows it down to the ingress — service is fine, pods are fine."
+    pt: "Isso estreita para o ingress — service ok, pods ok."
+    context: "Cada teste elimina uma camada."
+
+variations:
+  - idea: '"narrar antes de rodar"'
+    items:
+      - { register: "Boa", text: "Let me describe the pod — events at the bottom will show the probe failures.", adequate: true }
+      - { register: "Boa", text: "I'll tail the logs — hit the endpoint and watch with me.", adequate: true }
+      - { register: "Inadequada", text: "(trinta segundos de silêncio digitando)", adequate: false, note: "Silêncio em pair quebra o raciocínio compartilhado — narre a intenção." }
+      - { register: "Inadequada", text: "I need see the logs. (sem anunciar o porquê)", adequate: false, note: "Dois problemas: 'need to see' + a intenção sem leitura esperada." }
+  - idea: '"o achado vira hipótese"'
+    items:
+      - { register: "Boa", text: "The liveness probe is failing — that's why the pod restarts. Let me check the probe config.", adequate: true }
+      - { register: "Boa", text: "The service responds on port-forward — that narrows it down to the ingress.", adequate: true }
+      - { register: "Inadequada", text: "Hmm, interesting. (e segue digitando)", adequate: false, note: "O achado sem hipótese não compartilha nada — 'that's why', 'which means'." }
+      - { register: "Inadequada", text: "It's definitely the code.", adequate: false, note: "Conclusão sem camada eliminada — teste antes de concluir." }
+
+brErrors:
+  - { wrong: "I need see the logs.", right: "I need to see the logs.", why: "need to see / let me see", tag: br.need-see }
+  - { wrong: "The pod is running since an hour.", right: "The pod has been running for an hour.", why: "has been + for + duração", tag: br.is-ing-since }
+  - { wrong: "The pod is died — let me check the previous logs.", right: "The pod died — let me check the previous logs.", why: "died, não 'is died'", tag: br.is-died }
+  - { wrong: "The probe not reaches the endpoint.", right: "The probe doesn't reach the endpoint.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same config of staging.", right: "It's the same config as staging.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "The pod is scheduled in the node.", right: "The pod is scheduled on the node.", why: "on the node", tag: br.in-the-node }
+  - { wrong: "Before to restart, tail the logs.", right: "Before restarting, tail the logs.", why: "before + gerúndio", tag: br.after-to }
+  - { wrong: "I losed the connection to the pod.", right: "I lost the connection to the pod.", why: "lost, não losed", tag: br.irregular-past }
+  - { wrong: "Ana suggested me to check the events.", right: "Ana suggested that I check the events.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "The DNS depends in the resolver.", right: "The DNS depends on the resolver.", why: "depends on", tag: br.depends-in }
+
+dialogue:
+  title: "O 502 do checkout"
+  lines:
+    - { speaker: Ana, text: "Checkout's returning 502 — you drive, I watch." }
+    - { speaker: Yuri, text: "Starting with get pods — what's the state? … Running but 0/1 ready, restart count at 8." }
+    - { speaker: Ana, text: "So it's crash-looping into not-ready." }
+    - { speaker: Yuri, text: "Let me describe the pod — events at the bottom… 'Liveness probe failed: connection refused', three times." }
+    - { speaker: Ana, text: "The probe can't reach the app." }
+    - { speaker: Yuri, text: "Right — I'll tail the logs. Hit the endpoint… nothing. The app isn't even listening." }
+    - { speaker: Ana, text: "Previous container logs?" }
+    - { speaker: Yuri, text: "Good call — logs --previous… it died on startup: 'DATABASE_URL not set'." }
+    - { speaker: Ana, text: "So the liveness probe fails because the app never starts — missing env var." }
+    - { speaker: Yuri, text: "That's why it restarts — the env var vanished in the last deploy. Let me check the deployment spec." }
+    - { speaker: Ana, text: "Found it?" }
+    - { speaker: Yuri, text: "Yeah — the env section got dropped in yesterday's merge. Adding it back, rollout status… 3 of 3 ready. Green." }
+  notes:
+    - "intenção → leitura → hipótese: cada comando narrado, cada achado com 'that's why'."
+    - "o 502 na ponta era um env var ausente — a camada certa no fim."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Pair troubleshooting has one rule: narrate before you run. 'Let me describe the pod' — then the reading: 'events show the liveness probe failing'. The person watching follows your reasoning, not just your keystrokes." }
+    - { speaker: Marcos, text: "The sequence is always the same: get pods for the state, describe for the events, logs for the app, logs --previous for the container that already died. Each command eliminates a layer." }
+    - { speaker: Yuri, text: "Two commands pull you out of guessing: exec into the pod to test from inside — can it resolve the DB? — and port-forward to the service: if it responds there, everything upstream, the ingress, is the problem." }
+    - { speaker: Ana, text: "And every finding needs the connecting phrase — 'that's why it restarts', 'which means the tag was never pushed', 'so it narrows down to DNS'. The hypothesis is what you share; the command output is just evidence." }
+  questions:
+    - { id: M12-03-l1, type: multiple_choice, prompt: "The rule of pair troubleshooting is…", options: ["type fast, talk later", "narrate before you run — the watcher follows reasoning, not keystrokes", "silence means focus", "only senior people drive"], answer: 1, explanation: "Intenção narrada antes do comando.", tags: [comp.listening, comp.speaking] }
+    - { id: M12-03-l2, type: multiple_choice, prompt: "The command sequence is…", options: ["logs, restart, describe", "exec first, always", "describe, events, restart", "get pods → describe → logs → logs --previous"], answer: 3, explanation: "Estado → eventos → app → container morto.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-03-l3, type: fill_blank, prompt: "Let me ___ the pod — the events sit at the bottom.", accepted: ["describe"], explanation: "kubectl describe — os eventos no fim.", tags: [vocab.k8s] }
+    - { id: M12-03-l4, type: error_correction, prompt: "I need see the logs.", accepted: ["I need to see the logs.", "Let me see the logs.", "I need to see the logs"], explanation: "need to see / let me see.", tags: [br.need-see] }
+    - { id: M12-03-l5, type: multiple_choice, prompt: "If the service responds on port-forward…", options: ["the pods are dead", "the DNS is broken", "the problem is upstream — the ingress is the suspect", "restart everything"], answer: 2, explanation: "Service ok → o problema está acima.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-03-l6, type: multiple_choice, prompt: "The connecting phrase after a finding is…", options: ["'interesting.'", "'whatever.'", "'that's why it restarts' — the hypothesis you share", "'ok.'"], answer: 2, explanation: "O achado vira hipótese — that's why / which means.", tags: [comp.listening, comp.speaking] }
+
+writing:
+  prompt: |
+    **Cenário:** o incidente do 502 fechou e a Ana pede o resumo na thread:
+    a sequência de comandos, o que cada um revelou e a causa raiz.
+
+    **Tarefa:** escreva 80–120 palavras narrando a investigação: get pods
+    (estado), describe (eventos da probe), logs --previous (a causa), e o
+    fix — env var restaurada no deployment.
+  constraints:
+    - { label: "Sequência de comandos", pattern: "\\b(get pods|describe|logs|previous|events|exec|port-forward)\\b" }
+    - { label: "Achados", pattern: "\\b(probe|liveness|failing|restart|refused|env|database_url)\\b" }
+    - { label: "Conectores de hipótese", pattern: "\\b(that's why|which means|narrowed|turned out|so)\\b" }
+    - { label: "Resolução", pattern: "\\b(fix|restored|added|deploy|ready|green)\\b" }
+  rubric:
+    - "Comandos na ordem certa"
+    - "Cada achado conectado (that's why/which means)"
+    - "Causa raiz nomeada"
+    - "Fix + confirmação"
+  model: >-
+    Recap of the checkout 502. Get pods showed Running but 0/1 ready,
+    restart count at 8. Describing the pod surfaced the events: 'Liveness
+    probe failed — connection refused', three times. Tailing the logs
+    showed nothing — the app wasn't listening — so I pulled the previous
+    container's logs: it died on startup with 'DATABASE_URL not set'.
+    That's why the probe failed — the app never started. The env var got
+    dropped in yesterday's merge; I restored it in the deployment spec,
+    the rollout went 3/3 ready, and checkout is green.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.k8s]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos narrando um troubleshooting de K8s (o do módulo ou um real): cada comando anunciado, cada achado com a hipótese, a causa e o fix."
+    maxSeconds: 45
+    targetPhrases:
+      - let me describe the pod
+      - I'll tail the logs
+      - the liveness probe is failing
+      - the previous container
+      - events show
+      - that's why
+      - it can't resolve
+      - port-forward
+      - narrows it down
+      - rollout status
+      - not ready
+      - restart count
+    checklist:
+      - Intenção → leitura por comando
+      - 'that''s why / which means conectando'
+      - Causa raiz + fix
+      - Sequência get → describe → logs
+
+quiz:
+  - { id: M12-03-q1, type: multiple_choice, prompt: "'Let me describe the pod' looks for…", options: ["the image tag", "the logs", "the events at the bottom — probe failures, scheduling, mounts", "the node name"], answer: 2, explanation: "Describe = eventos no fim.", tags: [vocab.k8s] }
+  - { id: M12-03-q2, type: error_correction, prompt: "The pod is died — let me check the previous logs.", accepted: ["The pod died — let me check the previous logs.", "The pod is dead — let me check the previous logs.", "The pod died — let me check the previous logs"], explanation: "died ou is dead.", tags: [br.is-died] }
+  - { id: M12-03-q3, type: multiple_choice, prompt: "Logs --previous shows…", options: ["tomorrow's logs", "the events", "the node logs", "the container that already died — before the restart"], answer: 3, explanation: "Os logs do container morto.", tags: [vocab.k8s] }
+  - { id: M12-03-q4, type: fill_blank, prompt: "I'll ___ the logs — hit the endpoint and watch.", accepted: ["tail"], explanation: "Tail como verbo — logs -f.", tags: [vocab.k8s] }
+  - { id: M12-03-q5, type: error_correction, prompt: "The pod is running since an hour.", accepted: ["The pod has been running for an hour.", "The pod has been running since an hour ago.", "The pod has been running for an hour"], explanation: "has been + for + duração.", tags: [br.is-ing-since] }
+  - { id: M12-03-q6, type: translate, prompt: "O service responde no port-forward — isso estreita para o ingress.", accepted: ["The service responds on port-forward — that narrows it down to the ingress.", "The service responds on port-forward — it narrows it down to the ingress."], explanation: "narrow down — cada teste elimina uma camada.", tags: [vocab.k8s] }
+  - { id: M12-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["is", "probe", "liveness", "the", "failing"], answer: "the liveness probe is failing", explanation: "A frase-diagnóstico.", tags: [vocab.k8s] }
+  - { id: M12-03-q8, type: multiple_choice, prompt: "'The pod can't resolve the DB hostname' points to…", options: ["DNS", "the ingress", "the image", "the probe"], answer: 0, explanation: "Can't resolve = DNS.", tags: [vocab.k8s] }
+
+srsCards:
+  - { front: "let me describe the pod", back: "O comando narrado — eventos no fim.", tag: vocab.k8s }
+  - { front: "tail the logs", back: "logs -f — acompanhar ao vivo.", tag: vocab.k8s }
+  - { front: "logs --previous", back: "Os logs do container que já morreu.", tag: vocab.k8s }
+  - { front: "exec into the pod", back: "Shell dentro do container — investigar de dentro.", tag: vocab.k8s }
+  - { front: "port-forward", back: "Bater no service localmente — isola a camada.", tag: vocab.k8s }
+  - { front: "the liveness probe is failing", back: "A frase-diagnóstico do crash loop.", tag: vocab.k8s }
+  - { front: "can't resolve", back: "DNS falhando — o sintoma clássico.", tag: vocab.k8s }
+  - { front: "rollout status", back: "O deploy parou? 'stuck at 2 of 3'.", tag: vocab.k8s }
+  - { front: "hit the endpoint", back: "A requisição de teste manual.", tag: vocab.k8s }
+  - { front: "that's why", back: "O conector do achado → hipótese.", tag: vocab.k8s }
+
+review:
+  preferTags: [vocab.k8s, br.need-see, comp.speaking]
+  notes: "Revisão prioriza a narração de troubleshooting e need to + infinitivo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
