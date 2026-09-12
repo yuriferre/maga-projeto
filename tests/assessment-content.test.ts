@@ -534,3 +534,50 @@ describe("M15 assessment variants", () => {
     expect(checkExercise(q, "Thanks for your patience — we'll post news as soon possible.").correct).toBe(false);
   });
 });
+
+describe("M16 assessment variants", () => {
+  const m16 = bundle.moduleAssessments["M16"]!;
+  it("requires 'confirm' without me and 'hear you'", () => {
+    const q = m16.items.find((q) => q.id === "M16-A02")!;
+    expect(checkExercise(q, "Can you confirm the pool is healthy? I can't hear you.").correct).toBe(true);
+    expect(checkExercise(q, "Can you confirm me the pool is healthy? I can't hear you.").correct).toBe(false);
+    expect(checkExercise(q, "Can you confirm the pool is healthy? I can't listen you.").correct).toBe(false);
+  });
+  it("requires 'dropped' and 'on the line'", () => {
+    const q = m16.items.find((q) => q.id === "M16-A04")!;
+    expect(checkExercise(q, "The call dropped — stay on the line while I reconnect.").correct).toBe(true);
+    expect(checkExercise(q, "The call fell — stay on the line while I reconnect.").correct).toBe(false);
+    expect(checkExercise(q, "The call dropped — stay in the line while I reconnect.").correct).toBe(false);
+  });
+  it("requires 'told me' and 'ask Marcos'", () => {
+    const q = m16.items.find((q) => q.id === "M16-A06")!;
+    expect(checkExercise(q, "She told me to hold off — ask Marcos why.").correct).toBe(true);
+    expect(checkExercise(q, "She said me to hold off — ask Marcos why.").correct).toBe(false);
+    expect(checkExercise(q, "She told me to hold off — ask to Marcos why.").correct).toBe(false);
+  });
+  it("requires 'right now' and 'doesn't wait' on A08", () => {
+    const q = m16.items.find((q) => q.id === "M16-A08")!;
+    expect(checkExercise(q, "Right now the bridge doesn't wait for the recap.").correct).toBe(true);
+    expect(checkExercise(q, "In this moment the bridge doesn't wait for the recap.").correct).toBe(false);
+    expect(checkExercise(q, "Right now the bridge not wait for the recap.").correct).toBe(false);
+  });
+  it("requires 'can you' and 'send me' on A10", () => {
+    const q = m16.items.find((q) => q.id === "M16-A10")!;
+    expect(checkExercise(q, "Can you send me the bridge timeline?").correct).toBe(true);
+    expect(checkExercise(q, "Do you can send me the bridge timeline?").correct).toBe(false);
+    expect(checkExercise(q, "Can you send to me the bridge timeline?").correct).toBe(false);
+  });
+  it("requires all three fixes on A12", () => {
+    const q = m16.items.find((q) => q.id === "M16-A12")!;
+    expect(checkExercise(q, "I have a question — I need you to explain the recap to me.").correct).toBe(true);
+    expect(checkExercise(q, "I have a doubt — I need you to explain the recap to me.").correct).toBe(false);
+    expect(checkExercise(q, "I have a question — I need that you explain the recap to me.").correct).toBe(false);
+  });
+  it("requires all three fixes on A14", () => {
+    const q = m16.items.find((q) => q.id === "M16-A14")!;
+    expect(checkExercise(q, "Sorry to interrupt — the bridge depends on discipline. He explains it well.").correct).toBe(true);
+    expect(checkExercise(q, "Sorry for interrupt — the bridge depends on discipline. He explains it well.").correct).toBe(false);
+    expect(checkExercise(q, "Sorry to interrupt — the bridge depend of discipline. He explains it well.").correct).toBe(false);
+    expect(checkExercise(q, "Sorry to interrupt — the bridge depends on discipline. He explain it well.").correct).toBe(false);
+  });
+});

@@ -1,0 +1,82 @@
+# Avaliação do módulo M16: 15 itens cobrindo as cinco aulas + escrita (recap da bridge) + fala.
+id: M16
+title: "Avaliação do módulo M16: Bridges de incidente"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M16-A01, type: multiple_choice, prompt: "The person who writes the timeline on a bridge is…", options: ["the scribe", "the IC", "the comms lead", "the SME"], answer: 0, explanation: "O escriba — a memória escrita da bridge.", tags: [vocab.bridge] }
+  - { id: M16-A02, type: error_correction, prompt: "Can you confirm me the pool is healthy? I can't listen you.", accepted: ["Can you confirm the pool is healthy? I can't hear you.", "Can you confirm the pool is healthy? I can't hear you"], explanation: 'Dois calques: "confirm" sem me + "hear you".', tags: [br.confirm-me, br.listen-you] }
+  - { id: M16-A03, type: fill_blank, prompt: "Rafa, you're on ___ — we lost the pool numbers.", accepted: ["mute"], explanation: '"on mute" — o aviso universal.', tags: [vocab.bridge] }
+  - { id: M16-A04, type: error_correction, prompt: "The call fell — stay in the line while I reconnect.", accepted: ["The call dropped — stay on the line while I reconnect.", "The call dropped — stay on the line while I reconnect"], explanation: 'Dois calques: "dropped" + "on the line".', tags: [br.call-fell, br.in-the-line] }
+  - { id: M16-A05, type: multiple_choice, prompt: "'Park the root cause for the post-mortem' means…", options: ["the root cause doesn't matter", "the topic is recorded for later — the bridge stays on mitigation", "the post-mortem is cancelled", "the bridge is over"], answer: 1, explanation: "Estacionado, não morto.", tags: [vocab.bridge] }
+  - { id: M16-A06, type: error_correction, prompt: "She said me to hold off — ask to Marcos why.", accepted: ["She told me to hold off — ask Marcos why.", "She told me to hold off — ask Marcos why"], explanation: 'Dois calques: "told me" + "ask" sem to.', tags: [br.said-me, br.ask-to] }
+  - { id: M16-A07, type: multiple_choice, prompt: "'On my call: we roll back' is the IC…", options: ["asking for a vote", "suggesting politely", "owning the decision — declared, not debated", "handing over the role"], answer: 2, explanation: "A decisão assumida nominalmente.", tags: [vocab.bridge] }
+  - { id: M16-A08, type: error_correction, prompt: "In this moment the bridge not wait for the recap.", accepted: ["Right now the bridge doesn't wait for the recap.", "Right now the bridge doesn't wait for the recap"], explanation: 'Dois calques: "right now" + "doesn''t wait".', tags: [br.in-this-moment, br.it-not-works] }
+  - { id: M16-A09, type: translate, prompt: "Vamos continuar na mitigação — estacione a causa raiz.", accepted: ["Let's stay on the mitigation — park the root cause.", "Let's stay on the mitigation — park the root cause for the post-mortem."], explanation: '"stay on" + "park".', tags: [vocab.bridge] }
+  - { id: M16-A10, type: error_correction, prompt: "Do you can send to me the bridge timeline?", accepted: ["Can you send me the bridge timeline?", "Can you send me the bridge timeline"], explanation: 'Dois calques: "can you" + "send me".', tags: [br.do-modal, br.send-to-me] }
+  - { id: M16-A11, type: multiple_choice, prompt: "If the IC's connection drops mid-incident…", options: ["the bridge ends", "everyone votes on a new IC", "the SME takes over", "the deputy takes over — declared beforehand"], answer: 3, explanation: "Sucessão declarada antes de precisar.", tags: [vocab.bridge] }
+  - { id: M16-A12, type: error_correction, prompt: "I have a doubt — I need that you explain me the recap.", accepted: ["I have a question — I need you to explain the recap to me.", "I have a question — I need you to explain the recap to me"], explanation: 'Três calques: "question" + "need you to" + "explain to me".', tags: [br.doubt, br.need-that-you, br.explain-me] }
+  - { id: M16-A13, type: error_correction, prompt: "I muted myself for to type the timeline.", accepted: ["I muted myself to type the timeline.", "I muted myself to type the timeline"], explanation: '"to" — sem "for".', tags: [br.for-to] }
+  - { id: M16-A14, type: error_correction, prompt: "Sorry for interrupt — the bridge depend of discipline. He explain it well.", accepted: ["Sorry to interrupt — the bridge depends on discipline. He explains it well.", "Sorry to interrupt — the bridge depends on discipline. He explains it well"], explanation: 'Três calques: "sorry to" + "depends on" + "explains".', tags: [br.sorry-for-interrupt, br.depend-of, br.third-person-s] }
+  - { id: M16-A15, type: match, prompt: "Associe a frase à função na bridge.", pairs: [{ left: "hang on", right: "pause the speaker, promise to return" }, { left: "read back", right: "repeat the order to confirm it" }, { left: "eyes on", right: "watch a metric with an owner" }, { left: "stand down", right: "release who isn't needed" }], explanation: "As ferramentas de controle da bridge.", tags: [vocab.bridge] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** você comandou uma bridge de 15
+    minutos — all-clear às 18:05 — e posta o recap na thread.
+
+    **Tarefa:** escreva 80–110 palavras com o recap da bridge: os
+    papéis (quem foi IC, scribe, comms, SME), a timeline com
+    timestamps, a decisão tomada e seu dono, o que foi estacionado
+    para o post-mortem e o próximo passo.
+  constraints:
+    - { label: "Papéis", pattern: "\\b(ic|incident commander|scribe|comms|sme)\\b" }
+    - { label: "Timeline", pattern: "\\b(\\d{2}:\\d{2}|timeline|alert|all.?clear)\\b" }
+    - { label: "Decisão + dono", pattern: "\\b(roll ?back|decided|on my call|go.?ahead|read back)\\b" }
+    - { label: "Post-mortem/próximo", pattern: "\\b(post.?mortem|parked|follow.?up|monday|next)\\b" }
+  rubric:
+    - "Papéis nomeados"
+    - "Timeline com timestamps"
+    - "Decisão com dono e verificação"
+    - "Estacionado + próximo passo"
+  model: >-
+    Bridge recap — all-clear at 18:05. Roles: Priya was IC, I was
+    scribe, Ana owned comms, Rafa was the database SME. Timeline:
+    deploy at 17:38, alert at 17:42, rollback at 17:52, all-clear at
+    18:05. The call was Priya's: roll back the deploy after Marcos
+    confirmed the config change — read back and verified on the
+    error graph within ten minutes. The root-cause discussion was
+    parked for the post-mortem, which Ana schedules for Monday.
+    Marcos posts the full timeline in this thread next, and the
+    search fix re-deploys once the all-clear holds.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.bridge]
+
+speaking:
+  prompt: "Grave 60 segundos conduzindo o fechamento de uma bridge como IC: o all-clear, o recap com a decisão e seu dono, o que foi estacionado, e o encerramento com ações."
+  maxSeconds: 60
+  targetPhrases:
+    - all-clear
+    - roles first
+    - on my call
+    - go ahead
+    - read back
+    - eyes on
+    - park it
+    - hang on
+    - walk it back
+    - wrap up
+    - dropping the bridge
+    - thanks all
+    - the post-mortem
+    - confirmed
+    - one at a time
+    - stand down
+  checklist:
+    - "All-clear declarado"
+    - "Decisão + dono no recap"
+    - "Estacionado para o post-mortem"
+    - "Fechamento com ações nomeadas"
