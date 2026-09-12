@@ -1,0 +1,76 @@
+# Avaliação do módulo M08: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M08
+title: "Avaliação do módulo M08: retrospectivas, feedback e 1:1s"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M08-A01, type: multiple_choice, prompt: "A retro that ends without owners and dates produced…", options: ["a safe space", "a shorter meeting", "venting — action items without owners are theater", "consensus"], answer: 2, explanation: "Item sem dono e data não volta como 'went well'.", tags: [topic.retro, vocab.feedback] }
+  - { id: M08-A02, type: error_correction, prompt: "We did a mistake in the rollout — the team moral dropped after.", accepted: ["We made a mistake in the rollout — the team morale dropped after.", "We made a mistake in the rollout — the team morale dropped after"], explanation: "Dois calques: make a mistake + morale (moral do time).", tags: [br.do-mistake, br.morale] }
+  - { id: M08-A03, type: multiple_choice, prompt: "Which feedback lands on the process, not the person?", options: ["\"You always skip the staging check.\"", "\"I noticed the staging check got skipped on reruns — it would help to gate it in CI.\"", "\"Marcos broke Friday's deploy.\"", "\"Nobody checks anything around here.\""], answer: 1, explanation: "I noticed + it would help if — mesmo fato, zero culpados.", tags: [vocab.feedback] }
+  - { id: M08-A04, type: fill_blank, prompt: "Fair ___ — the handoffs have been thin. I'll work on that.", accepted: ["point"], explanation: '"fair point" — reconhece sem se curvar, antes da ação.', tags: [vocab.feedback] }
+  - { id: M08-A05, type: error_correction, prompt: "I am agree — she said me the notes were thin.", accepted: ["I agree — she told me the notes were thin.", "I agree — she told me the notes were thin"], explanation: "Dois erros: agree sem am + told me (say não leva objeto indireto).", tags: [br.i-am-agree, br.said-me] }
+  - { id: M08-A06, type: error_correction, prompt: "I have a doubt — can you explain me the senior rubric?", accepted: ["I have a question — can you explain the senior rubric to me?", "I have a question — can you explain the senior rubric to me", "I have a question — can you explain the senior rubric?"], explanation: "Dois calques: question (não doubt) + explain X to me.", tags: [br.doubt, br.explain-me] }
+  - { id: M08-A07, type: error_correction, prompt: "He gave me a feedback — I need that you repeat it.", accepted: ["He gave me some feedback — I need you to repeat it.", "He gave me some feedback — I need you to repeat it", "He gave me feedback — I need you to repeat it."], explanation: 'Dois erros: feedback incontável + "need you to" (não "need that").', tags: [br.uncountable, br.need-that-you] }
+  - { id: M08-A08, type: error_correction, prompt: "I'm boring in long retros — it make sense to timebox them.", accepted: ["I'm bored in long retros — it makes sense to timebox them.", "I'm bored in long retros — it makes sense to timebox them"], explanation: "Dois erros: bored (-ed para quem sente) + makes (3ª pessoa).", tags: [br.ed-ing, br.it-makes-sense] }
+  - { id: M08-A09, type: error_correction, prompt: "My workload depends of the sprint — actually I'm on three projects.", accepted: ["My workload depends on the sprint — currently I'm on three projects.", "My workload depends on the sprint — currently I'm on three projects", "My workload depends on the sprint — right now I'm on three projects."], explanation: "Dois calques: depends on + currently (actually = na verdade).", tags: [br.depend-of, br.actually] }
+  - { id: M08-A10, type: error_correction, prompt: "I pretend to raise the workload in our next 1:1.", accepted: ["I plan to raise the workload in our next 1:1.", "I plan to raise the workload in our next 1:1", "I intend to raise the workload in our next 1:1."], explanation: '"pretend" = fingir; pretender é plan/intend.', tags: [br.pretend] }
+  - { id: M08-A11, type: multiple_choice, prompt: "Which phrasing hedges the criticism instead of sounding like a verdict?", options: ["\"The notes are unacceptable.\"", "\"Fix the notes.\"", "\"The notes are wrong, obviously.\"", "\"It would help if the notes had a summary line — they read thin to me.\""], answer: 3, explanation: "Hedge + pedido específico + 'to me' — crítica que se ouve.", tags: [gram.hedging, vocab.feedback] }
+  - { id: M08-A12, type: error_correction, prompt: "After the retro the checklist is more clear and the 1:1s got more short.", accepted: ["After the retro the checklist is clearer and the 1:1s got shorter.", "After the retro the checklist is clearer and the 1:1s got shorter"], explanation: "Adjetivos curtos levam -er: clearer, shorter.", tags: [br.more-er] }
+  - { id: M08-A13, type: multiple_choice, prompt: "Your plate is full and a new epic lands. The professional move in the 1:1:", options: ["accept it all quietly", "refuse the epic", "\"My plate is full — which should I drop?\"", "complain in the team channel"], answer: 2, explanation: "Força a priorização — a decisão volta a quem prioriza.", tags: [vocab.feedback] }
+  - { id: M08-A14, type: translate, prompt: "Isso é comigo — vou dar sequência ao item do checklist na próxima retro.", accepted: ["That's on me — I'll follow up on the checklist item next retro.", "That's on me — I'll follow up on the checklist item next retro", "That's on me — I'll follow up on the checklist item in the next retro."], explanation: '"that''s on me" + "follow up on" — assume e dá sequência.', tags: [vocab.feedback] }
+  - { id: M08-A15, type: match, prompt: "Associe cada frase ao movimento que ela faz numa retro ou 1:1.", pairs: [{ left: "I noticed the gate got skipped", right: "giving feedback on the process" }, { left: "fair point — I'll work on that", right: "receiving feedback without defense" }, { left: "which should I drop", right: "forcing prioritization" }, { left: "the multi-region work as a stretch assignment", right: "a concrete career ask" }], explanation: "Os quatro movimentos do módulo em uma linha cada.", tags: [vocab.feedback] }
+
+writing:
+  prompt: |
+    **Cenário:** um colega pulou a verificação de staging na sexta e o deploy
+    quebrou. Ele também ficou na defensiva quando você apontou isso na retro.
+    O gestor pede que você escreva o feedback por assíncrono — ele vai ler
+    antes do próximo 1:1 do colega.
+
+    **Tarefa:** escreva 80–120 palavras: o feedback construtivo ("I noticed…",
+    "it would help if…") mirando o processo, e um parágrafo sobre como
+    receber feedback ("fair point", pedir exemplo) — para o colega usar nas
+    duas direções.
+  constraints:
+    - { label: "Feedback com I noticed", pattern: "\\b(i noticed|it would help if|what would help)\\b" }
+    - { label: "Alvo no processo", pattern: "\\b(process|gate|checklist|staging|step)\\b" }
+    - { label: "Receber sem defesa", pattern: "\\b(fair point|i hear you|example|work on)\\b" }
+    - { label: "Ação com dono", pattern: "\\b(action item|i.ll|by friday|own)\\b" }
+  rubric:
+    - Feedback mirado no processo, não na pessoa
+    - Pedido específico ("it would help if…")
+    - Parágrafo sobre receber feedback
+    - Fecha com ação concreta
+  model: >-
+    Feedback on Friday's deploy. I noticed the staging check got skipped on
+    the rerun — nothing personal; the gate is optional today, and that's the
+    real problem. It would help if CI enforced it for everyone. On the retro
+    moment: when a point lands, "fair point" plus "can you give me an
+    example?" beats defending — you'll hear more feedback, and feedback is
+    how we grow. Action item: I'll open the CI-gate ticket and own it by
+    Friday; the checklist phrasing is on me to tighten.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.feedback]
+
+speaking:
+  prompt: "Grave 60 segundos: dê um feedback construtivo sobre um processo que falhou (I noticed + it would help if), depois mude de papel e receba um feedback sobre você (fair point + pedido de exemplo + ação)."
+  maxSeconds: 60
+  targetPhrases:
+    - I noticed
+    - it would help if
+    - the process
+    - nothing personal
+    - fair point
+    - I hear you
+    - can you give me an example
+    - that's on me
+    - I'll work on that
+    - what would good look like
+    - action item
+    - I'll own it
+    - let me recap
+    - thanks for the feedback
+    - don't take it personally

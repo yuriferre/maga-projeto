@@ -211,3 +211,43 @@ describe("content/modules/M07/assessment.yaml", () => {
     expect(checkExercise(q, "Can you explain the criteria to me? The new version is more clear.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M08/assessment.yaml", () => {
+  const m08 = bundle.moduleAssessments["M08"]!;
+  it("requires both 'made' and 'morale'", () => {
+    const q = m08.items.find((q) => q.id === "M08-A02")!;
+    expect(checkExercise(q, "We made a mistake in the rollout — the team morale dropped after.").correct).toBe(true);
+    expect(checkExercise(q, "We did a mistake in the rollout — the team morale dropped after.").correct).toBe(false);
+    expect(checkExercise(q, "We made a mistake in the rollout — the team moral dropped after.").correct).toBe(false);
+  });
+  it("requires both bare 'agree' and 'told me'", () => {
+    const q = m08.items.find((q) => q.id === "M08-A05")!;
+    expect(checkExercise(q, "I agree — she told me the notes were thin.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree — she told me the notes were thin.").correct).toBe(false);
+    expect(checkExercise(q, "I agree — she said me the notes were thin.").correct).toBe(false);
+  });
+  it("requires both 'question' and 'explain to me'", () => {
+    const q = m08.items.find((q) => q.id === "M08-A06")!;
+    expect(checkExercise(q, "I have a question — can you explain the senior rubric to me?").correct).toBe(true);
+    expect(checkExercise(q, "I have a doubt — can you explain the senior rubric to me?").correct).toBe(false);
+    expect(checkExercise(q, "I have a question — can you explain me the senior rubric?").correct).toBe(false);
+  });
+  it("requires both 'some feedback' and 'need you to'", () => {
+    const q = m08.items.find((q) => q.id === "M08-A07")!;
+    expect(checkExercise(q, "He gave me some feedback — I need you to repeat it.").correct).toBe(true);
+    expect(checkExercise(q, "He gave me a feedback — I need you to repeat it.").correct).toBe(false);
+    expect(checkExercise(q, "He gave me some feedback — I need that you repeat it.").correct).toBe(false);
+  });
+  it("requires both 'bored' and 'makes'", () => {
+    const q = m08.items.find((q) => q.id === "M08-A08")!;
+    expect(checkExercise(q, "I'm bored in long retros — it makes sense to timebox them.").correct).toBe(true);
+    expect(checkExercise(q, "I'm boring in long retros — it makes sense to timebox them.").correct).toBe(false);
+    expect(checkExercise(q, "I'm bored in long retros — it make sense to timebox them.").correct).toBe(false);
+  });
+  it("requires both 'depends on' and 'currently'", () => {
+    const q = m08.items.find((q) => q.id === "M08-A09")!;
+    expect(checkExercise(q, "My workload depends on the sprint — currently I'm on three projects.").correct).toBe(true);
+    expect(checkExercise(q, "My workload depends of the sprint — currently I'm on three projects.").correct).toBe(false);
+    expect(checkExercise(q, "My workload depends on the sprint — actually I'm on three projects.").correct).toBe(false);
+  });
+});
