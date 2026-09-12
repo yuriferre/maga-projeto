@@ -1,0 +1,295 @@
+id: M17-03
+module: M17
+order: 3
+title: "Root cause e contributing factors: the underlying cause, exacerbated by"
+objective: >-
+  Ao final, você separa causa raiz de fatores contribuintes e
+  explica o mecanismo: "the underlying cause", "exacerbated by",
+  "went unnoticed because", "a contributing factor".
+durationMin: 35
+competencies: [WRI]
+tags: [vocab.postmortem, gram.cause-effect, comp.writing]
+prerequisites: [M17-02]
+
+context:
+  scenario: |
+    A timeline está pronta. Agora a seção mais difícil: por quê.
+
+    O rascunho diz "the deploy caused the outage" — e para aí. A
+    Priya devolve: "**that's the trigger, not the analysis. Why did
+    a config value take the whole pool down? Why did nobody see it
+    for four minutes?**"
+
+    O post-mortem separa duas coisas:
+
+    - **root cause** — a causa raiz: "the underlying cause was an
+      unvalidated config value"
+    - **contributing factors** — o que tornou pior: "exacerbated
+      by a missing guardrail", "went unnoticed because the
+      threshold was too high"
+
+    E a diferença de "why" para "how": "**how** did it slip
+    through?" pergunta o mecanismo; "**why** did it happen?"
+    procura a causa — as duas se respondem.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "root cause"
+    meaning: 'a causa raiz — o que, se removido, impede a recorrência'
+    example: "The root cause was an unvalidated config value."
+    translation: "A causa raiz foi um valor de config não validado."
+    note: "Singular — múltiplas causas viram contributing factors."
+  - term: "underlying cause"
+    meaning: 'a causa subjacente — a raiz sob o sintoma'
+    example: "The 502s were the symptom; the underlying cause was the pool."
+    translation: "Os 502s eram o sintoma; a causa subjacente era o pool."
+    note: "'Underlying' separa a raiz do que apareceu."
+  - term: "contributing factor"
+    meaning: 'fator contribuinte — tornou pior, não causou'
+    example: "A contributing factor: the missing guardrail on config changes."
+    translation: "Um fator contribuinte: a proteção ausente nas mudanças de config."
+    note: "Lista separada da root cause — ambos são respondidos."
+  - term: "exacerbated by"
+    meaning: 'agravado por — o que aumentou o dano'
+    example: "The impact was exacerbated by the slow detection."
+    translation: "O impacto foi agravado pela detecção lenta."
+    note: "Mais preciso que 'made worse by' no registro escrito."
+  - term: "went unnoticed because"
+    meaning: 'passou despercebido porque — a falha de detecção explicada'
+    example: "It went unnoticed because the threshold was set too high."
+    translation: "Passou despercebido porque o limiar era alto demais."
+    note: "O 'because' liga a falha à condição do sistema."
+  - term: "the trigger"
+    meaning: 'o gatilho — o evento que disparou, distinto da causa'
+    example: "The deploy was the trigger; the missing validation was the cause."
+    translation: "O deploy foi o gatilho; a validação ausente foi a causa."
+    note: "Trigger ≠ cause — o gatilho só puxa o que já existia."
+  - term: "made worse by"
+    meaning: 'piorado por — a versão simples de exacerbated by'
+    example: "The outage was made worse by the unclear runbook."
+    translation: "A queda foi piorada pelo runbook confuso."
+    note: "Registro informal — 'exacerbated by' no documento."
+  - term: "slipped through"
+    meaning: 'escapou por — passou pelas barreiras'
+    example: "The bad value slipped through because config isn't type-checked."
+    translation: "O valor ruim escapou porque config não é verificada por tipo."
+    note: "O mecanismo da falha — 'how it slipped through'."
+  - term: "a chain of"
+    meaning: 'uma cadeia de — os eventos ligados que levaram ao incidente'
+    example: "It took a chain of three gaps to reach the outage."
+    translation: "Foi preciso uma cadeia de três lacunas para chegar à queda."
+    note: "Incidente raramente tem uma falha só — a cadeia é o normal."
+  - term: "precisely because"
+    meaning: 'precisamente porque — a causa contraintuitiva destacada'
+    example: "It failed precisely because the retry logic was too aggressive."
+    translation: "Falhou precisamente porque a lógica de retry era agressiva demais."
+    note: "Quando a causa é o oposto do óbvio."
+  - term: "masked by"
+    meaning: 'mascarado por — escondido por outro sinal'
+    example: "The error was masked by the normal traffic spike."
+    translation: "O erro foi mascarado pelo pico normal de tráfego."
+    note: "O sinal que escondeu o problema."
+  - term: "pre-existing"
+    meaning: 'pré-existente — a condição que já estava lá'
+    example: "A pre-existing memory leak turned the bad config into an outage."
+    translation: "Um vazamento de memória pré-existente transformou a config ruim em queda."
+    note: "A condição latente que o gatilho encontra."
+
+grammar:
+  title: "Causa × gatilho × fator: 'because', 'due to', e a cadeia de eventos"
+  explanation: |
+    A análise distingue três papéis:
+
+    - **Trigger** — o evento que disparou: "the deploy **was the
+      trigger**".
+    - **Root cause** — o que, removido, impede a recorrência: "the
+      **underlying cause** was the unvalidated value". Liga com
+      "**because**" (a razão) e "**due to**" (a condição).
+    - **Contributing factors** — o que agravou sem causar:
+      "**exacerbated by** the slow detection", "**masked by** the
+      traffic spike", "**went unnoticed because** the threshold
+      was too high".
+
+    E a estrutura da seção: "**a chain of** gaps" — o incidente
+    como cadeia, não como culpado único. Trigger + cause +
+    factors respondem o "why" e o "how" juntos.
+  examples:
+    - { en: "The deploy was the trigger — the underlying cause was the unvalidated value.", pt: "O deploy foi o gatilho — a causa subjacente foi o valor não validado." }
+    - { en: "The impact was exacerbated by the four-minute detection gap.", pt: "O impacto foi agravado pelo intervalo de quatro minutos na detecção." }
+    - { en: "It went unnoticed because the threshold was set too high.", pt: "Passou despercebido porque o limiar era alto demais." }
+    - { en: "The bad value slipped through because config changes aren't type-checked.", pt: "O valor ruim escapou porque mudanças de config não são verificadas por tipo." }
+    - { en: "A pre-existing pool limit turned a small bug into an outage.", pt: "Um limite de pool pré-existente transformou um bug pequeno em queda." }
+    - { en: "It was a chain of three gaps — trigger, missing guardrail, slow detection.", pt: "Foi uma cadeia de três lacunas — gatilho, proteção ausente, detecção lenta." }
+
+examples:
+  - en: "Root cause: an unvalidated config value reached production."
+    pt: "Causa raiz: um valor de config não validado chegou à produção."
+    context: "A seção nomeada."
+  - en: "The deploy was the trigger, not the cause — the cause was missing validation."
+    pt: "O deploy foi o gatilho, não a causa — a causa foi a validação ausente."
+    context: "Trigger ≠ cause."
+  - en: "Contributing factors: the high alert threshold and the missing guardrail."
+    pt: "Fatores contribuintes: o limiar de alerta alto e a proteção ausente."
+    context: "A lista separada."
+  - en: "The error was masked by the evening traffic spike."
+    pt: "O erro foi mascarado pelo pico de tráfego da noite."
+    context: "O sinal que escondeu."
+  - en: "It went unnoticed because nobody's dashboard showed pool saturation."
+    pt: "Passou despercebido porque o dashboard de ninguém mostrava saturação do pool."
+    context: "A falha de detecção explicada."
+  - en: "It failed precisely because the retry logic was too aggressive."
+    pt: "Falhou precisamente porque a lógica de retry era agressiva demais."
+    context: "A causa contraintuitiva."
+  - en: "A chain of three gaps shipped the bug to production."
+    pt: "Uma cadeia de três lacunas levou o bug à produção."
+    context: "O incidente como cadeia."
+  - en: "The missing test contributed to the outage — it didn't cause it alone."
+    pt: "O teste ausente contribuiu para a queda — não a causou sozinho."
+    context: "'Contribute to', nunca 'for'."
+
+variations:
+  - idea: '"nomeando a causa"'
+    items:
+      - { register: "Boa", text: "The underlying cause was an unvalidated config value.", adequate: true }
+      - { register: "Boa", text: "The deploy was the trigger; missing validation was the cause.", adequate: true }
+      - { register: "Inadequada", text: "It broke because of the deploy, end of story.", adequate: false, note: "O trigger não é a análise — 'why was the deploy able to break it?'" }
+      - { register: "Inadequada", text: "The cause was human error.", adequate: false, note: "Rótulo vazio — nomeie o mecanismo: 'an unvalidated value reached prod'." }
+  - idea: '"listando fatores"'
+    items:
+      - { register: "Boa", text: "Exacerbated by the slow detection — four minutes to notice.", adequate: true }
+      - { register: "Boa", text: "It went unnoticed because the threshold was too high.", adequate: true }
+      - { register: "Inadequada", text: "And also everything was bad.", adequate: false, note: "Fator vago — nomeie a lacuna e o efeito: 'masked by the traffic spike'." }
+      - { register: "Inadequada", text: "The test contributed for the outage.", adequate: false, note: "'Contributed to' — 'for' é calque." }
+
+brErrors:
+  - { wrong: "The missing test contributed for the outage.", right: "The missing test contributed to the outage.", why: "contributed to", tag: br.contributed-for }
+  - { wrong: "The outage of Friday was caused by config.", right: "Friday's outage was caused by config.", why: "Friday's outage", tag: br.of-weekday }
+  - { wrong: "The root cause was wrote in the doc.", right: "The root cause was written in the doc.", why: "was written", tag: br.was-past }
+  - { wrong: "The post-mortem is in Friday.", right: "The post-mortem is on Friday.", why: "on Friday", tag: br.in-weekday }
+  - { wrong: "In this moment we analyze the chain.", right: "Right now we're analyzing the chain.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The factor not explain the delay.", right: "The factor doesn't explain the delay.", why: "doesn't explain", tag: br.it-not-works }
+  - { wrong: "The analysis show three gaps.", right: "The analysis shows three gaps.", why: "shows", tag: br.third-person-s }
+  - { wrong: "I have a doubt about the trigger.", right: "I have a question about the trigger.", why: "question", tag: br.doubt }
+  - { wrong: "We discussed about the root cause.", right: "We discussed the root cause.", why: "discussed, sem about", tag: br.discuss-about }
+  - { wrong: "The cause depend of the validation.", right: "The cause depends on the validation.", why: "depends on", tag: br.depend-of }
+
+dialogue:
+  title: "Separando gatilho de causa"
+  lines:
+    - { speaker: Priya, text: "'The deploy caused the outage' — that's the trigger. What's the root cause?" }
+    - { speaker: Yuri, text: "The underlying cause: an unvalidated config value reached production." }
+    - { speaker: Priya, text: "Why did a config value take the whole pool down?" }
+    - { speaker: Yuri, text: "A pre-existing pool limit — the new value pushed connections past it. The limit was the latent condition." }
+    - { speaker: Priya, text: "And why did nobody see it for four minutes?" }
+    - { speaker: Yuri, text: "It went unnoticed because the alert threshold was too high — and the error was masked by the traffic spike." }
+    - { speaker: Priya, text: "So the chain is…" }
+    - { speaker: Yuri, text: "Three gaps: the unvalidated value, the latent pool limit, the high threshold. Remove any one and the outage doesn't happen." }
+    - { speaker: Priya, text: "Now that's a root-cause section. Write it exactly like that." }
+  notes:
+    - "a sequência why→how→why: trigger → underlying cause → latent condition → detection gap → a cadeia completa."
+    - "'remove any one and the outage doesn't happen' — o teste de uma boa análise de cadeia."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Three roles in the analysis. The trigger is the event that pulled it — 'the deploy was the trigger'. The root cause is what must go so it can't recur — 'the underlying cause was the unvalidated value'. Contributing factors made it worse without causing it — 'exacerbated by the slow detection', 'masked by the traffic spike'." }
+    - { speaker: Marcos, text: "Detection failures get their own sentence: 'it went unnoticed because the threshold was too high'. And pre-existing conditions explain why the trigger found fuel: 'a pre-existing pool limit turned a small bug into an outage'." }
+    - { speaker: Yuri, text: "The section usually ends as a chain: 'a chain of three gaps — trigger, missing guardrail, slow detection'. The test of a good analysis: remove any one link and the outage doesn't happen. That's how you know the factors are real." }
+  questions:
+    - { id: M17-03-l1, type: multiple_choice, prompt: "The trigger is…", options: ["the root cause", "the event that pulled it — distinct from the cause", "the first alert", "the worst factor"], answer: 1, explanation: "O gatilho só puxa o que já existia.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-03-l2, type: multiple_choice, prompt: "'Exacerbated by' introduces…", options: ["the root cause", "the trigger", "the fix", "a factor that made it worse without causing it"], answer: 3, explanation: "Agravou, não causou.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-03-l3, type: fill_blank, prompt: "It went unnoticed ___ the threshold was set too high.", accepted: ["because"], explanation: "'because' liga a falha à condição.", tags: [vocab.postmortem] }
+    - { id: M17-03-l4, type: error_correction, prompt: "The high threshold contributed for the damage.", accepted: ["The high threshold contributed to the damage.", "The high threshold contributed to the damage"], explanation: "contributed to.", tags: [br.contributed-for] }
+    - { id: M17-03-l5, type: multiple_choice, prompt: "The test of a good chain analysis is…", options: ["it names a person", "remove any one link and the outage doesn't happen", "it has ten items", "it blames the process only"], answer: 1, explanation: "Cada elo é necessário.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-03-l6, type: multiple_choice, prompt: "A 'pre-existing' condition is…", options: ["the trigger", "caused by the deploy", "the same as the root cause", "the latent condition the trigger found"], answer: 3, explanation: "Já estava lá — o gatilho a encontrou.", tags: [comp.listening, vocab.postmortem] }
+
+writing:
+  prompt: |
+    **Cenário:** você escreve a seção de análise do post-mortem do
+    incidente de sexta (deploy 17:38 → pool exausto → 60% de erro
+    → rollback).
+
+    **Tarefa:** escreva 80–110 palavras separando trigger, root
+    cause e contributing factors — incluindo por que passou
+    despercebido e a cadeia completa de lacunas.
+  constraints:
+    - { label: "Root cause nomeada", pattern: "\\b(root cause|underlying cause|trigger)\\b" }
+    - { label: "Fatores contribuintes", pattern: "\\b(contributing|exacerbated|masked|pre-existing|latent)\\b" }
+    - { label: "Falha de detecção", pattern: "\\b(unnoticed|threshold|detected|detection)\\b" }
+    - { label: "A cadeia", pattern: "\\b(chain|gap|any one|link)\\b" }
+  rubric:
+    - "Trigger separado da causa"
+    - "Fatores com mecanismo explicado"
+    - "A cadeia fechada"
+    - "Sem calques, sem nomes"
+  model: >-
+    The deploy was the trigger — not the cause. The underlying
+    cause was an unvalidated config value reaching production.
+    Two contributing factors: a pre-existing pool limit the new
+    value pushed past, and an alert threshold set too high — the
+    error went unnoticed for four minutes and was masked by the
+    evening traffic spike. The outage was exacerbated by this
+    detection gap. It took a chain of three gaps — unvalidated
+    value, latent pool limit, high threshold; remove any one link
+    and the incident doesn't happen.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.postmortem]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando a análise do post-mortem para o time: o trigger, a causa raiz, os fatores contribuintes e por que a cadeia é o modelo certo."
+    maxSeconds: 45
+    targetPhrases:
+      - the trigger
+      - root cause
+      - underlying cause
+      - contributing factor
+      - exacerbated by
+      - went unnoticed because
+      - slipped through
+      - a chain of
+      - masked by
+      - pre-existing
+      - precisely because
+      - made worse by
+      - latent
+      - the threshold
+      - remove any one
+      - how did it
+    checklist:
+      - "Trigger × causa × fator separados"
+      - "Detecção explicada com 'because'"
+      - "A cadeia com elos nomeados"
+      - "'Contributed to', 'was written', 'on Friday'"
+
+quiz:
+  - { id: M17-03-q1, type: multiple_choice, prompt: "'The deploy was the trigger' means the deploy…", options: ["caused everything alone", "pulled what already existed — distinct from the root cause", "was the root cause", "was irrelevant"], answer: 1, explanation: "Gatilho ≠ causa.", tags: [vocab.postmortem] }
+  - { id: M17-03-q2, type: error_correction, prompt: "The missing guardrail contributed for the outage.", accepted: ["The missing guardrail contributed to the outage.", "The missing guardrail contributed to the outage"], explanation: "contributed to.", tags: [br.contributed-for] }
+  - { id: M17-03-q3, type: multiple_choice, prompt: "'It went unnoticed because…' introduces…", options: ["the fix", "the blame", "the timeline", "the detection failure and its condition"], answer: 3, explanation: "A falha de detecção explicada.", tags: [vocab.postmortem] }
+  - { id: M17-03-q4, type: fill_blank, prompt: "The impact was ___ by the slow detection.", accepted: ["exacerbated"], explanation: '"exacerbated by" — agravado por.', tags: [vocab.postmortem] }
+  - { id: M17-03-q5, type: error_correction, prompt: "The outage of Friday had three causes.", accepted: ["Friday's outage had three causes.", "Friday's outage had three causes", "The outage on Friday had three causes."], explanation: "Friday's outage.", tags: [br.of-weekday] }
+  - { id: M17-03-q6, type: translate, prompt: "O erro foi mascarado pelo pico de tráfego.", accepted: ["The error was masked by the traffic spike.", "The error was masked by the traffic spike"], explanation: '"masked by" — escondido por outro sinal.', tags: [vocab.postmortem] }
+  - { id: M17-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["of", "a", "chain", "gaps", "three"], answer: "a chain of three gaps", explanation: '"a chain of three gaps" — o incidente como cadeia.', tags: [vocab.postmortem] }
+  - { id: M17-03-q8, type: multiple_choice, prompt: "'Precisely because' signals…", options: ["an obvious cause", "a guess", "a counterintuitive cause — the opposite of expected", "an apology"], answer: 2, explanation: "A causa contraintuitiva destacada.", tags: [vocab.postmortem] }
+
+srsCards:
+  - { front: "root cause", back: "O que, removido, impede a recorrência.", tag: vocab.postmortem }
+  - { front: "underlying cause", back: "A raiz sob o sintoma.", tag: vocab.postmortem }
+  - { front: "the trigger", back: "O evento que puxou — distinto da causa.", tag: vocab.postmortem }
+  - { front: "contributing factor", back: "Agravou sem causar — lista separada.", tag: vocab.postmortem }
+  - { front: "exacerbated by", back: "Agravado por — o registro escrito.", tag: vocab.postmortem }
+  - { front: "went unnoticed because", back: "A falha de detecção explicada.", tag: vocab.postmortem }
+  - { front: "slipped through", back: "O mecanismo da fuga pelas barreiras.", tag: vocab.postmortem }
+  - { front: "a chain of", back: "Os elos — remova um e não há incidente.", tag: vocab.postmortem }
+  - { front: "masked by", back: "Escondido por outro sinal.", tag: vocab.postmortem }
+  - { front: "pre-existing", back: "A condição latente que o gatilho achou.", tag: vocab.postmortem }
+  - { front: "precisely because", back: "A causa contraintuitiva destacada.", tag: vocab.postmortem }
+
+review:
+  preferTags: [vocab.postmortem, br.contributed-for, br.of-weekday]
+  notes: "Revisão prioriza trigger×causa×fator, a cadeia e os calques de contribuição e dia."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
