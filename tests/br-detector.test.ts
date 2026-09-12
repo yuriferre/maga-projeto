@@ -657,4 +657,45 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.recommend-to");
   });
+
+  it("flags 'in this moment' as a calque of 'neste momento'", () => {
+    expect(tagsOf("In this moment we are investigating the cause.")).toContain("br.in-this-moment");
+    expect(tagsOf("We are investigating in this moment.")).toContain("br.in-this-moment");
+    const clean = [
+      "At this moment we are investigating the cause.",
+      "Right now we are investigating.",
+      "We are investigating right now.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-this-moment");
+  });
+  it("flags 'thanks for the patience' but not 'your patience'", () => {
+    expect(tagsOf("Thanks for the patience — more news at 4pm.")).toContain("br.thanks-patience");
+    expect(tagsOf("Thank you for the patience while we fix this.")).toContain("br.thanks-patience");
+    const clean = [
+      "Thanks for your patience — more news at 4pm.",
+      "Thank you for bearing with us.",
+      "Thanks for the quick response.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.thanks-patience");
+  });
+  it("flags 'as soon possible' missing 'as'", () => {
+    expect(tagsOf("We'll update you as soon possible.")).toContain("br.asap-missing-as");
+    expect(tagsOf("Fix it as soon possible, please.")).toContain("br.asap-missing-as");
+    const clean = [
+      "We'll update you as soon as possible.",
+      "As soon as we know more, we'll post.",
+      "Do it soon, please.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.asap-missing-as");
+  });
+  it("flags 'the service normalized' but not 'we normalized the data'", () => {
+    expect(tagsOf("The service normalized after the rollback.")).toContain("br.normalized");
+    expect(tagsOf("Traffic has normalized since the fix.")).toContain("br.normalized");
+    const clean = [
+      "The service recovered after the rollback.",
+      "We normalized the data before the import.",
+      "Latency is back to normal.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.normalized");
+  });
 });

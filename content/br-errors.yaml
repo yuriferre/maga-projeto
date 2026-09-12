@@ -481,3 +481,31 @@ patterns:
     right: "I recommend using spot instances"
     why: '"Recomendo usar" é "recommend using" — "recommend to" só com pessoa: "recommend to the team".'
     tag: br.recommend-to
+  # "in this moment" — calque de "neste momento" em status update; inglês: "right now" / "at this moment".
+  - id: in-this-moment
+    pattern: "\\bin this moment\\b"
+    wrong: "In this moment we are investigating the cause"
+    right: "Right now we are investigating the cause"
+    why: '"Neste momento" vira "right now" ou "at this moment" — "in this moment" é calque.'
+    tag: br.in-this-moment
+  # "thanks for the patience" — "obrigado pela paciência" pede "your patience" ou "bearing with us".
+  - id: thanks-patience
+    pattern: "\\bthanks?(\\s+you)?\\s+for\\s+the\\s+patience\\b"
+    wrong: "Thanks for the patience — more news at 4pm"
+    right: "Thanks for your patience — more news at 4pm"
+    why: '"Pela paciência" é "for your patience" — ou "thanks for bearing with us".'
+    tag: br.thanks-patience
+  # "as soon possible" — falta o segundo "as" de "as soon as possible".
+  - id: asap-missing-as
+    pattern: "\\bas soon possible\\b"
+    wrong: "We'll update you as soon possible"
+    right: "We'll update you as soon as possible"
+    why: 'Falta o segundo "as": "as soon as possible" (ou "as soon as we can").'
+    tag: br.asap-missing-as
+  # "the service normalized" — "normalizou" é calque; inglês de status update diz "recovered".
+  - id: normalized
+    pattern: "\\b(service|api|site|system|app|traffic|latency|error rate)s?\\s+(has\\s+|have\\s+)?normalized\\b"
+    wrong: "The service normalized after the rollback"
+    right: "The service recovered after the rollback"
+    why: '"Normalizou" em update é "recovered" ou "is back to normal" — normalized é calque.'
+    tag: br.normalized

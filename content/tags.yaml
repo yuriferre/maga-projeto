@@ -133,3 +133,7 @@ tags:
   - { id: br.provisionate,    group: br, label: "provisionate (provision)" }
   - { id: br.migrate-for,     group: br, label: "migrate for X (migrate to)" }
   - { id: br.recommend-to,    group: br, label: "recommend to use (recommend using)" }
+  - { id: br.in-this-moment,  group: br, label: "in this moment (right now)" }
+  - { id: br.thanks-patience, group: br, label: "thanks for the patience (your)" }
+  - { id: br.asap-missing-as, group: br, label: "as soon possible (as soon as)" }
+  - { id: br.normalized,      group: br, label: "service normalized (recovered)" }

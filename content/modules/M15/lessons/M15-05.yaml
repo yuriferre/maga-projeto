@@ -1,0 +1,293 @@
+id: M15-05
+module: M15
+order: 5
+title: "Encerrando: resolved, we'll follow up with a post-mortem by…"
+objective: >-
+  Ao final, você fecha um incidente inteiro por escrito: a sequência
+  completa de atualizações, o resolved com horário e a promessa do
+  post-mortem com prazo — e apresenta o resumo em voz.
+durationMin: 40
+competencies: [WRI, SPK]
+tags: [vocab.incident, comp.writing, comp.speaking]
+prerequisites: [M15-04]
+
+context:
+  scenario: |
+    16h15: a taxa de erro está em zero há vinte minutos, o rollback
+    segurou, o monitoramento está limpo. Falta o fechamento — a parte
+    que a maioria dos times pula e que mais constrói confiança.
+
+    O resolved tem três partes:
+
+    - **resolved** — declarado com horário e duração total
+      ("resolved at 16:15 UTC — total impact 2h12m")
+    - **o resumo honesto** — uma linha do que aconteceu e do que foi
+      feito, sem jargão
+    - **o follow-up** — "we'll follow up with a post-mortem by Friday"
+      — a promessa que transforma incidente em aprendizado
+
+    E o ritual interno: agradecer quem ajudou, nomear o que correu bem
+    na resposta (não só no sistema) e agendar o post-mortem antes da
+    poeira baixar.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (support lead)]
+
+vocabulary:
+  - term: "resolved"
+    meaning: resolvido — o status final, só depois do monitoring provar
+    example: "Resolved at 16:15 UTC — all systems nominal."
+    translation: "Resolvido às 16:15 UTC — todos os sistemas nominais."
+    note: "Último degrau da escada — nunca pule o monitoring."
+  - term: "total impact"
+    meaning: o impacto total — duração e escopo do incidente fechado
+    example: "Total impact: 2h12m, about a third of web checkouts."
+    translation: "Impacto total: 2h12m, cerca de um terço dos checkouts web."
+    note: "O resumo em números — duração + blast radius."
+  - term: "nominal"
+    meaning: nominal — dentro dos parâmetros, de volta ao normal
+    example: "Error rate is back to nominal levels."
+    translation: "A taxa de erro voltou aos níveis nominais."
+    note: "Herança da NASA: 'all systems nominal' = tudo dentro do esperado."
+  - term: "follow up with"
+    meaning: dar seguimento com — a promessa do que vem depois
+    example: "We'll follow up with a post-mortem by Friday."
+    translation: "Daremos seguimento com um post-mortem até sexta."
+    note: "A frase que transforma incidente em aprendizado."
+  - term: "post-mortem"
+    meaning: o post-mortem — a análise blameless depois do incidente
+    example: "The post-mortem lands by Friday EOD — blameless, as always."
+    translation: "O post-mortem chega até sexta fim do dia — sem culpa, como sempre."
+    note: "Assunto do M17 inteiro — aqui você só promete com prazo."
+  - term: "recap"
+    meaning: a recapitulação — o resumo do que aconteceu
+    example: "Quick recap: bad config at 13:58, rollback at 15:05, resolved 16:15."
+    translation: "Recap rápido: config ruim às 13:58, rollback às 15:05, resolvido 16:15."
+    note: "Três fatos com horário — a timeline em uma linha."
+  - term: "went well"
+    meaning: o que correu bem — na resposta, não só no sistema
+    example: "What went well: detection was fast — the alert caught it in two minutes."
+    translation: "O que correu bem: a detecção foi rápida — o alerta pegou em dois minutos."
+    note: "Nomear o que funcionou na resposta é metade do aprendizado."
+  - term: "thanks to everyone"
+    meaning: obrigado a todos — o agradecimento nominal
+    example: "Thanks to everyone who jumped in — especially Ana on comms."
+    translation: "Obrigado a todos que entraram — especialmente a Ana na comunicação."
+    note: "Nomear pessoas no agradecimento vale mais que o genérico."
+  - term: "lessons learned"
+    meaning: as lições aprendidas — o que muda dali para frente
+    example: "Lessons learned go in the post-mortem — that's where they belong."
+    translation: "As lições vão no post-mortem — é lá que elas moram."
+    note: "No resolved você promete; no post-mortem você entrega."
+  - term: "closing the bridge"
+    meaning: fechando a bridge — encerrando a chamada do incidente
+    example: "We're closing the bridge — thanks, everyone."
+    translation: "Estamos fechando a bridge — obrigado a todos."
+    note: "A bridge se fecha por declarado — não por abandono."
+  - term: "business as usual"
+    meaning: operação normal — o sinal de que a vida voltou
+    example: "Back to business as usual — see you at the post-mortem."
+    translation: "De volta à operação normal — nos vemos no post-mortem."
+    note: "O fechamento leve depois do resolved formal."
+  - term: "we owe you"
+    meaning: 'a dívida de uma explicação — "devemos a vocês"'
+    example: "We owe you a full explanation — post-mortem by Friday."
+    translation: "Devemos a vocês uma explicação completa — post-mortem até sexta."
+    note: "Forte e honesta — use quando o incidente doeu no cliente."
+
+grammar:
+  title: "O fechamento: resolved + duração + promessa com prazo"
+  explanation: |
+    O resolved se escreve em três linhas:
+
+    ```
+    Resolved at 16:15 UTC — total impact 2h12m.
+    A bad config value in the 13:58 deploy broke web checkout;
+    we rolled it back and watched recovery hold for 20 minutes.
+    We'll follow up with a post-mortem by Friday, EOD UTC.
+    ```
+
+    - **resolved at + horário** — fato fechado com timestamp.
+    - **total impact + duração e escopo** — "2h12m, a third of web
+      checkouts" resume o estrago final.
+    - **a linha do que aconteceu** — passado simples: "a bad config
+      broke checkout; we rolled it back". Uma frase, sem jargão.
+    - **follow up with + substantivo + by + prazo** — "with a
+      post-mortem by Friday". A promessa tem objeto e data.
+
+    E dentro do time: "**what went well**" e "**thanks to**" nomeiam
+    o que funcionou na resposta e quem ajudou — o resolved fecha o
+    sistema, o agradecimento fecha as pessoas.
+  examples:
+    - { en: "Resolved at 16:15 UTC — total impact 2h12m.", pt: "Resolvido às 16:15 UTC — impacto total de 2h12m." }
+    - { en: "A bad config broke web checkout; we rolled it back.", pt: "Uma config ruim quebrou o checkout web; revertemos." }
+    - { en: "We'll follow up with a post-mortem by Friday, EOD UTC.", pt: "Daremos seguimento com um post-mortem até sexta, fim do dia UTC." }
+    - { en: "What went well: the alert caught it in two minutes.", pt: "O que correu bem: o alerta pegou em dois minutos." }
+    - { en: "Thanks to everyone who jumped in — especially Ana on comms.", pt: "Obrigado a todos que entraram — especialmente a Ana na comunicação." }
+    - { en: "Back to business as usual — the bridge is closed.", pt: "De volta à operação normal — a bridge está fechada." }
+
+examples:
+  - en: "Resolved at 16:15 UTC. Total impact: 2h12m on web checkout."
+    pt: "Resolvido às 16:15 UTC. Impacto total: 2h12m no checkout web."
+    context: "O resolved com timestamp e duração."
+  - en: "A bad config value in the 13:58 deploy caused it; rollback fixed it."
+    pt: "Um valor de config ruim no deploy das 13:58 causou; o rollback corrigiu."
+    context: "A linha honesta do que aconteceu."
+  - en: "We'll follow up with a post-mortem by Friday — blameless, as always."
+    pt: "Daremos seguimento com um post-mortem até sexta — sem culpa, como sempre."
+    context: "A promessa com prazo e tom."
+  - en: "What went well: detection in two minutes, rollback in one command."
+    pt: "O que correu bem: detecção em dois minutos, rollback num comando."
+    context: "A resposta também tem métricas."
+  - en: "Thanks to everyone who jumped in — you know who you are."
+    pt: "Obrigado a todos que entraram — vocês sabem quem são."
+    context: "O agradecimento do fechamento."
+  - en: "We owe you a better explanation — the post-mortem lands Friday."
+    pt: "Devemos uma explicação melhor — o post-mortem chega sexta."
+    context: "A dívida admitida."
+  - en: "Closing the bridge — on-call keeps an eye on it overnight."
+    pt: "Fechando a bridge — o plantão fica de olho durante a noite."
+    context: "O fechamento formal da chamada."
+  - en: "Recap: bad config at 13:58, identified 15:00, rolled back 15:05, resolved 16:15."
+    pt: "Recap: config ruim 13:58, identificada 15:00, revertida 15:05, resolvido 16:15."
+    context: "A timeline inteira em uma linha."
+
+variations:
+  - idea: '"declarando o resolved"'
+    items:
+      - { register: "Boa", text: "Resolved at 16:15 UTC — total impact 2h12m, a third of web checkouts.", adequate: true }
+      - { register: "Boa", text: "All systems nominal — we'll follow up with a post-mortem by Friday.", adequate: true }
+      - { register: "Inadequada", text: "It's fixed, moving on.", adequate: false, note: "Sem timestamp, sem duração, sem promessa — o resolved é um documento." }
+      - { register: "Inadequada", text: "Everything is fine now, no post-mortem needed.", adequate: false, note: "Incidente sem post-mortem repete — a promessa é parte do resolved." }
+  - idea: '"o follow-up"'
+    items:
+      - { register: "Boa", text: "We'll follow up with a post-mortem by Friday, EOD UTC.", adequate: true }
+      - { register: "Boa", text: "We owe you the full story — post-mortem lands Friday.", adequate: true }
+      - { register: "Inadequada", text: "Maybe we'll write something later.", adequate: false, note: "'Maybe' + 'later' = nunca — promessa tem objeto e prazo." }
+      - { register: "Inadequada", text: "The post-mortem will find who broke it.", adequate: false, note: "Post-mortem é blameless — procura causa, não culpado." }
+
+brErrors:
+  - { wrong: "The service normalized an hour ago.", right: "The service recovered an hour ago.", why: "recovered", tag: br.normalized }
+  - { wrong: "Thanks for the patience during the incident.", right: "Thank you for your patience during the incident.", why: "your patience", tag: br.thanks-patience }
+  - { wrong: "We'll send the post-mortem as soon possible.", right: "We'll send the post-mortem as soon as we can.", why: "as soon as", tag: br.asap-missing-as }
+  - { wrong: "In this moment everything is nominal.", right: "Right now everything is nominal.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The recap include all the timestamps.", right: "The recap includes all the timestamps.", why: "includes — 3ª pessoa", tag: br.third-person-s }
+  - { wrong: "We did a mistake in the first update.", right: "We made a mistake in the first update.", why: "made a mistake", tag: br.do-mistake }
+  - { wrong: "The post-mortem arrives until Friday.", right: "The post-mortem arrives by Friday.", why: "by Friday", tag: br.until-by }
+  - { wrong: "She suggested me to write the recap.", right: "She suggested that I write the recap.", why: "suggested that I", tag: br.suggested-me }
+  - { wrong: "The same failure of March.", right: "The same failure as March's.", why: "same as", tag: br.same-of }
+  - { wrong: "I pretend to join the post-mortem.", right: "I intend to join the post-mortem.", why: "intend", tag: br.pretend }
+
+dialogue:
+  title: "Fechando o incidente"
+  lines:
+    - { speaker: Priya, text: "Error rate's been zero for twenty minutes. Time to call it." }
+    - { speaker: Yuri, text: "Resolved post going up: 'Resolved at 16:15 UTC — total impact 2h12m on web checkout. A bad config value in the 13:58 deploy caused it; we rolled it back and watched recovery hold.'" }
+    - { speaker: Ana, text: "And the follow-up line?" }
+    - { speaker: Yuri, text: "'We'll follow up with a post-mortem by Friday, EOD UTC.'" }
+    - { speaker: Priya, text: "Good. Internal recap before we scatter: what went well?" }
+    - { speaker: Yuri, text: "Detection in two minutes — the alert did its job. Rollback was one command. And comms stayed on cadence." }
+    - { speaker: Ana, text: "Support queue emptied the moment the resolved went up — the cadence worked." }
+    - { speaker: Priya, text: "Thanks to everyone who jumped in. Bridge is closed — on-call keeps an eye overnight. See you at the post-mortem, Friday." }
+  notes:
+    - "o resolved completo na fala do Yuri: timestamp + duração + causa de uma linha + promessa."
+    - "'what went well' mede a resposta, não só o sistema — detecção, rollback, cadência."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The resolved post has three parts: the declaration with a timestamp — 'resolved at 16:15 UTC'; the honest one-liner — 'a bad config broke checkout; we rolled it back'; and the follow-up with a deadline — 'we'll follow up with a post-mortem by Friday'. Total impact goes in too: duration plus blast radius." }
+    - { speaker: Yuri, text: "Inside the team, closing has its own ritual. 'What went well' — detection was fast, rollback was one command, comms stayed on cadence. 'Thanks to everyone who jumped in' — name people when you can. And the bridge closes by declaration, not by people drifting away." }
+    - { speaker: Ana, text: "The promise that turns an incident into learning is 'we'll follow up with a post-mortem by Friday'. Without it, the incident just fades — and repeats. With it, customers get the full story and the team gets the fix that prevents the next one." }
+  questions:
+    - { id: M15-05-l1, type: multiple_choice, prompt: "The resolved post needs…", options: ["a full technical explanation", "timestamp + honest one-liner + follow-up with a deadline", "an apology to every customer", "the name of who broke it"], answer: 1, explanation: "Três partes — declarar, resumir, prometer.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-05-l2, type: multiple_choice, prompt: "'What went well' measures…", options: ["only the system", "only the people", "the response — detection speed, rollback ease, comms cadence", "nothing — it's just politeness"], answer: 2, explanation: "A resposta também tem métricas.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-05-l3, type: fill_blank, prompt: "We'll follow ___ with a post-mortem by Friday.", accepted: ["up"], explanation: '"follow up with" — a promessa do que vem.', tags: [vocab.incident] }
+    - { id: M15-05-l4, type: error_correction, prompt: "The service normalized an hour ago.", accepted: ["The service recovered an hour ago.", "The service recovered an hour ago"], explanation: "recovered.", tags: [br.normalized] }
+    - { id: M15-05-l5, type: multiple_choice, prompt: "'We'll follow up with a post-mortem by Friday' works because…", options: ["it has a cause and a culprit", "it sounds formal", "it's vague enough", "it promises a deliverable with a deadline"], answer: 3, explanation: "Objeto + prazo = promessa.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-05-l6, type: multiple_choice, prompt: "An incident without a post-mortem…", options: ["closes faster", "just fades — and repeats", "saves the team time", "protects morale"], answer: 1, explanation: "Sem aprendizado, repete.", tags: [comp.listening, vocab.incident] }
+
+writing:
+  prompt: |
+    **Cenário:** o incidente do checkout terminou — você escreve o
+    resolved final na status page e o recap interno na thread.
+
+    **Tarefa:** escreva 60–90 palavras: o resolved com timestamp e
+    impacto total, a linha honesta do que aconteceu, o follow-up do
+    post-mortem com prazo, e uma linha de "what went well".
+  constraints:
+    - { label: "Resolved + horário", pattern: "\\b(resolved|nominal|back to normal)\\b" }
+    - { label: "Impacto total", pattern: "\\b(total impact|\\d+h\\d+|duration|third|checkout)\\b" }
+    - { label: "Follow-up com prazo", pattern: "\\b(follow.?up|post.?mortem|by friday|by \\w+day)\\b" }
+    - { label: "O que correu bem", pattern: "\\b(went well|detection|rollback|cadence|alert)\\b" }
+  rubric:
+    - "Resolved com timestamp e duração"
+    - "Causa em uma linha honesta"
+    - "Post-mortem prometido com prazo"
+    - "'What went well' na resposta"
+  model: >-
+    Resolved at 16:15 UTC — total impact 2h12m on web checkout, about
+    a third of purchases affected at the peak. A bad config value in
+    the 13:58 deploy caused it; we rolled it back and watched the
+    recovery hold for twenty minutes before calling it. We'll follow
+    up with a post-mortem by Friday, EOD UTC. What went well: the
+    alert caught it in two minutes and the rollback was one command.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.incident]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos fechando o incidente em voz: o resolved com duração, o que aconteceu em uma linha, o que correu bem na resposta, o agradecimento e a promessa do post-mortem."
+    maxSeconds: 60
+    targetPhrases:
+      - resolved at
+      - total impact
+      - back to normal
+      - all systems nominal
+      - follow up with
+      - post-mortem by friday
+      - what went well
+      - thanks to everyone
+      - jumped in
+      - closing the bridge
+      - lessons learned
+      - we owe you
+      - the recap
+      - rolled it back
+      - business as usual
+      - detection was fast
+    checklist:
+      - "Resolved com timestamp e duração"
+      - "Causa em uma linha"
+      - "'What went well' na resposta"
+      - "Post-mortem com prazo"
+
+quiz:
+  - { id: M15-05-q1, type: multiple_choice, prompt: "The resolved post closes with…", options: ["an apology to every user", "the culprit", "'we'll follow up with a post-mortem by Friday'", "a discount code"], answer: 2, explanation: "A promessa com objeto e prazo.", tags: [vocab.incident] }
+  - { id: M15-05-q2, type: error_correction, prompt: "We'll send the post-mortem as soon possible.", accepted: ["We'll send the post-mortem as soon as we can.", "We'll send the post-mortem as soon as we can", "We'll send the post-mortem by Friday."], explanation: "as soon as — ou prazo exato.", tags: [br.asap-missing-as] }
+  - { id: M15-05-q3, type: multiple_choice, prompt: "'Total impact' in the resolved means…", options: ["the total cost", "who wrote the bad config", "how many alerts fired", "duration plus blast radius — '2h12m, a third of checkouts'"], answer: 3, explanation: "Duração + escopo final.", tags: [vocab.incident] }
+  - { id: M15-05-q4, type: fill_blank, prompt: "What went ___: the alert caught it in two minutes.", accepted: ["well"], explanation: '"what went well" — a resposta, não só o sistema.', tags: [vocab.incident] }
+  - { id: M15-05-q5, type: error_correction, prompt: "The post-mortem arrives until Friday.", accepted: ["The post-mortem arrives by Friday.", "The post-mortem arrives by Friday"], explanation: "by + prazo.", tags: [br.until-by] }
+  - { id: M15-05-q6, type: translate, prompt: "Devemos a vocês a história completa — post-mortem até sexta.", accepted: ["We owe you the full story — post-mortem by Friday.", "We owe you the full story — the post-mortem lands Friday."], explanation: '"we owe you" + prazo.', tags: [vocab.incident] }
+  - { id: M15-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["up", "follow", "with", "we'll", "a", "post-mortem"], answer: "we'll follow up with a post-mortem", explanation: '"follow up with" — objeto + prazo.', tags: [vocab.incident] }
+  - { id: M15-05-q8, type: multiple_choice, prompt: "Closing the bridge means…", options: ["people stop talking", "the call is declared over — on-call keeps watching", "deleting the channel", "scheduling the post-mortem"], answer: 1, explanation: "Fecha por declarado, não por abandono.", tags: [vocab.incident] }
+
+srsCards:
+  - { front: "resolved at", back: "Declaração com timestamp — último degrau.", tag: vocab.incident }
+  - { front: "total impact", back: "Duração + blast radius: '2h12m, a third'.", tag: vocab.incident }
+  - { front: "nominal", back: "'All systems nominal' — dentro do esperado.", tag: vocab.incident }
+  - { front: "follow up with", back: "A promessa: 'with a post-mortem by Friday'.", tag: vocab.incident }
+  - { front: "post-mortem", back: "Análise blameless — prometa com prazo.", tag: vocab.incident }
+  - { front: "what went well", back: "A resposta medida: detecção, rollback, cadência.", tag: vocab.incident }
+  - { front: "recap", back: "A timeline em uma linha, com horários.", tag: vocab.incident }
+  - { front: "thanks to everyone", back: "Nomeie quem ajudou — 'who jumped in'.", tag: vocab.incident }
+  - { front: "closing the bridge", back: "Fecha por declarado — on-call fica de olho.", tag: vocab.incident }
+  - { front: "we owe you", back: "A dívida admitida — 'the full story'.", tag: vocab.incident }
+  - { front: "business as usual", back: "O fechamento leve depois do resolved.", tag: vocab.incident }
+
+review:
+  preferTags: [vocab.incident, br.normalized, br.until-by]
+  notes: "Revisão prioriza o fechamento e a promessa do post-mortem."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

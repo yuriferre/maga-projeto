@@ -1,0 +1,84 @@
+# Avaliação do módulo M15: 15 itens cobrindo as cinco aulas + escrita (sequência de 4 updates) + fala.
+id: M15
+title: "Avaliação do módulo M15: Comunicação de incidentes"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 4, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M15-A01, type: multiple_choice, prompt: "'Partial outage' on the status page means…", options: ["a slice fails — one endpoint, region or segment", "everything is down", "the site is slow for everyone", "scheduled maintenance"], answer: 0, explanation: "Uma fatia quebra; o resto responde.", tags: [vocab.incident] }
+  - { id: M15-A02, type: error_correction, prompt: "In this moment it not works for EU users.", accepted: ["Right now it doesn't work for EU users.", "Right now it doesn't work for EU users", "At this moment it doesn't work for EU users."], explanation: 'Dois calques: "right now" + "doesn''t work".', tags: [br.in-this-moment, br.it-not-works] }
+  - { id: M15-A03, type: multiple_choice, prompt: "The honest status while the cause is unproven is…", options: ["resolved", "the suspected deploy", "investigating", "monitoring"], answer: 2, explanation: "Investigating até a causa ser provada.", tags: [vocab.incident] }
+  - { id: M15-A04, type: error_correction, prompt: "Thanks for the patience — the service normalized overnight.", accepted: ["Thanks for your patience — the service recovered overnight.", "Thank you for your patience — the service recovered overnight."], explanation: 'Dois calques: "your patience" + "recovered".', tags: [br.thanks-patience, br.normalized] }
+  - { id: M15-A05, type: fill_blank, prompt: "We're ___ the cause — next update at 15:00 UTC.", accepted: ["investigating"], explanation: "O status honesto do início.", tags: [vocab.incident] }
+  - { id: M15-A06, type: error_correction, prompt: "The post-mortem arrives until Friday — we reply as soon possible.", accepted: ["The post-mortem arrives by Friday — we reply as soon as possible.", "The post-mortem arrives by Friday — we reply as soon as possible"], explanation: 'Dois calques: "by Friday" (prazo) + "as soon as".', tags: [br.until-by, br.asap-missing-as] }
+  - { id: M15-A07, type: multiple_choice, prompt: "The promise that actually calms a status page reader is…", options: ["'we're so sorry'", "'fixed very soon'", "'working hard on it!!!'", "'next update at 14:30 UTC'"], answer: 3, explanation: "Cadência com horário e timezone.", tags: [vocab.incident] }
+  - { id: M15-A08, type: error_correction, prompt: "The rollback was succeeded at 15:05 UTC.", accepted: ["The rollback succeeded at 15:05 UTC.", "The rollback succeeded at 15:05 UTC"], explanation: "succeeded — voz ativa.", tags: [br.was-succeeded] }
+  - { id: M15-A09, type: translate, prompt: "Clientes não conseguem concluir compras — estamos investigando.", accepted: ["Customers can't complete purchases — we're investigating.", "Customers can't complete purchases — we are investigating."], explanation: '"can''t complete" + "we''re investigating".', tags: [vocab.incident] }
+  - { id: M15-A10, type: multiple_choice, prompt: "'Mitigated' on the page means…", options: ["fully fixed and closed", "the damage stopped growing — recovery still pending", "the cause is unknown", "customers complained"], answer: 1, explanation: "Parou de crescer — não é resolved.", tags: [vocab.incident] }
+  - { id: M15-A11, type: error_correction, prompt: "In this moment the API normalized for most users.", accepted: ["Right now the API has recovered for most users.", "Right now the API recovered for most users.", "The API has recovered for most users."], explanation: 'Dois calques: "right now" + "recovered".', tags: [br.in-this-moment, br.normalized] }
+  - { id: M15-A12, type: multiple_choice, prompt: "'The blast radius is contained' tells readers…", options: ["it will spread further", "the damage is limited — it won't reach more users", "everyone is affected", "the incident is over"], answer: 1, explanation: "O raio parou de crescer.", tags: [vocab.incident] }
+  - { id: M15-A13, type: error_correction, prompt: "Thanks for the patience — we'll post news as soon possible.", accepted: ["Thanks for your patience — we'll post news as soon as possible.", "Thank you for your patience — we'll post news as soon as possible."], explanation: 'Dois calques: "your patience" + "as soon as".', tags: [br.thanks-patience, br.asap-missing-as] }
+  - { id: M15-A14, type: fill_blank, prompt: "We'll follow up ___ a post-mortem by Friday, EOD UTC.", accepted: ["with"], explanation: '"follow up with" — objeto + prazo.', tags: [vocab.incident] }
+  - { id: M15-A15, type: match, prompt: "Associe o status ao que ele promete.", pairs: [{ left: "still investigating", right: "no cause proven yet" }, { left: "identified", right: "cause confirmed" }, { left: "mitigated", right: "damage stopped growing" }, { left: "monitoring", right: "fix live, watching recovery" }], explanation: "A escada do status, degrau a degrau.", tags: [vocab.incident] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** o incidente do checkout, do começo ao
+    fim, na status page.
+
+    **Tarefa:** escreva a sequência de QUATRO atualizações separadas
+    por `---` (100–140 palavras no total): a primeira com
+    investigating + impacto, a segunda com identified + ação, a
+    terceira com mitigated/monitoring, e o resolved com duração,
+    follow-up do post-mortem e horário em cada uma.
+  constraints:
+    - { label: "Investigating + impacto", pattern: "\\b(investigating|we'?re seeing|users can'?t|customers can'?t)\\b" }
+    - { label: "Identified + ação", pattern: "\\b(identified|confirmed|rolling back|rollback)\\b" }
+    - { label: "Mitigated/monitoring", pattern: "\\b(mitigated|monitoring|recovering|fix is live)\\b" }
+    - { label: "Resolved + follow-up", pattern: "\\b(resolved|follow.?up|post.?mortem|total impact)\\b" }
+  rubric:
+    - "Quatro updates, cada um com horário"
+    - "A escada respeitada (sem pular etapas)"
+    - "Resolved com duração + post-mortem com prazo"
+    - "Sem calques do módulo"
+  model: >-
+    14:05 UTC — We're seeing elevated errors on checkout; web users
+    can't complete purchases — mobile is unaffected. We're
+    investigating. Next update at 14:30 UTC. --- 14:30 UTC — Cause
+    identified: a bad config value in the 13:58 deploy. We're rolling
+    back now. Next update at 15:00 UTC. --- 15:05 UTC — Mitigated:
+    checkout errors dropped to 2% after the rollback. The fix is live;
+    we're monitoring recovery. Next update at 15:30 UTC. --- 16:15 UTC
+    — Resolved. Total impact 2h10m on web checkout, about a third of
+    purchases affected at the peak. We'll follow up with a post-mortem
+    by Friday, EOD UTC.
+  minWords: 100
+  maxWords: 140
+  tags: [comp.writing, vocab.incident]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando o incidente fechado para o time: o que aconteceu, o impacto com número, a escada de status que você seguiu e a promessa do post-mortem."
+  maxSeconds: 60
+  targetPhrases:
+    - we're seeing
+    - elevated errors
+    - investigating
+    - identified
+    - mitigated
+    - monitoring
+    - resolved at
+    - blast radius
+    - customer-facing
+    - partial outage
+    - next update at
+    - follow up with
+    - post-mortem
+    - what went well
+    - no data loss
+    - one in three
+  checklist:
+    - "Impacto com número e escopo"
+    - "A escada de status nomeada"
+    - "Resolved com duração"
+    - "Post-mortem com prazo"
