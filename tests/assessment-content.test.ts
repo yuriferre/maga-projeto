@@ -251,3 +251,43 @@ describe("content/modules/M08/assessment.yaml", () => {
     expect(checkExercise(q, "My workload depends on the sprint — actually I'm on three projects.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M09/assessment.yaml", () => {
+  const m09 = bundle.moduleAssessments["M09"]!;
+  it("requires both 'left a comment' and 'it's worth'", () => {
+    const q = m09.items.find((q) => q.id === "M09-A02")!;
+    expect(checkExercise(q, "I left a comment on the cache PR — it's worth a look.").correct).toBe(true);
+    expect(checkExercise(q, "I did a comment on the cache PR — it's worth a look.").correct).toBe(false);
+    expect(checkExercise(q, "I left a comment on the cache PR — it worths a look.").correct).toBe(false);
+  });
+  it("requires both 'seems to me' and 'in my view'", () => {
+    const q = m09.items.find((q) => q.id === "M09-A05")!;
+    expect(checkExercise(q, "The ordering seems wrong to me — in my view, the invalidate runs first.").correct).toBe(true);
+    expect(checkExercise(q, "The ordering seems me wrong — in my view, the invalidate runs first.").correct).toBe(false);
+    expect(checkExercise(q, "The ordering seems wrong to me — according to me, the invalidate runs first.").correct).toBe(false);
+  });
+  it("requires both bare 'agree' and 'told me'", () => {
+    const q = m09.items.find((q) => q.id === "M09-A06")!;
+    expect(checkExercise(q, "I agree — he told me the retry test was missing.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree — he told me the retry test was missing.").correct).toBe(false);
+    expect(checkExercise(q, "I agree — he said me the retry test was missing.").correct).toBe(false);
+  });
+  it("requires both 'question' and 'explain to me'", () => {
+    const q = m09.items.find((q) => q.id === "M09-A07")!;
+    expect(checkExercise(q, "I have a question about this line — can you explain the guard to me?").correct).toBe(true);
+    expect(checkExercise(q, "I have a doubt about this line — can you explain the guard to me?").correct).toBe(false);
+    expect(checkExercise(q, "I have a question about this line — can you explain me the guard?").correct).toBe(false);
+  });
+  it("requires both 'clearer' and 'makes'", () => {
+    const q = m09.items.find((q) => q.id === "M09-A08")!;
+    expect(checkExercise(q, "The extracted helper is clearer — it makes sense to use it.").correct).toBe(true);
+    expect(checkExercise(q, "The extracted helper is more clear — it makes sense to use it.").correct).toBe(false);
+    expect(checkExercise(q, "The extracted helper is clearer — it make sense to use it.").correct).toBe(false);
+  });
+  it("requires both 'made' and 'need you to'", () => {
+    const q = m09.items.find((q) => q.id === "M09-A10")!;
+    expect(checkExercise(q, "We made a mistake in the counter — I need you to review again.").correct).toBe(true);
+    expect(checkExercise(q, "We did a mistake in the counter — I need you to review again.").correct).toBe(false);
+    expect(checkExercise(q, "We made a mistake in the counter — I need that you review again.").correct).toBe(false);
+  });
+});

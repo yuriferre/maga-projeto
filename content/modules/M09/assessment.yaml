@@ -1,0 +1,77 @@
+# Avaliação do módulo M09: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M09
+title: "Avaliação do módulo M09: code review"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3,5, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M09-A01, type: multiple_choice, prompt: "A reviewer writes 'nit:' before a comment. The author should read it as…", options: ["optional — a cosmetic detail, safe to skip", "required before merge", "the reviewer is annoyed", "the PR is rejected"], answer: 0, explanation: "nit = nitpick: cosmético, sem exigência.", tags: [vocab.review] }
+  - { id: M09-A02, type: error_correction, prompt: "I did a comment on the cache PR — it worths a look.", accepted: ["I left a comment on the cache PR — it's worth a look.", "I left a comment on the cache PR — it's worth a look"], explanation: 'Dois calques: "left a comment" + "it''s worth" (worth não é verbo).', tags: [br.did-comment, br.worths] }
+  - { id: M09-A03, type: multiple_choice, prompt: "Which finding deserves a 'blocking' label?", options: ["a typo in a comment", "a variable name you dislike", "a race condition between the write and the invalidate", "an extra blank line"], answer: 2, explanation: "Blocking é para risco real — condição de corrida, não gosto.", tags: [vocab.review] }
+  - { id: M09-A04, type: fill_blank, prompt: "___: this would break under concurrent writes — the counter isn't atomic.", accepted: ["blocking", "Blocking"], explanation: "O rótulo que segura o merge.", tags: [vocab.review] }
+  - { id: M09-A05, type: error_correction, prompt: "The ordering seems me wrong — according to me, the invalidate runs first.", accepted: ["The ordering seems wrong to me — in my view, the invalidate runs first.", "The ordering seems wrong to me — in my view, the invalidate runs first", "The ordering seems wrong to me — I think the invalidate runs first."], explanation: "Dois calques: seems X to me + in my view (according to leva fonte externa).", tags: [br.seems-me, br.according-to-me] }
+  - { id: M09-A06, type: error_correction, prompt: "I am agree — he said me the retry test was missing.", accepted: ["I agree — he told me the retry test was missing.", "I agree — he told me the retry test was missing"], explanation: "Dois erros: agree sem am + told me.", tags: [br.i-am-agree, br.said-me] }
+  - { id: M09-A07, type: error_correction, prompt: "I have a doubt about this line — can you explain me the guard?", accepted: ["I have a question about this line — can you explain the guard to me?", "I have a question about this line — can you explain the guard to me", "I have a question about this line — can you explain the guard?"], explanation: "Dois calques: question (não doubt) + explain X to me.", tags: [br.doubt, br.explain-me] }
+  - { id: M09-A08, type: error_correction, prompt: "The extracted helper is more clear — it make sense to use it.", accepted: ["The extracted helper is clearer — it makes sense to use it.", "The extracted helper is clearer — it makes sense to use it"], explanation: "Dois erros: clearer (-er) + makes (3ª pessoa).", tags: [br.more-er, br.it-makes-sense] }
+  - { id: M09-A09, type: multiple_choice, prompt: "A comment asks you to rename `retryLoop` to `attemptMap`, which would hide the ordering. The right reply:", options: ["\"I disagree.\"", "no reply — just skip it", "\"Fine, renaming.\"", "\"I'd keep it — the name signals the ordering, which matters here.\""], answer: 3, explanation: "Discordância + motivo — 'I disagree' sozinho lê como teimosia.", tags: [vocab.review] }
+  - { id: M09-A10, type: error_correction, prompt: "We did a mistake in the counter — I need that you review again.", accepted: ["We made a mistake in the counter — I need you to review again.", "We made a mistake in the counter — I need you to review again"], explanation: 'Dois calques: "make a mistake" + "need you to".', tags: [br.do-mistake, br.need-that-you] }
+  - { id: M09-A11, type: multiple_choice, prompt: "A PR that keeps behavior but improves the structure is…", options: ["a rewrite", "dead code", "boilerplate", "a refactor"], answer: 3, explanation: "Refactor preserva comportamento; mudou comportamento = rewrite.", tags: [vocab.review] }
+  - { id: M09-A12, type: fill_blank, prompt: "All comments addressed — ___ when you have a minute.", accepted: ["PTAL", "ptal"], explanation: "PTAL — please take another look: o pedido de re-review.", tags: [vocab.review] }
+  - { id: M09-A13, type: multiple_choice, prompt: "A branch guarded by a flag that was removed last sprint is…", options: ["a magic number", "dead code — it never runs, delete it", "a side effect", "an edge case"], answer: 1, explanation: "Nunca executa → apagar é seguro.", tags: [vocab.review] }
+  - { id: M09-A14, type: translate, prompt: "Boa pescada — resolvido no último push. Eu manteria o nome — a ordem importa.", accepted: ["Good catch — addressed in the latest push. I'd keep the name — ordering matters.", "Good catch — addressed in the latest push. I'd keep the name — ordering matters", "Good catch — it landed in the latest push. I'd keep the name — ordering matters."], explanation: '"good catch" + addressed + "I''d keep it" + o motivo.', tags: [vocab.review] }
+  - { id: M09-A15, type: match, prompt: "Associe cada rótulo ou frase de review ao que ele faz.", pairs: [{ left: "nit:", right: "a cosmetic detail — safe to skip" }, { left: "blocking:", right: "the merge waits on this" }, { left: "good catch — addressed in abc123", right: "agreeing with the fix in a commit" }, { left: "PTAL", right: "asking for a re-review" }], explanation: "O vocabulário operacional da rodada de review.", tags: [vocab.review] }
+
+writing:
+  prompt: |
+    **Cenário:** sua rodada de review terminou. O tech lead pede o resumo
+    escrito no canal: o que você comentou em dois PRs e como respondeu os
+    comentários no seu.
+
+    **Tarefa:** escreva 80–120 palavras cobrindo: um comentário seu com
+    rótulo de peso (nit/non-blocking/blocking) e o problema nomeado pelo
+    léxico (magic number, dead code, race condition, side effect…); e suas
+    respostas como autor — um good catch com commit, uma discordância com
+    motivo, e o PTAL final.
+  constraints:
+    - { label: "Léxico de review", pattern: "\\b(magic number|dead code|race condition|side effect|refactor|extract|nit)\\b" }
+    - { label: "Peso rotulado", pattern: "\\b(blocking|non-blocking|nit)\\b" }
+    - { label: "Respostas do autor", pattern: "\\b(good catch|addressed|i.d keep|here.s why|intentional)\\b" }
+    - { label: "Re-review", pattern: "\\b(ptal|another look|re-?review)\\b" }
+  rubric:
+    - Comentário com peso + léxico
+    - Resposta concordando com commit
+    - Discordância com motivo
+    - Fecha com PTAL
+  model: >-
+    Review summary for Friday's round. Cache PR: the TTL is a magic number
+    — name it SECONDS_PER_DAY (nit); the old flag branch is dead code, it
+    never runs — safe to delete (non-blocking). Retry PR: blocking — a race
+    condition, the invalidate can run before the write lands; could we lock
+    the counter? On my PR: the ordering bug was a good catch — addressed in
+    4f2a1c. The rename I'd keep — ordering matters for the sequence. All
+    threads answered; PTAL.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.review]
+
+speaking:
+  prompt: "Grave 60 segundos narrando uma rodada de review: o que você comentou em cada PR (problema nomeado + peso) e como fechou o ciclo no seu próprio PR (good catch, discordância com motivo, PTAL)."
+  maxSeconds: 60
+  targetPhrases:
+    - nit
+    - non-blocking
+    - blocking
+    - magic number
+    - dead code
+    - race condition
+    - this would break
+    - could we
+    - good catch
+    - addressed in
+    - I'd keep it
+    - here's why
+    - that's intentional
+    - PTAL
+    - the fix landed
+    - the next reader
