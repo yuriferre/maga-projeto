@@ -45,13 +45,13 @@ describe("attempts for assessments", () => {
     expect((await json("POST", "/api/attempts", { lessonId: "M01", exerciseId: "M01-A01", block: "assessment", type: "fill_blank", correct: true, tags: ["gram.since-for"] })).status).toBe(200);
     expect((await json("POST", "/api/attempts", { lessonId: "M01", exerciseId: "M01-A01", block: "quiz", type: "fill_blank", correct: true, tags: [] })).status).toBe(400);
     expect((await json("POST", "/api/attempts", { lessonId: "M01", exerciseId: "M01-Z99", block: "assessment", type: "fill_blank", correct: true, tags: [] })).status).toBe(400);
-    expect((await json("POST", "/api/attempts", { lessonId: "M07", exerciseId: "M07-A01", block: "assessment", type: "fill_blank", correct: true, tags: [] })).status).toBe(404);
+    expect((await json("POST", "/api/attempts", { lessonId: "M99", exerciseId: "M99-A01", block: "assessment", type: "fill_blank", correct: true, tags: [] })).status).toBe(404);
   });
 });
 
 describe("/api/modules/:id/assessment", () => {
   it("404 for a module without assessment.yaml", async () => {
-    expect((await app.request("/api/modules/M07/assessment/state")).status).toBe(404);
+    expect((await app.request("/api/modules/M99/assessment/state")).status).toBe(404);
   });
   it("state reports eligibility and an empty run", async () => {
     const s = await state();
