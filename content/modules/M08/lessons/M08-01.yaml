@@ -1,0 +1,289 @@
+id: M08-01
+module: M08
+order: 1
+title: "Retro: what went well / what didn't / action items"
+objective: >-
+  Ao final, você participa de uma retrospectiva no formato clássico — fala do
+  que funcionou, do que não funcionou e dos itens de ação — sem culpar pessoas
+  e sem ficar em silêncio.
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.feedback, topic.retro, comp.speaking, comp.confidence, br.do-mistake, br.morale]
+prerequisites: [M02-05, M07-05]
+
+context:
+  scenario: |
+    Sexta-feira, fim da sprint. O quadro da retro tem três colunas: **what went
+    well**, **what didn't go well** e **action items**. A regra número um:
+    critique o processo, nunca a pessoa — "the deploy pipeline broke twice",
+    não "Marcos broke the deploy".
+
+    O kit de fala é pequeno: "what went well was…", "what didn't go well was…",
+    "the action item is…", "shout-out to…" (elogio público), "to be fair…"
+    (contexto antes da crítica) e "let's not point fingers" (sem culpar).
+    Quem fala do processo melhora o time; quem fala da pessoa destrói a retro.
+  roles: [Priya (scrum master), Ana (SRE), Yuri (platform engineer)]
+
+vocabulary:
+  - term: "what went well"
+    meaning: o que foi bem — a primeira coluna da retro
+    example: "What went well: the incident response was fast."
+    translation: "O que foi bem: a resposta ao incidente foi rápida."
+    note: "Abra pelo positivo — a retro não é só lista de problemas."
+  - term: "what didn't go well"
+    meaning: o que não foi bem — a coluna dos problemas
+    example: "What didn't go well: two failed deploys on Thursday."
+    translation: "O que não foi bem: dois deploys que falharam na quinta."
+    note: "Descreva o evento, não a pessoa — 'the deploy failed', não 'he failed'."
+  - term: action items
+    meaning: itens de ação — a terceira coluna, com dono
+    example: "Action item: Marcos adds a staging gate before Friday's deploys."
+    translation: "Item de ação: Marcos adiciona um gate de staging antes dos deploys de sexta."
+    note: "Sem dono, o action item é decoração — sempre com um nome."
+  - term: "shout-out to"
+    meaning: reconhecimento público — o elogio com nome
+    example: "Shout-out to Ana for catching the misconfig before prod."
+    translation: "Reconhecimento para a Ana por ter pego a má-configuração antes de prod."
+    note: '"shout-out to X for Y" — o crédito nominal e específico.'
+  - term: "to be fair"
+    meaning: para ser justo — o contexto antes da crítica
+    example: "To be fair, the alert fired during the migration window."
+    translation: "Para ser justo, o alerta disparou durante a janela de migração."
+    note: "Suaviza a crítica com o contexto — sem cancelar o ponto."
+  - term: "let's not point fingers"
+    meaning: vamos não apontar dedos — a regra contra culpa
+    example: "Let's not point fingers — the runbook was outdated for everyone."
+    translation: "Vamos não apontar dedos — o runbook estava desatualizado para todos."
+    note: "A frase que tira a retro do modo tribunal."
+  - term: "the root cause"
+    meaning: a causa raiz — o problema de verdade
+    example: "The root cause wasn't the deploy — it was the missing health check."
+    translation: "A causa raiz não foi o deploy — foi o health check faltando."
+    note: "A retro só vale a pena quando chega no root cause."
+  - term: "a pattern"
+    meaning: um padrão — o problema que se repete
+    example: "This is the third flaky test this month — it's a pattern now."
+    translation: "É o terceiro teste flaky do mês — já é um padrão."
+    note: "Retro é para padrões, não para incidentes únicos."
+  - term: "a recurring theme"
+    meaning: tema recorrente — o que volta toda sprint
+    example: "Underestimating migrations is a recurring theme for us."
+    translation: "Subestimar migrações é um tema recorrente para nós."
+    note: "Sinônimo de pattern — bom para retro de retrospectivas."
+  - term: "to own the action item"
+    meaning: ser dono do item de ação — responsabilidade nomeada
+    example: "I'll own the action item on the flaky tests."
+    translation: "Eu fico dono do item de ação dos testes flaky."
+    note: '"own" aqui é assumir — "I''ll own it" = eu cuido disso.'
+  - term: "by next sprint"
+    meaning: até a próxima sprint — o prazo do action item
+    example: "The runbook update is due by next sprint."
+    translation: "A atualização do runbook vence até a próxima sprint."
+    note: "Action item sem prazo não fecha — sempre com data."
+  - term: "a quick retro"
+    meaning: retro rápida — a versão curta do formato
+    example: "Let's do a quick retro — 10 minutes, three columns."
+    translation: "Vamos fazer uma retro rápida — 10 minutos, três colunas."
+    note: "Retro curta > retro cancelada."
+  - term: "the elephant in the room"
+    meaning: o elefante na sala — o problema que todos evitam
+    example: "Can we talk about the elephant in the room? The on-call load."
+    translation: "Podemos falar do elefante na sala? A carga do on-call."
+    note: "A frase que tira o assunto proibido da mesa — use com cuidado."
+  - term: "to keep doing / stop doing / start doing"
+    meaning: continuar / parar / começar — o formato alternativo
+    example: "Start doing: smoke tests before deploy. Stop doing: Friday merges."
+    translation: "Começar: smoke tests antes do deploy. Parar: merges de sexta."
+    note: "O formato start/stop/keep — a alternativa às três colunas."
+
+grammar:
+  title: "Fale do processo, não da pessoa — e todo problema vira action item"
+  explanation: |
+    A retro tem uma gramática própria: o sujeito das frases de problema é o
+    **processo ou o evento** — "the pipeline broke", "the review took three
+    days" — nunca a pessoa. O elogio, ao contrário, é nominal: "shout-out to
+    Ana".
+
+    | Coluna | Frase-modelo |
+    |---|---|
+    | went well | *What went well: the rollback was clean.* |
+    | didn't go well | *What didn't go well: two failed deploys.* |
+    | action items | *Action item: X, owned by Y, due by Z.* |
+    | crédito | *Shout-out to Ana for the quick rollback.* |
+    | contexto | *To be fair, it happened during the freeze.* |
+
+    **Erros BR:** "we **did** a mistake" (é *made*), "the team **moral** is
+    low" (é *morale*), "a feedback" (é incontável: *some feedback*), e culpar
+    com "you" — "you broke prod" vira "prod broke during the deploy".
+  examples:
+    - { en: "What went well: the incident response was under ten minutes.", pt: "O que foi bem: a resposta ao incidente ficou em menos de dez minutos." }
+    - { en: "What didn't go well: the review queue stalled mid-sprint.", pt: "O que não foi bem: a fila de review parou no meio da sprint." }
+    - { en: "Action item: update the runbook — owned by me, due by next sprint.", pt: "Item de ação: atualizar o runbook — dono eu, até a próxima sprint." }
+    - { en: "Shout-out to Marcos for catching the misconfig.", pt: "Reconhecimento ao Marcos por pegar a má-configuração." }
+    - { en: "To be fair, the freeze window was too short.", pt: "Para ser justo, a janela de freeze era curta demais." }
+    - { en: "We made a mistake — no staging test before the merge.", pt: "Cometemos um erro — sem teste de staging antes do merge." }
+
+examples:
+  - en: "What went well: the rollback ran clean and nobody paged twice."
+    pt: "O que foi bem: o rollback rodou limpo e ninguém foi paginado duas vezes."
+    context: "O positivo específico — não 'everything was fine'."
+  - en: "What didn't go well: we made a mistake estimating the migration — twice."
+    pt: "O que não foi bem: cometemos um erro estimando a migração — duas vezes."
+    context: '"made a mistake" — nunca "did a mistake".'
+  - en: "The team morale took a hit after the second failed deploy."
+    pt: "A moral do time sofreu depois do segundo deploy falho."
+    context: '"morale" com e — "team moral" é o calque.'
+  - en: "Action item: I'll own the flaky-test cleanup, due by next sprint."
+    pt: "Item de ação: eu fico dono da limpeza dos testes flaky, até a próxima sprint."
+    context: "Item com dono e prazo — o único que fecha."
+  - en: "Let's not point fingers — the runbook was outdated for everyone."
+    pt: "Vamos não apontar dedos — o runbook estava desatualizado para todos."
+    context: "Tira a retro do modo tribunal."
+  - en: "She gave me some feedback about my on-call handoffs."
+    pt: "Ela me deu um feedback sobre meus handoffs de on-call."
+    context: "Feedback é incontável — some feedback, não 'a feedback'."
+  - en: "To be fair, half the team was on call that week."
+    pt: "Para ser justo, metade do time estava de on-call naquela semana."
+    context: "Contexto antes da crítica — sem cancelar o ponto."
+  - en: "The flaky tests are a recurring theme — third sprint in a row."
+    pt: "Os testes flaky são tema recorrente — terceira sprint seguida."
+    context: "Pattern naming — o argumento para o action item."
+
+variations:
+  - idea: '"o que não foi bem na sprint"'
+    items:
+      - { register: "Boa", text: "What didn't go well: the deploy pipeline broke twice.", adequate: true }
+      - { register: "Boa", text: "The reviews stalled — that's a recurring theme now.", adequate: true }
+      - { register: "Inadequada", text: "Marcos broke the deploy.", adequate: false, note: "Culpa na pessoa — descreva o evento." }
+      - { register: "Inadequada", text: "We did a mistake again.", adequate: false, note: '"made a mistake" — do é calque.' }
+  - idea: '"dar crédito a alguém"'
+    items:
+      - { register: "Boa", text: "Shout-out to Ana for the quick rollback on Thursday.", adequate: true }
+      - { register: "Boa", text: "Credit to Marcos — the runbook saved the on-call.", adequate: true }
+      - { register: "Inadequada", text: "Ana did good.", adequate: false, note: 'Gramática + vago: "Ana did well" ou shout-out com o feito.' }
+      - { register: "Inadequada", text: "Everyone was great.", adequate: false, note: "Genérico demais — nomeie a pessoa e o feito." }
+
+brErrors:
+  - { wrong: "We did a mistake estimating the migration.", right: "We made a mistake estimating the migration.", why: '"make a mistake" — "do a mistake" é calque', tag: br.do-mistake }
+  - { wrong: "The team moral is low after the incident.", right: "The team morale is low after the incident.", why: "moral do time é morale; moral é ética", tag: br.morale }
+  - { wrong: "She gave me a feedback about the handoff.", right: "She gave me some feedback about the handoff.", why: "feedback é incontável", tag: br.uncountable }
+  - { wrong: "I'm boring in these long meetings.", right: "I'm bored in these long meetings.", why: "quem sente leva -ed", tag: br.ed-ing }
+  - { wrong: "I have a doubt about the action item.", right: "I have a question about the action item.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "We need that everyone join the retro.", right: "We need everyone to join the retro.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "It make sense to timebox the retro.", right: "It makes sense to timebox the retro.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "The retro depends of the sprint ending.", right: "The retro depends on the sprint ending.", why: '"depends on" — "depend of" é calque', tag: br.depend-of }
+  - { wrong: "The problem is more simple than it looks.", right: "The problem is simpler than it looks.", why: "simple é adjetivo curto: simpler", tag: br.more-er }
+  - { wrong: "He said me the retro was optional.", right: "He told me the retro was optional.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "A retro depois da sprint ruim"
+  lines:
+    - { speaker: Priya, text: "Retro time. Three columns as always: went well, didn't go well, action items. And the rule — process, not people." }
+    - { speaker: Ana, text: "I'll start with the good: the incident response on Tuesday was under ten minutes. Shout-out to whoever wrote the new runbook." }
+    - { speaker: Yuri, text: "That was Marcos. And what didn't go well: two failed deploys on Thursday — to be fair, both during the freeze window." }
+    - { speaker: Priya, text: "Is it a pattern? This is the second sprint with deploy trouble." }
+    - { speaker: Yuri, text: "It is. The root cause isn't the deploys — it's that we made a mistake skipping the staging gate. My bad on the first one." }
+    - { speaker: Ana, text: "Let's not point fingers — the gate wasn't enforced for anyone. Team morale took a hit though." }
+    - { speaker: Priya, text: "Action items then. Yuri?" }
+    - { speaker: Yuri, text: "I'll own the staging gate enforcement — due by next sprint. And a second one: runbook update, Ana owns it?" }
+    - { speaker: Ana, text: "I'll take it. Same deadline." }
+    - { speaker: Priya, text: "Recap: gate enforcement, runbook update — both by next sprint. Good retro, folks." }
+  notes:
+    - "o formato inteiro em 10 falas: went well com shout-out, didn't go well com 'to be fair', pattern + root cause, e action items com dono e prazo."
+    - '"my bad" — admitir o erro próprio é metade da retro.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A retro fails two ways: when it becomes a blame session, or when it produces action items with no owner and no date. Both are silent killers — one kills trust, the other kills the follow-through." }
+    - { speaker: Ana, text: "The phrasing does the work. 'The deploy failed twice' invites a fix; 'Marcos failed twice' invites a defense. Same facts, different retro." }
+    - { speaker: "Priya", text: "And if nobody says the hard thing, the retro was a status meeting. Someone has to name the elephant in the room — politely, but name it." }
+  questions:
+    - { id: M08-01-l1, type: multiple_choice, prompt: "What are the two ways a retro fails?", options: ["too long, too short", "too formal, too casual", "blame session, or action items without owner and date", "no food, no agenda"], answer: 2, explanation: "Culpa mata a confiança; item sem dono mata o follow-through.", tags: [comp.listening, topic.retro] }
+    - { id: M08-01-l2, type: multiple_choice, prompt: "'The deploy failed twice' vs 'Marcos failed twice' — the first…", options: ["invites a fix instead of a defense", "is passive-aggressive", "hides the truth", "is longer"], answer: 0, explanation: "Mesmo fato; o sujeito processo convida à correção.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-01-l3, type: fill_blank, prompt: "Someone has to name the ___ in the room — politely.", accepted: ["elephant"], explanation: '"the elephant in the room" — o problema que todos evitam.', tags: [vocab.feedback] }
+    - { id: M08-01-l4, type: error_correction, prompt: "We did a mistake skipping the staging gate.", accepted: ["We made a mistake skipping the staging gate.", "We made a mistake skipping the staging gate"], explanation: '"make a mistake" — "do a mistake" é calque.', tags: [br.do-mistake] }
+    - { id: M08-01-l5, type: multiple_choice, prompt: "An action item without owner and date is…", options: ["still useful", "decoration — it won't happen", "a blocker", "a spike"], answer: 1, explanation: "Sem dono nem prazo, o item não fecha.", tags: [vocab.feedback, topic.retro] }
+    - { id: M08-01-l6, type: fill_blank, prompt: "The team ___ took a hit after the second failed deploy.", accepted: ["morale"], explanation: '"morale" com e — o ânimo do time.', tags: [br.morale] }
+
+writing:
+  prompt: |
+    **Cenário:** a retro acabou e a scrum master pede o resumo por escrito no canal — quem faltou à reunião lê isso.
+
+    **Tarefa:** escreva 60–90 palavras no formato da retro: uma linha de "went well" (com shout-out), uma de "didn't go well" (sem culpar), o root cause, e dois action items com dono e prazo.
+  constraints:
+    - { label: "Went well / didn't go well", pattern: "\\b(went well|didn't go well|didn.t go well)\\b" }
+    - { label: "Shout-out ou crédito nominal", pattern: "\\b(shout.out|credit to)\\b" }
+    - { label: "Root cause ou pattern", pattern: "\\b(root cause|pattern|recurring)\\b" }
+    - { label: "Action items com dono/prazo", pattern: "\\b(action items?|own|owns|by next|due)\\b" }
+  rubric:
+    - Went well com feito específico
+    - Didn't go well sobre o processo, não a pessoa
+    - Root cause nomeada
+    - Dois action items com dono e prazo
+  model: >-
+    Retro notes. What went well: incident response under ten minutes —
+    shout-out to Marcos for the runbook. What didn't go well: two failed
+    deploys on Thursday; the root cause was skipping the staging gate, a
+    recurring theme this month. Action items: Yuri owns the gate enforcement
+    by next sprint; Ana updates the runbook, same deadline.
+  minWords: 55
+  maxWords: 90
+  tags: [comp.writing, vocab.feedback]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos falando na retro: um went-well com shout-out, um didn't-go-well sobre o processo, o root cause e um action item com dono."
+    maxSeconds: 45
+    targetPhrases:
+      - what went well
+      - what didn't go well
+      - action item
+      - shout-out to
+      - to be fair
+      - point fingers
+      - root cause
+      - a pattern
+      - recurring theme
+      - own the action item
+      - by next sprint
+      - team morale
+      - quick retro
+      - elephant in the room
+    checklist:
+      - Went well com feito específico
+      - Didn't go well sem culpar ninguém
+      - Root cause ou pattern nomeada
+      - Action item com dono e prazo
+
+quiz:
+  - { id: M08-01-q1, type: multiple_choice, prompt: "The three columns of the classic retro are…", options: ["good, bad, ugly", "went well, didn't go well, action items", "start, stop, continue, wait", "done, doing, blocked"], answer: 1, explanation: "Went well / didn't go well / action items.", tags: [vocab.feedback, topic.retro] }
+  - { id: M08-01-q2, type: error_correction, prompt: "We did a mistake with the deploy schedule.", accepted: ["We made a mistake with the deploy schedule.", "We made a mistake with the deploy schedule"], explanation: '"make a mistake" — "do a mistake" é calque.', tags: [br.do-mistake] }
+  - { id: M08-01-q3, type: multiple_choice, prompt: "'Shout-out to Ana for the quick rollback' is…", options: ["a complaint", "an action item", "a blocker report", "public credit — named and specific"], answer: 3, explanation: "Shout-out = reconhecimento nominal do feito.", tags: [vocab.feedback] }
+  - { id: M08-01-q4, type: error_correction, prompt: "The team moral dropped after the failed release.", accepted: ["The team morale dropped after the failed release.", "The team morale dropped after the failed release"], explanation: "Morale (com e) = ânimo do time.", tags: [br.morale] }
+  - { id: M08-01-q5, type: multiple_choice, prompt: "'Let's not point fingers' means…", options: ["don't raise your hand", "the retro is cancelled", "no blaming people — talk about the process", "don't take notes"], answer: 2, explanation: "Processo, não pessoa — a regra da retro.", tags: [vocab.feedback] }
+  - { id: M08-01-q6, type: translate, prompt: "Ela me deu um feedback sobre o handoff.", accepted: ["She gave me some feedback about the handoff.", "She gave me some feedback about the handoff", "She gave me a piece of feedback about the handoff."], explanation: "Feedback é incontável — some/a piece of.", tags: [br.uncountable, vocab.feedback] }
+  - { id: M08-01-q7, type: reorder, prompt: "Monte a frase: / ação / dono / item / próxima sprint", tokens: ["Action", "item:", "Yuri", "owns", "the", "staging", "gate,", "due", "by", "next", "sprint."], answer: "Action item: Yuri owns the staging gate, due by next sprint.", explanation: "Item + dono + prazo — o formato que fecha.", tags: [vocab.feedback, topic.retro] }
+  - { id: M08-01-q8, type: multiple_choice, prompt: "'To be fair, it happened during the freeze' does what?", options: ["cancels the criticism", "adds context before the criticism", "ends the retro", "assigns blame"], answer: 1, explanation: '"to be fair" contextualiza sem apagar o ponto.', tags: [vocab.feedback] }
+
+review:
+  count: 5
+  preferTags: [vocab.feedback, topic.retro, br.do-mistake]
+
+srsCards:
+  - { front: "what went well / what didn't go well", back: "as duas colunas da retro — evento/processo, nunca pessoa", tag: vocab.feedback }
+  - { front: "action item", back: "o que sai da retro — sempre com dono e prazo", tag: vocab.feedback }
+  - { front: "shout-out to X for Y", back: "reconhecimento público — nome + feito", tag: vocab.feedback }
+  - { front: "to be fair", back: "o contexto antes da crítica — sem cancelar o ponto", tag: vocab.feedback }
+  - { front: "let's not point fingers", back: "a frase contra a culpa — retro não é tribunal", tag: vocab.feedback }
+  - { front: "the root cause", back: "o problema de verdade — a retro existe para achá-lo", tag: vocab.feedback }
+  - { front: "a recurring theme", back: "o padrão que volta toda sprint — argumento para o action item", tag: vocab.feedback }
+  - { front: "made × did a mistake", back: '"made a mistake" — "did a mistake" é calque', hint: "fazer um erro = make", tag: br.do-mistake }
+  - { front: "morale × moral", back: "morale = ânimo do time; moral = ética/lição da história", hint: '"team morale is low"', tag: br.morale }
+  - { front: "feedback é incontável", back: '"some feedback" ou "a piece of feedback" — nunca "a feedback"', hint: '"a feedback loop" é outra coisa', tag: br.uncountable }
+  - { front: "the elephant in the room", back: "o problema que todos evitam — quem nomeia ajuda o time", tag: vocab.feedback }
+  - { front: "I'll own it", back: "eu assumo o item — dono nomeado na hora", tag: vocab.feedback }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
