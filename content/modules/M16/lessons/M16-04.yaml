@@ -1,0 +1,291 @@
+id: M16-04
+module: M16
+order: 4
+title: "Interromper, corrigir e realinhar: hang on, let's stay on…"
+objective: >-
+  Ao final, você interrompe sem grosseria, corrige sem humilhar e
+  puxa a bridge de volta ao assunto: "hang on", "quick correction",
+  "let's stay on the rollback".
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.bridge, comp.speaking]
+prerequisites: [M16-03]
+
+context:
+  scenario: |
+    O rollback está decidido — mas a bridge despirocou: duas pessoas
+    discutindo a causa raiz, alguém perguntando do post-mortem, e o
+    Marcos esperando autorização.
+
+    Interromper na bridge é técnica, não falta de educação:
+
+    - "**hang on**" / "hold that thought" — pausa a fala sem
+      desrespeitar
+    - "**quick correction**" / "small correction" — corrige o fato,
+      não a pessoa
+    - "**let's stay on** the rollback" / "going back to the alert" —
+      realinha sem humilhar
+    - "**park it**" — registra o assunto para depois e segue
+
+    A regra de ouro do IC: **interrompa a tangente, nunca a pessoa.**
+    "That's for the post-mortem — staying on the mitigation."
+  roles: [Yuri (platform engineer), Priya (IC), Marcos (backend), Ana (comms lead)]
+
+vocabulary:
+  - term: "hang on"
+    meaning: 'espera aí — a interrupção suave que pausa sem cortar'
+    example: "Hang on — before the root cause, let's finish the rollback."
+    translation: "Espera aí — antes da causa raiz, vamos terminar o rollback."
+    note: "Mais suave que 'wait' — sinaliza retomada, não censura."
+  - term: "hold that thought"
+    meaning: 'guarde esse pensamento — pausa prometendo retorno'
+    example: "Hold that thought — we'll pick it up after the mitigation."
+    translation: "Guarde esse pensamento — retomamos depois da mitigação."
+    note: "A promessa de voltar é o que torna a interrupção educada."
+  - term: "quick correction"
+    meaning: 'correção rápida — corrigir o fato sem atacar a pessoa'
+    example: "Quick correction — the deploy was 13:58, not 14:58."
+    translation: "Correção rápida — o deploy foi 13:58, não 14:58."
+    note: "Corrige o dado, nunca a pessoa — 'the deploy was'."
+  - term: "let's stay on"
+    meaning: 'vamos continuar em — realinhando a conversa ao tema'
+    example: "Let's stay on the rollback — root cause is for later."
+    translation: "Vamos continuar no rollback — causa raiz é para depois."
+    note: "'Stay on X' = permanecer no assunto X."
+  - term: "going back to"
+    meaning: 'voltando a — retomando o fio interrompido'
+    example: "Going back to the alert — who confirmed the drop?"
+    translation: "Voltando ao alerta — quem confirmou a queda?"
+    note: "A ponte de volta ao assunto sem apagar ninguém."
+  - term: "park it"
+    meaning: 'estacionar — registra o assunto para depois da crise'
+    example: "Good point — park it for the post-mortem."
+    translation: "Boa observação — estacione para o post-mortem."
+    note: "O assunto vive — só não agora."
+  - term: "take it offline"
+    meaning: 'levar para fora — discutir depois, fora da bridge'
+    example: "You two take it offline — the bridge stays on mitigation."
+    translation: "Vocês dois levam isso para fora — a bridge fica na mitigação."
+    note: "Tira o debate da bridge sem encerrar o debate."
+  - term: "one at a time"
+    meaning: um de cada vez — a regra da voz única
+    example: "One at a time — Marcos first, then Yuri."
+    translation: "Um de cada vez — Marcos primeiro, depois o Yuri."
+    note: "Com ordem nomeada — quem fala primeiro, quem vem depois."
+  - term: "you're on mute"
+    meaning: 'você está no mudo — o aviso mais comum da bridge'
+    example: "Marcos, you're on mute — we lost the answer."
+    translation: "Marcos, você está no mudo — perdemos a resposta."
+    note: "A frase mais dita em calls do planeta."
+  - term: "keep it tight"
+    meaning: 'mantenha curto — pedindo brevidade sem rudeza'
+    example: "Keep it tight — thirty seconds each, facts only."
+    translation: "Mantenham curto — trinta segundos cada, só fatos."
+    note: "Brevidade pedida com regra, não com grosseria."
+  - term: "with respect"
+    meaning: 'com respeito — o prefixo da discordância educada'
+    example: "With respect, that's the wrong dashboard — check EU."
+    translation: "Com respeito, esse é o dashboard errado — olhe a EU."
+    note: "Só funciona se a correção vier com fato."
+  - term: "noted"
+    meaning: anotado — o registro de uma palavra
+    example: "'The search fix gets wiped.' — 'Noted — re-deploy after.'"
+    translation: "'A correção do search se perde.' — 'Anotado — re-deploy depois.'"
+    note: "Uma palavra que diz: ouvi, registrei, seguimos."
+
+grammar:
+  title: "Interromper com técnica: pausa com promessa, correção no fato, retorno ao tema"
+  explanation: |
+    Interromper na bridge segue três padrões:
+
+    - **Pausa com promessa:** "hang on — we'll come back to that" /
+      "hold that thought". A interrupção promete retorno, então não
+      soa a censura.
+    - **Correção no fato:** "quick correction — **the deploy was**
+      13:58" — o sujeito é o dado, não a pessoa. Nunca "you're
+      wrong"; sempre "the timestamp was".
+    - **Retorno ao tema:** "let's stay on the rollback" / "going
+      back to the alert" / "park it for the post-mortem".
+
+    E o pedido de brevidade: "**keep it tight** — thirty seconds
+    each" — uma regra de tempo, não um puxão de orelha.
+  examples:
+    - { en: "Hang on — before the root cause, let's land the rollback.", pt: "Espera aí — antes da causa raiz, vamos concluir o rollback." }
+    - { en: "Quick correction — the alert fired at 14:03, not 14:30.", pt: "Correção rápida — o alerta disparou às 14:03, não 14:30." }
+    - { en: "Let's stay on the mitigation — the 'why' waits for the post-mortem.", pt: "Vamos continuar na mitigação — o 'porquê' espera o post-mortem." }
+    - { en: "Going back to the rollback — Marcos, status?", pt: "Voltando ao rollback — Marcos, status?" }
+    - { en: "Good point — park it for the post-mortem.", pt: "Boa observação — estacione para o post-mortem." }
+    - { en: "One at a time — Ana first, then Marcos.", pt: "Um de cada vez — Ana primeiro, depois o Marcos." }
+
+examples:
+  - en: "Hang on — the mitigation isn't done; root cause can wait."
+    pt: "Espera aí — a mitigação não acabou; a causa raiz pode esperar."
+    context: "A pausa que protege a ordem."
+  - en: "Quick correction — it's the payments graph, not the checkout one."
+    pt: "Correção rápida — é o gráfico de pagamentos, não o de checkout."
+    context: "Corrige o dado, não a pessoa."
+  - en: "Let's stay on the rollback — we'll park the 'why' for the post-mortem."
+    pt: "Vamos continuar no rollback — vamos estacionar o 'porquê' para o post-mortem."
+    context: "Realinha + promete retorno."
+  - en: "Hold that thought — we'll pick it up right after this."
+    pt: "Guarde esse pensamento — retomamos logo depois disso."
+    context: "Interrupção com promessa."
+  - en: "You two take it offline — the bridge stays on the alert."
+    pt: "Vocês dois levam isso para fora — a bridge fica no alerta."
+    context: "Debate tirado da bridge sem ser morto."
+  - en: "Marcos, you're on mute — repeat the rollback status?"
+    pt: "Marcos, você está no mudo — repete o status do rollback?"
+    context: "O aviso universal."
+  - en: "Keep it tight — name, fact, and what you need."
+    pt: "Mantenham curto — nome, fato e o que você precisa."
+    context: "A brevidade com formato."
+  - en: "Noted — we re-deploy the search fix after the all-clear."
+    pt: "Anotado — refazemos o deploy do search depois do all-clear."
+    context: "Uma palavra que registra e segue."
+
+variations:
+  - idea: '"interrompendo"'
+    items:
+      - { register: "Boa", text: "Hang on — let's land the rollback first.", adequate: true }
+      - { register: "Boa", text: "Hold that thought — we'll pick it up after mitigation.", adequate: true }
+      - { register: "Inadequada", text: "Shut up, we're not talking about that.", adequate: false, note: "Grosseria — 'hang on' + promessa de retorno corta sem humilhar." }
+      - { register: "Inadequada", text: "(deixar a tangente correr)", adequate: false, note: "A tangente consome a bridge — 'park it' registra e segue." }
+  - idea: '"corrigindo e realinhando"'
+    items:
+      - { register: "Boa", text: "Quick correction — the deploy was 13:58.", adequate: true }
+      - { register: "Boa", text: "Let's stay on the rollback — 'why' is for the post-mortem.", adequate: true }
+      - { register: "Inadequada", text: "You're wrong. Again.", adequate: false, note: "Ataque à pessoa — corrija o fato: 'the timestamp was 13:58'." }
+      - { register: "Inadequada", text: "Whatever — moving on.", adequate: false, note: "Desdém — 'going back to X' retoma sem apagar ninguém." }
+
+brErrors:
+  - { wrong: "Sorry for interrupt — the timestamp is wrong.", right: "Sorry to interrupt — the timestamp is wrong.", why: "sorry to interrupt", tag: br.sorry-for-interrupt }
+  - { wrong: "Stay in the line — I correct the number.", right: "Stay on the line — I correct the number.", why: "on the line", tag: br.in-the-line }
+  - { wrong: "I can't listen the correction.", right: "I can't hear the correction.", why: "hear", tag: br.listen-you }
+  - { wrong: "He explained me the correction.", right: "He explained the correction to me.", why: "explained to me", tag: br.explain-me }
+  - { wrong: "In this moment we stay on the rollback.", right: "Right now we stay on the rollback.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "She not interrupt the IC.", right: "She doesn't interrupt the IC.", why: "doesn't interrupt", tag: br.it-not-works }
+  - { wrong: "He explain the fix on mute.", right: "He explains the fix on mute.", why: "explains", tag: br.third-person-s }
+  - { wrong: "I need that you park the discussion.", right: "I need you to park the discussion.", why: "need you to", tag: br.need-that-you }
+  - { wrong: "The bridge depend of discipline.", right: "The bridge depends on discipline.", why: "depends on", tag: br.depend-of }
+  - { wrong: "Do you can hold that thought?", right: "Can you hold that thought?", why: "can you", tag: br.do-modal }
+
+dialogue:
+  title: "Realinhando a bridge"
+  lines:
+    - { speaker: Yuri, text: "About the root cause — the flag probably changed the connection pool—" }
+    - { speaker: Priya, text: "Hang on — root cause is for the post-mortem. Marcos, rollback status?" }
+    - { speaker: Marcos, text: "…" }
+    - { speaker: Yuri, text: "Marcos, you're on mute." }
+    - { speaker: Marcos, text: "Sorry — rollback at 80%. Pods coming up clean." }
+    - { speaker: Ana, text: "Support is asking about the post-mortem timeline—" }
+    - { speaker: Priya, text: "Park it — comms gets a timeline after the all-clear. Quick correction for the thread: the alert fired at 14:03, not 14:30 — scribe?" }
+    - { speaker: Yuri, text: "Corrected — 14:03 it is." }
+    - { speaker: Priya, text: "Keep it tight now — Marcos, done? Then Yuri calls the error rate. One at a time." }
+    - { speaker: Marcos, text: "Rollback complete — going back to you, Priya." }
+  notes:
+    - "quatro ferramentas em uso: 'hang on' (pausa), 'you're on mute' (aviso), 'park it' (estacionar), 'quick correction' (corrigir o fato) + 'keep it tight' (brevidade)."
+    - "'going back to you' — a devolução da palavra ao IC."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Interrupting on a bridge is technique, not rudeness. 'Hang on' pauses the speaker; 'hold that thought' pauses with a promise to return. Correct the fact, never the person: 'the timestamp was 14:03' — not 'you're wrong'. And realign with 'let's stay on the rollback' or 'park it for the post-mortem'." }
+    - { speaker: Marcos, text: "The most common bridge phrase on Earth: 'you're on mute'. Then 'one at a time' — with named order, 'Ana first, then Marcos'. And when the debate is real but mistimed, 'take it offline' moves it off the bridge without killing it." }
+    - { speaker: Yuri, text: "Brevity is asked with a format, not a scolding: 'keep it tight — name, fact, what you need'. And 'noted' is the one-word receipt — heard, logged, moving on. The golden rule: interrupt the tangent, never the person." }
+  questions:
+    - { id: M16-04-l1, type: multiple_choice, prompt: "'Hang on' works because it…", options: ["pauses the speaker and signals return — technique, not rudeness", "ends the topic forever", "asks permission", "blames the speaker"], answer: 0, explanation: "Pausa com promessa de retorno.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-04-l2, type: multiple_choice, prompt: "The correct way to fix a wrong number is…", options: ["'you're wrong'", "'actually, let me explain'", "'quick correction — the deploy was 13:58'", "silence"], answer: 2, explanation: "Corrige o fato, não a pessoa.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-04-l3, type: fill_blank, prompt: "Marcos, you're on ___ — we lost the answer.", accepted: ["mute"], explanation: '"on mute" — o aviso universal.', tags: [vocab.bridge] }
+    - { id: M16-04-l4, type: error_correction, prompt: "Sorry for interrupt — wrong timestamp.", accepted: ["Sorry to interrupt — wrong timestamp.", "Sorry to interrupt — wrong timestamp"], explanation: "sorry to interrupt.", tags: [br.sorry-for-interrupt] }
+    - { id: M16-04-l5, type: multiple_choice, prompt: "'Take it offline' means…", options: ["log off the bridge", "turn off the server", "end the call", "discuss later, off the bridge — debate moved, not killed"], answer: 3, explanation: "O debate sai da bridge sem morrer.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-04-l6, type: multiple_choice, prompt: "The golden rule of interrupting is…", options: ["never interrupt the IC", "interrupt the tangent, never the person", "only the scribe interrupts", "interrupt loudly"], answer: 1, explanation: "A tangente, não a pessoa.", tags: [comp.listening, vocab.bridge] }
+
+writing:
+  prompt: |
+    **Cenário:** a bridge despirocou em tangentes e você, como scribe,
+    registra na thread como o IC realinhou — cada interrupção, cada
+    correção e o que foi estacionado para depois.
+
+    **Tarefa:** escreva 60–90 palavras com o registro: a tangente
+    cortada (root cause → post-mortem), a correção do timestamp,
+    o que foi estacionado (a timeline do post-mortem) e a regra de
+    brevidade restabelecida.
+  constraints:
+    - { label: "Interrupção/pausa", pattern: "\\b(hang on|hold that thought|interrupt|paused)\\b" }
+    - { label: "Realinhamento", pattern: "\\b(stay on|park(ed| it)?|post-mortem|going back)\\b" }
+    - { label: "Correção do fato", pattern: "\\b(correction|14:03|timestamp|corrected)\\b" }
+    - { label: "Brevidade/ordem", pattern: "\\b(tight|one at a time|mute|facts only)\\b" }
+  rubric:
+    - "Cada interrupção com sua técnica"
+    - "Correção no fato, não na pessoa"
+    - "O estacionado para depois"
+    - "Sem calques"
+  model: >-
+    Realignment on the bridge: Yuri's root-cause tangent was parked
+    for the post-mortem — 'hang on, the mitigation isn't done'.
+    Correction to the record: the alert fired at 14:03, not 14:30.
+    Ana's post-mortem-timeline question was parked too — comms gets
+    it after the all-clear. Marcos answered on mute once; noted.
+    Order restored: one at a time, keep it tight — name, fact,
+    what you need. The rollback finished right after.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.bridge]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos como IC realinhando a bridge: corte uma tangente ('hang on'), corrija um fato ('quick correction'), estacione um assunto ('park it') e peça brevidade."
+    maxSeconds: 45
+    targetPhrases:
+      - hang on
+      - hold that thought
+      - quick correction
+      - let's stay on
+      - going back to
+      - park it
+      - take it offline
+      - one at a time
+      - you're on mute
+      - keep it tight
+      - noted
+      - the post-mortem
+      - stay on the rollback
+      - pick it up
+      - the tangent
+      - wrong timestamp
+    checklist:
+      - "Pausa com promessa de retorno"
+      - "Correção no fato ('the deploy was…')"
+      - "Assunto estacionado para o post-mortem"
+      - "Brevidade com formato ('name, fact, need')"
+
+quiz:
+  - { id: M16-04-q1, type: multiple_choice, prompt: "The polite way to pause a speaker is…", options: ["'hang on — we'll come back to that'", "'stop talking'", "'not now'", "'enough'"], answer: 0, explanation: "Pausa com promessa de retorno.", tags: [vocab.bridge] }
+  - { id: M16-04-q2, type: error_correction, prompt: "I can't listen the correction — say again.", accepted: ["I can't hear the correction — say again.", "I can't hear the correction — say again"], explanation: "hear.", tags: [br.listen-you] }
+  - { id: M16-04-q3, type: multiple_choice, prompt: "'Park it for the post-mortem' means…", options: ["the topic is banned", "the meeting is over", "recorded for later — the topic lives, just not now", "write it on a ticket"], answer: 2, explanation: "Estacionado, não morto.", tags: [vocab.bridge] }
+  - { id: M16-04-q4, type: fill_blank, prompt: "___ that thought — we'll pick it up after the mitigation.", accepted: ["hold"], explanation: '"hold that thought" — pausa com promessa.', tags: [vocab.bridge] }
+  - { id: M16-04-q5, type: error_correction, prompt: "He explained me the wrong timestamp.", accepted: ["He explained the wrong timestamp to me.", "He explained the wrong timestamp to me"], explanation: "explained to me.", tags: [br.explain-me] }
+  - { id: M16-04-q6, type: translate, prompt: "Vamos continuar no rollback — o 'porquê' espera o post-mortem.", accepted: ["Let's stay on the rollback — the 'why' waits for the post-mortem.", "Let's stay on the rollback — the why waits for the post-mortem."], explanation: '"stay on X" — permanecer no assunto.', tags: [vocab.bridge] }
+  - { id: M16-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["back", "going", "to", "the", "alert"], answer: "going back to the alert", explanation: '"going back to X" — retomando o fio.', tags: [vocab.bridge] }
+  - { id: M16-04-q8, type: multiple_choice, prompt: "'You're on mute' is…", options: ["an accusation", "the most common bridge phrase — an audio heads-up", "a scolding", "a joke"], answer: 1, explanation: "O aviso mais dito em calls.", tags: [vocab.bridge] }
+
+srsCards:
+  - { front: "hang on", back: "Pausa suave — promete retorno.", tag: vocab.bridge }
+  - { front: "hold that thought", back: "Guarde — retomamos depois.", tag: vocab.bridge }
+  - { front: "quick correction", back: "Corrige o fato, nunca a pessoa.", tag: vocab.bridge }
+  - { front: "let's stay on", back: "Realinha ao tema — 'stay on X'.", tag: vocab.bridge }
+  - { front: "going back to", back: "Retoma o fio interrompido.", tag: vocab.bridge }
+  - { front: "park it", back: "Estaciona para depois — o assunto vive.", tag: vocab.bridge }
+  - { front: "take it offline", back: "O debate sai da bridge sem morrer.", tag: vocab.bridge }
+  - { front: "you're on mute", back: "O aviso mais dito em calls.", tag: vocab.bridge }
+  - { front: "keep it tight", back: "Brevidade com formato, não grosseria.", tag: vocab.bridge }
+  - { front: "one at a time", back: "Voz única — com ordem nomeada.", tag: vocab.bridge }
+  - { front: "noted", back: "Uma palavra: ouvi, registrei, seguimos.", tag: vocab.bridge }
+
+review:
+  preferTags: [vocab.bridge, br.sorry-for-interrupt, br.explain-me]
+  notes: "Revisão prioriza pausa com promessa, correção no fato e realinhamento."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
