@@ -1,0 +1,294 @@
+id: M08-02
+module: M08
+order: 2
+title: "Dando feedback construtivo: I noticed, it would help if"
+objective: >-
+  Ao final, você dá feedback que a pessoa consegue ouvir — observação
+  específica ("I noticed"), impacto ("it meant that"), e o pedido concreto
+  ("it would help if") — sem atacar e sem embrulhar demais.
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.feedback, topic.retro, comp.speaking, comp.confidence, br.ed-ing, br.uncountable]
+prerequisites: [M08-01]
+
+context:
+  scenario: |
+    Feedback ruim tem dois formatos: o ataque ("your code is messy") e o
+    sanduíche de nada ("great job BUT anyway great job"). O feedback que
+    funciona tem três partes em ordem:
+
+    - **I noticed** — a observação específica, sem julgamento: "I noticed the
+      deploy notes were missing this sprint."
+    - **it meant that / the impact is** — o efeito real: "it meant the on-call
+      didn't know what changed."
+    - **it would help if / next time, could you** — o pedido concreto:
+      "it would help if you added a two-line summary."
+
+    Fecho opcional: "happy to pair on it" — oferecer ajuda mantém o feedback
+    como suporte, não como veredito.
+  roles: [Yuri (platform engineer), Marcos (dev), Priya (scrum master)]
+
+vocabulary:
+  - term: "I noticed"
+    meaning: eu notei — a observação sem julgamento
+    example: "I noticed the postmortem went out two days late."
+    translation: "Eu notei que o postmortem saiu dois dias atrasado."
+    note: "Fato observável — a base do feedback sem ataque."
+  - term: "it would help if"
+    meaning: ajudaria se — o pedido sem ordem
+    example: "It would help if the PRs came with a test plan."
+    translation: "Ajudaria se os PRs viessem com um plano de teste."
+    note: "O pedido em forma de consequência — não manda, sugere."
+  - term: "the impact was"
+    meaning: o impacto foi — o efeito real do comportamento
+    example: "The impact was that the reviewer guessed the intent."
+    translation: "O impacto foi que o revisor teve que adivinhar a intenção."
+    note: "Impacto concreto — não 'was bad', mas o que aconteceu."
+  - term: "constructive feedback"
+    meaning: feedback construtivo — o que aponta caminho
+    example: "This is meant as constructive feedback, not criticism."
+    translation: "Isto é para ser um feedback construtivo, não uma crítica."
+    note: "A moldura que separa feedback de reclamação."
+  - term: "to sugarcoat"
+    meaning: adoçar — embrulhar a mensagem demais
+    example: "I don't want to sugarcoat it: the estimates have been off."
+    translation: "Não quero adoçar: as estimativas têm estado erradas."
+    note: '"not to sugarcoat" prepara o ponto difícil com honestidade.'
+  - term: "a pattern I've seen"
+    meaning: um padrão que vi — o feedback sobre repetição
+    example: "It's a pattern I've seen in the last three PRs."
+    translation: "É um padrão que vi nos últimos três PRs."
+    note: "Feedback de padrão > feedback de episódio único."
+  - term: "could you try"
+    meaning: você poderia tentar — o pedido leve
+    example: "Could you try smaller PRs? They'd be easier to review."
+    translation: "Você poderia tentar PRs menores? Seriam mais fáceis de revisar."
+    note: '"could you try X" + a razão — o pedido que aceita "não".'
+  - term: "next time"
+    meaning: da próxima vez — aponta para frente, não para trás
+    example: "Next time, can you flag the risky migration in advance?"
+    translation: "Da próxima vez, pode sinalizar a migração arriscada com antecedência?"
+    note: '"next time" muda o foco do erro para o ajuste.'
+  - term: "to be honest"
+    meaning: para ser honesto — a franqueza cuidadosa
+    example: "To be honest, the handoffs have been confusing lately."
+    translation: "Para ser honesto, os handoffs têm estado confusos ultimamente."
+    note: '"tbh" no Slack; abre a parte difícil do feedback.'
+  - term: "happy to pair on it"
+    meaning: posso ajudar — a oferta que acompanha o pedido
+    example: "If the review format is unclear, I'm happy to pair on it."
+    translation: "Se o formato de review não está claro, posso ajudar junto."
+    note: "Feedback + oferta de ajuda = suporte, não veredito."
+  - term: "it's not about you"
+    meaning: não é sobre você — separa pessoa do comportamento
+    example: "It's not about you — it's about the deploy process."
+    translation: "Não é sobre você — é sobre o processo de deploy."
+    note: "Despersonaliza antes do ponto difícil."
+  - term: "a fair point"
+    meaning: um ponto justo — reconhecer o argumento do outro
+    example: "Fair point — the freeze window was unusually short."
+    translation: "Ponto justo — a janela de freeze foi curta demais."
+    note: "Reconhecer o ponto do outro mantém o feedback bilateral."
+  - term: "to take it the wrong way"
+    meaning: entender errado — o risco do feedback mal dado
+    example: "Don't take it the wrong way — the work itself was solid."
+    translation: "Não entenda errado — o trabalho em si estava sólido."
+    note: '"don''t take it the wrong way" — previne a leitura defensiva.'
+  - term: "specific over vague"
+    meaning: específico em vez de vago — a regra de ouro
+    example: "'The PR description was missing the risk section' beats 'your PRs are sloppy'."
+    translation: "\"A descrição do PR não tinha a seção de risco\" vence \"seus PRs são descuidados\"."
+    note: "Feedback vago só machuca; específico dá para agir."
+
+grammar:
+  title: "I noticed + impacto + it would help if — o feedback em três partes"
+  explanation: |
+    O feedback que a pessoa consegue ouvir tem três partes: **observação**
+    (I noticed + fato), **impacto** (it meant that / the impact was + efeito
+    real) e **pedido** (it would help if / could you / next time + ação
+    concreta). Falta a observação, vira opinião; falta o pedido, vira desabafo.
+
+    | Parte | Frase-modelo |
+    |---|---|
+    | observação | *I noticed the handoff notes were missing.* |
+    | impacto | *The impact was the on-call guessing what changed.* |
+    | pedido | *It would help if you added a two-line summary.* |
+    | oferta | *Happy to pair on the template.* |
+
+    **Erros BR:** "I gave him **a** feedback" (feedback é incontável — *some
+    feedback*), "I'm **boring**" quando quer dizer entediado (é *bored*), e o
+    sanduíche falso — elogio + "but" + elogio não é feedback, é confusão.
+  examples:
+    - { en: "I noticed the deploy notes were missing this sprint.", pt: "Eu notei que as notas de deploy faltaram nesta sprint." }
+    - { en: "The impact was the on-call not knowing what changed.", pt: "O impacto foi o on-call sem saber o que mudou." }
+    - { en: "It would help if you added a summary to each deploy.", pt: "Ajudaria se você adicionasse um resumo a cada deploy." }
+    - { en: "Could you try smaller PRs? They review faster.", pt: "Poderia tentar PRs menores? Revisam mais rápido." }
+    - { en: "It's not about you — the process let both of us down.", pt: "Não é sobre você — o processo falhou com nós dois." }
+    - { en: "Happy to pair on the postmortem template.", pt: "Posso ajudar junto no template de postmortem." }
+
+examples:
+  - en: "I noticed the last three handoffs had no runbook links — the impact was the on-call re-discovering the steps."
+    pt: "Eu notei que os últimos três handoffs não tinham links de runbook — o impacto foi o on-call redescobrindo os passos."
+    context: "Observação + impacto numa frase — metade do feedback feita."
+  - en: "It would help if each handoff had two lines: what changed and where to look."
+    pt: "Ajudaria se cada handoff tivesse duas linhas: o que mudou e onde olhar."
+    context: "O pedido concreto — duas linhas, não 'be clearer'."
+  - en: "Some feedback on the demo: the data part was strong, the timing ran over."
+    pt: "Um feedback sobre a demo: a parte de dados foi forte, o tempo estourou."
+    context: '"some feedback" — incontável; um ponto bom e um de ajuste.'
+  - en: "To be honest, I was frustrated waiting three days for the review."
+    pt: "Para ser honesto, fiquei frustrado esperando três dias pelo review."
+    context: '"I was frustrated" — a emoção própria é admitida, não projetada.'
+  - en: "Could you try flagging risky changes in the PR title? It'd save the reviewer a pass."
+    pt: "Poderia tentar sinalizar mudanças arriscadas no título do PR? Pouparia uma passada do revisor."
+    context: '"could you try" + a razão — pedido que aceita recusa.'
+  - en: "It's a pattern I've seen — not a one-off. Worth fixing."
+    pt: "É um padrão que tenho visto — não um caso isolado. Vale corrigir."
+    context: "Feedback de padrão — três ocorrências viram tema."
+  - en: "Don't take it the wrong way — the code was clean; the tests were thin."
+    pt: "Não entenda errado — o código estava limpo; os testes, finos."
+    context: "Previne a leitura defensiva antes do ponto difícil."
+  - en: "Next time, can you add the risk section? Happy to pair on the first one."
+    pt: "Da próxima vez, pode adicionar a seção de risco? Posso ajudar no primeiro."
+    context: "Pedido + oferta — feedback como suporte."
+
+variations:
+  - idea: '"o colega entrega handoffs confusos"'
+    items:
+      - { register: "Boa", text: "I noticed the handoffs have been hard to follow — it would help if they listed what changed first.", adequate: true }
+      - { register: "Boa", text: "Quick feedback: the last handoff sent me hunting. Could you try a two-line summary up top?", adequate: true }
+      - { register: "Inadequada", text: "Your handoffs are confusing.", adequate: false, note: "Julgamento sem fato nem pedido — só machuca." }
+      - { register: "Inadequada", text: "I'm confusing reading your notes.", adequate: false, note: '"I''m confused" — quem sente leva -ed.' }
+  - idea: '"dar feedback difícil sem drama"'
+    items:
+      - { register: "Boa", text: "To be honest, the estimates have been off — it would help to revisit them mid-sprint.", adequate: true }
+      - { register: "Boa", text: "Some feedback on the retro: it's not about you, but your points landed as blame.", adequate: true }
+      - { register: "Inadequada", text: "Great job! But everything was wrong. Great though!", adequate: false, note: "O sanduíche falso confunde — seja direto e gentil." }
+      - { register: "Inadequada", text: "I gave him a feedback already.", adequate: false, note: "Feedback é incontável — some/a piece of." }
+
+brErrors:
+  - { wrong: "I gave him a feedback yesterday.", right: "I gave him some feedback yesterday.", why: "feedback é incontável", tag: br.uncountable }
+  - { wrong: "I'm boring in the long retros.", right: "I'm bored in the long retros.", why: "quem sente leva -ed", tag: br.ed-ing }
+  - { wrong: "We did a mistake in the handoff.", right: "We made a mistake in the handoff.", why: '"make a mistake" — "do a mistake" é calque', tag: br.do-mistake }
+  - { wrong: "The team moral suffers with vague feedback.", right: "The team morale suffers with vague feedback.", why: "moral do time é morale", tag: br.morale }
+  - { wrong: "Can you explain me what you meant?", right: "Can you explain to me what you meant?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+  - { wrong: "I have a doubt about your point.", right: "I have a question about your point.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "It make sense to give feedback early.", right: "It makes sense to give feedback early.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "She said me my code was fine.", right: "She told me my code was fine.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I am agree with your point.", right: "I agree with your point.", why: "agree é verbo — sem am", tag: br.i-am-agree }
+  - { wrong: "We need that he hear the feedback.", right: "We need him to hear the feedback.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+
+dialogue:
+  title: "O feedback que foi pedido"
+  lines:
+    - { speaker: Marcos, text: "You said you had feedback on my handoffs — go ahead." }
+    - { speaker: Yuri, text: "Yeah — and it's not about you, it's about the format. I noticed the last three didn't say what changed." }
+    - { speaker: Marcos, text: "Hmm. Did that actually bite anyone?" }
+    - { speaker: Yuri, text: "The impact was real — Ana spent an hour re-discovering the migration steps on Tuesday's on-call." }
+    - { speaker: Marcos, text: "Fair point. So what would fix it?" }
+    - { speaker: Yuri, text: "It would help if each handoff opened with two lines: what changed and where to look. Could you try that next time?" }
+    - { speaker: Marcos, text: "Easy. Anything else?" }
+    - { speaker: Yuri, text: "That's the main thing — and happy to pair on a template if you want. To be honest, your actual on-call work is solid; it's just the paper trail." }
+  notes:
+    - "o modelo inteiro: I noticed (fato) → impacto (concreto) → it would help if (pedido) → happy to pair (oferta)."
+    - '"it''s not about you" despersonaliza; "the paper trail" nomeia o que falta.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Feedback fails in two directions: too vague to act on, or too sharp to hear. 'Be more careful' is useless; 'your deploys are sloppy' is a wound. The fix is the same — name the observable thing." }
+    - { speaker: Ana, text: "I also watch for the fake sandwich: praise, 'but', the real criticism, more praise. People hear only the middle anyway — skip the bread." }
+    - { speaker: Priya, text: "And the best feedback comes with an offer: 'it would help if X — happy to pair on it.' That's a teammate talking, not a judge." }
+  questions:
+    - { id: M08-02-l1, type: multiple_choice, prompt: "Feedback fails when it's…", options: ["too early", "too vague to act on or too sharp to hear", "written down", "in public"], answer: 1, explanation: "Os dois modos de falha: inutilizável ou ferido.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-02-l2, type: multiple_choice, prompt: "The 'fake sandwich' is…", options: ["praise-but-criticism-praise — people hear only the middle", "a real technique", "feedback in a meeting", "a compliment"], answer: 0, explanation: "O recheio é a única parte ouvida — pule o pão.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-02-l3, type: fill_blank, prompt: "It would ___ if each handoff opened with two lines.", accepted: ["help"], explanation: '"it would help if" — o pedido sem ordem.', tags: [vocab.feedback] }
+    - { id: M08-02-l4, type: multiple_choice, prompt: "'Happy to pair on it' turns feedback into…", options: ["a demand", "a verdict", "an offer of help", "a joke"], answer: 2, explanation: "Pedido + oferta = suporte, não julgamento.", tags: [vocab.feedback] }
+    - { id: M08-02-l5, type: error_correction, prompt: "I gave her a feedback about the demo.", accepted: ["I gave her some feedback about the demo.", "I gave her some feedback about the demo", "I gave her a piece of feedback about the demo."], explanation: "Feedback é incontável — some/a piece of.", tags: [br.uncountable] }
+    - { id: M08-02-l6, type: multiple_choice, prompt: "The three parts of working feedback are…", options: ["praise, criticism, praise", "observation, impact, request", "problem, blame, fix", "past, present, future"], answer: 1, explanation: "I noticed + it meant that + it would help if.", tags: [vocab.feedback] }
+
+writing:
+  prompt: |
+    **Cenário:** um colega pediu feedback por escrito sobre os handoffs dele —
+    os últimos três não diziam o que mudou, e o on-call teve que redescobrir
+    os passos.
+
+    **Tarefa:** escreva o feedback em 50–80 palavras: observação ("I noticed"),
+    impacto ("the impact was"), pedido ("it would help if") e a oferta de
+    ajuda ("happy to pair").
+  constraints:
+    - { label: "Observação específica", pattern: "\\bi noticed\\b" }
+    - { label: "Impacto concreto", pattern: "\\b(impact|it meant|meant that)\\b" }
+    - { label: "Pedido em 'it would help if' ou similar", pattern: "\\b(it would help|could you|next time|would help if)\\b" }
+    - { label: "Oferta ou tom de suporte", pattern: "\\b(happy to|it's not about you|solid|good work)\\b" }
+  rubric:
+    - Observação factual, sem julgamento
+    - Impacto concreto nomeado
+    - Pedido específico e executável
+    - Oferta de ajuda ou nota de suporte
+  model: >-
+    Some feedback on the handoffs. I noticed the last three didn't say what
+    changed — the impact was the on-call re-discovering the migration steps
+    on Tuesday. It would help if each one opened with two lines: what changed
+    and where to look. It's not about you — your on-call work is solid. Happy
+    to pair on a template.
+  minWords: 50
+  maxWords: 85
+  tags: [comp.writing, vocab.feedback]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos dando o feedback em voz alta: observação, impacto, pedido e a oferta de ajuda — tom de colega, não de juiz."
+    maxSeconds: 45
+    targetPhrases:
+      - I noticed
+      - it would help if
+      - the impact was
+      - constructive feedback
+      - to be honest
+      - could you try
+      - next time
+      - happy to pair
+      - a pattern
+      - fair point
+      - it's not about you
+      - some feedback
+      - don't take it the wrong way
+      - specific
+    checklist:
+      - Observação sem julgamento (I noticed + fato)
+      - Impacto concreto, não "was bad"
+      - Pedido específico e executável
+      - Oferta de ajuda no fecho
+
+quiz:
+  - { id: M08-02-q1, type: multiple_choice, prompt: "The three parts of feedback that works:", options: ["praise, criticism, praise", "problem, person, punishment", "observation, impact, request", "past, present, future"], answer: 2, explanation: "I noticed + impacto + it would help if.", tags: [vocab.feedback] }
+  - { id: M08-02-q2, type: error_correction, prompt: "I'm confusing by the new process.", accepted: ["I'm confused by the new process.", "I'm confused by the new process"], explanation: "Quem sente leva -ed: confused.", tags: [br.ed-ing] }
+  - { id: M08-02-q3, type: multiple_choice, prompt: "'It would help if you added a test plan' vs 'add a test plan' — the first…", options: ["is weaker and worse", "is a demand", "suggests instead of ordering — the impact does the convincing", "is only for managers"], answer: 2, explanation: "O pedido em forma de consequência aceita recusa.", tags: [vocab.feedback, gram.hedging] }
+  - { id: M08-02-q4, type: error_correction, prompt: "She gave me a feedback on my presentation.", accepted: ["She gave me some feedback on my presentation.", "She gave me some feedback on my presentation", "She gave me a piece of feedback on my presentation."], explanation: "Feedback é incontável — some/a piece of.", tags: [br.uncountable] }
+  - { id: M08-02-q5, type: multiple_choice, prompt: "Why does 'your code is messy' fail as feedback?", options: ["it's too specific", "it judges the work without an observable fact or a request", "it's too polite", "it's in English"], answer: 1, explanation: "Sem observação nem pedido, é só julgamento.", tags: [vocab.feedback] }
+  - { id: M08-02-q6, type: translate, prompt: "Ajudaria se cada handoff tivesse duas linhas.", accepted: ["It would help if each handoff had two lines.", "It would help if each handoff had two lines"], explanation: '"it would help if" + past simple na condição.', tags: [vocab.feedback] }
+  - { id: M08-02-q7, type: reorder, prompt: "Monte a frase: / notei / faltaram / as notas de deploy / nesta sprint", tokens: ["I", "noticed", "the", "deploy", "notes", "were", "missing", "this", "sprint."], answer: "I noticed the deploy notes were missing this sprint.", explanation: '"I noticed" + o fato observável.', tags: [vocab.feedback] }
+  - { id: M08-02-q8, type: multiple_choice, prompt: "'Don't take it the wrong way — the work was solid' does what?", options: ["takes the feedback back", "apologizes for speaking", "prevents the defensive reading before the hard point", "changes the subject"], answer: 2, explanation: "Previne a leitura defensiva — o ponto difícil vem depois.", tags: [vocab.feedback] }
+
+review:
+  count: 5
+  preferTags: [vocab.feedback, br.uncountable, br.ed-ing]
+
+srsCards:
+  - { front: "I noticed + fato", back: "a observação sem julgamento — a base do feedback", tag: vocab.feedback }
+  - { front: "it would help if", back: "o pedido em forma de consequência — sugere, não ordena", tag: vocab.feedback }
+  - { front: "the impact was", back: "o efeito real do comportamento — concreto, não 'was bad'", tag: vocab.feedback }
+  - { front: "could you try", back: "o pedido leve + a razão — aceita 'não'", tag: vocab.feedback }
+  - { front: "next time", back: "aponta para frente — do erro para o ajuste", tag: vocab.feedback }
+  - { front: "happy to pair on it", back: "a oferta que transforma feedback em suporte", tag: vocab.feedback }
+  - { front: "it's not about you", back: "despersonaliza antes do ponto difícil", tag: vocab.feedback }
+  - { front: "to sugarcoat", back: "embrulhar demais — 'not to sugarcoat it' prepara a franqueza", tag: vocab.feedback }
+  - { front: "a feedback → some feedback", back: "feedback é incontável — some / a piece of", hint: '"a feedback loop" é exceção', tag: br.uncountable }
+  - { front: "I'm bored × boring", back: "quem sente leva -ed; o que causa leva -ing", hint: '"the meeting is boring, I''m bored"', tag: br.ed-ing }
+  - { front: "don't take it the wrong way", back: "previne a leitura defensiva antes do ponto", tag: vocab.feedback }
+  - { front: "a pattern I've seen", back: "feedback de padrão (3 ocorrências) > de episódio", tag: vocab.feedback }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
