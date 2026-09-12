@@ -1,0 +1,291 @@
+id: M15-04
+module: M15
+order: 4
+title: "Stakeholders não técnicos: sem jargão, com confiança"
+objective: >-
+  Ao final, você traduz um incidente para quem não é técnico — o que
+  o usuário sente, o que está sendo feito e o que esperar — sem
+  jargão e sem perder a confiança.
+durationMin: 35
+competencies: [WRI, SPK]
+tags: [vocab.incident, comp.writing]
+prerequisites: [M15-03]
+
+context:
+  scenario: |
+    15h00: a Ana precisa responder aos clientes enterprise e o
+    gerente de produto quer uma linha para o board. Nenhum dos dois
+    precisa saber o que é um 502 — precisam saber **o que dizer aos
+    clientes**.
+
+    A tradução para não-técnico troca mecanismo por consequência:
+
+    - ~~"the payments API is returning 502s"~~ → "**customers can't
+      complete purchases right now**"
+    - ~~"we rolled back the config"~~ → "**we undid the change that
+      caused this — things are recovering**"
+    - ~~"error rate at 40%"~~ → "**about one in three purchases is
+      failing**"
+
+    A confiança vem de três coisas: dizer o que você **sabe** (fatos),
+    o que está **sendo feito** (ação em curso) e **quando** vem a
+    próxima notícia. Jargão entra só quando o ouvinte usa primeiro.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (support lead), Rafael (product manager)]
+
+vocabulary:
+  - term: "in plain terms"
+    meaning: em termos simples — a tradução sem jargão
+    example: "In plain terms: customers can't pay right now."
+    translation: "Em termos simples: clientes não conseguem pagar agora."
+    note: "O sinal de que vem a versão legível."
+  - term: "one in three"
+    meaning: um em cada três — fração legível em vez de percentual
+    example: "About one in three purchases is failing."
+    translation: "Cerca de uma em cada três compras está falhando."
+    note: "33% vira 'one in three' — o ouvinte visualiza."
+  - term: "affected customers"
+    meaning: os clientes atingidos — blast radius em linguagem humana
+    example: "Affected customers see an error at the payment step."
+    translation: "Clientes afetados veem um erro no passo de pagamento."
+    note: "Substitui 'the blast radius' na conversa com o board."
+  - term: "being worked on"
+    meaning: está sendo tratado — ação em curso sem detalhe técnico
+    example: "The issue is being worked on — a fix is already live."
+    translation: "O problema está sendo tratado — uma correção já está no ar."
+    note: "Passiva útil: a ação importa, o agente não."
+  - term: "we take this seriously"
+    meaning: levamos isso a sério — o compromisso sem drama
+    example: "We take this seriously — a full review follows this week."
+    translation: "Levamos isso a sério — uma revisão completa vem esta semana."
+    note: "Uma vez só — repetir vira frase vazia."
+  - term: "what to expect"
+    meaning: o que esperar — a previsão honesta para o leitor
+    example: "What to expect: service back to normal within the hour."
+    translation: "O que esperar: serviço normal dentro de uma hora."
+    note: "Responde a pergunta que o stakeholder não fez em voz alta."
+  - term: "no data loss"
+    meaning: sem perda de dados — a frase que todos esperam ouvir
+    example: "No data loss — orders are safe, only delayed."
+    translation: "Sem perda de dados — pedidos seguros, só atrasados."
+    note: "Se for verdade, diga cedo — é a primeira ansiedade."
+  - term: "we'll make it right"
+    meaning: vamos compensar — crédito, SLA, gesto concreto
+    example: "We'll make it right — affected invoices get a credit."
+    translation: "Vamos compensar — faturas afetadas ganham crédito."
+    note: "Quando há compensação, ela fecha a conversa."
+  - term: "long story short"
+    meaning: resumindo — a versão de uma linha
+    example: "Long story short: payments are recovering, nobody lost data."
+    translation: "Resumindo: pagamentos recuperando, ninguém perdeu dados."
+    note: "Informal — bom para chat, não para o board."
+  - term: "the good news"
+    meaning: a boa notícia — o fato que alivia sem esconder o resto
+    example: "The good news: mobile payments kept working throughout."
+    translation: "A boa notícia: pagamentos mobile funcionaram o tempo todo."
+    note: "Alivia sem minimizar — vem depois do fato ruim, nunca antes."
+  - term: "bear with us"
+    meaning: tenham paciência conosco — o pedido gentil
+    example: "Bear with us — full recovery within the hour."
+    translation: "Tenham paciência — recuperação completa dentro de uma hora."
+    note: "Substitui 'sorry for the inconvenience' com mais dignidade."
+  - term: "behind the scenes"
+    meaning: por trás dos panos — o trabalho invisível ao usuário
+    example: "Behind the scenes, the team already undid the change."
+    translation: "Por trás dos panos, o time já desfez a mudança."
+    note: "Humaniza o esforço sem expor mecanismo."
+
+grammar:
+  title: "Traduzindo para não-técnico: consequência no presente, ação na passiva, número legível"
+  explanation: |
+    Três movimentos de tradução:
+
+    - **Consequência, não mecanismo.** Troque o erro técnico pelo que
+      a pessoa sente: "customers **can't complete** purchases", não
+      "the API returns 502s". O verbo vai para o usuário, não para o
+      servidor.
+    - **Ação na passiva ou no agente genérico.** "The change **was
+      reverted**", "a fix **is live**", "**we undid** the change" —
+      a ação importa, o comando exato não.
+    - **Número legível.** "40% error rate" vira "**about one in
+      three** purchases"; "p99 at 8s" vira "**pages take up to ten
+      seconds**". Fração e comparação ganham de métrica.
+
+    E o trio que sustenta a confiança: **what we know** (fatos),
+    **what we're doing** (ação), **what to expect** (previsão com
+    horário). Nunca nessa ordem invertida.
+  examples:
+    - { en: "In plain terms: customers can't pay on the web right now.", pt: "Em termos simples: clientes não conseguem pagar na web agora." }
+    - { en: "We undid the change that caused this — things are recovering.", pt: "Desfizemos a mudança que causou isso — está recuperando." }
+    - { en: "About one in three purchases was failing at the peak.", pt: "Cerca de uma em três compras falhava no pico." }
+    - { en: "No data loss — every order is safe, only delayed.", pt: "Sem perda de dados — todo pedido seguro, só atrasado." }
+    - { en: "What to expect: full recovery within the hour.", pt: "O que esperar: recuperação completa dentro de uma hora." }
+    - { en: "The issue is being worked on — a fix is already live.", pt: "O problema está sendo tratado — uma correção já está no ar." }
+
+examples:
+  - en: "Customers can't complete purchases on the web right now — mobile works."
+    pt: "Clientes não conseguem concluir compras na web agora — mobile funciona."
+    context: "O mecanismo virou consequência."
+  - en: "We undid the change behind it — purchases are recovering already."
+    pt: "Desfizemos a mudança por trás — as compras já estão recuperando."
+    context: "Rollback sem a palavra rollback."
+  - en: "At the worst point, about one in three checkouts failed."
+    pt: "No pior momento, cerca de uma em três checkouts falhou."
+    context: "Percentual virou fração."
+  - en: "No data loss and no double charges — orders are safe."
+    pt: "Sem perda de dados e sem cobrança dupla — pedidos seguros."
+    context: "As duas ansiedades respondidas."
+  - en: "What to expect: full service back within the hour, updates every thirty minutes."
+    pt: "O que esperar: serviço completo dentro de uma hora, updates a cada 30 minutos."
+    context: "Previsão + cadência."
+  - en: "Behind the scenes, the team already shipped the fix."
+    pt: "Por trás dos panos, o time já subiu a correção."
+    context: "O esforço visível sem jargão."
+  - en: "The good news: no customer was charged twice."
+    pt: "A boa notícia: nenhum cliente foi cobrado duas vezes."
+    context: "Alívio depois do fato ruim."
+  - en: "We take this seriously — a full review lands by Friday."
+    pt: "Levamos a sério — uma revisão completa chega até sexta."
+    context: "Compromisso com prazo, não com adjetivo."
+
+variations:
+  - idea: '"traduzindo o sintoma"'
+    items:
+      - { register: "Boa", text: "Customers can't complete purchases right now — we're on it.", adequate: true }
+      - { register: "Boa", text: "One in three payments is failing; the fix is already live.", adequate: true }
+      - { register: "Inadequada", text: "The payments API is returning 502s at a 40% error rate.", adequate: false, note: "Para o board isso é ruído — diga o que o cliente sente." }
+      - { register: "Inadequada", text: "We have a technical problem, nothing serious.", adequate: false, note: "Minimizar destrói confiança — dê o fato e a previsão." }
+  - idea: '"mantendo a confiança"'
+    items:
+      - { register: "Boa", text: "What we know, what we're doing, what to expect — in that order.", adequate: true }
+      - { register: "Boa", text: "No data loss — orders are safe, only delayed.", adequate: true }
+      - { register: "Inadequada", text: "Everything is under control, don't worry.", adequate: false, note: "Frase vazia — substitua por 'the fix is live, recovery within the hour'." }
+      - { register: "Inadequada", text: "It's complicated, you wouldn't understand.", adequate: false, note: "Condescendência — a tradução boa sempre existe." }
+
+brErrors:
+  - { wrong: "In this moment one in three purchases fails.", right: "Right now one in three purchases fails.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "Thanks for the patience, everyone.", right: "Thank you for your patience, everyone.", why: "your patience", tag: br.thanks-patience }
+  - { wrong: "The site normalized for most customers.", right: "The site recovered for most customers.", why: "recovered", tag: br.normalized }
+  - { wrong: "We'll reply as soon possible.", right: "We'll reply as soon as possible.", why: "as soon as", tag: br.asap-missing-as }
+  - { wrong: "The customers not can pay.", right: "The customers cannot pay.", why: "cannot pay", tag: br.it-not-works }
+  - { wrong: "The support team have a script ready.", right: "The support team has a script ready.", why: "the team has", tag: br.third-person-s }
+  - { wrong: "We did a mistake in the comms.", right: "We made a mistake in the comms.", why: "made a mistake", tag: br.do-mistake }
+  - { wrong: "According to me the impact is small.", right: "In my view the impact is small.", why: "in my view", tag: br.according-to-me }
+  - { wrong: "Can you explain me the status?", right: "Can you explain the status to me?", why: "explain X to me", tag: br.explain-me }
+  - { wrong: "The update it was posted on the last hour.", right: "The update was posted in the last hour.", why: "in the last hour", tag: br.in-the-last-week }
+
+dialogue:
+  title: "Traduzindo para o board"
+  lines:
+    - { speaker: Rafael, text: "I need two lines for the board — what's actually happening?" }
+    - { speaker: Yuri, text: "Customers can't complete purchases on the web. Mobile works. The fix is live and things are recovering." }
+    - { speaker: Rafael, text: "How many customers?" }
+    - { speaker: Yuri, text: "At the peak, about one in three web purchases failed. No data loss, no double charges." }
+    - { speaker: Ana, text: "And for the support queue?" }
+    - { speaker: Yuri, text: "Same three beats: what we know — web checkout is recovering; what we're doing — the fix is live and we're watching it; what to expect — full recovery within the hour." }
+    - { speaker: Rafael, text: "And if it slips past the hour?" }
+    - { speaker: Yuri, text: "Then the next update says so, on time — 'still recovering, next update at 16:30 UTC'. A late honest update beats a rosy wrong one." }
+    - { speaker: Rafael, text: "Good. 'Payments recovering, no data lost, full service within the hour' — that's my two lines." }
+  notes:
+    - "nenhuma palavra técnica na conversa inteira — 'the fix is live' substitui 'we rolled back'."
+    - "o trio what we know / what we're doing / what to expect aparece duas vezes, em duas audiências."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Non-technical translation swaps mechanism for consequence. 'The API returns 502s' becomes 'customers can't pay'. 'We rolled back the deploy' becomes 'we undid the change'. 'Error rate at forty percent' becomes 'one in three purchases is failing'. The verb moves from the server to the user." }
+    - { speaker: Priya, text: "Confidence has a shape: what we know, what we're doing, what to expect — always in that order. 'No data loss' goes early if it's true, because it's everyone's first fear. And 'bear with us' beats 'sorry for the inconvenience' — it asks for patience with dignity instead of apologizing into a void." }
+    - { speaker: Yuri, text: "The trap is the rosy lie. 'Everything is under control' means nothing. 'The fix is live, recovery within the hour, next update at four thirty' means everything — fact, action, expectation, cadence." }
+  questions:
+    - { id: M15-04-l1, type: multiple_choice, prompt: "'The API returns 502s' becomes, for the board:", options: ["'the API is having issues'", "'the server is down'", "'an HTTP error occurred'", "'customers can't complete purchases right now'"], answer: 3, explanation: "Mecanismo vira consequência.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-04-l2, type: multiple_choice, prompt: "The confidence trio, in order:", options: ["apology, cause, fix", "what we're doing, what we know, sorry", "what we know, what we're doing, what to expect", "status, blame, ETA"], answer: 2, explanation: "Fatos → ação → previsão.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-04-l3, type: fill_blank, prompt: "___ in three purchases failed at the peak.", accepted: ["One", "one"], explanation: '"one in three" — a fração legível.', tags: [vocab.incident] }
+    - { id: M15-04-l4, type: error_correction, prompt: "Thanks for the patience, everyone.", accepted: ["Thank you for your patience, everyone.", "Thanks for your patience, everyone."], explanation: "your patience.", tags: [br.thanks-patience] }
+    - { id: M15-04-l5, type: multiple_choice, prompt: "'Everything is under control' fails because…", options: ["it's too technical", "it's a promise without fact — say 'the fix is live, recovery within the hour'", "it's too negative", "boards don't like it"], answer: 1, explanation: "Fato + ação + previsão, não adjetivo.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-04-l6, type: multiple_choice, prompt: "'No data loss' should come…", options: ["early — it's everyone's first fear", "at the end", "only if asked", "never — sounds technical"], answer: 0, explanation: "A primeira ansiedade responde cedo.", tags: [comp.listening, vocab.incident] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana precisa da resposta pronta para o suporte — o
+    que os agentes dizem aos clientes enterprise sobre o incidente.
+
+    **Tarefa:** escreva 50–80 palavras para um cliente não técnico:
+    o que aconteceu em linguagem humana, o que está sendo feito, o
+    que esperar (com horário) e a garantia sobre os dados.
+  constraints:
+    - { label: "Consequência, não mecanismo", pattern: "\\b(customers|can'?t|cannot|unable|purchases|pay)\\b" }
+    - { label: "Ação em curso", pattern: "\\b(fix|undid|reverted|recovering|being worked|live)\\b" }
+    - { label: "Previsão com horário", pattern: "\\b(within|hour|update|by |\\d{2}:\\d{2})\\b" }
+    - { label: "Garantia dos dados", pattern: "\\b(no data loss|data.*safe|orders are safe|no.*lost)\\b" }
+  rubric:
+    - "Zero jargão — o usuário sente, não o servidor"
+    - "Ação + previsão com horário"
+    - "Garantia dos dados cedo"
+    - "Sem calques"
+  model: >-
+    Right now, some customers can't complete purchases on our website
+    — mobile is working normally. We found the cause and the fix is
+    already live; payments are recovering. No data was lost and no
+    one was charged twice — every order is safe. Full recovery is
+    expected within the hour, and we'll send another update by 16:30
+    UTC either way.
+  minWords: 50
+  maxWords: 80
+  tags: [comp.writing, vocab.incident]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando o incidente para um gerente não técnico: o que aconteceu, o que está sendo feito, o que esperar — sem nenhuma palavra técnica."
+    maxSeconds: 45
+    targetPhrases:
+      - in plain terms
+      - customers can't
+      - one in three
+      - the fix is live
+      - recovering
+      - no data loss
+      - what to expect
+      - within the hour
+      - being worked on
+      - the good news
+      - bear with us
+      - behind the scenes
+      - we take this seriously
+      - affected customers
+      - next update at
+      - long story short
+    checklist:
+      - Zero jargão
+      - Consequência antes de mecanismo
+      - Ação + previsão + cadência
+      - "Garantia dos dados cedo"
+
+quiz:
+  - { id: M15-04-q1, type: multiple_choice, prompt: "The best translation of 'the API 502s' for a board is…", options: ["'an HTTP error occurred'", "'the server is unstable'", "'the API is having issues'", "'customers can't complete purchases right now'"], answer: 3, explanation: "Consequência para o usuário.", tags: [vocab.incident] }
+  - { id: M15-04-q2, type: error_correction, prompt: "In this moment one in three purchases fails.", accepted: ["Right now one in three purchases fails.", "Right now one in three purchases fails", "At this moment one in three purchases fails."], explanation: "right now / at this moment.", tags: [br.in-this-moment] }
+  - { id: M15-04-q3, type: multiple_choice, prompt: "The confidence trio is…", options: ["sorry, cause, ETA", "what we know, what we're doing, what to expect", "status, blame, fix", "impact, apology, thanks"], answer: 1, explanation: "Fatos → ação → previsão.", tags: [vocab.incident] }
+  - { id: M15-04-q4, type: fill_blank, prompt: "No data ___ — every order is safe.", accepted: ["loss"], explanation: '"no data loss" — a garantia que todos esperam.', tags: [vocab.incident] }
+  - { id: M15-04-q5, type: error_correction, prompt: "The customers not can pay on the website.", accepted: ["Customers can't pay on the website.", "The customers cannot pay on the website."], explanation: "can't / cannot.", tags: [br.it-not-works] }
+  - { id: M15-04-q6, type: translate, prompt: "Desfizemos a mudança — as compras já estão recuperando.", accepted: ["We undid the change — purchases are already recovering.", "We undid the change — purchases are recovering already.", "We reverted the change — purchases are already recovering."], explanation: '"undid the change" + "recovering".', tags: [vocab.incident] }
+  - { id: M15-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["three", "in", "one", "purchases", "failed"], answer: "one in three purchases failed", explanation: '"one in three" — a fração legível.', tags: [vocab.incident] }
+  - { id: M15-04-q8, type: multiple_choice, prompt: "'Bear with us' works better than 'sorry for the inconvenience' because…", options: ["it's shorter", "it's more formal", "it asks for patience with dignity instead of an empty apology", "boards require it"], answer: 2, explanation: "Pede paciência sem se desculpar no vazio.", tags: [vocab.incident] }
+
+srsCards:
+  - { front: "in plain terms", back: "O sinal da versão legível.", tag: vocab.incident }
+  - { front: "one in three", back: "Fração legível — melhor que 33%.", tag: vocab.incident }
+  - { front: "the fix is live", back: "'We rolled back' para não-técnicos.", tag: vocab.incident }
+  - { front: "no data loss", back: "A primeira ansiedade — diga cedo.", tag: vocab.incident }
+  - { front: "what to expect", back: "A previsão honesta com horário.", tag: vocab.incident }
+  - { front: "being worked on", back: "Ação em curso sem mecanismo.", tag: vocab.incident }
+  - { front: "the good news", back: "Alívio depois do fato — nunca antes.", tag: vocab.incident }
+  - { front: "bear with us", back: "Pede paciência com dignidade.", tag: vocab.incident }
+  - { front: "behind the scenes", back: "O esforço invisível ao usuário.", tag: vocab.incident }
+  - { front: "we'll make it right", back: "Compensação concreta — crédito, SLA.", tag: vocab.incident }
+  - { front: "long story short", back: "A versão de uma linha — informal.", tag: vocab.incident }
+
+review:
+  preferTags: [vocab.incident, br.thanks-patience, br.in-this-moment]
+  notes: "Revisão prioriza a tradução para não-técnico e os calques de cortesia."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
