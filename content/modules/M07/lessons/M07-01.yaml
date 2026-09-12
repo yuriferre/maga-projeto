@@ -1,0 +1,290 @@
+id: M07-01
+module: M07
+order: 1
+title: "Vocabulário de backlog: story, epic, spike, acceptance criteria, scope creep"
+objective: >-
+  Ao final, você reconhece e usa o vocabulário central de um backlog — story,
+  epic, spike, acceptance criteria, scope creep, story points — numa conversa de
+  refinamento sem trocar os termos entre si.
+durationMin: 35
+competencies: [VOC, LIS]
+tags: [vocab.agile, topic.refinement, comp.vocabulary, comp.listening, br.estimative, br.compromise]
+prerequisites: [M02-05, M06-05]
+
+context:
+  scenario: |
+    O refinamento começa e o PO abre o backlog: "This epic has three stories
+    left; the spike on multi-region is done; the acceptance criteria on this
+    one are still fuzzy." Se story, epic e spike se confundem na sua cabeça, a
+    reunião inteira passa por cima de você.
+
+    O vocabulário de backlog tem uma hierarquia: **epic** é o grande bloco de
+    trabalho; **story** é o pedaço entregável dentro dele; **task** é o passo
+    técnico dentro da story. **Spike** não entrega nada — é a investigação com
+    prazo para responder uma pergunta. E dois riscos moram no backlog:
+    **scope creep** (o escopo que cresce sem ninguém decidir) e **tech debt**
+    (o atalho que cobra juros).
+  roles: [Priya (product owner), Ana (SRE), Yuri (platform engineer)]
+
+vocabulary:
+  - term: story
+    meaning: história — a unidade entregável de trabalho ("as a user, I can…")
+    example: "This story covers the retry logic for failed webhooks."
+    translation: "Esta história cobre a lógica de retry para webhooks com falha."
+    note: 'Formato clássico: "As a <papel>, I can <ação> so that <valor>".'
+  - term: epic
+    meaning: épico — o bloco grande que agrupa várias stories
+    example: "The multi-region epic has five stories; two are done."
+    translation: "O épico multi-região tem cinco histórias; duas estão prontas."
+    note: "Epic = grande demais para uma sprint; quebra em stories."
+  - term: spike
+    meaning: spike — investigação com prazo, não entrega código
+    example: "We need a spike on the billing provider before we can estimate."
+    translation: "Precisamos de um spike sobre o provedor de cobrança antes de estimar."
+    note: "Timeboxed: um spike de dois dias responde uma pergunta, não entrega feature."
+  - term: acceptance criteria
+    meaning: critérios de aceite — quando a story está pronta
+    example: "The acceptance criteria: retries stop after 3 attempts and the event lands in the dead-letter queue."
+    translation: "Os critérios de aceite: os retries param após 3 tentativas e o evento vai para a dead-letter queue."
+    note: "Escritos antes de estimar — sem eles, a estimativa é chute."
+  - term: scope creep
+    meaning: aumento de escopo — a story que cresce sem decisão
+    example: "Adding multi-region to this story is scope creep — let's split it."
+    translation: "Adicionar multi-região a esta história é aumento de escopo — vamos dividir."
+    note: "O termo para apontar quando a reunião infla a story."
+  - term: story points
+    meaning: pontos de história — tamanho relativo, não horas
+    example: "I'd give this 3 story points — similar to last sprint's cache work."
+    translation: "Eu daria 3 pontos a esta história — parecida com o trabalho de cache da sprint passada."
+    note: "Points medem complexidade relativa; nunca prometa horas por ponto."
+  - term: backlog
+    meaning: backlog — a lista priorizada de trabalho
+    example: "It's in the backlog, but below the alerting work."
+    translation: "Está no backlog, mas abaixo do trabalho de alertas."
+    note: '"in the backlog" = existe; "backlog grooming" é o nome antigo do refinement.'
+  - term: refinement
+    meaning: refinamento — a reunião que prepara stories para a sprint
+    example: "Let's take this to Thursday's refinement."
+    translation: "Vamos levar isso para o refinamento de quinta."
+    note: "Também backlog refinement; antigo grooming (evite o termo antigo)."
+  - term: estimate
+    meaning: estimativa — o tamanho que você dá à story
+    example: "My estimate is 5 points — the migration has unknowns."
+    translation: "Minha estimativa é 5 pontos — a migração tem incógnitas."
+    note: 'Substantivo é "estimate" — "estimative" não existe em inglês.'
+  - term: commitment
+    meaning: compromisso — o que o time se compromete a entregar
+    example: "The sprint commitment is the alerting stories, not the epic."
+    translation: "O compromisso da sprint são as histórias de alertas, não o épico."
+    note: 'Cuidado: "compromise" é concessão; compromisso é commitment.'
+  - term: tech debt
+    meaning: dívida técnica — o atalho que cobra juros depois
+    example: "The hard-coded timeouts are tech debt we should pay down."
+    translation: "Os timeouts fixos no código são dívida técnica que devíamos pagar."
+    note: '"pay down debt" é a expressão — pagar a dívida aos poucos.'
+  - term: "definition of ready"
+    meaning: definição de pronto — quando a story pode entrar na sprint
+    example: "This story doesn't meet our definition of ready — the criteria are missing."
+    translation: "Esta história não atende à definição de pronto — faltam os critérios."
+    note: "DoR: critérios + estimável + sem bloqueios. Irmã do DoD (definition of done)."
+  - term: "to split a story"
+    meaning: dividir uma história — quebrar em pedaços menores
+    example: "Let's split the story: retries this sprint, dead-letter next."
+    translation: "Vamos dividir a história: retries nesta sprint, dead-letter na próxima."
+    note: "A resposta padrão quando a story é grande demais."
+  - term: "a fuzzy story"
+    meaning: história vaga — sem critérios claros
+    example: "The story is still fuzzy — we can't estimate it today."
+    translation: "A história ainda está vaga — não conseguimos estimá-la hoje."
+    note: '"fuzzy" = nebuloso; o motivo honesto para não estimar.'
+
+grammar:
+  title: "O backlog tem hierarquia — epic → story → task"
+  explanation: |
+    A hierarquia do backlog resolve metade das confusões: um **epic** agrupa
+    stories, uma **story** é o pedaço entregável, e as **tasks** são os passos
+    técnicos dentro dela. O **spike** fica fora: ele entrega resposta, não código.
+
+    | Termo | O que é | Exemplo |
+    |---|---|---|
+    | epic | bloco grande, várias sprints | *the multi-region epic* |
+    | story | entregável de uma sprint | *the retry story* |
+    | task | passo técnico da story | *add the dead-letter queue* |
+    | spike | investigação com prazo | *a two-day spike on the provider* |
+
+    **Erros BR:** "my **estimative** is 3 points" (é *estimate*), "I have a
+    **compromise**" (é *commitment* — compromise é concessão), e "if we **will**
+    need" (condicional pede presente — *if we need*).
+  examples:
+    - { en: "This epic has three stories left.", pt: "Este épico tem três histórias restantes." }
+    - { en: "The spike answered whether the provider supports retries.", pt: "O spike respondeu se o provedor suporta retries." }
+    - { en: "The acceptance criteria are still fuzzy.", pt: "Os critérios de aceite ainda estão vagos." }
+    - { en: "My estimate is 3 points — same size as the cache work.", pt: "Minha estimativa é 3 pontos — mesmo tamanho do trabalho de cache." }
+    - { en: "That's scope creep — let's split it.", pt: "Isso é aumento de escopo — vamos dividir." }
+    - { en: "The story meets the definition of ready now.", pt: "A história atende à definição de pronto agora." }
+
+examples:
+  - en: "As a user, I can see the retry history so that I trust the webhook delivery."
+    pt: "Como usuário, eu vejo o histórico de retries para confiar na entrega do webhook."
+    context: "O formato clássico da story: as a / I can / so that."
+  - en: "We did a two-day spike on the billing provider before estimating."
+    pt: "Fizemos um spike de dois dias sobre o provedor de cobrança antes de estimar."
+    context: "Spike = investigação com prazo — responde uma pergunta."
+  - en: "The acceptance criteria: retries stop after 3 attempts and events land in the dead-letter queue."
+    pt: "Os critérios de aceite: retries param após 3 tentativas e eventos vão para a dead-letter queue."
+    context: "Critérios observáveis — quem lê sabe quando está pronto."
+  - en: "Adding dashboards to this story is scope creep — split it."
+    pt: "Adicionar dashboards a esta história é aumento de escopo — divida."
+    context: "Apontar scope creep é proteger a estimativa."
+  - en: "My estimate is 5 points — the migration has too many unknowns for a 3."
+    pt: "Minha estimativa é 5 pontos — a migração tem incógnitas demais para um 3."
+    context: '"estimate" é o substantivo — nunca "estimative".'
+  - en: "This doesn't meet our definition of ready — the criteria are missing."
+    pt: "Isto não atende à nossa definição de pronto — faltam os critérios."
+    context: "DoR bloqueia story vaga de entrar na sprint."
+  - en: "Let's split it: retries this sprint, dead-letter next."
+    pt: "Vamos dividir: retries nesta sprint, dead-letter na próxima."
+    context: "Dividir é a saída padrão para story grande."
+  - en: "The hard-coded config is tech debt — pay it down this quarter."
+    pt: "A configuração fixa no código é dívida técnica — pague-a neste trimestre."
+    context: '"pay down" a dívida — aos poucos, não de uma vez.'
+
+variations:
+  - idea: '"a story está grande demais para estimar"'
+    items:
+      - { register: "Boa", text: "I'd split it — the dead-letter part can be its own story.", adequate: true }
+      - { register: "Boa", text: "Can we do a spike first? Too many unknowns to estimate.", adequate: true }
+      - { register: "Inadequada", text: "This story is impossible.", adequate: false, note: "Sem direção — proponha dividir ou um spike." }
+      - { register: "Inadequada", text: "My estimative is we can't do it.", adequate: false, note: '"estimative" não existe — é "estimate".' }
+  - idea: '"a reunião está inflando a story"'
+    items:
+      - { register: "Boa", text: "That feels like scope creep — can we move it to a new story?", adequate: true }
+      - { register: "Boa", text: "If we add that, it's no longer a 3-point story.", adequate: true }
+      - { register: "Inadequada", text: "Whatever, let's just do it all.", adequate: false, note: "Aceitar tudo é como o escopo cresce." }
+      - { register: "Inadequada", text: "If we will add that, it grows.", adequate: false, note: 'Condicional com "if" usa presente: "if we add".' }
+
+brErrors:
+  - { wrong: "My estimative is 3 points.", right: "My estimate is 3 points.", why: '"estimative" não existe — é "estimate"', tag: br.estimative }
+  - { wrong: "I have a compromise on Friday.", right: "I have a commitment on Friday.", why: "compromise = concessão; compromisso é commitment", tag: br.compromise }
+  - { wrong: "If we will need more capacity, we scale.", right: "If we need more capacity, we scale.", why: 'condicional: "if" + presente, will na oração principal', tag: br.if-will }
+  - { wrong: "It make sense to split this story.", right: "It makes sense to split this story.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "Let's discuss about the acceptance criteria.", right: "Let's discuss the acceptance criteria.", why: "discuss é transitivo — sem about", tag: br.discuss-about }
+  - { wrong: "I have a doubt about this story.", right: "I have a question about this story.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "The epic depends of the spike.", right: "The epic depends on the spike.", why: '"depends on" — "depend of" é calque', tag: br.depend-of }
+  - { wrong: "We need that the PO clarify the criteria.", right: "We need the PO to clarify the criteria.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "This story is more big than the last one.", right: "This story is bigger than the last one.", why: "big é adjetivo curto: bigger", tag: br.more-er }
+  - { wrong: "Can you explain me the scope?", right: "Can you explain the scope to me?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+
+dialogue:
+  title: "O backlog no quadro"
+  lines:
+    - { speaker: Priya, text: "Quick tour of the backlog before Thursday's refinement. Top of the list: the multi-region epic." }
+    - { speaker: Yuri, text: "How many stories are left in it?" }
+    - { speaker: Priya, text: "Three. The retry story is first — acceptance criteria are written, it meets the definition of ready." }
+    - { speaker: Yuri, text: "And the dead-letter queue work — is that part of the retry story?" }
+    - { speaker: Priya, text: "It was, but it grew too much — we split it into its own story. Classic scope creep." }
+    - { speaker: Yuri, text: "Got it. And this spike on the billing provider — two days, right? What question does it answer?" }
+    - { speaker: Priya, text: "Whether they support idempotent retries. Until the spike is done, the billing story is un-estimable." }
+    - { speaker: Yuri, text: "Makes sense. Anything in tech debt this quarter?" }
+    - { speaker: Priya, text: "The hard-coded timeouts — it's a small story now, cheap to pay down." }
+    - { speaker: Yuri, text: "So Thursday: estimate the retry story, split anything fuzzy, and wait on the spike for billing. I'll be ready." }
+  notes:
+    - "o tour cobre a hierarquia (epic → story), o spike timeboxed, o split por scope creep e a definition of ready."
+    - '"un-estimable" — a story que não dá para estimar antes do spike.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "In refinement, we only estimate stories that meet the definition of ready — criteria written, dependencies known, no open questions." }
+    - { speaker: Ana, text: "When a story is too big, we don't force a number on it — we split it or send a spike first. Guessing big is how sprints fail." }
+    - { speaker: Priya, text: "And watch for scope creep: every 'while we're at it' in the meeting is a new story pretending to be part of this one." }
+  questions:
+    - { id: M07-01-l1, type: multiple_choice, prompt: "When do stories get estimated in refinement?", options: ["when they meet the definition of ready", "every week regardless", "only at sprint start", "when the PO asks"], answer: 0, explanation: '"criteria written, dependencies known, no open questions" = DoR.', tags: [comp.listening, vocab.agile] }
+    - { id: M07-01-l2, type: multiple_choice, prompt: "What do you do with a story that's too big?", options: ["estimate it anyway", "split it or send a spike first", "skip it", "give it the max points"], answer: 1, explanation: '"split it or send a spike first."', tags: [comp.listening, vocab.agile] }
+    - { id: M07-01-l3, type: fill_blank, prompt: "Every 'while we're at it' in the meeting is scope ___.", accepted: ["creep"], explanation: '"scope creep" — o escopo que cresce sem decisão.', tags: [vocab.agile] }
+    - { id: M07-01-l4, type: multiple_choice, prompt: "A spike is…", options: ["a very urgent story", "a bug in the backlog", "a timeboxed investigation that answers a question", "a failed deploy"], answer: 2, explanation: "Spike = investigação com prazo; entrega resposta, não código.", tags: [vocab.agile] }
+    - { id: M07-01-l5, type: multiple_choice, prompt: "Epic : story = …", options: ["story : task — the big block holds the deliverables", "task : bug", "sprint : day", "criteria : estimate"], answer: 0, explanation: "Epic agrupa stories como a story agrupa tasks.", tags: [vocab.agile] }
+    - { id: M07-01-l6, type: fill_blank, prompt: "The story meets the definition of ___ — we can estimate it.", accepted: ["ready"], explanation: "Definition of ready (DoR): critérios + sem bloqueios.", tags: [vocab.agile] }
+
+writing:
+  prompt: |
+    **Cenário:** depois do tour do backlog, o PO pede um resumo escrito no canal do time.
+
+    **Tarefa:** escreva 60–90 palavras cobrindo: o que resta no épico, qual story está pronta (e por quê), o que virou story separada (scope creep), o spike pendente e a dívida técnica.
+  constraints:
+    - { label: "Hierarquia epic/story", pattern: "\\b(epic|stor(y|ies))\\b" }
+    - { label: "Critérios ou prontidão", pattern: "\\b(acceptance criteria|definition of ready|ready)\\b" }
+    - { label: "Split ou scope creep", pattern: "\\b(split|scope creep)\\b" }
+    - { label: "Spike", pattern: "\\bspike\\b" }
+  rubric:
+    - O que resta no épico (quantas stories)
+    - A story pronta + o motivo (critérios escritos)
+    - O split por scope creep
+    - O spike e a pergunta que ele responde
+  model: >-
+    The multi-region epic has three stories left. The retry story meets the
+    definition of ready — acceptance criteria are written and dependencies are
+    known. The dead-letter queue work grew inside it, so we split it into its own
+    story to stop the scope creep. The billing provider spike is still running —
+    two days to answer whether idempotent retries are supported. Tech debt for
+    the quarter: the hard-coded timeouts, a small story.
+  minWords: 60
+  maxWords: 95
+  tags: [comp.writing, vocab.agile]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando o backlog para um colega novo: o que é epic/story/spike, o que está pronto para estimar e o que virou scope creep."
+    maxSeconds: 45
+    targetPhrases:
+      - epic
+      - story
+      - spike
+      - acceptance criteria
+      - scope creep
+      - story points
+      - backlog
+      - refinement
+      - estimate
+      - tech debt
+      - definition of ready
+      - split
+      - fuzzy
+      - timeboxed
+    checklist:
+      - Explica a hierarquia epic → story → task
+      - Diz o que um spike entrega (resposta, não código)
+      - Menciona o que está pronto para estimar
+      - Usa scope creep ou split ao falar da story que cresceu
+
+quiz:
+  - { id: M07-01-q1, type: multiple_choice, prompt: "A spike delivers…", options: ["code for the feature", "an answer to a question, within a fixed timebox", "a demo at sprint review", "documentation"], answer: 1, explanation: "Spike entrega resposta, não código — por isso é timeboxed.", tags: [vocab.agile] }
+  - { id: M07-01-q2, type: error_correction, prompt: "My estimative for the retry story is 3 points.", accepted: ["My estimate for the retry story is 3 points.", "My estimate for the retry story is 3 points"], explanation: '"estimative" não existe — o substantivo é "estimate".', tags: [br.estimative] }
+  - { id: M07-01-q3, type: multiple_choice, prompt: "'The story meets the definition of ready' means…", options: ["it's already done", "the sprint started", "the PO approved it verbally", "criteria written, dependencies known — it can be estimated"], answer: 3, explanation: "DoR: critérios + sem bloqueios + estimável.", tags: [vocab.agile] }
+  - { id: M07-01-q4, type: error_correction, prompt: "I have a compromise at 3pm, so I'll miss refinement.", accepted: ["I have a commitment at 3pm, so I'll miss refinement.", "I have a commitment at 3pm, so I'll miss refinement", "I have an appointment at 3pm, so I'll miss refinement."], explanation: '"compromise" = concessão; compromisso na agenda é "commitment" ou "appointment".', tags: [br.compromise] }
+  - { id: M07-01-q5, type: multiple_choice, prompt: "The dead-letter work grew inside the retry story. The right call is…", options: ["estimate it all as one big story", "split it — that's scope creep", "delete it from the backlog", "extend the sprint"], answer: 1, explanation: "Cresceu sem decisão → scope creep → split.", tags: [vocab.agile, topic.refinement] }
+  - { id: M07-01-q6, type: fill_blank, prompt: "The multi-region ___ has five stories; two are done.", accepted: ["epic"], explanation: "Epic = o bloco grande que agrupa stories.", tags: [vocab.agile] }
+  - { id: M07-01-q7, type: error_correction, prompt: "It make sense to send a spike first.", accepted: ["It makes sense to send a spike first.", "It makes sense to send a spike first"], explanation: "Terceira pessoa: it makes sense.", tags: [br.it-makes-sense, vocab.agile] }
+  - { id: M07-01-q8, type: multiple_choice, prompt: "Acceptance criteria are written…", options: ["after the story is done", "only by the PO", "during the retrospective", "before estimating — they define 'done'"], answer: 3, explanation: "Sem critérios, a estimativa é chute.", tags: [vocab.agile, topic.refinement] }
+
+review:
+  count: 5
+  preferTags: [vocab.agile]
+
+srsCards:
+  - { front: "story", back: "unidade entregável ('as a user, I can…') — dentro do epic", tag: vocab.agile }
+  - { front: "epic", back: "bloco grande que agrupa stories; grande demais para uma sprint", tag: vocab.agile }
+  - { front: "spike", back: "investigação timeboxed que responde uma pergunta — não entrega código", tag: vocab.agile }
+  - { front: "acceptance criteria", back: "quando a story está pronta; escritos antes de estimar", tag: vocab.agile }
+  - { front: "scope creep", back: "escopo que cresce sem decisão — resposta: split", tag: vocab.agile }
+  - { front: "story points", back: "tamanho relativo (complexidade), nunca horas", tag: vocab.agile }
+  - { front: "refinement", back: "reunião que prepara stories para a sprint (antigo 'grooming')", tag: vocab.agile }
+  - { front: "estimate × estimative", back: '"estimate" é o substantivo; "estimative" não existe', hint: "calque de estimativa", tag: br.estimative }
+  - { front: "commitment × compromise", back: 'commitment = compromisso assumido; compromise = concessão dos dois lados', hint: '"I have a commitment at 3pm"', tag: br.compromise }
+  - { front: "definition of ready", back: "critérios + sem bloqueios + estimável → pode entrar na sprint", tag: vocab.agile }
+  - { front: "tech debt", back: 'atalho que cobra juros; "pay down" = pagar aos poucos', tag: vocab.agile }
+  - { front: "to split a story", back: "dividir a story grande em pedaços estimáveis", tag: vocab.agile }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

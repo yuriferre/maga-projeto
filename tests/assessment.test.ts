@@ -67,7 +67,7 @@ describe("moduleEligibility", () => {
     expect(moduleEligibility(content, progress(withContent), "M01")).toEqual({ lessonsTotal: withContent.length, lessonsDone: withContent.length, missing: [] });
   });
   it("is empty for a module without content", () => {
-    expect(moduleEligibility(content, [], "M07")).toEqual({ lessonsTotal: 0, lessonsDone: 0, missing: [] });
+    expect(moduleEligibility(content, [], "M99")).toEqual({ lessonsTotal: 0, lessonsDone: 0, missing: [] });
   });
 });
 
