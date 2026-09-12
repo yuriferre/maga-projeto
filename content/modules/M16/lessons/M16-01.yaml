@@ -1,0 +1,291 @@
+id: M16-01
+module: M16
+order: 1
+title: "Papéis e protocolo: incident commander, scribe, comms lead"
+objective: >-
+  Ao final, você nomeia os papéis de uma bridge, entra na chamada
+  sabendo quem fala quando, e declara o protocolo em uma frase — sem
+  torre de Babel.
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.bridge, comp.speaking]
+prerequisites: [M15-05, M02-04]
+
+context:
+  scenario: |
+    O incidente do checkout virou bridge: quinze pessoas entraram na
+    chamada em três minutos e já tem gente falando por cima de gente.
+    A Priya corta: "**roles first — who's IC?**"
+
+    Uma bridge sem papel vira conversa de bar. O protocolo mínimo:
+
+    - **incident commander (IC)** — decide e coordena; não debugga,
+      direciona quem debugga
+    - **scribe** — escreve a timeline na thread: quem disse o quê,
+      quando, o que foi decidido
+    - **comms lead** — atualiza status page e stakeholders; protege o
+      IC das interrupções
+    - **SMEs** — os engenheiros que investigam e executam; falam quando
+      chamados ou quando têm fato novo
+
+    A regra que segura a bridge: **quem tem informação fala; quem tem
+    opinião espera a pergunta.** E todo mundo sabe quem é quem antes
+    de qualquer troubleshooting.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend), Ana (support lead)]
+
+vocabulary:
+  - term: "incident commander (IC)"
+    meaning: o comandante do incidente — decide e coordena, não debugga
+    example: "Priya is IC — she decides, we execute."
+    translation: "A Priya é a IC — ela decide, nós executamos."
+    note: "O IC pensa na floresta; os SMEs olham as árvores."
+  - term: "scribe"
+    meaning: o escriba — escreve a timeline e as decisões na thread
+    example: "Marcos is scribe — every decision lands in the thread."
+    translation: "O Marcos é o escriba — cada decisão vai para a thread."
+    note: "Sem scribe, a bridge esquece o que decidiu."
+  - term: "comms lead"
+    meaning: o líder de comunicação — status page e stakeholders
+    example: "Ana is comms lead — she owns the status page updates."
+    translation: "A Ana é a líder de comunicação — ela cuida da status page."
+    note: "Protege o IC de 'e aí, já voltou?' a cada dois minutos."
+  - term: "bridge"
+    meaning: a chamada do incidente — a sala de guerra em áudio
+    example: "Join the bridge — link's in the incident channel."
+    translation: "Entre na bridge — o link está no canal do incidente."
+    note: "Também 'war room' — a chamada aberta até o resolved."
+  - term: "subject-matter expert (SME)"
+    meaning: o especialista — quem conhece o sistema quebrado
+    example: "We need the database SME on the bridge."
+    translation: "Precisamos do especialista em banco na bridge."
+    note: "SME fala quando tem fato — não para palpitar."
+  - term: "on the bridge"
+    meaning: na chamada — presente na bridge
+    example: "Who's on the bridge? Say your name and role."
+    translation: "Quem está na bridge? Diga nome e papel."
+    note: "'On', nunca 'in' — 'in the line' é calque."
+  - term: "roll call"
+    meaning: a chamada de presença — quem está, em que papel
+    example: "Quick roll call: name, role, what you're watching."
+    translation: "Chamada rápida: nome, papel, o que você está olhando."
+    note: "O IC abre assim — ordem antes de ação."
+  - term: "hands on keyboard"
+    meaning: mãos no teclado — quem executa, não só fala
+    example: "Marcos is hands on keyboard — he runs the rollback."
+    translation: "O Marcos está com as mãos no teclado — ele roda o rollback."
+    note: "Separa quem executa de quem comenta."
+  - term: "channel discipline"
+    meaning: a disciplina do canal — falar curto, falar fato
+    example: "Channel discipline: facts only, no speculation on the bridge."
+    translation: "Disciplina de canal: só fatos, sem especulação na bridge."
+    note: "A bridge não é lugar de brainstorm — é de fato e decisão."
+  - term: "talk over"
+    meaning: falar por cima — interromper alguém falando
+    example: "Don't talk over each other — one voice at a time."
+    translation: "Não falem por cima — uma voz por vez."
+    note: "O primeiro sintoma de bridge sem protocolo."
+  - term: "deputy"
+    meaning: o suplente — quem assume se o titular cai
+    example: "Yuri is deputy IC — if Priya drops, he takes over."
+    translation: "O Yuri é o IC suplente — se a Priya cair, ele assume."
+    note: "Bridge boa sobrevive à queda do IC."
+  - term: "take over"
+    meaning: assumir — herdar o papel
+    example: "If the IC drops, the deputy takes over immediately."
+    translation: "Se o IC cair, o suplente assume na hora."
+    note: "Sem cerimônia — 'I'll take over as IC'."
+
+grammar:
+  title: "Declarando papéis: 'X is IC', 'I'll take…', 'who's on…?'"
+  explanation: |
+    Os papéis se declaram em frases curtas — a bridge não tem tempo
+    para sintaxe elaborada:
+
+    - "**Priya is IC**" — nome + papel, direto.
+    - "**I'll take scribe**" — voluntariar-se: "I'll take comms".
+    - "**Who's on the bridge?**" — a pergunta que abre a ordem.
+    - "**Can someone take scribe?**" — pedindo papel sem nomear
+      pessoa.
+    - "**Say your name and role**" — a instrução da roll call.
+
+    E a declaração do protocolo em uma linha: "**facts on the bridge,
+    discussion in the thread**" — a bridge carrega fato e decisão;
+    o debate mora no texto.
+  examples:
+    - { en: "Priya is IC — she decides, we execute.", pt: "A Priya é a IC — ela decide, nós executamos." }
+    - { en: "I'll take scribe — everything lands in the thread.", pt: "Eu fico de escriba — tudo vai para a thread." }
+    - { en: "Who's on the bridge? Name and role, please.", pt: "Quem está na bridge? Nome e papel, por favor." }
+    - { en: "Can someone take comms? Ana, can you own the status page?", pt: "Alguém pega a comunicação? Ana, você cuida da status page?" }
+    - { en: "Facts on the bridge — discussion goes to the thread.", pt: "Fatos na bridge — discussão vai para a thread." }
+    - { en: "If I drop, Yuri takes over as IC.", pt: "Se eu cair, o Yuri assume como IC." }
+
+examples:
+  - en: "Roles first: Priya is IC, Marcos is scribe, Ana owns comms."
+    pt: "Papéis primeiro: Priya é IC, Marcos é escriba, Ana cuida da comunicação."
+    context: "A declaração que abre a bridge."
+  - en: "The IC doesn't debug — the IC directs who debugs."
+    pt: "O IC não debugga — o IC direciona quem debugga."
+    context: "A separação que mantém a floresta visível."
+  - en: "Every decision lands in the thread — that's the scribe's job."
+    pt: "Cada decisão vai para a thread — esse é o trabalho do escriba."
+    context: "A memória da bridge."
+  - en: "SMEs speak when they have a fact — opinions wait for the question."
+    pt: "SMEs falam quando têm fato — opiniões esperam a pergunta."
+    context: "A regra que segura o ruído."
+  - en: "Quick roll call: name, role, what you're watching right now."
+    pt: "Chamada rápida: nome, papel, o que você está olhando agora."
+    context: "A abertura disciplinada."
+  - en: "I'm hands on keyboard — talk to me before running anything."
+    pt: "Estou com as mãos no teclado — falem comigo antes de rodar qualquer coisa."
+    context: "Um executor por vez."
+  - en: "If the IC drops, the deputy takes over — no ceremony."
+    pt: "Se o IC cair, o suplente assume — sem cerimônia."
+    context: "A sucessão planejada."
+  - en: "One voice at a time — don't talk over the IC."
+    pt: "Uma voz por vez — não fale por cima do IC."
+    context: "A disciplina mínima."
+
+variations:
+  - idea: '"declarando papéis"'
+    items:
+      - { register: "Boa", text: "Roles first — Priya is IC, I'm scribe, Ana owns comms.", adequate: true }
+      - { register: "Boa", text: "Can someone take scribe? I need both hands on the rollback.", adequate: true }
+      - { register: "Inadequada", text: "Everyone just do your best.", adequate: false, note: "Sem papel declarado, a bridge vira torre de Babel — nomeie IC, scribe e comms." }
+      - { register: "Inadequada", text: "I'll be the boss of this call.", adequate: false, note: "'IC' é o termo — 'boss of the call' soa a ego, não a protocolo." }
+  - idea: '"abrindo a bridge"'
+    items:
+      - { register: "Boa", text: "Quick roll call — name, role, what you're watching.", adequate: true }
+      - { register: "Boa", text: "Facts on the bridge, discussion in the thread.", adequate: true }
+      - { register: "Inadequada", text: "So, what do you all think happened?", adequate: false, note: "Brainstorm na bridge é ruído — peça fatos: 'what are we seeing?'" }
+      - { register: "Inadequada", text: "Stay in the line everyone.", adequate: false, note: "'On the line' — 'in the line' é calque (e 'in line' é fila)." }
+
+brErrors:
+  - { wrong: "Stay in the line while I check.", right: "Stay on the line while I check.", why: "on the line", tag: br.in-the-line }
+  - { wrong: "I can't listen you — say again.", right: "I can't hear you — say again.", why: "hear you", tag: br.listen-you }
+  - { wrong: "The call fell twice already.", right: "The call dropped twice already.", why: "dropped", tag: br.call-fell }
+  - { wrong: "Can you confirm me the rollback ran?", right: "Can you confirm the rollback ran?", why: "confirm, sem me", tag: br.confirm-me }
+  - { wrong: "Say me when the deploy lands.", right: "Tell me when the deploy lands.", why: "tell me", tag: br.confirm-me }
+  - { wrong: "In this moment the bridge has fifteen people.", right: "Right now the bridge has fifteen people.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The IC not decide alone.", right: "The IC doesn't decide alone.", why: "doesn't decide", tag: br.it-not-works }
+  - { wrong: "The scribe write every decision.", right: "The scribe writes every decision.", why: "writes", tag: br.third-person-s }
+  - { wrong: "I have a doubt about my role.", right: "I have a question about my role.", why: "question", tag: br.doubt }
+  - { wrong: "Who want to take comms?", right: "Who wants to take comms?", why: "who wants", tag: br.third-person-s }
+
+dialogue:
+  title: "Roles first"
+  lines:
+    - { speaker: Priya, text: "Fifteen people on the bridge and everyone's talking. Roles first — I'm IC." }
+    - { speaker: Yuri, text: "I'll take scribe — every decision lands in the thread." }
+    - { speaker: Priya, text: "Ana, can you own comms? Status page every thirty." }
+    - { speaker: Ana, text: "On it — I'll shield you from the 'is it back yet' pings." }
+    - { speaker: Priya, text: "Marcos, you're hands on keyboard — nobody runs anything without telling you first." }
+    - { speaker: Marcos, text: "Copy. Database SME — do we have one on the bridge?" }
+    - { speaker: Priya, text: "Not yet — paging now. Protocol: facts on the bridge, discussion in the thread, one voice at a time." }
+    - { speaker: Yuri, text: "And if you drop?" }
+    - { speaker: Priya, text: "You're deputy — you take over. Now: what are we seeing?" }
+  notes:
+    - "a abertura completa: IC se declara → papeis distribuídos → protocolo → sucessão → primeira pergunta de fato."
+    - "'copy' = entendido — a confirmação de uma palavra da bridge."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Four roles keep a bridge sane. The IC decides and coordinates — never debugs, always sees the forest. The scribe writes the timeline: who said what, when, what was decided. The comms lead owns the status page and shields the IC from interruptions. And the SMEs — the engineers who investigate — speak when they have facts." }
+    - { speaker: Yuri, text: "The protocol fits in one line: facts on the bridge, discussion in the thread. Roll call first — name, role, what you're watching. One voice at a time. And always a deputy — if the IC drops, someone takes over without ceremony." }
+    - { speaker: Marcos, text: "Hands on keyboard means one person runs the commands. Two people typing fixes at once is how a bad incident becomes a worse one. If you need to run something, say it first — 'I'm about to restart the gateway' — and wait for the IC's go-ahead." }
+  questions:
+    - { id: M16-01-l1, type: multiple_choice, prompt: "The IC's job is to…", options: ["debug the fastest", "write the timeline", "decide and coordinate — direct who debugs", "update the status page"], answer: 2, explanation: "IC pensa na floresta.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-01-l2, type: multiple_choice, prompt: "The scribe owns…", options: ["the rollback", "the status page", "the decisions and timeline in the thread", "the post-mortem"], answer: 2, explanation: "A memória da bridge.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-01-l3, type: fill_blank, prompt: "If the IC drops, the ___ takes over.", accepted: ["deputy"], explanation: "Deputy — o suplente declarado.", tags: [vocab.bridge] }
+    - { id: M16-01-l4, type: error_correction, prompt: "I can't listen you — say again.", accepted: ["I can't hear you — say again.", "I can't hear you — say again"], explanation: "hear you.", tags: [br.listen-you] }
+    - { id: M16-01-l5, type: multiple_choice, prompt: "'Facts on the bridge, discussion in the thread' means…", options: ["no one talks on the call", "speculation is welcome", "the bridge carries facts and decisions — debate lives in text", "the thread is optional"], answer: 2, explanation: "Bridge = fato e decisão.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-01-l6, type: multiple_choice, prompt: "Before running a command on a bridge you…", options: ["just run it — speed matters", "say it first and wait for the IC's go-ahead", "ask the scribe", "mute yourself"], answer: 1, explanation: "Um executor por vez, sob ordem do IC.", tags: [comp.listening, vocab.bridge] }
+
+writing:
+  prompt: |
+    **Cenário:** a bridge do incidente do checkout está aberta e a
+    Priya pede o protocolo por escrito na thread — quem é quem e como
+    se fala.
+
+    **Tarefa:** escreva 60–90 palavras declarando os papéis (IC,
+    scribe, comms, hands on keyboard, deputy) e o protocolo da bridge
+    (fatos na call, discussão na thread, uma voz por vez).
+  constraints:
+    - { label: "Papéis declarados", pattern: "\\b(ic|incident commander|scribe|comms|sme|deputy)\\b" }
+    - { label: "Quem executa", pattern: "\\b(hands on keyboard|runs|executes|on the rollback)\\b" }
+    - { label: "Protocolo", pattern: "\\b(facts|thread|one voice|go.?ahead|discussion)\\b" }
+    - { label: "Sucessão", pattern: "\\b(deputy|takes over|if.*drop)\\b" }
+  rubric:
+    - "Os cinco papéis nomeados"
+    - "Protocolo em uma linha"
+    - "Sucessão declarada"
+    - "Sem calques"
+  model: >-
+    Roles on the bridge: Priya is IC — she decides and coordinates.
+    Yuri is scribe — every decision lands in this thread. Ana owns
+    comms — status page every thirty minutes. Marcos is hands on
+    keyboard — nobody runs a command without telling him and getting
+    the IC's go-ahead. If Priya drops, Yuri takes over as deputy.
+    Protocol: facts on the bridge, discussion in the thread, one
+    voice at a time.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.bridge]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos abrindo uma bridge como IC: declare os papéis, o protocolo e a primeira pergunta de fato."
+    maxSeconds: 45
+    targetPhrases:
+      - roles first
+      - is ic
+      - i'll take scribe
+      - owns comms
+      - hands on keyboard
+      - on the bridge
+      - roll call
+      - name and role
+      - facts on the bridge
+      - discussion in the thread
+      - one voice at a time
+      - takes over
+      - what are we seeing
+      - go ahead
+      - don't talk over
+      - say again
+    checklist:
+      - "Papéis declarados nominalmente"
+      - "Protocolo em uma linha"
+      - "Sucessão ou pergunta de fato"
+      - "'On the line', 'hear you'"
+
+quiz:
+  - { id: M16-01-q1, type: multiple_choice, prompt: "The incident commander…", options: ["runs every command", "decides and coordinates — doesn't debug", "writes the status page", "takes notes"], answer: 1, explanation: "IC dirige quem debugga.", tags: [vocab.bridge] }
+  - { id: M16-01-q2, type: error_correction, prompt: "Stay in the line while I check the logs.", accepted: ["Stay on the line while I check the logs.", "Stay on the line while I check the logs"], explanation: "on the line.", tags: [br.in-the-line] }
+  - { id: M16-01-q3, type: multiple_choice, prompt: "The scribe's job is…", options: ["the timeline and decisions in the thread", "the status page", "the rollback", "the post-mortem"], answer: 0, explanation: "A memória escrita da bridge.", tags: [vocab.bridge] }
+  - { id: M16-01-q4, type: fill_blank, prompt: "Quick roll ___: name, role, what you're watching.", accepted: ["call"], explanation: "Roll call — a abertura disciplinada.", tags: [vocab.bridge] }
+  - { id: M16-01-q5, type: error_correction, prompt: "Can you confirm me the fix is live?", accepted: ["Can you confirm the fix is live?", "Can you confirm the fix is live"], explanation: "confirm sem me.", tags: [br.confirm-me] }
+  - { id: M16-01-q6, type: translate, prompt: "Fatos na bridge, discussão na thread.", accepted: ["Facts on the bridge, discussion in the thread.", "Facts on the bridge — discussion in the thread."], explanation: "O protocolo em uma linha.", tags: [vocab.bridge] }
+  - { id: M16-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["voice", "one", "at", "a", "time"], answer: "one voice at a time", explanation: '"one voice at a time" — a disciplina mínima.', tags: [vocab.bridge] }
+  - { id: M16-01-q8, type: multiple_choice, prompt: "If the IC drops mid-call…", options: ["the call ends", "the deputy takes over — no ceremony", "everyone votes", "the scribe decides"], answer: 1, explanation: "Sucessão declarada antes de precisar.", tags: [vocab.bridge] }
+
+srsCards:
+  - { front: "incident commander", back: "Decide e coordena — nunca debugga.", tag: vocab.bridge }
+  - { front: "scribe", back: "A timeline e as decisões na thread.", tag: vocab.bridge }
+  - { front: "comms lead", back: "Status page + protege o IC de interrupção.", tag: vocab.bridge }
+  - { front: "hands on keyboard", back: "Quem executa — um por vez.", tag: vocab.bridge }
+  - { front: "SME", back: "Especialista — fala quando tem fato.", tag: vocab.bridge }
+  - { front: "roll call", back: "Nome, papel, o que você olha.", tag: vocab.bridge }
+  - { front: "deputy", back: "O suplente — assume sem cerimônia.", tag: vocab.bridge }
+  - { front: "channel discipline", back: "Fatos na bridge, discussão na thread.", tag: vocab.bridge }
+  - { front: "talk over", back: "Falar por cima — o primeiro sintoma do caos.", tag: vocab.bridge }
+  - { front: "take over", back: "Assumir o papel — 'I'll take over as IC'.", tag: vocab.bridge }
+  - { front: "on the bridge", back: "Na chamada — 'on', nunca 'in'.", tag: vocab.bridge }
+
+review:
+  preferTags: [vocab.bridge, br.in-the-line, br.listen-you]
+  notes: "Revisão prioriza papéis, protocolo e os calques de chamada."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
