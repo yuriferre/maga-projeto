@@ -1,0 +1,8 @@
+id: M15
+assessment:
+  title: Module assessment
+  description: "15 itens mistos cobrindo as tags do módulo + escrita (sequência de atualizações de incidente, autoavaliada) + gravação falada (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 4, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 4
+  speakingMin: 3
