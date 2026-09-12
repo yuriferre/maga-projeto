@@ -1,0 +1,291 @@
+id: M09-02
+module: M09
+order: 2
+title: "Pedindo mudanças: this would break…, could we…; severidade explícita"
+objective: >-
+  Ao final, você pede mudanças reais num review — "this would break under
+  load", "could we add a test for the null case" — declara a severidade
+  ("blocking") e explica o risco sem dramatizar.
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.review, topic.code-review, comp.writing, comp.reading, br.did-comment, br.worths]
+prerequisites: [M09-01]
+
+context:
+  scenario: |
+    Sugestão é fácil; pedir mudança de verdade é o que separa review de
+    decoração. O pedido que funciona tem três peças: **o risco** ("this
+    would break under concurrent writes"), **o pedido** ("could we add a
+    lock or a test for it?") e **a severidade** ("blocking" quando o merge
+    depende; "non-blocking" quando não).
+
+    Pedir mudança sem o risco lê como gosto pessoal; pedir sem a severidade
+    deixa o autor adivinhando se pode mergear. Os dois erros que BR comete:
+    suavizar demais ("maybe if you want maybe change it?") e dramatizar
+    ("this is completely wrong").
+  roles: [Yuri (platform engineer, reviewer), Marcos (backend, autor), Priya (tech lead)]
+
+vocabulary:
+  - term: "this would break"
+    meaning: isso quebraria — o risco concreto
+    example: "This would break if two requests hit it at once — the counter isn't atomic."
+    translation: "Isso quebraria se dois requests batessem ao mesmo tempo — o contador não é atômico."
+    note: "Would + cenário — o risco em condicional, não acusação."
+  - term: "could we"
+    meaning: poderíamos — o pedido firme mas colaborativo
+    example: "Could we add a test for the null case? It threw in staging."
+    translation: "Poderíamos adicionar um teste para o caso nulo? Estourou em staging."
+    note: "Em pedido real, 'could we' vem com o risco junto."
+  - term: "blocking"
+    meaning: bloqueante — o merge depende disso
+    example: "Blocking: this leaks the API token into the logs."
+    translation: "Bloqueante: isso vaza o token da API nos logs."
+    note: "O rótulo que segura o merge — use pouco, mas use."
+  - term: "edge case"
+    meaning: caso de borda — o cenário que quebra o caminho feliz
+    example: "Edge case: what happens when the list comes back empty?"
+    translation: "Caso de borda: o que acontece quando a lista volta vazia?"
+    note: "A pergunta-clássica de review — 'empty/null/zero/timeout'."
+  - term: "what happens when"
+    meaning: o que acontece quando — a pergunta de risco
+    example: "What happens when the queue is down — does it retry or drop?"
+    translation: "O que acontece quando a fila cai — retenta ou descarta?"
+    note: "Abre o modo falha sem acusar o código."
+  - term: "a race condition"
+    meaning: condição de corrida — duas coisas competindo
+    example: "There's a race condition between the write and the cache invalidation."
+    translation: "Há uma condição de corrida entre a escrita e a invalidação do cache."
+    note: "O motivo-técnico que justifica um blocking."
+  - term: "to regress"
+    meaning: regredir — quebrar o que funcionava
+    example: "This change would regress the fix from last sprint."
+    translation: "Essa mudança regrediria a correção da sprint passada."
+    note: "Verbo de review: 'this regresses X'."
+  - term: "a silent failure"
+    meaning: falha silenciosa — quebra sem erro visível
+    example: "This catch swallows the error — a silent failure in prod."
+    translation: "Esse catch engole o erro — falha silenciosa em prod."
+    note: "O pior tipo de bug — o review que o paga."
+  - term: "unhandled"
+    meaning: não tratado — o caminho sem cobertura
+    example: "The timeout path is unhandled — it'll hang forever."
+    translation: "O caminho de timeout não está tratado — vai travar para sempre."
+    note: '"unhandled case/exception" — o buraco no código.'
+  - term: "request changes"
+    meaning: pedir mudanças — o veredito formal do review
+    example: "I'm requesting changes — the token leak is blocking."
+    translation: "Estou pedindo mudanças — o vazamento do token é bloqueante."
+    note: "O estado formal do GitHub — 'approve' é o oposto."
+  - term: "harden"
+    meaning: endurecer — tornar robusto contra falhas
+    example: "Could we harden this against empty responses?"
+    translation: "Poderíamos endurecer isso contra respostas vazias?"
+    note: "O verbo de robustez — 'harden against X'."
+  - term: "a real risk"
+    meaning: risco real — o que distingue blocking de nit
+    example: "This isn't a style thing — it's a real risk under load."
+    translation: "Isso não é questão de estilo — é risco real sob carga."
+    note: "Distingue o blocking legítimo do gosto disfarçado."
+  - term: "before this merges"
+    meaning: antes do merge — o prazo do blocking
+    example: "This needs a test before this merges."
+    translation: "Isso precisa de um teste antes do merge."
+    note: "A severidade em forma de tempo — claro e sem drama."
+  - term: "happy path"
+    meaning: caminho feliz — o cenário sem falhas
+    example: "The tests only cover the happy path — add a failure case."
+    translation: "Os testes só cobrem o caminho feliz — adicione um caso de falha."
+    note: "O oposto do edge case — review pede os dois."
+
+grammar:
+  title: "Pedido real = risco + pedido + severidade"
+  explanation: |
+    O comentário que pede mudança tem anatomia: **o risco** em condicional
+    (*this would break if…*, *what happens when…*), **o pedido** (*could we…*,
+    *we need a test for…*) e **a severidade** (*blocking:* / *non-blocking:* /
+    *before this merges*). O risco em *would* é o que separa bug de opinião:
+    "this would break under load" é testável; "I don't like it" não.
+
+    | Peça | Frase-modelo |
+    |---|---|
+    | risco | *This would break if two requests hit it.* |
+    | pergunta de risco | *What happens when the queue is down?* |
+    | pedido | *Could we add a test for the null case?* |
+    | severidade | *Blocking:* / *before this merges.* |
+
+    **Erros BR:** "I **did** a comment" (*left*), "it **worths** a test"
+    (*it's worth*), "the code seems **me** fine" (*to me*), "**according to
+    me**" (*in my view*).
+  examples:
+    - { en: "Blocking: this would break under concurrent writes — the counter isn't atomic.", pt: "Bloqueante: isso quebraria com escritas concorrentes — o contador não é atômico." }
+    - { en: "Could we add a test for the empty response? It 500s today.", pt: "Poderíamos adicionar um teste para a resposta vazia? Hoje dá 500." }
+    - { en: "What happens when the queue is down — does it retry or drop?", pt: "O que acontece quando a fila cai — retenta ou descarta?" }
+    - { en: "This catch swallows the error — silent failure in prod.", pt: "Esse catch engole o erro — falha silenciosa em prod." }
+    - { en: "The timeout path is unhandled — needs a branch before this merges.", pt: "O caminho de timeout não está tratado — precisa de um branch antes do merge." }
+    - { en: "This would regress the retry fix from last sprint.", pt: "Isso regrediria a correção de retry da sprint passada." }
+
+examples:
+  - en: "Blocking: this would break if two requests hit it at once — the counter isn't atomic."
+    pt: "Bloqueante: isso quebraria se dois requests batessem juntos — o contador não é atômico."
+    context: "Risco em would + cenário concreto + severidade declarada."
+  - en: "Could we add a test for the null case? It threw a 500 in staging yesterday."
+    pt: "Poderíamos adicionar um teste para o caso nulo? Estourou um 500 em staging ontem."
+    context: "Pedido + evidência — o 'já quebrou' convence."
+  - en: "What happens when the queue is down — does it retry or drop the message?"
+    pt: "O que acontece quando a fila cai — retenta ou descarta a mensagem?"
+    context: "A pergunta de risco abre o modo falha sem acusar."
+  - en: "This catch swallows the exception — a silent failure in prod. Blocking."
+    pt: "Esse catch engole a exceção — falha silenciosa em prod. Bloqueante."
+    context: "O motivo primeiro, o rótulo depois — blocking ganha contexto."
+  - en: "There's a race condition between the write and the cache invalidation."
+    pt: "Há uma condição de corrida entre a escrita e a invalidação do cache."
+    context: "Nomear o mecanismo — race condition — é a evidência."
+  - en: "The timeout path is unhandled — the request will hang forever."
+    pt: "O caminho de timeout não está tratado — o request vai travar para sempre."
+    context: "unhandled + a consequência — o buraco nomeado."
+  - en: "This isn't a style thing — it's a real risk under load. Requesting changes."
+    pt: "Isso não é questão de estilo — é risco real sob carga. Pedindo mudanças."
+    context: "Distingue blocking legítimo de gosto disfarçado."
+  - en: "Could we harden this against empty responses before this merges?"
+    pt: "Poderíamos endurecer isso contra respostas vazias antes do merge?"
+    context: "harden against + o prazo do merge — severidade sem drama."
+
+variations:
+  - idea: '"achou um bug real — como pedir a correção"'
+    items:
+      - { register: "Boa", text: "Blocking: this would break under concurrent writes — the counter isn't atomic.", adequate: true }
+      - { register: "Boa", text: "What happens when two requests hit this? I think it double-counts — could we add a test before merge?", adequate: true }
+      - { register: "Inadequada", text: "This is completely wrong.", adequate: false, note: "Sem o cenário, é opinião — e opinião se discute." }
+      - { register: "Inadequada", text: "Maybe if you want maybe add a lock?", adequate: false, note: "Suavizado demais — bug real não é nit." }
+  - idea: '"o pedido não é bloqueante mas importa"'
+    items:
+      - { register: "Boa", text: "Non-blocking but worth it: a test for the empty case — it 500s today.", adequate: true }
+      - { register: "Boa", text: "Could we harden this against null? Not blocking — the API always returns a list today.", adequate: true }
+      - { register: "Inadequada", text: "Blocking: also rename the variable.", adequate: false, note: "Blocking misturado com nit desvaloriza o rótulo." }
+      - { register: "Inadequada", text: "Whatever, just merge.", adequate: false, note: "Se importa, escreva; se não importa, não comente." }
+
+brErrors:
+  - { wrong: "I did a comment asking for a test.", right: "I left a comment asking for a test.", why: '"leave a comment"', tag: br.did-comment }
+  - { wrong: "It worths a second look.", right: "It's worth a second look.", why: "worth não é verbo", tag: br.worths }
+  - { wrong: "The risk seems me real.", right: "The risk seems real to me.", why: "o pronome vai depois de to", tag: br.seems-me }
+  - { wrong: "According to me, this needs a lock.", right: "In my view, this needs a lock.", why: "opinião própria é in my view", tag: br.according-to-me }
+  - { wrong: "I have a doubt about this branch.", right: "I have a question about this branch.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "Can you explain me this condition?", right: "Can you explain this condition to me?", why: "explain + to me", tag: br.explain-me }
+  - { wrong: "The code make sense but the test is missing.", right: "The code makes sense but the test is missing.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "We did a mistake merging without tests.", right: "We made a mistake merging without tests.", why: '"make a mistake"', tag: br.do-mistake }
+  - { wrong: "I am agree this needs a fix.", right: "I agree this needs a fix.", why: "agree é verbo — sem am", tag: br.i-am-agree }
+  - { wrong: "I need that you add a test.", right: "I need you to add a test.", why: '"need X to"', tag: br.need-that-you }
+
+dialogue:
+  title: "O review que segurou o merge"
+  lines:
+    - { speaker: Marcos, text: "You requested changes on the retry PR — what did I miss?" }
+    - { speaker: Yuri, text: "One blocking, two non-blocking. The blocking one: the counter increments without a lock — this would break under concurrent writes." }
+    - { speaker: Marcos, text: "How sure are you? It's just a metrics counter." }
+    - { speaker: Yuri, text: "It's a real risk, not a style thing — two requests at once and the count is off. What happens when the retry and the timeout both hit it?" }
+    - { speaker: Marcos, text: "…they'd both write. OK — could we fix it with the atomic increment from the client lib?" }
+    - { speaker: Yuri, text: "Exactly. And non-blocking: the catch on line 40 swallows the error — worth logging before it becomes a silent failure." }
+    - { speaker: Marcos, text: "Both addressed — atomic increment plus a log line, in the next push." }
+    - { speaker: Priya, text: "That's the review shape I want: risk first, severity labeled, no drama." }
+  notes:
+    - "'it's a real risk, not a style thing' — a frase que legitima o blocking."
+    - "a pergunta 'what happens when…' faz o autor achar o bug sozinho."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A blocking comment needs three things: the risk in conditional — 'this would break if', the ask — 'could we add a test', and the label — 'blocking'. Miss any of the three and you get either an argument or a shrug." }
+    - { speaker: Marcos, text: "The reviews I trust most are the ones that ask 'what happens when the queue is down'. The reviewer found the failure mode before prod did." }
+    - { speaker: Priya, text: "And a warning: if everything is blocking, nothing is. Save the label for real risk — a silent failure, a race condition, a regression — not for your favorite style." }
+  questions:
+    - { id: M09-02-l1, type: multiple_choice, prompt: "A blocking comment needs which three things?", options: ["caps lock, bold, urgency", "risk + ask + label", "a senior's approval", "emoji + link + ticket"], answer: 1, explanation: "Risco em would, pedido com could we, rótulo blocking.", tags: [comp.listening, vocab.review] }
+    - { id: M09-02-l2, type: multiple_choice, prompt: "'What happens when the queue is down?' does what?", options: ["accuses the author", "asks for the failure mode before prod finds it", "delays the review", "marks a nit"], answer: 1, explanation: "A pergunta de risco abre o modo falha.", tags: [comp.listening, vocab.review] }
+    - { id: M09-02-l3, type: fill_blank, prompt: "___: this leaks the API token into the logs.", accepted: ["blocking", "Blocking"], explanation: "O rótulo que segura o merge.", tags: [vocab.review] }
+    - { id: M09-02-l4, type: multiple_choice, prompt: "What happens if everything is labeled blocking?", options: ["reviews get faster", "authors trust you more", "nothing is — the label loses value", "PRs merge sooner"], answer: 2, explanation: "Blocking só vale para risco real.", tags: [comp.listening, topic.code-review] }
+    - { id: M09-02-l5, type: error_correction, prompt: "It worths adding a test for the null case.", accepted: ["It's worth adding a test for the null case.", "It's worth adding a test for the null case"], explanation: '"worth" não é verbo — it''s worth.', tags: [br.worths] }
+    - { id: M09-02-l6, type: multiple_choice, prompt: "'This catch swallows the error' describes…", options: ["a fast fix", "a silent failure — the worst kind", "a nit", "a race condition"], answer: 1, explanation: "Engolir exceção = falha invisível em prod.", tags: [vocab.review] }
+
+writing:
+  prompt: |
+    **Cenário:** o PR do colega adiciona um contador de métricas com
+    incremento não-atômico, e um `catch` que engole a exceção sem log.
+
+    **Tarefa:** escreva 60–90 palavras de comentário de review pedindo
+    mudanças: o risco em would ("this would break…"), um pedido ("could
+    we…"), e a severidade explícita (blocking × non-blocking) para cada ponto.
+  constraints:
+    - { label: "Risco em would", pattern: "\\b(would break|would regress|what happens when|race condition|silent failure)\\b" }
+    - { label: "Pedido colaborativo", pattern: "\\b(could we|let.s|needs? a|add a)\\b" }
+    - { label: "Severidade declarada", pattern: "\\b(blocking|non-blocking|before this merges)\\b" }
+  rubric:
+    - Risco concreto em condicional
+    - Pedido acionável (could we)
+    - Severidade explícita por ponto
+    - Sem drama — fatos, não adjetivos
+  model: >-
+    One blocking, one non-blocking. Blocking: the counter increments without
+    a lock — this would break under concurrent writes, and the retry plus
+    the timeout path can hit it together. Could we use the atomic increment
+    from the client lib? Non-blocking: the catch on line 40 swallows the
+    error — worth logging it before it becomes a silent failure in prod.
+    Everything else looks good; happy to approve once the lock lands.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.review]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando por que pediu mudanças num PR: o risco em would, o pedido e a severidade de cada ponto."
+    maxSeconds: 45
+    targetPhrases:
+      - this would break
+      - could we
+      - blocking
+      - non-blocking
+      - edge case
+      - what happens when
+      - race condition
+      - silent failure
+      - unhandled
+      - request changes
+      - harden
+      - before this merges
+      - happy path
+      - a real risk
+    checklist:
+      - Risco em condicional, não acusação
+      - Pedido com could we
+      - Severidade declarada por ponto
+      - Termina com o caminho para aprovar
+
+quiz:
+  - { id: M09-02-q1, type: multiple_choice, prompt: "A blocking comment needs…", options: ["bold and urgency", "an emoji", "senior approval", "risk + ask + severity label"], answer: 3, explanation: "Risco em would + pedido + rótulo.", tags: [vocab.review] }
+  - { id: M09-02-q2, type: error_correction, prompt: "I did a comment asking for a test.", accepted: ["I left a comment asking for a test.", "I left a comment asking for a test"], explanation: '"leave a comment" — "do a comment" é calque.', tags: [br.did-comment] }
+  - { id: M09-02-q3, type: multiple_choice, prompt: "'What happens when the queue is down?' is…", options: ["an accusation", "the risk question — failure mode before prod finds it", "a nit", "off-topic"], answer: 1, explanation: "Abre o modo falha sem acusar.", tags: [vocab.review] }
+  - { id: M09-02-q4, type: error_correction, prompt: "The risk seems me real.", accepted: ["The risk seems real to me.", "The risk seems real to me"], explanation: '"seems real to me" — pronome depois de to.', tags: [br.seems-me] }
+  - { id: M09-02-q5, type: multiple_choice, prompt: "A 'silent failure' is…", options: ["a slow query", "a cosmetic issue", "a failure with no visible error — the worst kind", "a flaky test"], answer: 2, explanation: "O catch que engole o erro.", tags: [vocab.review] }
+  - { id: M09-02-q6, type: translate, prompt: "Isso quebraria com escritas concorrentes — o contador não é atômico.", accepted: ["This would break under concurrent writes — the counter isn't atomic.", "This would break under concurrent writes — the counter isn't atomic", "This would break with concurrent writes — the counter is not atomic."], explanation: "Risco em would + a evidência técnica.", tags: [vocab.review] }
+  - { id: M09-02-q7, type: reorder, prompt: "Monte a frase: / poderíamos / adicionar um teste / para o caso nulo / antes do merge", tokens: ["Could", "we", "add", "a", "test", "for", "the", "null", "case", "before", "this", "merges?"], answer: "Could we add a test for the null case before this merges?", explanation: "Pedido + severidade em forma de prazo.", tags: [vocab.review] }
+  - { id: M09-02-q8, type: multiple_choice, prompt: "Overusing 'blocking' does what?", options: ["speeds up reviews", "nothing", "devalues the label — if everything is blocking, nothing is", "blocks CI"], answer: 2, explanation: "Guarde o rótulo para risco real.", tags: [vocab.review, topic.code-review] }
+
+review:
+  count: 5
+  preferTags: [vocab.review, br.did-comment, br.worths]
+
+srsCards:
+  - { front: "this would break", back: "o risco em condicional — 'would break under load'", tag: vocab.review }
+  - { front: "blocking", back: "o rótulo que segura o merge — use só para risco real", tag: vocab.review }
+  - { front: "what happens when", back: "a pergunta de risco — 'when the queue is down?'", tag: vocab.review }
+  - { front: "edge case", back: "o cenário que quebra o caminho feliz — empty/null/timeout", tag: vocab.review }
+  - { front: "race condition", back: "duas operações competindo — motivo clássico de blocking", tag: vocab.review }
+  - { front: "silent failure", back: "o catch que engole o erro — o pior bug", tag: vocab.review }
+  - { front: "unhandled", back: "o caminho sem tratamento — 'the timeout path is unhandled'", tag: vocab.review }
+  - { front: "request changes", back: "o veredito formal — oposto de approve", tag: vocab.review }
+  - { front: "happy path", back: "o cenário sem falhas — review pede também o edge case", tag: vocab.review }
+  - { front: "before this merges", back: "a severidade em forma de prazo — sem drama", tag: vocab.review }
+  - { front: "left a comment", back: "o verbo de review — nunca 'did a comment'", tag: br.did-comment }
+  - { front: "it's worth × it worths", back: "\"worth\" não é verbo — 'it's worth a test'", tag: br.worths }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
