@@ -1,0 +1,292 @@
+id: M08-04
+module: M08
+order: 4
+title: "1:1 com gestor: prioridades, carga, carreira"
+objective: >-
+  Ao final, você conduz o seu 1:1 — traz pauta ("on my list"), fala de carga
+  sem reclamar ("my plate is full" / "I'm stretched thin"), pede priorização
+  ("which should I drop?") e abre carreira ("where do I go from here").
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.feedback, topic.retro, comp.speaking, comp.confidence, br.pretend, br.actually]
+prerequisites: [M08-03]
+
+context:
+  scenario: |
+    O 1:1 é a SUA reunião — quem não traz pauta assiste o gestor puxar status
+    de tarefas por 30 minutos. Um bom 1:1 cobre três coisas: **prioridades**
+    ("quick check on priorities — is X still above Y?"), **carga** ("my plate
+    is full — which should I drop?") e **carreira** ("where do I go from
+    here? what does the next level look like?").
+
+    A regra de ouro: o 1:1 não é status update — status vai no ticket. É o
+    espaço para o que não cabe em canal: "I wanted to talk about…", "something
+    on my mind", "can I get your take on…".
+  roles: [Yuri (platform engineer), Fernanda (engineering manager)]
+
+vocabulary:
+  - term: "one-on-one (1:1)"
+    meaning: a reunião periódica com o gestor — sua pauta
+    example: "In our 1:1 Thursday, I want to talk about the on-call load."
+    translation: "No nosso 1:1 de quinta, quero falar da carga de on-call."
+    note: "A reunião é sua — você traz a pauta, não o gestor."
+  - term: "on my list"
+    meaning: na minha pauta — os tópicos que você trouxe
+    example: "Two things on my list today: the on-call rotation and growth."
+    translation: "Duas coisas na minha pauta hoje: a rotação de on-call e crescimento."
+    note: "Abrir com 'on my list' toma a direção da reunião."
+  - term: "my plate is full"
+    meaning: meu prato está cheio — a carga no limite
+    example: "My plate is full — adding the migration means dropping something."
+    translation: "Meu prato está cheio — adicionar a migração significa abrir mão de algo."
+    note: "Imagem da capacidade — mais leve que 'I'm overwhelmed'."
+  - term: "I'm stretched thin"
+    meaning: estou esticado — dividido entre demandas demais
+    example: "I'm stretched thin between the migration and on-call."
+    translation: "Estou esticado entre a migração e o on-call."
+    note: "Nomeia a divisão — melhor que sofrer quieto."
+  - term: "which should I drop"
+    meaning: o que eu deveria soltar — a pergunta de priorização
+    example: "If the migration lands this sprint, which should I drop?"
+    translation: "Se a migração entrar nesta sprint, o que eu deveria soltar?"
+    note: "Força a priorização — 'everything is priority' não é resposta."
+  - term: "to flag a workload"
+    meaning: sinalizar a carga — avisar antes de estourar
+    example: "Flagging my workload now — on-call plus the epic is too much."
+    translation: "Sinalizando minha carga agora — on-call mais o épico é demais."
+    note: "Flag cedo = ajuste; flag tarde = burnout."
+  - term: "where do I go from here"
+    meaning: para onde vou daqui — a pergunta de carreira
+    example: "Where do I go from here — what's the path to senior?"
+    translation: "Para onde vou daqui — qual o caminho para sênior?"
+    note: "A pergunta que abre a conversa de carreira."
+  - term: "growth opportunities"
+    meaning: oportunidades de crescimento — o que desenvolve
+    example: "I'm looking for growth opportunities — maybe tech lead a small project?"
+    translation: "Estou buscando oportunidades de crescimento — talvez ser tech lead de um projeto pequeno?"
+    note: "Pede oportunidade concreta, não 'quero crescer'."
+  - term: "a stretch assignment"
+    meaning: tarefa-alongamento — acima do nível atual
+    example: "The multi-region migration could be a good stretch assignment."
+    translation: "A migração multi-região seria uma boa tarefa-alongamento."
+    note: "Stretch = acima do nível — prova para a promoção."
+  - term: "what does good look like"
+    meaning: como é o bom — a régua do próximo nível
+    example: "What does good look like at the senior level here?"
+    translation: "Como é o bom no nível sênior aqui?"
+    note: "A mesma pergunta do feedback — agora sobre carreira."
+  - term: "a quick check on priorities"
+    meaning: verificação rápida de prioridades — alinhar antes de agir
+    example: "Quick check on priorities — is the migration still above the dashboard work?"
+    translation: "Verificação rápida de prioridades — a migração ainda está acima do trabalho do dashboard?"
+    note: "Prioridades mudam — confirme antes de gastar a semana."
+  - term: "something on my mind"
+    meaning: algo na minha cabeça — o tópico pessoal
+    example: "Something on my mind: I've been on-call three weekends this month."
+    translation: "Algo na minha cabeça: fiquei de on-call três fins de semana este mês."
+    note: "A abertura suave para o assunto sensível."
+  - term: "can I get your take"
+    meaning: posso ter sua opinião — pedir a leitura do gestor
+    example: "Can I get your take on whether I'm ready for the next level?"
+    translation: "Posso ter sua opinião sobre eu estar pronto para o próximo nível?"
+    note: '"your take on X" = sua visão sobre X — pede a opinião, não a decisão.'
+  - term: "bandwidth"
+    meaning: banda — a capacidade disponível
+    example: "I don't have the bandwidth for the dashboard work this sprint."
+    translation: "Não tenho banda para o trabalho do dashboard nesta sprint."
+    note: "Jargão de capacidade — 'no bandwidth' = sem espaço na agenda."
+
+grammar:
+  title: "O 1:1 é seu: pauta + prioridade + carga + carreira"
+  explanation: |
+    O 1:1 produtivo tem quatro blocos: **pauta** ("two things on my list"),
+    **prioridades** ("quick check — is X above Y?", "which should I drop?"),
+    **carga** ("my plate is full", "I'm stretched thin", "no bandwidth") e
+    **carreira** ("where do I go from here?", "what does good look like at
+    the next level?", "a stretch assignment").
+
+    | Bloco | Frase-modelo |
+    |---|---|
+    | pauta | *Two things on my list today.* |
+    | prioridades | *Quick check — is the migration still first?* |
+    | carga | *My plate is full — which should I drop?* |
+    | carreira | *What's the path to senior here?* |
+
+    **Erros BR:** "I **pretend** to ask for a raise" (pretend = fingir; é
+    *plan to*), "**actually** I'm working at a bank" (currently, não
+    actually), "I have **a** feedback for you" (incontável) e "I'm **boring**"
+    querendo dizer entediado.
+  examples:
+    - { en: "Two things on my list: the on-call load and growth.", pt: "Duas coisas na pauta: a carga de on-call e crescimento." }
+    - { en: "My plate is full — if the epic lands, which should I drop?", pt: "Meu prato está cheio — se o épico entrar, o que solto?" }
+    - { en: "I'm stretched thin between on-call and the migration.", pt: "Estou esticado entre o on-call e a migração." }
+    - { en: "Where do I go from here? What's the path to senior?", pt: "Para onde vou daqui? Qual o caminho para sênior?" }
+    - { en: "I'd like a stretch assignment — maybe lead a small migration.", pt: "Gostaria de uma tarefa-alongamento — talvez liderar uma migração pequena." }
+    - { en: "Can I get your take on my readiness for the next level?", pt: "Posso ter sua opinião sobre minha prontidão para o próximo nível?" }
+
+examples:
+  - en: "On my list today: the on-call rotation and a quick check on priorities."
+    pt: "Na minha pauta hoje: a rotação de on-call e uma verificação rápida de prioridades."
+    context: "Abrir com a pauta toma a direção da reunião."
+  - en: "Quick check — is the migration still above the dashboard work, or did that flip?"
+    pt: "Verificação rápida — a migração ainda está acima do dashboard, ou isso virou?"
+    context: "Prioridades mudam; confirmar antes de gastar a semana."
+  - en: "My plate is full. If the epic lands this sprint, which should I drop?"
+    pt: "Meu prato está cheio. Se o épico entrar nesta sprint, o que eu solto?"
+    context: "Carga + a pergunta de priorização — nunca 'can't do it'."
+  - en: "I'm stretched thin — on-call three weekends this month plus the migration."
+    pt: "Estou esticado — on-call três fins de semana este mês mais a migração."
+    context: "Fatos de carga, não queixa de carga."
+  - en: "Something on my mind: I haven't had a stretch assignment in a year."
+    pt: "Algo na minha cabeça: faz um ano que não tenho uma tarefa-alongamento."
+    context: "A abertura suave para o assunto de carreira."
+  - en: "What does good look like at the senior level? I want to aim at it."
+    pt: "Como é o bom no nível sênior? Quero mirar nele."
+    context: "A régua do próximo nível, pedida explicitamente."
+  - en: "Could I lead the cache work as a stretch assignment? Can I get your take?"
+    pt: "Poderia liderar o trabalho de cache como tarefa-alongamento? Posso ter sua opinião?"
+    context: "Pedido concreto + pergunta aberta ao gestor."
+  - en: "I plan to ask about the promotion timeline in our next 1:1."
+    pt: "Pretendo perguntar sobre a linha do tempo de promoção no próximo 1:1."
+    context: '"plan to" — nunca "pretend" (fingir).'
+
+variations:
+  - idea: '"a carga está demais mas ninguém pergunta"'
+    items:
+      - { register: "Boa", text: "Flagging my workload — on-call plus the epic is too much. Which should I drop?", adequate: true }
+      - { register: "Boa", text: "My plate is full. Can we re-prioritize before I drown in both?", adequate: true }
+      - { register: "Inadequada", text: "I can't do all this!", adequate: false, note: "Reclamação sem a pergunta de priorização." }
+      - { register: "Inadequada", text: "I'm boring of so much work.", adequate: false, note: '"I''m bored" — e o ponto é a carga, não o tédio.' }
+  - idea: '"abrir o assunto carreira"'
+    items:
+      - { register: "Boa", text: "Where do I go from here — what does the path to senior look like?", adequate: true }
+      - { register: "Boa", text: "I'd like a stretch assignment. Can I get your take on the migration?", adequate: true }
+      - { register: "Inadequada", text: "I pretend to be senior someday.", adequate: false, note: '"pretend" = fingir — é "I plan to" ou "I want to".' }
+      - { register: "Inadequada", text: "When is my promotion?", adequate: false, note: "Direto demais sem a conversa — peça a régua primeiro." }
+
+brErrors:
+  - { wrong: "I pretend to ask about the next level.", right: "I plan to ask about the next level.", why: "pretend = fingir; pretender é plan/intend", tag: br.pretend }
+  - { wrong: "Actually I'm leading the migration now.", right: "Currently I'm leading the migration now.", why: "actually = na verdade; atualmente é currently", tag: br.actually }
+  - { wrong: "She gave me a feedback in the 1:1.", right: "She gave me some feedback in the 1:1.", why: "feedback é incontável", tag: br.uncountable }
+  - { wrong: "We did a mistake in the last sprint.", right: "We made a mistake in the last sprint.", why: '"make a mistake" — "do a mistake" é calque', tag: br.do-mistake }
+  - { wrong: "I'm boring in the weekly sync.", right: "I'm bored in the weekly sync.", why: "quem sente leva -ed", tag: br.ed-ing }
+  - { wrong: "The team moral improved after the 1:1s.", right: "The team morale improved after the 1:1s.", why: "moral do time é morale", tag: br.morale }
+  - { wrong: "I have a doubt about my priorities.", right: "I have a question about my priorities.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "My workload depends of the on-call week.", right: "My workload depends on the on-call week.", why: '"depends on" — "depend of" é calque', tag: br.depend-of }
+  - { wrong: "It make sense to check priorities first.", right: "It makes sense to check priorities first.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "He said me to drop the dashboard work.", right: "He told me to drop the dashboard work.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+
+dialogue:
+  title: "O 1:1 que não é status update"
+  lines:
+    - { speaker: Fernanda, text: "Your 30 minutes — what's on your list?" }
+    - { speaker: Yuri, text: "Three things: priorities, my load, and growth. Quick check first — is the migration still above the dashboard work?" }
+    - { speaker: Fernanda, text: "It is. The dashboard can wait a sprint." }
+    - { speaker: Yuri, text: "Good. Second — something on my mind: I've been on-call three weekends this month, and with the migration I'm stretched thin. My plate is full." }
+    - { speaker: Fernanda, text: "Fair — do you want me to rotate you off next month, or drop a task?" }
+    - { speaker: Yuri, text: "If the migration lands this sprint, the dashboard work drops — that solves it. I'd rather keep on-call; I just need it known." }
+    - { speaker: Fernanda, text: "Done. And growth?" }
+    - { speaker: Yuri, text: "Where do I go from here — what does good look like at the next level? And could the multi-region work be a stretch assignment for me?" }
+    - { speaker: Fernanda, text: "Let's write down the senior rubric next week — and yes, the migration is exactly the kind of stretch I want to see. Good 1:1." }
+  notes:
+    - "a pauta em três blocos: prioridades → carga (fatos, não queixa) → carreira com pedido concreto."
+    - '"I''d rather keep on-call; I just need it known" — sinalizar ≠ fugir do trabalho.'
+
+listening:
+  lines:
+    - { speaker: Fernanda, text: "The 1:1 is yours. If you show up with no agenda, I'll fill it with status — and status is a waste of the only private thirty minutes we get. Bring the thing that doesn't fit in a ticket." }
+    - { speaker: Yuri, text: "I've learned to lead with workload early — 'my plate is full' in week one of a bad month is a plan; in week four it's a breakdown." }
+    - { speaker: Fernanda, text: "Same with growth: 'I want to grow' gives me nothing. 'Can I lead the migration as a stretch assignment?' gives me something to say yes to." }
+  questions:
+    - { id: M08-04-l1, type: multiple_choice, prompt: "What happens if you show up to a 1:1 with no agenda?", options: ["it gets cancelled", "the manager fills it with status — a waste of the private time", "you get promoted", "it's shorter"], answer: 1, explanation: "Sem pauta, vira status — e status vai no ticket.", tags: [comp.listening, topic.retro] }
+    - { id: M08-04-l2, type: multiple_choice, prompt: "When should you flag a workload problem?", options: ["only if asked", "at the retrospective", "early — week one is a plan, week four is a breakdown", "never — it looks weak"], answer: 2, explanation: "Flag cedo = ajuste; flag tarde = crise.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-04-l3, type: fill_blank, prompt: "My ___ is full — if the epic lands, which should I drop?", accepted: ["plate"], explanation: '"my plate is full" — a imagem da capacidade.', tags: [vocab.feedback] }
+    - { id: M08-04-l4, type: multiple_choice, prompt: "'I want to grow' vs 'can I lead the migration as a stretch assignment?' — the second…", options: ["is too ambitious", "gives the manager something to say yes to", "is off-topic", "skips the 1:1"], answer: 1, explanation: "Pedido concreto > desejo vago.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-04-l5, type: error_correction, prompt: "I pretend to lead the migration next quarter.", accepted: ["I plan to lead the migration next quarter.", "I plan to lead the migration next quarter", "I intend to lead the migration next quarter."], explanation: '"pretend" = fingir; pretender é plan/intend.', tags: [br.pretend] }
+    - { id: M08-04-l6, type: multiple_choice, prompt: "The 1:1 is for…", options: ["task status updates", "project demos", "the stuff that doesn't fit in a ticket", "the sprint review"], answer: 2, explanation: "Status vai no ticket; o 1:1 é o que sobra.", tags: [topic.retro, vocab.feedback] }
+
+writing:
+  prompt: |
+    **Cenário:** seu gestor pede a pauta do próximo 1:1 por escrito — ele
+    prepara respostas melhores quando lê antes.
+
+    **Tarefa:** escreva a pauta em 50–80 palavras: os três blocos (prioridades
+    com uma pergunta concreta, carga com os fatos, carreira com um pedido
+    específico como stretch assignment).
+  constraints:
+    - { label: "Pauta declarada", pattern: "\\b(on my list|agenda|topics?|three things)\\b" }
+    - { label: "Pergunta de prioridade", pattern: "\\b(priorit|which should|quick check)\\b" }
+    - { label: "Carga com fatos", pattern: "\\b(plate|stretched|bandwidth|on-call|workload)\\b" }
+    - { label: "Pedido de carreira", pattern: "\\b(stretch|growth|next level|senior|path)\\b" }
+  rubric:
+    - Os três blocos presentes
+    - Prioridade como pergunta, não afirmação
+    - Carga com fatos (não queixa)
+    - Pedido de carreira concreto
+  model: >-
+    Agenda for Thursday's 1:1. Priorities: quick check — is the migration still
+    above the dashboard work, or did that flip? Workload: my plate is full —
+    three on-call weekends this month plus the migration; if the epic lands,
+    which should I drop? Growth: what's the path to the next level, and could
+    the multi-region work be a stretch assignment for me?
+  minWords: 50
+  maxWords: 85
+  tags: [comp.writing, vocab.feedback]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos abrindo o seu 1:1: a pauta em três blocos, a pergunta de prioridade, os fatos de carga e o pedido de carreira."
+    maxSeconds: 45
+    targetPhrases:
+      - on my list
+      - my plate is full
+      - I'm stretched thin
+      - which should I drop
+      - bandwidth
+      - quick check on priorities
+      - where do I go from here
+      - stretch assignment
+      - what does good look like
+      - growth opportunities
+      - something on my mind
+      - can I get your take
+      - flag a workload
+      - next level
+    checklist:
+      - Pauta declarada no início
+      - Prioridade como pergunta concreta
+      - Carga com fatos, sem queixa
+      - Pedido de carreira específico
+
+quiz:
+  - { id: M08-04-q1, type: multiple_choice, prompt: "Who owns the 1:1 agenda?", options: ["the manager", "you — the meeting is yours", "HR", "whoever books it"], answer: 1, explanation: "Quem não traz pauta assiste status por 30 minutos.", tags: [vocab.feedback, topic.retro] }
+  - { id: M08-04-q2, type: error_correction, prompt: "I pretend to ask about growth next 1:1.", accepted: ["I plan to ask about growth next 1:1.", "I plan to ask about growth next 1:1", "I intend to ask about growth in the next 1:1."], explanation: '"pretend" = fingir; pretender é plan/intend.', tags: [br.pretend] }
+  - { id: M08-04-q3, type: multiple_choice, prompt: "'My plate is full — which should I drop?' does what?", options: ["refuses the work", "complains formally", "asks for the same task twice", "forces prioritization instead of silent overload"], answer: 3, explanation: "A pergunta devolve a decisão a quem prioriza.", tags: [vocab.feedback] }
+  - { id: M08-04-q4, type: error_correction, prompt: "Actually I'm on the migration now.", accepted: ["Currently I'm on the migration now.", "Currently I'm on the migration now", "Right now I'm on the migration."], explanation: "actually = na verdade; atualmente é currently.", tags: [br.actually] }
+  - { id: M08-04-q5, type: multiple_choice, prompt: "A 'stretch assignment' is…", options: ["work above your current level — evidence for promotion", "overtime work", "a punishment", "an easy task"], answer: 0, explanation: "Alongamento = prova para o próximo nível.", tags: [vocab.feedback] }
+  - { id: M08-04-q6, type: translate, prompt: "Estou esticado entre o on-call e a migração.", accepted: ["I'm stretched thin between on-call and the migration.", "I'm stretched thin between on-call and the migration"], explanation: '"stretched thin" = dividido entre demandas.', tags: [vocab.feedback] }
+  - { id: M08-04-q7, type: reorder, prompt: "Monte a frase: / para onde / vou daqui / caminho / próximo nível", tokens: ["Where", "do", "I", "go", "from", "here", "—", "what's", "the", "path", "to", "senior?"], answer: "Where do I go from here — what's the path to senior?", explanation: "A pergunta que abre a conversa de carreira.", tags: [vocab.feedback] }
+  - { id: M08-04-q8, type: multiple_choice, prompt: "'Can I get your take on X?' asks for…", options: ["a decision", "a favor", "the manager's read — opinion, not verdict", "permission"], answer: 2, explanation: '"your take" = sua leitura — abre a conversa.', tags: [vocab.feedback] }
+
+review:
+  count: 5
+  preferTags: [vocab.feedback, br.pretend, topic.retro]
+
+srsCards:
+  - { front: "on my list", back: "a pauta que você traz — 'two things on my list today'", tag: vocab.feedback }
+  - { front: "my plate is full", back: "a carga no limite — seguido de 'which should I drop?'", tag: vocab.feedback }
+  - { front: "I'm stretched thin", back: "dividido entre demandas — fatos, não queixa", tag: vocab.feedback }
+  - { front: "which should I drop", back: "a pergunta de priorização — força a escolha", tag: vocab.feedback }
+  - { front: "bandwidth", back: "capacidade disponível — 'no bandwidth this sprint'", tag: vocab.feedback }
+  - { front: "where do I go from here", back: "a pergunta de carreira — abre a conversa de nível", tag: vocab.feedback }
+  - { front: "stretch assignment", back: "trabalho acima do nível — prova para promoção", tag: vocab.feedback }
+  - { front: "can I get your take", back: "pedir a leitura do gestor — opinião, não decisão", tag: vocab.feedback }
+  - { front: "something on my mind", back: "a abertura suave para o assunto sensível", tag: vocab.feedback }
+  - { front: "plan to × pretend", back: '"pretend" = fingir; pretender é "plan to" / "intend to"', hint: '"I plan to ask about growth"', tag: br.pretend }
+  - { front: "currently × actually", back: '"actually" = na verdade; atualmente é "currently"', hint: '"currently I''m leading X"', tag: br.actually }
+  - { front: "a quick check on priorities", back: "alinhar antes de agir — 'is X still above Y?'", tag: vocab.feedback }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
