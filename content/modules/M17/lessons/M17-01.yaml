@@ -1,0 +1,292 @@
+id: M17-01
+module: M17
+order: 1
+title: "Cultura blameless: 'the change', não 'John's change'"
+objective: >-
+  Ao final, você escreve sobre falhas sem nomear culpados: o sujeito
+  da frase é o sistema, a mudança ou o processo — nunca a pessoa.
+durationMin: 35
+competencies: [WRI]
+tags: [vocab.postmortem, gram.passive-blameless, comp.writing]
+prerequisites: [M15-05, M13-05]
+
+context:
+  scenario: |
+    O incidente de sexta tem dono: o deploy do Marcos. O post-mortem
+    de segunda vai circular para a empresa inteira — e a Priya
+    revisa seu rascunho: "**you wrote 'Marcos's deploy broke
+    checkout'. Rewrite it.**"
+
+    Post-mortem blameless tem uma gramática própria:
+
+    - **o sistema é o sujeito:** "the change broke checkout" —
+      nunca "Marcos broke checkout"
+    - **a passiva protege a pessoa:** "the config was changed" —
+      sem dizer por quem; o foco é o fato
+    - **a pessoa vira papel:** "the on-call was paged" — função,
+      não nome
+    - **a pergunta é "how", não "who":** "how did it pass review?"
+      — o processo falhou, não a pessoa
+
+    A regra de ouro: **se um nome de pessoa aparece no post-mortem,
+    está errado.** Pessoas erram; processos deixam errar.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "blameless"
+    meaning: 'sem culpa — a cultura que persegue o processo, não a pessoa'
+    example: "We write blameless post-mortems — no names, only systems."
+    translation: "Escrevemos post-mortems sem culpa — sem nomes, só sistemas."
+    note: "Blameless ≠ sem responsabilidade — a responsabilidade é do processo."
+  - term: "the change"
+    meaning: 'a mudança — como o deploy vira sujeito no post-mortem'
+    example: "The change introduced a bad config value."
+    translation: "A mudança introduziu um valor de config ruim."
+    note: "'The change', nunca 'John's change' ou 'the deploy Marcos made'."
+  - term: "human error"
+    meaning: 'erro humano — a explicação que não explica nada'
+    example: "'Human error' is a label, not a cause — ask why it was possible."
+    translation: "'Erro humano' é rótulo, não causa — pergunte por que foi possível."
+    note: "Blameless trata 'human error' como ponto de partida, não conclusão."
+  - term: "was paged"
+    meaning: 'foi acionado — o plantonista chamado pelo alerta'
+    example: "The on-call was paged at 17:42."
+    translation: "O plantonista foi acionado às 17:42."
+    note: "Papel ('the on-call'), não nome — a passiva protege."
+  - term: "systemic"
+    meaning: 'sistêmico — do sistema, não do indivíduo'
+    example: "The gap was systemic — no runbook covered this failure."
+    translation: "A lacuna era sistêmica — nenhum runbook cobria essa falha."
+    note: "A pergunta blameless: 'o que no sistema permitiu isso?'"
+  - term: "went unnoticed"
+    meaning: 'passou despercebido — ninguém viu, e a culpa é do alerta'
+    example: "The error rate went unnoticed for forty minutes."
+    translation: "A taxa de erro passou despercebida por quarenta minutos."
+    note: "O sistema falhou em avisar — não a pessoa em olhar."
+  - term: "guardrail"
+    meaning: 'a proteção — o que impede o erro de virar incidente'
+    example: "A guardrail would have caught the bad config at deploy time."
+    translation: "Uma proteção teria pego a config ruim no deploy."
+    note: "Post-mortem bom termina em guardrail, não em 'be careful'."
+  - term: "it slipped through"
+    meaning: 'escapou — passou pelas barreiras existentes'
+    example: "The bad value slipped through review and CI."
+    translation: "O valor ruim escapou pelo review e pelo CI."
+    note: "Foco nas barreiras que faltaram, não em quem apertou o botão."
+  - term: "safe to fail"
+    meaning: 'seguro para errar — o ambiente que não pune o erro'
+    example: "A blameless culture makes it safe to fail — and to report."
+    translation: "Uma cultura sem culpa torna seguro errar — e reportar."
+    note: "Quem teme culpa esconde incidente."
+  - term: "process failure"
+    meaning: 'falha de processo — o processo deixou o erro acontecer'
+    example: "This was a process failure — the checklist didn't cover config."
+    translation: "Foi uma falha de processo — o checklist não cobria config."
+    note: "Nunca 'people failure' — pessoas operam dentro do processo."
+  - term: "second victim"
+    meaning: 'a segunda vítima — quem causou sem querer e carrega a culpa'
+    example: "Don't make the deployer a second victim — fix the system."
+    translation: "Não faça de quem deployou uma segunda vítima — conserte o sistema."
+    note: "Termo da safety science — culpar fere duas vezes."
+  - term: "accountability"
+    meaning: 'responsabilidade — quem conserta o processo, não quem errou'
+    example: "Accountability here means fixing the pipeline, not blaming the deployer."
+    translation: "Responsabilidade aqui é consertar o pipeline, não culpar quem deployou."
+    note: "Blameless tem accountability — só que no processo."
+
+grammar:
+  title: "A passiva blameless: o fato é o sujeito, a pessoa some ou vira papel"
+  explanation: |
+    Reescrever com culpa → escrever blameless:
+
+    - "**Marcos's deploy broke checkout**" → "**the change broke
+      checkout**" — o artefato como sujeito.
+    - "**Ana missed the alert**" → "**the alert went unnoticed**" /
+      "**the alert wasn't seen**" — a passiva desloca o foco para
+      o fato e para o sistema que não o destacou.
+    - "**John deployed it**" → "**it was deployed**" — a passiva
+      omite o agente; quando o ator importa, vira papel: "**the
+      on-call** was paged".
+
+    Cuidado com a passiva escondida do português: "foi escrito" é
+    "**was written**" — particípio, nunca "was wrote". E dia da
+    semana pede "**on Friday**", com possessivo "**Friday's
+    incident**" quando o dia qualifica o evento.
+  examples:
+    - { en: "The change broke checkout — not 'Marcos broke checkout'.", pt: "A mudança quebrou o checkout — não 'o Marcos quebrou o checkout'." }
+    - { en: "The alert went unnoticed — nobody's fault, the dashboard didn't surface it.", pt: "O alerta passou despercebido — culpa de ninguém, o dashboard não o destacou." }
+    - { en: "The on-call was paged at 17:42 and joined the bridge.", pt: "O plantonista foi acionado às 17:42 e entrou na bridge." }
+    - { en: "The bad value slipped through review — the checklist doesn't cover config.", pt: "O valor ruim escapou pelo review — o checklist não cobre config." }
+    - { en: "The rollback was run at 17:52 — never 'was ran'.", pt: "O rollback foi rodado às 17:52 — nunca 'was ran'." }
+    - { en: "Friday's incident is a process failure, not a people failure.", pt: "O incidente de sexta é falha de processo, não de pessoas." }
+
+examples:
+  - en: "The change introduced a bad config value — full stop."
+    pt: "A mudança introduziu um valor de config ruim — ponto final."
+    context: "O artefato como sujeito."
+  - en: "The error went unnoticed because the alert threshold was too high."
+    pt: "O erro passou despercebido porque o limiar do alerta era alto demais."
+    context: "O sistema falhou em avisar."
+  - en: "It slipped through review — nothing in the process catches a bad flag value."
+    pt: "Escapou pelo review — nada no processo pega um valor de flag ruim."
+    context: "As barreiras que faltaram."
+  - en: "The post-mortem is on Friday — no names in the doc, please."
+    pt: "O post-mortem é sexta — sem nomes no documento, por favor."
+    context: "A regra editorial."
+  - en: "'Human error' is where the investigation starts, not where it ends."
+    pt: "'Erro humano' é onde a investigação começa, não onde termina."
+    context: "O rótulo vazio."
+  - en: "A guardrail at deploy time would have caught this in seconds."
+    pt: "Uma proteção no deploy teria pego isso em segundos."
+    context: "A solução é barreira, não cuidado."
+  - en: "It's safe to fail here — that's why the report is honest."
+    pt: "É seguro errar aqui — é por isso que o relato é honesto."
+    context: "A cultura que produz verdade."
+  - en: "The deployer was a second victim of a missing guardrail."
+    pt: "Quem deployou foi segunda vítima de uma proteção ausente."
+    context: "Culpar fere duas vezes."
+
+variations:
+  - idea: '"reescrevendo sem culpa"'
+    items:
+      - { register: "Boa", text: "The change broke checkout — the config lacked validation.", adequate: true }
+      - { register: "Boa", text: "The alert went unnoticed for forty minutes.", adequate: true }
+      - { register: "Inadequada", text: "Marcos's deploy broke checkout.", adequate: false, note: "Nome no post-mortem — o sujeito é 'the change'." }
+      - { register: "Inadequada", text: "The alert was forgot by the on-call.", adequate: false, note: "Duplo erro: 'was forgotten' (particípio) e culpa na pessoa — 'went unnoticed'." }
+  - idea: '"o papel no lugar do nome"'
+    items:
+      - { register: "Boa", text: "The on-call was paged at 17:42.", adequate: true }
+      - { register: "Boa", text: "The deployer had no way to know — no guardrail existed.", adequate: true }
+      - { register: "Inadequada", text: "It was human error — case closed.", adequate: false, note: "'Human error' é rótulo vazio — pergunte por que o erro foi possível." }
+      - { register: "Inadequada", text: "Ana should have noticed the alert.", adequate: false, note: "Deveria ter visto = culpa — 'the alert didn't reach the on-call'." }
+
+brErrors:
+  - { wrong: "The post-mortem is in Friday.", right: "The post-mortem is on Friday.", why: "on Friday", tag: br.in-weekday }
+  - { wrong: "The report was wrote by the scribe.", right: "The report was written by the scribe.", why: "was written", tag: br.was-past }
+  - { wrong: "The rollback was ran at 17:52.", right: "The rollback was run at 17:52.", why: "was run", tag: br.was-past }
+  - { wrong: "The bad value contributed for the outage.", right: "The bad value contributed to the outage.", why: "contributed to", tag: br.contributed-for }
+  - { wrong: "The incident of Friday hit the checkout.", right: "Friday's incident hit the checkout.", why: "Friday's incident", tag: br.of-weekday }
+  - { wrong: "In this moment we write the post-mortem.", right: "Right now we're writing the post-mortem.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The alert not reached the on-call.", right: "The alert didn't reach the on-call.", why: "didn't reach", tag: br.it-not-works }
+  - { wrong: "The process allow bad values.", right: "The process allows bad values.", why: "allows", tag: br.third-person-s }
+  - { wrong: "I have a doubt about blameless.", right: "I have a question about blameless.", why: "question", tag: br.doubt }
+  - { wrong: "We discussed about the guardrail.", right: "We discussed the guardrail.", why: "discussed, sem about", tag: br.discuss-about }
+
+dialogue:
+  title: "Reescrevendo sem culpa"
+  lines:
+    - { speaker: Priya, text: "I read your draft — 'Marcos's deploy broke checkout'. Rewrite it." }
+    - { speaker: Yuri, text: "Right — 'the change broke checkout'. The artifact is the subject." }
+    - { speaker: Priya, text: "And this: 'Ana missed the alert'?" }
+    - { speaker: Yuri, text: "'The alert went unnoticed for forty minutes — the dashboard didn't surface it.'" }
+    - { speaker: Priya, text: "Good. And the conclusion — 'human error'?" }
+    - { speaker: Yuri, text: "Cut it. 'Human error' is where the investigation starts. I'll write 'a missing guardrail made this possible'." }
+    - { speaker: Priya, text: "Now the actor — 'John deployed it'?" }
+    - { speaker: Yuri, text: "'It was deployed at 13:58' — and where the actor matters, the role: 'the on-call was paged at 17:42'." }
+    - { speaker: Priya, text: "That's blameless. The process failed Marcos — Marcos didn't fail us." }
+  notes:
+    - "três reescritas em sequência: sujeito-artefato, passiva sem agente, papel no lugar do nome."
+    - "'the process failed Marcos — Marcos didn't fail us' — a frase que resume a cultura."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Blameless writing has its own grammar. The system is the subject: 'the change broke checkout', never a name. The passive protects the person: 'the config was changed' — the actor disappears. And when the actor matters, it becomes a role: 'the on-call was paged', not 'Marcos was paged'." }
+    - { speaker: Marcos, text: "'Human error' is a label, not a cause. If a bad value can break production, the question is why it was possible — what guardrail was missing. A good post-mortem ends in a guardrail, never in 'be more careful'. People make mistakes; processes let them." }
+    - { speaker: Yuri, text: "There's a term for the person who caused it without meaning to: the second victim. Blame hurts them twice — once in the incident, once in the review. Blameless isn't soft; it has accountability — accountability for fixing the process." }
+  questions:
+    - { id: M17-01-l1, type: multiple_choice, prompt: "Blameless writing puts as subject…", options: ["the person who deployed", "the system or the change — 'the change broke checkout'", "the team", "nobody — always passive"], answer: 1, explanation: "O artefato ou o sistema é o sujeito.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-01-l2, type: multiple_choice, prompt: "'Human error' in a post-mortem is…", options: ["the conclusion", "the manager's call", "a label, not a cause — ask why it was possible", "forbidden vocabulary"], answer: 2, explanation: "Rótulo vazio — a pergunta é 'por que foi possível'.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-01-l3, type: fill_blank, prompt: "The on-call ___ paged at 17:42.", accepted: ["was"], explanation: "Passiva: 'was paged' — papel, não nome.", tags: [gram.passive-blameless] }
+    - { id: M17-01-l4, type: error_correction, prompt: "The rollback was ran at 17:52.", accepted: ["The rollback was run at 17:52.", "The rollback was run at 17:52"], explanation: "was run — particípio.", tags: [br.was-past] }
+    - { id: M17-01-l5, type: multiple_choice, prompt: "A 'second victim' is…", options: ["the second alert", "the backup engineer", "the customer twice", "the person who caused it without meaning to — blame hurts twice"], answer: 3, explanation: "Culpar fere quem já carregou o incidente.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-01-l6, type: multiple_choice, prompt: "A good post-mortem ends in…", options: ["'be more careful'", "a guardrail — the process gets fixed, not the person", "a warning", "an apology"], answer: 1, explanation: "Barreira nova, não sermão.", tags: [comp.listening, vocab.postmortem] }
+
+writing:
+  prompt: |
+    **Cenário:** seu rascunho de post-mortem foi devolvido por ter
+    nomes e culpa. Reescreva o trecho.
+
+    **Tarefa:** escreva 60–90 palavras reescrevendo blameless três
+    fatos: o deploy do Marcos quebrou o checkout; a Ana não viu o
+    alerta por 40 minutos; e a conclusão de que "foi erro humano".
+    Sem nomes de pessoas.
+  constraints:
+    - { label: "Sujeito-artefato", pattern: "\\b(the change|the deploy|the config|the alert|the system)\\b" }
+    - { label: "Passiva blameless", pattern: "\\b(was|were)\\s+\\w+(ed|en|n|wn|ten|ten|tten)\\b" }
+    - { label: "Sistema que falhou", pattern: "\\b(guardrail|slipped|unnoticed|missing|didn'?t surface|process)\\b" }
+    - { label: "Sem nomes", pattern: "^(?!.*(marcos|ana|john|priya)).*$" }
+  rubric:
+    - "Nenhum nome de pessoa"
+    - "Passiva ou sujeito-artefato em cada fato"
+    - "A causa é o processo, não a pessoa"
+    - "Sem calques"
+  model: >-
+    The change broke checkout — a config value was deployed without
+    validation. The alert went unnoticed for forty minutes because
+    the dashboard didn't surface it. This wasn't a person failing;
+    it was a process failure — no guardrail existed to catch the
+    bad value at deploy time. The on-call was paged only after
+    support tickets arrived. A blameless read: the system let the
+    error through, so the system is what gets fixed.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.postmortem]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando a um colega novo o que é um post-mortem blameless: como a linguagem muda, o que acontece com os nomes e por que 'human error' não é conclusão."
+    maxSeconds: 45
+    targetPhrases:
+      - blameless
+      - the change
+      - went unnoticed
+      - was paged
+      - the on-call
+      - human error
+      - guardrail
+      - slipped through
+      - process failure
+      - safe to fail
+      - no names
+      - the system
+      - accountability
+      - second victim
+      - why it was possible
+      - on friday
+    checklist:
+      - "Sujeito é o sistema, não a pessoa"
+      - "'Human error' como ponto de partida"
+      - "Guardrail no lugar de 'be careful'"
+      - "'On Friday', 'was run', 'went unnoticed'"
+
+quiz:
+  - { id: M17-01-q1, type: multiple_choice, prompt: "The blameless rewrite of 'Marcos's deploy broke checkout' is…", options: ["'the change broke checkout'", "'Marcos accidentally broke checkout'", "'a deploy broke checkout — you know whose'", "'checkout broke on its own'"], answer: 0, explanation: "O artefato como sujeito.", tags: [vocab.postmortem] }
+  - { id: M17-01-q2, type: error_correction, prompt: "The post-mortem is in Friday.", accepted: ["The post-mortem is on Friday.", "The post-mortem is on Friday"], explanation: "on Friday.", tags: [br.in-weekday] }
+  - { id: M17-01-q3, type: multiple_choice, prompt: "When the actor matters in a post-mortem, write…", options: ["the full name", "the role — 'the on-call was paged'", "the team name", "'someone'"], answer: 1, explanation: "Papel, não nome.", tags: [vocab.postmortem] }
+  - { id: M17-01-q4, type: fill_blank, prompt: "The error went ___ for forty minutes.", accepted: ["unnoticed"], explanation: '"went unnoticed" — o sistema não avisou.', tags: [vocab.postmortem] }
+  - { id: M17-01-q5, type: error_correction, prompt: "The incident of Friday hit the checkout.", accepted: ["Friday's incident hit the checkout.", "Friday's incident hit the checkout", "The incident on Friday hit the checkout."], explanation: "Friday's incident.", tags: [br.of-weekday] }
+  - { id: M17-01-q6, type: translate, prompt: "O alerta passou despercebido por quarenta minutos.", accepted: ["The alert went unnoticed for forty minutes.", "The alert went unnoticed for forty minutes"], explanation: '"went unnoticed" — a culpa é do alerta.', tags: [vocab.postmortem] }
+  - { id: M17-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["error", "human", "is", "not", "a", "cause"], answer: "human error is not a cause", explanation: '"human error" é rótulo, não causa.', tags: [vocab.postmortem] }
+  - { id: M17-01-q8, type: multiple_choice, prompt: "Blameless accountability means…", options: ["nobody is responsible", "the person apologizes publicly", "fixing the process — the guardrail gets built", "rotating who takes the blame"], answer: 2, explanation: "Responsabilidade no processo.", tags: [vocab.postmortem] }
+
+srsCards:
+  - { front: "blameless", back: "Sem culpa — o processo, não a pessoa.", tag: vocab.postmortem }
+  - { front: "the change", back: "O deploy como sujeito — nunca 'John's'.", tag: vocab.postmortem }
+  - { front: "was paged", back: "O plantonista acionado — papel, não nome.", tag: vocab.postmortem }
+  - { front: "went unnoticed", back: "Passou despercebido — o sistema não avisou.", tag: vocab.postmortem }
+  - { front: "guardrail", back: "A proteção que impede a repetição.", tag: vocab.postmortem }
+  - { front: "slipped through", back: "Escapou pelas barreiras existentes.", tag: vocab.postmortem }
+  - { front: "human error", back: "Rótulo, não causa — 'por que foi possível?'", tag: vocab.postmortem }
+  - { front: "systemic", back: "Do sistema — 'a systemic gap'.", tag: vocab.postmortem }
+  - { front: "process failure", back: "O processo deixou o erro passar.", tag: vocab.postmortem }
+  - { front: "second victim", back: "Quem causou sem querer — culpar fere duas vezes.", tag: vocab.postmortem }
+  - { front: "accountability", back: "Consertar o processo, não culpar a pessoa.", tag: vocab.postmortem }
+
+review:
+  preferTags: [vocab.postmortem, br.was-past, br.in-weekday]
+  notes: "Revisão prioriza a passiva blameless, 'went unnoticed' e os calques de dia/particípio."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
