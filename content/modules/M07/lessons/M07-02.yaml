@@ -1,0 +1,285 @@
+id: M07-02
+module: M07
+order: 2
+title: "Estimando com cautela: I'd say, roughly, ballpark, it depends on"
+objective: >-
+  Ao final, você dá estimativas sem se comprometer além do que sabe — com
+  hedgers ("I'd say", "roughly", "ballpark") e com "it depends on" para
+  nomear o que muda o número.
+durationMin: 35
+competencies: [SPK, VOC]
+tags: [vocab.agile, gram.hedging, comp.speaking, br.estimative, br.compromise, topic.refinement]
+prerequisites: [M07-01]
+
+context:
+  scenario: |
+    "How long will the migration take?" A resposta ingênua é um número seco —
+    "two weeks" — que vira promessa no ata da reunião. A resposta profissional
+    tem duas camadas: um hedger ("I'd say roughly two weeks") e a condição que
+    move o número ("it depends on whether the old schema has surprises").
+
+    O vocabulário de cautela é pequeno e repetitivo: **I'd say**, **roughly**,
+    **ballpark**, **in the neighborhood of**, **give or take**, **anywhere
+    between X and Y**, **best/worst case** e o indispensável **it depends on**.
+    Número sem hedge é compromisso; número com hedge é estimativa.
+  roles: [Priya (product owner), Marcos (tech lead), Yuri (platform engineer)]
+
+vocabulary:
+  - term: "I'd say"
+    meaning: eu diria — o hedge mais comum antes de um número
+    example: "I'd say two sprints — one if the schema is clean."
+    translation: "Eu diria duas sprints — uma se o schema estiver limpo."
+    note: "Sinaliza opinião, não promessa — o hedge padrão de estimativa."
+  - term: roughly
+    meaning: aproximadamente — antes de números e prazos
+    example: "Roughly three days of work, give or take."
+    translation: "Aproximadamente três dias de trabalho, mais ou menos."
+    note: "Sinônimos: approximately (formal), about (neutro)."
+  - term: ballpark
+    meaning: ordem de grandeza — número aproximado sem precisão
+    example: "Can you give me a ballpark for the storage costs?"
+    translation: "Pode me dar uma ordem de grandeza dos custos de storage?"
+    note: '"a ballpark figure/estimate" — vem do estádio: perto, não exato.'
+  - term: "it depends on"
+    meaning: depende de — nomeia a variável que muda a resposta
+    example: "It depends on whether the old schema has surprises."
+    translation: "Depende de o schema antigo ter surpresas."
+    note: 'Sempre com ON: "it depends on the data". Nunca "depends of".'
+  - term: "give or take"
+    meaning: mais ou menos — a margem informal
+    example: "Two weeks, give or take a day or two."
+    translation: "Duas semanas, mais ou menos um dia ou dois."
+    note: "Vem depois do número — a margem embutida na frase."
+  - term: "in the neighborhood of"
+    meaning: na faixa de — aproximadamente, informal
+    example: "We're looking at something in the neighborhood of $400 a month."
+    translation: "Estamos falando de algo na faixa de US$ 400 por mês."
+    note: "Mais longo e mais informal que 'roughly' — bom para custos."
+  - term: "anywhere between X and Y"
+    meaning: algo entre X e Y — a faixa honesta
+    example: "Anywhere between 3 and 5 points, depending on the spike result."
+    translation: "Algo entre 3 e 5 pontos, dependendo do resultado do spike."
+    note: "A faixa comunica incerteza melhor que um número único."
+  - term: "best case / worst case"
+    meaning: melhor caso / pior caso — os dois extremos
+    example: "Best case, a week; worst case, three if the migration fights back."
+    translation: "Melhor caso, uma semana; pior caso, três se a migração resistir."
+    note: "Dar os dois extremos protege contra o número único otimista."
+  - term: "a rough guess"
+    meaning: um palpite — quando nem estimativa é
+    example: "Honestly, a rough guess: four points — the spike will tell us more."
+    translation: "Sinceramente, um palpite: quatro pontos — o spike vai dizer mais."
+    note: '"rough guess" admite que é chute — mais honesto que fingir precisão.'
+  - term: "to be safe"
+    meaning: para garantir — a margem de segurança
+    example: "Let's say five points to be safe — the unknowns worry me."
+    translation: "Vamos dizer cinco pontos para garantir — as incógnitas me preocupam."
+    note: '"to be safe" justifica o buffer — nomeie por que você arredonda para cima.'
+  - term: "an educated guess"
+    meaning: um palpite informado — estimativa baseada em experiência
+    example: "An educated guess: two sprints, based on the last migration."
+    translation: "Um palpite informado: duas sprints, com base na migração anterior."
+    note: "Entre 'rough guess' e 'estimate' — experiência, sem dados completos."
+  - term: "I'd push back on that"
+    meaning: eu contestaria isso — discordar de uma estimativa otimista
+    example: "I'd push back on that — last time the schema had three surprises."
+    translation: "Eu contestaria isso — da última vez o schema teve três surpresas."
+    note: '"push back on" = contestar educadamente — essencial no planning poker.'
+  - term: "the unknowns"
+    meaning: as incógnitas — o que ainda não sabemos
+    example: "Too many unknowns to give a number — spike first."
+    translation: "Incógnitas demais para dar um número — spike primeiro."
+    note: "Nomear 'the unknowns' justifica não estimar."
+  - term: "a firm number"
+    meaning: um número firme — o que a gerência pede e você evita
+    example: "I can't give you a firm number until the spike is done."
+    translation: "Não consigo dar um número firme até o spike terminar."
+    note: 'A resposta educada ao "give me a number": sem firmeza até os dados.'
+
+grammar:
+  title: "Hedge + número + dependência: a fórmula da estimativa cautelosa"
+  explanation: |
+    A estimativa profissional tem três partes: **hedge** (I'd say / roughly /
+    ballpark), **número ou faixa** (3 points / anywhere between 2 and 4 weeks),
+    e **dependência** (it depends on X / assuming Y / if Z). Qualquer parte pode
+    faltar — mas as três juntas formam a estimativa que sobrevive à reunião.
+
+    | Camada | Expressões | Exemplo |
+    |---|---|---|
+    | hedge | I'd say, roughly, ballpark, my gut says | *I'd say roughly five points.* |
+    | faixa | anywhere between, give or take, in the neighborhood of | *anywhere between two and three sprints* |
+    | dependência | it depends on, assuming, as long as | *it depends on the spike result* |
+
+    **Erros BR:** "my **estimative**" (é *estimate*), "it depends **of** the
+    data" (é *on*), "if we **will** need" (é *if we need*), e prometer o
+    melhor caso como se fosse o número — hedging não é insegurança, é precisão.
+  examples:
+    - { en: "I'd say roughly three points — it depends on the spike.", pt: "Eu diria aproximadamente 3 pontos — depende do spike." }
+    - { en: "Ballpark? In the neighborhood of $400 a month.", pt: "Ordem de grandeza? Na faixa de US$ 400 por mês." }
+    - { en: "Two weeks, give or take a day or two.", pt: "Duas semanas, mais ou menos um dia ou dois." }
+    - { en: "Best case a week; worst case three.", pt: "Melhor caso uma semana; pior caso três." }
+    - { en: "It depends on whether the schema is clean.", pt: "Depende de o schema estar limpo." }
+    - { en: "Let's say five to be safe.", pt: "Digamos cinco para garantir." }
+
+examples:
+  - en: "I'd say roughly five points — the migration has too many unknowns for a three."
+    pt: "Eu diria aproximadamente 5 pontos — a migração tem incógnitas demais para um 3."
+    context: "Hedge + número + justificativa — a fórmula completa."
+  - en: "Anywhere between two and four weeks, depending on what the spike finds."
+    pt: "Algo entre duas e quatro semanas, dependendo do que o spike encontrar."
+    context: "A faixa é mais honesta que o número único."
+  - en: "Give me a ballpark — I don't need a firm number yet."
+    pt: "Me dá uma ordem de grandeza — não preciso de número firme ainda."
+    context: "O PO que sabe pedir ballpark ganha resposta melhor."
+  - en: "Best case, we ship it Friday; worst case, the migration fights back and it's next sprint."
+    pt: "Melhor caso, entregamos sexta; pior caso, a migração resiste e vira a próxima sprint."
+    context: "Dois extremos em vez de um número otimista."
+  - en: "It depends on whether the old provider lets us export the data."
+    pt: "Depende de o provedor antigo deixar exportar os dados."
+    context: '"depends on" + whether — a dependência nomeada.'
+  - en: "I'd push back on two points — last time the schema had three surprises."
+    pt: "Eu contestaria dois pontos — da última vez o schema teve três surpresas."
+    context: "Push back com evidência — contestar não é recusar."
+  - en: "Two weeks, give or take — assuming no surprises in the data."
+    pt: "Duas semanas, mais ou menos — assumindo que não haja surpresas nos dados."
+    context: "Margem + suposição explícita."
+  - en: "A rough guess: four points. Let's revisit after the spike."
+    pt: "Um palpite: quatro pontos. Revisitamos depois do spike."
+    context: "Admitir o palpite + marcar a revisão."
+
+variations:
+  - idea: '"quanto tempo vai levar?"'
+    items:
+      - { register: "Boa", text: "I'd say roughly two weeks — it depends on the schema.", adequate: true }
+      - { register: "Boa", text: "Best case a week; worst case three. The spike will tell us.", adequate: true }
+      - { register: "Inadequada", text: "Two weeks.", adequate: false, note: "Número seco vira promessa — falta o hedge." }
+      - { register: "Inadequada", text: "I have no idea.", adequate: false, note: "Honesto mas sem valor — dê a faixa ou o palpite." }
+  - idea: '"a estimativa do colega está otimista demais"'
+    items:
+      - { register: "Boa", text: "I'd push back on that — the last migration had three surprises.", adequate: true }
+      - { register: "Boa", text: "Can we say five to be safe? The unknowns worry me.", adequate: true }
+      - { register: "Inadequada", text: "That's wrong.", adequate: false, note: "Sem evidência — diga POR QUÊ o número é baixo." }
+      - { register: "Inadequada", text: "My estimative is higher.", adequate: false, note: '"estimative" não existe — é "estimate".' }
+
+brErrors:
+  - { wrong: "My estimative is five points.", right: "My estimate is five points.", why: '"estimative" não existe — é "estimate"', tag: br.estimative }
+  - { wrong: "It depends of the schema.", right: "It depends on the schema.", why: '"depends on" — "depend of" é calque', tag: br.depend-of }
+  - { wrong: "If we will find surprises, it grows.", right: "If we find surprises, it grows.", why: 'condicional: "if" + presente', tag: br.if-will }
+  - { wrong: "It make sense to give a range.", right: "It makes sense to give a range.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "I have a compromise, so estimate without me.", right: "I have a commitment, so estimate without me.", why: "compromise = concessão; compromisso é commitment", tag: br.compromise }
+  - { wrong: "Two weeks are more fast than three.", right: "Two weeks is faster than three.", why: "fast é adjetivo curto: faster; e o prazo é singular", tag: br.more-er }
+  - { wrong: "The PO said me to give a number.", right: "The PO told me to give a number.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "We need that the spike finish first.", right: "We need the spike to finish first.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "I am working on this since Monday.", right: "I have been working on this since Monday.", why: 'since exige present perfect continuous', tag: br.since-present }
+  - { wrong: "The migration is being more slow than expected.", right: "The migration is slower than expected.", why: "slow é curto: slower; e comparativo não leva being", tag: br.more-er }
+
+dialogue:
+  title: "Quantos pontos para a migração?"
+  lines:
+    - { speaker: Priya, text: "The schema migration story — thoughts on points?" }
+    - { speaker: Marcos, text: "I'd say a three. It's a straightforward copy-and-transform." }
+    - { speaker: Yuri, text: "I'd push back on that. Last time, the old schema had three surprises — I'd say five, to be safe." }
+    - { speaker: Priya, text: "Yuri, what would make it a three instead?" }
+    - { speaker: Yuri, text: "If the spike confirms the columns are clean. Right now, anywhere between three and five — it depends on what we find." }
+    - { speaker: Marcos, text: "Fair. Rough guess on the calendar too — how long is five points here?" }
+    - { speaker: Yuri, text: "In the neighborhood of a week, give or take. Best case three days; worst case it spills into next sprint." }
+    - { speaker: Priya, text: "So five points, and we revisit after the spike. I can work with that." }
+  notes:
+    - "planning poker real: push back com evidência, faixa em vez de número, e 'revisit after the spike' para não travar."
+    - '"I can work with that" — o PO aceitando a estimativa cautelosa.'
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "When someone gives you a bare number in refinement, treat it as their best case — nobody says the worst case out loud unless you ask." }
+    - { speaker: Priya, text: "That's why I ask 'what would make it smaller?' — it turns the optimistic number into a range with a condition attached." }
+    - { speaker: Marcos, text: "And if the estimate has no 'depends on' in it, assume the dependencies are invisible, not absent." }
+  questions:
+    - { id: M07-02-l1, type: multiple_choice, prompt: "How should you treat a bare number given in refinement?", options: ["as the final commitment", "as a joke", "as their best case", "as the average"], answer: 2, explanation: '"treat it as their best case" — o número seco é otimista.', tags: [comp.listening, gram.hedging] }
+    - { id: M07-02-l2, type: multiple_choice, prompt: "What does 'what would make it smaller?' do?", options: ["rejects the estimate", "turns the number into a range with a condition", "moves the story to the next sprint", "cuts the scope"], answer: 1, explanation: "A pergunta abre a dependência que move o número.", tags: [comp.listening, gram.hedging] }
+    - { id: M07-02-l3, type: fill_blank, prompt: "If the estimate has no 'depends ___' in it, the dependencies are invisible.", accepted: ["on"], explanation: '"depends on" — nunca "depends of".', tags: [br.depend-of, gram.hedging] }
+    - { id: M07-02-l4, type: multiple_choice, prompt: "An estimate without stated dependencies means…", options: ["there are none", "the dependencies are invisible, not absent", "it's a firm number", "the story is small"], answer: 1, explanation: '"assume the dependencies are invisible, not absent."', tags: [comp.listening, gram.hedging] }
+    - { id: M07-02-l5, type: fill_blank, prompt: "I'd say ___ two weeks — it depends on the schema.", accepted: ["roughly"], explanation: "Hedge clássico antes do número.", tags: [gram.hedging, vocab.agile] }
+    - { id: M07-02-l6, type: multiple_choice, prompt: "'Five points, to be safe' means…", options: ["the number is exact", "rounding up because of the unknowns", "the story is done", "five is the minimum"], answer: 1, explanation: '"to be safe" justifica arredondar para cima.', tags: [gram.hedging, vocab.agile] }
+
+writing:
+  prompt: |
+    **Cenário:** o PO pediu por escrito sua estimativa para a story de migração de schema — a mesma do diálogo.
+
+    **Tarefa:** escreva 50–80 palavras com: sua estimativa em pontos com hedge, a faixa (best/worst case), a dependência que move o número ("it depends on…"), e o que faria você revisar.
+  constraints:
+    - { label: "Hedge antes do número", pattern: "\\b(i'd say|roughly|ballpark|my gut|give or take|in the neighborhood)\\b" }
+    - { label: "Faixa ou extremos", pattern: "\\b(between .+ and|best case|worst case|anywhere)\\b" }
+    - { label: "Dependência nomeada", pattern: "\\bdepends on\\b" }
+    - { label: "Condição de revisão", pattern: "\\b(revisit|spike|if we find|assuming)\\b" }
+  rubric:
+    - Estimativa com hedge (não número seco)
+    - Faixa best/worst case presente
+    - Dependência nomeada com "depends on"
+    - Condição de revisão explícita
+  model: >-
+    My estimate: I'd say roughly five points — anywhere between three and five,
+    honestly. Best case, the spike confirms a clean schema and it's a three;
+    worst case, the old columns fight back and it spills into next sprint.
+    It depends on what the spike finds — I'd revisit the number on Thursday
+    once we have an answer.
+  minWords: 50
+  maxWords: 85
+  tags: [comp.writing, gram.hedging]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos dando sua estimativa para a story de migração: o número com hedge, a faixa, a dependência e por que você contesta a estimativa otimista do colega."
+    maxSeconds: 45
+    targetPhrases:
+      - I'd say
+      - roughly
+      - ballpark
+      - it depends on
+      - give or take
+      - anywhere between
+      - best case
+      - worst case
+      - to be safe
+      - a rough guess
+      - push back
+      - the unknowns
+      - a firm number
+      - an educated guess
+    checklist:
+      - Número com hedge — não número seco
+      - Faixa ou best/worst case presente
+      - Dependência nomeada com "depends on"
+      - Push back educado com evidência
+
+quiz:
+  - { id: M07-02-q1, type: multiple_choice, prompt: "'I'd say roughly three points' — the hedges are…", options: ["three and points", "say and roughly", "I'd say and roughly", "I and say"], answer: 2, explanation: "Dois hedges empilhados: I'd say + roughly.", tags: [gram.hedging] }
+  - { id: M07-02-q2, type: error_correction, prompt: "It depends of the schema quality.", accepted: ["It depends on the schema quality.", "It depends on the schema quality"], explanation: '"depends on" — "depend of" é calque do português.', tags: [br.depend-of] }
+  - { id: M07-02-q3, type: multiple_choice, prompt: "'Ballpark' in 'give me a ballpark' means…", options: ["an exact number", "a written quote", "a rough order of magnitude", "a deadline"], answer: 2, explanation: "Ballpark = ordem de grandeza, sem precisão.", tags: [vocab.agile, gram.hedging] }
+  - { id: M07-02-q4, type: error_correction, prompt: "My estimative is two weeks, give or take.", accepted: ["My estimate is two weeks, give or take.", "My estimate is two weeks, give or take"], explanation: '"estimative" não existe — é "estimate".', tags: [br.estimative] }
+  - { id: M07-02-q5, type: multiple_choice, prompt: "'Best case a week; worst case three' is better than 'a week' because…", options: ["it's shorter", "it shows the range and the honest worst case", "it uses bigger numbers", "it avoids a decision"], answer: 1, explanation: "A faixa com o pior caso visível é a estimativa honesta.", tags: [gram.hedging] }
+  - { id: M07-02-q6, type: translate, prompt: "Eu diria aproximadamente duas semanas, mais ou menos.", accepted: ["I'd say roughly two weeks, give or take.", "I'd say roughly two weeks, give or take", "I'd say roughly two weeks."], explanation: "Hedge empilhado: I'd say + roughly + give or take.", tags: [gram.hedging, vocab.agile] }
+  - { id: M07-02-q7, type: reorder, prompt: "Monte a frase: / mais tempo / precisarmos / se / eu sinalizo", tokens: ["If", "we", "need", "more", "time,", "I'll", "flag", "it."], answer: "If we need more time, I'll flag it.", explanation: 'Condicional: "if" + presente; o "will" vai na oração principal.', tags: [br.if-will] }
+  - { id: M07-02-q8, type: multiple_choice, prompt: "'I'd push back on that' is the right move when…", options: ["the estimate is optimistic and you have evidence", "you dislike the PO", "the sprint is over", "the story is yours"], answer: 0, explanation: "Push back + evidência = contestar com fundamento.", tags: [gram.hedging, vocab.agile] }
+
+review:
+  count: 5
+  preferTags: [gram.hedging, vocab.agile, topic.refinement]
+
+srsCards:
+  - { front: "I'd say", back: "hedge de opinião antes do número — 'I'd say five points'", tag: gram.hedging }
+  - { front: "roughly", back: "aproximadamente — hedge de precisão antes de número/prazo", tag: gram.hedging }
+  - { front: "ballpark", back: "ordem de grandeza — 'give me a ballpark' = número aproximado", tag: gram.hedging }
+  - { front: "it depends on", back: "nomeia a variável que move a resposta — sempre com ON", tag: gram.hedging }
+  - { front: "give or take", back: "mais ou menos — a margem depois do número", tag: gram.hedging }
+  - { front: "in the neighborhood of", back: "na faixa de — informal, bom para custos", tag: gram.hedging }
+  - { front: "best case / worst case", back: "os dois extremos — melhor que número único otimista", tag: gram.hedging }
+  - { front: "a rough guess", back: "palpite honesto — admita e marque a revisão", tag: gram.hedging }
+  - { front: "to be safe", back: "justifica arredondar para cima — nomeie a cautela", tag: gram.hedging }
+  - { front: "estimate × estimative", back: '"estimate" é o substantivo; "estimative" não existe', hint: "calque de estimativa", tag: br.estimative }
+  - { front: "I'd push back on that", back: "contestar educadamente — sempre com evidência", tag: vocab.agile }
+  - { front: "a firm number", back: "o número compromisso que você evita dar cedo demais", tag: vocab.agile }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

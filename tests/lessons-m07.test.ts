@@ -9,4 +9,22 @@ describe("M07 lessons", () => {
     expect(crossValidate(bundle)).toEqual([]);
   });
   // Cada aula nova adiciona uma linha (T3–T7 do plano 2026-09-12-e5-m07).
+  checkLesson(bundle, "M07-01", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 45,
+    prerequisites: ["M02-05", "M06-05"],
+  });
+  checkLesson(bundle, "M07-02", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 45,
+    prerequisites: ["M07-01"],
+  });
 });
