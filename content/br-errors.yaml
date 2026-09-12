@@ -357,3 +357,34 @@ patterns:
     right: "It works on my machine"
     why: '"On my machine" — "in my machine" é calque. ("In my machine learning" é outra coisa.)'
     tag: br.in-my-machine
+  # "depends in" é calque de "depende em/de" — inglês é "depends on".
+  # "depends in part (on)" é inglês correto e fica fora.
+  - id: depends-in
+    pattern: "\\bdepend(s|ed|ing)?\\s+in\\b(?!\\s*part\\b)"
+    wrong: "The rollout depends in the flag"
+    right: "The rollout depends on the flag"
+    why: '"Depend on" — "depends in" é calque. ("Depends in part" é outra estrutura.)'
+    tag: br.depends-in
+  # "suggested me to X" é calque de "sugeriu para eu" — suggest não leva objeto indireto direto.
+  - id: suggested-me
+    pattern: "\\bsuggest(ed|s)?\\s+(me|him|her|us|them)\\s+to\\s+\\w+"
+    wrong: "Ana suggested me to add a gate"
+    right: "Ana suggested that I add a gate / suggested adding a gate"
+    why: 'Suggest + that + sujeito, ou suggest + gerúndio — nunca "suggested me to".'
+    tag: br.suggested-me
+  # "apply the terraform" trata a ferramenta como o que se aplica — você aplica mudanças/config.
+  # "terraform apply" (ordem do comando) fica fora porque "apply" precede "terraform" aqui.
+  - id: apply-terraform
+    pattern: "\\bappl(y|ied|ying|ies)\\s+(the\\s+)?terraform\\b"
+    wrong: "I applied the terraform this morning"
+    right: "I ran terraform apply this morning / applied the changes"
+    why: 'Terraform não se "aplica" — "terraform apply" ou "apply the changes/config".'
+    tag: br.apply-terraform
+  # "the deploy was succeeded" — succeed/happen/occur são intransitivos, sem voz passiva.
+  # "was succeeded by" (sucessão de pessoas) é legítimo e fica fora.
+  - id: was-succeeded
+    pattern: "\\b(was|were|is|are|been)\\s+(succeeded|happened|occurred)\\b(?!\\s+by\\b)"
+    wrong: "The deploy was succeeded after the fix"
+    right: "The deploy succeeded after the fix"
+    why: 'Succeed/happen/occur não têm passiva — "it succeeded". ("Was succeeded by" é outra estrutura.)'
+    tag: br.was-succeeded

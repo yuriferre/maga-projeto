@@ -1,0 +1,290 @@
+id: M11-01
+module: M11
+order: 1
+title: "Vocabulário de pipelines: stage, job, artifact, runner, trigger, flaky, gate"
+objective: >-
+  Ao final, você descreve a anatomia de um pipeline com o vocabulário
+  exato — stage, job, step, artifact, runner, trigger, flaky, gate — e
+  localiza uma falha no mapa: "the test job on the build stage is flaky".
+durationMin: 35
+competencies: [VOC, SPK, WRI]
+tags: [vocab.ci, comp.speaking, comp.writing, br.it-not-works, br.suggested-me]
+prerequisites: [M06-05, M10-05]
+
+context:
+  scenario: |
+    Segunda-feira. O pipeline do `payments-api` está vermelho e a daily
+    começa em dez minutos. Você precisa dizer **onde** quebrou — e "the
+    pipeline is broken" não ajuda ninguém.
+
+    O mapa: um **pipeline** é feito de **stages** (build → test → deploy);
+    cada stage tem **jobs** rodando em paralelo em **runners**; cada job
+    produz **artifacts** (binários, relatórios); o **trigger** diz o que
+    dispara o pipeline (push, schedule, manual); um **gate** é a trava que
+    exige aprovação ou condição antes de continuar; e um teste **flaky** é
+    o que falha de vez em quando sem mudança de código — a praga de todo
+    pipeline.
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "stage"
+    meaning: estágio — a fase do pipeline (build, test, deploy)
+    example: "The deploy stage only runs after tests pass."
+    translation: "O estágio de deploy só roda depois dos testes passarem."
+    note: "Stages em sequência; jobs em paralelo dentro de cada um."
+  - term: "job"
+    meaning: job — a unidade de trabalho dentro do stage
+    example: "The lint job on the build stage is green; the test job is red."
+    translation: "O job de lint no estágio de build está verde; o de teste está vermelho."
+    note: '"the X job" — lint job, test job, deploy job.'
+  - term: "step"
+    meaning: passo — o comando dentro do job
+    example: "The job failed on the upload step."
+    translation: "O job falhou no passo de upload."
+    note: "stage > job > step — a hierarquia."
+  - term: "artifact"
+    meaning: artefato — o que o job produz (binário, relatório)
+    example: "The build job uploads the binary as an artifact."
+    translation: "O job de build sobe o binário como artefato."
+    note: "Artifacts passam entre stages — build produz, deploy consome."
+  - term: "runner"
+    meaning: runner — a máquina que executa os jobs
+    example: "The runner ran out of disk — that's the real failure."
+    translation: "O runner ficou sem disco — essa é a falha real."
+    note: "Self-hosted vs hosted — o runner é a infra do CI."
+  - term: "trigger"
+    meaning: gatilho — o que dispara o pipeline
+    example: "The trigger is a push to main — schedules run nightly too."
+    translation: "O gatilho é push na main — schedules rodam toda noite também."
+    note: "push / schedule / manual / webhook."
+  - term: "flaky"
+    meaning: instável — teste que falha sem mudança de código
+    example: "The payment test is flaky — it passes on retry half the time."
+    translation: "O teste de pagamento é instável — passa no retry metade das vezes."
+    note: "Flaky ≠ broken — flaky destrói a confiança no pipeline."
+  - term: "gate"
+    meaning: trava — aprovação ou condição antes de avançar
+    example: "There's a manual gate before the deploy stage."
+    translation: "Há uma trava manual antes do estágio de deploy."
+    note: '"approval gate" — alguém precisa clicar.'
+  - term: "pipeline"
+    meaning: pipeline — o fluxo inteiro de commit a produção
+    example: "The pipeline takes 20 minutes end to end."
+    translation: "O pipeline leva 20 minutos ponta a ponta."
+    note: '"pipeline is red/green" — o estado resumido.'
+  - term: "to kick off"
+    meaning: disparar — iniciar o pipeline
+    example: "The merge kicked off the deploy pipeline."
+    translation: "O merge disparou o pipeline de deploy."
+    note: '"kick off a run" — iniciar uma execução.'
+  - term: "a run"
+    meaning: uma execução — a instância do pipeline
+    example: "The last three runs failed on the same step."
+    translation: "As últimas três execuções falharam no mesmo passo."
+    note: "Run = uma execução específica com logs próprios."
+  - term: "retry"
+    meaning: reexecutar — rodar o job de novo
+    example: "Retry the flaky test before digging — it's cheaper."
+    translation: "Reexecute o teste instável antes de cavar — é mais barato."
+    note: "Retry primeiro é praxe — mas flaky recorrente vira ticket."
+  - term: "to cache"
+    meaning: cachear — reaproveitar resultado entre runs
+    example: "We cache the dependencies — the install step dropped to 20 seconds."
+    translation: "Cacheamos as dependências — o passo de install caiu para 20 segundos."
+    note: "Cache é a primeira otimização de pipeline lento."
+
+grammar:
+  title: "Localizando a falha no mapa do pipeline"
+  explanation: |
+    A hierarquia é **pipeline → stage → job → step**, e a frase precisa
+    navegar por ela: "the test **job** on the build **stage** fails on the
+    upload **step**" — três níveis, uma frase.
+
+    | Nível | Pergunta | Exemplo |
+    |---|---|---|
+    | pipeline | qual fluxo? | *the deploy pipeline* |
+    | stage | qual fase? | *on the test stage* |
+    | job | qual trabalho? | *the integration job* |
+    | step | qual passo? | *on the upload step* |
+
+    E o vocabulário de diagnóstico: "**flaky**" para o teste que mente
+    (falha sem mudança — *retry it*), "**gate**" para a trava manual,
+    "**runner**" para a máquina e "**artifact**" para o que atravessa os
+    stages.
+  examples:
+    - { en: "The test job on the build stage is red — it fails on the coverage step.", pt: "O job de teste no estágio de build está vermelho — falha no passo de cobertura." }
+    - { en: "The deploy stage has a manual gate — someone has to approve it.", pt: "O estágio de deploy tem uma trava manual — alguém precisa aprovar." }
+    - { en: "The payment test is flaky — it's failed three times this week with no code change.", pt: "O teste de pagamento é instável — falhou três vezes esta semana sem mudança de código." }
+    - { en: "The build job uploads the binary as an artifact; the deploy job downloads it.", pt: "O job de build sobe o binário como artefato; o job de deploy o baixa." }
+    - { en: "The runner ran out of disk mid-build — that's why the logs cut off.", pt: "O runner ficou sem disco no meio do build — é por isso que os logs cortaram." }
+    - { en: "The trigger is a push to main, plus a nightly schedule for the slow suite.", pt: "O gatilho é push na main, mais um schedule noturno para a suíte lenta." }
+
+examples:
+  - en: "The pipeline is red — the test job on the build stage fails on the coverage step."
+    pt: "O pipeline está vermelho — o job de teste no estágio de build falha no passo de cobertura."
+    context: "Três níveis numa frase — stage, job, step."
+  - en: "The artifact from the build job is what the deploy job actually ships."
+    pt: "O artefato do job de build é o que o job de deploy realmente entrega."
+    context: "Artifacts conectam os stages."
+  - en: "The payment test is flaky — retry it, but open a ticket if it flakes again."
+    pt: "O teste de pagamento é instável — reexecute, mas abra ticket se falhar de novo."
+    context: "Flaky: retry agora, ticket se voltar."
+  - en: "There's a manual gate before prod — Priya approves the deploy."
+    pt: "Há uma trava manual antes de prod — a Priya aprova o deploy."
+    context: "Gate = ponto de aprovação humana."
+  - en: "The self-hosted runner ran out of disk — the build never started."
+    pt: "O runner self-hosted ficou sem disco — o build nem começou."
+    context: "Runner é a infra — falha dele é falha de tudo."
+  - en: "We cache dependencies now — the install step went from 4 minutes to 20 seconds."
+    pt: "Agora cacheamos as dependências — o passo de install foi de 4 minutos para 20 segundos."
+    context: "Cache — a primeira otimização."
+  - en: "The trigger is push-to-main; the slow suite runs on a nightly schedule."
+    pt: "O gatilho é push na main; a suíte lenta roda num schedule noturno."
+    context: "Dois triggers diferentes para duas velocidades."
+  - en: "The last three runs all died on the same step — that's not flaky, that's broken."
+    pt: "As últimas três execuções morreram no mesmo passo — não é instável, está quebrado."
+    context: "Flaky × broken: a distinção que importa."
+
+variations:
+  - idea: '"reportar a falha na daily"'
+    items:
+      - { register: "Boa", text: "The payments pipeline is red — the test job fails on the coverage step. Looks flaky; I retried it.", adequate: true }
+      - { register: "Boa", text: "Build stage is green, but there's a manual gate before deploy — needs Priya's approval.", adequate: true }
+      - { register: "Inadequada", text: "The pipeline is broken, everything is broken.", adequate: false, note: "Sem stage/job/step, ninguém sabe onde olhar." }
+      - { register: "Inadequada", text: "A test failed, I don't know which one or where.", adequate: false, note: "Acha o job e o step antes de reportar — é um minuto de logs." }
+  - idea: '"flaky vs broken"'
+    items:
+      - { register: "Boa", text: "It's flaky — passes on retry half the time. I'll open a ticket to fix it properly.", adequate: true }
+      - { register: "Boa", text: "Not flaky — broken. Three runs, same step, same error.", adequate: true }
+      - { register: "Inadequada", text: "It's probably flaky, just retry it forever.", adequate: false, note: "Flaky crônico sem ticket corrói a confiança no pipeline inteiro." }
+      - { register: "Inadequada", text: "It's broken, someone should look at it.", adequate: false, note: "Sem dizer qual job/step, 'alguém' nunca aparece." }
+
+brErrors:
+  - { wrong: "The pipeline not runs on schedule.", right: "The pipeline doesn't run on schedule.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "Ana suggested me to add a gate.", right: "Ana suggested that I add a gate.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "It depends in the runner.", right: "It depends on the runner.", why: "depends on", tag: br.depends-in }
+  - { wrong: "The deploy was succeeded at noon.", right: "The deploy succeeded at noon.", why: "succeed não tem passiva", tag: br.was-succeeded }
+  - { wrong: "After to retry, it went green.", right: "After retrying, it went green.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "It's the same failure of last week.", right: "It's the same failure as last week.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "I telled the team about the flaky test.", right: "I told the team about the flaky test.", why: "told, não telled", tag: br.irregular-past }
+  - { wrong: "The runner is more slow than the hosted one.", right: "The runner is slower than the hosted one.", why: "slow leva -er", tag: br.more-er }
+  - { wrong: "I need that you approve the gate.", right: "I need you to approve the gate.", why: "need + you + to", tag: br.need-that-you }
+  - { wrong: "Can you explain me the trigger?", right: "Can you explain the trigger to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "A daily com o pipeline vermelho"
+  lines:
+    - { speaker: Priya, text: "Payments pipeline is red — what do we know?" }
+    - { speaker: Yuri, text: "The test job on the build stage fails on the coverage step. Everything before it is green." }
+    - { speaker: Ana, text: "Flaky or broken?" }
+    - { speaker: Yuri, text: "Looks flaky — it passed on retry twice this week. Last three runs died on the same step, though, so I'm checking the logs." }
+    - { speaker: Marcos, text: "The runner ran out of disk last week — could be that again." }
+    - { speaker: Yuri, text: "Ruled it out — disk is at 40%. The artifact upload is what actually times out." }
+    - { speaker: Priya, text: "And the deploy is blocked behind it?" }
+    - { speaker: Yuri, text: "Yes — test stage gates the deploy stage, plus there's a manual gate before prod that needs your approval anyway." }
+    - { speaker: Priya, text: "Retry once, open a flaky-test ticket, and ping me when it's green — I'll approve the gate." }
+    - { speaker: Yuri, text: "On it — retry kicked off, ticket filed." }
+  notes:
+    - "o vocabulário faz o trabalho: stage/job/step localizam, flaky × broken, gate com dono."
+    - "'retry kicked off, ticket filed' — flaky com os dois tratamentos."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "The pipeline hierarchy is pipeline, stage, job, step — and a good report navigates all of them: 'the test job on the build stage fails on the upload step'. One sentence, and anyone can open the right logs." }
+    - { speaker: Marcos, text: "Flaky is the most dangerous word in CI. A test that fails without a code change teaches everyone to ignore red — so the rule is: retry it once, and if it flakes again, it gets a ticket." }
+    - { speaker: Priya, text: "Artifacts are how stages talk to each other — the build job uploads the binary, the deploy job downloads it. When a deploy ships the wrong thing, the artifact is usually where the trail starts." }
+    - { speaker: Ana, text: "And don't forget the runner — it's the machine under everything. Disk full, agent down, wrong image: half of 'the pipeline is broken' is actually 'the runner is broken'." }
+  questions:
+    - { id: M11-01-l1, type: multiple_choice, prompt: "The hierarchy, top to bottom:", options: ["pipeline → job → stage → step", "pipeline → stage → job → step", "stage → pipeline → job", "job → step → stage → pipeline"], answer: 1, explanation: "pipeline > stage > job > step.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-01-l2, type: multiple_choice, prompt: "A flaky test is dangerous because…", options: ["it's slow", "it needs a bigger runner", "it produces artifacts", "it teaches everyone to ignore red"], answer: 3, explanation: "Vermelho ignorado é o dano real.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-01-l3, type: fill_blank, prompt: "The build job uploads the binary as an ___.", accepted: ["artifact"], explanation: "Artifact — o que atravessa os stages.", tags: [vocab.ci] }
+    - { id: M11-01-l4, type: error_correction, prompt: "Ana suggested me to add a gate.", accepted: ["Ana suggested that I add a gate.", "Ana suggested adding a gate.", "Ana suggested that I add a gate"], explanation: "suggest + that + sujeito, ou + gerúndio.", tags: [br.suggested-me] }
+    - { id: M11-01-l5, type: multiple_choice, prompt: "A manual gate is…", options: ["a broken step", "a flaky test", "an approval point before the next stage", "a runner setting"], answer: 2, explanation: "A trava que espera um humano.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-01-l6, type: multiple_choice, prompt: "Half of 'pipeline is broken' is actually…", options: ["the code", "'the runner is broken' — disk, agent, image", "the tests", "the triggers"], answer: 1, explanation: "O runner é a infra sob tudo.", tags: [comp.listening, vocab.ci] }
+
+writing:
+  prompt: |
+    **Cenário:** o pipeline do `payments-api` está vermelho e você precisa
+    postar o status no canal do time antes da daily: o job de teste falha
+    no passo de cobertura, parece flaky (passou no retry duas vezes), o
+    deploy está atrás de uma trava manual e o runner está com disco ok.
+
+    **Tarefa:** escreva 80–120 palavras localizando a falha no mapa do
+    pipeline (stage/job/step), classificando flaky × broken, e dizendo o
+    que trava o deploy e o que já foi descartado.
+  constraints:
+    - { label: "Mapa do pipeline", pattern: "\\b(stage|job|step|pipeline)\\b" }
+    - { label: "Flaky × broken", pattern: "\\b(flaky|broken|retry|consistent)\\b" }
+    - { label: "Trava ou gatilho", pattern: "\\b(gate|trigger|approv\\w*|manual)\\b" }
+    - { label: "Infra do CI", pattern: "\\b(runner|artifact|cache|disk)\\b" }
+  rubric:
+    - "Falha localizada em stage/job/step"
+    - "Classificação flaky × broken com evidência"
+    - "O que trava o deploy"
+    - "O que já foi descartado"
+  model: >-
+    Status on the payments pipeline. It's red — the test job on the build
+    stage fails on the coverage step, while everything before it is green.
+    It looks flaky: it passed on retry twice this week, and no related code
+    changed. I retried it once and filed a ticket for the flake. The deploy
+    stage is blocked behind the test stage, plus there's a manual gate
+    before prod that needs Priya's approval anyway. Ruled out the runner —
+    disk is at 40%. If the retry fails on the same step, it's broken, not
+    flaky.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.ci]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos reportando o estado do pipeline na daily: onde a falha está (stage/job/step), se é flaky ou broken, e o que trava o deploy."
+    maxSeconds: 45
+    targetPhrases:
+      - the pipeline is red
+      - the test job
+      - the build stage
+      - the coverage step
+      - flaky
+      - retry
+      - manual gate
+      - the deploy stage
+      - the runner
+      - artifact
+      - trigger
+      - ruled out
+    checklist:
+      - Falha localizada no mapa
+      - Flaky × broken com evidência
+      - Trava do deploy nomeada
+      - Descarte com motivo
+
+quiz:
+  - { id: M11-01-q1, type: multiple_choice, prompt: "'The test job on the build stage fails on the upload step' navigates…", options: ["two levels", "the trigger and the gate", "only the pipeline", "three levels — stage, job, step"], answer: 3, explanation: "Três níveis numa frase.", tags: [vocab.ci] }
+  - { id: M11-01-q2, type: error_correction, prompt: "The deploy was succeeded at noon.", accepted: ["The deploy succeeded at noon.", "The deploy succeeded at noon"], explanation: "succeed não tem passiva.", tags: [br.was-succeeded] }
+  - { id: M11-01-q3, type: multiple_choice, prompt: "A test that fails with no code change and passes on retry is…", options: ["broken", "a gate", "flaky — retry once, ticket if it flakes again", "an artifact"], answer: 2, explanation: "Flaky: retry + ticket, não retry eterno.", tags: [vocab.ci] }
+  - { id: M11-01-q4, type: fill_blank, prompt: "There's a manual ___ before the deploy stage.", accepted: ["gate"], explanation: "Gate — aprovação humana antes de avançar.", tags: [vocab.ci] }
+  - { id: M11-01-q5, type: error_correction, prompt: "The rollout depends in the flag.", accepted: ["The rollout depends on the flag.", "The rollout depends on the flag"], explanation: "depends on.", tags: [br.depends-in] }
+  - { id: M11-01-q6, type: translate, prompt: "O job de build sobe o binário como artefato; o job de deploy o baixa.", accepted: ["The build job uploads the binary as an artifact; the deploy job downloads it.", "The build job uploads the binary as an artifact and the deploy job downloads it."], explanation: "artifact — o que atravessa os stages.", tags: [vocab.ci] }
+  - { id: M11-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["out", "ran", "runner", "of", "disk", "the"], answer: "the runner ran out of disk", explanation: '"ran out of" — a falha de infra do CI.', tags: [vocab.ci] }
+  - { id: M11-01-q8, type: multiple_choice, prompt: "The trigger of a pipeline is…", options: ["what fires it — push, schedule, manual", "the failing step", "the artifact", "the approval"], answer: 0, explanation: "O que dispara a execução.", tags: [vocab.ci] }
+
+srsCards:
+  - { front: "stage", back: "A fase do pipeline — build, test, deploy em sequência.", tag: vocab.ci }
+  - { front: "job", back: "A unidade de trabalho dentro do stage — em paralelo.", tag: vocab.ci }
+  - { front: "step", back: "O comando dentro do job — o nível mais fino.", tag: vocab.ci }
+  - { front: "artifact", back: "O que o job produz — atravessa os stages.", tag: vocab.ci }
+  - { front: "runner", back: "A máquina que executa — falha dele é falha de tudo.", tag: vocab.ci }
+  - { front: "trigger", back: "O que dispara — push, schedule, manual, webhook.", tag: vocab.ci }
+  - { front: "flaky", back: "Teste que falha sem mudança — retry uma vez, ticket se voltar.", tag: vocab.ci }
+  - { front: "gate", back: "A trava de aprovação antes do próximo stage.", tag: vocab.ci }
+  - { front: "a run", back: "Uma execução do pipeline — com logs próprios.", tag: vocab.ci }
+  - { front: "kick off", back: "Disparar uma execução — 'kick off a run'.", tag: vocab.ci }
+
+review:
+  preferTags: [vocab.ci, br.suggested-me, br.depends-in]
+  notes: "Revisão prioriza o mapa do pipeline e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

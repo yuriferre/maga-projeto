@@ -479,4 +479,48 @@ describe("detectBrErrors", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-my-machine");
   });
+
+  // M11: CI/CD e IaC
+  it("flags 'depends in' but not 'depends in part'", () => {
+    expect(tagsOf("The rollout depends in the flag.")).toContain("br.depends-in");
+    expect(tagsOf("It depends in the region.")).toContain("br.depends-in");
+    const clean = [
+      "It depends on the flag.",
+      "The rollout depends in part on the flag.",
+      "It depends in part.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.depends-in");
+  });
+  it("flags 'suggested me to' but not 'suggested to me'", () => {
+    expect(tagsOf("Ana suggested me to add a gate.")).toContain("br.suggested-me");
+    expect(tagsOf("He suggested us to wait.")).toContain("br.suggested-me");
+    const clean = [
+      "Ana suggested to me that we add a gate.",
+      "She suggested a gate.",
+      "Ana suggested that I add a gate.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.suggested-me");
+  });
+  it("flags 'apply the terraform' but not the command order", () => {
+    expect(tagsOf("I applied the terraform this morning.")).toContain("br.apply-terraform");
+    expect(tagsOf("Let's apply terraform on staging.")).toContain("br.apply-terraform");
+    const clean = [
+      "Run terraform apply on staging.",
+      "Terraform apply finished.",
+      "Apply the changes after the plan.",
+      "Review the terraform plan first.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.apply-terraform");
+  });
+  it("flags 'was succeeded' but not 'was succeeded by'", () => {
+    expect(tagsOf("The deploy was succeeded after the fix.")).toContain("br.was-succeeded");
+    expect(tagsOf("The rollout was happened yesterday.")).toContain("br.was-succeeded");
+    const clean = [
+      "The deploy succeeded after the fix.",
+      "He was succeeded by his replacement.",
+      "It has succeeded three times.",
+      "The rollout happened yesterday.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.was-succeeded");
+  });
 });

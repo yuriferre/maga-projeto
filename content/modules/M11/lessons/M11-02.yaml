@@ -1,0 +1,286 @@
+id: M11-02
+module: M11
+order: 2
+title: "Descrevendo falhas de pipeline e como corrigiu"
+objective: >-
+  Ao final, você descreve uma falha de CI de ponta a ponta — o sinal, a
+  causa na infra ou no código, e a correção — com o vocabulário de falhas:
+  timed out, out of disk, permission denied, cache miss, version bump.
+durationMin: 35
+competencies: [VOC, SPK, WRI]
+tags: [vocab.ci, comp.speaking, comp.writing, br.it-not-works, br.was-succeeded]
+prerequisites: [M11-01]
+
+context:
+  scenario: |
+    O pipeline do `payments-api` quebrou de três jeitos numa semana — e
+    cada falha tem um nome e uma correção próprios. O test job **timed
+    out** depois que a suíte cresceu (correção: paralelizar). O runner
+    morreu com **out of disk** (correção: limpar imagens antigas no
+    schedule). E o deploy falhou com **permission denied** depois da
+    rotação de credenciais (correção: atualizar o secret no CI).
+
+    Descrever falha de pipeline segue o mesmo esqueleto do M10 — sinal,
+    causa, correção — mas o vocabulário é outro: o nome exato do erro
+    (**timed out**, **out of disk**, **exit code 137**) e o verbo da
+    correção (**bumped**, **rotated**, **cleaned up**, **split**).
+  roles: [Yuri (platform engineer), Ana (SRE), Priya (tech lead)]
+
+vocabulary:
+  - term: "timed out"
+    meaning: estourou o tempo — a falha por demora
+    example: "The test job timed out after 30 minutes."
+    translation: "O job de teste estourou o tempo depois de 30 minutos."
+    note: "Timeout explícito — 'timed out', não 'gave timeout'."
+  - term: "out of disk"
+    meaning: sem disco — a falha de recurso do runner
+    example: "The runner went out of disk mid-build."
+    translation: "O runner ficou sem disco no meio do build."
+    note: '"ran out of disk/space/memory" — o recurso acabou.'
+  - term: "permission denied"
+    meaning: permissão negada — a falha de credencial
+    example: "The deploy failed with permission denied — the token expired."
+    translation: "O deploy falhou com permissão negada — o token expirou."
+    note: "Quase sempre credencial ou escopo — cheque o secret."
+  - term: "exit code"
+    meaning: código de saída — o número que conta a falha
+    example: "Exit code 137 means the container got OOM-killed."
+    translation: "Código de saída 137 significa que o container foi morto por falta de memória."
+    note: "0 = sucesso; 1 = erro genérico; 137 = SIGKILL/OOM; 143 = SIGTERM."
+  - term: "cache miss"
+    meaning: cache vazio — a falha silenciosa de performance
+    example: "Every run had a cache miss — installs took 4 minutes again."
+    translation: "Toda execução teve cache miss — os installs voltaram a levar 4 minutos."
+    note: "Não quebra o pipeline — só deixa lento. Mesmo assim reporte."
+  - term: "to bump"
+    meaning: subir versão — atualizar a dependência
+    example: "Bumped the base image to node:22 — the CVE is gone."
+    translation: "Subimos a imagem base para node:22 — a CVE sumiu."
+    note: '"bump X to Y" — o verbo de atualização de versão.'
+  - term: "to rotate"
+    meaning: rotacionar — trocar credencial ou secret
+    example: "We rotate the deploy token every quarter."
+    translation: "Rotacionamos o token de deploy a cada trimestre."
+    note: "Secrets rotacionam; quando falha, verifique o secret no CI."
+  - term: "to split"
+    meaning: dividir — quebrar a suíte em partes paralelas
+    example: "We split the test suite into four parallel jobs."
+    translation: "Dividimos a suíte de teste em quatro jobs paralelos."
+    note: "A correção clássica para timeout de teste."
+  - term: "to clean up"
+    meaning: limpar — remover o que acumulou
+    example: "A nightly job cleans up old images on the runner."
+    translation: "Um job noturno limpa imagens antigas no runner."
+    note: "A correção para 'out of disk' recorrente."
+  - term: "flaky fix vs real fix"
+    meaning: remendo vs correção — retry eterno não é correção
+    example: "Auto-retry hid the flake for a month — the real fix was the race in the test."
+    translation: "O auto-retry escondeu a falha por um mês — a correção real foi a condição de corrida no teste."
+    note: "Retry mascara; a correção toca a causa."
+  - term: "intermittent failure"
+    meaning: falha intermitente — vai e volta
+    example: "It was an intermittent failure — network blips during artifact upload."
+    translation: "Foi uma falha intermitente — oscilações de rede no upload do artefato."
+    note: "Igual ao M10: declare a frequência."
+  - term: "fail fast"
+    meaning: falhar rápido — desenhar para falhar cedo
+    example: "We moved the lint job first — fail fast, cheap feedback."
+    translation: "Movemos o job de lint para o início — falhar rápido, feedback barato."
+    note: "Jobs baratos primeiro — o caro falha depois do barato."
+
+grammar:
+  title: "Falha → causa → correção, com o verbo certo"
+  explanation: |
+    O relato de falha de pipeline tem três colunas — e cada falha tem seu
+    verbo de correção:
+
+    | Falha | Sinal | Correção típica |
+    |---|---|---|
+    | **timed out** | job morre no limite de tempo | *split the suite* / *raised the timeout* |
+    | **out of disk** | runner sem espaço | *cleaned up images* / *bigger runner* |
+    | **permission denied** | credencial inválida | *rotated the token* / *updated the secret* |
+    | **cache miss** | install lento toda vez | *fixed the cache key* |
+    | **exit code 137** | container morto (OOM) | *bumped the memory limit* |
+
+    A frase-modelo: "the test job **timed out** — the suite doubled, so we
+    **split** it into four parallel jobs" — falha, causa, correção.
+
+    Cuidado BR: **succeed** e **happen** não têm passiva — "the deploy
+    **succeeded**", nunca "was succeeded".
+  examples:
+    - { en: "The test job timed out — the suite doubled, so we split it into four parallel jobs.", pt: "O job de teste estourou o tempo — a suíte dobrou, então dividimos em quatro jobs paralelos." }
+    - { en: "The runner went out of disk mid-build — a nightly cleanup job fixes it for good.", pt: "O runner ficou sem disco no meio do build — um job noturno de limpeza resolve de vez." }
+    - { en: "Permission denied on the deploy — the rotated token wasn't updated in the CI secrets.", pt: "Permissão negada no deploy — o token rotacionado não foi atualizado nos secrets do CI." }
+    - { en: "Exit code 137 — the container was OOM-killed, so we bumped the memory limit.", pt: "Código 137 — o container foi morto por falta de memória, então subimos o limite." }
+    - { en: "Every run had a cache miss — the cache key included the lockfile hash twice.", pt: "Toda execução teve cache miss — a chave do cache incluía o hash do lockfile duas vezes." }
+    - { en: "Auto-retry hid the flake for a month — the real fix was the race in the test setup.", pt: "O auto-retry escondeu a falha por um mês — a correção real foi a condição de corrida no setup do teste." }
+
+examples:
+  - en: "The test job timed out after the suite doubled — we split it into four parallel jobs."
+    pt: "O job de teste estourou o tempo depois que a suíte dobrou — dividimos em quatro jobs paralelos."
+    context: "Timeout → causa → split."
+  - en: "The runner went out of disk — old images piled up. A nightly cleanup job fixes it for good."
+    pt: "O runner ficou sem disco — imagens antigas acumularam. Um job noturno de limpeza resolve de vez."
+    context: "Out of disk → causa → cleanup agendado."
+  - en: "Permission denied on deploy — the token rotated last week and nobody updated the CI secret."
+    pt: "Permissão negada no deploy — o token rotacionou semana passada e ninguém atualizou o secret do CI."
+    context: "Permission denied → credencial velha."
+  - en: "Exit code 137 means OOM — we bumped the container memory to 2GB."
+    pt: "Código 137 significa OOM — subimos a memória do container para 2GB."
+    context: "O número conta a falha — 137 = SIGKILL."
+  - en: "The cache misses were silent — installs went from 20 seconds back to 4 minutes."
+    pt: "Os cache misses foram silenciosos — os installs voltaram de 20 segundos para 4 minutos."
+    context: "Cache miss não quebra — só deixa lento."
+  - en: "We moved lint to the front — fail fast, the cheap check runs before the slow one."
+    pt: "Movemos o lint para o início — falhar rápido, a verificação barata roda antes da lenta."
+    context: "Fail fast — a ordem dos jobs importa."
+  - en: "Auto-retry is a band-aid — the real fix was a race condition in the test setup."
+    pt: "Auto-retry é band-aid — a correção real era uma condição de corrida no setup do teste."
+    context: "Retry mascara a causa — nomeie isso."
+  - en: "The deploy succeeded after we bumped the base image to node:22."
+    pt: "O deploy passou depois que subimos a imagem base para node:22."
+    context: '"succeeded" — sem passiva, e "bump to" para versão.'
+
+variations:
+  - idea: '"o trio falha-causa-correção"'
+    items:
+      - { register: "Boa", text: "The test job timed out — the suite doubled, so we split it into four parallel jobs.", adequate: true }
+      - { register: "Boa", text: "Permission denied on deploy: the rotated token wasn't updated in CI. Fixed the secret, job is green.", adequate: true }
+      - { register: "Inadequada", text: "The job failed and I fixed it.", adequate: false, note: "Sem o nome da falha e o verbo da correção, ninguém aprende nada." }
+      - { register: "Inadequada", text: "The deploy was succeeded after I fixed the token.", adequate: false, note: '"was succeeded" não existe — "the deploy succeeded".' }
+  - idea: '"retry é band-aid?"'
+    items:
+      - { register: "Boa", text: "Auto-retry is a band-aid — it buys quiet, not health. The real fix is the race in the setup.", adequate: true }
+      - { register: "Boa", text: "We kept the retry as a workaround and opened a ticket for the real fix — the race in the test.", adequate: true }
+      - { register: "Inadequada", text: "I enabled auto-retry, problem solved.", adequate: false, note: "Retry esconde o flake — a falha continua existindo." }
+      - { register: "Inadequada", text: "It's flaky, just deal with it.", adequate: false, note: "Flaky ignorado destrói a confiança no pipeline." }
+
+brErrors:
+  - { wrong: "The deploy was succeeded after the fix.", right: "The deploy succeeded after the fix.", why: "succeed não tem passiva", tag: br.was-succeeded }
+  - { wrong: "The job not runs on the schedule.", right: "The job doesn't run on the schedule.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It depends in the runner image.", right: "It depends on the runner image.", why: "depends on", tag: br.depends-in }
+  - { wrong: "I applied the terraform yesterday.", right: "I ran terraform apply yesterday.", why: '"terraform apply" ou "applied the changes"', tag: br.apply-terraform }
+  - { wrong: "After to rotate the token, it worked.", right: "After rotating the token, it worked.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "It's the same failure of last month.", right: "It's the same failure as last month.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "We choosed the bigger runner.", right: "We chose the bigger runner.", why: "chose, não choosed", tag: br.irregular-past }
+  - { wrong: "The new runner is more fast.", right: "The new runner is faster.", why: "fast leva -er", tag: br.more-er }
+  - { wrong: "I need that you update the secret.", right: "I need you to update the secret.", why: "need + you + to", tag: br.need-that-you }
+  - { wrong: "Can you explain me the exit code?", right: "Can you explain the exit code to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "Três falhas, uma semana"
+  lines:
+    - { speaker: Priya, text: "Walk me through this week's pipeline failures." }
+    - { speaker: Yuri, text: "Three different ones. Monday: the test job timed out — the suite doubled after the payments migration, so we split it into four parallel jobs." }
+    - { speaker: Ana, text: "That explains the 30-minute wall." }
+    - { speaker: Yuri, text: "Wednesday: the runner went out of disk mid-build — old images piled up. Added a nightly cleanup job." }
+    - { speaker: Priya, text: "And Friday's deploy failure?" }
+    - { speaker: Yuri, text: "Permission denied — the deploy token rotated last week and nobody updated the CI secret. Updated it, deploy succeeded." }
+    - { speaker: Ana, text: "The flaky coverage test — still retrying?" }
+    - { speaker: Yuri, text: "Auto-retry is on as a band-aid, but the real fix is a race condition in the test setup — Marcos has the ticket." }
+    - { speaker: Priya, text: "Good — and the exit code 137 we saw Thursday?" }
+    - { speaker: Yuri, text: "OOM kill — bumped the container memory to 2GB. All green since." }
+    - { speaker: Priya, text: "Write these up — failure, cause, fix — it's a solid week of pipeline lessons." }
+  notes:
+    - "cada falha com nome (timed out, out of disk, permission denied, 137) e verbo de correção (split, cleaned up, updated, bumped)."
+    - "'band-aid' + 'real fix' — o M10-04 reaparece naturalmente."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Every pipeline failure has a name and a fix verb. 'Timed out' gets 'split the suite'; 'out of disk' gets 'cleaned up'; 'permission denied' gets 'rotated or updated the secret'. Learn the pairs and the report writes itself." }
+    - { speaker: Priya, text: "Exit codes tell you the story without reading the log — 0 is success, 1 is a generic error, 137 means the container was killed, usually out of memory. When you see 137, think memory limit first." }
+    - { speaker: Yuri, text: "The silent failure is the cache miss — nothing breaks, but every install takes four minutes again. Report it anyway: a slow pipeline is a broken pipeline, just quieter." }
+    - { speaker: Priya, text: "And remember the order rule — fail fast. Put the cheap checks first: lint before tests, tests before the build. A failure at minute one beats the same failure at minute twenty." }
+  questions:
+    - { id: M11-02-l1, type: multiple_choice, prompt: "'Timed out' pairs with…", options: ["rotated the token", "bumped the memory", "split the suite", "cleaned up images"], answer: 2, explanation: "Timeout de suíte grande → paralelizar.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-02-l2, type: multiple_choice, prompt: "Exit code 137 usually means…", options: ["permission denied", "the container was killed — think memory limit", "cache miss", "flaky test"], answer: 1, explanation: "SIGKILL — OOM na maioria das vezes.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-02-l3, type: fill_blank, prompt: "The runner went out of ___ mid-build.", accepted: ["disk"], explanation: '"out of disk" — o recurso do runner acabou.', tags: [vocab.ci] }
+    - { id: M11-02-l4, type: error_correction, prompt: "The deploy was succeeded after the token update.", accepted: ["The deploy succeeded after the token update.", "The deploy succeeded after the token update"], explanation: "succeed não tem passiva.", tags: [br.was-succeeded] }
+    - { id: M11-02-l5, type: multiple_choice, prompt: "A cache miss is the silent failure because…", options: ["it deletes artifacts", "it crashes the runner", "it breaks the deploy", "nothing breaks — installs just get slow again"], answer: 3, explanation: "Não quebra — só deixa lento. Reporte mesmo assim.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-02-l6, type: multiple_choice, prompt: "'Fail fast' means…", options: ["retry quickly", "fail silently", "cheap checks first — lint before tests, tests before build", "skip the slow jobs"], answer: 2, explanation: "A falha no minuto 1 vale mais que no minuto 20.", tags: [comp.listening, vocab.ci] }
+
+writing:
+  prompt: |
+    **Cenário:** Priya pediu o resumo escrito das três falhas de pipeline da
+    semana para o canal: timeout no job de teste (suíte dobrou → split em 4
+    jobs), runner sem disco (imagens antigas → cleanup noturno) e
+    permission denied no deploy (token rotacionado → secret atualizado).
+
+    **Tarefa:** escreva 80–120 palavras — cada falha com nome exato, a
+    causa e o verbo da correção. Inclua o que ficou como band-aid e o
+    ticket da correção real.
+  constraints:
+    - { label: "Nomes das falhas", pattern: "\\b(timed?\\s*out|out of disk|permission denied|exit code|cache miss)\\b" }
+    - { label: "Verbos de correção", pattern: "\\b(split|bump\\w*|rotat\\w+|clean(ed)? up|updat\\w+|fix\\w*)\\b" }
+    - { label: "Causa ligada", pattern: "\\b(because|so|after|which|doubled|expired|rotated)\\b" }
+    - { label: "Band-aid vs real fix", pattern: "\\b(band-aid|workaround|real fix|ticket|auto.?retry)\\b" }
+  rubric:
+    - "Cada falha com nome + causa + verbo de correção"
+    - "Band-aid nomeado com ticket da correção real"
+    - "Fecha com o estado atual"
+  model: >-
+    This week's pipeline failures, write-up. Monday: the test job timed out
+    — the suite doubled after the payments migration, so we split it into
+    four parallel jobs. Wednesday: the runner went out of disk mid-build;
+    old images had piled up, so a nightly cleanup job now handles it.
+    Friday: permission denied on the deploy — the rotated token wasn't
+    updated in the CI secrets. Updated it and the deploy succeeded. Still
+    open: auto-retry is a band-aid on the coverage flake — the real fix is
+    a race condition in the test setup, ticket with Marcos.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.ci]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos resumindo as falhas de pipeline da semana: cada falha com nome, causa e correção — e o que ficou como band-aid."
+    maxSeconds: 45
+    targetPhrases:
+      - timed out
+      - out of disk
+      - permission denied
+      - exit code
+      - split the suite
+      - cleaned up
+      - rotated the token
+      - bumped
+      - cache miss
+      - band-aid
+      - the real fix
+      - succeeded
+    checklist:
+      - Falha com nome exato
+      - Causa ligada à correção
+      - Band-aid vs real fix
+      - Estado atual no fim
+
+quiz:
+  - { id: M11-02-q1, type: multiple_choice, prompt: "The test job timed out after the suite doubled. The fix verb is…", options: ["rotate", "bump", "clean up", "split — four parallel jobs"], answer: 3, explanation: "Timeout de suíte → dividir em paralelo.", tags: [vocab.ci] }
+  - { id: M11-02-q2, type: error_correction, prompt: "The rollout was happened on Friday.", accepted: ["The rollout happened on Friday.", "The rollout happened on Friday"], explanation: "happen não tem passiva.", tags: [br.was-succeeded] }
+  - { id: M11-02-q3, type: multiple_choice, prompt: "'Permission denied' on deploy almost always means…", options: ["the tests failed", "the runner is down", "a credential problem — check the rotated secret in CI", "a cache miss"], answer: 2, explanation: "Credencial — secret velho é o suspeito.", tags: [vocab.ci] }
+  - { id: M11-02-q4, type: fill_blank, prompt: "Exit code ___ means the container was OOM-killed.", accepted: ["137"], explanation: "137 = SIGKILL — memória.", tags: [vocab.ci] }
+  - { id: M11-02-q5, type: error_correction, prompt: "I applied the terraform yesterday.", accepted: ["I ran terraform apply yesterday.", "I applied the changes yesterday.", "I ran terraform apply yesterday"], explanation: '"terraform apply" ou "applied the changes".', tags: [br.apply-terraform] }
+  - { id: M11-02-q6, type: translate, prompt: "O auto-retry é um band-aid — a correção real é a condição de corrida no setup.", accepted: ["Auto-retry is a band-aid — the real fix is the race condition in the setup.", "Auto-retry is a band-aid — the real fix is a race condition in the setup."], explanation: "band-aid + real fix.", tags: [vocab.ci] }
+  - { id: M11-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["disk", "of", "runner", "out", "went", "the"], answer: "the runner went out of disk", explanation: '"went out of disk" — o recurso acabou.', tags: [vocab.ci] }
+  - { id: M11-02-q8, type: multiple_choice, prompt: "A cache miss doesn't break the pipeline — it…", options: ["makes installs slow again — still worth reporting", "deletes the artifacts", "rotates the tokens", "skips the tests"], answer: 0, explanation: "Pipeline lento é pipeline quebrado, só que quieto.", tags: [vocab.ci] }
+
+srsCards:
+  - { front: "timed out", back: "Estourou o tempo — correção: split/timeout maior.", tag: vocab.ci }
+  - { front: "out of disk", back: "Runner sem espaço — correção: cleanup job.", tag: vocab.ci }
+  - { front: "permission denied", back: "Credencial — verifique o secret no CI.", tag: vocab.ci }
+  - { front: "exit code 137", back: "Container morto (OOM) — suba a memória.", tag: vocab.ci }
+  - { front: "cache miss", back: "Cache vazio — nada quebra, só fica lento.", tag: vocab.ci }
+  - { front: "bump X to Y", back: "Subir versão — 'bumped the image to node:22'.", tag: vocab.ci }
+  - { front: "rotate the token", back: "Trocar credencial — depois atualize o secret.", tag: vocab.ci }
+  - { front: "split the suite", back: "Dividir a suíte em jobs paralelos — correção de timeout.", tag: vocab.ci }
+  - { front: "fail fast", back: "Checks baratos primeiro — falha no minuto 1, não no 20.", tag: vocab.ci }
+  - { front: "clean up", back: "Limpar o acumulado — imagens, caches, volumes.", tag: vocab.ci }
+
+review:
+  preferTags: [vocab.ci, br.was-succeeded, br.apply-terraform]
+  notes: "Revisão prioriza os pares falha→correção e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

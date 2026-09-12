@@ -1,0 +1,8 @@
+id: M11
+assessment:
+  title: Module assessment
+  description: "15 itens mistos cobrindo as tags do módulo + escrita (resumo de mudança de pipeline, autoavaliada) + gravação falada (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 3, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
