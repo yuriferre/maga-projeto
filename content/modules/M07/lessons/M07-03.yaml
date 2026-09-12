@@ -1,0 +1,287 @@
+id: M07-03
+module: M07
+order: 3
+title: "Condicionais reais: If we go with X, we'll need…; unless; as long as"
+objective: >-
+  Ao final, você liga decisão a consequência com a condicional real — "if +
+  presente, will na oração principal" — e troca "if not" por "unless" e "only
+  if" por "as long as" sem errar a ordem.
+durationMin: 35
+competencies: [SPK, VOC]
+tags: [gram.conditionals-real, br.if-will, vocab.agile, comp.speaking, topic.refinement, gram.hedging]
+prerequisites: [M07-02]
+
+context:
+  scenario: |
+    O refinamento vive de condicionais: "If we go with the managed database,
+    we'll need less ops time — unless the cost doubles." Cada decisão carrega
+    uma consequência e cada consequência tem uma condição.
+
+    A condicional real tem uma regra curta: **if + presente** na condição,
+    **will + verbo** na consequência — "if we need more nodes, the cost goes
+    up". O "will" na oração do "if" é o erro clássico. E dois conectivos
+    encurtam a conversa: **unless** (= if not) e **as long as** (= somente se /
+    desde que). Quem domina os três conduz a reunião em vez de só responder.
+  roles: [Priya (product owner), Marcos (tech lead), Yuri (platform engineer)]
+
+vocabulary:
+  - term: "if we go with"
+    meaning: se escolhermos — a decisão na mesa
+    example: "If we go with the managed option, we'll need less ops time."
+    translation: "Se escolhermos a opção gerenciada, precisaremos de menos tempo de ops."
+    note: '"go with X" = escolher X — o verbo da decisão.'
+  - term: unless
+    meaning: a menos que — "if not" em uma palavra
+    example: "The story stays at three points unless the spike finds surprises."
+    translation: "A história fica em três pontos, a menos que o spike encontre surpresas."
+    note: 'unless + presente: "unless it breaks", nunca "unless it will break".'
+  - term: "as long as"
+    meaning: desde que — a condição necessária
+    example: "We can ship Friday as long as the migration lands Tuesday."
+    translation: "Conseguimos entregar sexta, desde que a migração entre terça."
+    note: "Também 'contanto que'; para tempo físico é outra coisa ('for as long as')."
+  - term: "provided that"
+    meaning: desde que — a versão formal do as long as
+    example: "We can commit to it, provided that the criteria stay fixed."
+    translation: "Podemos nos comprometer, desde que os critérios fiquem fixos."
+    note: "Formal; no dia a dia, 'as long as' resolve."
+  - term: "in that case"
+    meaning: nesse caso — a consequência encadeada
+    example: "If the provider drops retries, in that case we build our own queue."
+    translation: "Se o provedor remover os retries, nesse caso montamos nossa própria fila."
+    note: "Conecta a resposta à condição anterior sem repetir o if."
+  - term: "worst-case scenario"
+    meaning: pior cenário — o plano para quando tudo falha
+    example: "Worst-case scenario, we roll back and keep the old provider."
+    translation: "No pior cenário, fazemos rollback e ficamos com o provedor antigo."
+    note: "Nomeie o pior caso — ele vira o plano B explícito."
+  - term: "to fall back to"
+    meaning: recorrer a — o plano B
+    example: "If the managed DB is too pricey, we fall back to self-hosted."
+    translation: "Se o BD gerenciado for caro demais, recorremos ao self-hosted."
+    note: '"fallback" como substantivo: "the fallback is self-hosted".'
+  - term: "a deal-breaker"
+    meaning: fator que inviabiliza — o que mata a opção
+    example: "No SLA is a deal-breaker for production workloads."
+    translation: "Sem SLA é fator que inviabiliza para cargas de produção."
+    note: "O termo para a condição que elimina a opção inteira."
+  - term: "on the condition that"
+    meaning: sob a condição de que — formal e explícito
+    example: "I'll sign off on the condition that we add the missing tests."
+    translation: "Eu aprovo sob a condição de adicionarmos os testes que faltam."
+    note: "Mais formal que 'as long as' — bom para acordos por escrito."
+  - term: "what happens if"
+    meaning: o que acontece se — a pergunta que abre o risco
+    example: "What happens if the spike finds the provider can't retry?"
+    translation: "O que acontece se o spike descobrir que o provedor não tem retry?"
+    note: "A pergunta que transforma risco implícito em discussão."
+  - term: "even if"
+    meaning: mesmo se — concessão que não muda o resultado
+    example: "Even if the migration is easy, we still need the rollback plan."
+    translation: "Mesmo se a migração for fácil, ainda precisamos do plano de rollback."
+    note: '"even if" ≠ "if": a concessão admite a condição sem mudar a conclusão.'
+  - term: "assuming"
+    meaning: assumindo que — a suposição explícita
+    example: "Assuming the spike is clean, I'd say three points."
+    translation: "Assumindo que o spike seja limpo, eu diria três pontos."
+    note: '"assuming X" declara a premissa — se falhar, a estimativa cai junto.'
+  - term: "to sign off on"
+    meaning: aprovar formalmente — o ok do responsável
+    example: "The tech lead signs off on the estimate before planning."
+    translation: "O tech lead aprova a estimativa antes do planning."
+    note: "Sign-off é a aprovação que fecha a discussão."
+  - term: "a safe bet"
+    meaning: aposta segura — a opção de menor risco
+    example: "The managed database is a safe bet for a team our size."
+    translation: "O banco gerenciado é uma aposta segura para um time do nosso tamanho."
+    note: "Informal; para decisão documentada use 'the lower-risk option'."
+
+grammar:
+  title: "If + presente, will na consequência — e os atalhos unless / as long as"
+  explanation: |
+    A condicional real liga decisão a consequência: **if + presente** na
+    condição, **will + verbo** na consequência. "If we go with X, we'll need
+    Y." O "will" na oração do "if" é o erro BR clássico — "if we will need"
+    está errado.
+
+    | Conectivo | Significado | Exemplo |
+    |---|---|---|
+    | if | se | *If the spike is clean, we estimate three.* |
+    | unless | a menos que (if not) | *Unless it breaks, we ship Friday.* |
+    | as long as | desde que | *We ship Friday as long as it lands Tuesday.* |
+    | even if | mesmo se | *Even if it's easy, we need the rollback plan.* |
+
+    **Erros BR:** "if we **will** need" (é *if we need*), "unless it **will**
+    break" (mesma regra: presente depois de unless), e "as long **that**"
+    (é *as long as*). Cuidado: "I don't know if it will work" está certo —
+    aí o "if" é pergunta indireta, não condicional.
+  examples:
+    - { en: "If we go with the managed DB, we'll need less ops time.", pt: "Se escolhermos o BD gerenciado, precisaremos de menos tempo de ops." }
+    - { en: "The story stays at three unless the spike finds surprises.", pt: "A história fica em três, a menos que o spike encontre surpresas." }
+    - { en: "We can ship Friday as long as the migration lands Tuesday.", pt: "Entregamos sexta, desde que a migração entre terça." }
+    - { en: "Even if it's easy, we still need a rollback plan.", pt: "Mesmo se for fácil, ainda precisamos do plano de rollback." }
+    - { en: "If it costs double, we fall back to self-hosted.", pt: "Se custar o dobro, recorremos ao self-hosted." }
+    - { en: "What happens if the provider can't retry?", pt: "O que acontece se o provedor não tiver retry?" }
+
+examples:
+  - en: "If we go with the managed database, we'll need less ops time — unless the cost doubles."
+    pt: "Se escolhermos o banco gerenciado, precisaremos de menos tempo de ops — a menos que o custo dobre."
+    context: "Decisão + consequência + exceção numa frase só."
+  - en: "We can commit to the story as long as the criteria stay fixed."
+    pt: "Podemos nos comprometer com a história, desde que os critérios fiquem fixos."
+    context: '"as long as" = a condição que habilita o compromisso.'
+  - en: "Unless the spike finds surprises, I'd say three points."
+    pt: "A menos que o spike encontre surpresas, eu diria três pontos."
+    context: "unless na frente da frase também funciona."
+  - en: "What happens if the provider can't do idempotent retries?"
+    pt: "O que acontece se o provedor não tiver retries idempotentes?"
+    context: "A pergunta que abre a discussão de risco."
+  - en: "If that's the case, we fall back to our own queue."
+    pt: "Se for o caso, recorremos à nossa própria fila."
+    context: '"if that''s the case" encurta a condição já discutida.'
+  - en: "Even if the migration is smooth, we keep the rollback plan."
+    pt: "Mesmo se a migração for tranquila, mantemos o plano de rollback."
+    context: '"even if" admite a condição sem mudar a conclusão.'
+  - en: "No SLA is a deal-breaker for production."
+    pt: "Sem SLA é fator que inviabiliza para produção."
+    context: "O deal-breaker elimina a opção inteira."
+  - en: "I'll sign off, provided that we add the missing tests."
+    pt: "Eu aprovo, desde que adicionemos os testes que faltam."
+    context: '"provided that" — a aprovação condicional formal.'
+
+variations:
+  - idea: '"dar a condição para a estimativa"'
+    items:
+      - { register: "Boa", text: "Three points, as long as the spike comes back clean.", adequate: true }
+      - { register: "Boa", text: "If the schema is clean, it's a three; otherwise five.", adequate: true }
+      - { register: "Inadequada", text: "If we will be lucky, it's a three.", adequate: false, note: '"if" + presente: "if we are lucky".' }
+      - { register: "Inadequada", text: "It's three points, no matter what.", adequate: false, note: "Sem condição = promessa cega." }
+  - idea: '"propor o plano B"'
+    items:
+      - { register: "Boa", text: "If the cost doubles, we fall back to self-hosted.", adequate: true }
+      - { register: "Boa", text: "Worst-case scenario, we stay on the old provider another quarter.", adequate: true }
+      - { register: "Inadequada", text: "If it will be expensive, we use self-hosted.", adequate: false, note: '"if" + presente: "if it is expensive".' }
+      - { register: "Inadequada", text: "We do something else.", adequate: false, note: "Vago — nomeie o plano B concreto." }
+
+brErrors:
+  - { wrong: "If we will need more nodes, the cost goes up.", right: "If we need more nodes, the cost goes up.", why: 'condicional: "if" + presente', tag: br.if-will }
+  - { wrong: "Unless it will rain, the demo stays outside.", right: "Unless it rains, the demo stays outside.", why: "mesma regra: presente depois de unless", tag: br.if-will }
+  - { wrong: "As long that the spike is clean, it's a three.", right: "As long as the spike is clean, it's a three.", why: '"as long as" — nunca "as long that"', tag: gram.conditionals-real }
+  - { wrong: "If we will go with X, we will need Y.", right: "If we go with X, we'll need Y.", why: "will só na oração principal", tag: br.if-will }
+  - { wrong: "It make sense to add a fallback.", right: "It makes sense to add a fallback.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "The story depends of the spike result.", right: "The story depends on the spike result.", why: '"depends on" — "depend of" é calque', tag: br.depend-of }
+  - { wrong: "We need that the cost stay flat.", right: "We need the cost to stay flat.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "My estimative depends on the spike.", right: "My estimate depends on the spike.", why: '"estimative" não existe — é "estimate"', tag: br.estimative }
+  - { wrong: "The managed option is more cheap.", right: "The managed option is cheaper.", why: "cheap é adjetivo curto: cheaper", tag: br.more-er }
+  - { wrong: "Can you explain me the fallback?", right: "Can you explain the fallback to me?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+
+dialogue:
+  title: "Managed ou self-hosted?"
+  lines:
+    - { speaker: Priya, text: "Decision time: managed database or self-hosted for the new service?" }
+    - { speaker: Marcos, text: "If we go with managed, we'll need less ops time — but the monthly cost worries me." }
+    - { speaker: Yuri, text: "What happens if the cost doubles next year? Do we have an exit?" }
+    - { speaker: Priya, text: "Good question. If the cost doubles, we'd migrate — but that's a project by itself." }
+    - { speaker: Yuri, text: "So managed is a safe bet as long as the cost stays flat. Unless usage spikes — in that case, self-hosted gets cheaper fast." }
+    - { speaker: Marcos, text: "And even if managed wins, we still need the migration plan documented — as a fallback." }
+    - { speaker: Priya, text: "Agreed. I'll write it as: managed, provided that we document the exit. If usage spikes, we revisit." }
+    - { speaker: Yuri, text: "Works for me. Worst-case scenario, the fallback is already written down." }
+  notes:
+    - "a decisão encadeia quatro condicionais: go with → need, doubles → migrate, stays flat → safe bet, spikes → revisit."
+    - '"in that case" e "worst-case scenario" conectam sem repetir o if.'
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Every architecture decision is a conditional: if we choose X, we gain Y and pay Z. If you can't finish that sentence for both options, you're not deciding — you're guessing." }
+    - { speaker: Priya, text: "I also listen for 'unless' and 'as long as' — they hide the conditions people are assuming. 'We ship Friday' sounds firm; 'we ship Friday as long as staging is free' is honest." }
+    - { speaker: Yuri, text: "And 'even if' is the underrated one — 'even if it works, we still need the runbook' separates the happy path from the real plan." }
+  questions:
+    - { id: M07-03-l1, type: multiple_choice, prompt: "What is every architecture decision, per Marcos?", options: ["a vote", "a guess", "a conditional — if X, we gain Y and pay Z", "a compromise"], answer: 2, explanation: '"if we choose X, we gain Y and pay Z."', tags: [comp.listening, gram.conditionals-real] }
+    - { id: M07-03-l2, type: multiple_choice, prompt: "Why listen for 'unless' and 'as long as'?", options: ["they're formal", "they hide the conditions people are assuming", "they end the meeting faster", "they signal agreement"], answer: 1, explanation: "Os conectivos carregam as condições implícitas.", tags: [comp.listening, gram.conditionals-real] }
+    - { id: M07-03-l3, type: fill_blank, prompt: "We ship Friday ___ long as staging is free.", accepted: ["as"], explanation: '"as long as" = desde que.', tags: [gram.conditionals-real] }
+    - { id: M07-03-l4, type: multiple_choice, prompt: "'Even if it works, we still need the runbook' does what?", options: ["rejects the plan", "separates the happy path from the real plan", "closes the ticket", "estimates the work"], answer: 1, explanation: '"even if" admite a condição sem mudar a conclusão.', tags: [comp.listening, gram.conditionals-real] }
+    - { id: M07-03-l5, type: error_correction, prompt: "If we will go with managed, ops gets easier.", accepted: ["If we go with managed, ops gets easier.", "If we go with managed, ops gets easier"], explanation: '"if" + presente; nunca "if we will".', tags: [br.if-will] }
+    - { id: M07-03-l6, type: multiple_choice, prompt: "'We ship Friday' vs 'we ship Friday as long as staging is free' — the second is…", options: ["longer but dishonest", "more formal", "identical", "honest — the condition is explicit"], answer: 3, explanation: "A condição explícita é a diferença entre promessa e estimativa.", tags: [comp.listening, gram.conditionals-real] }
+
+writing:
+  prompt: |
+    **Cenário:** a decisão managed × self-hosted precisa ir por escrito no ticket da story, para quem não estava na reunião.
+
+    **Tarefa:** escreva 60–90 palavras com: a decisão, a condição que a sustenta ("as long as"), a exceção ("unless"), o plano B ("fall back to") e o pior cenário ("worst-case scenario").
+  constraints:
+    - { label: "Condicional real correta", pattern: "\\bif \\w+ (?!will\\b)" }
+    - { label: "as long as / provided that", pattern: "\\b(as long as|provided that)\\b" }
+    - { label: "unless", pattern: "\\bunless\\b" }
+    - { label: "Plano B ou pior caso", pattern: "\\b(fall back|fallback|worst.case)\\b" }
+  rubric:
+    - Decisão nomeada (managed ou self-hosted)
+    - Condição com "as long as" ou "provided that"
+    - Exceção com "unless"
+    - Plano B concreto (fall back / worst-case)
+  model: >-
+    Decision: managed database, as long as the monthly cost stays flat. If the
+    cost doubles next year, we fall back to self-hosted — the migration plan is
+    part of this story, not an afterthought. Unless usage spikes badly, managed
+    is the safe bet for a team our size. Worst-case scenario, the fallback is
+    already documented and we revisit at the next refinement.
+  minWords: 55
+  maxWords: 85
+  tags: [comp.writing, gram.conditionals-real]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos defendendo uma decisão de arquitetura (managed × self-hosted): a escolha, a condição que a sustenta, a exceção que a derruba e o plano B."
+    maxSeconds: 45
+    targetPhrases:
+      - if we go with
+      - unless
+      - as long as
+      - in that case
+      - worst-case scenario
+      - fall back to
+      - deal-breaker
+      - even if
+      - assuming
+      - sign off
+      - a safe bet
+      - what happens if
+      - provided that
+      - on the condition that
+    checklist:
+      - Condicional real correta — if + presente
+      - '"as long as" ou "provided that" para a condição'
+      - '"unless" para a exceção'
+      - Plano B concreto nomeado
+
+quiz:
+  - { id: M07-03-q1, type: multiple_choice, prompt: "'Unless the spike finds surprises' means…", options: ["because the spike finds surprises", "after the spike finds surprises", "if the spike doesn't find surprises", "the spike found surprises"], answer: 2, explanation: "unless = if not.", tags: [gram.conditionals-real] }
+  - { id: M07-03-q2, type: error_correction, prompt: "If we will need more nodes, the cost goes up.", accepted: ["If we need more nodes, the cost goes up.", "If we need more nodes, the cost goes up"], explanation: '"if" + presente; o "will" vai na consequência.', tags: [br.if-will] }
+  - { id: M07-03-q3, type: multiple_choice, prompt: "'We ship Friday as long as staging is free' — 'as long as' means…", options: ["because", "provided that staging is free", "for a long time", "although"], answer: 1, explanation: "as long as = desde que / contanto que.", tags: [gram.conditionals-real] }
+  - { id: M07-03-q4, type: error_correction, prompt: "Unless it will break, we ship on Friday.", accepted: ["Unless it breaks, we ship on Friday.", "Unless it breaks, we ship on Friday"], explanation: "Depois de unless também vai presente — mesma regra do if.", tags: [br.if-will] }
+  - { id: M07-03-q5, type: multiple_choice, prompt: "'Even if the migration is easy, we need the rollback plan' — 'even if'…", options: ["admits the condition without changing the conclusion", "makes the plan optional", "rejects the migration", "adds a deadline"], answer: 0, explanation: '"even if" = concessão que não altera o resultado.', tags: [gram.conditionals-real] }
+  - { id: M07-03-q6, type: translate, prompt: "Se o custo dobrar, recorremos ao self-hosted.", accepted: ["If the cost doubles, we fall back to self-hosted.", "If the cost doubles, we fall back to self-hosted", "If the cost doubles, we'll fall back to self-hosted."], explanation: "if + presente; will opcional na consequência.", tags: [gram.conditionals-real, br.if-will] }
+  - { id: M07-03-q7, type: reorder, prompt: "Monte a frase: / sexta / entregamos / desde que / a migração entrar terça", tokens: ["We", "can", "ship", "Friday", "as", "long", "as", "the", "migration", "lands", "Tuesday."], answer: "We can ship Friday as long as the migration lands Tuesday.", explanation: '"as long as" + presente na condição.', tags: [gram.conditionals-real] }
+  - { id: M07-03-q8, type: multiple_choice, prompt: "'No SLA is a deal-breaker' means…", options: ["the SLA is negotiable", "no SLA eliminates the option entirely", "the deal is done", "the SLA is cheap"], answer: 1, explanation: "Deal-breaker = a condição que mata a opção.", tags: [vocab.agile, gram.conditionals-real] }
+
+review:
+  count: 5
+  preferTags: [gram.conditionals-real, br.if-will, vocab.agile]
+
+srsCards:
+  - { front: "if + present, will in the main clause", back: '"If we need more nodes, the cost goes up" — nunca "if we will need"', tag: gram.conditionals-real }
+  - { front: "unless", back: "= if not — 'unless it breaks' (presente depois também)", tag: gram.conditionals-real }
+  - { front: "as long as", back: "= desde que / contanto que — a condição que habilita", tag: gram.conditionals-real }
+  - { front: "even if", back: "= mesmo se — admite a condição sem mudar a conclusão", tag: gram.conditionals-real }
+  - { front: "if we go with X", back: "se escolhermos X — 'go with' é o verbo da decisão", tag: vocab.agile }
+  - { front: "to fall back to", back: "recorrer ao plano B — 'the fallback is self-hosted'", tag: vocab.agile }
+  - { front: "a deal-breaker", back: "a condição que elimina a opção inteira", tag: vocab.agile }
+  - { front: "in that case", back: "nesse caso — conecta a consequência sem repetir o if", tag: gram.conditionals-real }
+  - { front: "worst-case scenario", back: "o pior caso — nomeie-o; vira o plano B", tag: vocab.agile }
+  - { front: "assuming", back: "declara a premissa — se falhar, a estimativa cai junto", tag: gram.hedging }
+  - { front: "provided that", back: "a versão formal de 'as long as'", tag: gram.conditionals-real }
+  - { front: "if + will (o erro)", back: '"if we will need" está errado — a exceção é a pergunta indireta ("I don''t know if it will work")', hint: "condicional ≠ pergunta indireta", tag: br.if-will }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
