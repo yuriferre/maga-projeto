@@ -1,0 +1,290 @@
+id: M09-04
+module: M09
+order: 4
+title: "Léxico de review: refactor, extract, dead code, edge case, race condition"
+objective: >-
+  Ao final, você nomeia os problemas clássicos em review — refactor × rewrite,
+  extract, dead code, magic number, edge case, race condition — e usa cada
+  termo no comentário certo.
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.review, topic.code-review, comp.writing, comp.reading, br.more-er, br.seems-me]
+prerequisites: [M09-03]
+
+context:
+  scenario: |
+    Review bom nomeia o problema, não só aponta a linha. "This is confusing"
+    vira "this is a **magic number** — name it"; "this is wrong" vira
+    "**dead code** — the flag never flips"; "careful" vira "**race
+    condition** between the write and the invalidate".
+
+    O léxico de review é curto e universal: refactor (melhorar sem mudar
+    comportamento), extract (puxar para função própria), dead code (nunca
+    executa), magic number (literal sem nome), edge case (o cenário que
+    quebra), race condition (duas operações competindo). Nomear o padrão é
+    metade do comentário.
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend)]
+
+vocabulary:
+  - term: "refactor"
+    meaning: refatorar — melhorar a estrutura sem mudar o comportamento
+    example: "This is a pure refactor — same behavior, better shape."
+    translation: "Isso é refatoração pura — mesmo comportamento, forma melhor."
+    note: "Nunca misture refactor com mudança de comportamento no mesmo PR."
+  - term: "to extract"
+    meaning: extrair — puxar trecho para função/método próprio
+    example: "Extract the retry block — it's used three times."
+    translation: "Extraia o bloco de retry — é usado três vezes."
+    note: "O verbo de duplicação — 'extract into a helper'."
+  - term: "dead code"
+    meaning: código morto — nunca executa
+    example: "This branch is dead code — the flag never flips to true."
+    translation: "Esse branch é código morto — a flag nunca vira true."
+    note: "Apagar é a correção — dead code só confunde o leitor."
+  - term: "magic number"
+    meaning: número mágico — literal sem nome nem contexto
+    example: "What does 86400 mean? Magic number — name it SECONDS_PER_DAY."
+    translation: "O que significa 86400? Número mágico — nomeie SECONDS_PER_DAY."
+    note: "A correção: virar constante com nome."
+  - term: "edge case"
+    meaning: caso de borda — o cenário fora do caminho feliz
+    example: "Edge case: the list can come back empty — handle it."
+    translation: "Caso de borda: a lista pode voltar vazia — trate isso."
+    note: "Empty, null, zero, timeout — os quatro clássicos."
+  - term: "race condition"
+    meaning: condição de corrida — duas operações disputando
+    example: "Race condition: the cache invalidate can run before the write lands."
+    translation: "Condição de corrida: a invalidação do cache pode rodar antes da escrita."
+    note: "O motivo-técnico que justifica um blocking."
+  - term: "rewrite"
+    meaning: reescrever — diferente de refactor (muda tudo)
+    example: "This isn't a refactor — it's a rewrite of the retry logic."
+    translation: "Isso não é refatoração — é uma reescrita da lógica de retry."
+    note: "Refactor preserva comportamento; rewrite não."
+  - term: "to couple"
+    meaning: acoplar — amarrar duas partes que deviam ser independentes
+    example: "This change couples the parser to the storage layer."
+    translation: "Essa mudança acopla o parser à camada de storage."
+    note: "Coupling é o que torna mudança futura cara."
+  - term: "naming"
+    meaning: nomeação — o problema favorito do review
+    example: "Naming: `data` hides that it's a list of pods — `podList`?"
+    translation: "Nomeação: `data` esconde que é uma lista de pods — `podList`?"
+    note: '"hard things: naming, cache invalidation, off-by-one" — a piada é real.'
+  - term: "to DRY up"
+    meaning: secar — remover duplicação (Don't Repeat Yourself)
+    example: "These three blocks are the same — could we DRY them up?"
+    translation: "Esses três blocos são iguais — poderíamos secar isso?"
+    note: "DRY = don't repeat yourself — 'DRY up X' = extrair o comum."
+  - term: "side effect"
+    meaning: efeito colateral — o que a função faz além de retornar
+    example: "This getter has a side effect — it writes to the cache."
+    translation: "Esse getter tem efeito colateral — escreve no cache."
+    note: "Getter que escreve é review-automático."
+  - term: "readable"
+    meaning: legível — o objetivo de todo comentário de estilo
+    example: "The nested ternary works, but a switch is more readable."
+    translation: "O ternário aninhado funciona, mas um switch é mais legível."
+    note: "A justificativa que não é gosto — legibilidade é manutenção."
+  - term: "to gloss over"
+    meaning: passar por cima — ignorar o detalhe que importa
+    example: "This check glosses over the timeout case."
+    translation: "Essa verificação passa por cima do caso de timeout."
+    note: "Quando o código finge que o edge case não existe."
+  - term: "boilerplate"
+    meaning: código-padrão repetitivo — cerimônia sem lógica
+    example: "Half the file is boilerplate — a helper would shrink it."
+    translation: "Metade do arquivo é boilerplate — um helper encolheria."
+    note: "Setup repetido que esconde a lógica real."
+
+grammar:
+  title: "Nomear o padrão é metade do comentário"
+  explanation: |
+    O léxico de review transforma impressão em diagnóstico. Em vez de
+    "this is confusing", o termo certo diz o que fazer:
+
+    | Você vê | O termo | O pedido implícito |
+    |---|---|---|
+    | literal sem nome | *magic number* | nomear como constante |
+    | branch que nunca roda | *dead code* | apagar |
+    | trecho repetido | *duplication* → *extract* / *DRY up* | puxar o comum |
+    | literal fora do happy path | *edge case* | tratar |
+    | duas ops competindo | *race condition* | lock/ordem |
+    | função que faz mais que retorna | *side effect* | separar |
+
+    E a distinção que evita brigas: **refactor** = mesma behavior, melhor
+    forma; **rewrite** = comportamento muda. Misturar os dois num PR é o
+    pecado clássico.
+  examples:
+    - { en: "This is a pure refactor — same behavior, better shape.", pt: "Isso é refatoração pura — mesmo comportamento, forma melhor." }
+    - { en: "This branch is dead code — the flag never flips.", pt: "Esse branch é código morto — a flag nunca vira." }
+    - { en: "What does 86400 mean? Magic number — name it.", pt: "O que significa 86400? Número mágico — nomeie." }
+    - { en: "Race condition: the invalidate can run before the write lands.", pt: "Condição de corrida: a invalidação pode rodar antes da escrita." }
+    - { en: "These three blocks are the same — could we DRY them up?", pt: "Esses três blocos são iguais — poderíamos secá-los?" }
+    - { en: "This getter has a side effect — it writes to the cache.", pt: "Esse getter tem efeito colateral — escreve no cache." }
+
+examples:
+  - en: "Pure refactor here — same behavior, better shape. LGTM."
+    pt: "Refatoração pura aqui — mesmo comportamento, forma melhor. LGTM."
+    context: "Declarar que é refactor puro = 'pode revisar rápido'."
+  - en: "This branch is dead code — the flag never flips to true. Delete it?"
+    pt: "Esse branch é código morto — a flag nunca vira true. Apagar?"
+    context: "Dead code se apaga — a pergunta é a sugestão."
+  - en: "What does 86400 mean here? Magic number — name it SECONDS_PER_DAY."
+    pt: "O que significa 86400 aqui? Número mágico — nomeie SECONDS_PER_DAY."
+    context: "A pergunta evidencia o problema; o nome é a correção."
+  - en: "Race condition: the cache invalidate can run before the write lands."
+    pt: "Condição de corrida: a invalidação do cache pode rodar antes da escrita."
+    context: "Nomear o mecanismo é a evidência do blocking."
+  - en: "These three blocks are the same — could we DRY them up into a helper?"
+    pt: "Esses três blocos são iguais — poderíamos secá-los num helper?"
+    context: "DRY up = extrair o comum — o pedido vem junto."
+  - en: "This getter has a side effect — it writes to the cache. Split it?"
+    pt: "Esse getter tem efeito colateral — escreve no cache. Dividir?"
+    context: "Getter que escreve viola o contrato do nome."
+  - en: "Naming: `data` hides that it's a list of pods — `podList`?"
+    pt: "Nomeação: `data` esconde que é uma lista de pods — `podList`?"
+    context: "Naming + o porquê + a sugestão — o comentário completo."
+  - en: "Half the file is boilerplate — a helper would shrink it to the interesting parts."
+    pt: "Metade do arquivo é boilerplate — um helper encolheria para as partes interessantes."
+    context: "Boilerplate esconde a lógica — extrair revela."
+
+variations:
+  - idea: '"o código funciona mas é ilegível"'
+    items:
+      - { register: "Boa", text: "The nested ternary works, but a switch is more readable — non-blocking.", adequate: true }
+      - { register: "Boa", text: "Consider naming this — `x` tells the next reader nothing.", adequate: true }
+      - { register: "Inadequada", text: "This code is ugly.", adequate: false, note: "Sem o termo e a sugestão, é só ofensa." }
+      - { register: "Inadequada", text: "Rewrite all of it.", adequate: false, note: "Rewrite disfarçado de nit — escopo explodiu." }
+  - idea: '"achou duplicação em três lugares"'
+    items:
+      - { register: "Boa", text: "These three blocks are identical — could we DRY them up into a helper?", adequate: true }
+      - { register: "Boa", text: "Consider extracting this — same logic in three places, they'll drift apart.", adequate: true }
+      - { register: "Inadequada", text: "Copy-paste again?", adequate: false, note: "Sarcasmo não nomeia o problema nem a correção." }
+      - { register: "Inadequada", text: "It seems me duplicated.", adequate: false, note: '"seems duplicated to me" — o pronome vai depois de to.' }
+
+brErrors:
+  - { wrong: "The new version is more clear.", right: "The new version is clearer.", why: "adjetivo curto leva -er", tag: br.more-er }
+  - { wrong: "The logic seems me duplicated.", right: "The logic seems duplicated to me.", why: "seems + to me", tag: br.seems-me }
+  - { wrong: "It worths extracting the common block.", right: "It's worth extracting the common block.", why: "worth não é verbo", tag: br.worths }
+  - { wrong: "I did a comment about the magic number.", right: "I left a comment about the magic number.", why: '"leave a comment"', tag: br.did-comment }
+  - { wrong: "According to me, this is dead code.", right: "In my view, this is dead code.", why: "in my view, não according to me", tag: br.according-to-me }
+  - { wrong: "The test make sense but the name is off.", right: "The test makes sense but the name is off.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "I have a doubt about this branch.", right: "I have a question about this branch.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "We did a mistake leaving the dead code.", right: "We made a mistake leaving the dead code.", why: '"make a mistake"', tag: br.do-mistake }
+  - { wrong: "He said me the flag never flips.", right: "He told me the flag never flips.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I am agree it should be a constant.", right: "I agree it should be a constant.", why: "agree é verbo — sem am", tag: br.i-am-agree }
+
+dialogue:
+  title: "Nomeando o problema, não a pessoa"
+  lines:
+    - { speaker: Ana, text: "Reviewing your metrics PR. Line 40 — what does 86400 do?" }
+    - { speaker: Yuri, text: "Seconds in a day — the cache TTL." }
+    - { speaker: Ana, text: "Right — magic number. Name it SECONDS_PER_DAY and the next reader doesn't do math." }
+    - { speaker: Yuri, text: "Done. What else?" }
+    - { speaker: Ana, text: "Lines 55–70 — that branch is dead code. The flag it checks was removed last sprint." }
+    - { speaker: Yuri, text: "Deleting. And the three identical backoff blocks — DRY them up into a helper?" }
+    - { speaker: Ana, text: "Please. One more: the getter on 88 has a side effect — it writes the cache. Split the write out." }
+    - { speaker: Yuri, text: "All addressed in the next push — magic number, dead code, extract the backoff, split the getter." }
+  notes:
+    - "cada linha do diálogo nomeia um padrão — magic number, dead code, DRY up, side effect."
+    - "o recap do autor repete os termos — prova que o léxico pegou."
+
+listening:
+  lines:
+    - { speaker: Marcos, text: "Naming the pattern does half the work. 'Magic number' tells the author exactly what to do — turn it into a constant. 'This is confusing' tells them nothing." }
+    - { speaker: Ana, text: "The one I watch for in reviews: refactor versus rewrite. If the behavior changed, it's not a refactor — and mixing both in one PR makes it unreviewable." }
+    - { speaker: Marcos, text: "And 'dead code' is the kindest cut — it never runs, so deleting it can't break anything. Every deletion is a gift to the next reader." }
+  questions:
+    - { id: M09-04-l1, type: multiple_choice, prompt: "Why does 'magic number' beat 'this is confusing'?", options: ["it's politer", "it names the fix — turn the literal into a named constant", "it's shorter", "it's a nit"], answer: 1, explanation: "O termo já carrega a correção.", tags: [comp.listening, vocab.review] }
+    - { id: M09-04-l2, type: multiple_choice, prompt: "Refactor vs rewrite:", options: ["same thing", "refactor is faster", "rewrite is safer", "refactor preserves behavior — behavior change makes it a rewrite"], answer: 3, explanation: "Comportamento mudou = rewrite, não refactor.", tags: [comp.listening, vocab.review] }
+    - { id: M09-04-l3, type: fill_blank, prompt: "This branch is ___ code — the flag never flips to true.", accepted: ["dead"], explanation: "dead code: nunca executa — apague.", tags: [vocab.review] }
+    - { id: M09-04-l4, type: multiple_choice, prompt: "Why is deleting dead code 'a gift to the next reader'?", options: ["it shrinks the diff", "it can't break anything — it never runs", "it's fast", "it pleases the linter"], answer: 1, explanation: "Nunca executa → apagar é seguro.", tags: [comp.listening, vocab.review] }
+    - { id: M09-04-l5, type: error_correction, prompt: "The new helper is more clear than the inline version.", accepted: ["The new helper is clearer than the inline version.", "The new helper is clearer than the inline version"], explanation: "Adjetivo curto leva -er: clearer.", tags: [br.more-er] }
+    - { id: M09-04-l6, type: multiple_choice, prompt: "A 'side effect' in a getter means…", options: ["it's slow", "it's dead code", "it's a race condition", "it does more than return — like writing to the cache"], answer: 3, explanation: "Getter que escreve viola o contrato do nome.", tags: [vocab.review] }
+
+writing:
+  prompt: |
+    **Cenário:** o PR do colega tem três problemas nomeáveis: um `86400` sem
+    nome (TTL do cache), um branch que nunca executa (flag removida sprint
+    passada), e um getter que também escreve no cache.
+
+    **Tarefa:** escreva 60–90 palavras de comentário de review nomeando cada
+    problema pelo termo certo (magic number, dead code, side effect) com o
+    pedido implícito de cada um.
+  constraints:
+    - { label: "Termos do léxico", pattern: "\\b(magic number|dead code|side effect|refactor|extract|dry)\\b" }
+    - { label: "Pedido por problema", pattern: "\\b(name it|delete|split|extract|consider|could we)\\b" }
+    - { label: "Motivo do leitor", pattern: "\\b(reader|reads?|next|confus|hides)\\b" }
+  rubric:
+    - Cada problema nomeado pelo termo
+    - O pedido implícito em cada um
+    - Motivo = o próximo leitor, não gosto
+  model: >-
+    Three comments, all naming the pattern. Line 40: 86400 is a magic
+    number — name it SECONDS_PER_DAY and the next reader skips the math.
+    Lines 55–70: dead code — the flag was removed last sprint, so this
+    branch never runs; deleting it is a gift to the next reader. Line 88:
+    the getter has a side effect, it writes the cache — consider splitting
+    the write out, a getter shouldn't mutate. Everything else reads clean.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.review]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos nomeando problemas num review: um magic number, um dead code e um side effect — cada um com o pedido implícito."
+    maxSeconds: 45
+    targetPhrases:
+      - refactor
+      - extract
+      - dead code
+      - magic number
+      - edge case
+      - race condition
+      - rewrite
+      - side effect
+      - naming
+      - DRY up
+      - boilerplate
+      - readable
+      - couple
+      - gloss over
+    checklist:
+      - Cada problema nomeado pelo termo
+      - Pedido implícito junto do nome
+      - Refactor × rewrite distinguidos
+      - Motivo = o próximo leitor
+
+quiz:
+  - { id: M09-04-q1, type: multiple_choice, prompt: "A 'magic number' is…", options: ["an efficient algorithm", "a literal without a name — the fix is a named constant", "a race condition", "dead code"], answer: 1, explanation: "86400 sem nome — vire SECONDS_PER_DAY.", tags: [vocab.review] }
+  - { id: M09-04-q2, type: error_correction, prompt: "The extracted helper is more clear.", accepted: ["The extracted helper is clearer.", "The extracted helper is clearer"], explanation: "Adjetivo curto leva -er: clearer.", tags: [br.more-er] }
+  - { id: M09-04-q3, type: multiple_choice, prompt: "Refactor vs rewrite:", options: ["refactor changes behavior, rewrite doesn't", "rewrite is smaller", "refactor preserves behavior — rewrite changes it", "same thing"], answer: 2, explanation: "Refactor = mesma behavior, melhor forma.", tags: [vocab.review] }
+  - { id: M09-04-q4, type: error_correction, prompt: "The logic seems me duplicated.", accepted: ["The logic seems duplicated to me.", "The logic seems duplicated to me"], explanation: "seems + to me — pronome depois de to.", tags: [br.seems-me] }
+  - { id: M09-04-q5, type: multiple_choice, prompt: "'Dead code' means…", options: ["slow code", "commented code", "a branch that never runs — safe to delete", "old code"], answer: 2, explanation: "Nunca executa → apagar não quebra nada.", tags: [vocab.review] }
+  - { id: M09-04-q6, type: translate, prompt: "Esses três blocos são iguais — poderíamos secá-los num helper?", accepted: ["These three blocks are the same — could we DRY them up into a helper?", "These three blocks are the same — could we DRY them up into a helper", "These three blocks are identical — could we DRY them up into a helper?"], explanation: '"DRY up" = extrair o comum (don''t repeat yourself).', tags: [vocab.review] }
+  - { id: M09-04-q7, type: reorder, prompt: "Monte a frase: / esse getter / efeito colateral / escreve no cache", tokens: ["This", "getter", "has", "a", "side", "effect", "—", "it", "writes", "to", "the", "cache."], answer: "This getter has a side effect — it writes to the cache.", explanation: "Getter que escreve viola o contrato do nome.", tags: [vocab.review] }
+  - { id: M09-04-q8, type: multiple_choice, prompt: "A getter that writes to the cache has…", options: ["a side effect — getters shouldn't mutate", "a magic number", "dead code", "good naming"], answer: 0, explanation: "Faz mais do que retorna — separe.", tags: [vocab.review] }
+
+review:
+  count: 5
+  preferTags: [vocab.review, br.more-er, topic.code-review]
+
+srsCards:
+  - { front: "magic number", back: "literal sem nome — a correção é nomear (SECONDS_PER_DAY)", tag: vocab.review }
+  - { front: "dead code", back: "nunca executa — apagar é seguro e um presente ao leitor", tag: vocab.review }
+  - { front: "refactor × rewrite", back: "refactor preserva comportamento; rewrite muda — não misture num PR", tag: vocab.review }
+  - { front: "extract", back: "puxar o trecho para função própria — 'extract into a helper'", tag: vocab.review }
+  - { front: "side effect", back: "o que a função faz além de retornar — getter não escreve", tag: vocab.review }
+  - { front: "edge case", back: "o cenário fora do caminho feliz — empty/null/zero/timeout", tag: vocab.review }
+  - { front: "race condition", back: "duas operações competindo — lock ou ordem", tag: vocab.review }
+  - { front: "to DRY up", back: "remover duplicação — don't repeat yourself", tag: vocab.review }
+  - { front: "boilerplate", back: "código-padrão que esconde a lógica real", tag: vocab.review }
+  - { front: "clearer × more clear", back: "adjetivo curto leva -er — clearer, shorter", tag: br.more-er }
+  - { front: "seems to me", back: "\"me parece\" vira 'seems X to me' — nunca 'seems me'", tag: br.seems-me }
+  - { front: "to couple", back: "amarrar duas partes — coupling torna mudança cara", tag: vocab.review }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
