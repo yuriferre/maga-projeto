@@ -524,3 +524,50 @@ describe("detectBrErrors", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.was-succeeded");
   });
 });
+
+describe("padrões BR — M12 (Kubernetes)", () => {
+  it("flags 'the pod is pending since' but not 'has been'", () => {
+    expect(tagsOf("The pod is pending since 9am.")).toContain("br.is-ing-since");
+    expect(tagsOf("The job is running since Monday.")).toContain("br.is-ing-since");
+    const clean = [
+      "The pod has been pending since 9am.",
+      "The pod has been running since Monday.",
+      "The pods were pending all morning.",
+      "The pod is pending.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.is-ing-since");
+  });
+  it("flags 'the pod is died' but not 'died' or 'is dead'", () => {
+    expect(tagsOf("The pod is died — check the logs.")).toContain("br.is-died");
+    expect(tagsOf("The node was died overnight.")).toContain("br.is-died");
+    const clean = [
+      "The pod died overnight.",
+      "The pod is dead.",
+      "The process died on startup.",
+      "It was dead by morning.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.is-died");
+  });
+  it("flags 'need see' but not 'need to see' or 'need the logs'", () => {
+    expect(tagsOf("I need see the pod logs.")).toContain("br.need-see");
+    expect(tagsOf("We need restart the deployment.")).toContain("br.need-see");
+    const clean = [
+      "I need to see the pod logs.",
+      "I need the logs.",
+      "We need a restart.",
+      "They need to verify the fix.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.need-see");
+  });
+  it("flags 'scheduled in the node' but not 'node pool'", () => {
+    expect(tagsOf("The pod is scheduled in the node.")).toContain("br.in-the-node");
+    expect(tagsOf("It runs in the node.")).toContain("br.in-the-node");
+    const clean = [
+      "The pod is scheduled on the node.",
+      "It runs on the node.",
+      "The pods run in the node pool.",
+      "Scheduled in the node group.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-the-node");
+  });
+});

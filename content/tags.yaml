@@ -119,3 +119,7 @@ tags:
   - { id: br.suggested-me,    group: br, label: "suggested me to (that I)" }
   - { id: br.apply-terraform, group: br, label: "apply the terraform (terraform apply)" }
   - { id: br.was-succeeded,   group: br, label: "was succeeded (succeeded)" }
+  - { id: br.is-ing-since,  group: br, label: "is pending since (has been)" }
+  - { id: br.is-died,       group: br, label: "is died (dead/died)" }
+  - { id: br.need-see,      group: br, label: "need see (need to see)" }
+  - { id: br.in-the-node,   group: br, label: "in the node (on)" }

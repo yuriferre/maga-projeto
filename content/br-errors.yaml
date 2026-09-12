@@ -388,3 +388,36 @@ patterns:
     right: "The deploy succeeded after the fix"
     why: 'Succeed/happen/occur não têm passiva — "it succeeded". ("Was succeeded by" é outra estrutura.)'
     tag: br.was-succeeded
+  # "the pod is pending since 9am" — o calque com sujeito nominal: "is/are/was/were + -ing + since"
+  # vira "has/have been -ing since". since-present-continuous só cobre pronomes; aqui a lista é
+  # fechada de substantivos de infra. "has been running since" fica fora por construção.
+  - id: is-ing-since
+    pattern: "\\b(pods?|jobs?|deployments?|services?|nodes?|containers?|pods')\\s+(is|are|was|were)\\s+\\w+ing\\s+since\\b"
+    wrong: "The pod is pending since 9am"
+    right: "The pod has been pending since 9am"
+    why: 'Com "since", o inglês pede present perfect continuous — "has been pending since".'
+    tag: br.is-ing-since
+  # "the pod is died" — died é verbo no passado; com is/are/was/were o certo é "dead" (adjetivo)
+  # ou o passado simples "died". "is/are/was/were + dead" fica fora.
+  - id: is-died
+    pattern: "\\b(pods?|containers?|nodes?|jobs?|process(es)?|runners?|services?|servers?)\\s+(is|are|was|were)\\s+died\\b"
+    wrong: "The pod is died — check the logs"
+    right: "The pod is dead / the pod died"
+    why: '"Died" já é passado — "the pod died"; com "is/was", o adjetivo é "dead".'
+    tag: br.is-died
+  # "I need see the logs" — need pede to + infinitivo. Lista fechada de verbos de troubleshooting;
+  # "need the logs" (objeto nominal) e "need to see" ficam fora.
+  - id: need-see
+    pattern: "\\bneeds?\\s+(see|check|look|restart|describe|tail|watch|verify|inspect|get)\\b"
+    wrong: "I need see the pod logs"
+    right: "I need to see the pod logs"
+    why: 'Need + to + infinitivo — "need to see/check/restart".'
+    tag: br.need-see
+  # "scheduled in the node" — pods rodam ON the node. "in the node pool/group/list" é aceitável
+  # e fica fora via lookahead.
+  - id: in-the-node
+    pattern: "\\b(scheduled|running|runs|ran|placed|lands?|sits?|deployed|lives?)\\s+in\\s+the\\s+node\\b(?!\\s+(group|pool|list)\\b)"
+    wrong: "The pod is scheduled in the node"
+    right: "The pod is scheduled on the node"
+    why: 'Pods rodam ON a node — "on the node", "scheduled on node-3".'
+    tag: br.in-the-node
