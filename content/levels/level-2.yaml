@@ -1,0 +1,98 @@
+# Avaliação do Nível 2 (E5): 30 itens cobrindo todas as tags do nível + escrita (review + escalada) + fala (simulação de refinamento).
+id: L2
+title: "Avaliação do Nível 2: Professional"
+intro: |
+  Trinta itens mistos cobrindo os oito módulos, uma escrita em duas partes e uma gravação de 90 segundos. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3,5, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: L2-A01, type: multiple_choice, prompt: "Before estimating, the team schedules a spike to…", options: ["fix the bug in production", "answer a technical question in a time-boxed way", "extend the sprint", "drop the acceptance criteria"], answer: 1, explanation: "Spike = pesquisa com tempo fechado para destravar a estimativa.", tags: [vocab.agile] }
+  - { id: L2-A02, type: error_correction, prompt: "If the estimative will be more than three points, we split it.", accepted: ["If the estimate is more than three points, we split it.", "If the estimate is more than three points, we split it"], explanation: "Dois erros: estimate (substantivo) + if + presente (condicional real).", tags: [br.estimative, br.if-will] }
+  - { id: L2-A03, type: error_correction, prompt: "It make sense to split — it depends of the effort.", accepted: ["It makes sense to split — it depends on the effort.", "It makes sense to split — it depends on the effort"], explanation: 'Dois calques: "it makes sense" + "depends on".', tags: [br.it-makes-sense, br.depend-of] }
+  - { id: L2-A04, type: error_correction, prompt: "Actually, I pretend to skip the review — I have a compromise.", accepted: ["Currently, I intend to skip the review — I have a commitment.", "Currently, I intend to skip the review — I have a commitment", "Right now I intend to skip the review — I have a prior commitment."], explanation: "Três falsos amigos: actually→currently, pretend→intend, compromise→commitment.", tags: [br.actually, br.pretend, br.compromise, gram.hedging] }
+  - { id: L2-A05, type: multiple_choice, prompt: "If we go with the canary release, we ___ a rollback plan.", options: ["will need", "would need", "needed", "will needed"], answer: 0, explanation: "If + presente, futuro com will — condicional real.", tags: [gram.conditionals-real] }
+  - { id: L2-A06, type: multiple_choice, prompt: "An action item from a retro needs…", options: ["a long discussion", "a volunteer only", "a Jira epic", "an owner and a date"], answer: 3, explanation: "Sem dono e data, action item não vira ação.", tags: [vocab.feedback] }
+  - { id: L2-A07, type: error_correction, prompt: "The outage hurt the team moral — we did a mistake in the checklist.", accepted: ["The outage hurt the team morale — we made a mistake in the checklist.", "The outage hurt the team morale — we made a mistake in the checklist"], explanation: 'Dois calques: "team morale" + "make a mistake".', tags: [br.morale, br.do-mistake] }
+  - { id: L2-A08, type: error_correction, prompt: "I'm boring in these meetings, and I am agree we should cut them.", accepted: ["I'm bored in these meetings, and I agree we should cut them.", "I'm bored in these meetings, and I agree we should cut them"], explanation: 'Dois erros: bored (quem sente) + agree sem "am".', tags: [br.ed-ing, br.i-am-agree] }
+  - { id: L2-A09, type: multiple_choice, prompt: "A review comment starting with 'nit:' means…", options: ["the PR is blocked", "a security flaw", "a small, optional point — take it or leave it", "the reviewer is angry"], answer: 2, explanation: "Nit = detalhe não-bloqueante.", tags: [vocab.review] }
+  - { id: L2-A10, type: error_correction, prompt: "I did a comment on your PR — seems me the retry is missing.", accepted: ["I left a comment on your PR — it seems to me the retry is missing.", "I left a comment on your PR — it seems to me the retry is missing", "I left a comment on your PR — seems to me the retry is missing."], explanation: 'Dois calques: "left a comment" + "seems to me".', tags: [br.did-comment, br.seems-me] }
+  - { id: L2-A11, type: error_correction, prompt: "According to me, it worths a second review.", accepted: ["In my view, it's worth a second review.", "In my view, it's worth a second review", "In my opinion, it's worth a second review."], explanation: 'Dois calques: "in my view" + "it''s worth".', tags: [br.according-to-me, br.worths] }
+  - { id: L2-A12, type: fill_blank, prompt: "We can't reproduce it locally — let's rule ___ a client-side bug first.", accepted: ["out"], explanation: "Rule out — eliminar uma hipótese.", tags: [vocab.troubleshoot] }
+  - { id: L2-A13, type: error_correction, prompt: "It not works on staging — but it works in my machine.", accepted: ["It doesn't work on staging — but it works on my machine.", "It doesn't work on staging — but it works on my machine", "It does not work on staging — but it works on my machine."], explanation: 'Dois calques: "doesn''t work" + "on my machine".', tags: [br.it-not-works, br.in-my-machine] }
+  - { id: L2-A14, type: error_correction, prompt: "After to deploy, I readed the same alert of yesterday.", accepted: ["After deploying, I read the same alert as yesterday.", "After deploying, I read the same alert as yesterday", "After the deploy, I read the same alert as yesterday."], explanation: 'Três erros: "after + gerúndio" + read (irregular) + "same as".', tags: [br.after-to, br.irregular-past, br.same-of] }
+  - { id: L2-A15, type: error_correction, prompt: "The runbook has the steps for reproduce — verify if the error persists.", accepted: ["The runbook has the steps to reproduce — check whether the error persists.", "The runbook has the steps to reproduce — check whether the error persists", "The runbook has the steps to reproduce — check if the error persists."], explanation: 'Dois calques: "steps to" + "check whether".', tags: [br.steps-for, br.verify-if] }
+  - { id: L2-A16, type: multiple_choice, prompt: "A flaky test is…", options: ["one that fails at random — same code, different results", "a slow test", "a test without assertions", "a test that always fails"], answer: 0, explanation: "Flaky = intermitente, não determinístico.", tags: [vocab.ci] }
+  - { id: L2-A17, type: error_correction, prompt: "It depends in the runner — she suggested me to retry the job.", accepted: ["It depends on the runner — she suggested that I retry the job.", "It depends on the runner — she suggested that I retry the job", "It depends on the runner — she suggested I retry the job."], explanation: 'Dois calques: "depends on" + "suggested that I".', tags: [br.depends-in, br.suggested-me] }
+  - { id: L2-A18, type: error_correction, prompt: "I applied the terraform and the deploy was succeeded.", accepted: ["I ran terraform apply and the deploy succeeded.", "I ran terraform apply and the deploy succeeded", "I ran terraform apply and it succeeded."], explanation: 'Dois erros: "ran terraform apply" + voz ativa "succeeded".', tags: [br.apply-terraform, br.was-succeeded, vocab.iac] }
+  - { id: L2-A19, type: error_correction, prompt: "Revert back the last deploy and send to me the logs.", accepted: ["Revert the last deploy and send me the logs.", "Revert the last deploy and send me the logs", "Revert the last deploy and send the logs to me."], explanation: 'Dois calques: revert sem "back" + "send me".', tags: [br.revert-back, br.send-to-me] }
+  - { id: L2-A20, type: multiple_choice, prompt: "A pod stuck in 'Pending' usually means…", options: ["the image is broken", "the node is out of memory", "it's restarting in a loop", "no node has room for it — check resources and quotas"], answer: 3, explanation: "Pending = scheduler não achou lugar — não é crash.", tags: [vocab.k8s] }
+  - { id: L2-A21, type: error_correction, prompt: "The pod is pending since ten minutes, and now it is died.", accepted: ["The pod has been pending for ten minutes, and now it's dead.", "The pod has been pending for ten minutes, and now it's dead", "The pod has been pending for ten minutes and now it died."], explanation: 'Dois erros: "has been pending for" + "is dead" (ou "died").', tags: [br.is-ing-since, br.is-died] }
+  - { id: L2-A22, type: error_correction, prompt: "I need see the events in the node — the pod crash every minute.", accepted: ["I need to see the events on the node — the pod crashes every minute.", "I need to see the events on the node — the pod crashes every minute"], explanation: 'Três erros: "need to see" + "on the node" + "crashes".', tags: [br.need-see, br.in-the-node, br.third-person-s] }
+  - { id: L2-A23, type: error_correction, prompt: "Can you explain me why egress is more cheap than ingress?", accepted: ["Can you explain to me why egress is cheaper than ingress?", "Can you explain to me why egress is cheaper than ingress", "Can you explain why egress is cheaper than ingress?"], explanation: 'Dois erros: "explain to me" + "cheaper".', tags: [br.explain-me, br.more-er, vocab.finops] }
+  - { id: L2-A24, type: error_correction, prompt: "We provisionate the whole cluster on the cloud.", accepted: ["We provision the whole cluster in the cloud.", "We provision the whole cluster in the cloud", "We provisioned the whole cluster in the cloud."], explanation: 'Dois calques: "provision" + "in the cloud".', tags: [br.provisionate, br.on-the-cloud] }
+  - { id: L2-A25, type: error_correction, prompt: "I recommend to migrate for GCP this quarter.", accepted: ["I recommend migrating to GCP this quarter.", "I recommend migrating to GCP this quarter"], explanation: 'Dois calques: "recommend + gerúndio" + "migrate to".', tags: [br.recommend-to, br.migrate-for] }
+  - { id: L2-A26, type: multiple_choice, prompt: "Which subject line fits a deadline-change e-mail?", options: ["'Deploy freeze moved to Friday — action needed by Thursday'", "'hello'", "'URGENT READ NOW'", "'quick question'"], answer: 0, explanation: "Assunto = fato + ação + prazo.", tags: [gram.formal-register, vocab.email-docs] }
+  - { id: L2-A27, type: error_correction, prompt: "The full report is in attachment — I wait your reply.", accepted: ["The full report is attached — I look forward to your reply.", "The full report is attached — I look forward to your reply", "The full report is attached — I await your reply."], explanation: 'Dois calques: "attached" + "I look forward to / await".', tags: [br.in-attachment, br.i-wait-reply] }
+  - { id: L2-A28, type: error_correction, prompt: "Sorry for late — I sent the feedbacks yesterday. Best regrets.", accepted: ["Sorry for the delay — I sent the feedback yesterday. Best regards.", "Sorry for the delay — I sent the feedback yesterday. Best regards"], explanation: 'Três erros: "the delay" + feedback sem plural + "regards".', tags: [br.sorry-for-late, br.uncountable, br.best-regrets] }
+  - { id: L2-A29, type: translate, prompt: "Abra um ticket com os passos para reproduzir.", accepted: ["Open a ticket with the steps to reproduce.", "Open a ticket with the steps to reproduce"], explanation: "Imperativo direto — docs e tickets.", tags: [gram.imperative, vocab.email-docs] }
+  - { id: L2-A30, type: match, prompt: "Associe o serviço da AWS ao equivalente no GCP.", pairs: [{ left: "EC2", right: "Compute Engine" }, { left: "S3", right: "Cloud Storage" }, { left: "Lambda", right: "Cloud Functions" }, { left: "EKS", right: "GKE" }], explanation: "O mapa mínimo AWS → GCP.", tags: [vocab.cloud] }
+
+writing:
+  prompt: |
+    **Cenário final do nível:** dois textos de trabalho separados por
+    uma linha com `---`.
+
+    **Parte 1:** um comentário de code review — aponte um problema real
+    (por exemplo, retry sem backoff ou segredo logado), marque a
+    severidade e sugira a mudança sem impor.
+
+    **Parte 2:** um e-mail curto de escalada para outro time — contexto
+    em uma linha, o impacto observável, o pedido e o prazo.
+
+    100–140 palavras no total.
+  constraints:
+    - { label: "Review com severidade", pattern: "\\b(blocking|nit|non.?blocking|suggestion|concern)\\b" }
+    - { label: "Sugere sem impor", pattern: "\\b(could we|consider|what do you think|suggest|it would help)\\b" }
+    - { label: "E-mail com contexto e impacto", pattern: "\\b(since|impact|users|customer|failing|blocked)\\b" }
+    - { label: "Pedido com prazo", pattern: "\\b(could you|can you|by |eod|deadline|asap)\\b" }
+  rubric:
+    - "Review: problema + severidade + sugestão não-bloqueante"
+    - "E-mail: contexto + impacto + pedido + prazo"
+    - "Registro certo em cada parte (review neutro, e-mail formal)"
+    - "Sem os calques do nível"
+  model: >-
+    Blocking: this retry loop has no backoff — if the API stays down we
+    hammer it forever. Could we add exponential backoff with a cap? It
+    would help to keep the client polite under failure. Non-blocking:
+    consider a short comment here. --- Subject: partner API timeouts
+    blocking our deploy — need a contact by EOD Thursday. Since Monday,
+    every sync to the partner API fails after 30s, which is blocking
+    our nightly deploy and leaving customers a day behind. Could you
+    confirm the right channel for the incident and share a status page?
+    We'd need an answer by Thursday EOD to plan the release.
+  minWords: 100
+  maxWords: 140
+  tags: [comp.writing, vocab.review, vocab.email-docs]
+
+speaking:
+  prompt: "Grave 90 segundos: a simulação de refinamento — você recebe uma história de infra ('mover os backups para outra região'). Diga sua estimativa com hedge, levante duas dúvidas de escopo ou risco, proponha um critério de aceite e feche com uma condicional real sobre a decisão."
+  maxSeconds: 90
+  targetPhrases:
+    - i'd say
+    - roughly
+    - ballpark
+    - it depends on
+    - what happens if
+    - does it make sense to
+    - in scope
+    - out of scope
+    - acceptance criteria
+    - if we go with
+    - as long as
+    - unless
+    - fair point
+    - good catch
+    - action item
+    - i have a question
+
+pass: { itemsMin: 0.75, writingMin: 3.5, speakingMin: 3 }

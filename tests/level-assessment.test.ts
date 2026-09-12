@@ -7,7 +7,9 @@ import { levelEligibility } from "../server/assessment.ts";
 
 const content = loadContent("content");
 const l1 = content.levelAssessments["L1"]!;
+const l2 = content.levelAssessments["L2"]!;
 const level1Modules = content.levels.find((l) => l.id === 1)!.modules.map((m) => m.id);
+const level2Modules = content.levels.find((l) => l.id === 2)!.modules.map((m) => m.id);
 let app: Hono;
 let db: Db;
 let clock = 0;
@@ -45,9 +47,9 @@ async function passModule(moduleId: string) {
   expect(res.status, moduleId).toBe(200);
 }
 
-async function answerAll() {
-  for (const q of l1.items) {
-    const res = await json("POST", "/api/attempts", { lessonId: "L1", exerciseId: q.id, block: "assessment", type: q.type, correct: true, answer: "x", tags: q.tags });
+async function answerAll(assessment: typeof l1) {
+  for (const q of assessment.items) {
+    const res = await json("POST", "/api/attempts", { lessonId: assessment.id, exerciseId: q.id, block: "assessment", type: q.type, correct: true, answer: "x", tags: q.tags });
     expect(res.status, q.id).toBe(200);
   }
 }
@@ -83,7 +85,7 @@ describe("avaliação de nível 1", () => {
     const early = await json("POST", "/api/levels/1/assessment/finish");
     expect(early.status).toBe(409);
 
-    await answerAll();
+    await answerAll(l1);
     const w = await json("POST", "/api/levels/1/assessment/writing", { text: l1.writing.model, selfScore: 4 });
     expect(w.status).toBe(200);
     const sp = await json("POST", "/api/levels/1/assessment/speaking", { mode: "A", transcript: l1.speaking.targetPhrases.join(". ") + ". Done.", durationSec: 80 });
@@ -102,4 +104,42 @@ describe("avaliação de nível 1", () => {
     const res = await app.request("/api/levels/9/assessment/state");
     expect(res.status).toBe(404);
   });
+});
+
+describe("avaliação de nível 2", () => {
+  it("existe no bundle e cobre os oito módulos", () => {
+    expect(l2).toBeDefined();
+    expect(l2.items).toHaveLength(30);
+    expect(level2Modules).toHaveLength(8);
+  });
+
+  it("levelEligibility exige os módulos aprovados", () => {
+    const none = levelEligibility(content, [], 2);
+    expect(none.modulesTotal).toBe(8);
+    expect(none.modulesDone).toBe(0);
+    expect(none.missing).toEqual(level2Modules);
+  });
+
+  it("fluxo completo: módulos aprovados → itens → escrita → fala → aprovado → 409", async () => {
+    for (const m of level2Modules) await passModule(m);
+    const s = await (await app.request("/api/levels/2/assessment/state")).json();
+    expect(s.eligible.missing).toEqual([]);
+
+    const early = await json("POST", "/api/levels/2/assessment/finish");
+    expect(early.status).toBe(409);
+
+    await answerAll(l2);
+    const w = await json("POST", "/api/levels/2/assessment/writing", { text: l2.writing.model, selfScore: 4 });
+    expect(w.status).toBe(200);
+    const sp = await json("POST", "/api/levels/2/assessment/speaking", { mode: "A", transcript: l2.speaking.targetPhrases.join(". ") + ". Done.", durationSec: 80 });
+    expect(sp.status).toBe(200);
+
+    const fin = await (await json("POST", "/api/levels/2/assessment/finish")).json();
+    expect(fin.assessment.result.kind).toBe("level");
+    expect(fin.assessment.result.passed).toBe(true);
+    expect(fin.assessment.result.itemsPct).toBe(1);
+
+    const again = await json("POST", "/api/levels/2/assessment/finish");
+    expect(again.status).toBe(409);
+  }, 60000);
 });
