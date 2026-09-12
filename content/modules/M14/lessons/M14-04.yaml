@@ -1,0 +1,298 @@
+id: M14-04
+module: M14
+order: 4
+title: "Lendo docs e pricing pages: quotas, limits, SLAs, per-request, tiered pricing"
+objective: >-
+  Ao final, você lê uma pricing page sem ser surpreendido: quota ×
+  limit, SLA com os noves, per-request × per-hour, tiered pricing e
+  as cláusulas que escondem custo (egress, minimums, cold storage).
+durationMin: 35
+competencies: [REA, VOC]
+tags: [vocab.cloud, vocab.finops, comp.reading]
+prerequisites: [M14-03]
+
+context:
+  scenario: |
+    A proposta de migração precisa de números reais — a Priya manda
+    ler a pricing page do Cloud Run e comparar com a do EC2 que já
+    rodamos.
+
+    O vocabulário da pricing page:
+
+    - **quota × limit** — quota é o teto que você pode pedir para
+      subir ("request a quota increase"); limit é o que não se mexe
+      ("a hard limit — no exceptions")
+    - **SLA** — o contrato de disponibilidade: "three nines" = 99.9% =
+      ~8h45min de downtime por ano; cada nove corta o downtime por dez
+    - **per-request × per-hour** — o modelo de cobrança: por chamada
+      (serverless) ou por tempo ligado (VM)
+    - **tiered pricing** — o preço muda por faixa: "first million free,
+      then $0.40 per million"
+    - **as cláusulas** — "egress is billed separately", "minimum
+      commitment applies", "prices vary by region"
+
+    Ler pricing é ler a letra miúda — o número grande no topo nunca é
+    o número que vem na fatura.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (SRE)]
+
+vocabulary:
+  - term: "quota"
+    meaning: a cota — o teto que você pode pedir para subir
+    example: "The default quota is 1000 concurrent requests — you can request an increase."
+    translation: "A cota padrão é 1000 requests simultâneos — dá para pedir aumento."
+    note: "Quota sobe com pedido; limit não sobe."
+  - term: "hard limit"
+    meaning: o limite rígido — não se mexe
+    example: "Payload size is a hard limit — 32MB, no exceptions."
+    translation: "O tamanho do payload é limite rígido — 32MB, sem exceção."
+    note: "Hard limit = arquitetura; soft limit = quota."
+  - term: "SLA"
+    meaning: o acordo de nível de serviço — os noves
+    example: "The SLA is 99.9% — three nines, about 8h45 of allowed downtime a year."
+    translation: "O SLA é 99,9% — três noves, umas 8h45 de downtime permitido por ano."
+    note: "Cada nove divide o downtime por dez."
+  - term: "per-request"
+    meaning: por chamada — o modelo serverless
+    example: "Cloud Run is per-request: $0.40 per million calls after the free tier."
+    translation: "Cloud Run é por request: $0,40 por milhão depois do free tier."
+    note: "Per-request × per-hour — a divisão do billing."
+  - term: "tiered pricing"
+    meaning: preço por faixa — muda conforme o volume
+    example: "Tiered pricing: first TB at $0.026/GB, the next nine at $0.023."
+    translation: "Preço por faixa: o primeiro TB a $0,026/GB, os nove seguintes a $0,023."
+    note: "Quanto mais usa, mais barata a faixa seguinte."
+  - term: "egress is billed separately"
+    meaning: saída cobrada à parte — a cláusula que surpreende
+    example: "Careful: egress is billed separately — ingress is free, egress isn't."
+    translation: "Cuidado: egress é cobrado à parte — entrada é grátis, saída não."
+    note: "A cláusula mais famosa — ingress grátis, egress caro."
+  - term: "the fine print"
+    meaning: a letra miúda — onde o custo se esconde
+    example: "The fine print: prices vary by region and there's a monthly minimum."
+    translation: "A letra miúda: preços variam por região e há mínimo mensal."
+    note: "O número grande no topo nunca é o da fatura."
+  - term: "a quota increase"
+    meaning: o pedido de aumento de cota — como se pede
+    example: "I filed a quota increase request — approved in two days."
+    translation: "Abri um pedido de aumento de cota — aprovado em dois dias."
+    note: "Request/file a quota increase — o procedimento padrão."
+  - term: "nines"
+    meaning: os noves — 99.9, 99.99 de disponibilidade
+    example: "Three nines is ~8h45 of downtime a year; four nines is under an hour."
+    translation: "Três noves é ~8h45 de downtime por ano; quatro noves é menos de uma hora."
+    note: "99.9 = three nines; 99.99 = four nines."
+  - term: "billed in"
+    meaning: cobrado em — a granularidade do billing
+    example: "Compute Engine bills in per-second increments with a one-minute minimum."
+    translation: "Compute Engine cobra em incrementos por segundo com mínimo de um minuto."
+    note: '"Billed in per-second increments" — a unidade da cobrança.'
+  - term: "committed use"
+    meaning: uso comprometido — o desconto por fidelidade
+    example: "Committed use discounts: 1 or 3 years, up to 57% off on-demand."
+    translation: "Descontos de uso comprometido: 1 ou 3 anos, até 57% sobre on-demand."
+    note: "CUDs / reserved instances — o desconto da reserva."
+  - term: "the pricing calculator"
+    meaning: a calculadora de preço — a estimativa oficial
+    example: "I ran the numbers on the pricing calculator — $340/month at our volume."
+    translation: "Rodei os números na calculadora — $340/mês no nosso volume."
+    note: "Antes de justificar, rode a calculadora."
+
+grammar:
+  title: "Lendo a letra miúda: as construções que escondem custo"
+  explanation: |
+    A pricing page tem construções próprias — aprender a ler é saber
+    onde o custo mora:
+
+    - "**X is billed separately**" — cobrado à parte: "egress is billed
+      separately" = não está no número grande
+    - "**minimum applies**" — mínimo obrigatório: "a one-minute minimum
+      applies" = você sempre paga o primeiro minuto
+    - "**up to X%**" — o desconto máximo, não o seu: "save up to 57%"
+      = o caso ideal, não o seu caso
+    - "**starting at**" — o preço mínimo: "starting at $0.10" = o preço
+      do menor recurso, não do seu
+    - "**subject to**" — condicionado a: "quotas are subject to
+      approval" = o pedido pode ser negado
+    - "**per X, billed in Y**" — modelo + granularidade: "per request,
+      billed in 100ms increments"
+
+    A frase que protege: "**read the fine print** — the headline number
+    is never the invoice number."
+  examples:
+    - { en: "Egress is billed separately — ingress is free, egress is where the bill grows.", pt: "Egress é cobrado à parte — entrada é grátis, a saída é onde a fatura cresce." }
+    - { en: "A one-minute minimum applies — short invocations still pay for the full minute.", pt: "Mínimo de um minuto se aplica — invocações curtas ainda pagam o minuto inteiro." }
+    - { en: "Save up to 57% with committed use — 'up to' means the best case, not yours.", pt: "Economize até 57% com uso comprometido — 'até' significa o melhor caso, não o seu." }
+    - { en: "Starting at $0.40 per million requests — starting at, as in the smallest tier.", pt: "A partir de $0,40 por milhão de requests — 'a partir de', ou seja, a menor faixa." }
+    - { en: "Quota increases are subject to approval — file early, they can take days.", pt: "Aumentos de cota são sujeitos a aprovação — peça cedo, podem levar dias." }
+    - { en: "Per-request pricing, billed in 100ms increments — the model and the granularity.", pt: "Preço por request, cobrado em incrementos de 100ms — o modelo e a granularidade." }
+
+examples:
+  - en: "The default quota is 1,000 concurrent requests — you can file a quota increase."
+    pt: "A cota padrão é 1.000 requests simultâneos — dá para pedir aumento."
+    context: "Quota — o teto que sobe com pedido."
+  - en: "Payload size is a hard limit: 32MB — no quota request will change it."
+    pt: "O tamanho do payload é limite rígido: 32MB — nenhum pedido de cota muda isso."
+    context: "Limit — o que não se mexe."
+  - en: "Three nines means ~8h45 of downtime a year — the SLA on Cloud Run."
+    pt: "Três noves significa ~8h45 de downtime por ano — o SLA do Cloud Run."
+    context: "SLA e os noves."
+  - en: "Cloud Run is per-request, billed in 100ms increments — EC2 is per-second with a one-minute minimum."
+    pt: "Cloud Run é por request, cobrado em incrementos de 100ms — EC2 é por segundo com mínimo de um minuto."
+    context: "Os dois modelos de billing."
+  - en: "Tiered pricing: the first million requests are free, then $0.40 per million."
+    pt: "Preço por faixa: o primeiro milhão de requests é grátis, depois $0,40 por milhão."
+    context: "Tiered — o preço muda por faixa."
+  - en: "The fine print: egress is billed separately and prices vary by region."
+    pt: "A letra miúda: egress é cobrado à parte e os preços variam por região."
+    context: "As cláusulas escondidas."
+  - en: "I ran the calculator: at 2M requests a day, Cloud Run costs ~$340/month."
+    pt: "Rodei a calculadora: a 2M requests por dia, Cloud Run custa ~$340/mês."
+    context: "A estimativa oficial."
+  - en: "Committed use takes up to 57% off — worth it only if the load is steady."
+    pt: "Uso comprometido tira até 57% — só vale se a carga for estável."
+    context: "O desconto da reserva."
+
+variations:
+  - idea: '"lendo a pricing page certo"'
+    items:
+      - { register: "Boa", text: "Per-request pricing: $0.40 per million after the free tier — egress billed separately.", adequate: true }
+      - { register: "Boa", text: "The SLA is three nines — about 8h45 of allowed downtime a year.", adequate: true }
+      - { register: "Inadequada", text: "It says $0.40 — that's the whole cost.", adequate: false, note: "O número do topo nunca é a fatura — egress, minimums e faixas de região ficam na letra miúda." }
+      - { register: "Inadequada", text: "We can always raise the payload limit.", adequate: false, note: "Hard limit não sobe — só quota sobe com pedido." }
+  - idea: '"as frases da letra miúda"'
+    items:
+      - { register: "Boa", text: "'Save up to 57%' — 'up to' means the best case, not ours.", adequate: true }
+      - { register: "Boa", text: "'Starting at $0.10' — that's the smallest tier, not our workload.", adequate: true }
+      - { register: "Inadequada", text: "It says 'up to 57% off' — so we get 57% off.", adequate: false, note: "'Up to' é o máximo teórico — o seu desconto depende do compromisso." }
+      - { register: "Inadequada", text: "Quota approved means the limit moved.", adequate: false, note: "Quota sobe com aprovação; limit não se mexe — são coisas diferentes." }
+
+brErrors:
+  - { wrong: "The quota it's per region.", right: "The quota is per region.", why: "is per region", tag: br.third-person-s }
+  - { wrong: "The SLA not covers planned maintenance.", right: "The SLA doesn't cover planned maintenance.", why: "doesn't cover", tag: br.it-not-works }
+  - { wrong: "I recommend to read the fine print.", right: "I recommend reading the fine print.", why: "recommend + gerúndio", tag: br.recommend-to }
+  - { wrong: "We pay in dollars since last year.", right: "We've paid in dollars since last year.", why: "present perfect + since", tag: br.since-present }
+  - { wrong: "I need the quota increase until Friday.", right: "I need the quota increase by Friday.", why: "prazo é by, não until", tag: br.until-by }
+  - { wrong: "I have a doubt about the quota.", right: "I have a question about the quota.", why: "question", tag: br.doubt }
+  - { wrong: "The price vary by region.", right: "The price varies by region.", why: "varies — terceira pessoa", tag: br.third-person-s }
+  - { wrong: "They billed us in the last week twice.", right: "They billed us twice last week.", why: "ordem + sem 'in'", tag: br.in-the-last-week }
+  - { wrong: "Explain me the tiered pricing.", right: "Explain the tiered pricing to me.", why: "explain X to me", tag: br.explain-me }
+  - { wrong: "Ask to support for a quota increase.", right: "Ask support for a quota increase.", why: "ask + pessoa", tag: br.ask-to }
+
+dialogue:
+  title: "Lendo a pricing page juntos"
+  lines:
+    - { speaker: Priya, text: "Before the proposal, read the Cloud Run pricing page — I want the real number, not the headline." }
+    - { speaker: Yuri, text: "Per-request model: $0.40 per million calls after the free tier, billed in 100ms increments." }
+    - { speaker: Priya, text: "And the fine print?" }
+    - { speaker: Yuri, text: "Egress is billed separately — ingress is free, egress is where the bill grows. Prices vary by region, and there's a per-request maximum duration — a hard limit, not a quota." }
+    - { speaker: Ana, text: "Quota situation?" }
+    - { speaker: Yuri, text: "Default is 1,000 concurrent — soft quota, so we can file an increase. But it's subject to approval; I'd file early." }
+    - { speaker: Ana, text: "SLA?" }
+    - { speaker: Yuri, text: "Three nines — about 8h45 of allowed downtime a year. The EC2 equivalent would be four nines on multi-AZ." }
+    - { speaker: Priya, text: "Committed use?" }
+    - { speaker: Yuri, text: "'Up to 57% off' — but up to means the best case, and it only pays off if the load is steady." }
+    - { speaker: Priya, text: "Good read. Now the calculator — at 2M requests a day, what's the number?" }
+  notes:
+    - "a pricing page lida em 9 falas: modelo, letra miúda, quota×limit, SLA, desconto."
+    - "repare nas cláusulas: billed separately, subject to, up to, starting at."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Reading a pricing page is reading the fine print. 'Per request, billed in 100-millisecond increments' — the model and the granularity. 'Egress billed separately' — the number on top is never the invoice." }
+    - { speaker: Ana, text: "Quota versus limit: the quota is the soft cap — file an increase and it moves, subject to approval. The hard limit doesn't move — 32 megabytes of payload, no exceptions." }
+    - { speaker: Yuri, text: "The SLA is in nines: three nines is about eight and three-quarter hours of downtime a year; four nines is under an hour. Each nine cuts allowed downtime by ten." }
+    - { speaker: Priya, text: "And the discount language: 'save up to fifty-seven percent' — 'up to' means the best case, not yours. 'Starting at ten cents' — the smallest tier, not your workload." }
+  questions:
+    - { id: M14-04-l1, type: multiple_choice, prompt: "Quota vs hard limit:", options: ["both can be raised", "quota rises with a request; the hard limit doesn't move", "quota is free, limit costs", "they're the same"], answer: 1, explanation: "Quota sobe com pedido; limit não.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-04-l2, type: multiple_choice, prompt: "'Egress billed separately' means…", options: ["egress is free", "the headline number excludes it — the bill grows there", "ingress costs too", "it's optional"], answer: 1, explanation: "A cláusula que surpreende.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-04-l3, type: fill_blank, prompt: "Three ___ — 99.9% uptime, about 8h45 of downtime a year.", accepted: ["nines"], explanation: "Os noves do SLA.", tags: [vocab.cloud] }
+    - { id: M14-04-l4, type: error_correction, prompt: "I recommend to read the fine print first.", accepted: ["I recommend reading the fine print first.", "I recommend reading the fine print first"], explanation: "recommend + gerúndio.", tags: [br.recommend-to] }
+    - { id: M14-04-l5, type: multiple_choice, prompt: "'Save up to 57%' means…", options: ["everyone gets 57%", "the best case — your discount depends on the commitment", "57% is the minimum", "it's a lie"], answer: 1, explanation: "'Up to' = o máximo teórico.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-04-l6, type: multiple_choice, prompt: "'Starting at $0.10' is…", options: ["your price", "the average", "the smallest tier's price — not your workload's", "the maximum"], answer: 2, explanation: "O menor recurso, não o seu.", tags: [comp.listening, vocab.cloud] }
+
+writing:
+  prompt: |
+    **Cenário:** a Priya pede o resumo da leitura da pricing page do
+    Cloud Run para anexar à proposta.
+
+    **Tarefa:** escreva 80–120 palavras com: o modelo de cobrança e a
+    granularidade, a quota × o hard limit, o SLA em noves, as cláusulas
+    da letra miúda (egress, minimum, "up to") e a estimativa da
+    calculadora.
+  constraints:
+    - { label: "Modelo de billing", pattern: "\\b(per.request|per-request|increments|billed|million)\\b" }
+    - { label: "Quota × limit", pattern: "\\b(quota|limit|increase|hard)\\b" }
+    - { label: "SLA", pattern: "\\b(sla|nines|99\\.9|downtime|uptime)\\b" }
+    - { label: "Letra miúda", pattern: "\\b(egress|separately|minimum|up to|region|fine print)\\b" }
+  rubric:
+    - "Modelo + granularidade nomeados"
+    - "Quota × hard limit distinguidos"
+    - "SLA em noves"
+    - "Pelo menos duas cláusulas da letra miúda"
+  model: >-
+    Cloud Run pricing summary. Model: per-request, billed in 100ms
+    increments — $0.40 per million calls after the free tier. Limits:
+    the default quota is 1,000 concurrent requests — a soft cap, we can
+    file an increase subject to approval; the 32MB payload is a hard
+    limit and doesn't move. SLA: three nines, about 8h45 of allowed
+    downtime a year. The fine print: egress is billed separately —
+    ingress is free, egress is where the bill grows — and committed-use
+    discounts advertise 'up to 57%', which means the best case, not
+    ours. Calculator estimate at 2M requests a day: ~$340 a month.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.cloud]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos resumindo a pricing page para a Priya: o modelo, quota × limit, o SLA em noves e as duas cláusulas que escondem custo."
+    maxSeconds: 45
+    targetPhrases:
+      - per-request
+      - billed in
+      - the default quota
+      - hard limit
+      - three nines
+      - egress is billed separately
+      - the fine print
+      - up to
+      - starting at
+      - pricing calculator
+      - committed use
+      - quota increase
+    checklist:
+      - Modelo + granularidade
+      - Quota × hard limit
+      - SLA em noves
+      - Duas cláusulas da letra miúda
+
+quiz:
+  - { id: M14-04-q1, type: multiple_choice, prompt: "A quota is…", options: ["a soft cap — file an increase and it can rise", "a hard cap — never moves", "a billing unit", "an SLA term"], answer: 0, explanation: "Quota sobe com pedido; limit não.", tags: [vocab.cloud] }
+  - { id: M14-04-q2, type: error_correction, prompt: "The SLA not covers planned maintenance.", accepted: ["The SLA doesn't cover planned maintenance.", "The SLA doesn't cover planned maintenance", "The SLA does not cover planned maintenance."], explanation: "doesn't cover.", tags: [br.it-not-works] }
+  - { id: M14-04-q3, type: multiple_choice, prompt: "'Tiered pricing' means…", options: ["one flat price", "negotiated only", "price changes by volume band — first million free, then $0.40/million", "random pricing"], answer: 2, explanation: "O preço muda por faixa.", tags: [vocab.cloud] }
+  - { id: M14-04-q4, type: fill_blank, prompt: "Egress is billed ___ — ingress is free, egress isn't.", accepted: ["separately"], explanation: "A cláusula mais famosa.", tags: [vocab.cloud] }
+  - { id: M14-04-q5, type: error_correction, prompt: "Explain me the tiered pricing.", accepted: ["Explain the tiered pricing to me.", "Explain the tiered pricing to me", "Walk me through the tiered pricing."], explanation: "explain X to me.", tags: [br.explain-me] }
+  - { id: M14-04-q6, type: translate, prompt: "O SLA é três noves — umas 8h45 de downtime permitido por ano.", accepted: ["The SLA is three nines — about 8h45 of allowed downtime a year.", "The SLA is three nines — around 8h45 of allowed downtime per year."], explanation: "Os noves do SLA.", tags: [vocab.cloud] }
+  - { id: M14-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["to", "up", "save", "57%", "use", "committed", "with"], answer: "save up to 57% with committed use", explanation: '"Up to" — o melhor caso.', tags: [vocab.cloud] }
+  - { id: M14-04-q8, type: multiple_choice, prompt: "The real cost of a service is in…", options: ["the headline price", "the free tier", "the SLA", "the fine print — egress, minimums, regional variation"], answer: 3, explanation: "O número grande nunca é a fatura.", tags: [vocab.cloud] }
+
+srsCards:
+  - { front: "quota", back: "O teto que sobe com pedido — file an increase.", tag: vocab.cloud }
+  - { front: "hard limit", back: "O que não se mexe — 32MB, sem exceção.", tag: vocab.cloud }
+  - { front: "SLA / nines", back: "99.9% = 3 nines ≈ 8h45/ano de downtime.", tag: vocab.cloud }
+  - { front: "per-request", back: "Cobrança por chamada — o modelo serverless.", tag: vocab.cloud }
+  - { front: "tiered pricing", back: "Preço por faixa — first million free.", tag: vocab.cloud }
+  - { front: "billed separately", back: "Egress à parte — onde a fatura cresce.", tag: vocab.cloud }
+  - { front: "the fine print", back: "A letra miúda — onde o custo se esconde.", tag: vocab.cloud }
+  - { front: "up to", back: "O desconto máximo, não o seu.", tag: vocab.cloud }
+  - { front: "committed use", back: "O desconto da reserva — 1 ou 3 anos.", tag: vocab.cloud }
+  - { front: "pricing calculator", back: "A estimativa oficial antes de justificar.", tag: vocab.cloud }
+
+review:
+  preferTags: [vocab.cloud, vocab.finops, br.recommend-to]
+  notes: "Revisão prioriza o vocabulário de pricing e os calques."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
