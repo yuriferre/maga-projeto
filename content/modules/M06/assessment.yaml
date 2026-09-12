@@ -1,0 +1,78 @@
+# Avaliação do módulo M06: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M06
+title: "Avaliação do módulo M06: tickets, commits e PRs"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3,5, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M06-A01, type: multiple_choice, prompt: "Which ticket is complete and actionable?", options: ["\"Checkout is broken — please fix.\"", "\"See the Slack thread for details.\"", "\"'502 on POST /checkout with empty cart'. Steps: POST empty cart → 502. Expected: 422. Actual: 502. Workaround: add an item first.\"", "\"The checkout sometimes fails.\""], answer: 2, explanation: "Título + passos + expected × actual + workaround.", tags: [vocab.tickets-prs] }
+  - { id: M06-A02, type: error_correction, prompt: "Add the steps for reproduce and verify if it fails on staging.", accepted: ["Add the steps to reproduce and check whether it fails on staging.", "Add the steps to reproduce and check whether it fails on staging", "Add the steps to reproduce and check if it fails on staging."], explanation: "Dois calques: \"steps to\" + \"check whether\".", tags: [br.steps-for, br.verify-if] }
+  - { id: M06-A03, type: multiple_choice, prompt: "Which commit title would pass review?", options: ["fix(api): return 404 for missing user", "fixed the user bug", "fix: stuff", "api bug — maybe fixed"], answer: 0, explanation: "tipo(escopo): imperativo com detalhe.", tags: [gram.imperative] }
+  - { id: M06-A04, type: fill_blank, prompt: "Squash and merge the PR ___ main once CI is green.", accepted: ["into"], explanation: "merge de branch é \"into\".", tags: [br.merge-in] }
+  - { id: M06-A05, type: error_correction, prompt: "I am agree it's risky — we can revert back the deploy.", accepted: ["I agree it's risky — we can revert the deploy.", "I agree it's risky — we can revert the deploy", "Agreed it's risky — we can revert the deploy."], explanation: "Dois calques: agree sem \"am\" + revert sem \"back\".", tags: [br.i-am-agree, br.revert-back] }
+  - { id: M06-A06, type: multiple_choice, prompt: "The four sections of a PR description are…", options: ["title, diff, tests, approve", "summary, code, ship, done", "problem, solution, merge, close", "what, why, how to test, risks"], answer: 3, explanation: "As quatro perguntas do revisor respondidas antes.", tags: [vocab.tickets-prs] }
+  - { id: M06-A07, type: fill_blank, prompt: "This change ___ on the schema migration in #410 — ship that first.", accepted: ["depends"], explanation: '"depends on" — declara a ordem.', tags: [vocab.tickets-prs] }
+  - { id: M06-A08, type: error_correction, prompt: "I didn't understood the review — I have a doubt.", accepted: ["I didn't understand the review — I have a question.", "I didn't understand the review — I have a question", "I did not understand the review — I have a question."], explanation: "Dois calques: didn't + infinitivo; dúvida-pergunta é question.", tags: [br.did-past, br.doubt] }
+  - { id: M06-A09, type: multiple_choice, prompt: "Which comment prefix actually blocks the merge?", options: ["nit:", "out of curiosity:", "blocking:", "+1"], answer: 2, explanation: "blocking: exige mudança; nit: é opcional.", tags: [vocab.tickets-prs] }
+  - { id: M06-A10, type: error_correction, prompt: "The commit fix the bug — the reviewer said me to push.", accepted: ["The commit fixes the bug — the reviewer told me to push.", "The commit fixes the bug — the reviewer told me to push", "The commit fixes the bug — the reviewer told me to push it."], explanation: "Dois erros: fixes (3ª pessoa) + told me.", tags: [br.third-person-s, br.said-me] }
+  - { id: M06-A11, type: fill_blank, prompt: "___ catch — addressed in 3f2a1c. PTAL.", accepted: ["Good"], explanation: '"good catch" — obrigado por ter visto.', tags: [vocab.tickets-prs] }
+  - { id: M06-A12, type: error_correction, prompt: "Do you can review my PR today?", accepted: ["Can you review my PR today?", "Can you review my PR today", "Could you review my PR today?"], explanation: "Auxiliar duplo: ou do ou o modal.", tags: [br.do-modal] }
+  - { id: M06-A13, type: translate, prompt: "O ticket é autocontido — o revisor age sem perguntar.", accepted: ["The ticket is self-contained — the reviewer acts without asking.", "The ticket is self-contained — the reviewer acts without asking", "The ticket is self-contained — the reviewer can act without asking."], explanation: '"self-contained" + "acts without asking".', tags: [vocab.tickets-prs] }
+  - { id: M06-A14, type: match, prompt: "Associe cada marcador de review ao que ele sinaliza.", pairs: [{ left: "nit:", right: "optional — doesn't block" }, { left: "addressed", right: "the point was handled" }, { left: "PTAL", right: "please take another look" }, { left: "LGTM", right: "approved" }], explanation: "O protocolo do comentário de review.", tags: [vocab.tickets-prs] }
+  - { id: M06-A15, type: multiple_choice, prompt: "Which PR line is correct?", options: ["\"Please verify if it works — I am agree it's safe.\"", "\"Check whether it works — I agree it's safe to merge.\"", "\"Verify if it works — I agree it's safe to merge.\"", "\"Check whether it works — I am agree it's safe.\""], answer: 1, explanation: "check whether + agree sem \"am\".", tags: [br.verify-if, br.i-am-agree] }
+
+writing:
+  prompt: |
+    **Cenário:** você encontrou um bug e já tem a correção pronta. O bug:
+    `GET /reports` demora 40 s e a UI cancela em 30 s — staging, regressão
+    (funcionava na v2.3). A correção aumenta o timeout do cliente para 60 s.
+
+    **Tarefa:** escreva o kit completo em texto corrido (80–120 palavras):
+    o título do ticket (sintoma + endpoint + gatilho), expected × actual, o
+    título conventional do PR e duas linhas da descrição (how to test + risks).
+  constraints:
+    - { label: "Título do ticket com sintoma + endpoint", pattern: "\\b(get|reports|times? out|timeout|40|30|endpoint)\\b" }
+    - { label: "Expected × actual declarados", pattern: "\\b(expected|actual|should|used to|on v2\\.3|v2\\.3)\\b" }
+    - { label: "Título conventional (tipo(escopo): imperativo)", pattern: "\\b(fix|feat|chore|docs|refactor|test|perf)\\([a-z-]+\\):\\s" }
+    - { label: "Teste executável + risco", pattern: "\\b(test|expect|post|get|run|check whether|risks?|low|out of scope|rollback|revert)\\b" }
+  rubric:
+    - "Título do ticket: sintoma + endpoint + gatilho"
+    - Expected × actual (com a regressão na v2.3)
+    - Título do PR em conventional commits
+    - How to test + risks; sem os calques do módulo
+  model: >-
+    Ticket: 'GET /reports times out at 40s — the UI cancels at 30s'. Expected:
+    the report loads in under 30 seconds, as it did on v2.3. Actual: a 40s
+    backend call hits the UI timeout — regression as of v2.4. PR:
+    fix(reports): raise the client timeout to 60s. How to test: GET /reports on
+    staging, expect a completed report instead of a cancelled request. Risks:
+    low — only the reports client changes; out of scope is the slow query
+    itself, which is a follow-up.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.tickets-prs]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando o kit — o ticket, o PR e a resposta de review — como numa daily. Leia os títulos e as seções em voz alta."
+  maxSeconds: 60
+  targetPhrases:
+    - steps to reproduce
+    - expected versus actual
+    - workaround
+    - severity
+    - regression
+    - conventional commits
+    - imperative
+    - what why how to test risks
+    - good catch
+    - addressed in
+    - PTAL
+    - LGTM
+    - merge into main
+    - revert the commit
+    - check whether
+    - the paper trail
+
+# O módulo exige também "cinco textos avaliados ≥ 3,5/5" — coberto pela escrita
+# acima (nota única ≥ 3,5) mais os modelos das aulas; desvio registrado no plano.

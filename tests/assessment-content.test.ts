@@ -144,3 +144,31 @@ describe("content/modules/M05/assessment.yaml", () => {
     expect(checkExercise(q, "On the right is the database, and the queue sit at the bottom.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M06/assessment.yaml", () => {
+  const m06 = bundle.moduleAssessments["M06"]!;
+  it("requires both 'steps to' and 'check whether'", () => {
+    const q = m06.items.find((q) => q.id === "M06-A02")!;
+    expect(checkExercise(q, "Add the steps to reproduce and check whether it fails on staging.").correct).toBe(true);
+    expect(checkExercise(q, "Add the steps for reproduce and check whether it fails on staging.").correct).toBe(false);
+    expect(checkExercise(q, "Add the steps to reproduce and verify if it fails on staging.").correct).toBe(false);
+  });
+  it("requires both bare 'agree' and bare 'revert'", () => {
+    const q = m06.items.find((q) => q.id === "M06-A05")!;
+    expect(checkExercise(q, "I agree it's risky — we can revert the deploy.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree it's risky — we can revert the deploy.").correct).toBe(false);
+    expect(checkExercise(q, "I agree it's risky — we can revert back the deploy.").correct).toBe(false);
+  });
+  it("requires both 'understand' and 'question'", () => {
+    const q = m06.items.find((q) => q.id === "M06-A08")!;
+    expect(checkExercise(q, "I didn't understand the review — I have a question.").correct).toBe(true);
+    expect(checkExercise(q, "I didn't understood the review — I have a question.").correct).toBe(false);
+    expect(checkExercise(q, "I didn't understand the review — I have a doubt.").correct).toBe(false);
+  });
+  it("requires both 'fixes' and 'told me'", () => {
+    const q = m06.items.find((q) => q.id === "M06-A10")!;
+    expect(checkExercise(q, "The commit fixes the bug — the reviewer told me to push.").correct).toBe(true);
+    expect(checkExercise(q, "The commit fix the bug — the reviewer told me to push.").correct).toBe(false);
+    expect(checkExercise(q, "The commit fixes the bug — the reviewer said me to push.").correct).toBe(false);
+  });
+});
