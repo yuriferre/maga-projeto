@@ -1,0 +1,290 @@
+id: M08-03
+module: M08
+order: 3
+title: "Recebendo feedback: fair point, I'll work on that"
+objective: >-
+  Ao final, você recebe feedback sem ficar na defensiva — reconhece ("fair
+  point"), pede exemplo ("can you give me an example?"), discorda com jeito
+  ("I see it differently") e compromete a ação ("I'll work on that").
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.feedback, topic.retro, comp.speaking, comp.confidence, br.ed-ing, br.i-am-agree]
+prerequisites: [M08-02]
+
+context:
+  scenario: |
+    O feedback chegou — e doeu. A resposta instintiva é defender: "but you
+    don't understand, the deadline was impossible." A resposta profissional
+    separa ouvir de concordar: primeiro **reconhece** ("fair point" / "that's
+    fair"), depois **esclarece** ("can you give me an example?"), e só então
+    decide — aceita e age ("I'll work on that"), discorda com jeito ("I see it
+    differently — here's my read"), ou pede tempo ("let me think about it").
+
+    Receber bem feedback é uma skill de carreira: quem reage sem defesa recebe
+    mais feedback, e quem recebe mais feedback cresce mais rápido.
+  roles: [Yuri (platform engineer), Priya (scrum master), Ana (SRE)]
+
+vocabulary:
+  - term: "fair point"
+    meaning: ponto justo — reconhecer sem se curvar
+    example: "Fair point — the handoffs have been thin lately."
+    translation: "Ponto justo — os handoffs têm estado finos ultimamente."
+    note: "Reconhece o argumento sem concordar com tudo."
+  - term: "I'll work on that"
+    meaning: vou trabalhar nisso — o compromisso de ação
+    example: "I'll work on that — next handoff gets a summary up top."
+    translation: "Vou trabalhar nisso — o próximo handoff abre com resumo."
+    note: "O fecho que transforma feedback em ação."
+  - term: "can you give me an example"
+    meaning: pode dar um exemplo — o pedido de clarificação
+    example: "Can you give me an example? I want to make sure I get it."
+    translation: "Pode me dar um exemplo? Quero ter certeza que entendi."
+    note: "Feedback vago → pedir exemplo concreto é a resposta certa."
+  - term: "I see it differently"
+    meaning: eu vejo diferente — discordar sem atacar
+    example: "I see it differently — the freeze window was the real constraint."
+    translation: "Eu vejo diferente — a janela de freeze foi a restrição real."
+    note: "Discordância limpa: sua leitura + a razão."
+  - term: "let me think about it"
+    meaning: deixa eu pensar — pedir tempo sem fugir
+    example: "That's a lot to take in — let me think about it and come back."
+    translation: "É muito para absorver — deixa eu pensar e volto."
+    note: "Legítimo quando o feedback é grande — mas volte mesmo."
+  - term: "thanks for the feedback"
+    meaning: obrigado pelo feedback — o agradecimento padrão
+    example: "Thanks for the feedback — genuinely, I'd rather hear it than not."
+    translation: "Obrigado pelo feedback — sinceramente, prefiro ouvir a não ouvir."
+    note: "Agradeça o ato mesmo quando discorda do conteúdo."
+  - term: "that's on me"
+    meaning: a culpa é minha — assumir sem drama
+    example: "The missing test is on me — I'll add it today."
+    translation: "O teste faltando é comigo — adiciono hoje."
+    note: '"that''s on me" = assumo — mais forte que "my bad".'
+  - term: "I hear you"
+    meaning: estou ouvindo — reconhecer antes de responder
+    example: "I hear you — let me check what actually happened first."
+    translation: "Estou ouvindo — deixa eu verificar o que aconteceu primeiro."
+    note: "Reconhece a fala sem concordar ainda — ganha tempo com respeito."
+  - term: "to get defensive"
+    meaning: ficar na defensiva — a reação que mata o feedback
+    example: "I got defensive last time — sorry, say it again."
+    translation: "Fiquei na defensiva da última vez — desculpa, fala de novo."
+    note: "Nomear a defensiva desarma ela."
+  - term: "help me understand"
+    meaning: me ajuda a entender — clarificar sem contestar
+    example: "Help me understand what 'thin' means for a handoff."
+    translation: "Me ajuda a entender o que \"fino\" significa para um handoff."
+    note: '"help me understand X" pede o específico sem soar defensivo.'
+  - term: "what would good look like"
+    meaning: como seria o bom — a imagem do alvo
+    example: "What would good look like for the handoff in your view?"
+    translation: "Como seria um bom handoff na sua visão?"
+    note: "A pergunta que transforma crítica em padrão mensurável."
+  - term: "I'll take it"
+    meaning: aceito — receber a crítica e seguir
+    example: "That's fair criticism — I'll take it and fix the template."
+    translation: "Crítica justa — aceito e arrumo o template."
+    note: '"I''ll take it" = aceito o feedback como válido.'
+  - term: "to take it personally"
+    meaning: levar para o pessoal — a armadilha
+    example: "It's about the process — don't take it personally."
+    translation: "É sobre o processo — não leve para o pessoal."
+    note: "A frase que separa comportamento de identidade."
+  - term: "pushback"
+    meaning: resistência — a discordância organizada
+    example: "I pushed back on the timeline, with data."
+    translation: "Resisti ao prazo, com dados."
+    note: '"push back" é o verbo; "pushback" o substantivo — discordar com fundamento.'
+
+grammar:
+  title: "Ouvir ≠ concordar: reconhece, esclarece, decide"
+  explanation: |
+    Receber feedback tem três movimentos em sequência: **reconhecer** a fala
+    ("fair point", "I hear you"), **esclarecer** o vago ("can you give me an
+    example?", "what would good look like?") e **decidir** — aceitar ("I'll
+    work on that"), discordar ("I see it differently because…") ou pedir
+    tempo ("let me think about it"). Pular direto para a defesa é o erro.
+
+    | Movimento | Frase-modelo |
+    |---|---|
+    | reconhecer | *Fair point.* / *I hear you.* |
+    | esclarecer | *Can you give me an example?* |
+    | aceitar | *I'll work on that.* / *That's on me.* |
+    | discordar | *I see it differently — the constraint was X.* |
+    | adiar | *Let me think about it and come back.* |
+
+    **Erros BR:** "I **am** agree" (é *I agree*), "I'm **boring**" querendo
+    dizer entediado (é *bored*), e o "but you see…" imediato — defesa antes
+    de ouvir fecha a torneira do feedback.
+  examples:
+    - { en: "Fair point — the handoffs have been thin.", pt: "Ponto justo — os handoffs têm estado finos." }
+    - { en: "Can you give me an example of a thin handoff?", pt: "Pode dar um exemplo de handoff fino?" }
+    - { en: "I'll work on that — next one gets a summary.", pt: "Vou trabalhar nisso — o próximo ganha resumo." }
+    - { en: "I see it differently — the freeze was the constraint.", pt: "Eu vejo diferente — o freeze foi a restrição." }
+    - { en: "That's on me — I skipped the test.", pt: "Isso é comigo — eu pulei o teste." }
+    - { en: "What would a good handoff look like to you?", pt: "Como seria um bom handoff para você?" }
+
+examples:
+  - en: "Fair point — the last three handoffs were thin. Can you give me an example of what was missing?"
+    pt: "Ponto justo — os últimos três handoffs foram finos. Pode dar um exemplo do que faltou?"
+    context: "Reconhece + esclarece — a sequência sem defesa."
+  - en: "I hear you. Let me think about it and come back with a plan."
+    pt: "Estou ouvindo. Deixa eu pensar e volto com um plano."
+    context: "Pedir tempo é legítimo — desde que volte."
+  - en: "That's on me — the test should have been in the PR."
+    pt: "Isso é comigo — o teste devia estar no PR."
+    context: '"that''s on me" assume sem se justificar.'
+  - en: "I see it differently — the freeze window was two days, not one. But the point about the notes stands."
+    pt: "Eu vejo diferente — a janela de freeze foi de dois dias, não um. Mas o ponto sobre as notas se mantém."
+    context: "Discordância com dados + aceita a parte justa."
+  - en: "I got defensive last sprint — say it again and I'll just listen."
+    pt: "Fiquei na defensiva na sprint passada — fala de novo que eu só escuto."
+    context: "Nomear a defensiva desarma ela."
+  - en: "Thanks for the feedback — I'd rather hear it early than read it in a review."
+    pt: "Obrigado pelo feedback — prefiro ouvir cedo a ler numa avaliação."
+    context: "Agradece o ato mesmo discordando do conteúdo."
+  - en: "What would good look like for the handoff? Two lines and a link?"
+    pt: "Como seria um bom handoff? Duas linhas e um link?"
+    context: "Transforma a crítica vaga em padrão mensurável."
+  - en: "I'll take it — the template was unclear. New version by Friday."
+    pt: "Aceito — o template estava confuso. Versão nova até sexta."
+    context: "Aceita + ação com prazo — o fecho completo."
+
+variations:
+  - idea: '"o feedback é vago demais"'
+    items:
+      - { register: "Boa", text: "Can you give me an example? I want to make sure I get it.", adequate: true }
+      - { register: "Boa", text: "What would good look like here? Help me aim at it.", adequate: true }
+      - { register: "Inadequada", text: "That's not true.", adequate: false, note: "Defesa direta — peça o exemplo antes de contestar." }
+      - { register: "Inadequada", text: "Whatever you say.", adequate: false, note: "Sarcasmo passivo — pior que discordar." }
+  - idea: '"você discorda do feedback"'
+    items:
+      - { register: "Boa", text: "I see it differently — the freeze window was the constraint. But the notes point stands.", adequate: true }
+      - { register: "Boa", text: "Fair on the handoff; on the timeline I'd push back — the scope changed twice.", adequate: true }
+      - { register: "Inadequada", text: "You're wrong.", adequate: false, note: "Sem a sua leitura nem a razão — é só defesa." }
+      - { register: "Inadequada", text: "I am agree, but actually no.", adequate: false, note: '"I agree" (sem am) — e decida: concorda ou discorda.' }
+
+brErrors:
+  - { wrong: "I am agree with the feedback.", right: "I agree with the feedback.", why: "agree é verbo — sem am", tag: br.i-am-agree }
+  - { wrong: "I'm boring when the feedback is long.", right: "I'm bored when the feedback is long.", why: "quem sente leva -ed", tag: br.ed-ing }
+  - { wrong: "He gave me a feedback in the retro.", right: "He gave me some feedback in the retro.", why: "feedback é incontável", tag: br.uncountable }
+  - { wrong: "We did a mistake — fair point.", right: "We made a mistake — fair point.", why: '"make a mistake" — "do a mistake" é calque', tag: br.do-mistake }
+  - { wrong: "I have a doubt about what you meant.", right: "I have a question about what you meant.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "It make sense — I'll work on it.", right: "It makes sense — I'll work on it.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "She said me to fix the template.", right: "She told me to fix the template.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I need that you repeat the feedback.", right: "I need you to repeat the feedback.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "The team moral improves with good feedback.", right: "The team morale improves with good feedback.", why: "moral do time é morale", tag: br.morale }
+  - { wrong: "Can you explain me the criticism?", right: "Can you explain the criticism to me?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+
+dialogue:
+  title: "O feedback difícil de ouvir"
+  lines:
+    - { speaker: Priya, text: "Some feedback from the retro — your points about the deploy process landed as blame on Marcos." }
+    - { speaker: Yuri, text: "Ouch. I hear you — that's not what I meant. Can you give me an example?" }
+    - { speaker: Priya, text: "'The deploy failed because nobody checks staging' — people heard 'nobody' as 'Marcos'." }
+    - { speaker: Yuri, text: "Fair point — 'nobody' was lazy phrasing. The process point stands though." }
+    - { speaker: Priya, text: "It does. Same fact, different target: 'the staging gate isn't enforced' keeps it on the process." }
+    - { speaker: Yuri, text: "I'll work on that — process phrasing, not people phrasing. What would good have looked like in that moment?" }
+    - { speaker: Priya, text: "Exactly what you just said. 'The gate isn't enforced for anyone' — same complaint, zero casualties." }
+    - { speaker: Yuri, text: "Got it. And thanks for the feedback — I'd rather hear it now than read it in a review." }
+  notes:
+    - "a sequência inteira: I hear you → example? → fair point → I'll work on that → what would good look like."
+    - '"ouch" + "I hear you" — a reação humana seguida da profissional.'
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The people who grow fastest aren't the ones who get the least criticism — they're the ones who make it safe to give them more. Defensiveness is a feedback filter: it doesn't block the feedback, it blocks you from hearing it." }
+    - { speaker: Ana, text: "My rule: never argue in the moment. 'I hear you, let me think about it' buys you a day to decide if it's true." }
+    - { speaker: Priya, text: "And when the feedback is vague, don't fill in the blanks with the worst version — ask for the example. 'What would good look like?' turns a sting into a spec." }
+  questions:
+    - { id: M08-03-l1, type: multiple_choice, prompt: "Who grows fastest, per Priya?", options: ["those who get least criticism", "those who ignore feedback", "those who defend themselves well", "those who make it safe to give them more feedback"], answer: 3, explanation: "Quem torna seguro receber mais — defensiva fecha a torneira.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-03-l2, type: multiple_choice, prompt: "Ana's rule for the moment of feedback:", options: ["never argue in the moment — buy time to decide if it's true", "argue immediately", "agree with everything", "change the subject"], answer: 0, explanation: '"I hear you, let me think about it" compra tempo.', tags: [comp.listening, vocab.feedback] }
+    - { id: M08-03-l3, type: fill_blank, prompt: "Fair ___ — the handoffs have been thin.", accepted: ["point"], explanation: '"fair point" — reconhece sem se curvar.', tags: [vocab.feedback] }
+    - { id: M08-03-l4, type: multiple_choice, prompt: "When feedback is vague, the move is…", options: ["assume the worst", "ignore it", "ask for the example — 'what would good look like?'", "return criticism"], answer: 2, explanation: "A pergunta transforma a picada em spec.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-03-l5, type: error_correction, prompt: "I am agree the retro was too long.", accepted: ["I agree the retro was too long.", "I agree the retro was too long"], explanation: "agree é verbo — sem am.", tags: [br.i-am-agree] }
+    - { id: M08-03-l6, type: multiple_choice, prompt: "'That's on me' means…", options: ["it's on my desk", "I'll forward it", "it's not my fault", "the fault is mine — I own it"], answer: 3, explanation: '"that''s on me" = assumo, sem drama.', tags: [vocab.feedback] }
+
+writing:
+  prompt: |
+    **Cenário:** o feedback do diálogo foi real — suas falas na retro soar como
+    culpa ao colega. O gestor pede uma resposta por escrito no canal do 1:1.
+
+    **Tarefa:** escreva 50–80 palavras: reconheça o ponto ("fair point"), o que
+    você fará diferente ("I'll work on…"), uma clarificação se discordar de algo
+    ("I see it differently"), e o agradecimento ("thanks for the feedback").
+  constraints:
+    - { label: "Reconhecimento", pattern: "\\b(fair point|i hear you|that.s fair)\\b" }
+    - { label: "Ação assumida", pattern: "\\b(i.ll work on|i.ll fix|that.s on me|action)\\b" }
+    - { label: "Clarificação ou agradecimento", pattern: "\\b(example|differently|thanks for|help me understand)\\b" }
+  rubric:
+    - Reconhece antes de responder
+    - Ação concreta com dono
+    - Sem defesa ("but you…") logo de cara
+    - Fecha com agradecimento
+  model: >-
+    Fair point — "nobody checks staging" landed as blame, and that's on me.
+    I'll work on the process phrasing: "the gate isn't enforced for anyone"
+    says the same thing with zero casualties. One thing I see differently:
+    the freeze window was two days, not one — but the point about the notes
+    stands. Thanks for the feedback; better now than in a review.
+  minWords: 50
+  maxWords: 85
+  tags: [comp.writing, vocab.feedback]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos recebendo um feedback difícil: reconheça, peça um exemplo, diga o que fará diferente e agradeça."
+    maxSeconds: 45
+    targetPhrases:
+      - fair point
+      - I hear you
+      - can you give me an example
+      - I'll work on that
+      - that's on me
+      - I see it differently
+      - let me think about it
+      - thanks for the feedback
+      - help me understand
+      - what would good look like
+      - don't take it personally
+      - pushback
+      - get defensive
+      - I'll take it
+    checklist:
+      - Reconhece antes de responder
+      - Pede exemplo ou imagem do "bom"
+      - Ação concreta assumida
+      - Sem defesa imediata
+
+quiz:
+  - { id: M08-03-q1, type: multiple_choice, prompt: "The right first move when feedback lands:", options: ["defend the context", "recognize it — 'fair point' or 'I hear you'", "counter-attack", "stay silent forever"], answer: 1, explanation: "Reconhecer ≠ concordar — vem antes de tudo.", tags: [vocab.feedback] }
+  - { id: M08-03-q2, type: error_correction, prompt: "I am agree the deploys were rushed.", accepted: ["I agree the deploys were rushed.", "I agree the deploys were rushed"], explanation: "agree é verbo — sem am.", tags: [br.i-am-agree] }
+  - { id: M08-03-q3, type: multiple_choice, prompt: "'Can you give me an example?' is the answer to…", options: ["praise", "an action item", "vague feedback — it turns the sting into a spec", "a retro invite"], answer: 2, explanation: "Feedback vago → peça o concreto.", tags: [vocab.feedback] }
+  - { id: M08-03-q4, type: error_correction, prompt: "I'm frustrating with the vague feedback.", accepted: ["I'm frustrated with the vague feedback.", "I'm frustrated with the vague feedback"], explanation: "Quem sente leva -ed: frustrated.", tags: [br.ed-ing] }
+  - { id: M08-03-q5, type: multiple_choice, prompt: "To disagree without attacking:", options: ["\"You're wrong.\"", "\"Whatever.\"", "\"I see it differently — here's my read.\"", "\"Sure, if you say so.\""], answer: 2, explanation: "Sua leitura + a razão — discordância limpa.", tags: [vocab.feedback] }
+  - { id: M08-03-q6, type: translate, prompt: "Isso é comigo — o teste devia estar no PR.", accepted: ["That's on me — the test should have been in the PR.", "That's on me — the test should have been in the PR"], explanation: '"that''s on me" = a culpa é minha.', tags: [vocab.feedback] }
+  - { id: M08-03-q7, type: reorder, prompt: "Monte a frase: / trabalhar nisso / vou / próximo handoff / resumo", tokens: ["I'll", "work", "on", "that", "—", "next", "handoff", "gets", "a", "summary."], answer: "I'll work on that — next handoff gets a summary.", explanation: "O fecho que vira ação.", tags: [vocab.feedback] }
+  - { id: M08-03-q8, type: multiple_choice, prompt: "'Let me think about it and come back' is legitimate when…", options: ["you want to avoid it forever", "the feedback is big — as long as you actually come back", "you're angry", "the feedback is wrong"], answer: 1, explanation: "Pedir tempo é válido — fugir, não.", tags: [vocab.feedback] }
+
+review:
+  count: 5
+  preferTags: [vocab.feedback, br.ed-ing, br.i-am-agree]
+
+srsCards:
+  - { front: "fair point", back: "ponto justo — reconhece sem se curvar", tag: vocab.feedback }
+  - { front: "I hear you", back: "estou ouvindo — reconhece antes de decidir", tag: vocab.feedback }
+  - { front: "can you give me an example", back: "o pedido que transforma feedback vago em spec", tag: vocab.feedback }
+  - { front: "I'll work on that", back: "o compromisso de ação — o fecho do feedback", tag: vocab.feedback }
+  - { front: "that's on me", back: "a culpa é minha — assumir sem drama", tag: vocab.feedback }
+  - { front: "I see it differently", back: "discordar com a sua leitura + a razão", tag: vocab.feedback }
+  - { front: "let me think about it", back: "pedir tempo é válido — desde que volte", tag: vocab.feedback }
+  - { front: "what would good look like", back: "a imagem do alvo — transforma crítica em padrão", tag: vocab.feedback }
+  - { front: "I agree × I am agree", back: "agree é verbo — nunca \"I am agree\"", hint: "calque de 'eu estou de acordo'", tag: br.i-am-agree }
+  - { front: "get defensive", back: "a reação que filtra o feedback — nomeie-a para desarmá-la", tag: vocab.feedback }
+  - { front: "help me understand", back: "clarificar sem contestar — 'help me understand X'", tag: vocab.feedback }
+  - { front: "pushback", back: "a discordância organizada — 'I pushed back, with data'", tag: vocab.feedback }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
