@@ -6,6 +6,7 @@ import {
   type CardCounts, type RadarSample, type TagStat,
 } from "./repo.ts";
 import { weakTags } from "./warmup.ts";
+import { recommendation, type Recommendation } from "./recommend.ts";
 import { computeStreak, localDate, overlapMs, weekBounds, weekStart } from "./time.ts";
 import { parsePlacementAssessment, type PlacementAssessment, type PlacementResult } from "./placement.ts";
 
@@ -19,6 +20,7 @@ export type Dashboard = {
   placement: { latest: PlacementAssessment | null };
   timeline: Array<{ id: number; kind: string; ref: string; ts: string; summary: { level?: number; pct?: number } }>;
   srs: CardCounts & { accuracy30d: RadarSample };
+  recommendation: Recommendation;
 };
 
 const DAY = 864e5;
@@ -65,5 +67,6 @@ export function buildDashboard(db: Db, content: ContentBundle, nowIso: string, d
     placement: { latest: placementRow ? parsePlacementAssessment(placementRow) : null },
     timeline,
     srs,
+    recommendation: recommendation(db, content, new Date(nowIso)),
   };
 }
