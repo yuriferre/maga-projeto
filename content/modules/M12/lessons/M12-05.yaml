@@ -1,0 +1,293 @@
+id: M12-05
+module: M12
+order: 5
+title: "Incidente leve de K8s em pair com colega"
+objective: >-
+  Integra o módulo conduzindo um incidente leve em pair: o `checkout-api`
+  502 no pico — você narra cada comando, nomeia cada estado, elimina
+  camadas até a causa (OOMKilled por limit baixo + HPA sem headroom) e
+  fecha com fix + prevenção.
+durationMin: 40
+competencies: [SPK, PRO, VOC]
+tags: [vocab.k8s, comp.speaking, comp.writing, br.is-ing-since, br.need-see]
+prerequisites: [M12-01, M12-02, M12-03, M12-04]
+
+context:
+  scenario: |
+    12h40, pico de almoço. Alerta: `checkout-api` 502 intermitente. Você
+    conduz o pair com a Ana — a regra é a do módulo: **narre, nomeie o
+    estado, conecte achado a hipótese**.
+
+    A investigação (sem spoiler no diálogo): `get pods` mostra 2/3 ready
+    e restart counts subindo; `describe` mostra OOMKilled no pico; o HPA
+    quer escalar mas os pods novos morrem antes de ficar prontos — cold
+    start de 40s + memory limit de 512Mi estourando no boot. O fix
+    imediato é subir o limit para 1Gi; a prevenção é requests/limits
+    right-sized e headroom no HPA.
+
+    Você fala, a Ana executa junto — a condução é sua.
+  roles: [Yuri (platform engineer, conduz), Ana (SRE, observa), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "you drive, I watch"
+    meaning: você dirige, eu observo — o pair começa
+    example: "You drive, I watch — narrate every command."
+    translation: "Você dirige, eu observo — narre cada comando."
+    note: "A abertura do pair — quem conduz narra."
+  - term: "intermittent 502"
+    meaning: 502 intermitente — falha que vai e volta
+    example: "Intermittent 502s at peak — some pods are alive, some are dying."
+    translation: "502s intermitentes no pico — alguns pods vivos, outros morrendo."
+    note: "Intermitente = parcial — nem tudo está morto."
+  - term: "2/3 ready"
+    meaning: 2 de 3 prontos — a fração do deployment
+    example: "The deployment shows 2/3 ready — one pod keeps dying."
+    translation: "O deployment mostra 2/3 prontos — um pod continua morrendo."
+    note: "A fração ready do get deploy."
+  - term: "the HPA wants to scale"
+    meaning: o HPA quer escalar — mas as réplicas novas não sobem
+    example: "The HPA wants to scale to 8 — new pods die before they're ready."
+    translation: "O HPA quer escalar para 8 — pods novos morrem antes de ficar prontos."
+    note: "Escalar não ajuda se a réplica morre no boot."
+  - term: "memory limit is too tight"
+    meaning: o limite de memória está apertado
+    example: "The 512Mi limit is too tight — the pod OOMs during cold start."
+    translation: "O limite de 512Mi está apertado — o pod dá OOM durante o boot."
+    note: "Tight = justo demais para o pico/boot."
+  - term: "the fix"
+    meaning: a correção imediata — estanca o incidente
+    example: "The fix: bump the memory limit to 1Gi — the OOMs stop."
+    translation: "A correção: subir o limite de memória para 1Gi — os OOMs param."
+    note: "Fix = estanca agora; prevention = não volta."
+  - term: "prevention"
+    meaning: a prevenção — para não voltar
+    example: "Prevention: right-size requests, add headroom to the HPA."
+    translation: "Prevenção: dimensionar requests, dar folga ao HPA."
+    note: "Fix × prevention — os dois fechos do incidente."
+  - term: "it's recovering"
+    meaning: está se recuperando — voltando ao normal
+    example: "Pods are coming up — it's recovering, 3/3 ready."
+    translation: "Os pods estão subindo — está se recuperando, 3/3 prontos."
+    note: '"recovering" — a palavra do fim do incidente.'
+  - term: "spike"
+    meaning: o pico — subida súbita de tráfego ou recurso
+    example: "The lunch spike doubles the traffic — that's when it OOMs."
+    translation: "O pico de almoço dobra o tráfego — é quando dá OOM."
+    note: "Spike de tráfego × spike de memória — o gatilho."
+  - term: "domino effect"
+    meaning: efeito dominó — uma falha derruba a próxima
+    example: "One pod OOMs, traffic shifts to the others, they OOM too — domino effect."
+    translation: "Um pod dá OOM, o tráfego vai para os outros, eles dão OOM também — efeito dominó."
+    note: "Por que 1 réplica morta vira 3."
+  - term: "to mitigate"
+    meaning: mitigar — reduzir o impacto sem resolver a causa
+    example: "Mitigate first: raise the limit now, right-size later."
+    translation: "Mitigue primeiro: suba o limite agora, dimensione depois."
+    note: "Mitigar ≠ resolver — estanca o sangramento."
+  - term: "post-incident"
+    meaning: pós-incidente — a análise depois do fogo
+    example: "Post-incident action items: right-size and headroom."
+    translation: "Action items pós-incidente: dimensionar e folga."
+    note: "O post-mortem leve do M12-05."
+
+grammar:
+  title: "Conduzir o incidente: o roteiro falado"
+  explanation: |
+    O incidente leve segue cinco batidas — cada uma com sua frase:
+
+    1. **o estado** — "two of three ready, restart count climbing"
+    2. **o porquê do estado** — "describe shows OOMKilled — it hit the
+       memory limit"
+    3. **a camada eliminada** — "the service responds on port-forward —
+       it's not the ingress"
+    4. **a cadeia** — "one pod OOMs, traffic shifts, the others OOM —
+       domino effect"
+    5. **o fecho** — "mitigate: raise the limit; prevention: right-size
+       and headroom"
+
+    O incidente em pair junta os três tempos do módulo: narrar ("let me
+    describe"), ler ("OOMKilled, exit 137") e conectar ("that's why the
+    HPA can't save us — new pods die before they're ready").
+  examples:
+    - { en: "You drive, I watch — narrate every command so I can follow your reasoning.", pt: "Você dirige, eu observo — narre cada comando para eu seguir seu raciocínio." }
+    - { en: "Two of three ready, restart count climbing — intermittent 502s because the dying pods drop requests.", pt: "Dois de três prontos, contagem subindo — 502s intermitentes porque os pods que morrem derrubam requisições." }
+    - { en: "Describe shows OOMKilled — the pod hit the 512Mi memory limit during the spike.", pt: "O describe mostra OOMKilled — o pod bateu no limite de 512Mi durante o pico." }
+    - { en: "The HPA wants to scale to 8 — but new pods OOM during the 40-second cold start, before they're ready.", pt: "O HPA quer escalar para 8 — mas pods novos dão OOM nos 40s de boot, antes de ficarem prontos." }
+    - { en: "It's a domino effect — one pod dies, its traffic shifts to the others, they cross the limit too.", pt: "É efeito dominó — um pod morre, o tráfego dele vai para os outros, eles passam do limite também." }
+    - { en: "Mitigate now: bump the memory limit to 1Gi. Prevent later: right-size requests and give the HPA headroom.", pt: "Mitigue agora: suba o limite para 1Gi. Previna depois: dimensione requests e dê folga ao HPA." }
+
+examples:
+  - en: "Checkout is returning intermittent 502s at the lunch peak — you drive, I'll watch."
+    pt: "O checkout está retornando 502s intermitentes no pico de almoço — você dirige, eu observo."
+    context: "A abertura — sintoma + quem conduz."
+  - en: "Get pods: 2/3 ready, restart counts at 12, 14, 9 — they're crash-looping under load."
+    pt: "Get pods: 2/3 prontos, contagens em 12, 14, 9 — estão em crash loop sob carga."
+    context: "O estado lido em voz alta."
+  - en: "Describe shows 'OOMKilled' — the pod crossed the 512Mi limit during the spike."
+    pt: "O describe mostra 'OOMKilled' — o pod passou do limite de 512Mi durante o pico."
+    context: "O estado nomeado + o porquê."
+  - en: "The HPA is trying to scale to 8 — but the new pods OOM during cold start, before they go ready."
+    pt: "O HPA tenta escalar para 8 — mas os pods novos dão OOM no boot, antes de ficarem prontos."
+    context: "Por que escalar não salva."
+  - en: "One pod OOMs, its traffic shifts to the survivors, they cross the limit — domino effect."
+    pt: "Um pod dá OOM, o tráfego vai para os sobreviventes, eles passam do limite — efeito dominó."
+    context: "A cadeia de 1 réplica para 3."
+  - en: "Mitigate: bump the memory limit to 1Gi — the OOMs stop and the HPA catches up."
+    pt: "Mitigue: suba o limite para 1Gi — os OOMs param e o HPA alcança."
+    context: "O fix imediato."
+  - en: "It's recovering — 3/3 ready, error rate back to zero."
+    pt: "Está se recuperando — 3/3 prontos, taxa de erro zerada."
+    context: "A confirmação do fim."
+  - en: "Prevention: right-size the request, headroom on the HPA — post-incident items by Friday."
+    pt: "Prevenção: dimensionar o request, folga no HPA — itens pós-incidente até sexta."
+    context: "O fecho com prevenção."
+
+variations:
+  - idea: '"conduzir vs observar"'
+    items:
+      - { register: "Boa", text: "Get pods shows 2/3 ready, restarts climbing — let me describe the dying one.", adequate: true }
+      - { register: "Boa", text: "OOMKilled on the events — that's why it restarts; the limit is too tight for the spike.", adequate: true }
+      - { register: "Inadequada", text: "(silêncio de dois minutos) …it's fixed.", adequate: false, note: "Pair sem narração é trabalho solo com plateia — narre intenção e achado." }
+      - { register: "Inadequada", text: "Let's just restart all the pods and see.", adequate: false, note: "Bounce tudo sem ler o estado é chute — restart não conserta OOM por limit baixo." }
+  - idea: '"fix vs prevention"'
+    items:
+      - { register: "Boa", text: "Mitigate now — raise the limit to 1Gi. Prevention comes later: right-size and headroom.", adequate: true }
+      - { register: "Boa", text: "The fix stops the bleeding; the post-incident items stop it from coming back.", adequate: true }
+      - { register: "Inadequada", text: "The incident is over — no need to change anything.", adequate: false, note: "Sem prevenção, o próximo pico repete o incidente." }
+      - { register: "Inadequada", text: "Let's rewrite the service, this architecture is wrong.", adequate: false, note: "No meio do incidente, mitiga — redesign é conversa de post-incident." }
+
+brErrors:
+  - { wrong: "The pods are crash-looping since noon.", right: "The pods have been crash-looping since noon.", why: "have been + -ing + since", tag: br.is-ing-since }
+  - { wrong: "I need see the events first.", right: "I need to see the events first.", why: "need to see", tag: br.need-see }
+  - { wrong: "The pod is died — check the events.", right: "The pod died — check the events.", why: "died ou is dead", tag: br.is-died }
+  - { wrong: "The HPA not saves us here.", right: "The HPA doesn't save us here.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same incident of last week.", right: "It's the same incident as last week.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "The new pods are scheduled in the nodes.", right: "The new pods are scheduled on the nodes.", why: "on the node", tag: br.in-the-node }
+  - { wrong: "Before to raise the limit, check the events.", right: "Before raising the limit, check the events.", why: "before + gerúndio", tag: br.after-to }
+  - { wrong: "We losed two pods in the spike.", right: "We lost two pods in the spike.", why: "lost, não losed", tag: br.irregular-past }
+  - { wrong: "Ana suggested me to check the HPA.", right: "Ana suggested that I check the HPA.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "The limit depends in the peak.", right: "The limit depends on the peak.", why: "depends on", tag: br.depends-in }
+
+dialogue:
+  title: "O incidente das 12h40"
+  lines:
+    - { speaker: Priya, text: "Checkout's throwing intermittent 502s at the lunch peak — Yuri, you drive." }
+    - { speaker: Yuri, text: "On it. Get pods first — what's the state? … 2/3 ready, restart counts at 12, 14, 9. They're crash-looping under load." }
+    - { speaker: Ana, text: "Events?" }
+    - { speaker: Yuri, text: "Let me describe the dying pod — 'OOMKilled', exit 137. It crossed the 512Mi memory limit during the spike." }
+    - { speaker: Ana, text: "Why doesn't the HPA cover it?" }
+    - { speaker: Yuri, text: "It wants to scale to 8 — but new pods OOM during the 40-second cold start, before they ever go ready. Scaling can't save us." }
+    - { speaker: Marcos, text: "And why intermittent, not down?" }
+    - { speaker: Yuri, text: "Domino effect — one pod OOMs, its traffic shifts to the survivors, they cross the limit too. Two alive at any moment, never all three." }
+    - { speaker: Ana, text: "The fix?" }
+    - { speaker: Yuri, text: "Mitigate now: bump the memory limit to 1Gi — the OOMs stop, the HPA catches up. Applying… rollout status… 3/3 ready. It's recovering — error rate back to zero." }
+    - { speaker: Priya, text: "And prevention?" }
+    - { speaker: Yuri, text: "Two items: right-size the request from actual p95, and headroom on the HPA so cold start doesn't lag the spike. I'll write them up by Friday." }
+  notes:
+    - "o roteiro das cinco batidas aplicado: estado → porquê → camada → cadeia → fecho."
+    - "mitigate vs prevention — o fix imediato e o que impede a volta."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A light incident in pair has a rhythm: the driver narrates, the watcher follows. 'Get pods — 2 of 3 ready, restarts climbing.' Every command is intention plus reading; silence is the only real failure." }
+    - { speaker: Ana, text: "The tricky part is when the fix fights itself — the HPA wants to scale to eight, but new pods OOM during cold start before they're ever ready. Scaling a broken pod spec just produces more broken pods." }
+    - { speaker: Yuri, text: "And intermittent means domino — one pod dies, its traffic shifts to the survivors, they cross the limit too. You're never fully down and never fully healthy; two alive at any moment." }
+    - { speaker: Priya, text: "The close has two layers: mitigate — raise the memory limit now, watch the rollout go 3 of 3 — and prevent — right-size the request, give the HPA headroom. The incident ends when the second one is scheduled, not when the error rate drops." }
+  questions:
+    - { id: M12-05-l1, type: multiple_choice, prompt: "The pair rhythm is…", options: ["silence then verdict", "the watcher types", "driver narrates: intention plus reading for every command", "alternate commands"], answer: 2, explanation: "Quem conduz narra — o único erro é o silêncio.", tags: [comp.listening, comp.speaking] }
+    - { id: M12-05-l2, type: multiple_choice, prompt: "Why can't the HPA save the incident?", options: ["it's turned off", "it needs approval", "new pods OOM during cold start — scaling a broken spec makes more broken pods", "it's too slow"], answer: 2, explanation: "Réplica que morre no boot não ajuda.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-05-l3, type: fill_blank, prompt: "One pod OOMs, traffic shifts, the others OOM too — ___ effect.", accepted: ["domino"], explanation: "Domino effect — a cadeia de 1 para 3.", tags: [vocab.k8s] }
+    - { id: M12-05-l4, type: error_correction, prompt: "The pods are crash-looping since noon.", accepted: ["The pods have been crash-looping since noon.", "The pods have been crash-looping since noon"], explanation: "have been + -ing + since.", tags: [br.is-ing-since] }
+    - { id: M12-05-l5, type: multiple_choice, prompt: "Intermittent 502s mean…", options: ["the ingress is down", "never fully down, never fully healthy — dying pods drop a share of requests", "the service is broken", "DNS failure"], answer: 1, explanation: "Domino — parcial, vai e volta.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-05-l6, type: multiple_choice, prompt: "The incident ends when…", options: ["the error rate drops", "the mitigation lands AND the prevention is scheduled", "someone restarts the pods", "the peak passes"], answer: 1, explanation: "Fix + prevenção agendada — senão volta.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-05-l7, type: fill_blank, prompt: "Mitigate first: ___ the memory limit to 1Gi.", accepted: ["raise", "bump"], explanation: "Raise/bump the limit — estanca o OOM.", tags: [vocab.k8s] }
+    - { id: M12-05-l8, type: multiple_choice, prompt: "'You drive, I watch' means…", options: ["the senior decides alone", "you narrate every command — I follow your reasoning, not your keystrokes", "I type, you think", "we split the commands"], answer: 1, explanation: "Quem conduz narra.", tags: [comp.listening, comp.speaking] }
+
+writing:
+  prompt: |
+    **Cenário:** o incidente das 12h40 fechou. A Priya pede o post-incident
+    leve na thread: linha do tempo, causa, a cadeia (domino + HPA inútil)
+    e os dois itens de prevenção.
+
+    **Tarefa:** escreva 80–120 palavras com o write-up: o que aconteceu,
+    a evidência (OOMKilled, restart counts, cold start), a mitigação
+    (limit 1Gi) e a prevenção (right-size + headroom).
+  constraints:
+    - { label: "O que aconteceu", pattern: "\\b(502|intermittent|peak|spike|lunch)\\b" }
+    - { label: "Evidência", pattern: "\\b(oomkilled|restart|describe|events|exit|cold start)\\b" }
+    - { label: "A cadeia", pattern: "\\b(domino|hpa|scale|ready|shift)\\b" }
+    - { label: "Fix + prevenção", pattern: "\\b(limit|right.?size|headroom|prevent|mitigat|action items?)\\b" }
+  rubric:
+    - "Linha do tempo clara"
+    - "Causa com evidência"
+    - "Por que o HPA não salvou"
+    - "Mitigação + prevenção separadas"
+  model: >-
+    Post-incident, checkout 502s. At 12:40 the lunch spike doubled
+    traffic; get pods showed 2/3 ready with restart counts climbing.
+    Describe showed OOMKilled — pods crossed the 512Mi memory limit under
+    load. The HPA tried to scale to 8 but new pods OOM'd during the
+    40-second cold start, so scaling produced more broken pods. It was a
+    domino effect: one pod died, traffic shifted, survivors crossed the
+    limit too — never fully down, never healthy. Mitigation: memory limit
+    to 1Gi, rollout to 3/3 ready. Prevention: right-size the request from
+    p95 and add HPA headroom. Items due Friday.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.k8s]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos conduzindo o incidente em voz alta: o estado inicial, a causa encontrada, por que o HPA não salvou, a mitigação e a prevenção."
+    maxSeconds: 60
+    targetPhrases:
+      - let me describe the pod
+      - OOMKilled
+      - restart count
+      - memory limit
+      - the HPA wants to scale
+      - cold start
+      - domino effect
+      - intermittent
+      - mitigate
+      - right-size
+      - headroom
+      - it's recovering
+      - prevention
+      - that's why
+    checklist:
+      - Roteiro das cinco batidas
+      - Domino + HPA explicados
+      - Mitigate × prevention
+      - Narração sem pausas de leitura
+
+quiz:
+  - { id: M12-05-q1, type: multiple_choice, prompt: "Intermittent 502s at peak with 2/3 ready means…", options: ["the ingress is down", "the service is deleted", "DNS is broken", "dying pods drop a share of requests — never fully down, never healthy"], answer: 3, explanation: "Parcial = domino em andamento.", tags: [vocab.k8s] }
+  - { id: M12-05-q2, type: error_correction, prompt: "The pod is died — check the events.", accepted: ["The pod died — check the events.", "The pod is dead — check the events.", "The pod died — check the events"], explanation: "died ou is dead.", tags: [br.is-died] }
+  - { id: M12-05-q3, type: multiple_choice, prompt: "The HPA scaling to 8 doesn't help because…", options: ["8 is too many", "the max is 3", "new pods OOM during cold start — scaling a broken spec makes more broken pods", "the HPA is off"], answer: 2, explanation: "Réplica que morre no boot não serve.", tags: [vocab.k8s] }
+  - { id: M12-05-q4, type: fill_blank, prompt: "One pod OOMs, traffic shifts to the survivors, they OOM too — ___ effect.", accepted: ["domino"], explanation: "Domino effect.", tags: [vocab.k8s] }
+  - { id: M12-05-q5, type: error_correction, prompt: "I need see the events first.", accepted: ["I need to see the events first.", "I need to see the events first"], explanation: "need to see.", tags: [br.need-see] }
+  - { id: M12-05-q6, type: translate, prompt: "Mitigue agora: suba o limite para 1Gi. Previna depois: dimensione o request e dê folga ao HPA.", accepted: ["Mitigate now: raise the limit to 1Gi. Prevent later: right-size the request and give the HPA headroom.", "Mitigate now — raise the limit to 1Gi; prevent later — right-size the request and give the HPA headroom."], explanation: "Mitigate × prevent — os dois fechos.", tags: [vocab.k8s] }
+  - { id: M12-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["pods", "more", "makes", "spec", "scaling", "broken", "a", "broken"], answer: "scaling a broken spec makes more broken pods", explanation: "Por que escalar não salva.", tags: [vocab.k8s] }
+  - { id: M12-05-q8, type: multiple_choice, prompt: "The incident ends when…", options: ["the mitigation lands AND the prevention is scheduled", "the error rate drops", "the peak passes", "the pods restart"], answer: 0, explanation: "Fix + prevenção agendada.", tags: [vocab.k8s] }
+
+srsCards:
+  - { front: "you drive, I watch", back: "Quem conduz narra — a abertura do pair.", tag: vocab.k8s }
+  - { front: "intermittent 502", back: "Parcial — pods morrendo derrubam uma fração.", tag: vocab.k8s }
+  - { front: "2/3 ready", back: "A fração do deployment — um pod morre em ciclo.", tag: vocab.k8s }
+  - { front: "the HPA wants to scale", back: "Mas réplica que morre no boot não ajuda.", tag: vocab.k8s }
+  - { front: "limit too tight", back: "Apertado demais para o pico — OOM no boot.", tag: vocab.k8s }
+  - { front: "domino effect", back: "Um morre, tráfego muda, os outros morrem.", tag: vocab.k8s }
+  - { front: "mitigate", back: "Estancar agora — ≠ resolver a causa.", tag: vocab.k8s }
+  - { front: "prevention", back: "O que impede a volta — post-incident.", tag: vocab.k8s }
+  - { front: "it's recovering", back: "3/3 ready, erro zerado — o fim do incidente.", tag: vocab.k8s }
+  - { front: "spike", back: "O pico súbito — o gatilho do OOM.", tag: vocab.k8s }
+
+review:
+  preferTags: [vocab.k8s, br.is-ing-since, comp.speaking]
+  notes: "Revisão prioriza a condução de incidente e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
