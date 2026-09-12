@@ -421,3 +421,33 @@ patterns:
     right: "The pod is scheduled on the node"
     why: 'Pods rodam ON a node — "on the node", "scheduled on node-3".'
     tag: br.in-the-node
+  # "please find in attachment" / "the logs are in attachment" — o calque de "em anexo":
+  # inglês diz "attached" ou "in the attachment". Só dispara sem artigo — "in the attachment" fica fora.
+  - id: in-attachment
+    pattern: "\\bin attachment\\b"
+    wrong: "Please find the report in attachment"
+    right: "Please find the report attached / the report is attached"
+    why: '"Em anexo" é "attached" — "see attached", "attached is the report".'
+    tag: br.in-attachment
+  # "best regrets" — a assinatura trocada: regards (cumprimentos) ≠ regrets (arrependimentos).
+  - id: best-regrets
+    pattern: "\\bbest regrets\\b"
+    wrong: "Best regrets, Yuri"
+    right: "Best regards, Yuri"
+    why: '"Regrets" é arrependimento — o fecho é "best/kind regards".'
+    tag: br.best-regrets
+  # "I wait your reply" — wait pede for; "I await your reply" (formal) e "I'll wait for" ficam fora.
+  - id: i-wait-reply
+    pattern: "\\bi\\s+wait\\s+(your|the|a)\\s+(reply|response|feedback|answer|return|confirmation|approval)\\b"
+    wrong: "I wait your reply to proceed"
+    right: "I look forward to your reply / I await your reply"
+    why: '"Aguardo retorno" vira "I look forward to your reply" ou "I await" — wait sozinho pede "for".'
+    tag: br.i-wait-reply
+  # "sorry for late" — late é adjetivo; ou "sorry for the delay" ou "sorry I'm late".
+  # "sorry for the late reply" fica fora (tem "the" entre for e late).
+  - id: sorry-for-late
+    pattern: "\\bsorry\\s+(for|about)\\s+late\\b"
+    wrong: "Sorry for late — the deploy took longer"
+    right: "Sorry for the delay / sorry I'm late"
+    why: '"Desculpa o atraso" é "sorry for the delay" ou "sorry I''m late" — "late" sozinho é adjetivo.'
+    tag: br.sorry-for-late

@@ -1,0 +1,291 @@
+id: M13-02
+module: M13
+order: 2
+title: "E-mails comuns: pedido, follow-up, agendamento, escalada, gentle reminder"
+objective: >-
+  Ao final, você tem os cinco moldes de e-mail do dia a dia — pedido,
+  follow-up, agendamento, escalada e gentle reminder — cada um com a
+  fórmula que resolve 80% do caso: contexto, pedido, prazo, saída fácil.
+durationMin: 35
+competencies: [WRI, VOC]
+tags: [vocab.email-docs, gram.formal-register, comp.writing]
+prerequisites: [M13-01]
+
+context:
+  scenario: |
+    Uma semana de caixa de saída: segunda o pedido de acesso, quarta o
+    follow-up do acesso que ninguém respondeu, e sexta a escalada para o
+    gestor do outro time.
+
+    Cinco moldes, uma fórmula comum — **contexto → pedido → prazo → saída
+    fácil**:
+
+    - **pedido** — "Could you grant me access to the artifacts bucket by
+      Wednesday?" + a justificativa em uma linha
+    - **follow-up** — "Following up on my note from Monday — still
+      blocked on access" (retoma sem cobrar)
+    - **agendamento** — "Could we grab 30 minutes this week? I'm free
+      Tue/Thu after 2pm" (oferece os slots)
+    - **gentle reminder** — "Gentle reminder: the invoice approval is
+      still open" (cobre sem pesar)
+    - **escalada** — a mais delicada: fatos, impacto, o que já tentou,
+      o que precisa — sem culpar ninguém
+
+    O tom é sempre o mesmo: direto, curto, e com uma saída para quem lê.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (SRE)]
+
+vocabulary:
+  - term: "follow-up"
+    meaning: o retorno — retomar o pedido pendente
+    example: "Following up on my note from Monday — still blocked on the access."
+    translation: "Retomando minha nota de segunda — ainda bloqueado no acesso."
+    note: "Retoma sem cobrar — 'following up on' + o que falta."
+  - term: "gentle reminder"
+    meaning: lembrete gentil — cobrar sem pesar
+    example: "Gentle reminder: the invoice approval is still open."
+    translation: "Lembrete gentil: a aprovação da fatura ainda está aberta."
+    note: "O 'lembrando' que não soa como cobrança."
+  - term: "to escalate"
+    meaning: escalar — subir o pedido para quem decide
+    example: "I'm escalating this to your manager — we've been blocked for a week."
+    translation: "Estou escalando para sua gestora — estamos bloqueados há uma semana."
+    note: "Escalada = fatos + impacto + tentativas — nunca queixa."
+  - term: "could you grant me access"
+    meaning: o pedido de acesso — o molde do pedido
+    example: "Could you grant me access to the artifacts bucket by Wednesday?"
+    translation: "Você poderia me dar acesso ao bucket de artefatos até quarta?"
+    note: "Could you + verbo + prazo — o pedido completo."
+  - term: "I'm free Tue/Thu after 2pm"
+    meaning: oferecer os slots — o agendamento sem vai-e-vem
+    example: "Could we grab 30 minutes? I'm free Tue and Thu after 2pm."
+    translation: "Podemos marcar 30 minutos? Estou livre terça e quinta depois das 14h."
+    note: "Oferecer slots economiza três e-mails de ida e volta."
+  - term: "no rush"
+    meaning: sem pressa — a saída fácil
+    example: "No rush — whenever you get a chance this week."
+    translation: "Sem pressa — quando der nesta semana."
+    note: "A saída fácil mantém a porta aberta."
+  - term: "as a heads-up"
+    meaning: como aviso — o que antecipa o problema
+    example: "As a heads-up, the renewal lands next month."
+    translation: "Como aviso, a renovação chega mês que vem."
+    note: "O e-mail que só avisa — ninguém precisa responder."
+  - term: "blocking on"
+    meaning: dependendo de — o que trava o trabalho
+    example: "I'm blocking on the bucket access — nothing else is in the way."
+    translation: "Estou bloqueado no acesso ao bucket — nada mais trava."
+    note: '"Blocking on X" — o pedido com o motivo embutido.'
+  - term: "to loop in my manager"
+    meaning: envolver meu gestor — o passo antes da escalada
+    example: "If it's still open Friday, I'll loop in my manager."
+    translation: "Se continuar aberto sexta, envolvo meu gestor."
+    note: "O aviso que antecede a escalada — transparente, não ameaça."
+  - term: "thank you in advance"
+    meaning: obrigado antecipado — o fecho do pedido
+    example: "Thanks in advance — let me know if you need anything else."
+    translation: "Obrigado antecipadamente — me avise se precisar de mais algo."
+    note: '"Thanks in advance" — legítimo, não traduzido.'
+  - term: "per my last e-mail"
+    meaning: conforme meu último e-mail — o follow-up com referência
+    example: "Per my last e-mail, the deadline is Friday."
+    translation: "Conforme meu último e-mail, o prazo é sexta."
+    note: "Útil, mas use com cuidado — pode soar passivo-agressivo."
+  - term: "to get sign-off"
+    meaning: obter o aval — a aprovação formal
+    example: "I need your sign-off on the cleanup before we touch prod."
+    translation: "Preciso do seu aval na limpeza antes de mexer em prod."
+    note: "Sign-off = o aval com dono."
+
+grammar:
+  title: "A fórmula dos cinco moldes: contexto → pedido → prazo → saída"
+  explanation: |
+    Todo e-mail de trabalho cabe em quatro movimentos:
+
+    | molde | contexto | pedido | prazo | saída fácil |
+    |---|---|---|---|---|
+    | pedido | "I'm blocked on the artifacts bucket" | "Could you grant me access" | "by Wednesday" | "no rush if…" (opcional) |
+    | follow-up | "Following up on Monday's note" | "still waiting on access" | "needed by Thursday" | "happy to jump on a call" |
+    | agendamento | "To discuss the quota" | "could we grab 30 minutes" | "this week" | "I'm free Tue/Thu after 2pm" |
+    | gentle reminder | "The approval is still open" | (implícito: aprove) | "invoice closes Monday" | "let me know if anything's missing" |
+    | escalada | "We've been blocked for a week" | "I need your help unblocking" | "before Friday's cut" | "happy to share the timeline" |
+
+    A **escalada** é a única que adiciona uma peça: o histórico de
+    tentativas — "I've pinged twice on the ticket, followed up by e-mail
+    Monday". Fatos, impacto, tentativas, pedido. Nunca o nome de quem
+    falhou — a escalada descreve o bloqueio, não a pessoa.
+  examples:
+    - { en: "Could you grant me access to the artifacts bucket by Wednesday? I'm blocked on the cleanup.", pt: "Você poderia me dar acesso ao bucket até quarta? Estou bloqueado na limpeza." }
+    - { en: "Following up on my note from Monday — the access is still pending and the invoice closes soon.", pt: "Retomando minha nota de segunda — o acesso continua pendente e a fatura fecha logo." }
+    - { en: "Could we grab 30 minutes this week? I'm free Tuesday and Thursday after 2pm.", pt: "Podemos marcar 30 minutos esta semana? Estou livre terça e quinta depois das 14h." }
+    - { en: "Gentle reminder: the sign-off is still open — the invoice closes Monday.", pt: "Lembrete gentil: o aval continua aberto — a fatura fecha segunda." }
+    - { en: "Escalating to your manager: we've been blocked on the access for a week — ticket opened, e-mail Monday, ping yesterday.", pt: "Escalando para sua gestora: bloqueados no acesso há uma semana — ticket aberto, e-mail segunda, ping ontem." }
+    - { en: "No rush on the numbers — whenever you get a chance this week.", pt: "Sem pressa nos números — quando der nesta semana." }
+
+examples:
+  - en: "Hi Ana — I'm blocked on the artifacts bucket. Could you grant me read access by Wednesday?"
+    pt: "Oi Ana — estou bloqueado no bucket de artefatos. Pode me dar acesso de leitura até quarta?"
+    context: "Pedido: contexto + could you + prazo."
+  - en: "Following up on my note from Monday — still waiting on the bucket access. Needed by Thursday."
+    pt: "Retomando minha nota de segunda — ainda aguardando o acesso. Preciso até quinta."
+    context: "Follow-up: retoma + o que falta + prazo novo."
+  - en: "To discuss the quota bump — could we grab 30 minutes this week? I'm free Tue/Thu after 2pm."
+    pt: "Para discutir o aumento de quota — podemos marcar 30 minutos? Livre ter/qui depois das 14h."
+    context: "Agendamento com slots oferecidos."
+  - en: "Gentle reminder: the invoice approval is still open — let me know if anything's missing."
+    pt: "Lembrete gentil: a aprovação da fatura continua aberta — avise se faltar algo."
+    context: "Reminder sem pesar + saída fácil."
+  - en: "Escalating to your manager — we've been blocked on this for a week and Friday's cut is at risk."
+    pt: "Escalando para sua gestora — bloqueados há uma semana e o corte de sexta está em risco."
+    context: "Escalada: fatos + impacto + risco."
+  - en: "I've pinged the ticket twice and followed up by e-mail Monday — nothing back yet."
+    pt: "Chamei no ticket duas vezes e retomei por e-mail segunda — sem resposta ainda."
+    context: "O histórico de tentativas — fatos, não queixa."
+  - en: "Thanks in advance — happy to jump on a quick call if easier."
+    pt: "Obrigado antecipadamente — posso entrar numa call rápida se for mais fácil."
+    context: "Fecho com saída fácil."
+  - en: "As a heads-up, the storage renewal lands next month — flagging early for the budget review."
+    pt: "Como aviso, a renovação do storage chega mês que vem — sinalizando cedo para a revisão de orçamento."
+    context: "O heads-up que não pede resposta."
+
+variations:
+  - idea: '"o follow-up que não soa como cobrança"'
+    items:
+      - { register: "Boa", text: "Following up on Monday's note — still waiting on access, needed by Thursday. Happy to jump on a call.", adequate: true }
+      - { register: "Boa", text: "Gentle reminder: the approval is still open — the invoice closes Monday.", adequate: true }
+      - { register: "Inadequada", text: "You never answered my e-mail.", adequate: false, note: "Acusação pura — 'following up on' retoma o fato sem apontar a falha." }
+      - { register: "Inadequada", text: "As per my last e-mail, which you ignored…", adequate: false, note: "'Per my last e-mail' já é seco; com 'ignored' vira ataque." }
+  - idea: '"a escalada certa"'
+    items:
+      - { register: "Boa", text: "Escalating to your manager: blocked on access for a week — ticket opened, e-mail Monday, ping yesterday. Friday's cut is at risk.", adequate: true }
+      - { register: "Boa", text: "I'm looping in my manager — we've exhausted the ticket route and the deadline is Friday.", adequate: true }
+      - { register: "Inadequada", text: "Your team is incompetent — fix this now.", adequate: false, note: "Escalada descreve o bloqueio e as tentativas — nunca a pessoa." }
+      - { register: "Inadequada", text: "I'm telling your boss on you.", adequate: false, note: "Ameaça sem fatos — a escalada leva timeline, não raiva." }
+
+brErrors:
+  - { wrong: "I wait your reply on the access.", right: "I look forward to your reply on the access.", why: '"I look forward to" / "await"', tag: br.i-wait-reply }
+  - { wrong: "Please find the breakdown in attachment.", right: "Please find the breakdown attached.", why: '"attached"', tag: br.in-attachment }
+  - { wrong: "Sorry for late on the follow-up.", right: "Sorry for the delay on the follow-up.", why: "sorry for the delay", tag: br.sorry-for-late }
+  - { wrong: "Can you send to me the invite?", right: "Can you send me the invite?", why: "send me", tag: br.send-to-me }
+  - { wrong: "I'm waiting the access since Monday.", right: "I've been waiting for the access since Monday.", why: "waiting for + present perfect", tag: br.waiting-no-prep }
+  - { wrong: "I have a doubt about the invoice.", right: "I have a question about the invoice.", why: "question", tag: br.doubt }
+  - { wrong: "The deadline is more close than it looks.", right: "The deadline is closer than it looks.", why: "close leva -er", tag: br.more-er }
+  - { wrong: "I need that you sign off today.", right: "I need you to sign off today.", why: "need + you + to", tag: br.need-that-you }
+  - { wrong: "She said me the approval was done.", right: "She told me the approval was done.", why: "told me", tag: br.said-me }
+  - { wrong: "Ask to Priya for the sign-off.", right: "Ask Priya for the sign-off.", why: "ask + pessoa, sem to", tag: br.ask-to }
+
+dialogue:
+  title: "A semana de caixa de saída"
+  lines:
+    - { speaker: Priya, text: "The bucket access is stuck — draft me the follow-up." }
+    - { speaker: Yuri, text: "'Following up on my note from Monday — still waiting on read access to the artifacts bucket, needed by Thursday.'" }
+    - { speaker: Priya, text: "Good — retakes without accusing. And if Friday comes with nothing?" }
+    - { speaker: Yuri, text: "Escalation: 'We've been blocked on this for a week — ticket opened, e-mail Monday, ping yesterday. Friday's cut is at risk.' Facts, impact, attempts — no names." }
+    - { speaker: Priya, text: "And the gentler version before that?" }
+    - { speaker: Yuri, text: "'Gentle reminder: the access request is still open.' Or I offer the call — 'happy to grab 15 minutes if easier.'" }
+    - { speaker: Ana, text: "Scheduling one with their admin — how do you ask?" }
+    - { speaker: Yuri, text: "'Could we grab 30 minutes this week? I'm free Tuesday and Thursday after 2pm.' — offer the slots, save the back-and-forth." }
+    - { speaker: Ana, text: "And the close on all of these?" }
+    - { speaker: Yuri, text: "'Thanks in advance — let me know if anything's missing.' Every e-mail gets an easy way out." }
+  notes:
+    - "pedido → follow-up → reminder → escalada: a escada de pressão, cada degrau com seu molde."
+    - "a escalada leva timeline de tentativas — fatos, não nomes."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Every work e-mail is four moves: context, ask, deadline, easy way out. 'I'm blocked on the bucket — could you grant me access by Wednesday? No rush if Thursday works.' That's the whole shape." }
+    - { speaker: Ana, text: "The follow-up retakes the fact, not the failure — 'following up on Monday's note, still waiting on access'. And the gentle reminder does the same thing shorter: 'the approval is still open'." }
+    - { speaker: Yuri, text: "Scheduling has one trick — offer the slots. 'Could we grab 30 minutes? I'm free Tue and Thu after 2pm.' That's one e-mail instead of three." }
+    - { speaker: Priya, text: "And the escalation is the only one with a fifth move — the attempt history. Ticket opened, e-mail Monday, ping yesterday. You describe the block and the impact; you never describe the person." }
+  questions:
+    - { id: M13-02-l1, type: multiple_choice, prompt: "The four moves of a work e-mail:", options: ["greeting, story, ask, apology", "context, ask, deadline, easy way out", "subject, attachment, ask, sign-off", "intro, details, details, thanks"], answer: 1, explanation: "Contexto → pedido → prazo → saída fácil.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-02-l2, type: multiple_choice, prompt: "A follow-up retakes…", options: ["the fact — 'still waiting on access', not 'you never answered'", "the person who failed", "the whole thread", "the blame"], answer: 0, explanation: "O fato, não a falha.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-02-l3, type: fill_blank, prompt: "___ reminder: the approval is still open.", accepted: ["Gentle", "gentle"], explanation: "Gentle reminder — cobre sem pesar.", tags: [vocab.email-docs] }
+    - { id: M13-02-l4, type: error_correction, prompt: "I wait your reply on the access.", accepted: ["I look forward to your reply on the access.", "I look forward to your reply on the access", "I await your reply on the access."], explanation: '"I look forward to" / "I await".', tags: [br.i-wait-reply] }
+    - { id: M13-02-l5, type: multiple_choice, prompt: "The scheduling trick is…", options: ["ask 'when are you free?'", "offer the slots — 'I'm free Tue/Thu after 2pm'", "book without asking", "send a calendar link only"], answer: 1, explanation: "Slots oferecidos = um e-mail, não três.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-02-l6, type: multiple_choice, prompt: "The escalation's fifth move is…", options: ["the apology", "the threat", "the greeting", "the attempt history — ticket, e-mail, ping — facts, not names"], answer: 3, explanation: "Timeline de tentativas, sem nomear ninguém.", tags: [comp.listening, vocab.email-docs] }
+
+writing:
+  prompt: |
+    **Cenário:** o acesso ao bucket está pendente há uma semana — ticket
+    aberto, e-mail segunda, ping ontem — e o corte de sexta está em
+    risco. Escale para o gestor do time dono.
+
+    **Tarefa:** escreva 80–120 palavras com a escalada: contexto,
+    histórico de tentativas, impacto (o corte de sexta), o pedido e a
+    saída fácil — sem culpar ninguém.
+  constraints:
+    - { label: "Contexto e histórico", pattern: "\\b(blocked|ticket|e-mail|pinged|week|monday|yesterday)\\b" }
+    - { label: "Impacto", pattern: "\\b(friday|cut|deadline|risk|invoice|at risk)\\b" }
+    - { label: "Pedido", pattern: "\\b(help|unblock|access|grant|approve|need)\\b" }
+    - { label: "Registro", pattern: "\\b(follow|escalat|appreciate|thanks|happy to|let me know)\\b" }
+  rubric:
+    - "Histórico de tentativas (fatos, não nomes)"
+    - "Impacto com prazo"
+    - "Pedido claro + saída fácil"
+    - "Tom neutro — sem acusação"
+  model: >-
+    Hi Priya — escalating the artifacts-bucket access; we've been blocked
+    for a week and Friday's cut is at risk. Timeline: ticket opened last
+    Thursday, e-mail Monday, a ping yesterday — no response yet. The
+    impact: the cleanup can't start without access, and the invoice for
+    the 40% storage spike closes Friday. Could you help unblock it, or
+    point me at whoever owns the approval? Happy to jump on a quick call
+    if that's easier. Thanks in advance — let me know if anything is
+    missing on my side. Best regards, Yuri.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.email-docs]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos resumindo a escada de pressão: o pedido original, o follow-up, o gentle reminder e a escalada — o que muda em cada degrau."
+    maxSeconds: 45
+    targetPhrases:
+      - could you grant me access
+      - following up on
+      - gentle reminder
+      - still open
+      - escalating
+      - attempt history
+      - friday's cut is at risk
+      - happy to jump on a call
+      - thanks in advance
+      - no rush
+      - sign-off
+      - I'm free tuesday and thursday
+    checklist:
+      - A escada pedido → follow-up → reminder → escalada
+      - Tentativas como fatos
+      - Saída fácil em cada degrau
+      - Tom neutro
+
+quiz:
+  - { id: M13-02-q1, type: multiple_choice, prompt: "'Gentle reminder' is for…", options: ["the first ask", "the escalation", "nudging an open request without pressure", "the apology"], answer: 2, explanation: "Cobre sem pesar — 'the approval is still open'.", tags: [vocab.email-docs] }
+  - { id: M13-02-q2, type: error_correction, prompt: "Please find the breakdown in attachment.", accepted: ["Please find the breakdown attached.", "Please find the breakdown attached", "See the attached breakdown."], explanation: '"attached" — nunca "in attachment".', tags: [br.in-attachment] }
+  - { id: M13-02-q3, type: multiple_choice, prompt: "The escalation describes…", options: ["who failed", "the block + the impact + the attempt history — never the person", "your frustration", "the org chart"], answer: 1, explanation: "Fatos e impacto, não nomes.", tags: [vocab.email-docs] }
+  - { id: M13-02-q4, type: fill_blank, prompt: "Could we grab 30 minutes? I'm ___ Tue/Thu after 2pm.", accepted: ["free"], explanation: "Oferecer os slots — um e-mail só.", tags: [vocab.email-docs] }
+  - { id: M13-02-q5, type: error_correction, prompt: "Can you send to me the invite?", accepted: ["Can you send me the invite?", "Can you send me the invite", "Can you send the invite to me?"], explanation: "send me / send it to me.", tags: [br.send-to-me] }
+  - { id: M13-02-q6, type: translate, prompt: "Retomando minha nota de segunda — ainda aguardando o acesso, preciso até quinta.", accepted: ["Following up on my note from Monday — still waiting on access, needed by Thursday.", "Following up on my note from Monday — still waiting on the access, needed by Thursday."], explanation: '"Following up on" + "waiting on" + prazo.', tags: [vocab.email-docs] }
+  - { id: M13-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["is", "approval", "the", "open", "still"], answer: "the approval is still open", explanation: "O reminder em uma frase.", tags: [vocab.email-docs] }
+  - { id: M13-02-q8, type: multiple_choice, prompt: "'Happy to jump on a call' is…", options: ["pressure", "a threat", "the easy way out — an alternative to answering in writing", "the escalation"], answer: 2, explanation: "A saída fácil — alternativa para quem lê.", tags: [vocab.email-docs] }
+
+srsCards:
+  - { front: "follow-up", back: "Retomar o fato — 'following up on Monday's note'.", tag: vocab.email-docs }
+  - { front: "gentle reminder", back: "Cobrar sem pesar — 'the approval is still open'.", tag: vocab.email-docs }
+  - { front: "to escalate", back: "Subir para quem decide — fatos + impacto + tentativas.", tag: vocab.email-docs }
+  - { front: "could you grant me access", back: "O molde do pedido — verbo + prazo.", tag: vocab.email-docs }
+  - { front: "I'm free Tue/Thu", back: "Oferecer os slots — mata o vai-e-vem.", tag: vocab.email-docs }
+  - { front: "no rush", back: "A saída fácil — 'whenever you get a chance'.", tag: vocab.email-docs }
+  - { front: "attempt history", back: "Ticket, e-mail, ping — a quinta peça da escalada.", tag: vocab.email-docs }
+  - { front: "thanks in advance", back: "O fecho do pedido — legítimo.", tag: vocab.email-docs }
+  - { front: "per my last e-mail", back: "Follow-up com referência — use com cuidado.", tag: vocab.email-docs }
+  - { front: "sign-off", back: "O aval formal — 'get your sign-off'.", tag: vocab.email-docs }
+
+review:
+  preferTags: [vocab.email-docs, br.i-wait-reply, br.send-to-me]
+  notes: "Revisão prioriza os moldes de e-mail e os calques do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

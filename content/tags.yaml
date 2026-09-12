@@ -123,3 +123,9 @@ tags:
   - { id: br.is-died,       group: br, label: "is died (dead/died)" }
   - { id: br.need-see,      group: br, label: "need see (need to see)" }
   - { id: br.in-the-node,   group: br, label: "in the node (on)" }
+  - { id: br.in-attachment,  group: br, label: "in attachment (attached)" }
+  - { id: br.best-regrets,   group: br, label: "best regrets (regards)" }
+  - { id: br.i-wait-reply,   group: br, label: "I wait your reply (look forward to)" }
+  - { id: br.sorry-for-late, group: br, label: "sorry for late (the delay)" }
+  - { id: gram.formal-register, group: gram, label: "Registro formal (e-mail, docs)" }
+  - { id: vocab.email-docs,  group: vocab, label: "E-mail e documentação" }

@@ -1,0 +1,299 @@
+id: M13-03
+module: M13
+order: 3
+title: "README e documentação: estrutura, imperativos, exemplos, Note/Warning"
+objective: >-
+  Ao final, você escreve um README que instala em cinco minutos:
+  título + o que faz, quick start no imperativo, seções padrão,
+  exemplos copiáveis e callouts de Note/Warning — sem parágrafo de
+  introdução que ninguém lê.
+durationMin: 35
+competencies: [WRI, VOC]
+tags: [vocab.email-docs, gram.imperative, comp.writing]
+prerequisites: [M13-02]
+
+context:
+  scenario: |
+    O tool de `flaky-report` que o time usa toda sprint não tem README —
+    quem precisa dele pergunta no canal. A Priya pede um README "que
+    instale sozinho".
+
+    A estrutura padrão, na ordem:
+
+    - **título + uma linha** — o que faz, para quem: "flaky-report —
+      ranks your flakiest tests by failure rate"
+    - **quick start** — instalação + o primeiro comando, no imperativo:
+      "Install it: `npm i -g flaky-report`. Then run `flaky-report --since
+      7d`."
+    - **usage** — os comandos reais com exemplos copiáveis
+    - **configuration** — as opções com defaults
+    - **Note/Warning** — os callouts: "Note: results are cached for 1h",
+      "Warning: `--purge` deletes local history"
+    - **contributing / license** — o rodapé padrão
+
+    Regra do imperativo: documentação manda no leitor — "Run the report",
+    "Set the flag" — nunca "you should run" nem "you could maybe run".
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "quick start"
+    meaning: o início rápido — instala + primeiro comando
+    example: "## Quick start — Install: `npm i -g flaky-report`, then run `flaky-report --since 7d`."
+    translation: "## Início rápido — Instale: `npm i -g flaky-report`, depois rode `flaky-report --since 7d`."
+    note: "O leitor deve estar rodando em 5 minutos — nada antes disso."
+  - term: "one-liner"
+    meaning: a linha única — o que faz em uma frase
+    example: "flaky-report — ranks your flakiest tests by failure rate."
+    translation: "flaky-report — ordena seus testes mais instáveis por taxa de falha."
+    note: "Título + traço + o que faz — a primeira coisa que se lê."
+  - term: "run it"
+    meaning: execute — o imperativo da documentação
+    example: "Run `flaky-report` from the repo root — it finds the config itself."
+    translation: "Rode `flaky-report` da raiz do repo — ele acha a config sozinho."
+    note: "Imperativo: 'Run', 'Set', 'Add' — nunca 'you should run'."
+  - term: "flags and options"
+    meaning: as opções — cada uma com default
+    example: "| Flag | Default | | `--since` | `7d` | | `--format` | `table` |"
+    translation: "| Flag | Padrão | | `--since` | `7d` | | `--format` | `table` |"
+    note: "Tabela de opções: nome, default, o que muda."
+  - term: "note:"
+    meaning: o callout de nota — informação útil, não crítica
+    example: "> Note: results are cached for 1 hour — re-run with `--fresh` to bypass."
+    translation: "> Nota: resultados ficam em cache por 1h — rode com `--fresh` para ignorar."
+    note: "Note = bom saber; Warning = pode quebrar."
+  - term: "warning:"
+    meaning: o callout de aviso — o que pode quebrar
+    example: "> Warning: `--purge` deletes local history — it is not recoverable."
+    translation: "> Aviso: `--purge` apaga o histórico local — não é recuperável."
+    note: "Warning antes do comando perigoso, nunca depois."
+  - term: "copy-pasteable"
+    meaning: copiável — o exemplo que roda como está
+    example: "Every example is copy-pasteable — no placeholders like <your-value>."
+    translation: "Todo exemplo é copiável — sem placeholders como <seu-valor>."
+    note: "Exemplo bom = cola e funciona."
+  - term: "prerequisites"
+    meaning: os pré-requisitos — antes de instalar
+    example: "Prerequisites: Node 20+, a CI token with read access."
+    translation: "Pré-requisitos: Node 20+, um token de CI com leitura."
+    note: "Vem antes do quick start quando existe."
+  - term: "troubleshooting"
+    meaning: a seção de problemas — os erros comuns
+    example: "## Troubleshooting — 'token expired': regenerate with `ci token`."
+    translation: "## Resolução de problemas — 'token expired': regenere com `ci token`."
+    note: "Erro → causa → correção — os três que mais aparecem."
+  - term: "for example"
+    meaning: por exemplo — o exemplo concreto
+    example: "To rank only unit tests, run `flaky-report --suite unit`."
+    translation: "Para ordenar só testes unitários, rode `flaky-report --suite unit`."
+    note: "Cada feature mostrada uma vez, rodando."
+  - term: "by default"
+    meaning: por padrão — o comportamento sem flag
+    example: "By default it reads `.flaky.yml` in the repo root."
+    translation: "Por padrão ele lê `.flaky.yml` na raiz do repo."
+    note: "Documente o default — quem lê quer saber o que muda."
+  - term: "contributing"
+    meaning: a seção de contribuição — como abrir PR
+    example: "## Contributing — open an issue first, keep PRs small."
+    translation: "## Contribuindo — abra uma issue antes, mantenha PRs pequenos."
+    note: "O rodapé padrão: contributing + license."
+
+grammar:
+  title: "O imperativo da documentação: mande, não sugira"
+  explanation: |
+    Documentação técnica escreve no **imperativo** — o verbo primeiro,
+    sem sujeito, sem hedging:
+
+    - "Install the CLI." — não "You should install the CLI."
+    - "Set `CI_TOKEN` in your shell." — não "You could set…"
+    - "Run it from the repo root." — não "It is recommended to run…"
+
+    O imperativo não é rude em inglês técnico — é o registro esperado.
+    O que varia é a **voz nos avisos**:
+
+    | forma | uso |
+    |---|---|
+    | imperativo | "Run `flaky-report --since 7d`." |
+    | passiva | "Results are cached for 1 hour." |
+    | segunda pessoa | só no troubleshooting: "if you see 'token expired'…" |
+
+    E a regra dos callouts: **Note** para o que ajuda (cache, defaults),
+    **Warning** para o que quebra (delete, billing, prod) — sempre antes
+    do comando, nunca depois.
+  examples:
+    - { en: "Install it with `npm i -g flaky-report`, then run `flaky-report --since 7d` from the repo root.", pt: "Instale com `npm i -g flaky-report`, depois rode `flaky-report --since 7d` da raiz do repo." }
+    - { en: "Set `CI_TOKEN` in your shell — the CLI picks it up automatically.", pt: "Defina `CI_TOKEN` no seu shell — o CLI pega automaticamente." }
+    - { en: "Note: results are cached for 1 hour — pass `--fresh` to bypass.", pt: "Nota: resultados ficam em cache por 1h — passe `--fresh` para ignorar." }
+    - { en: "Warning: `--purge` deletes local history and is not recoverable.", pt: "Aviso: `--purge` apaga o histórico local e não é recuperável." }
+    - { en: "By default it writes a table; pass `--format json` for piping.", pt: "Por padrão escreve uma tabela; passe `--format json` para pipe." }
+    - { en: "If you see 'token expired', regenerate it with `ci token --renew`.", pt: "Se vir 'token expired', regenere com `ci token --renew`." }
+
+examples:
+  - en: "flaky-report — ranks your flakiest tests by failure rate, straight from CI."
+    pt: "flaky-report — ordena seus testes mais instáveis por taxa de falha, direto do CI."
+    context: "Título + uma linha — o que faz, para quem."
+  - en: "## Quick start — Install: `npm i -g flaky-report`. Run: `flaky-report --since 7d`."
+    pt: "## Início rápido — Instale: `npm i -g flaky-report`. Rode: `flaky-report --since 7d`."
+    context: "Instala + roda em dois comandos."
+  - en: "| Flag | Default | | `--since` | `7d` | | `--suite` | `all` | | `--format` | `table` |"
+    pt: "| Flag | Padrão | | `--since` | `7d` | | `--suite` | `all` | | `--format` | `table` |"
+    context: "Opções em tabela com defaults."
+  - en: "> Note: results are cached for 1 hour — pass `--fresh` to recompute."
+    pt: "> Nota: resultados em cache por 1h — passe `--fresh` para recalcular."
+    context: "Note = bom saber."
+  - en: "> Warning: `--purge` deletes local history — it is not recoverable."
+    pt: "> Aviso: `--purge` apaga o histórico local — não é recuperável."
+    context: "Warning antes do comando perigoso."
+  - en: "## Troubleshooting — 'token expired': your CI token aged out; renew it with `ci token --renew`."
+    pt: "## Resolução de problemas — 'token expired': seu token expirou; renove com `ci token --renew`."
+    context: "Erro → causa → correção."
+  - en: "To rank only unit tests, run `flaky-report --suite unit --format json`."
+    pt: "Para ordenar só unitários, rode `flaky-report --suite unit --format json`."
+    context: "Cada feature com um exemplo copiável."
+  - en: "## Contributing — open an issue first; keep PRs under 300 lines."
+    pt: "## Contribuindo — abra uma issue antes; mantenha PRs abaixo de 300 linhas."
+    context: "O rodapé padrão."
+
+variations:
+  - idea: '"o imperativo da documentação"'
+    items:
+      - { register: "Boa", text: "Run `flaky-report --since 7d` from the repo root.", adequate: true }
+      - { register: "Boa", text: "Set `CI_TOKEN` before the first run.", adequate: true }
+      - { register: "Inadequada", text: "You should probably run the report from the repo root.", adequate: false, note: "Hedging duplo ('should probably') — o imperativo manda: 'Run it from…'." }
+      - { register: "Inadequada", text: "It is recommended that the user executes the report.", adequate: false, note: "Passiva cerimoniosa — doc técnica fala direto com quem lê." }
+  - idea: '"Note × Warning"'
+    items:
+      - { register: "Boa", text: "Note: results are cached for 1 hour — pass --fresh to bypass.", adequate: true }
+      - { register: "Boa", text: "Warning: --purge deletes local history — it is not recoverable.", adequate: true }
+      - { register: "Inadequada", text: "Warning: results are cached for 1 hour.", adequate: false, note: "Cache não quebra nada — é Note, não Warning." }
+      - { register: "Inadequada", text: "(no callout at all, --purge in a normal paragraph)", adequate: false, note: "O comando destrutivo exige Warning antes dele." }
+
+brErrors:
+  - { wrong: "The request go through the gateway.", right: "The request goes through the gateway.", why: "terceira pessoa leva -s", tag: br.third-person-s }
+  - { wrong: "The CLI not supports Windows.", right: "The CLI doesn't support Windows.", why: "doesn't + verbo base", tag: br.it-not-works }
+  - { wrong: "I read the doc for find the flag.", right: "I read the doc to find the flag.", why: "para + verbo = to", tag: br.for-to }
+  - { wrong: "Revert back the change if it fails.", right: "Revert the change if it fails.", why: "revert já é voltar", tag: br.revert-back }
+  - { wrong: "The response returns the informations.", right: "The response returns the data.", why: "information é incontável", tag: br.uncountable }
+  - { wrong: "If it fails, make a question in the channel.", right: "If it fails, ask a question in the channel.", why: "ask a question", tag: br.make-a-question }
+  - { wrong: "Verify if the flag works.", right: "Check whether the flag works.", why: "check whether / verify the flag", tag: br.verify-if }
+  - { wrong: "I found the workaround in the internet.", right: "I found the workaround on the internet.", why: "on the internet", tag: br.in-the-internet }
+  - { wrong: "The service listens in port 8080.", right: "The service listens on port 8080.", why: "listens on port", tag: br.listen-in }
+  - { wrong: "Merge the PR in main.", right: "Merge the PR into main.", why: "merge into", tag: br.merge-in }
+
+dialogue:
+  title: "Revisando o README do flaky-report"
+  lines:
+    - { speaker: Priya, text: "The flaky-report tool has no README — everyone asks in the channel. Write one that installs itself." }
+    - { speaker: Yuri, text: "Title plus one line first: 'flaky-report — ranks your flakiest tests by failure rate.' No intro paragraph." }
+    - { speaker: Priya, text: "Then?" }
+    - { speaker: Yuri, text: "Quick start, imperative: 'Install: `npm i -g flaky-report`. Run: `flaky-report --since 7d`.' The reader is running in five minutes." }
+    - { speaker: Priya, text: "Usage section?" }
+    - { speaker: Yuri, text: "Every command with a copy-pasteable example — no placeholders. Then a flags table with the defaults: --since 7d, --format table." }
+    - { speaker: Marcos, text: "And the cache gotcha?" }
+    - { speaker: Yuri, text: "A Note callout — 'results are cached for 1 hour, pass --fresh to bypass'. The destructive flag gets a Warning: '--purge deletes local history — not recoverable'." }
+    - { speaker: Marcos, text: "Troubleshooting?" }
+    - { speaker: Yuri, text: "The three errors we see most — 'token expired' → cause → `ci token --renew`. Error, cause, fix." }
+    - { speaker: Priya, text: "Perfect — contributing and license at the bottom. Ship it." }
+  notes:
+    - "a estrutura na ordem: título+uma linha, quick start, usage, opções, callouts, troubleshooting, rodapé."
+    - "repare no imperativo em toda parte — 'install', 'run', 'pass', 'renew'."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A README has one job: get the reader running in five minutes. Title plus a one-liner — 'flaky-report ranks your flakiest tests'. Then the quick start: install, then the first command. Nothing before that." }
+    - { speaker: Marcos, text: "Docs write in the imperative — 'run the report', 'set the token'. Not 'you should run', not 'it is recommended'. The imperative isn't rude in technical English; it's the expected register." }
+    - { speaker: Yuri, text: "The callouts are two: Note for what helps — 'results are cached for an hour' — and Warning for what breaks — '--purge deletes local history'. The warning always comes before the command, never after." }
+    - { speaker: Priya, text: "And every example is copy-pasteable — real flags, real output. A placeholder like '<your-value>' means the example doesn't actually work." }
+  questions:
+    - { id: M13-03-l1, type: multiple_choice, prompt: "A README's one job:", options: ["explain the architecture", "list every feature", "get the reader running in five minutes", "document the API"], answer: 2, explanation: "Quick start antes de tudo.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-03-l2, type: multiple_choice, prompt: "Docs are written in…", options: ["the imperative — 'run the report'", "the passive — 'the report should be run'", "the conditional — 'you could run'", "the future — 'you will run'"], answer: 0, explanation: "Imperativo = registro esperado.", tags: [comp.listening, gram.imperative] }
+    - { id: M13-03-l3, type: fill_blank, prompt: "___ `flaky-report --since 7d` from the repo root.", accepted: ["Run"], explanation: "Imperativo — o verbo primeiro.", tags: [gram.imperative, vocab.email-docs] }
+    - { id: M13-03-l4, type: error_correction, prompt: "You should probably set the token first.", accepted: ["Set the token first.", "Set the token first", "Set `CI_TOKEN` first.", "Set `CI_TOKEN` first"], explanation: "Imperativo — sem 'should probably'.", tags: [gram.imperative] }
+    - { id: M13-03-l5, type: multiple_choice, prompt: "'Warning' is for…", options: ["helpful info like caching", "what breaks — '--purge deletes history'", "the introduction", "the license"], answer: 1, explanation: "Warning = pode quebrar; Note = bom saber.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-03-l6, type: multiple_choice, prompt: "A copy-pasteable example has…", options: ["placeholders like <your-value>", "a description of the command", "real flags and real output — it runs as pasted", "pseudocode"], answer: 2, explanation: "Cola e funciona.", tags: [comp.listening, vocab.email-docs] }
+
+writing:
+  prompt: |
+    **Cenário:** escreva o início do README do `flaky-report` — o tool
+    que ranqueia testes instáveis por taxa de falha.
+
+    **Tarefa:** 80–120 palavras com: título + uma linha, quick start no
+    imperativo (install + primeiro comando), uma tabela ou lista de
+    flags com defaults, um Note e um Warning, e uma linha de
+    troubleshooting.
+  constraints:
+    - { label: "Título + o que faz", pattern: "\\b(flaky|report|ranks|tests|failure)\\b" }
+    - { label: "Quick start imperativo", pattern: "\\b(install|run|set|use)\\b" }
+    - { label: "Flags e defaults", pattern: "\\b(--since|--format|flag|option|default)\\b" }
+    - { label: "Callouts", pattern: "\\b(note|warning)\\b" }
+  rubric:
+    - "Título + uma linha, sem parágrafo de introdução"
+    - "Imperativo em todos os comandos"
+    - "Note × Warning corretos (ajuda × quebra)"
+    - "Exemplos copiáveis"
+  model: >-
+    flaky-report — ranks your flakiest tests by failure rate, straight
+    from CI. ## Quick start Install it: `npm i -g flaky-report`. Then
+    run `flaky-report --since 7d` from the repo root. Options: `--since`
+    (default `7d`) sets the window; `--format` (default `table`) accepts
+    `json` for piping; `--suite` (default `all`) filters one suite.
+    Note: results are cached for 1 hour — pass `--fresh` to recompute.
+    Warning: `--purge` deletes local history and is not recoverable.
+    Troubleshooting: 'token expired' means your CI token aged out —
+    renew it with `ci token --renew`.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.email-docs]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando a estrutura do README que você escreveria: a ordem das seções, o imperativo e quando usar Note vs Warning."
+    maxSeconds: 45
+    targetPhrases:
+      - quick start
+      - run it
+      - install the cli
+      - set the token
+      - "note:"
+      - "warning:"
+      - copy-pasteable
+      - by default
+      - prerequisites
+      - troubleshooting
+      - one-liner
+      - contributing
+    checklist:
+      - "Ordem: título → quick start → usage → callouts"
+      - Imperativo nos comandos
+      - Note = ajuda, Warning = quebra
+      - Exemplos copiáveis
+
+quiz:
+  - { id: M13-03-q1, type: multiple_choice, prompt: "The README opens with…", options: ["a full introduction", "the license", "title + a one-liner — what it does, for whom", "the changelog"], answer: 2, explanation: "Título + uma linha — sem parágrafo.", tags: [vocab.email-docs] }
+  - { id: M13-03-q2, type: error_correction, prompt: "You should probably run the report first.", accepted: ["Run the report first.", "Run the report first", "Run it first."], explanation: "Imperativo — sem 'should probably'.", tags: [gram.imperative] }
+  - { id: M13-03-q3, type: multiple_choice, prompt: "'Note' vs 'Warning':", options: ["both mean danger", "Note = helpful info; Warning = what breaks", "Warning = helpful info; Note = what breaks", "they are interchangeable"], answer: 1, explanation: "Note ajuda; Warning protege.", tags: [vocab.email-docs] }
+  - { id: M13-03-q4, type: fill_blank, prompt: "By ___, it reads `.flaky.yml` in the repo root.", accepted: ["default"], explanation: '"By default" — o comportamento sem flag.', tags: [vocab.email-docs] }
+  - { id: M13-03-q5, type: error_correction, prompt: "The tool read the config itself.", accepted: ["The tool reads the config itself.", "The tool reads the config itself"], explanation: "terceira pessoa leva -s.", tags: [br.third-person-s] }
+  - { id: M13-03-q6, type: translate, prompt: "Aviso: `--purge` apaga o histórico local — não é recuperável.", accepted: ["Warning: `--purge` deletes local history — it is not recoverable.", "Warning: `--purge` deletes local history — not recoverable."], explanation: "Warning antes do comando destrutivo.", tags: [vocab.email-docs] }
+  - { id: M13-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "run", "root", "the", "repo", "from", "report"], answer: "run the report from the repo root", explanation: "Imperativo + lugar no fim.", tags: [gram.imperative] }
+  - { id: M13-03-q8, type: multiple_choice, prompt: "A copy-pasteable example must…", options: ["use <your-value> placeholders", "run as pasted — real flags, real output", "be described, not shown", "be pseudocode"], answer: 1, explanation: "Cola e funciona.", tags: [vocab.email-docs] }
+
+srsCards:
+  - { front: "quick start", back: "Instala + primeiro comando — o leitor roda em 5 min.", tag: vocab.email-docs }
+  - { front: "one-liner", back: "Título + o que faz em uma frase.", tag: vocab.email-docs }
+  - { front: "imperative docs", back: "'Run it', 'set the flag' — nunca 'you should'.", tag: gram.imperative }
+  - { front: "note:", back: "O callout de ajuda — cache, defaults.", tag: vocab.email-docs }
+  - { front: "warning:", back: "O callout do que quebra — antes do comando.", tag: vocab.email-docs }
+  - { front: "copy-pasteable", back: "Exemplo que cola e funciona — sem placeholders.", tag: vocab.email-docs }
+  - { front: "by default", back: "O comportamento sem flag.", tag: vocab.email-docs }
+  - { front: "prerequisites", back: "O que precisa antes de instalar.", tag: vocab.email-docs }
+  - { front: "troubleshooting", back: "Erro → causa → correção — os três mais comuns.", tag: vocab.email-docs }
+  - { front: "contributing", back: "O rodapé: como abrir PR + license.", tag: vocab.email-docs }
+
+review:
+  preferTags: [gram.imperative, vocab.email-docs, br.third-person-s]
+  notes: "Revisão prioriza o imperativo e a estrutura de doc."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

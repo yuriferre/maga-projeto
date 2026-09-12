@@ -1,0 +1,306 @@
+id: M13-04
+module: M13
+order: 4
+title: "Runbooks: precondições, passos numerados, verificação, rollback, escalada"
+objective: >-
+  Ao final, você escreve um runbook que alguém executa às 3 da manhã
+  sem te acordar: precondições declaradas, passos numerados com comando
+  + resultado esperado, verificação de sucesso, rollback completo e o
+  contato de escalada.
+durationMin: 35
+competencies: [WRI, VOC]
+tags: [vocab.email-docs, gram.imperative, comp.writing]
+prerequisites: [M13-03]
+
+context:
+  scenario: |
+    O restart do worker de pagamentos derruba o serviço quando feito na
+    ordem errada — e só a Priya sabe a ordem. Ela pede um runbook "que
+    qualquer um do plantão execute às 3am".
+
+    A anatomia do runbook:
+
+    - **precondições** — o que precisa ser verdade antes: "You need:
+      kubectl access, the deploy window, a green pipeline"
+    - **passos numerados** — cada passo = comando + resultado esperado:
+      "1. Drain the worker: `kubectl scale deploy/worker --replicas=0`.
+      Expect: `deployment.apps/worker scaled`"
+    - **verificação** — como saber que funcionou: "Verify: the queue
+      drains below 100 within 5 minutes"
+    - **rollback** — o caminho de volta, completo: "If anything fails,
+      scale back up: `kubectl scale deploy/worker --replicas=3`"
+    - **escalada** — quem chamar se quebrar: "If it still fails, page
+      the on-call: #payments-oncall"
+
+    A regra de ouro: o executor nunca interpreta — só executa, verifica
+    e decide por um critério escrito.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (SRE)]
+
+vocabulary:
+  - term: "preconditions"
+    meaning: as precondições — o que precisa ser verdade
+    example: "Preconditions: kubectl access, a green pipeline, the deploy window open."
+    translation: "Precondições: acesso ao kubectl, pipeline verde, janela de deploy aberta."
+    note: "Não executar se uma precondição falhar — pare e escale."
+  - term: "numbered steps"
+    meaning: os passos numerados — um por vez, em ordem
+    example: "1. Drain the worker. 2. Clear the queue. 3. Scale back up."
+    translation: "1. Drene o worker. 2. Limpe a fila. 3. Suba de volta."
+    note: "Número = ordem obrigatória — nunca pular."
+  - term: "expect:"
+    meaning: o resultado esperado — o que deve aparecer
+    example: "Run `kubectl scale deploy/worker --replicas=0`. Expect: `deployment.apps/worker scaled`."
+    translation: "Rode `kubectl scale deploy/worker --replicas=0`. Esperado: `deployment.apps/worker scaled`."
+    note: "Todo passo carrega o resultado esperado — sem ele, ninguém sabe se deu certo."
+  - term: "verify"
+    meaning: verificar — como saber que funcionou
+    example: "Verify: `kubectl get pods` shows three Running pods within 2 minutes."
+    translation: "Verifique: `kubectl get pods` mostra três pods Running em 2 minutos."
+    note: "Verificação = comando + critério observável."
+  - term: "rollback"
+    meaning: o caminho de volta — desfazer completo
+    example: "Rollback: `kubectl scale deploy/worker --replicas=3`, then re-enable the cron."
+    translation: "Rollback: `kubectl scale deploy/worker --replicas=3`, depois reative o cron."
+    note: "Rollback completo — nunca 'desfaça o que fez'."
+  - term: "if anything fails"
+    meaning: se algo falhar — o critério de parada
+    example: "If anything fails at step 3, stop and run the rollback."
+    translation: "Se algo falhar no passo 3, pare e rode o rollback."
+    note: "O critério escrito decide — o executor não improvisa."
+  - term: "page the on-call"
+    meaning: acionar o plantão — a escalada final
+    example: "If it still fails after rollback, page the on-call in #payments-oncall."
+    translation: "Se ainda falhar após o rollback, acione o plantão no #payments-oncall."
+    note: "Escalada = canal + quem — nunca 'alguém'."
+  - term: "estimated time"
+    meaning: o tempo estimado — quanto leva
+    example: "Estimated time: 15 minutes. Deploy window: 20:00–22:00."
+    translation: "Tempo estimado: 15 minutos. Janela de deploy: 20h–22h."
+    note: "O tempo estimado vai no cabeçalho."
+  - term: "do not proceed"
+    meaning: não prossiga — a trava explícita
+    example: "If the pipeline is red, do not proceed — fix it first."
+    translation: "Se o pipeline estiver vermelho, não prossiga — conserte antes."
+    note: '"Do not proceed" — a frase que trava a execução.'
+  - term: "watch for"
+    meaning: fique de olho — o que observar durante
+    example: "Watch for the error rate — if it climbs past 1%, stop."
+    translation: "Fique de olho na taxa de erro — se passar de 1%, pare."
+    note: "O monitoramento embutido no passo."
+  - term: "confirm"
+    meaning: confirmar — o check entre passos
+    example: "Confirm the queue is empty before step 4 — `queue-len` returns 0."
+    translation: "Confirme que a fila está vazia antes do passo 4 — `queue-len` retorna 0."
+    note: "Confirmação entre passos = não assumir."
+  - term: "last verified"
+    meaning: verificado pela última vez — o runbook envelhece
+    example: "Last verified: 2026-09-10 by Yuri — re-verify after the Helm upgrade."
+    translation: "Última verificação: 10/09/2026 por Yuri — reverificar após o upgrade do Helm."
+    note: "Runbook sem data é runbook suspeito."
+
+grammar:
+  title: "O runbook em imperativo: comando + expect + critério de parada"
+  explanation: |
+    O runbook é imperativo como o README — mas adiciona três peças por
+    passo:
+
+    1. **comando** — o que executar: "`kubectl scale deploy/worker
+       --replicas=0`"
+    2. **expect** — o que deve aparecer: "Expect: `deployment scaled`"
+    3. **critério de parada** — quando parar: "If the command hangs
+       past 60s, stop and go to Rollback."
+
+    A estrutura fixa:
+
+    | seção | conteúdo |
+    |---|---|
+    | header | o que faz, tempo estimado, janela |
+    | preconditions | "You need: …" — falhou? do not proceed |
+    | steps | numerados, comando + expect por passo |
+    | verification | como provar que deu certo |
+    | rollback | o caminho de volta, completo |
+    | escalation | canal + quem — "page the on-call in #…" |
+
+    Linguagem: frases curtas, sujeito opcional ("Wait 60s", "Check the
+    output"), e nenhuma decisão aberta — "if X, do Y" cobre todos os
+    desvios que o runbook conhece.
+  examples:
+    - { en: "Preconditions: kubectl access, a green pipeline, and the 20:00 deploy window.", pt: "Precondições: acesso ao kubectl, pipeline verde e a janela de deploy das 20h." }
+    - { en: "1. Drain the worker: `kubectl scale deploy/worker --replicas=0`. Expect: `deployment scaled`.", pt: "1. Drene o worker: `kubectl scale deploy/worker --replicas=0`. Esperado: `deployment scaled`." }
+    - { en: "2. Wait for the queue to drain — `queue-len` must return 0 before you continue.", pt: "2. Espere a fila drenar — `queue-len` deve retornar 0 antes de continuar." }
+    - { en: "Verify: `kubectl get pods` shows three Running pods within two minutes.", pt: "Verifique: `kubectl get pods` mostra três pods Running em dois minutos." }
+    - { en: "Rollback: scale back up with `kubectl scale deploy/worker --replicas=3`, then re-enable the cron job.", pt: "Rollback: suba de volta com `kubectl scale deploy/worker --replicas=3`, depois reative o cron." }
+    - { en: "If anything fails after the rollback, page the on-call in #payments-oncall.", pt: "Se algo falhar após o rollback, acione o plantão no #payments-oncall." }
+
+examples:
+  - en: "Restarting the payments worker — ~15 min, deploy window 20:00–22:00."
+    pt: "Reiniciando o worker de pagamentos — ~15 min, janela 20h–22h."
+    context: "Header: o que faz + tempo + janela."
+  - en: "You need: kubectl access, a green pipeline, the worker idle. If the pipeline is red, do not proceed."
+    pt: "Você precisa: acesso ao kubectl, pipeline verde, worker ocioso. Pipeline vermelho? Não prossiga."
+    context: "Precondições com a trava explícita."
+  - en: "1. Drain the worker: `kubectl scale deploy/worker --replicas=0`. Expect: `deployment.apps/worker scaled`."
+    pt: "1. Drene o worker: `kubectl scale deploy/worker --replicas=0`. Esperado: `deployment.apps/worker scaled`."
+    context: "Passo = comando + expect."
+  - en: "2. Watch the queue — `queue-len` must reach 0 within 5 minutes. If it stalls, stop."
+    pt: "2. Observe a fila — `queue-len` deve chegar a 0 em 5 minutos. Se travar, pare."
+    context: "Passo com critério de parada."
+  - en: "Verify: three Running pods and the queue processing again — check `queue-len` is climbing."
+    pt: "Verifique: três pods Running e a fila processando — `queue-len` deve subir."
+    context: "Verificação observável."
+  - en: "Rollback: `kubectl scale deploy/worker --replicas=3` — the old version resumes in ~90s."
+    pt: "Rollback: `kubectl scale deploy/worker --replicas=3` — a versão antiga volta em ~90s."
+    context: "Rollback completo com tempo esperado."
+  - en: "If it still fails, page the on-call in #payments-oncall — do not retry more than once."
+    pt: "Se ainda falhar, acione o plantão no #payments-oncall — não tente mais de uma vez."
+    context: "Escalada: canal + quem + limite de retries."
+  - en: "Last verified: 2026-09-10 — re-verify after the Helm chart upgrade."
+    pt: "Última verificação: 10/09/2026 — reverificar após o upgrade do Helm."
+    context: "O runbook envelhece — data no fim."
+
+variations:
+  - idea: '"o passo que qualquer um executa"'
+    items:
+      - { register: "Boa", text: "2. Drain the worker: `kubectl scale --replicas=0`. Expect: `deployment scaled`. If it hangs past 60s, go to Rollback.", adequate: true }
+      - { register: "Boa", text: "3. Wait for `queue-len` to return 0 — usually under 5 minutes. If it stalls, stop.", adequate: true }
+      - { register: "Inadequada", text: "2. Drain the worker somehow.", adequate: false, note: "Sem comando nem expect — o executor não pode improvisar às 3am." }
+      - { register: "Inadequada", text: "2. Scale it down and hope the queue drains.", adequate: false, note: "'Hope' não é critério — passo leva comando + resultado esperado + parada." }
+  - idea: '"o rollback que existe de verdade"'
+    items:
+      - { register: "Boa", text: "Rollback: `kubectl scale deploy/worker --replicas=3`, then re-enable the cron. Confirm three Running pods.", adequate: true }
+      - { register: "Boa", text: "If the deploy fails at any step, run `helm rollback` and verify with `helm status`.", adequate: true }
+      - { register: "Inadequada", text: "Rollback: undo what you did.", adequate: false, note: "'Desfaça' não é rollback — cada passo precisa do seu desfazer explícito." }
+      - { register: "Inadequada", text: "Rollback: figure it out, worst case redeploy.", adequate: false, note: "Às 3am ninguém 'descobre' — rollback é receita, não exercício." }
+
+brErrors:
+  - { wrong: "You need see the queue first.", right: "You need to see the queue first.", why: "need to + verbo", tag: br.need-see }
+  - { wrong: "Verify if the pod is running.", right: "Check whether the pod is running.", why: "check whether", tag: br.verify-if }
+  - { wrong: "The queue stay empty.", right: "The queue stays empty.", why: "the queue stays", tag: br.third-person-s }
+  - { wrong: "The worker not drains.", right: "The worker doesn't drain.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "Rollback the deploy and revert back the config.", right: "Roll back the deploy and revert the config.", why: "revert já é voltar", tag: br.revert-back }
+  - { wrong: "The pods stays pending.", right: "The pods stay pending.", why: "stay — sem -s no plural", tag: br.third-person-s }
+  - { wrong: "In case it not works, page me.", right: "If it doesn't work, page me.", why: "doesn't work", tag: br.it-not-works }
+  - { wrong: "The command are idempotent.", right: "The command is idempotent.", why: "the command is", tag: br.third-person-s }
+  - { wrong: "I found this runbook in the internet.", right: "I found this runbook on the internet.", why: "on the internet", tag: br.in-the-internet }
+  - { wrong: "Explain to me the rollback.", right: "Walk me through the rollback.", why: "walk me through", tag: br.explain-me }
+
+dialogue:
+  title: "Escrevendo o runbook do worker"
+  lines:
+    - { speaker: Priya, text: "The payments-worker restart kills the service if done in the wrong order — and only I know the order. Write the runbook." }
+    - { speaker: Yuri, text: "Header first: 'Restarting the payments worker — ~15 min, deploy window 20:00–22:00'." }
+    - { speaker: Priya, text: "Preconditions?" }
+    - { speaker: Yuri, text: "'You need: kubectl access, a green pipeline, the worker idle. If the pipeline is red, do not proceed.'" }
+    - { speaker: Ana, text: "And the steps?" }
+    - { speaker: Yuri, text: "Numbered, each with command plus expect: '1. Drain the worker: kubectl scale --replicas=0. Expect: deployment scaled.' Then step 2 waits for queue-len to hit zero — five minutes, or stop." }
+    - { speaker: Ana, text: "Verification?" }
+    - { speaker: Yuri, text: "Observable: 'three Running pods and the queue processing again'. If the executor can't see it, it's not verified." }
+    - { speaker: Priya, text: "Rollback?" }
+    - { speaker: Yuri, text: "Full path back: 'scale to 3 replicas, re-enable the cron — the old version resumes in ~90s'. And escalation: 'if it still fails, page #payments-oncall — do not retry more than once'." }
+    - { speaker: Priya, text: "The executor never improvises — that's the whole point. Add 'last verified' and ship it." }
+  notes:
+    - "header → precondições → passos com expect → verificação → rollback → escalada."
+    - "o critério de parada está escrito em cada passo — ninguém decide sozinho."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A runbook has six parts: header with time and window, preconditions with a hard stop, numbered steps — each with the command and what to expect — verification, rollback, and escalation. The executor never interprets; they run, check, and follow the written criteria." }
+    - { speaker: Ana, text: "Every step carries three things: the command, 'expect' — the output that means success — and the stop condition. 'If it hangs past sixty seconds, go to rollback.' Nobody improvises at 3 a.m." }
+    - { speaker: Yuri, text: "The rollback is a full path back — 'scale to three replicas, re-enable the cron'. 'Undo what you did' is not a rollback; each step needs its explicit undo." }
+    - { speaker: Priya, text: "And the runbook ages — 'last verified' with a date at the bottom. A runbook without a date is a suspect runbook." }
+  questions:
+    - { id: M13-04-l1, type: multiple_choice, prompt: "Each numbered step carries…", options: ["just the command", "a paragraph of context", "command + expect + stop condition", "screenshots"], answer: 2, explanation: "Comando + resultado esperado + critério de parada.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-04-l2, type: multiple_choice, prompt: "If a precondition fails…", options: ["proceed anyway", "skip the step", "ask in the channel", "do not proceed — stop and escalate"], answer: 3, explanation: "A trava é explícita — 'do not proceed'.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-04-l3, type: fill_blank, prompt: "If anything fails, stop and run the ___.", accepted: ["rollback"], explanation: "O caminho de volta — escrito, completo.", tags: [vocab.email-docs] }
+    - { id: M13-04-l4, type: error_correction, prompt: "If it still fails, revert back the deploy.", accepted: ["If it still fails, revert the deploy.", "If it still fails, roll back the deploy.", "If it still fails, revert the deploy"], explanation: "revert já é voltar — sem back.", tags: [br.revert-back] }
+    - { id: M13-04-l5, type: multiple_choice, prompt: "Verification must be…", options: ["a feeling — 'it looks fine'", "observable — a command and a criterion the executor can check", "optional", "the last step only"], answer: 1, explanation: "Verificação = comando + critério.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-04-l6, type: multiple_choice, prompt: "Escalation in a runbook is…", options: ["'ask someone'", "'figure it out'", "channel + who — 'page the on-call in #payments-oncall'", "'try again'"], answer: 2, explanation: "Canal + quem — nunca 'alguém'.", tags: [comp.listening, vocab.email-docs] }
+
+writing:
+  prompt: |
+    **Cenário:** escreva o runbook "Restarting the payments worker" —
+    o restart que derruba o serviço se feito na ordem errada.
+
+    **Tarefa:** 90–130 palavras com: header (tempo + janela),
+    precondições com trava, 3+ passos numerados (comando + expect +
+    parada), verificação observável, rollback completo e escalada
+    com canal.
+  constraints:
+    - { label: "Header e precondições", pattern: "\\b(precondition|you need|window|minutes|do not proceed)\\b" }
+    - { label: "Passos com comando + expect", pattern: "\\b(kubectl|scale|expect|step|drain|queue)\\b" }
+    - { label: "Verificação", pattern: "\\b(verify|check|confirm|watch|running|within)\\b" }
+    - { label: "Rollback e escalada", pattern: "\\b(rollback|roll back|fail|page|on-call|escalat)\\b" }
+  rubric:
+    - "Precondições com 'do not proceed'"
+    - "Cada passo: comando + expect + parada"
+    - "Rollback completo, não 'desfaça'"
+    - "Escalada com canal e quem"
+  model: >-
+    Restarting the payments worker — ~15 min, window 20:00–22:00. You
+    need: kubectl access, a green pipeline, the worker idle. If the
+    pipeline is red, do not proceed. 1. Drain the worker: `kubectl
+    scale deploy/worker --replicas=0`. Expect: `deployment scaled`. 2.
+    Wait for the queue — `queue-len` must reach 0 within 5 minutes; if
+    it stalls, stop. 3. Scale back up: `kubectl scale deploy/worker
+    --replicas=3`. Verify: three Running pods and the queue climbing.
+    Rollback: `kubectl scale deploy/worker --replicas=3`, re-enable the
+    cron — the old version resumes in ~90s. If it still fails, page the
+    on-call in #payments-oncall — do not retry more than once. Last
+    verified: 2026-09-12.
+  minWords: 90
+  maxWords: 130
+  tags: [comp.writing, vocab.email-docs]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos guiando alguém pelo runbook verbalmente: as precondições, os passos na ordem, como verificar, quando rodar o rollback e para onde escalar."
+    maxSeconds: 60
+    targetPhrases:
+      - you need
+      - do not proceed
+      - drain the worker
+      - expect
+      - verify
+      - rollback
+      - page the on-call
+      - if anything fails
+      - watch for
+      - confirm
+      - last verified
+      - estimated time
+    checklist:
+      - Precondições + trava
+      - Passos em ordem com expect
+      - Verificação observável
+      - Rollback + escalada
+
+quiz:
+  - { id: M13-04-q1, type: multiple_choice, prompt: "A runbook step must include…", options: ["just the command", "command + expected output + stop condition", "a paragraph of theory", "the author's name"], answer: 1, explanation: "Comando + expect + parada.", tags: [vocab.email-docs] }
+  - { id: M13-04-q2, type: error_correction, prompt: "If it fails, revert back the deploy.", accepted: ["If it fails, revert the deploy.", "If it fails, roll back the deploy.", "If it fails, revert the deploy"], explanation: "revert já é voltar.", tags: [br.revert-back] }
+  - { id: M13-04-q3, type: multiple_choice, prompt: "'Expect:' in a step means…", options: ["the command to run", "the output that means success — what should appear", "the rollback", "the precondition"], answer: 1, explanation: "O resultado esperado.", tags: [vocab.email-docs] }
+  - { id: M13-04-q4, type: fill_blank, prompt: "If the pipeline is red, do not ___.", accepted: ["proceed"], explanation: '"Do not proceed" — a trava explícita.', tags: [vocab.email-docs] }
+  - { id: M13-04-q5, type: error_correction, prompt: "The worker not drains.", accepted: ["The worker doesn't drain.", "The worker doesn't drain", "The worker does not drain."], explanation: "doesn't + verbo base.", tags: [br.it-not-works] }
+  - { id: M13-04-q6, type: translate, prompt: "Se ainda falhar após o rollback, acione o plantão no #payments-oncall.", accepted: ["If it still fails after the rollback, page the on-call in #payments-oncall.", "If it still fails after rollback, page the on-call in #payments-oncall."], explanation: "Escalada = canal + quem.", tags: [vocab.email-docs] }
+  - { id: M13-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "queue", "verify", "is", "empty"], answer: "verify the queue is empty", explanation: "Verificação observável.", tags: [vocab.email-docs, gram.imperative] }
+  - { id: M13-04-q8, type: multiple_choice, prompt: "A good rollback is…", options: ["'undo what you did'", "'redeploy'", "optional", "the full path back — each step's explicit undo"], answer: 3, explanation: "Cada passo tem seu desfazer explícito.", tags: [vocab.email-docs] }
+
+srsCards:
+  - { front: "preconditions", back: "O que precisa ser verdade — falhou? do not proceed.", tag: vocab.email-docs }
+  - { front: "expect:", back: "O resultado esperado — o que deve aparecer.", tag: vocab.email-docs }
+  - { front: "numbered steps", back: "Um por vez, em ordem — nunca pular.", tag: vocab.email-docs }
+  - { front: "verify", back: "Comando + critério observável.", tag: vocab.email-docs }
+  - { front: "rollback", back: "O caminho de volta — completo, explícito.", tag: vocab.email-docs }
+  - { front: "page the on-call", back: "A escalada: canal + quem.", tag: vocab.email-docs }
+  - { front: "do not proceed", back: "A trava explícita — não continue.", tag: vocab.email-docs }
+  - { front: "watch for", back: "O que observar durante o passo.", tag: vocab.email-docs }
+  - { front: "confirm", back: "O check entre passos — não assuma.", tag: vocab.email-docs }
+  - { front: "last verified", back: "A data do runbook — sem data é suspeito.", tag: vocab.email-docs }
+
+review:
+  preferTags: [vocab.email-docs, gram.imperative, br.revert-back]
+  notes: "Revisão prioriza a estrutura de runbook e o imperativo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

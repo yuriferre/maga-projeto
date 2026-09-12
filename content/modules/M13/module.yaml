@@ -1,0 +1,8 @@
+id: M13
+assessment:
+  title: Module assessment
+  description: "15 itens mistos cobrindo as tags do módulo + escrita (e-mail de escalada + estrutura de runbook, autoavaliada) + gravação falada (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 4, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 4
+  speakingMin: 3
