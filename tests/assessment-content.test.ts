@@ -326,3 +326,45 @@ describe("content/modules/M10/assessment.yaml", () => {
     expect(checkExercise(q, "The workaround is cheaper — I catched the 401s in the logs.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M11/assessment.yaml", () => {
+  const m11 = bundle.moduleAssessments["M11"]!;
+  it("requires both 'depends on' and 'suggested that'", () => {
+    const q = m11.items.find((q) => q.id === "M11-A02")!;
+    expect(checkExercise(q, "The ramp depends on the metrics — Priya suggested that I wait an hour.").correct).toBe(true);
+    expect(checkExercise(q, "The ramp depends in the metrics — Priya suggested that I wait an hour.").correct).toBe(false);
+    expect(checkExercise(q, "The ramp depends on the metrics — Priya suggested me to wait an hour.").correct).toBe(false);
+  });
+  it("requires both 'succeeded' and 'doesn't pass'", () => {
+    const q = m11.items.find((q) => q.id === "M11-A05")!;
+    expect(checkExercise(q, "The deploy succeeded, but the health check doesn't pass.").correct).toBe(true);
+    expect(checkExercise(q, "The deploy was succeeded, but the health check doesn't pass.").correct).toBe(false);
+    expect(checkExercise(q, "The deploy succeeded, but the health check not passes.").correct).toBe(false);
+  });
+  it("requires both 'ran terraform apply' and 'same as'", () => {
+    const q = m11.items.find((q) => q.id === "M11-A06")!;
+    expect(checkExercise(q, "I ran terraform apply — it's the same setup as staging.").correct).toBe(true);
+    expect(checkExercise(q, "I applied the changes — it's the same setup as staging.").correct).toBe(true);
+    expect(checkExercise(q, "I applied the terraform — it's the same setup as staging.").correct).toBe(false);
+    expect(checkExercise(q, "I ran terraform apply — it's the same setup of staging.").correct).toBe(false);
+  });
+  it("requires both 'before merging' and 'need you to'", () => {
+    const q = m11.items.find((q) => q.id === "M11-A08")!;
+    expect(checkExercise(q, "Before merging, I need you to check the plan.").correct).toBe(true);
+    expect(checkExercise(q, "Before to merge, I need you to check the plan.").correct).toBe(false);
+    expect(checkExercise(q, "Before merging, I need that you check the plan.").correct).toBe(false);
+  });
+  it("requires 'safer', 'chose' and 'cheaper'", () => {
+    const q = m11.items.find((q) => q.id === "M11-A10")!;
+    expect(checkExercise(q, "Blue/green is safer but we chose the canary — it's cheaper.").correct).toBe(true);
+    expect(checkExercise(q, "Blue/green is more safe but we chose the canary — it's cheaper.").correct).toBe(false);
+    expect(checkExercise(q, "Blue/green is safer but we choosed the canary — it's cheaper.").correct).toBe(false);
+    expect(checkExercise(q, "Blue/green is safer but we chose the canary — it's more cheap.").correct).toBe(false);
+  });
+  it("requires both 'explain to me' and bare 'failed'", () => {
+    const q = m11.items.find((q) => q.id === "M11-A12")!;
+    expect(checkExercise(q, "Can you explain to me why the pipeline failed last night?").correct).toBe(true);
+    expect(checkExercise(q, "Can you explain me why the pipeline failed last night?").correct).toBe(false);
+    expect(checkExercise(q, "Can you explain to me why the pipeline did fail last night?").correct).toBe(false);
+  });
+});

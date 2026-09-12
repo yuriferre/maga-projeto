@@ -1,0 +1,78 @@
+# Avaliação do módulo M11: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M11
+title: "Avaliação do módulo M11: CI/CD e Infraestrutura como Código"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M11-A01, type: multiple_choice, prompt: "The build is green but 'upload-artifact' keeps failing at the end. The failure lives in…", options: ["the pipeline", "the deploy stage", "a step inside a job on the build stage", "the runner pool"], answer: 2, explanation: "Step dentro de job dentro de stage — três níveis, uma frase.", tags: [vocab.ci] }
+  - { id: M11-A02, type: error_correction, prompt: "The ramp depends in the metrics — Priya suggested me to wait an hour.", accepted: ["The ramp depends on the metrics — Priya suggested that I wait an hour.", "The ramp depends on the metrics — Priya suggested waiting an hour.", "The ramp depends on the metrics — Priya suggested that I wait an hour"], explanation: 'Dois calques: "depends on" + "suggest that + sujeito".', tags: [br.depends-in, br.suggested-me] }
+  - { id: M11-A03, type: multiple_choice, prompt: "The plan shows 'destroy + create' on a bucket nobody touched in code. The likely cause is…", options: ["a buggy provider", "a missing flag", "terraform is random", "drift — someone changed it in the console"], answer: 3, explanation: "Destroy inesperado → drift até prova contrária.", tags: [vocab.iac] }
+  - { id: M11-A04, type: fill_blank, prompt: "The deploy waits at a manual ___ — Priya's approval unlocks it.", accepted: ["gate"], explanation: '"gate" — a trava humana do pipeline.', tags: [vocab.ci] }
+  - { id: M11-A05, type: error_correction, prompt: "The deploy was succeeded, but the health check not passes.", accepted: ["The deploy succeeded, but the health check doesn't pass.", "The deploy succeeded, but the health check doesn't pass"], explanation: "Dois erros: succeed não tem passiva + doesn't pass.", tags: [br.was-succeeded, br.it-not-works] }
+  - { id: M11-A06, type: error_correction, prompt: "I applied the terraform — it's the same setup of staging.", accepted: ["I ran terraform apply — it's the same setup as staging.", "I applied the changes — it's the same setup as staging.", "I ran terraform apply — it's the same setup as staging"], explanation: 'Dois calques: "terraform apply" como comando + "the same X as".', tags: [br.apply-terraform, br.same-of] }
+  - { id: M11-A07, type: multiple_choice, prompt: "Why does a 5% canary beat a full deploy for payments?", options: ["it's faster to build", "the blast radius stays small — 95% of users never see a bug", "it needs no monitoring", "it's cheaper than flags"], answer: 1, explanation: "Blast radius — a métrica de risco.", tags: [vocab.ci] }
+  - { id: M11-A08, type: error_correction, prompt: "Before to merge, I need that you check the plan.", accepted: ["Before merging, I need you to check the plan.", "Before merging, I need you to check the plan"], explanation: "Dois erros: before + gerúndio + need you to.", tags: [br.after-to, br.need-that-you] }
+  - { id: M11-A09, type: fill_blank, prompt: "The e2e test is ___ — it passed three times and failed twice with no changes.", accepted: ["flaky"], explanation: '"flaky" — o teste intermitente.', tags: [vocab.ci] }
+  - { id: M11-A10, type: error_correction, prompt: "Blue/green is more safe but we choosed the canary — it's more cheap.", accepted: ["Blue/green is safer but we chose the canary — it's cheaper.", "Blue/green is safer but we chose the canary — it's cheaper"], explanation: "Três erros: safer, chose, cheaper.", tags: [br.more-er, br.irregular-past] }
+  - { id: M11-A11, type: multiple_choice, prompt: "Which reading of the plan output is correct?", options: ["'1 to add, 0 to change, 0 to destroy' — safe to apply", "'0 to add, 0 to change, 3 to destroy' — safe to apply", "any plan is safe if apply is fast", "plans never destroy resources"], answer: 0, explanation: "Só create — o destroy zero é o que libera o apply.", tags: [vocab.iac] }
+  - { id: M11-A12, type: error_correction, prompt: "Can you explain me why the pipeline did fail last night?", accepted: ["Can you explain to me why the pipeline failed last night?", "Can you explain why the pipeline failed last night?", "Can you explain the failure to me — why did the pipeline fail last night?"], explanation: 'Dois erros: "explain to me" + "failed" sem "did".', tags: [br.explain-me, br.did-past] }
+  - { id: M11-A13, type: translate, prompt: "Segure o merge — o estágio de canary depende de uma flag que ainda não está ligada.", accepted: ["Hold the merge — the canary stage depends on a flag that isn't wired up yet.", "Hold the merge — the canary stage depends on a flag that isn't wired up yet"], explanation: '"hold the merge" + "depends on" + "wired up".', tags: [vocab.ci] }
+  - { id: M11-A14, type: match, prompt: "Associe cada termo ao papel no pipeline ou no rollout.", pairs: [{ left: "runner", right: "the machine that executes the jobs" }, { left: "artifact", right: "what a job produces and the next stage consumes" }, { left: "kill switch", right: "the flag that turns the feature off instantly" }, { left: "drift", right: "when reality stopped matching the state" }], explanation: "O vocabulário estrutural do módulo.", tags: [vocab.ci, vocab.iac] }
+  - { id: M11-A15, type: multiple_choice, prompt: "The rollout plan is 'canary 5% → gate → full Monday'. What closes the plan?", options: ["'we'll see what happens'", "'revert plan: flip the flag — no redeploy'", "'delete the old version first'", "'skip the gate if we're confident'"], answer: 1, explanation: "Rollback declarado — kill switch sem redeploy.", tags: [vocab.ci] }
+
+writing:
+  prompt: |
+    **Cenário:** o PR de pipeline do colega adiciona um canary stage a 5%
+    com ramp automático e um cleanup noturno — mas a flag que o canary
+    vira não existe, e o plan do Terraform anexo quer recriar o bucket de
+    artifacts.
+
+    **Tarefa:** escreva 80–120 palavras com o comentário de review: o que
+    o PR adiciona, o bloqueio com motivo, o destroy como red flag
+    (drift) e o veredito com pendências.
+  constraints:
+    - { label: "O diff resumido", pattern: "\\b(canary|gate|cleanup|stage|job|pipeline)\\b" }
+    - { label: "Bloqueio com motivo", pattern: "\\b(blocking|depends|flag|wired|missing|hold)\\b" }
+    - { label: "IaC no review", pattern: "\\b(plan|destroy|recreate|drift|state|terraform)\\b" }
+    - { label: "Veredito", pattern: "\\b(lgtm|ship|approve|merge|comments|first)\\b" }
+  rubric:
+    - "Diff resumido (canary + gate/cleanup)"
+    - "Bloqueio nomeado com motivo"
+    - "Destroy tratado como red flag/drift"
+    - "Veredito com pendências"
+  model: >-
+    Review on the pipeline PR. The diff adds a canary stage at 5% with
+    auto-ramp and a nightly cleanup job — good structure. One blocking
+    issue: the canary flips a flag that isn't wired up yet, so the stage
+    depends on something that doesn't exist. Also, the attached terraform
+    plan wants to recreate the artifacts bucket — that's a red flag,
+    probably console drift; refresh the state before any apply. LGTM with
+    comments: wire the flag first, hold the bucket destroy until
+    confirmed, and dry-run the canary on staging. Then ship it.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.ci]
+
+speaking:
+  prompt: "Grave 60 segundos explicando uma estratégia de rollout para um release arriscado: a estratégia escolhida e por quê, os degraus, o que se observa e o plano de rollback."
+  maxSeconds: 60
+  targetPhrases:
+    - canary
+    - blast radius
+    - feature flag
+    - ramp
+    - error rates
+    - manual gate
+    - kill switch
+    - rollback
+    - depends on
+    - monitor the rollout
+    - ship behind a flag
+    - revert plan
+  checklist:
+    - "Estratégia + comparação com alternativa"
+    - "Degraus condicionados a métricas"
+    - "Rollback declarado"
+    - "Vocabulário de pipeline/IaC correto"
