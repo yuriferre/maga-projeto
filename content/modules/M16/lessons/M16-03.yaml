@@ -1,0 +1,291 @@
+id: M16-03
+module: M16
+order: 3
+title: "Decisões: let's roll back, I'd rather…, hold off on, go ahead"
+objective: >-
+  Ao final, você propõe, apoia, segura e autoriza decisões na bridge:
+  "let's roll back", "I'd rather wait", "hold off on that", "go
+  ahead" — cada uma com dono e consequência.
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.bridge, comp.speaking]
+prerequisites: [M16-02]
+
+context:
+  scenario: |
+    Confirmado: o deploy das 13:58 mudou a config de pagamentos.
+    Agora a bridge precisa decidir — e decisão na bridge não é
+    consenso, é o IC escolhendo com a informação que tem.
+
+    O vocabulário da decisão tem quatro movimentos:
+
+    - **propor:** "**let's roll back**" / "I propose we…"
+    - **preferir:** "**I'd rather** hold the deploy" — opinião
+      marcada como opinião
+    - **segurar:** "**hold off on** restarting" — ainda não,
+      deliberado
+    - **autorizar:** "**go ahead**" / "approved" — o IC libera
+
+    E cada decisão sai com dono e consequência: "rolling back —
+    Marcos runs it, I call the result." Decisão sem dono é
+    sugestão; decisão sem verificação é aposta.
+  roles: [Yuri (platform engineer), Priya (IC), Marcos (backend), Ana (comms lead)]
+
+vocabulary:
+  - term: "let's roll back"
+    meaning: 'vamos reverter — a proposta direta e coletiva'
+    example: "Let's roll back the 13:58 deploy — Marcos, you run it."
+    translation: "Vamos reverter o deploy das 13:58 — Marcos, você roda."
+    note: "'Let's' carrega o grupo — a proposta já vem com dono."
+  - term: "I'd rather"
+    meaning: 'eu prefiro — a opinião marcada como preferência'
+    example: "I'd rather roll back than hotfix blind."
+    translation: "Eu prefiro reverter a corrigir às cegas."
+    note: "Honesto sem ser autoritário — 'I'd rather X than Y'."
+  - term: "hold off on"
+    meaning: segurar, adiar — "ainda não", deliberado
+    example: "Hold off on restarting the gateway — check the logs first."
+    translation: "Segure o restart do gateway — olhe os logs antes."
+    note: "Diferente de 'stop' — é pausa com intenção de retomar."
+  - term: "go ahead"
+    meaning: 'pode ir — a autorização do IC'
+    example: "'Rolling back now?' — 'Go ahead.'"
+    translation: "'Revertendo agora?' — 'Pode ir.'"
+    note: "Duas palavras que movem a bridge — autorização clara."
+  - term: "sign off on"
+    meaning: aprovar formalmente — dar o aval
+    example: "The IC signs off on every customer-facing action."
+    translation: "O IC assina toda ação que toca o cliente."
+    note: "Mais formal que 'go ahead' — a aprovação registrada."
+  - term: "call it"
+    meaning: decidir de vez — fechar a discussão
+    example: "We have enough — let's call it: rollback wins."
+    translation: "Temos o suficiente — vamos decidir: rollback vence."
+    note: "O IC corta o debate — 'I'll call it'."
+  - term: "second that"
+    meaning: 'eu apoio — o voto rápido de apoio'
+    example: "'I propose the rollback.' — 'I'll second that.'"
+    translation: "'Proponho o rollback.' — 'Eu apoio.'"
+    note: "Apoio de uma frase — sem repetir o argumento."
+  - term: "push back on"
+    meaning: contestar — a discordância direta e respeitosa
+    example: "I'll push back on the hotfix — it touches three services."
+    translation: "Vou contestar o hotfix — ele toca três serviços."
+    note: "Discordância legítima na bridge — com motivo."
+  - term: "the call is yours"
+    meaning: 'a decisão é sua — reconhecendo a autoridade do IC'
+    example: "I see the risk — but the call is yours, Priya."
+    translation: "Eu vejo o risco — mas a decisão é sua, Priya."
+    note: "Discordou, registrou, seguiu — a bridge anda."
+  - term: "trade-off"
+    meaning: a troca — o que se ganha e o que se paga
+    example: "The trade-off: five more minutes down, or a risky hotfix."
+    translation: "A troca: mais cinco minutos fora, ou um hotfix arriscado."
+    note: "Decisão boa nomeia o trade-off em voz alta."
+  - term: "walk it back"
+    meaning: reverter a decisão — desfazer o que foi chamado
+    example: "If errors don't drop, we walk it back and hotfix."
+    translation: "Se os erros não caírem, revertemos a decisão e corrigimos."
+    note: "Decisão boa já vem com o plano de desfazer."
+  - term: "on my call"
+    meaning: 'sob minha decisão — assumindo a responsabilidade'
+    example: "On my call: we roll back. I'll own it in the post-mortem."
+    translation: "Sob minha decisão: revertemos. Eu assumo no post-mortem."
+    note: "A frase que tira a dúvida de quem decidiu."
+
+grammar:
+  title: "Os quatro verbos da decisão: propor, preferir, segurar, autorizar"
+  explanation: |
+    Decisão na bridge usa verbos de movimento, não de debate:
+
+    - **Propor:** "let's roll back" / "I propose we roll back" —
+      o 'let's' coletivo ou o 'I propose' formal.
+    - **Preferir:** "**I'd rather** X than Y" — preferência marcada
+      como sua, não como ordem.
+    - **Segurar:** "**hold off on** + gerúndio" — "hold off on
+      restarting" — a pausa deliberada.
+    - **Autorizar:** "**go ahead**" / "approved" / "do it" — o IC
+      libera em duas palavras.
+
+    E o fecho que faz a decisão valer: **dono + verificação.**
+    "Rolling back — Marcos runs it, I call the result." Decisão
+    sem dono é sugestão; sem verificação, aposta.
+  examples:
+    - { en: "Let's roll back the 13:58 deploy — Marcos, you run it.", pt: "Vamos reverter o deploy das 13:58 — Marcos, você roda." }
+    - { en: "I'd rather wait five minutes than hotfix blind.", pt: "Eu prefiro esperar cinco minutos a corrigir às cegas." }
+    - { en: "Hold off on the restart — let's see the logs first.", pt: "Segure o restart — vamos ver os logs antes." }
+    - { en: "Go ahead — and read back the command first.", pt: "Pode ir — e repita o comando antes." }
+    - { en: "I'll push back on that: the hotfix touches three services.", pt: "Vou contestar isso: o hotfix toca três serviços." }
+    - { en: "On my call — we roll back. I own it in the post-mortem.", pt: "Sob minha decisão — revertemos. Eu assumo no post-mortem." }
+
+examples:
+  - en: "Let's roll back — Marcos runs it, I call the result."
+    pt: "Vamos reverter — o Marcos roda, eu declaro o resultado."
+    context: "Proposta com dono e verificação."
+  - en: "I'd rather be down five more minutes than corrupt the data."
+    pt: "Prefiro ficar fora mais cinco minutos a corromper os dados."
+    context: "Preferência com o 'than' comparando os custos."
+  - en: "Hold off on scaling — that's a symptom fix, not the cause."
+    pt: "Segure o escalonamento — isso trata sintoma, não causa."
+    context: "A pausa deliberada com motivo."
+  - en: "'Rolling back now?' — 'Go ahead. Read back first.'"
+    pt: "'Revertendo agora?' — 'Pode ir. Repita antes.'"
+    context: "Autorização + confirmação."
+  - en: "I'll second the rollback — the evidence is solid."
+    pt: "Eu apoio o rollback — a evidência é sólida."
+    context: "Apoio de uma frase."
+  - en: "I'll push back on the hotfix — we don't know the blast radius."
+    pt: "Vou contestar o hotfix — não sabemos o raio de explosão."
+    context: "Discordância com motivo."
+  - en: "The call is yours — but log my concern in the thread."
+    pt: "A decisão é sua — mas registre minha preocupação na thread."
+    context: "Discordou, registrou, seguiu."
+  - en: "If errors don't drop in ten, we walk it back and hotfix."
+    pt: "Se os erros não caírem em dez, revertemos a decisão e corrigimos."
+    context: "Decisão com plano de desfazer."
+
+variations:
+  - idea: '"propondo e autorizando"'
+    items:
+      - { register: "Boa", text: "Let's roll back — Marcos, you run it, I call the result.", adequate: true }
+      - { register: "Boa", text: "Go ahead — read back the command first.", adequate: true }
+      - { register: "Inadequada", text: "Maybe we should possibly think about rolling back?", adequate: false, note: "Hedge demais na bridge — 'let's roll back' ou pergunte direto." }
+      - { register: "Inadequada", text: "Everyone agrees, right? (sem dono)", adequate: false, note: "Decisão sem dono é sugestão — nomeie quem executa e quem verifica." }
+  - idea: '"segurando e discordando"'
+    items:
+      - { register: "Boa", text: "Hold off on the restart — check the logs first.", adequate: true }
+      - { register: "Boa", text: "I'll push back on that — the blast radius is unknown.", adequate: true }
+      - { register: "Inadequada", text: "Stop! Don't touch anything!", adequate: false, note: "'Hold off on X — Y first' é a pausa com direção, não pânico." }
+      - { register: "Inadequada", text: "That's a terrible idea.", adequate: false, note: "Ataque sem motivo — 'push back on X' vem com o porquê." }
+
+brErrors:
+  - { wrong: "Do you can go ahead?", right: "Can you go ahead?", why: "ou do ou o modal", tag: br.do-modal }
+  - { wrong: "I wrote the fix for to roll back.", right: "I wrote the fix to roll back.", why: "to, sem for", tag: br.for-to }
+  - { wrong: "She said me to hold off.", right: "She told me to hold off.", why: "told me", tag: br.said-me }
+  - { wrong: "Sorry for interrupt — hold off on that.", right: "Sorry to interrupt — hold off on that.", why: "sorry to interrupt", tag: br.sorry-for-interrupt }
+  - { wrong: "Ask to Marcos about the trade-off.", right: "Ask Marcos about the trade-off.", why: "ask + pessoa", tag: br.ask-to }
+  - { wrong: "Send to me the rollback plan.", right: "Send me the rollback plan.", why: "send me", tag: br.send-to-me }
+  - { wrong: "In this moment we decide.", right: "Right now we decide.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The IC not call alone.", right: "The IC doesn't call alone.", why: "doesn't call", tag: br.it-not-works }
+  - { wrong: "Who decide is the IC.", right: "Who decides is the IC.", why: "who decides", tag: br.third-person-s }
+  - { wrong: "I have a doubt about the call.", right: "I have a question about the call.", why: "question", tag: br.doubt }
+
+dialogue:
+  title: "A decisão"
+  lines:
+    - { speaker: Priya, text: "Confirmed — the deploy touched the config. Options?" }
+    - { speaker: Marcos, text: "Rollback is clean — the old image is still warm." }
+    - { speaker: Yuri, text: "Or a hotfix on the config value — faster if we know it's just the flag." }
+    - { speaker: Priya, text: "Trade-off: five more minutes down, or a hotfix we haven't scoped. I'd rather roll back." }
+    - { speaker: Marcos, text: "I'll second that — the blast radius of the hotfix is unknown." }
+    - { speaker: Yuri, text: "I'll push back a little — the rollback also wipes the search fix." }
+    - { speaker: Priya, text: "Fair — and logged. On my call: we roll back. Marcos, go ahead — read back first." }
+    - { speaker: Marcos, text: "Read back: 'helm rollback payments-api to revision 41'. Running." }
+    - { speaker: Priya, text: "If errors don't drop in ten minutes, we walk it back and hotfix. Yuri, watch the graph." }
+    - { speaker: Yuri, text: "On it — errors falling already." }
+  notes:
+    - "a sequência completa: opções → trade-off nomeado → preferência → apoio → push back registrado → 'on my call' → autorização com read back → plano de desfazer."
+    - "'the call is yours' não aparece falado — Priya assumiu com 'on my call'."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A bridge decision has four verbs. Propose: 'let's roll back' or 'I propose we'. Prefer: 'I'd rather X than Y' — marked as your preference, not an order. Hold: 'hold off on restarting' — a deliberate pause, not a stop. Authorize: 'go ahead' — the IC releases in two words." }
+    - { speaker: Marcos, text: "Every decision leaves the bridge with an owner and a check. 'Rolling back — Marcos runs it, I call the result.' A decision without an owner is a suggestion; without verification, a bet. And a good decision ships with its undo plan: 'if errors don't drop, we walk it back.'" }
+    - { speaker: Ana, text: "Disagreement is allowed — with a reason. 'I'll push back on the hotfix — it touches three services.' Then you log it and move: 'the call is yours, but log my concern.' The IC closes debate with 'on my call' — and owns it in the post-mortem." }
+  questions:
+    - { id: M16-03-l1, type: multiple_choice, prompt: "'Hold off on restarting' means…", options: ["never restart", "a deliberate pause — not yet, with intent to resume", "the IC quit", "restart twice"], answer: 1, explanation: "Pausa deliberada, não cancelamento.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-03-l2, type: multiple_choice, prompt: "A decision without an owner is…", options: ["still a decision", "faster", "a suggestion", "safer"], answer: 2, explanation: "Decisão sem dono é sugestão.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-03-l3, type: fill_blank, prompt: "I'd ___ roll back than hotfix blind.", accepted: ["rather"], explanation: '"I''d rather X than Y" — preferência marcada.', tags: [vocab.bridge] }
+    - { id: M16-03-l4, type: error_correction, prompt: "I wrote the config for to roll back.", accepted: ["I wrote the config to roll back.", "I wrote the config to roll back"], explanation: "to, sem for.", tags: [br.for-to] }
+    - { id: M16-03-l5, type: multiple_choice, prompt: "'The call is yours, but log my concern' shows…", options: ["surrender", "disagreement registered, then commitment to the decision", "the scribe's role", "a vote"], answer: 1, explanation: "Discordou, registrou, seguiu.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-03-l6, type: multiple_choice, prompt: "'Walk it back' means…", options: ["leave the bridge", "undo the decision if the check fails", "walk to the server room", "repeat the decision"], answer: 1, explanation: "O plano de desfazer embutido.", tags: [comp.listening, vocab.bridge] }
+
+writing:
+  prompt: |
+    **Cenário:** a bridge decidiu o rollback. Você é o scribe e
+    registra a decisão na thread — o que foi decidido, quem executa,
+    quem verifica, o plano de desfazer e a discordância registrada.
+
+    **Tarefa:** escreva 60–90 palavras com o registro da decisão:
+    proposta aceita, dono, verificação, walk-back e a preocupação do
+    Yuri (o rollback apaga a correção do search).
+  constraints:
+    - { label: "A decisão", pattern: "\\b(roll ?back|decided|decision|on my call)\\b" }
+    - { label: "Dono e verificação", pattern: "\\b(marcos|runs|verify|watch|call the result)\\b" }
+    - { label: "Plano de desfazer", pattern: "\\b(walk it back|hotfix|if.*(fail|don|drop))\\b" }
+    - { label: "Discordância registrada", pattern: "\\b(concern|push back|logged|yuri|noted)\\b" }
+  rubric:
+    - "Decisão + dono + verificação"
+    - "Plano de desfazer"
+    - "Discordância registrada"
+    - "Sem calques"
+  model: >-
+    Decision on the bridge: roll back the 13:58 deploy — Priya's
+    call, logged. Marcos runs it ('helm rollback payments-api to
+    revision 41', read back and confirmed). Yuri watches the payments
+    graph and calls the result. If the error rate doesn't drop in
+    ten minutes, we walk it back and hotfix the config value.
+    Yuri's concern is logged: the rollback also removes the search
+    fix — we re-deploy it after the incident.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.bridge]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos como IC conduzindo uma decisão: peça opções, nomeie o trade-off, declare 'on my call', autorize com 'go ahead' e dê o plano de desfazer."
+    maxSeconds: 45
+    targetPhrases:
+      - let's roll back
+      - i'd rather
+      - hold off on
+      - go ahead
+      - on my call
+      - i'll second that
+      - push back on
+      - the call is yours
+      - trade-off
+      - walk it back
+      - read back
+      - i propose
+      - options
+      - sign off
+      - the blast radius
+      - i own it
+    checklist:
+      - "Preferência marcada ('I'd rather')"
+      - "Decisão assumida ('on my call')"
+      - "Autorização clara ('go ahead')"
+      - "Plano de desfazer ('walk it back')"
+
+quiz:
+  - { id: M16-03-q1, type: multiple_choice, prompt: "The IC authorizes with…", options: ["'go ahead'", "'permission granted, proceed'", "'you may now run the command'", "'if you insist'"], answer: 0, explanation: "Duas palavras que movem a bridge.", tags: [vocab.bridge] }
+  - { id: M16-03-q2, type: error_correction, prompt: "Do you can go ahead with the rollback?", accepted: ["Can you go ahead with the rollback?", "Can you go ahead with the rollback"], explanation: "ou do ou o modal.", tags: [br.do-modal] }
+  - { id: M16-03-q3, type: multiple_choice, prompt: "'I'd rather roll back than hotfix' marks the statement as…", options: ["an order", "a fact", "a question", "a preference — yours, not a command"], answer: 3, explanation: "Preferência honesta.", tags: [vocab.bridge] }
+  - { id: M16-03-q4, type: fill_blank, prompt: "If errors don't drop, we ___ it back and hotfix.", accepted: ["walk"], explanation: '"walk it back" — o plano de desfazer.', tags: [vocab.bridge] }
+  - { id: M16-03-q5, type: error_correction, prompt: "She said me to hold off on the restart.", accepted: ["She told me to hold off on the restart.", "She told me to hold off on the restart"], explanation: "told me.", tags: [br.said-me] }
+  - { id: M16-03-q6, type: translate, prompt: "Segure o restart — olhe os logs primeiro.", accepted: ["Hold off on the restart — check the logs first.", "Hold off on the restart — look at the logs first."], explanation: '"hold off on" + gerúndio.', tags: [vocab.bridge] }
+  - { id: M16-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["my", "on", "call", "roll", "we", "back"], answer: "on my call we roll back", explanation: '"on my call" — assumindo a decisão.', tags: [vocab.bridge] }
+  - { id: M16-03-q8, type: multiple_choice, prompt: "'I'll second that' is…", options: ["a second opinion", "the deputy taking over", "a one-phrase show of support", "a question"], answer: 2, explanation: "Apoio sem repetir argumento.", tags: [vocab.bridge] }
+
+srsCards:
+  - { front: "let's roll back", back: "Proposta coletiva — já vem com dono.", tag: vocab.bridge }
+  - { front: "I'd rather", back: "Preferência marcada — 'X than Y'.", tag: vocab.bridge }
+  - { front: "hold off on", back: "Pausa deliberada + gerúndio.", tag: vocab.bridge }
+  - { front: "go ahead", back: "A autorização de duas palavras.", tag: vocab.bridge }
+  - { front: "on my call", back: "A decisão assumida pelo IC.", tag: vocab.bridge }
+  - { front: "second that", back: "Apoio de uma frase.", tag: vocab.bridge }
+  - { front: "push back on", back: "Discordância com motivo.", tag: vocab.bridge }
+  - { front: "the call is yours", back: "Discordou, registrou, seguiu.", tag: vocab.bridge }
+  - { front: "trade-off", back: "O que ganha × o que paga — nomeado.", tag: vocab.bridge }
+  - { front: "walk it back", back: "O plano de desfazer a decisão.", tag: vocab.bridge }
+  - { front: "sign off on", back: "Aprovação formal registrada.", tag: vocab.bridge }
+
+review:
+  preferTags: [vocab.bridge, br.said-me, br.do-modal]
+  notes: "Revisão prioriza os quatro verbos da decisão e os calques de proposta."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
