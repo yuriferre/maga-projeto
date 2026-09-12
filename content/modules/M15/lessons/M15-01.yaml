@@ -1,0 +1,287 @@
+id: M15-01
+module: M15
+order: 1
+title: "Severidades e impacto: customer-facing, degraded, partial outage, blast radius"
+objective: >-
+  Ao final, você classifica um incidente por severidade e descreve o
+  impacto com números e consequência para o usuário — sem exagero e sem
+  minimizar.
+durationMin: 35
+competencies: [VOC, WRI]
+tags: [vocab.incident, comp.writing]
+prerequisites: [M10-05, M03-05]
+
+context:
+  scenario: |
+    Segunda, 14h03: o checkout começa a devolver 502 para parte dos
+    usuários. O alerta dispara, a thread `#incident-payments` abre, e a
+    primeira pergunta da Priya é a de sempre: "**how bad is it?**"
+
+    Responder bem exige duas coisas: a **severidade** (o tamanho do
+    incidente) e o **impacto** (o que o usuário sente). As duas
+    conversas andam juntas, mas não são a mesma coisa — um SEV2 pode
+    ser customer-facing e um SEV3 pode ser interno.
+
+    O vocabulário do status page é curto e preciso: degraded, partial
+    outage, full outage, blast radius. Aprender a usá-lo é aprender a
+    não escrever "tudo caiu" quando caiu um endpoint.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend), Ana (support lead)]
+
+vocabulary:
+  - term: "severity / SEV1–SEV4"
+    meaning: a severidade — SEV1 é o pior, SEV4 é cosmético
+    example: "This is a SEV2 — customer-facing but with a workaround."
+    translation: "Isso é um SEV2 — afeta cliente mas tem workaround."
+    note: "Cada empresa numera diferente; o padrão é SEV1 = tudo parado."
+  - term: "outage"
+    meaning: a queda total do serviço
+    example: "We're seeing a full outage on the payments API."
+    translation: "Estamos vendo uma queda total na API de pagamentos."
+    note: "'Full outage' = nada funciona; contrasta com partial."
+  - term: "partial outage"
+    meaning: a queda parcial — uma rota, uma região, uma fatia de usuários
+    example: "It's a partial outage — only the checkout endpoint is down."
+    translation: "É uma queda parcial — só o endpoint de checkout caiu."
+    note: "A palavra que evita pânico desnecessário."
+  - term: "degraded"
+    meaning: degradado — funciona, mas lento ou com erros intermitentes
+    example: "The search is degraded — results load, but take ten seconds."
+    translation: "A busca está degradada — carrega, mas leva dez segundos."
+    note: "Degraded ≠ down: ainda responde, só que mal."
+  - term: "customer-facing"
+    meaning: que o cliente final sente
+    example: "Is it customer-facing? Yes — checkout fails for real users."
+    translation: "Afeta o cliente? Sim — o checkout falha para usuários reais."
+    note: "A primeira pergunta de quem lê o alerta."
+  - term: "blast radius"
+    meaning: o raio da explosão — quantos usuários/sistemas são atingidos
+    example: "The blast radius is small — only accounts created today."
+    translation: "O raio é pequeno — só contas criadas hoje."
+    note: "Metáfora de bomba: limita o estrago em uma frase."
+  - term: "error rate"
+    meaning: a taxa de erro — percentual de requests falhando
+    example: "Error rate is at 40% and climbing."
+    translation: "A taxa de erro está em 40% e subindo."
+    note: "O número que transforma 'está quebrado' em fato."
+  - term: "affected"
+    meaning: afetado — quem sofre o impacto
+    example: "Roughly a third of checkouts are affected."
+    translation: "Cerca de um terço dos checkouts é afetado."
+    note: "'Affected users' — mais preciso que 'usuários com problema'."
+  - term: "workaround"
+    meaning: a gambiarra legítima — caminho alternativo enquanto quebra
+    example: "There's a workaround: retry once and it usually goes through."
+    translation: "Tem um workaround: tentar de novo costuma passar."
+    note: "Ter workaround baixa a severidade na prática."
+  - term: "status page"
+    meaning: a página pública de status — onde o mundo lê suas atualizações
+    example: "We post updates on the status page every thirty minutes."
+    translation: "Postamos atualizações na status page a cada 30 minutos."
+    note: "statuspage.io, ou uma rota própria — o ritual é o mesmo."
+  - term: "impact"
+    meaning: o impacto — a consequência concreta para usuário ou negócio
+    example: "The impact is failed checkouts — revenue is hit directly."
+    translation: "O impacto é checkout falhando — a receita é atingida direto."
+    note: "Impact responde 'e daí?'; severidade responde 'quão grave?'."
+  - term: "climbing / spiking"
+    meaning: subindo / disparando — o comportamento da métrica
+    example: "Error rate is climbing — it was 5% ten minutes ago."
+    translation: "A taxa de erro está subindo — era 5% dez minutos atrás."
+    note: "Verbo de movimento: climbing, spiking, flat, recovering."
+
+grammar:
+  title: "Descrevendo impacto: X% of, can't + verbo, affecting, still down for"
+  explanation: |
+    Impacto bom tem número e consequência. As construções que carregam
+    isso:
+
+    - "**X% of requests are failing**" — a métrica no present
+      continuous, porque está acontecendo agora.
+    - "**users can't check out**" — a consequência em verbo simples:
+      can't pay, can't log in, can't see their data.
+    - "**it's affecting checkout**" — afetar + o que é atingido.
+    - "**still down for some users**" — parcial e contínuo; "still"
+      admite que não resolveu.
+
+    E a dupla que orienta a conversa: "**how bad is it?**" pergunta a
+    severidade; "**who's affected?**" pergunta o blast radius.
+    Responda as duas na mesma frase: "SEV2 — about a third of
+    checkouts are failing."
+  examples:
+    - { en: "SEV2 — about 40% of checkouts are failing.", pt: "SEV2 — cerca de 40% dos checkouts estão falhando." }
+    - { en: "Users can't complete a purchase — the payment step 502s.", pt: "Usuários não conseguem concluir a compra — o passo de pagamento dá 502." }
+    - { en: "It's affecting checkout only — browse and search are fine.", pt: "Afeta só o checkout — navegação e busca estão bem." }
+    - { en: "Still down for some users in us-east; the rest recovered.", pt: "Ainda fora para alguns usuários em us-east; o resto recuperou." }
+    - { en: "How bad is it? Customer-facing, but there's a workaround.", pt: "Quão grave? Afeta cliente, mas tem workaround." }
+    - { en: "Who's affected? Accounts created since this morning.", pt: "Quem é afetado? Contas criadas desde hoje de manhã." }
+
+examples:
+  - en: "This is a SEV1 — the whole site is down, no workaround."
+    pt: "Isso é SEV1 — o site inteiro fora, sem workaround."
+    context: "O pior caso: tudo parado."
+  - en: "SEV2: customer-facing, partial — checkout fails for about a third of users."
+    pt: "SEV2: afeta cliente, parcial — checkout falha para um terço dos usuários."
+    context: "Grave, mas com bordas claras."
+  - en: "It's degraded, not down — pages load in ten seconds instead of one."
+    pt: "Está degradado, não fora — páginas carregam em dez segundos em vez de uma."
+    context: "Degraded ≠ down."
+  - en: "The blast radius is small: only the new EU region is affected."
+    pt: "O raio é pequeno: só a região nova da EU é afetada."
+    context: "Limitando o estrago numa frase."
+  - en: "Internal only — the reporting pipeline is behind, no customer impact."
+    pt: "Só interno — o pipeline de relatórios está atrasado, sem impacto no cliente."
+    context: "SEV3/4: dói dentro, não fora."
+  - en: "Error rate is at 40% and climbing; p99 went from 300ms to 8s."
+    pt: "Taxa de erro em 40% e subindo; p99 foi de 300ms para 8s."
+    context: "Os números que substituem o adjetivo."
+  - en: "There's a workaround — the mobile app still processes payments."
+    pt: "Tem um workaround — o app móvel ainda processa pagamentos."
+    context: "Workaround muda a conversa."
+  - en: "Who's affected? Paid accounts on checkout; free tier is fine."
+    pt: "Quem é afetado? Contas pagas no checkout; o tier grátis está bem."
+    context: "Blast radius por segmento."
+
+variations:
+  - idea: '"classificando a severidade"'
+    items:
+      - { register: "Boa", text: "SEV2 — partial outage on checkout, customer-facing, workaround exists.", adequate: true }
+      - { register: "Boa", text: "SEV3 — internal dashboard degraded; no customer impact.", adequate: true }
+      - { register: "Inadequada", text: "Everything is broken!!!", adequate: false, note: "Sem número, sem escopo, com pânico — diga o quê, para quem, quanto." }
+      - { register: "Inadequada", text: "It's probably nothing, ignore it.", adequate: false, note: "Minimizar também erra — classifique e deixe o IC decidir." }
+  - idea: '"descrevendo o impacto"'
+    items:
+      - { register: "Boa", text: "About a third of checkouts are failing — users can't pay.", adequate: true }
+      - { register: "Boa", text: "It's affecting EU checkout only — US is clean.", adequate: true }
+      - { register: "Inadequada", text: "Users are complaining a lot.", adequate: false, note: "Reclamação não é métrica — diga a taxa de erro e o que falha." }
+      - { register: "Inadequada", text: "The system is having problems in this moment.", adequate: false, note: "'Right now' — e 'problems' vira o sintoma exato: 502s on checkout." }
+
+brErrors:
+  - { wrong: "In this moment we are investigating the cause.", right: "Right now we are investigating the cause.", why: "right now / at this moment", tag: br.in-this-moment }
+  - { wrong: "The service normalized after the rollback.", right: "The service recovered after the rollback.", why: "recovered / back to normal", tag: br.normalized }
+  - { wrong: "Thanks for the patience — more news at 4pm.", right: "Thanks for your patience — more news at 4pm.", why: "your patience", tag: br.thanks-patience }
+  - { wrong: "We'll update you as soon possible.", right: "We'll update you as soon as possible.", why: "as soon as possible", tag: br.asap-missing-as }
+  - { wrong: "It not works for paid accounts.", right: "It doesn't work for paid accounts.", why: "doesn't work", tag: br.it-not-works }
+  - { wrong: "The checkout return 502 for some users.", right: "The checkout returns 502 for some users.", why: "returns — 3ª pessoa", tag: br.third-person-s }
+  - { wrong: "We are seeing many datas in the logs.", right: "We are seeing a lot of data in the logs.", why: "data é incontável", tag: br.uncountable }
+  - { wrong: "The pod is pending since ten minutes.", right: "The pod has been pending for ten minutes.", why: "has been pending for", tag: br.is-ing-since }
+  - { wrong: "It's the same issue of this morning.", right: "It's the same issue as this morning.", why: "same as", tag: br.same-of }
+  - { wrong: "I have a doubt about the severity.", right: "I have a question about the severity.", why: "question", tag: br.doubt }
+
+dialogue:
+  title: "How bad is it?"
+  lines:
+    - { speaker: Priya, text: "Alert just fired — checkout 502s. Yuri, you're on it. How bad is it?" }
+    - { speaker: Yuri, text: "Looking. Error rate on the payments API is at 40% and climbing." }
+    - { speaker: Marcos, text: "Is it the whole site?" }
+    - { speaker: Yuri, text: "No — partial outage. Checkout only; browse and search are fine." }
+    - { speaker: Priya, text: "Customer-facing?" }
+    - { speaker: Yuri, text: "Yes — users can't complete a purchase. But there's a workaround: the mobile app still processes payments." }
+    - { speaker: Ana, text: "So SEV2?" }
+    - { speaker: Priya, text: "SEV2 — customer-facing, partial, workaround exists. Who's affected?" }
+    - { speaker: Yuri, text: "About a third of web checkouts — accounts in us-east mostly. The blast radius is contained." }
+    - { speaker: Priya, text: "Good. Status page in five, first update: what, impact, status, next update at 14:30." }
+  notes:
+    - "a triagem inteira em 10 falas: número → escopo → customer-facing → workaround → SEV → blast radius."
+    - "'how bad is it?' e 'who's affected?' são as duas perguntas que estruturam a resposta."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Severity first, then impact — they're different questions. A SEV1 is everything down, no workaround, everyone in the room. A SEV2 is customer-facing but bounded — partial outage, maybe a workaround. SEV3 hurts internally. SEV4 is cosmetic." }
+    - { speaker: Yuri, text: "Impact needs a number and a verb. 'Forty percent of checkouts are failing' — not 'checkout is bad'. 'Users can't pay' — not 'users are impacted'. And always the scope: which endpoint, which region, which segment." }
+    - { speaker: Ana, text: "The words that keep the status page honest: 'degraded' when it works but slowly, 'partial outage' when a slice fails, 'full outage' when nothing answers. And 'blast radius' — the sentence that calms people down is the one that says who is NOT affected." }
+  questions:
+    - { id: M15-01-l1, type: multiple_choice, prompt: "A SEV2 is…", options: ["everything down", "cosmetic only", "internal tooling only", "customer-facing but bounded — partial outage, maybe a workaround"], answer: 3, explanation: "SEV2 = afeta cliente, com bordas.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-01-l2, type: multiple_choice, prompt: "Good impact description needs…", options: ["a number and a verb — '40% of checkouts are failing'", "an apology first", "the root cause", "a prediction"], answer: 0, explanation: "Número + o que o usuário não consegue fazer.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-01-l3, type: fill_blank, prompt: "Pages load in ten seconds — the site is ___, not down.", accepted: ["degraded"], explanation: "Degraded = funciona mal, mas funciona.", tags: [vocab.incident] }
+    - { id: M15-01-l4, type: error_correction, prompt: "In this moment the error rate is climbing.", accepted: ["Right now the error rate is climbing.", "Right now the error rate is climbing", "At this moment the error rate is climbing."], explanation: "right now / at this moment.", tags: [br.in-this-moment] }
+    - { id: M15-01-l5, type: multiple_choice, prompt: "'Blast radius' answers…", options: ["when it started", "who and what is affected — including who is NOT", "why it happened", "who caused it"], answer: 1, explanation: "O raio limita o estrago.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-01-l6, type: multiple_choice, prompt: "'Degraded' on a status page means…", options: ["working but slow or intermittently failing", "fully down", "fixed already", "under maintenance"], answer: 0, explanation: "Responde, mas mal.", tags: [comp.listening, vocab.incident] }
+
+writing:
+  prompt: |
+    **Cenário:** a Priya pede a classificação por escrito para a thread
+    do incidente — uma linha que qualquer um do time lê e entende.
+
+    **Tarefa:** escreva 60–90 palavras classificando o incidente do
+    checkout: severidade, o que falha, a taxa de erro, quem é afetado,
+    o workaround e o escopo (customer-facing × interno).
+  constraints:
+    - { label: "Severidade", pattern: "\\b(sev\\s?\\d|severity)\\b" }
+    - { label: "O que falha + número", pattern: "\\b(502|error rate|%|failing|checkout)\\b" }
+    - { label: "Quem é afetado", pattern: "\\b(affected|blast radius|users|customer.?facing|third|half)\\b" }
+    - { label: "Workaround ou escopo", pattern: "\\b(workaround|partial|degraded|mobile|internal)\\b" }
+  rubric:
+    - "Severidade declarada"
+    - "Falha com número"
+    - "Quem é afetado delimitado"
+    - "Workaround ou escopo; sem calques"
+  model: >-
+    SEV2 — partial outage on checkout, customer-facing. The payments
+    API is returning 502s; error rate is at 40% and climbing. Users
+    can't complete purchases on the web — about a third of checkouts
+    are affected, mostly us-east accounts. Blast radius is contained:
+    browse, search and the mobile app are fine. Workaround: the mobile
+    checkout still processes payments, so users can be pointed there
+    while we investigate.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.incident]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos classificando o incidente: severidade, o que falha com número, quem é afetado, workaround e escopo."
+    maxSeconds: 45
+    targetPhrases:
+      - sev one
+      - sev two
+      - partial outage
+      - full outage
+      - degraded
+      - customer-facing
+      - blast radius
+      - error rate is at
+      - are failing
+      - can't complete
+      - users can't
+      - a third of
+      - there's a workaround
+      - still down for
+      - how bad is it
+      - who's affected
+    checklist:
+      - Severidade declarada
+      - Falha com número
+      - Quem é afetado
+      - Workaround ou escopo
+
+quiz:
+  - { id: M15-01-q1, type: multiple_choice, prompt: "'Degraded' means…", options: ["down for everyone", "under maintenance", "working, but slow or intermittently failing", "resolved"], answer: 2, explanation: "Degraded ≠ down.", tags: [vocab.incident] }
+  - { id: M15-01-q2, type: error_correction, prompt: "In this moment we are investigating the cause.", accepted: ["Right now we are investigating the cause.", "Right now we are investigating the cause", "At this moment we are investigating the cause."], explanation: "right now / at this moment.", tags: [br.in-this-moment] }
+  - { id: M15-01-q3, type: multiple_choice, prompt: "A partial outage means…", options: ["the whole site is down", "a slice fails — one endpoint, region or segment", "slow but up", "scheduled downtime"], answer: 1, explanation: "Uma fatia quebra — o resto responde.", tags: [vocab.incident] }
+  - { id: M15-01-q4, type: fill_blank, prompt: "The blast ___ is contained — only us-east accounts.", accepted: ["radius"], explanation: "Blast radius — o raio do estrago.", tags: [vocab.incident] }
+  - { id: M15-01-q5, type: error_correction, prompt: "The service normalized after the rollback.", accepted: ["The service recovered after the rollback.", "The service recovered after the rollback", "The service is back to normal after the rollback."], explanation: "recovered / back to normal.", tags: [br.normalized] }
+  - { id: M15-01-q6, type: translate, prompt: "É um SEV2 — afeta cliente, mas tem workaround.", accepted: ["It's a SEV2 — customer-facing, but there's a workaround.", "It's a SEV2 — it's customer-facing, but there's a workaround."], explanation: '"customer-facing" + "there''s a workaround".', tags: [vocab.incident] }
+  - { id: M15-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["of", "are", "a", "checkouts", "failing", "third"], answer: "a third of checkouts are failing", explanation: '"a third of X are failing" — número + verbo.', tags: [vocab.incident] }
+  - { id: M15-01-q8, type: multiple_choice, prompt: "The strongest update opener is…", options: ["'Everything is broken!!!'", "'SEV2 — 40% of checkouts failing, workaround exists'", "'Probably nothing, ignore it'", "'We don't know anything yet'"], answer: 1, explanation: "Severidade + número + escopo.", tags: [vocab.incident] }
+
+srsCards:
+  - { front: "SEV1–SEV4", back: "Severidade: SEV1 tudo parado → SEV4 cosmético.", tag: vocab.incident }
+  - { front: "partial outage", back: "Uma fatia caiu — endpoint, região ou segmento.", tag: vocab.incident }
+  - { front: "degraded", back: "Funciona mal — lento ou intermitente. Não é down.", tag: vocab.incident }
+  - { front: "customer-facing", back: "O cliente final sente.", tag: vocab.incident }
+  - { front: "blast radius", back: "Quem/o quê é atingido — 'contained' acalma.", tag: vocab.incident }
+  - { front: "error rate", back: "% de requests falhando — 'at 40% and climbing'.", tag: vocab.incident }
+  - { front: "affected", back: "Quem sofre — 'a third of checkouts are affected'.", tag: vocab.incident }
+  - { front: "workaround", back: "Caminho alternativo enquanto quebra.", tag: vocab.incident }
+  - { front: "status page", back: "A página pública onde as atualizações moram.", tag: vocab.incident }
+  - { front: "impact", back: "A consequência — 'failed checkouts, revenue hit'.", tag: vocab.incident }
+  - { front: "climbing / spiking", back: "Métrica subindo — 'error rate is climbing'.", tag: vocab.incident }
+
+review:
+  preferTags: [vocab.incident, br.in-this-moment, br.normalized]
+  notes: "Revisão prioriza o léxico de severidade e os calques de status update."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
