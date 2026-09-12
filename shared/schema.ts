@@ -187,6 +187,18 @@ export const ModuleAssessmentSchema = z.object({
 });
 export type ModuleAssessment = z.infer<typeof ModuleAssessmentSchema>;
 
+// ---------- Avaliação de nível (30 itens + escrita + fala; a "simulação" é a fala) ----------
+export const LevelAssessmentSchema = z.object({
+  id: z.string().regex(/^L\d$/),
+  title: z.string().min(1),
+  intro: z.string().min(1),
+  items: z.array(ExerciseSchema).min(30),
+  writing: WritingSpecSchema,
+  speaking: SpeakingModeASchema,
+  pass: PassRuleSchema.default({ itemsMin: 0.75, writingMin: 3.5, speakingMin: 3 }),
+});
+export type LevelAssessment = z.infer<typeof LevelAssessmentSchema>;
+
 // ---------- Trilha ----------
 export const LessonRefSchema = z.object({ id: z.string().regex(/^M\d{2}-\d{2}$/), title: z.string().min(1), simulation: z.boolean().default(false) });
 export type LessonRef = z.infer<typeof LessonRefSchema>;
@@ -256,6 +268,7 @@ export type ContentBundle = {
   lessons: Record<string, Lesson>;
   modules: Record<string, ModuleFile>;
   moduleAssessments: Record<string, ModuleAssessment>;
+  levelAssessments: Record<string, LevelAssessment>;
   tags: Tag[];
   brErrors: BrErrorPattern[];
   placement: Placement;

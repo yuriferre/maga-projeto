@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { levels, hasContent } from "../lib/content.ts";
+import { levels, hasContent, content } from "../lib/content.ts";
 import { useOverview } from "../lib/useOverview.ts";
 import { Card } from "../components/ui/Card.tsx";
 import { Badge } from "../components/ui/Badge.tsx";
@@ -49,6 +49,20 @@ export function Levels() {
                 );
               })}
             </ul>
+            {content.levelAssessments[`L${level.id}`] && (() => {
+              const approved = level.modules.filter((m) => modules[m.id]?.passed).length;
+              const open = approved === level.modules.length;
+              return (
+                <Link
+                  to={open ? `/levels/${level.id}/assessment` : "#"}
+                  aria-disabled={!open}
+                  className={`mt-4 flex items-center justify-between rounded-md border p-3 text-sm ${open ? "border-indigo-300 bg-indigo-50 font-medium text-indigo-800 hover:border-indigo-400" : "pointer-events-none border-slate-200 text-slate-400"}`}
+                >
+                  <span>Avaliação do nível {level.id}</span>
+                  {open ? <Badge tone="blue">30 itens + escrita + fala</Badge> : <Badge>{approved}/{level.modules.length} módulos aprovados</Badge>}
+                </Link>
+              );
+            })()}
           </Card>
         );
       })}

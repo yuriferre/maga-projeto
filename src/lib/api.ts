@@ -49,6 +49,11 @@ export type ModuleAssessmentState = {
   latest: AssessmentRecord | null;
   run: { answered: string[]; writing: WritingRow | null; speaking: SpeakingRow | null };
 };
+export type LevelAssessmentState = {
+  eligible: { modulesTotal: number; modulesDone: number; missing: string[] };
+  latest: AssessmentRecord | null;
+  run: { answered: string[]; writing: WritingRow | null; speaking: SpeakingRow | null };
+};
 export type { Block, Exercise, WeekGoal, Dashboard, PlacementAssessment, PlacementSpeakingMetrics, WritingRow, SpeakingRow, WritingFeedback, SpeakingMetrics, TagStat, CardRow, CardCounts, Maturity, AssessmentRecord, AssessmentMissing };
 
 export const api = {
@@ -77,6 +82,13 @@ export const api = {
   submitModuleSpeaking: (id: string, body: { mode: "A"; transcript: string; durationSec: number; selfConfidence?: number }) =>
     post<{ id: number; metrics: SpeakingMetrics }>(`/api/modules/${id}/assessment/speaking`, body),
   finishModuleAssessment: (id: string) => post<{ assessment: AssessmentRecord }>(`/api/modules/${id}/assessment/finish`),
+
+  // avaliação de nível
+  levelAssessmentState: (n: number) => request<LevelAssessmentState>(`/api/levels/${n}/assessment/state`),
+  submitLevelWriting: (n: number, body: { text: string; selfScore?: number }) => post<{ id: number; feedback: WritingFeedback }>(`/api/levels/${n}/assessment/writing`, body),
+  submitLevelSpeaking: (n: number, body: { mode: "A"; transcript: string; durationSec: number; selfConfidence?: number }) =>
+    post<{ id: number; metrics: SpeakingMetrics }>(`/api/levels/${n}/assessment/speaking`, body),
+  finishLevelAssessment: (n: number) => post<{ assessment: AssessmentRecord }>(`/api/levels/${n}/assessment/finish`),
 
   // painel, metas, sessões
   dashboard: (days = 30) => request<Dashboard>(`/api/dashboard?days=${days}`),

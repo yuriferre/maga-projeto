@@ -75,3 +75,18 @@ export function moduleEligibility(content: Pick<ContentBundle, "levels" | "lesso
   const missing = withContent.filter((id) => !done.has(id));
   return { lessonsTotal: withContent.length, lessonsDone: withContent.length - missing.length, missing };
 }
+
+/** Módulos do nível cuja última avaliação de módulo passou. Nível sem avaliações → tudo pendente. */
+export function levelEligibility(content: Pick<ContentBundle, "levels">, assessments: AssessmentRow[], levelId: number): { modulesTotal: number; modulesDone: number; missing: string[] } {
+  const refs = content.levels.find((l) => l.id === levelId)?.modules.map((m) => m.id) ?? [];
+  const latest = new Map<string, AssessmentRow>();
+  for (const row of assessments.filter((a) => a.kind === "module" && refs.includes(a.ref))) {
+    const cur = latest.get(row.ref);
+    if (!cur || row.ts > cur.ts || (row.ts === cur.ts && row.id > cur.id)) latest.set(row.ref, row);
+  }
+  const missing = refs.filter((id) => {
+    const row = latest.get(id);
+    return !row || !(JSON.parse(row.score_json) as AssessmentResult).passed;
+  });
+  return { modulesTotal: refs.length, modulesDone: refs.length - missing.length, missing };
+}

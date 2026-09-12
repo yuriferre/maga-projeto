@@ -1,0 +1,88 @@
+# Avaliação do Nível 1 (E5): 30 itens cobrindo todas as tags do nível + escrita (ticket completo) + fala (standup + pedir ajuda).
+id: L1
+title: "Avaliação do Nível 1: Foundation"
+intro: |
+  Trinta itens mistos cobrindo os seis módulos, uma escrita e uma gravação de 90 segundos. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3,5, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: L1-A01, type: multiple_choice, prompt: "Which is a complete standup update?", options: ["\"Today I'll finish the migration.\"", "\"Yesterday I closed the IAM ticket; today I'm on the billing alert; blocked on the sandbox account.\"", "\"No blockers.\"", "\"Still working on stuff.\""], answer: 1, explanation: "Yesterday + today + blockers — as três partes do update.", tags: [vocab.standup] }
+  - { id: L1-A02, type: error_correction, prompt: "I work on this project since March.", accepted: ["I have worked on this project since March.", "I have worked on this project since March", "I've been working on this project since March.", "I've worked on this project since March."], explanation: "since pede present perfect: \"have worked\" / \"have been working\".", tags: [br.since-present, gram.since-for] }
+  - { id: L1-A03, type: error_correction, prompt: "I need the review until Friday — it's a hard deadline.", accepted: ["I need the review by Friday — it's a hard deadline.", "I need the review by Friday — it's a hard deadline", "I need the review by Friday."], explanation: "Prazo limite é \"by\" — \"until\" é duração contínua.", tags: [br.until-by, gram.by-until] }
+  - { id: L1-A04, type: error_correction, prompt: "I stayed until lately fixing the deploy, and we lost the deadline anyway.", accepted: ["I stayed late fixing the deploy, and we missed the deadline anyway.", "I stayed late fixing the deploy, and we missed the deadline anyway", "I stayed late fixing the deploy and we missed the deadline anyway.", "I worked late fixing the deploy, and we missed the deadline anyway."], explanation: "Dois erros: \"until lately\" → late (lately = recentemente); \"lost the deadline\" → missed.", tags: [br.until-late, br.lose-the-deadline, gram.time-expressions] }
+  - { id: L1-A05, type: translate, prompt: "Eu diria mais ou menos uma hora — depende do review.", accepted: ["I'd say roughly an hour — it depends on the review.", "I'd say roughly an hour — it depends on the review", "I'd say about an hour — it depends on the review.", "I'd say about an hour, it depends on the review."], explanation: "\"I'd say\" + \"roughly/about\" + \"depends on\" — a estimativa com hedge.", tags: [gram.hedging, vocab.standup, br.depend-of] }
+  - { id: L1-A06, type: fill_blank, prompt: "I haven't finished the migration ___ — still on it.", accepted: ["yet"], explanation: "Negativa com yet no fim; \"still\" na frase seguinte.", tags: [gram.still-yet-already] }
+  - { id: L1-A07, type: error_correction, prompt: "The nightly job is giving error again.", accepted: ["The nightly job is failing again.", "The nightly job is failing again", "The nightly job is throwing an error again.", "The nightly job is erroring again."], explanation: "\"giving error\" é calque — failing / throwing an error.", tags: [br.giving-error, vocab.errors] }
+  - { id: L1-A08, type: multiple_choice, prompt: "How do you report a metric change in a standup?", options: ["\"Coverage went to 80%.\"", "\"Coverage is on 80% since ever.\"", "\"Coverage has went to 80%.\"", "\"Coverage has gone up to 80% — it was 60% last sprint.\""], answer: 3, explanation: "Present perfect para a mudança + o número com \"to\".", tags: [gram.numbers-percentages, gram.present-perfect] }
+  - { id: L1-A09, type: error_correction, prompt: "It depends of the reviewer — I'm still waiting it.", accepted: ["It depends on the reviewer — I'm still waiting for it.", "It depends on the reviewer — I'm still waiting for it", "It depends on the reviewer — I'm still waiting on it."], explanation: "Dois calques: \"depends on\" + \"waiting for/on\".", tags: [br.depend-of, br.waiting-no-prep] }
+  - { id: L1-A10, type: error_correction, prompt: "Actually, I pretend to deploy only on Friday.", accepted: ["Currently, I intend to deploy only on Friday.", "Currently, I intend to deploy only on Friday", "Right now I intend to deploy only on Friday."], explanation: "Dois falsos amigos: actually=na verdade (atualmente é currently); pretend=fingir (pretender é intend).", tags: [br.actually, br.pretend] }
+  - { id: L1-A11, type: fill_blank, prompt: "We ___ deploying the hotfix at 6pm — it's on the calendar.", accepted: ["are", "'re"], explanation: "Present continuous para plano marcado: \"we're deploying\".", tags: [gram.future-plans, vocab.ci] }
+  - { id: L1-A12, type: multiple_choice, prompt: "Which is the most polite way to ask for a review?", options: ["\"Review my PR.\"", "\"Can you review now?\"", "\"Could you take a look when you get a chance?\"", "\"You must review this.\""], answer: 2, explanation: "Could + when you get a chance — educado e escalável.", tags: [gram.modals-polite] }
+  - { id: L1-A13, type: error_correction, prompt: "Do you can check the pod status?", accepted: ["Can you check the pod status?", "Can you check the pod status", "Could you check the pod status?"], explanation: "Auxiliar duplo: ou do ou o modal.", tags: [br.do-modal] }
+  - { id: L1-A14, type: error_correction, prompt: "Sorry for interrupt, but can you repeat the threshold?", accepted: ["Sorry to interrupt, but can you repeat the threshold?", "Sorry to interrupt, but can you repeat the threshold", "Sorry to interrupt — could you repeat the threshold?", "Sorry for interrupting, but can you repeat the threshold?"], explanation: '"sorry to interrupt" (infinitivo) — "could" deixa ainda mais suave.', tags: [br.sorry-for-interrupt, gram.softeners] }
+  - { id: L1-A15, type: error_correction, prompt: "I need that you check the quota first.", accepted: ["I need you to check the quota first.", "I need you to check the quota first"], explanation: "\"need you to\" — inglês não usa \"need that\".", tags: [br.need-that-you] }
+  - { id: L1-A16, type: error_correction, prompt: "Did you saw the alert last night?", accepted: ["Did you see the alert last night?", "Did you see the alert last night"], explanation: "did já carrega o passado: see.", tags: [br.did-past] }
+  - { id: L1-A17, type: multiple_choice, prompt: "Which is the correct indirect question?", options: ["\"Do you know where is the config?\"", "\"Do you know where does the config live?\"", "\"Do you know where the config is?\"", "\"Do you know where the config?\""], answer: 2, explanation: "Pergunta indireta perde a inversão: \"where the config is\".", tags: [gram.indirect-questions, gram.question-forms] }
+  - { id: L1-A18, type: error_correction, prompt: "Can I make a question? I have a doubt about the timeout.", accepted: ["Can I ask a question? I have a question about the timeout.", "Can I ask a question? I have a question about the timeout", "Can I ask a question? One question about the timeout."], explanation: "Dois calques: \"ask a question\" + \"have a question\" (doubt = desconfiança).", tags: [br.make-a-question, br.doubt] }
+  - { id: L1-A19, type: error_correction, prompt: "Can you explain me the backoff strategy?", accepted: ["Can you explain the backoff strategy to me?", "Can you explain the backoff strategy to me", "Can you explain the backoff strategy?", "Can you explain the backoff strategy"], explanation: "explain não leva pessoa como objeto direto.", tags: [br.explain-me] }
+  - { id: L1-A20, type: match, prompt: "Associe o estado do pod ao significado.", pairs: [{ left: "ImagePullBackOff", right: "can't pull the image" }, { left: "CrashLoopBackOff", right: "starts, crashes, restarts" }, { left: "Pending", right: "waiting for resources" }, { left: "OOMKilled", right: "ran out of memory" }], explanation: "Os quatro estados clássicos do kubectl.", tags: [vocab.k8s] }
+  - { id: L1-A21, type: error_correction, prompt: "I am agree — we ship on next week.", accepted: ["I agree — we ship next week.", "I agree — we ship next week", "Agreed — we ship next week."], explanation: "Dois calques: agree sem \"am\" + next week sem \"on\".", tags: [br.i-am-agree, br.on-next, vocab.slack] }
+  - { id: L1-A22, type: error_correction, prompt: "Ask to him to send to me the dashboard link.", accepted: ["Ask him to send me the dashboard link.", "Ask him to send me the dashboard link", "Ask him to send the dashboard link to me."], explanation: "Dois calques: \"ask him\" (sem to) + \"send me\" (sem to).", tags: [br.ask-to, br.send-to-me, vocab.slack] }
+  - { id: L1-A23, type: error_correction, prompt: "She said me to discuss about it with the team.", accepted: ["She told me to discuss it with the team.", "She told me to discuss it with the team", "She told me to discuss this with the team."], explanation: "Dois calques: \"told me\" + discuss sem \"about\".", tags: [br.said-me, br.discuss-about] }
+  - { id: L1-A24, type: multiple_choice, prompt: "Docs use the passive. Which line is correct?", options: ["\"The state file stores in S3 by default.\"", "\"The state file is stored in S3 by default.\"", "\"The state file is store in S3 by default.\"", "\"The state file is storing in S3 by default.\""], answer: 1, explanation: "Passiva com is + particípio: \"is stored\".", tags: [gram.passive, vocab.iac, gram.prepositions-infra] }
+  - { id: L1-A25, type: error_correction, prompt: "I readed the runbook for to understand the alert.", accepted: ["I read the runbook to understand the alert.", "I read the runbook to understand the alert", "I read the runbook to understand the alert."], explanation: "Dois erros: read (irregular, sem -ed) + to (finalidade, sem for).", tags: [br.irregular-past, br.for-to] }
+  - { id: L1-A26, type: error_correction, prompt: "According with the dashboard, the new version is more easy to read.", accepted: ["According to the dashboard, the new version is easier to read.", "According to the dashboard, the new version is easier to read"], explanation: "Dois calques: \"according to\" + \"easier\" (adjetivo curto).", tags: [br.according-with, br.more-er, vocab.observability] }
+  - { id: L1-A27, type: error_correction, prompt: "The admin service listen in port 9090.", accepted: ["The admin service listens on port 9090.", "The admin service listens on port 9090"], explanation: "Dois erros: listens (3ª pessoa) + on (porta).", tags: [br.third-person-s, br.listen-in, vocab.architecture] }
+  - { id: L1-A28, type: error_correction, prompt: "The packet arrive on the pod and the endpoint returns datas.", accepted: ["The packet arrives at the pod and the endpoint returns data.", "The packet arrives at the pod and the endpoint returns data", "The packet reaches the pod and the endpoint returns data."], explanation: "Três erros: arrives at + data sem plural.", tags: [br.arrive-on, br.uncountable, gram.present-simple-process] }
+  - { id: L1-A29, type: error_correction, prompt: "The ticket needs the steps for reproduce — verify if the bug happens on staging.", accepted: ["The ticket needs the steps to reproduce — check whether the bug happens on staging.", "The ticket needs the steps to reproduce — check whether the bug happens on staging", "The ticket needs the steps to reproduce — check if the bug happens on staging."], explanation: "Dois calques: \"steps to\" + \"check whether\".", tags: [br.steps-for, br.verify-if] }
+  - { id: L1-A30, type: multiple_choice, prompt: "Which PR title and follow-up are correct?", options: ["\"fix(checkout): return 422 for empty cart — merge into main; if it breaks, revert the commit.\"", "\"fixed the cart bug — merge in main; if it breaks, revert back.\"", "\"fix(checkout): returned 422 — merge into main; revert back if needed.\"", "\"fix: cart — merge into main and revert back if needed.\""], answer: 0, explanation: "Imperativo + merge into + revert sem \"back\".", tags: [gram.imperative, br.merge-in, br.revert-back, vocab.tickets-prs] }
+
+writing:
+  prompt: |
+    **Cenário final do nível:** um ticket completo de verdade. O bug: a página de billing retorna 502 quando o usuário não tem um cartão cadastrado — produção, toda vez.
+
+    **Tarefa:** escreva o ticket completo em texto corrido (80–120 palavras): título com sintoma + endpoint + gatilho, contexto, passos para reproduzir, expected × actual, workaround e severidade.
+  constraints:
+    - { label: "Título com sintoma + endpoint + gatilho", pattern: "\\b(50[0-9]|billing|card|endpoint|get|post|page)\\b" }
+    - { label: "Passos numerados no imperativo", pattern: "\\b(steps to reproduce|1\\.|2\\.|open|log in|click|go to)\\b" }
+    - { label: "Expected × actual", pattern: "\\b(expected|actual)\\b" }
+    - { label: "Workaround ou severidade", pattern: "\\b(workaround|severity|impact|every time|production)\\b" }
+  rubric:
+    - "Título: sintoma + endpoint + gatilho"
+    - Steps to reproduce numerados e imperativos
+    - Expected × actual declarados
+    - Workaround + severity; sem os calques do nível
+  model: >-
+    Title: '502 on the billing page when the user has no saved card'. Context:
+    production — every account without a card hits it. Steps to reproduce: 1.
+    Log in with a fresh account. 2. Open /billing. 3. Observe the 502. Expected:
+    the page renders an empty state asking for a card. Actual: a 502 and a blank
+    screen — the user can't even read the error. Workaround: add a card through
+    the API directly. Severity: high — every new signup without a card is
+    locked out of billing entirely.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.tickets-prs]
+
+speaking:
+  prompt: "Grave 90 segundos: a simulação dupla do nível — primeiro um update de standup completo (yesterday / today / blockers), depois o pedido de ajuda sobre o erro que encontrou (contexto → o que tentou → a pergunta). Um take só."
+  maxSeconds: 90
+  targetPhrases:
+    - yesterday i
+    - today i'm
+    - blocked on
+    - i need a hand
+    - could you
+    - what i've tried
+    - steps to reproduce
+    - expected versus actual
+    - i have a question
+    - sorry to jump in
+    - eod my time
+    - the request goes through
+    - sits behind
+    - merge into main
+    - good catch
+    - p-t-a-l
+
+pass: { itemsMin: 0.75, writingMin: 3.5, speakingMin: 3 }

@@ -3,8 +3,8 @@ import { join } from "node:path";
 import { parse } from "yaml";
 import type { z } from "zod";
 import {
-  BrErrorsFileSchema, GlossaryFileSchema, LessonSchema, LevelsFileSchema, ModuleAssessmentSchema, ModuleFileSchema, PlacementSchema, TagsFileSchema, placementExercises,
-  type ContentBundle, type Exercise, type GlossaryFile, type Lesson, type ModuleAssessment, type ModuleFile,
+  BrErrorsFileSchema, GlossaryFileSchema, LessonSchema, LevelAssessmentSchema, LevelsFileSchema, ModuleAssessmentSchema, ModuleFileSchema, PlacementSchema, TagsFileSchema, placementExercises,
+  type ContentBundle, type Exercise, type GlossaryFile, type Lesson, type LevelAssessment, type ModuleAssessment, type ModuleFile,
 } from "./schema.ts";
 
 function readYaml<S extends z.ZodType>(path: string, schema: S, problems: string[]): z.infer<S> | undefined {
@@ -28,6 +28,18 @@ export function loadContent(root: string): ContentBundle {
   const lessons: Record<string, Lesson> = {};
   const modules: Record<string, ModuleFile> = {};
   const moduleAssessments: Record<string, ModuleAssessment> = {};
+  const levelAssessments: Record<string, LevelAssessment> = {};
+  const levelsDir = join(root, "levels");
+  if (existsSync(levelsDir)) {
+    for (const file of readdirSync(levelsDir).filter((f) => /^level-\d\.yaml$/.test(f)).sort()) {
+      const fileLevel = Number(file.match(/\d/)![0]);
+      const la = readYaml(join(levelsDir, file), LevelAssessmentSchema, problems);
+      if (la) {
+        if (la.id !== `L${fileLevel}`) problems.push(`${join(levelsDir, file)}: id '${la.id}' não bate com o arquivo 'level-${fileLevel}.yaml'`);
+        levelAssessments[la.id] = la;
+      }
+    }
+  }
   const modulesDir = join(root, "modules");
   if (existsSync(modulesDir)) {
     for (const moduleId of readdirSync(modulesDir).filter((d) => statSync(join(modulesDir, d)).isDirectory()).sort()) {
@@ -66,7 +78,7 @@ export function loadContent(root: string): ContentBundle {
   if (problems.length > 0 || !levels || !tags || !brErrors || !placement) {
     throw new Error(`Conteúdo inválido:\n- ${problems.join("\n- ")}`);
   }
-  return { levels: levels.levels, lessons, modules, moduleAssessments, tags: tags.tags, brErrors: brErrors.patterns, placement, glossary };
+  return { levels: levels.levels, lessons, modules, moduleAssessments, levelAssessments, tags: tags.tags, brErrors: brErrors.patterns, placement, glossary };
 }
 
 export function allExercises(lesson: Lesson): Array<{ exercise: Exercise; block: "quiz" | "listening" }> {
@@ -149,6 +161,21 @@ export function crossValidate(bundle: ContentBundle): string[] {
   for (const a of Object.values(bundle.moduleAssessments)) {
     const where = `avaliação ${a.id}`;
     if (!roadmapModuleIds.has(a.id)) problems.push(`${where}: módulo não existe em levels.yaml`);
+    checkTags(`${where}.writing`, a.writing.tags);
+    if (a.writing.minWords > a.writing.maxWords) problems.push(`${where}: writing.minWords > maxWords`);
+    for (const exercise of a.items) {
+      if (seenExercise.has(exercise.id)) problems.push(`${where}: exercício duplicado '${exercise.id}'`);
+      seenExercise.add(exercise.id);
+      if (!exercise.id.startsWith(`${a.id}-A`)) problems.push(`${where}: exercício '${exercise.id}' deveria começar com '${a.id}-A'`);
+      checkTags(`${where}.${exercise.id}`, exercise.tags);
+      checkExerciseShape(exercise, problems);
+    }
+  }
+
+  for (const a of Object.values(bundle.levelAssessments)) {
+    const where = `avaliação de nível ${a.id}`;
+    const levelNum = Number(a.id.slice(1));
+    if (!bundle.levels.some((l) => l.id === levelNum)) problems.push(`${where}: nível ${levelNum} não existe em levels.yaml`);
     checkTags(`${where}.writing`, a.writing.tags);
     if (a.writing.minWords > a.writing.maxWords) problems.push(`${where}: writing.minWords > maxWords`);
     for (const exercise of a.items) {

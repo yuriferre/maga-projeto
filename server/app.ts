@@ -6,7 +6,7 @@ import { BlockSchema, placementExercises, DEFAULT_PASS_RULE, type ContentBundle 
 import {
   insertAttempt, startLesson, getLessonProgress, completeLesson, listProgress,
   insertWriting, latestWriting, insertSpeaking, insertCards, tagStats,
-  insertAssessment, latestAssessment, latestModuleAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince, ensureWeekGoal,
+  insertAssessment, latestAssessment, latestModuleAssessments, latestAttemptsSince, latestWritingSince, latestSpeakingSince, ensureWeekGoal, listAssessments,
   upsertWeekGoal, latestStudySession, insertStudySession, extendStudySession,
   dueCards, getCard, applyReview, cardCounts, insertGlossaryCard,
 } from "./repo.ts";
@@ -17,7 +17,7 @@ import { ruleBasedFeedback } from "./writing-feedback.ts";
 import { computeSpeakingMetrics } from "./speaking-metrics.ts";
 import { wordOverlap } from "../shared/speech-compare.ts";
 import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs, type PlacementSpeakingMetrics } from "./placement.ts";
-import { computeAssessmentResult, missingForAssessment, moduleEligibility, parseAssessmentRecord, type AssessmentInputs } from "./assessment.ts";
+import { computeAssessmentResult, levelEligibility, missingForAssessment, moduleEligibility, parseAssessmentRecord, type AssessmentInputs } from "./assessment.ts";
 import { weekStart } from "./time.ts";
 import { buildDashboard } from "./dashboard.ts";
 
@@ -84,7 +84,10 @@ function sanitizeLimit(raw: string | undefined): number {
 export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   const app = new Hono();
   const placementIds = new Set(placementExercises(content.placement).map((e) => e.exercise.id));
-  const assessmentIds = new Map(Object.entries(content.moduleAssessments).map(([id, a]) => [id, new Set(a.items.map((q) => q.id))]));
+  const assessmentIds = new Map([
+    ...Object.entries(content.moduleAssessments).map(([id, a]) => [id, new Set(a.items.map((q) => q.id))] as const),
+    ...Object.entries(content.levelAssessments).map(([id, a]) => [id, new Set(a.items.map((q) => q.id))] as const),
+  ]);
 
   app.onError((err, c) => {
     console.error(err);
@@ -328,6 +331,68 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   });
 
   app.route("/api/modules", moduleAssessment);
+
+  // ---------- Avaliação de nível (/api/levels/:n/assessment/*, ref "L<n>") ----------
+  const levelAssessment = new Hono();
+
+  levelAssessment.use("/:n/assessment/*", async (c, next) => {
+    if (!content.levelAssessments[`L${c.req.param("n")}`]) return c.json({ error: "nível sem avaliação" }, 404);
+    await next();
+  });
+
+  const levelRun = (ref: string): AssessmentInputs => {
+    const since = latestAssessment(db, "level", ref)?.ts ?? "";
+    return {
+      attempts: latestAttemptsSince(db, ref, "assessment", since),
+      writing: latestWritingSince(db, ref, since),
+      speaking: latestSpeakingSince(db, ref, since),
+    };
+  };
+
+  levelAssessment.get("/:n/assessment/state", (c) => {
+    const ref = `L${c.req.param("n")}`;
+    const latestRow = latestAssessment(db, "level", ref);
+    const run = levelRun(ref);
+    return c.json({
+      eligible: levelEligibility(content, listAssessments(db), Number(c.req.param("n"))),
+      latest: latestRow ? parseAssessmentRecord(latestRow) : null,
+      run: { answered: [...run.attempts.keys()], writing: run.writing ?? null, speaking: run.speaking ?? null },
+    });
+  });
+
+  levelAssessment.post("/:n/assessment/writing", async (c) => {
+    const ref = `L${c.req.param("n")}`;
+    const parsed = WritingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const feedback = ruleBasedFeedback(parsed.data.text, content.levelAssessments[ref]!.writing, content.brErrors, parsed.data.selfScore);
+    const rowId = insertWriting(db, { lessonId: ref, text: parsed.data.text, feedback, score: feedback.score }, now());
+    return c.json({ id: rowId, feedback });
+  });
+
+  levelAssessment.post("/:n/assessment/speaking", async (c) => {
+    const ref = `L${c.req.param("n")}`;
+    const parsed = SpeakingBody.safeParse(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "corpo inválido", issues: parsed.error.issues }, 400);
+    const metrics = computeSpeakingMetrics(parsed.data.transcript, parsed.data.durationSec, content.levelAssessments[ref]!.speaking, content.brErrors);
+    const rowId = insertSpeaking(db, { lessonId: ref, mode: "A", transcript: parsed.data.transcript, metrics, score: metrics.score, selfConfidence: parsed.data.selfConfidence ?? null }, now());
+    return c.json({ id: rowId, metrics });
+  });
+
+  levelAssessment.post("/:n/assessment/finish", (c) => {
+    const ref = `L${c.req.param("n")}`;
+    const eligible = levelEligibility(content, listAssessments(db), Number(c.req.param("n")));
+    if (eligible.missing.length > 0) return c.json({ error: "módulos pendentes", missing: eligible.missing }, 409);
+    const spec = { kind: "level" as const, ref, items: content.levelAssessments[ref]!.items, pass: content.levelAssessments[ref]!.pass };
+    const inputs = levelRun(ref);
+    const missing = missingForAssessment(spec, inputs);
+    if (missing.exercises.length > 0 || missing.writing || missing.speaking) return c.json({ error: "avaliação incompleta", missing }, 409);
+    const ts = now();
+    const result = computeAssessmentResult(spec, inputs, ts);
+    const rowId = insertAssessment(db, { kind: "level", ref, score: result }, ts);
+    return c.json({ assessment: { id: rowId, ts, result } });
+  });
+
+  app.route("/api/levels", levelAssessment);
 
   // ---------- SRS ----------
   const srs = new Hono();

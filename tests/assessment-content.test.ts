@@ -1,13 +1,17 @@
 import { describe, it, expect } from "vitest";
 import { loadContent } from "../shared/content-loader.ts";
 import { checkExercise } from "../shared/scoring.ts";
-import { checkAssessment } from "./lib/check-assessment.ts";
+import { checkAssessment, checkLevelAssessment } from "./lib/check-assessment.ts";
 
 const bundle = loadContent("content");
 const a = bundle.moduleAssessments["M01"]!;
 
 describe("avaliações de módulo", () => {
   for (const moduleId of Object.keys(bundle.moduleAssessments)) checkAssessment(bundle, moduleId);
+});
+
+describe("avaliações de nível", () => {
+  for (const id of Object.keys(bundle.levelAssessments)) checkLevelAssessment(bundle, Number(id.slice(1)), 30);
 });
 
 describe("content/modules/M01/assessment.yaml", () => {
