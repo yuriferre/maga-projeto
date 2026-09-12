@@ -1,0 +1,295 @@
+id: M11-05
+module: M11
+order: 5
+title: "Revisão de mudança de pipeline + discussão de rollout"
+objective: >-
+  Integra o módulo numa reunião real: revisar um PR que muda o pipeline do
+  `payments-api` (novo stage de canary + gate manual) e decidir a
+  estratégia de rollout — léxico de pipeline, falhas, IaC e estratégias
+  juntos numa conversa só.
+durationMin: 40
+competencies: [VOC, SPK, WRI]
+tags: [vocab.ci, vocab.iac, comp.speaking, comp.writing, br.suggested-me, br.was-succeeded]
+prerequisites: [M11-01, M11-02, M11-03, M11-04]
+
+context:
+  scenario: |
+    O PR do Marcos muda o pipeline do `payments-api`: um **stage novo de
+    canary** (5% do tráfego por uma hora, ramp automático se error rates
+    ficarem estáveis), um **gate manual** antes do deploy completo, e um
+    **cleanup job** noturno para o disco do runner. Na revisão, a Ana
+    aponta que o canary stage depende de uma flag que não existe ainda —
+    e o plan do Terraform associado quer **recriar** o bucket de
+    artifacts.
+
+    A simulação junta tudo: ler o diff de pipeline em voz alta (stage,
+    job, step, gate), nomear o risco (flag inexistente → canary sem
+    kill switch), checar o plan do Terraform (o destroy é red flag),
+    e fechar com a decisão de rollout (canary 5% + gate + rollback por
+    flag).
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "pipeline review"
+    meaning: revisão de pipeline — o PR que muda o CI
+    example: "This PR changes the pipeline itself — same rigor as app code."
+    translation: "Este PR muda o pipeline em si — mesmo rigor que código de app."
+    note: "Mudança de CI é mudança de produção — revise igual."
+  - term: "dependency between jobs"
+    meaning: dependência entre jobs — quem precisa de quem
+    example: "The canary stage depends on the flag existing first."
+    translation: "O estágio de canary depende da flag existir primeiro."
+    note: "A ordem dos stages é um grafo de dependências."
+  - term: "to wire up"
+    meaning: ligar — conectar as peças do pipeline
+    example: "The flag isn't wired up yet — the canary has nothing to flip."
+    translation: "A flag ainda não está ligada — o canary não tem o que virar."
+    note: '"wire up X" — conectar, configurar a ligação.'
+  - term: "staged rollout"
+    meaning: rollout em estágios — degraus até 100%
+    example: "A staged rollout: canary 5%, gate, then full."
+    translation: "Um rollout em estágios: canary 5%, trava, depois completo."
+    note: "Stage por stage — o plano de risco crescente."
+  - term: "to hold"
+    meaning: segurar — não deixar avançar
+    example: "Hold the merge until the flag exists."
+    translation: "Segure o merge até a flag existir."
+    note: '"hold the merge/apply" — o bloqueio do review.'
+  - term: "blocking the merge"
+    meaning: travando o merge — o veto do reviewer
+    example: "The missing flag is blocking the merge — fix it first."
+    translation: "A flag ausente está travando o merge — resolva primeiro."
+    note: "O M09 volta: blocking com motivo."
+  - term: "dry run"
+    meaning: simulação — rodar sem efeito real
+    example: "Do a dry run of the canary stage on staging first."
+    translation: "Faça uma simulação do estágio de canary em staging primeiro."
+    note: "O ensaio antes da estreia em prod."
+  - term: "end to end"
+    meaning: ponta a ponta — do commit ao usuário
+    example: "Test the flag end to end — flip it on staging, watch the canary."
+    translation: "Teste a flag ponta a ponta — vire em staging, observe o canary."
+    note: "O teste do caminho inteiro, não só do pedaço."
+  - term: "sign-off"
+    meaning: aprovação formal — o aval que libera
+    example: "Priya's sign-off is the gate — she owns prod releases."
+    translation: "O aval da Priya é a trava — ela é dona dos releases de prod."
+    note: '"sign-off from X" — aprovação formal.'
+  - term: "to ship it"
+    meaning: entregar — o veredito final
+    example: "Flag wired, plan clean, canary staged — ship it."
+    translation: "Flag ligada, plan limpo, canary em estágios — entregue."
+    note: "O veredito quando tudo fecha."
+  - term: "revert plan"
+    meaning: plano de reversão — como desfaz se quebrar
+    example: "The revert plan: flip the flag off, the canary stage stops itself."
+    translation: "O plano de reversão: desligar a flag, o estágio de canary se para sozinho."
+    note: "Declarado no review — não improvisado no incidente."
+  - term: "LGTM with comments"
+    meaning: aprovação com ressalvas — merge com pendências menores
+    example: "LGTM with comments — wire the flag first, then merge."
+    translation: "LGTM com ressalvas — ligue a flag primeiro, depois merge."
+    note: "O meio-termo do review — aprova, mas com dever de casa."
+
+grammar:
+  title: "A revisão de pipeline: ler o diff, nomear o risco, decidir o rollout"
+  explanation: |
+    O review de mudança de pipeline junta os quatro blocos do módulo:
+
+    - **o diff** — o que o PR adiciona: *"a canary stage, a manual gate,
+      a cleanup job"*
+    - **o risco** — a dependência quebrada: *"the canary depends on a flag
+      that doesn't exist yet"*
+    - **o IaC** — o plan associado: *"terraform wants to recreate the
+      artifacts bucket — red flag"*
+    - **a decisão** — o rollout: *"canary 5%, gate before full, flag as
+      kill switch"*
+
+    A frase-modelo do veredito: "**LGTM with comments** — wire the flag
+    first, hold the destroy on the bucket, then ship it." — aprova com
+    pendências, cada uma nomeada.
+  examples:
+    - { en: "The PR adds a canary stage and a manual gate — but the flag it flips doesn't exist yet.", pt: "O PR adiciona um estágio de canary e uma trava manual — mas a flag que ele vira não existe ainda." }
+    - { en: "Hold the merge — the canary stage depends on a flag that isn't wired up.", pt: "Segure o merge — o estágio de canary depende de uma flag que não está ligada." }
+    - { en: "The terraform plan wants to recreate the artifacts bucket — that's a red flag, check for drift.", pt: "O plan do terraform quer recriar o bucket de artefatos — isso é sinal de alerta, verifique drift." }
+    - { en: "Staged rollout: canary at 5% for an hour, manual gate, then full deploy.", pt: "Rollout em estágios: canário a 5% por uma hora, trava manual, depois deploy completo." }
+    - { en: "The revert plan is the flag — flip it off and the canary stops itself.", pt: "O plano de reversão é a flag — desligue e o canário se para sozinho." }
+    - { en: "LGTM with comments: wire the flag, hold the bucket destroy, then ship it.", pt: "LGTM com ressalvas: ligue a flag, segure o destroy do bucket, depois entregue." }
+
+examples:
+  - en: "The PR adds a canary stage, a manual gate before full deploy, and a nightly cleanup job."
+    pt: "O PR adiciona um estágio de canary, uma trava manual antes do deploy completo e um job noturno de limpeza."
+    context: "Ler o diff em voz alta — o que entra."
+  - en: "Blocking: the canary stage depends on a flag that isn't wired up yet."
+    pt: "Bloqueante: o estágio de canary depende de uma flag que ainda não está ligada."
+    context: "O veto com o motivo — a dependência quebrada."
+  - en: "The terraform plan wants to recreate the artifacts bucket — destroy plus create."
+    pt: "O plan do terraform quer recriar o bucket de artefatos — destroy mais create."
+    context: "O IaC entra no review — o destroy é red flag."
+  - en: "Someone created that bucket in the console — classic drift, refresh the state."
+    pt: "Alguém criou aquele bucket no console — drift clássico, refresh o state."
+    context: "O destroy inesperado quase sempre é drift."
+  - en: "Do a dry run on staging first — flip the flag, watch the canary stage end to end."
+    pt: "Faça uma simulação em staging primeiro — vire a flag, observe o estágio de canary ponta a ponta."
+    context: "O ensaio antes de prod."
+  - en: "Staged rollout: 5% canary for an hour, manual gate, then full — revert is the flag."
+    pt: "Rollout em estágios: canário a 5% por uma hora, trava manual, depois completo — a reversão é a flag."
+    context: "O plano de rollout com o revert embutido."
+  - en: "Priya's sign-off is the gate — she owns Friday releases."
+    pt: "O aval da Priya é a trava — ela é dona dos releases de sexta."
+    context: "O gate manual com dono."
+  - en: "Flag wired, plan clean, canary staged — ship it."
+    pt: "Flag ligada, plan limpo, canary em estágios — entregue."
+    context: "O veredito quando tudo fecha."
+
+variations:
+  - idea: '"o comentário de review no PR de pipeline"'
+    items:
+      - { register: "Boa", text: "Blocking: the canary stage depends on a flag that isn't wired up. Also — the tf plan wants to recreate the artifacts bucket; check for drift before apply.", adequate: true }
+      - { register: "Boa", text: "LGTM with comments: wire the flag first, hold the bucket destroy, dry-run the canary on staging.", adequate: true }
+      - { register: "Inadequada", text: "Pipeline change looks fine, merge it.", adequate: false, note: "Review de pipeline sem ler dependências nem o plan é carimbo, não revisão." }
+      - { register: "Inadequada", text: "This is wrong, rewrite everything.", adequate: false, note: "Veto sem nomear o problema nem a alternativa — M09 de novo." }
+  - idea: '"a discussão de rollout"'
+    items:
+      - { register: "Boa", text: "Staged rollout: canary 5% for an hour watching error rates, manual gate with Priya's sign-off, full deploy Monday.", adequate: true }
+      - { register: "Boa", text: "Revert plan: flip the flag — the canary stage stops itself. No redeploy.", adequate: true }
+      - { register: "Inadequada", text: "Just deploy it Friday at 5pm, we'll see what happens.", adequate: false, note: "Deploy de sexta às 17h sem plano de volta é a lenda do incidente de fim de semana." }
+      - { register: "Inadequada", text: "Canary is too complicated, let's do blue/green instead for this small change.", adequate: false, note: "Trocar de estratégia sem comparar custo/blast radius é preferência disfarçada de análise." }
+
+brErrors:
+  - { wrong: "Marcos suggested me to add a gate.", right: "Marcos suggested that I add a gate.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "The deploy was succeeded after the flag.", right: "The deploy succeeded after the flag.", why: "succeed não tem passiva", tag: br.was-succeeded }
+  - { wrong: "The canary depends in the flag.", right: "The canary depends on the flag.", why: "depends on", tag: br.depends-in }
+  - { wrong: "I applied the terraform for the bucket.", right: "I ran terraform apply for the bucket.", why: '"terraform apply"', tag: br.apply-terraform }
+  - { wrong: "The gate not blocks the merge.", right: "The gate doesn't block the merge.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same pipeline of the docs repo.", right: "It's the same pipeline as the docs repo.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "Before to merge, check the plan.", right: "Before merging, check the plan.", why: "before + gerúndio", tag: br.after-to }
+  - { wrong: "We losed the state lock.", right: "We lost the state lock.", why: "lost, não losed", tag: br.irregular-past }
+  - { wrong: "I need that you wire the flag.", right: "I need you to wire the flag.", why: "need + you + to", tag: br.need-that-you }
+  - { wrong: "Can you explain me the dry run?", right: "Can you explain the dry run to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "A revisão do PR de pipeline"
+  lines:
+    - { speaker: Marcos, text: "PR up: canary stage at 5% with auto-ramp, manual gate before full deploy, and a nightly cleanup job for the runner disk." }
+    - { speaker: Yuri, text: "Reading the diff… the canary stage flips a flag — but that flag isn't wired up yet. There's nothing to flip." }
+    - { speaker: Marcos, text: "Ah — the flag lands in a separate PR next week." }
+    - { speaker: Yuri, text: "Then it's blocking: the stage depends on a flag that doesn't exist. Wire it up first, or the canary is decoration." }
+    - { speaker: Ana, text: "And check the terraform plan attached — it wants to recreate the artifacts bucket. Destroy plus create." }
+    - { speaker: Marcos, text: "Wait, why? I only added a lifecycle rule." }
+    - { speaker: Ana, text: "Someone created that bucket in the console — classic drift. Refresh the state, the plan probably goes clean." }
+    - { speaker: Priya, text: "And the rollout itself — walk me through it." }
+    - { speaker: Marcos, text: "Staged: canary at 5% for an hour, watch error rates, manual gate needs your sign-off, then full deploy Monday." }
+    - { speaker: Priya, text: "Revert plan?" }
+    - { speaker: Marcos, text: "Flip the flag — the canary stage stops itself. No redeploy." }
+    - { speaker: Priya, text: "Yuri's call — verdict?" }
+    - { speaker: Yuri, text: "LGTM with comments: wire the flag first, hold the bucket destroy until we confirm the drift, dry-run the canary on staging end to end. Then ship it." }
+  notes:
+    - "as quatro camadas numa conversa: o diff, a dependência quebrada, o drift no plan, o rollout."
+    - "'LGTM with comments' — aprova com dever de casa nomeado."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A pipeline change is a production change — the PR that edits the CI deserves the same rigor as app code. Read the diff for what it adds, check what each new stage depends on, and never skip the attached terraform plan." }
+    - { speaker: Ana, text: "The classic review catch is the missing dependency — a canary stage that flips a flag that doesn't exist yet, a job that needs an artifact nobody produces. Ask 'what does this depend on' for every new block." }
+    - { speaker: Yuri, text: "And the terraform plan riding along with the PR gets read too — a 'wants to recreate' on anything stateful is a red flag, and nine times out of ten it's drift, someone clicked in the console." }
+    - { speaker: Priya, text: "The rollout discussion closes the review: what's the blast radius at each step, what do we watch during the ramp, and how do we go back. 'Flip the flag' is a revert plan; 'we'll figure it out' is not." }
+  questions:
+    - { id: M11-05-l1, type: multiple_choice, prompt: "A pipeline PR deserves…", options: ["a quick approve", "no review — it's just YAML", "the same rigor as app code — it's a production change", "only a terraform check"], answer: 2, explanation: "CI muda produção — revise igual.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-05-l2, type: multiple_choice, prompt: "The classic catch in a pipeline review is…", options: ["the missing dependency — a stage that needs something that doesn't exist yet", "a typo", "a slow job", "a bad name"], answer: 0, explanation: "Pergunte 'de quê isso depende' para cada bloco novo.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-05-l3, type: fill_blank, prompt: "The flag isn't ___ up yet — the canary has nothing to flip.", accepted: ["wired"], explanation: '"wire up" — conectar, configurar.', tags: [vocab.ci] }
+    - { id: M11-05-l4, type: error_correction, prompt: "The canary depends in the flag.", accepted: ["The canary depends on the flag.", "The canary depends on the flag"], explanation: "depends on.", tags: [br.depends-in] }
+    - { id: M11-05-l5, type: multiple_choice, prompt: "A 'wants to recreate' on the artifacts bucket is…", options: ["fine — it's just a bucket", "a red flag — check for drift before any apply", "a no-op", "a cache miss"], answer: 1, explanation: "Destroy inesperado → provável drift.", tags: [comp.listening, vocab.iac] }
+    - { id: M11-05-l6, type: multiple_choice, prompt: "'Flip the flag' as a revert plan is…", options: ["not a plan", "too slow", "a redeploy", "a real plan — instant, no redeploy; 'we'll figure it out' is the non-plan"], answer: 3, explanation: "Kill switch declarado vs improviso.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-05-l7, type: fill_blank, prompt: "___ with comments — wire the flag first, then merge.", accepted: ["LGTM"], explanation: "LGTM with comments — aprova com pendências.", tags: [vocab.ci] }
+    - { id: M11-05-l8, type: multiple_choice, prompt: "The staged rollout in the PR is…", options: ["full deploy Friday 5pm", "blue/green then delete", "canary 5% → gate → full deploy Monday", "trunk-based without flags"], answer: 2, explanation: "Degraus com gate humano no meio.", tags: [comp.listening, vocab.ci] }
+
+writing:
+  prompt: |
+    **Cenário:** você revisou o PR de pipeline do Marcos: canary stage a
+    5%, gate manual, cleanup noturno — mas a flag que o canary vira não
+    existe ainda, e o plan do Terraform quer recriar o bucket de
+    artifacts (provável drift de console).
+
+    **Tarefa:** escreva 80–120 palavras com o comentário de review: o que
+    o PR adiciona, o que está bloqueando e por quê, o destroy como red
+    flag, e o veredito (LGTM with comments + pendências).
+  constraints:
+    - { label: "O diff resumido", pattern: "\\b(canary|gate|cleanup|stage|job)\\b" }
+    - { label: "Bloqueio com motivo", pattern: "\\b(blocking|depends|flag|wired|missing|hold)\\b" }
+    - { label: "IaC no review", pattern: "\\b(plan|destroy|recreate|drift|state|terraform)\\b" }
+    - { label: "Veredito", pattern: "\\b(lgtm|ship it|approve|merge|comments)\\b" }
+  rubric:
+    - "Diff resumido (canary + gate + cleanup)"
+    - "Bloqueio: flag não ligada"
+    - "Destroy do bucket como red flag/drift"
+    - "Veredito com pendências nomeadas"
+  model: >-
+    Review on the pipeline PR. The diff adds a canary stage at 5% with
+    auto-ramp, a manual gate before full deploy, and a nightly cleanup job
+    — good structure. One blocking issue: the canary flips a flag that
+    isn't wired up yet, so the stage depends on something that doesn't
+    exist. Also, the attached terraform plan wants to recreate the
+    artifacts bucket — that's a red flag, probably console drift; refresh
+    the state before any apply. LGTM with comments: wire the flag, hold the
+    bucket destroy until confirmed, and dry-run the canary end to end on
+    staging.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.ci]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos com o veredito falado do review: o que o PR adiciona, o que bloqueia, o problema no plan do Terraform e a decisão de rollout."
+    maxSeconds: 60
+    targetPhrases:
+      - the PR adds
+      - canary stage
+      - manual gate
+      - blocking
+      - depends on
+      - wired up
+      - wants to recreate
+      - red flag
+      - drift
+      - staged rollout
+      - LGTM with comments
+      - revert plan
+      - dry run
+      - ship it
+    checklist:
+      - Diff resumido
+      - Bloqueio com motivo
+      - Red flag do plan
+      - Veredito com pendências
+
+quiz:
+  - { id: M11-05-q1, type: multiple_choice, prompt: "The canary stage flips a flag that doesn't exist — that's…", options: ["a nit", "non-blocking", "blocking — the stage depends on something that isn't there", "a refactor"], answer: 2, explanation: "Dependência quebrada trava o merge.", tags: [vocab.ci] }
+  - { id: M11-05-q2, type: error_correction, prompt: "The deploy was succeeded after the flag.", accepted: ["The deploy succeeded after the flag.", "The deploy succeeded after the flag"], explanation: "succeed não tem passiva.", tags: [br.was-succeeded] }
+  - { id: M11-05-q3, type: multiple_choice, prompt: "The terraform plan wanting to recreate the artifacts bucket means…", options: ["normal update", "approve fast", "probably drift — someone clicked in the console; refresh state before applying", "delete the bucket"], answer: 2, explanation: "Destroy inesperado → drift até prova contrária.", tags: [vocab.iac] }
+  - { id: M11-05-q4, type: fill_blank, prompt: "Do a ___ run on staging first.", accepted: ["dry"], explanation: "Dry run — o ensaio sem efeito real.", tags: [vocab.ci] }
+  - { id: M11-05-q5, type: error_correction, prompt: "We losed the state lock.", accepted: ["We lost the state lock.", "We lost the state lock"], explanation: "lost, não losed.", tags: [br.irregular-past] }
+  - { id: M11-05-q6, type: translate, prompt: "LGTM com ressalvas: ligue a flag primeiro, segure o destroy do bucket, depois entregue.", accepted: ["LGTM with comments: wire the flag first, hold the bucket destroy, then ship it.", "LGTM with comments — wire the flag first, hold the bucket destroy, then ship it."], explanation: "LGTM with comments — aprova com pendências.", tags: [vocab.ci] }
+  - { id: M11-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "merge", "hold", "the", "until", "exists", "flag"], answer: "hold the merge until the flag exists", explanation: '"hold the merge" — o veto do review.', tags: [vocab.ci] }
+  - { id: M11-05-q8, type: multiple_choice, prompt: "The revert plan 'flip the flag' works because…", options: ["it's fast to type", "it needs a redeploy", "flags are free", "the canary stage stops itself — no redeploy, no downtime"], answer: 3, explanation: "Kill switch — volta instantânea.", tags: [vocab.ci] }
+
+srsCards:
+  - { front: "pipeline review", back: "Mudança de CI é mudança de produção — mesmo rigor.", tag: vocab.ci }
+  - { front: "wire up", back: "Conectar a dependência — 'the flag isn't wired up'.", tag: vocab.ci }
+  - { front: "staged rollout", back: "Degraus até 100% — canary, gate, full.", tag: vocab.ci }
+  - { front: "hold the merge", back: "O veto do review — 'hold until the flag exists'.", tag: vocab.ci }
+  - { front: "blocking the merge", back: "Travar com motivo — dependência quebrada.", tag: vocab.ci }
+  - { front: "dry run", back: "O ensaio sem efeito — staging antes de prod.", tag: vocab.ci }
+  - { front: "end to end", back: "O caminho inteiro testado, não só o pedaço.", tag: vocab.ci }
+  - { front: "sign-off", back: "A aprovação formal que libera — 'Priya's sign-off'.", tag: vocab.ci }
+  - { front: "revert plan", back: "Como desfaz — declarado no review, não no incidente.", tag: vocab.ci }
+  - { front: "LGTM with comments", back: "Aprova com dever de casa nomeado.", tag: vocab.ci }
+
+review:
+  preferTags: [vocab.ci, vocab.iac, br.suggested-me]
+  notes: "Revisão prioriza a revisão de pipeline e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
