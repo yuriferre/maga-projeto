@@ -368,3 +368,43 @@ describe("content/modules/M11/assessment.yaml", () => {
     expect(checkExercise(q, "Can you explain to me why the pipeline did fail last night?").correct).toBe(false);
   });
 });
+
+describe("content/modules/M12/assessment.yaml", () => {
+  const m12 = bundle.moduleAssessments["M12"]!;
+  it("requires 'died/dead' and 'has been pending since'", () => {
+    const q = m12.items.find((q) => q.id === "M12-A02")!;
+    expect(checkExercise(q, "The pod died — it's been crash-looping since noon. Wait, no — it has been pending since 9am.").correct).toBe(true);
+    expect(checkExercise(q, "The pod is died — it has been pending since 9am.").correct).toBe(false);
+    expect(checkExercise(q, "The pod died — it is pending since 9am.").correct).toBe(false);
+  });
+  it("requires both 'need to see' and 'on the node'", () => {
+    const q = m12.items.find((q) => q.id === "M12-A05")!;
+    expect(checkExercise(q, "I need to see why the pod was scheduled on the node.").correct).toBe(true);
+    expect(checkExercise(q, "I need see why the pod was scheduled on the node.").correct).toBe(false);
+    expect(checkExercise(q, "I need to see why the pod was scheduled in the node.").correct).toBe(false);
+  });
+  it("requires both 'doesn't scale' and 'same as'", () => {
+    const q = m12.items.find((q) => q.id === "M12-A06")!;
+    expect(checkExercise(q, "The HPA doesn't scale on memory — it's the same config as the docs.").correct).toBe(true);
+    expect(checkExercise(q, "The HPA not scales on memory — it's the same config as the docs.").correct).toBe(false);
+    expect(checkExercise(q, "The HPA doesn't scale on memory — it's the same config of the docs.").correct).toBe(false);
+  });
+  it("requires both 'after bumping' and 'suggested that'", () => {
+    const q = m12.items.find((q) => q.id === "M12-A08")!;
+    expect(checkExercise(q, "After bumping the limit, Ana suggested that I watch the rollout.").correct).toBe(true);
+    expect(checkExercise(q, "After to bump the limit, Ana suggested that I watch the rollout.").correct).toBe(false);
+    expect(checkExercise(q, "After bumping the limit, Ana suggested me to watch the rollout.").correct).toBe(false);
+  });
+  it("requires both 'cheaper' and 'chose'", () => {
+    const q = m12.items.find((q) => q.id === "M12-A10")!;
+    expect(checkExercise(q, "The bigger node is cheaper — we chose it for the discount.").correct).toBe(true);
+    expect(checkExercise(q, "The bigger node is more cheap — we chose it for the discount.").correct).toBe(false);
+    expect(checkExercise(q, "The bigger node is cheaper — we choosed it for the discount.").correct).toBe(false);
+  });
+  it("requires both 'explain to me' and 'depends on'", () => {
+    const q = m12.items.find((q) => q.id === "M12-A12")!;
+    expect(checkExercise(q, "Can you explain to me why the HPA depends on CPU?").correct).toBe(true);
+    expect(checkExercise(q, "Can you explain me why the HPA depends on CPU?").correct).toBe(false);
+    expect(checkExercise(q, "Can you explain to me why the HPA depends in CPU?").correct).toBe(false);
+  });
+});

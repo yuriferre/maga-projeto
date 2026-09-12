@@ -1,0 +1,293 @@
+id: M12-02
+module: M12
+order: 2
+title: "Descrevendo estados: crash-looping, pending, evicted, OOMKilled, throttled"
+objective: >-
+  Ao final, você lê um `kubectl get pods` em voz alta e transforma cada
+  STATUS numa frase diagnóstica — "it's crash-looping", "it's been
+  pending since 9am", "it got evicted", "OOMKilled — it hit the memory
+  limit", "it's getting throttled".
+durationMin: 35
+competencies: [VOC, SPK, PRO]
+tags: [vocab.k8s, comp.speaking, br.is-ing-since, br.is-died]
+prerequisites: [M12-01]
+
+context:
+  scenario: |
+    Segunda-feira, 9h. O `kubectl get pods -n payments` mostra o
+    checkout-api verde — e três pods de outros serviços em estados
+    estranhos. Na daily, cada um precisa virar uma frase.
+
+    Cada STATUS é um diagnóstico embrionário: **CrashLoopBackOff** = o
+    container sobe e morre, sobe e morre — "it's crash-looping";
+    **Pending** = o scheduler não achou node — "it's been pending since
+    9am"; **Evicted** = o node expulsou o pod por pressão de recurso —
+    "it got evicted"; **OOMKilled** = passou do memory limit —
+    "it hit the limit and got killed"; **throttled** = passou do CPU
+    limit e o kernel freia — "it's getting throttled"; e
+    **ContainerCreating** preso = a imagem não baixa ou o volume não
+    monta — "it's stuck in ContainerCreating".
+
+    O inglês do estado é sempre o mesmo padrão: sujeito + verbo no
+    gerúndio ou passiva + o PORQUÊ.
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "CrashLoopBackOff"
+    meaning: crash-looping — o container sobe e morre em ciclo
+    example: "The payments pod is crash-looping — it starts, exits, restarts."
+    translation: "O pod do payments está em crash loop — sobe, sai, reinicia."
+    note: "BackOff = o K8s espera cada vez mais entre restarts."
+  - term: "pending"
+    meaning: pendente — o scheduler não achou node
+    example: "The pod has been pending for twenty minutes — no node has room."
+    translation: "O pod está pendente há vinte minutos — nenhum node tem espaço."
+    note: "Pending = ainda nem começou — falta CPU/memória no cluster."
+  - term: "evicted"
+    meaning: expulso — o node tirou o pod por pressão de recurso
+    example: "Three pods got evicted from node-7 — it ran out of disk."
+    translation: "Três pods foram expulsos do node-7 — ficou sem disco."
+    note: "Eviction = o node se protege — node pressure."
+  - term: "OOMKilled"
+    meaning: morto por memória — passou do limit e o kernel matou
+    example: "The pod is OOMKilled — it hit the memory limit and died."
+    translation: "O pod foi OOMKilled — atingiu o limite de memória e morreu."
+    note: "OOM = out of memory — o exit code 137 do M11-02 volta."
+  - term: "throttled"
+    meaning: freado — passou do CPU limit e o kernel limita
+    example: "The API is getting throttled — it's over the CPU limit."
+    translation: "A API está sendo freada — passou do limite de CPU."
+    note: "Throttle ≠ kill — o pod vive, mas lento."
+  - term: "stuck in ContainerCreating"
+    meaning: preso criando — imagem não baixa ou volume não monta
+    example: "The pod is stuck in ContainerCreating — the image pull is timing out."
+    translation: "O pod está preso em ContainerCreating — o pull da imagem está dando timeout."
+    note: "Quase sempre ImagePullBackOff ou volume/PVC pendurado."
+  - term: "ImagePullBackOff"
+    meaning: pull falhou — a imagem não baixa do registry
+    example: "ImagePullBackOff — the tag v2.4.9 doesn't exist in the registry."
+    translation: "ImagePullBackOff — a tag v2.4.9 não existe no registry."
+    note: "Tag errada, registry fora ou credencial expirada."
+  - term: "restart count"
+    meaning: contagem de restarts — quantas vezes o pod já morreu
+    example: "Restart count is 47 — this pod has been dying all night."
+    translation: "A contagem de restarts é 47 — esse pod morreu a noite toda."
+    note: "A coluna RESTARTS do get pods — o termômetro."
+  - term: "back-off"
+    meaning: a espera crescente entre tentativas de restart
+    example: "The back-off is five minutes now — it doubles each crash."
+    translation: "O back-off está em cinco minutos — dobra a cada crash."
+    note: "Por isso 'BackOff' no nome do estado."
+  - term: "to bounce"
+    meaning: reiniciar — matar e deixar subir de novo
+    example: "Just bounce the pod — the deployment recreates it."
+    translation: "Só reinicie o pod — o deployment recria."
+    note: "Bounce = restart informal — 'bounce the pod/service'."
+  - term: "readiness"
+    meaning: prontidão — aceita tráfego ou não
+    example: "The pod is running but not ready — readiness is failing."
+    translation: "O pod está rodando mas não pronto — a readiness está falhando."
+    note: '"not ready" — Running mas fora da rotação do service.'
+  - term: "node pressure"
+    meaning: pressão no node — disco/memória acabando no host
+    example: "Node-7 is under disk pressure — that's why pods got evicted."
+    translation: "O node-7 está sob pressão de disco — por isso os pods foram expulsos."
+    note: "DiskPressure/MemoryPressure/PIDPressure — as condições do node."
+
+grammar:
+  title: "Estado → frase: o padrão sujeito + verbo + porquê"
+  explanation: |
+    Cada STATUS vira uma frase com três peças: **sujeito** (the pod, it),
+    **verbo** (is crash-looping, got evicted, has been pending), e
+    **o porquê** (hit the limit, no node has room, disk pressure).
+
+    | STATUS | a frase | o porquê típico |
+    |---|---|---|
+    | CrashLoopBackOff | "it's crash-looping" | exits on startup — config, porta, dependência |
+    | Pending | "it's been pending since 9am" | scheduler sem node com CPU/memória |
+    | Evicted | "it got evicted" | node pressure — disco/memória do host |
+    | OOMKilled | "it hit the memory limit" | limit baixo ou leak |
+    | throttled | "it's getting throttled" | over the CPU limit — vive, mas lento |
+    | ContainerCreating | "it's stuck creating" | image pull ou volume |
+
+    Dois verbos importam: **got** + particípio para o evento ("got
+    evicted", "got OOMKilled") e **has been** + -ing para o estado que
+    continua ("has been pending since"). O calque "is pending since" é
+    o erro do módulo.
+  examples:
+    - { en: "The worker pod is crash-looping — it starts, hits a bad config, exits.", pt: "O pod do worker está em crash loop — sobe, bate numa config ruim, sai." }
+    - { en: "The batch job has been pending since 9am — no node has the memory it requests.", pt: "O job de batch está pendente desde as 9h — nenhum node tem a memória que ele pede." }
+    - { en: "Three pods got evicted from node-7 — the node ran out of disk.", pt: "Três pods foram expulsos do node-7 — o node ficou sem disco." }
+    - { en: "Checkout got OOMKilled at 3am — restart count was already at 12.", pt: "O checkout foi OOMKilled às 3h — a contagem de restarts já estava em 12." }
+    - { en: "The API is getting throttled — it's over the CPU limit during the peak.", pt: "A API está sendo freada — passa do limite de CPU no pico." }
+    - { en: "The new pod is stuck in ContainerCreating — the image pull is timing out.", pt: "O pod novo está preso em ContainerCreating — o pull da imagem está dando timeout." }
+
+examples:
+  - en: "The payments pod is crash-looping — restart count at 47 and climbing."
+    pt: "O pod do payments está em crash loop — contagem de restarts em 47 e subindo."
+    context: "Crash-loop + restart count — o ciclo visível."
+  - en: "The pod has been pending for twenty minutes — the cluster is full."
+    pt: "O pod está pendente há vinte minutos — o cluster está cheio."
+    context: "Pending = scheduler sem lugar."
+  - en: "It got evicted — node-7 hit disk pressure and the kubelet started cleaning."
+    pt: "Foi expulso — o node-7 bateu pressão de disco e o kubelet começou a limpar."
+    context: "Eviction = o node se defendendo."
+  - en: "OOMKilled — exit code 137, it crossed the 512Mi limit."
+    pt: "OOMKilled — exit code 137, passou do limite de 512Mi."
+    context: "OOM = memória, exit 137."
+  - en: "Latency spiked because the pods are getting throttled — CPU limit is too low."
+    pt: "A latência subiu porque os pods estão sendo freados — o limite de CPU está baixo."
+    context: "Throttle = lento, não morto."
+  - en: "Stuck in ContainerCreating for ten minutes — the volume won't mount."
+    pt: "Preso em ContainerCreating há dez minutos — o volume não monta."
+    context: "ContainerCreating preso = pull ou volume."
+  - en: "ImagePullBackOff — the tag v2.4.9 was never pushed to the registry."
+    pt: "ImagePullBackOff — a tag v2.4.9 nunca foi publicada no registry."
+    context: "Tag inexistente = pull eterno."
+  - en: "The pod is Running but not ready — readiness probe keeps it out of rotation."
+    pt: "O pod está Running mas não ready — a probe o mantém fora da rotação."
+    context: "Running ≠ Ready — a distinção que importa."
+
+variations:
+  - idea: '"ler o get pods na daily"'
+    items:
+      - { register: "Boa", text: "Payments is crash-looping — starts, exits on a bad env var, restarts. Restart count is 47.", adequate: true }
+      - { register: "Boa", text: "The batch pod has been pending since 9am — no node has the memory it requests.", adequate: true }
+      - { register: "Inadequada", text: "Some pods are red, I guess it's broken.", adequate: false, note: "Nomeie o estado — crash-looping, pending, evicted — cada um é um diagnóstico." }
+      - { register: "Inadequada", text: "The pod is died since 9am.", adequate: false, note: "Dois erros: 'is dead' (ou 'died') e 'has been pending since'." }
+  - idea: '"throttled vs morto"'
+    items:
+      - { register: "Boa", text: "It's not dead — it's getting throttled. Latency spikes at peak because the CPU limit is too low.", adequate: true }
+      - { register: "Boa", text: "OOMKilled is a kill — the pod crossed the memory limit and the kernel stopped it.", adequate: true }
+      - { register: "Inadequada", text: "The pod is slow so it must be dead.", adequate: false, note: "Lento ≠ morto — throttled vive, OOMKilled morre." }
+      - { register: "Inadequada", text: "Throttled means it restarted.", adequate: false, note: "Throttle é freio de CPU — sem restart." }
+
+brErrors:
+  - { wrong: "The pod is pending since 9am.", right: "The pod has been pending since 9am.", why: "has been + adj/-ing + since", tag: br.is-ing-since }
+  - { wrong: "The pod is died — restart count is 47.", right: "The pod is dead — restart count is 47.", why: "dead (adj.) ou died", tag: br.is-died }
+  - { wrong: "I need see why it's pending.", right: "I need to see why it's pending.", why: "need to see", tag: br.need-see }
+  - { wrong: "The pod is scheduled in the node.", right: "The pod is scheduled on the node.", why: "on the node", tag: br.in-the-node }
+  - { wrong: "The container not starts — bad env var.", right: "The container doesn't start — bad env var.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same symptom of yesterday.", right: "It's the same symptom as yesterday.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "The node losed disk overnight.", right: "The node lost disk overnight.", why: "lost, não losed", tag: br.irregular-past }
+  - { wrong: "Ana suggested me to raise the limit.", right: "Ana suggested that I raise the limit.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "After to get evicted, the pod rescheduled.", right: "After getting evicted, the pod rescheduled.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "Can you explain me CrashLoopBackOff?", right: "Can you explain CrashLoopBackOff to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "O get pods da segunda-feira"
+  lines:
+    - { speaker: Ana, text: "get pods -n payments — checkout is green, but look at the other services." }
+    - { speaker: Yuri, text: "The worker pod is crash-looping — restart count at 47. Starts, exits, restarts." }
+    - { speaker: Marcos, text: "Bad env var in the last deploy, probably — the container can't reach the queue." }
+    - { speaker: Ana, text: "And the batch job?" }
+    - { speaker: Yuri, text: "Pending — it's been pending since 9am. The scheduler can't find a node with the memory it requests." }
+    - { speaker: Ana, text: "And these three Evicted?" }
+    - { speaker: Yuri, text: "Node-7 ran out of disk — node pressure, the kubelet cleaned house. The pods rescheduled elsewhere." }
+    - { speaker: Priya, text: "And the one in ContainerCreating?" }
+    - { speaker: Marcos, text: "Stuck — ImagePullBackOff. The tag v2.4.9 doesn't exist in the registry; it was never pushed." }
+    - { speaker: Priya, text: "And checkout latency at peak?" }
+    - { speaker: Yuri, text: "The pods get throttled — they cross the CPU limit at noon. Not dead, just slow — we should raise the limit." }
+  notes:
+    - "cada estado vira frase + porquê — o padrão da aula aplicado cinco vezes."
+    - "throttled ≠ dead — a distinção aparece no fecho."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Every pod status is a compressed diagnosis. CrashLoopBackOff means the container starts and exits in a loop — read the logs, it's almost always config, a missing dependency, or a port conflict." }
+    - { speaker: Marcos, text: "Pending means the scheduler can't place it — no node has the CPU or memory the pod requests. It's not failing; it's homeless. And Evicted is the opposite — the node had pressure and pushed the pod out." }
+    - { speaker: Priya, text: "OOMKilled is the kernel killing the container for crossing the memory limit — exit code 137. Throttled is different: the pod stays alive, but the kernel caps its CPU — slow, not dead." }
+    - { speaker: Yuri, text: "And ContainerCreating that won't move means the pod can't even start — the image pull is failing or a volume won't mount. Check events: ImagePullBackOff is the tag that doesn't exist." }
+  questions:
+    - { id: M12-02-l1, type: multiple_choice, prompt: "CrashLoopBackOff means the container…", options: ["never started", "is slow", "starts and exits in a loop — usually config, dependency, or port", "got evicted"], answer: 2, explanation: "Sobe e morre em ciclo.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-02-l2, type: multiple_choice, prompt: "A pending pod is…", options: ["crashing", "homeless — the scheduler can't find a node with the resources it requests", "throttled", "evicted"], answer: 1, explanation: "Pending = sem node, ainda nem começou.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-02-l3, type: fill_blank, prompt: "The pod has been ___ since 9am — no node has room.", accepted: ["pending"], explanation: "has been pending since.", tags: [vocab.k8s, br.is-ing-since] }
+    - { id: M12-02-l4, type: error_correction, prompt: "The pod is died — restart count is 47.", accepted: ["The pod is dead — restart count is 47.", "The pod died — restart count is 47.", "The pod is dead — restart count is 47"], explanation: "dead ou died — nunca 'is died'.", tags: [br.is-died] }
+    - { id: M12-02-l5, type: multiple_choice, prompt: "OOMKilled vs throttled:", options: ["both kill the pod", "OOMKilled kills on memory; throttled caps CPU — slow, not dead", "throttled is worse", "both are node problems"], answer: 1, explanation: "Um mata por memória, o outro freia por CPU.", tags: [comp.listening, vocab.k8s] }
+    - { id: M12-02-l6, type: multiple_choice, prompt: "A pod stuck in ContainerCreating usually means…", options: ["the image pull fails or a volume won't mount", "the pod is OOMKilled", "the service is down", "the ingress is broken"], answer: 0, explanation: "Nem começou — pull ou volume.", tags: [comp.listening, vocab.k8s] }
+
+writing:
+  prompt: |
+    **Cenário:** a Priya pede no canal o resumo do `get pods` de segunda:
+    três serviços com problemas — o worker em crash loop, o batch job
+    pendente e o checkout lento no pico.
+
+    **Tarefa:** escreva 80–120 palavras nomeando cada estado com o
+    porquê: crash-looping com restart count, pending com a razão do
+    scheduler, throttled com a distinção de OOMKilled, e a ação para cada.
+  constraints:
+    - { label: "Estados nomeados", pattern: "\\b(crash.?loop|pending|evicted|oomkilled|throttled|containercreating|imagepull)\\b" }
+    - { label: "O porquê", pattern: "\\b(limit|memory|cpu|node|disk|registry|requests|pressure)\\b" }
+    - { label: "Evidência", pattern: "\\b(restart count|exit code|since|for \\d|get pods|events)\\b" }
+    - { label: "Ação", pattern: "\\b(raise|fix|push|restart|bounce|add|schedule)\\b" }
+  rubric:
+    - "Cada estado + porquê"
+    - "Throttled distinguido de morto"
+    - "Restart count / evidência citada"
+    - "Ação por problema"
+  model: >-
+    Morning get pods, three issues. The worker pod is crash-looping —
+    restart count at 47; it starts, hits a bad env var, exits. Fix: the
+    queue URL in the last deploy. The batch job has been pending since
+    9am — no node has the memory it requests; either lower the request or
+    add capacity. And checkout isn't dying — it's getting throttled: at
+    peak it crosses the CPU limit and the kernel slows it down. That's
+    different from OOMKilled, where the pod actually dies on memory.
+    Action: raise the CPU limit to 500m and watch latency.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.k8s]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos lendo um get pods em voz alta: três pods em estados diferentes — nomeie o estado, o porquê e o que faria com cada um."
+    maxSeconds: 45
+    targetPhrases:
+      - crash-looping
+      - restart count
+      - pending
+      - got evicted
+      - OOMKilled
+      - memory limit
+      - getting throttled
+      - stuck in ContainerCreating
+      - ImagePullBackOff
+      - has been pending since
+      - node pressure
+      - not ready
+    checklist:
+      - Estado → porquê → ação
+      - Throttled distinguido de morto
+      - Has been + since correto
+      - Vocabulário de estados exato
+
+quiz:
+  - { id: M12-02-q1, type: multiple_choice, prompt: "'It's crash-looping' means…", options: ["the node is down", "the container starts and exits in a cycle — restart count climbing", "the pod is throttled", "the image is missing"], answer: 1, explanation: "Ciclo sobe-morre — BackOff no nome.", tags: [vocab.k8s] }
+  - { id: M12-02-q2, type: error_correction, prompt: "The job is running since Monday.", accepted: ["The job has been running since Monday.", "The job has been running since Monday"], explanation: "has been + -ing + since.", tags: [br.is-ing-since] }
+  - { id: M12-02-q3, type: multiple_choice, prompt: "Three pods Evicted from node-7 — the cause is…", options: ["bad image tag", "a bad env var", "the service", "node pressure — the node ran out of disk and the kubelet cleaned house"], answer: 3, explanation: "Eviction = o node se defendendo.", tags: [vocab.k8s] }
+  - { id: M12-02-q4, type: fill_blank, prompt: "OOMKilled — the pod crossed the memory ___ and the kernel stopped it.", accepted: ["limit"], explanation: "Memory limit — exit 137.", tags: [vocab.k8s] }
+  - { id: M12-02-q5, type: error_correction, prompt: "I need see why it's pending.", accepted: ["I need to see why it's pending.", "I need to see why it's pending"], explanation: "need to see.", tags: [br.need-see] }
+  - { id: M12-02-q6, type: translate, prompt: "O pod não está morto — está sendo freado. No pico ele passa do limite de CPU.", accepted: ["The pod isn't dead — it's getting throttled. At peak it crosses the CPU limit.", "The pod isn't dead — it's getting throttled; at peak it crosses the CPU limit."], explanation: "throttled = lento, não morto.", tags: [vocab.k8s] }
+  - { id: M12-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["been", "has", "9am", "pending", "since", "pod", "the"], answer: "the pod has been pending since 9am", explanation: "has been + pending + since.", tags: [vocab.k8s, br.is-ing-since] }
+  - { id: M12-02-q8, type: multiple_choice, prompt: "A pod 'Running' but '0/1 Ready' means…", options: ["it's crash-looping", "it's evicted", "the image is missing", "it's alive but the readiness probe keeps it out of rotation"], answer: 3, explanation: "Running ≠ Ready — fora da rotação do service.", tags: [vocab.k8s] }
+
+srsCards:
+  - { front: "CrashLoopBackOff", back: "Sobe e morre em ciclo — 'it's crash-looping'.", tag: vocab.k8s }
+  - { front: "pending", back: "Sem node com recurso — 'has been pending since'.", tag: vocab.k8s }
+  - { front: "evicted", back: "O node expulsou por pressão — 'got evicted'.", tag: vocab.k8s }
+  - { front: "OOMKilled", back: "Passou do memory limit — exit 137.", tag: vocab.k8s }
+  - { front: "throttled", back: "Passou do CPU limit — vivo, mas freado.", tag: vocab.k8s }
+  - { front: "ContainerCreating preso", back: "Nem começou — image pull ou volume.", tag: vocab.k8s }
+  - { front: "ImagePullBackOff", back: "A imagem não baixa — tag errada ou registry.", tag: vocab.k8s }
+  - { front: "restart count", back: "Quantas vezes morreu — o termômetro do get pods.", tag: vocab.k8s }
+  - { front: "bounce the pod", back: "Restart informal — o deployment recria.", tag: vocab.k8s }
+  - { front: "not ready", back: "Running mas fora da rotação — readiness falhando.", tag: vocab.k8s }
+
+review:
+  preferTags: [vocab.k8s, br.is-ing-since, br.is-died]
+  notes: "Revisão prioriza os estados de pod e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

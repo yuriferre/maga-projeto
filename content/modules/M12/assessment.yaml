@@ -1,0 +1,78 @@
+# Avaliação do módulo M12: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M12
+title: "Avaliação do módulo M12: Containers e Kubernetes"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M12-A01, type: multiple_choice, prompt: "A request reaches the pod but the app never sees it. The suspect layer is…", options: ["the node", "the image registry", "the service or the pod's readiness — between ingress and app", "the namespace"], answer: 2, explanation: "O pedido passa do ingress; entre service e app fica a readiness.", tags: [vocab.k8s] }
+  - { id: M12-A02, type: error_correction, prompt: "The pod is died — it's been crash-looping since noon. Wait, no — it is pending since 9am.", accepted: ["The pod died — it's been crash-looping since noon. Wait, no — it has been pending since 9am.", "The pod is dead — it's been crash-looping since noon. Wait, no — it has been pending since 9am.", "The pod died — it's been crash-looping since noon; it has been pending since 9am."], explanation: 'Dois erros: "died/is dead" + "has been pending since".', tags: [br.is-died, br.is-ing-since] }
+  - { id: M12-A03, type: multiple_choice, prompt: "Pod slow at peak, zero restarts. Most likely…", options: ["OOMKilled", "throttled — CPU cap, alive but slow", "evicted", "ImagePullBackOff"], answer: 1, explanation: "Lento sem restart = throttle; OOMKill mata e sobe restart count.", tags: [vocab.k8s] }
+  - { id: M12-A04, type: fill_blank, prompt: "The ___ probe restarts the container; readiness only gates traffic.", accepted: ["liveness"], explanation: "Liveness reinicia; readiness controla rotação.", tags: [vocab.k8s] }
+  - { id: M12-A05, type: error_correction, prompt: "I need see why the pod was scheduled in the node.", accepted: ["I need to see why the pod was scheduled on the node.", "I need to see why the pod was scheduled on the node"], explanation: 'Dois calques: "need to see" + "on the node".', tags: [br.need-see, br.in-the-node] }
+  - { id: M12-A06, type: error_correction, prompt: "The HPA not scales on memory — it's the same config of the docs.", accepted: ["The HPA doesn't scale on memory — it's the same config as the docs.", "The HPA doesn't scale on memory — it's the same config as the docs"], explanation: 'Dois erros: "doesn''t scale" + "the same X as".', tags: [br.it-not-works, br.same-of] }
+  - { id: M12-A07, type: multiple_choice, prompt: "Pending for 40 minutes vs Evicted — the difference is…", options: ["pending never started, no node fits it; evicted was running and the node pushed it out", "both mean OOM", "pending is memory, evicted is CPU", "no difference"], answer: 0, explanation: "Pending = sem node; evicted = expulso por pressão.", tags: [vocab.k8s] }
+  - { id: M12-A08, type: error_correction, prompt: "After to bump the limit, Ana suggested me to watch the rollout.", accepted: ["After bumping the limit, Ana suggested that I watch the rollout.", "After bumping the limit, Ana suggested watching the rollout.", "After bumping the limit, Ana suggested that I watch the rollout"], explanation: "Dois erros: after + gerúndio + suggest that.", tags: [br.after-to, br.suggested-me] }
+  - { id: M12-A09, type: fill_blank, prompt: "Keep 30% ___ — a 40-second cold start can't chase a spike.", accepted: ["headroom"], explanation: "Headroom — a folga que cobre o boot.", tags: [vocab.k8s] }
+  - { id: M12-A10, type: error_correction, prompt: "The bigger node is more cheap — we choosed it for the discount.", accepted: ["The bigger node is cheaper — we chose it for the discount.", "The bigger node is cheaper — we chose it for the discount"], explanation: "Dois erros: cheaper (-er) + chose.", tags: [br.more-er, br.irregular-past] }
+  - { id: M12-A11, type: multiple_choice, prompt: "The request vs the limit:", options: ["request is the scheduler's reservation; limit is the kernel's ceiling", "request kills, limit throttles", "both are the same number", "request is for memory only"], answer: 0, explanation: "Request = reserva do scheduler; limit = teto do kernel.", tags: [vocab.k8s] }
+  - { id: M12-A12, type: error_correction, prompt: "Can you explain me why the HPA depends in CPU?", accepted: ["Can you explain to me why the HPA depends on CPU?", "Can you explain why the HPA depends on CPU?", "Can you explain to me why the HPA depends on CPU"], explanation: 'Dois calques: "explain to me" + "depends on".', tags: [br.explain-me, br.depends-in] }
+  - { id: M12-A13, type: translate, prompt: "O pod está preso em ContainerCreating — a tag da imagem não existe no registry.", accepted: ["The pod is stuck in ContainerCreating — the image tag doesn't exist in the registry.", "The pod is stuck in ContainerCreating — the image tag doesn't exist in the registry"], explanation: '"stuck in ContainerCreating" + "doesn''t exist".', tags: [vocab.k8s] }
+  - { id: M12-A14, type: match, prompt: "Associe cada estado ao seu significado.", pairs: [{ left: "CrashLoopBackOff", right: "the container starts and exits in a cycle" }, { left: "Pending", right: "no node has room for the request" }, { left: "OOMKilled", right: "crossed the memory limit — exit 137" }, { left: "throttled", right: "over the CPU limit — alive but slow" }], explanation: "Os quatro estados do get pods.", tags: [vocab.k8s] }
+  - { id: M12-A15, type: multiple_choice, prompt: "The driver in pair troubleshooting should…", options: ["work silently and report at the end", "narrate each command — intention, then reading, then hypothesis", "only run kubectl get pods", "let the watcher drive"], answer: 1, explanation: "Intenção + leitura + hipótese — sem silêncio.", tags: [vocab.k8s] }
+
+writing:
+  prompt: |
+    **Cenário:** um incidente leve fechou: o `checkout-api` deu 502
+    intermitente no pico — pods OOMKilled no cold start, HPA sem folga.
+    A Priya pede o post-incident na thread.
+
+    **Tarefa:** escreva 80–120 palavras com a linha do tempo, a evidência
+    (OOMKilled, restart counts, cold start), por que o HPA não salvou, a
+    mitigação (limit 1Gi) e a prevenção (right-size + headroom).
+  constraints:
+    - { label: "O que aconteceu", pattern: "\\b(502|intermittent|peak|spike|lunch)\\b" }
+    - { label: "Evidência", pattern: "\\b(oomkilled|restart|describe|events|exit|cold start)\\b" }
+    - { label: "A cadeia", pattern: "\\b(domino|hpa|scale|ready|shift)\\b" }
+    - { label: "Fix + prevenção", pattern: "\\b(limit|right.?size|headroom|prevent|mitigat|action items?)\\b" }
+  rubric:
+    - "Linha do tempo clara"
+    - "Causa com evidência"
+    - "Por que o HPA não salvou"
+    - "Mitigação + prevenção separadas"
+  model: >-
+    Post-incident, checkout 502s. At 12:40 the lunch spike doubled
+    traffic; get pods showed 2/3 ready with restart counts climbing.
+    Describe showed OOMKilled — pods crossed the 512Mi memory limit under
+    load. The HPA tried to scale to 8 but new pods OOM'd during the
+    40-second cold start, so scaling produced more broken pods. It was a
+    domino effect: one pod died, traffic shifted, survivors crossed the
+    limit too. Mitigation: memory limit raised to 1Gi, rollout to 3/3
+    ready. Prevention: right-size the request from p95 and give the HPA
+    headroom. Items due Friday.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.k8s]
+
+speaking:
+  prompt: "Grave 60 segundos conduzindo um troubleshooting de K8s: o estado inicial, a causa encontrada com evidência, por que escalar não ajudou, a mitigação e a prevenção."
+  maxSeconds: 60
+  targetPhrases:
+    - let me describe the pod
+    - OOMKilled
+    - restart count
+    - memory limit
+    - the HPA wants to scale
+    - cold start
+    - domino effect
+    - intermittent
+    - mitigate
+    - right-size
+    - headroom
+    - has been pending since
+  checklist:
+    - "Estado → evidência → cadeia → fecho"
+    - "Throttle/OOM/domino distinguidos"
+    - "Mitigate × prevent"
+    - "Has been + since correto"

@@ -1,0 +1,8 @@
+id: M12
+assessment:
+  title: Module assessment
+  description: "15 itens mistos cobrindo as tags do módulo + escrita (relato de incidente leve de K8s, autoavaliada) + gravação falada (modo A). Aprovação: itens ≥ 75 %, escrita ≥ 3, fala ≥ 3."
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
