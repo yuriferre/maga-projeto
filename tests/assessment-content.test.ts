@@ -291,3 +291,38 @@ describe("content/modules/M09/assessment.yaml", () => {
     expect(checkExercise(q, "We made a mistake in the counter — I need that you review again.").correct).toBe(false);
   });
 });
+
+describe("content/modules/M10/assessment.yaml", () => {
+  const m10 = bundle.moduleAssessments["M10"]!;
+  it("requires both 'doesn't work' and 'same as'", () => {
+    const q = m10.items.find((q) => q.id === "M10-A02")!;
+    expect(checkExercise(q, "It doesn't work after the rollback — it's the same bug as Monday.").correct).toBe(true);
+    expect(checkExercise(q, "It not works after the rollback — it's the same bug as Monday.").correct).toBe(false);
+    expect(checkExercise(q, "It doesn't work after the rollback — it's the same bug of Monday.").correct).toBe(false);
+  });
+  it("requires both 'after rolling' and 'need to verify'", () => {
+    const q = m10.items.find((q) => q.id === "M10-A05")!;
+    expect(checkExercise(q, "After rolling back, I need to verify if it's green.").correct).toBe(true);
+    expect(checkExercise(q, "After to roll back, I need to verify if it's green.").correct).toBe(false);
+    expect(checkExercise(q, "After rolling back, I need verify if it's green.").correct).toBe(false);
+  });
+  it("requires both 'roll back' and 'on my machine'", () => {
+    const q = m10.items.find((q) => q.id === "M10-A06")!;
+    expect(checkExercise(q, "I'll roll back the image — it works on my machine anyway.").correct).toBe(true);
+    expect(checkExercise(q, "I'll revert the image — it works on my machine anyway.").correct).toBe(true);
+    expect(checkExercise(q, "I'll revert back the image — it works on my machine anyway.").correct).toBe(false);
+    expect(checkExercise(q, "I'll roll back the image — it works in my machine anyway.").correct).toBe(false);
+  });
+  it("requires both 'found' and 'led'", () => {
+    const q = m10.items.find((q) => q.id === "M10-A07")!;
+    expect(checkExercise(q, "We found the root cause — the bug led to all the timeouts.").correct).toBe(true);
+    expect(checkExercise(q, "We finded the root cause — the bug led to all the timeouts.").correct).toBe(false);
+    expect(checkExercise(q, "We found the root cause — the bug lead to all the timeouts.").correct).toBe(false);
+  });
+  it("requires both 'cheaper' and 'caught'", () => {
+    const q = m10.items.find((q) => q.id === "M10-A10")!;
+    expect(checkExercise(q, "The workaround is cheaper — I caught the 401s in the logs.").correct).toBe(true);
+    expect(checkExercise(q, "The workaround is more cheap — I caught the 401s in the logs.").correct).toBe(false);
+    expect(checkExercise(q, "The workaround is cheaper — I catched the 401s in the logs.").correct).toBe(false);
+  });
+});

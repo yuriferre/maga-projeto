@@ -1,0 +1,79 @@
+# Avaliação do módulo M10: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M10
+title: "Avaliação do módulo M10: explicando problemas e soluções"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M10-A01, type: multiple_choice, prompt: "A report opens with 'Symptom: jobs are timing out.' What comes next?", options: ["the fix proposal", "the context — when it started, what changed", "the action items", "the lesson learned"], answer: 1, explanation: "As quatro batidas: sintoma → contexto → tentativas → achado.", tags: [vocab.troubleshoot] }
+  - { id: M10-A02, type: error_correction, prompt: "It not works after the rollback — it's the same bug of Monday.", accepted: ["It doesn't work after the rollback — it's the same bug as Monday.", "It doesn't work after the rollback — it's the same bug as on Monday.", "It doesn't work after the rollback — it's the same bug as Monday's."], explanation: 'Dois calques: "doesn''t work" + "the same X as".', tags: [br.it-not-works, br.same-of] }
+  - { id: M10-A03, type: multiple_choice, prompt: "Which connector only takes a noun — never a full clause?", options: ["which caused", "because", "because of", "led to"], answer: 2, explanation: '"because of the patch", mas "because the patch landed".', tags: [vocab.troubleshoot] }
+  - { id: M10-A04, type: fill_blank, prompt: "It turned ___ to be the readiness probe.", accepted: ["out"], explanation: '"turned out to be" — a revelação da causa.', tags: [vocab.troubleshoot] }
+  - { id: M10-A05, type: error_correction, prompt: "After to roll back, I need verify if it's green.", accepted: ["After rolling back, I need to verify if it's green.", "After rolling back, I need to verify if it's green"], explanation: "Dois erros: after + gerúndio + need to verify.", tags: [br.after-to, br.verify-if] }
+  - { id: M10-A06, type: error_correction, prompt: "I'll revert back the image — it works in my machine anyway.", accepted: ["I'll roll back the image — it works on my machine anyway.", "I'll revert the image — it works on my machine anyway.", "I'll roll back the image — it works on my machine anyway"], explanation: 'Dois calques: "revert back" é redundante (roll back/revert) + "on my machine".', tags: [br.revert-back, br.in-my-machine] }
+  - { id: M10-A07, type: error_correction, prompt: "We finded the root cause — the bug lead to all the timeouts.", accepted: ["We found the root cause — the bug led to all the timeouts.", "We found the root cause — the bug led to all the timeouts"], explanation: "Dois irregulares: found + led.", tags: [br.irregular-past] }
+  - { id: M10-A08, type: multiple_choice, prompt: "Prod is red and the real fix takes a day. The mature proposal is…", options: ["wait for the proper fix — quality first", "apply a workaround and pretend it's solved", "the quickest fix for now, the proper fix scheduled — with the trade-off named", "rollback everything forever"], answer: 2, explanation: "Duas camadas: estancar agora, resolver na sprint.", tags: [vocab.troubleshoot] }
+  - { id: M10-A09, type: fill_blank, prompt: "___ the commits between green and red — the auth patch is the culprit.", accepted: ["Bisected", "bisected"], explanation: '"bisect" — a busca binária no histórico.', tags: [vocab.troubleshoot] }
+  - { id: M10-A10, type: error_correction, prompt: "The workaround is more cheap — I catched the 401s in the logs.", accepted: ["The workaround is cheaper — I caught the 401s in the logs.", "The workaround is cheaper — I caught the 401s in the logs"], explanation: "Dois erros: cheaper (-er) + caught.", tags: [br.more-er, br.irregular-past] }
+  - { id: M10-A11, type: multiple_choice, prompt: "'Can't reproduce it on staging' is…", options: ["a dead end", "a failure to report", "the end of the investigation", "information — the prod/staging diff is now the suspect list"], answer: 3, explanation: "Não reproduzir também é dado.", tags: [vocab.troubleshoot] }
+  - { id: M10-A12, type: error_correction, prompt: "Here are the steps for reproduce the bug.", accepted: ["Here are the steps to reproduce the bug.", "Here are the steps to reproduce the bug"], explanation: '"steps to reproduce".', tags: [br.steps-for] }
+  - { id: M10-A13, type: translate, prompt: "Acabou sendo o probe — um header ausente levou aos timeouts.", accepted: ["It turned out to be the probe — a missing header led to the timeouts.", "It turned out to be the probe — a missing header led to the timeouts"], explanation: '"turned out to be" + "led to".', tags: [vocab.troubleshoot] }
+  - { id: M10-A14, type: multiple_choice, prompt: "Which closing line belongs in the write-up?", options: ["'To sum up: one missing header caused the outage — action items below.'", "'Anyway, it's fixed.'", "'Read the logs for details.'", "'Long story.'"], answer: 0, explanation: "Resumo de uma linha + action items — o fecho.", tags: [vocab.troubleshoot] }
+  - { id: M10-A15, type: match, prompt: "Associe cada termo ao papel na narrativa de problema.", pairs: [{ left: "what I tried", right: "the attempts, each with its result" }, { left: "turned out to be", right: "the verdict after investigating" }, { left: "narrowed it down to", right: "closing in on a layer" }, { left: "the proper fix", right: "the real correction, not the patch" }], explanation: "O vocabulário estrutural do relato completo.", tags: [vocab.troubleshoot] }
+
+writing:
+  prompt: |
+    **Cenário:** um job de CI quebra em prod desde ontem. Você investigou e
+    o gestor pede o write-up na thread do time.
+
+    **Tarefa:** escreva 80–120 palavras com a narrativa completa: sintoma e
+    contexto, o que tentou (com resultado), o que encontrou, a causa com um
+    conector (turned out / led to / which caused) e a proposta com quickest
+    fix + proper fix.
+  constraints:
+    - { label: "Sintoma e contexto", pattern: "\\b(symptom|context|started|since|noticed)\\b" }
+    - { label: "Tentativas com resultado", pattern: "\\b(tried|rolled back|restarted|still failing|no luck|ruled out|narrowed)\\b" }
+    - { label: "Causa com conector", pattern: "\\b(turned out|led to|which caused|because of|root cause)\\b" }
+    - { label: "Proposta em camadas", pattern: "\\b(quickest fix|proper fix|workaround|band-aid)\\b" }
+  rubric:
+    - "Sintoma + contexto em frases separadas"
+    - "Tentativas com resultado"
+    - "Causa com conector correto"
+    - "Quickest + proper fix com trade-off"
+  model: >-
+    Write-up on the CI job failures. Symptom: the nightly job has been
+    failing since yesterday's runner update — consistent, every run.
+    Context: nothing else changed this week. What I tried: rolled back the
+    runner image — still failing; ruled out the network — DNS is fine.
+    What I found: it turned out to be a missing env var in the new image,
+    which caused the job to exit on step 2. The quickest fix is pinning the
+    old image, for now; the proper fix is adding the var to the runner
+    template — half an hour, today.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.troubleshoot]
+
+speaking:
+  prompt: "Grave 60 segundos com o recap falado de um incidente que você investigou (real ou o do módulo): sintoma, investigação, causa e correção — uma frase por bloco."
+  maxSeconds: 60
+  targetPhrases:
+    - quick recap
+    - turned out to be
+    - led to
+    - which caused
+    - ruled out
+    - narrowed it down
+    - rolled back
+    - still failing
+    - the quickest fix
+    - the proper fix
+    - for now
+    - to sum up
+    - root cause
+    - action items
+  checklist:
+    - "Um bloco por frase — cabe em 60 s"
+    - "Causa declarada com conector"
+    - "Proposta em camadas"
+    - "Fecho com resumo ou próximos passos"
