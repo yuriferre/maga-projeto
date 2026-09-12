@@ -571,3 +571,49 @@ describe("padrões BR — M12 (Kubernetes)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-the-node");
   });
 });
+
+describe("padrões BR — M13 (e-mail e docs)", () => {
+  it("flags 'in attachment' but not 'in the attachment'", () => {
+    expect(tagsOf("Please find the report in attachment.")).toContain("br.in-attachment");
+    expect(tagsOf("The logs are in attachment.")).toContain("br.in-attachment");
+    const clean = [
+      "Please find the report attached.",
+      "See the attached file.",
+      "The details are in the attachment.",
+      "Attached is the runbook.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-attachment");
+  });
+  it("flags 'best regrets'", () => {
+    expect(tagsOf("Best regrets, Yuri")).toContain("br.best-regrets");
+    const clean = [
+      "Best regards, Yuri",
+      "Kind regards,",
+      "No regrets about the deploy.",
+      "Best, Ana",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.best-regrets");
+  });
+  it("flags 'I wait your reply' but not 'I await' or 'wait for'", () => {
+    expect(tagsOf("I wait your reply to proceed.")).toContain("br.i-wait-reply");
+    expect(tagsOf("I wait the confirmation.")).toContain("br.i-wait-reply");
+    const clean = [
+      "I await your reply.",
+      "I'll wait for your reply.",
+      "I look forward to your reply.",
+      "I can't wait to hear back.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.i-wait-reply");
+  });
+  it("flags 'sorry for late' but not 'sorry for the late reply'", () => {
+    expect(tagsOf("Sorry for late — the deploy took longer.")).toContain("br.sorry-for-late");
+    expect(tagsOf("Sorry about late on the update.")).toContain("br.sorry-for-late");
+    const clean = [
+      "Sorry for the delay.",
+      "Sorry I'm late.",
+      "Sorry for the late reply.",
+      "Sorry for being late.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.sorry-for-late");
+  });
+});
