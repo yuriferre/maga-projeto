@@ -1,0 +1,298 @@
+id: M13-05
+module: M13
+order: 5
+title: "Prática: um e-mail de escalada e um runbook completo"
+objective: >-
+  Ao final, você produz as duas peças finais do módulo: a escalada do
+  acesso ao bucket (uma semana de bloqueio, fatos e impacto) e o runbook
+  de restart do worker de pagamentos — os dois textos que valem 4/5 na
+  avaliação.
+durationMin: 40
+competencies: [WRI, SPK]
+tags: [vocab.email-docs, gram.formal-register, gram.imperative, comp.writing, comp.speaking]
+prerequisites: [M13-01, M13-02, M13-03, M13-04]
+
+context:
+  scenario: |
+    Semana de entrega dupla. O acesso ao bucket de artefatos continua
+    pendente — ticket aberto há uma semana, e-mail segunda, ping ontem —
+    e o corte da fatura é sexta. E o restart do worker de pagamentos
+    continua "só a Priya sabe" — precisa virar runbook antes do plantão
+    dela acabar.
+
+    A aula integra o módulo inteiro:
+
+    - a **escalada** — contexto, histórico de tentativas, impacto,
+      pedido, saída fácil — sem nomear ninguém
+    - o **runbook** — header, precondições com trava, passos com
+      comando + expect + parada, verificação, rollback, escalada
+    - o **recap falado** — você explica as duas peças para a Priya em
+      60 segundos, como quem entrega trabalho
+
+    A escrita final vale 4/5 — o módulo é de escrita, e a barra é alta.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (SRE), Marcos (backend)]
+
+vocabulary:
+  - term: "blocked for a week"
+    meaning: bloqueado há uma semana — o contexto da escalada
+    example: "We've been blocked on the bucket access for a week — ticket, e-mail, ping."
+    translation: "Estamos bloqueados no acesso ao bucket há uma semana — ticket, e-mail, ping."
+    note: "A escalada abre com o tempo de bloqueio."
+  - term: "Friday's cut is at risk"
+    meaning: o corte de sexta em risco — o impacto
+    example: "Friday's invoice cut is at risk — the cleanup can't start without access."
+    translation: "O corte de sexta está em risco — a limpeza não começa sem acesso."
+    note: "Impacto = o que quebra e quando."
+  - term: "attempt history"
+    meaning: o histórico de tentativas — fatos, não nomes
+    example: "Ticket opened Thursday, e-mail Monday, a ping yesterday — no response."
+    translation: "Ticket aberto quinta, e-mail segunda, um ping ontem — sem resposta."
+    note: "Timeline de fatos — nunca 'ninguém responde'."
+  - term: "help unblock"
+    meaning: ajudar a desbloquear — o pedido da escalada
+    example: "Could you help unblock it, or point me at whoever owns the approval?"
+    translation: "Pode ajudar a desbloquear, ou me apontar quem aprova?"
+    note: "O pedido oferece duas saídas — desbloquear ou direcionar."
+  - term: "the drain step"
+    meaning: o passo de drenar — o mais delicado do runbook
+    example: "Step 1 drains the worker — nothing restarts until the queue is empty."
+    translation: "O passo 1 drena o worker — nada reinicia até a fila esvaziar."
+    note: "O passo perigoso merece o expect mais claro."
+  - term: "expect vs actual"
+    meaning: esperado × real — quando o runbook diverge
+    example: "Expect 'deployment scaled' — if the actual output differs, stop."
+    translation: "Esperado 'deployment scaled' — se a saída real diferir, pare."
+    note: "Expect × actual = o critério de parada em código."
+  - term: "the on-call path"
+    meaning: o caminho do plantão — para onde escalar
+    example: "Escalation: page the on-call in #payments-oncall — do not retry twice."
+    translation: "Escalada: acione o plantão no #payments-oncall — não tente duas vezes."
+    note: "Canal + quem + limite de retries."
+  - term: "hand it off"
+    meaning: passar o bastão — o runbook vira do time
+    example: "Once the runbook is verified, we hand it off to the on-call rotation."
+    translation: "Uma vez verificado, passamos o runbook para o rodízio de plantão."
+    note: "Runbook bom = quem escreveu dorme tranquilo."
+  - term: "sign-off on the doc"
+    meaning: o aval no documento — a revisão final
+    example: "Priya signs off on the runbook before it goes to the rotation."
+    translation: "A Priya dá o aval no runbook antes de ir para o rodízio."
+    note: "Doc operacional passa por sign-off como código."
+  - term: "dry run"
+    meaning: o ensaio — executar sem efeito real
+    example: "Do a dry run on staging before the first real restart."
+    translation: "Faça um ensaio em staging antes do primeiro restart real."
+    note: "Runbook novo merece um dry run."
+  - term: "the recap"
+    meaning: o resumo — entregar falando
+    example: "Quick recap: the escalation is sent, the runbook is verified on staging."
+    translation: "Resumo rápido: a escalada foi enviada, o runbook está verificado em staging."
+    note: "Recap = o que entregou + o que falta."
+  - term: "owner and date"
+    meaning: dono e data — quem mantém o runbook vivo
+    example: "Every runbook has an owner and a last-verified date — stale docs break on-calls."
+    translation: "Todo runbook tem dono e data de verificação — docs velhos quebram plantões."
+    note: "Runbook sem dono morre em seis meses."
+
+grammar:
+  title: "Integrando: a escalada e o runbook, lado a lado"
+  explanation: |
+    Os dois textos dividem o mesmo DNA — **fatos antes de pedidos** —
+    mas com formas opostas:
+
+    | peça | e-mail de escalada | runbook |
+    |---|---|---|
+    | abre com | contexto + tempo de bloqueio | header: tempo + janela |
+    | corpo | histórico de tentativas + impacto | precondições + passos numerados |
+    | pedido | "help unblock, or point me at…" | implícito — executar |
+    | segurança | saída fácil para quem lê | trava + expect + rollback por passo |
+    | fecha com | "thanks in advance" + assinatura | escalada + last verified |
+
+    O tom também diverge: a escalada é **neutra-formal** ("Hi Priya —
+    escalating…"), o runbook é **imperativo puro** ("Drain the worker.
+    Expect: scaled."). E ambos carregam a mesma regra: quem recebe nunca
+    interpreta — segue o texto ou devolve para revisão.
+  examples:
+    - { en: "Escalation: 'We've been blocked for a week — ticket Thursday, e-mail Monday, ping yesterday. Friday's cut is at risk.'", pt: "Escalada: 'Bloqueados há uma semana — ticket quinta, e-mail segunda, ping ontem. O corte de sexta está em risco.'" }
+    - { en: "Runbook step: '1. Drain the worker. Expect: deployment scaled. If it hangs past 60s, go to Rollback.'", pt: "Passo de runbook: '1. Drene o worker. Esperado: deployment scaled. Se travar além de 60s, vá para Rollback.'" }
+    - { en: "The e-mail asks a person; the runbook instructs whoever is on call.", pt: "O e-mail pede a uma pessoa; o runbook instrui quem estiver de plantão." }
+    - { en: "Both put facts before the ask — the reader never interprets.", pt: "Ambos põem fatos antes do pedido — quem lê nunca interpreta." }
+    - { en: "'Thanks in advance' closes the e-mail; 'last verified' closes the runbook.", pt: "'Thanks in advance' fecha o e-mail; 'last verified' fecha o runbook." }
+    - { en: "Dry run on staging, sign-off from Priya, then hand it off to the rotation.", pt: "Ensaio em staging, aval da Priya, depois passa para o rodízio." }
+
+examples:
+  - en: "Hi Priya — escalating the artifacts-bucket access. We've been blocked for a week: ticket Thursday, e-mail Monday, ping yesterday."
+    pt: "Oi Priya — escalando o acesso ao bucket de artefatos. Bloqueados há uma semana: ticket quinta, e-mail segunda, ping ontem."
+    context: "Escalada: contexto + histórico em uma linha."
+  - en: "The impact: Friday's invoice cut is at risk — the cleanup can't start without read access."
+    pt: "O impacto: o corte da fatura de sexta está em risco — a limpeza não começa sem acesso de leitura."
+    context: "Impacto com prazo."
+  - en: "Could you help unblock it, or point me at whoever owns the approval? Happy to jump on a call."
+    pt: "Pode ajudar a desbloquear, ou me apontar quem aprova? Posso entrar numa call."
+    context: "Pedido com duas saídas."
+  - en: "Runbook header: 'Restarting the payments worker — ~15 min, window 20:00–22:00'."
+    pt: "Header do runbook: 'Reiniciando o worker de pagamentos — ~15 min, janela 20h–22h'."
+    context: "Header: o que + tempo + janela."
+  - en: "Step 2: wait for `queue-len` to hit 0 within five minutes — if it stalls, stop and go to Rollback."
+    pt: "Passo 2: espere `queue-len` zerar em cinco minutos — se travar, pare e vá para Rollback."
+    context: "Passo com critério de parada."
+  - en: "Rollback is the full path back: scale to 3, re-enable the cron, confirm three Running pods."
+    pt: "Rollback é o caminho completo de volta: suba para 3, reative o cron, confirme três pods Running."
+    context: "Rollback explícito."
+  - en: "Escalation line: 'page #payments-oncall — do not retry more than once'. Last verified: today."
+    pt: "Linha de escalada: 'acione #payments-oncall — não tente mais de uma vez'. Última verificação: hoje."
+    context: "Escalada + data."
+  - en: "Recap for Priya: escalation sent at 14:00, runbook dry-run clean on staging — needs your sign-off."
+    pt: "Resumo para a Priya: escalada enviada às 14h, runbook testado limpo em staging — falta seu aval."
+    context: "O recap falado — entregue e o que falta."
+
+variations:
+  - idea: '"a escalada que funciona"'
+    items:
+      - { register: "Boa", text: "Blocked for a week — ticket, e-mail, ping. Friday's cut is at risk. Could you help unblock, or point me at the approver?", adequate: true }
+      - { register: "Boa", text: "I'm looping in my manager — the ticket route is exhausted and the deadline is Friday.", adequate: true }
+      - { register: "Inadequada", text: "Nobody ever answers me. This is urgent!!!", adequate: false, note: "Reclamação sem fatos — a escalada leva timeline e impacto, não frustração." }
+      - { register: "Inadequada", text: "Per my last e-mail, you still haven't done anything.", adequate: false, note: "Acusação direta — 'still open' fala do pedido, não da pessoa." }
+  - idea: '"o runbook que qualquer um executa"'
+    items:
+      - { register: "Boa", text: "1. Drain the worker. Expect: scaled. 2. Wait for queue-len 0 — if it stalls past 5 min, stop.", adequate: true }
+      - { register: "Boa", text: "Rollback: scale to 3, re-enable cron, confirm three Running pods. Escalation: page #payments-oncall.", adequate: true }
+      - { register: "Inadequada", text: "1. Drain it. 2. Wait a bit. 3. Put it back.", adequate: false, note: "Sem comando, sem expect, sem critério — às 3am vira improviso." }
+      - { register: "Inadequada", text: "Rollback: just redeploy if it breaks.", adequate: false, note: "'Just redeploy' não é rollback — o desfazer é explícito por passo." }
+
+brErrors:
+  - { wrong: "I wait your help unblocking this.", right: "I'm hoping you can help unblock this.", why: "não 'I wait'", tag: br.i-wait-reply }
+  - { wrong: "Please find the timeline in attachment.", right: "Please find the timeline attached.", why: '"attached"', tag: br.in-attachment }
+  - { wrong: "Sorry for late escalating this.", right: "Sorry for the delay escalating this.", why: "sorry for the delay", tag: br.sorry-for-late }
+  - { wrong: "Best regrets, Yuri", right: "Best regards, Yuri", why: "regards", tag: br.best-regrets }
+  - { wrong: "The pods stays pending during the drain.", right: "The pods stay pending during the drain.", why: "stay — sem -s", tag: br.third-person-s }
+  - { wrong: "If the drain not works, stop.", right: "If the drain doesn't work, stop.", why: "doesn't work", tag: br.it-not-works }
+  - { wrong: "Verify if the queue is empty.", right: "Check whether the queue is empty.", why: "check whether", tag: br.verify-if }
+  - { wrong: "Revert back the scale if it fails.", right: "Revert the scale if it fails.", why: "revert, sem back", tag: br.revert-back }
+  - { wrong: "Explain to me the runbook.", right: "Walk me through the runbook.", why: "walk me through", tag: br.explain-me }
+  - { wrong: "I read the doc for find the rollback.", right: "I read the doc to find the rollback.", why: "to + verbo", tag: br.for-to }
+
+dialogue:
+  title: "A semana de entrega dupla"
+  lines:
+    - { speaker: Priya, text: "Two deliverables this week: the escalation for the bucket access — still pending after seven days — and the worker runbook before my on-call ends." }
+    - { speaker: Yuri, text: "The escalation first. 'Hi Priya — we've been blocked for a week: ticket Thursday, e-mail Monday, ping yesterday. Friday's invoice cut is at risk.'" }
+    - { speaker: Priya, text: "The ask?" }
+    - { speaker: Yuri, text: "'Could you help unblock it, or point me at whoever owns the approval? Happy to jump on a call.' Two exits — unblock or redirect." }
+    - { speaker: Marcos, text: "And the runbook?" }
+    - { speaker: Yuri, text: "Header: 'Restarting the payments worker — ~15 min, window 20:00–22:00'. Preconditions with the hard stop — 'pipeline red? do not proceed'." }
+    - { speaker: Ana, text: "Steps?" }
+    - { speaker: Yuri, text: "Three numbered ones — drain with expect 'scaled', wait for queue-len zero with a five-minute stall stop, scale back to three." }
+    - { speaker: Ana, text: "Verification and rollback?" }
+    - { speaker: Yuri, text: "Verify: three Running pods and the queue climbing. Rollback: scale to 3, re-enable the cron — and if that fails, page #payments-oncall, do not retry twice." }
+    - { speaker: Priya, text: "Send the escalation, dry-run the runbook on staging, and I'll sign off. Then we hand it off to the rotation." }
+    - { speaker: Yuri, text: "Recap: escalation sent, runbook verified on staging, waiting on your sign-off — the two texts are the module's finals." }
+  notes:
+    - "os dois textos em uma conversa: a escalada que pede e o runbook que instrui."
+    - "repare no DNA comum — fatos antes do pedido, critério escrito para o executor."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The two finals share one DNA — facts before asks — but opposite shapes. The escalation is neutral-formal: blocked a week, the attempt timeline, the Friday impact, two exits. The runbook is pure imperative: drain, expect scaled, stop if it stalls." }
+    - { speaker: Marcos, text: "The escalation asks a person — 'could you help unblock it, or point me at the approver'. The runbook instructs whoever is on call — 'page #payments-oncall, do not retry twice'." }
+    - { speaker: Ana, text: "And the runbook closes differently too — 'last verified' plus a date, not 'thanks in advance'. A doc without an owner and a date dies in six months." }
+    - { speaker: Priya, text: "Dry-run it on staging, get my sign-off, hand it off to the rotation. That's the whole loop — write it, verify it, hand it off." }
+  questions:
+    - { id: M13-05-l1, type: multiple_choice, prompt: "The escalation and the runbook share…", options: ["the same register", "facts before asks — the reader never interprets", "the same closing", "the same length"], answer: 1, explanation: "O DNA comum — fatos antes do pedido.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-05-l2, type: multiple_choice, prompt: "The escalation offers…", options: ["one demand", "an apology", "a warning", "two exits — unblock it or point me at the approver"], answer: 3, explanation: "Duas saídas para quem lê.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-05-l3, type: fill_blank, prompt: "Page #payments-oncall — do not ___ more than once.", accepted: ["retry"], explanation: "Limite de retries na escalada.", tags: [vocab.email-docs] }
+    - { id: M13-05-l4, type: error_correction, prompt: "If the drain not works, stop.", accepted: ["If the drain doesn't work, stop.", "If the drain doesn't work, stop", "If the drain does not work, stop."], explanation: "doesn't work.", tags: [br.it-not-works] }
+    - { id: M13-05-l5, type: multiple_choice, prompt: "A runbook without a last-verified date…", options: ["is fine", "is still useful", "is a suspect doc — it ages and breaks on-calls", "needs more detail"], answer: 2, explanation: "Doc sem dono e data morre.", tags: [comp.listening, vocab.email-docs] }
+    - { id: M13-05-l6, type: multiple_choice, prompt: "The loop is…", options: ["write, publish, forget", "write it, verify it on staging, get sign-off, hand it off", "write once, never touch", "copy from the wiki"], answer: 1, explanation: "Escreve, verifica, passa o bastão.", tags: [comp.listening, vocab.email-docs] }
+
+writing:
+  prompt: |
+    **Cenário:** a entrega dupla da semana. Escreva os dois textos
+    finais do módulo.
+
+    **Tarefa:** (a) o e-mail de escalada do acesso ao bucket —
+    contexto, histórico, impacto, pedido com duas saídas; e (b) o
+    runbook do restart do worker — header, precondições com trava,
+    passos com expect, rollback, escalada. 120–160 palavras no total,
+    com as duas peças separadas por uma linha "---".
+  constraints:
+    - { label: "Escalada: contexto + histórico", pattern: "\\b(blocked|week|ticket|e-mail|ping|escalat)\\b" }
+    - { label: "Escalada: impacto + pedido", pattern: "\\b(friday|risk|unblock|approv|help)\\b" }
+    - { label: "Runbook: passos + expect", pattern: "\\b(drain|scale|expect|queue|step|kubectl)\\b" }
+    - { label: "Runbook: rollback + escalada", pattern: "\\b(rollback|roll back|page|on-call|verify|proceed)\\b" }
+  rubric:
+    - "Escalada: fatos → impacto → pedido com duas saídas"
+    - "Runbook: passos com expect + parada"
+    - "Rollback completo + escalada com canal"
+    - "Registro certo em cada peça (neutro × imperativo)"
+  model: >-
+    Hi Priya — escalating the artifacts-bucket access. We've been
+    blocked for a week: ticket Thursday, e-mail Monday, a ping
+    yesterday — no response. Friday's invoice cut is at risk: the
+    cleanup can't start without read access. Could you help unblock
+    it, or point me at whoever owns the approval? Happy to jump on a
+    call. Thanks in advance. Best regards, Yuri. --- Restarting the
+    payments worker — ~15 min, window 20:00–22:00. You need: kubectl
+    access, a green pipeline. If the pipeline is red, do not proceed.
+    1. Drain the worker: `kubectl scale --replicas=0`. Expect:
+    `deployment scaled`. 2. Wait for `queue-len` 0 — if it stalls past
+    5 min, stop. 3. Scale back to 3. Verify: three Running pods.
+    Rollback: scale to 3, re-enable the cron. If it still fails, page
+    #payments-oncall — do not retry twice. Last verified: 2026-09-12.
+  minWords: 120
+  maxWords: 160
+  tags: [comp.writing, vocab.email-docs]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos entregando o trabalho para a Priya: o que a escalada diz, o que o runbook cobre e o que falta (o sign-off e o dry run em staging)."
+    maxSeconds: 60
+    targetPhrases:
+      - blocked for a week
+      - friday's cut is at risk
+      - help unblock
+      - drain the worker
+      - expect
+      - rollback
+      - page the on-call
+      - sign-off
+      - dry run
+      - hand it off
+      - last verified
+      - do not proceed
+    checklist:
+      - As duas peças resumidas
+      - Histórico como fatos
+      - Passos com expect
+      - "O que falta: sign-off + dry run"
+
+quiz:
+  - { id: M13-05-q1, type: multiple_choice, prompt: "The two finals share the rule…", options: ["same register", "facts before asks — the reader never interprets", "same length", "same audience"], answer: 1, explanation: "O DNA comum dos dois textos.", tags: [vocab.email-docs] }
+  - { id: M13-05-q2, type: error_correction, prompt: "I wait your help unblocking this.", accepted: ["I'm hoping you can help unblock this.", "I look forward to your help unblocking this.", "I hope you can help unblock this."], explanation: "não 'I wait' — hope / look forward.", tags: [br.i-wait-reply] }
+  - { id: M13-05-q3, type: multiple_choice, prompt: "The escalation closes with…", options: ["'last verified'", "the rollback steps", "'thanks in advance' + a neutral sign-off", "the attempt history"], answer: 2, explanation: "Fecho neutro — a saída fácil.", tags: [vocab.email-docs] }
+  - { id: M13-05-q4, type: fill_blank, prompt: "Do a ___ run on staging before the first real restart.", accepted: ["dry"], explanation: "O ensaio — runbook novo merece dry run.", tags: [vocab.email-docs] }
+  - { id: M13-05-q5, type: error_correction, prompt: "Please find the timeline in attachment.", accepted: ["Please find the timeline attached.", "Please find the timeline attached", "See the attached timeline."], explanation: '"attached".', tags: [br.in-attachment] }
+  - { id: M13-05-q6, type: translate, prompt: "Estamos bloqueados há uma semana — ticket quinta, e-mail segunda, ping ontem.", accepted: ["We've been blocked for a week — ticket Thursday, e-mail Monday, ping yesterday.", "We have been blocked for a week — ticket Thursday, e-mail Monday, a ping yesterday."], explanation: "Histórico como timeline de fatos.", tags: [vocab.email-docs] }
+  - { id: M13-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["not", "do", "twice", "more", "than", "retry"], answer: "do not retry more than twice", explanation: "O limite de retries.", tags: [gram.imperative, vocab.email-docs] }
+  - { id: M13-05-q8, type: multiple_choice, prompt: "After the runbook is verified…", options: ["archive it", "delete the draft", "hand it off to the on-call rotation", "keep it private"], answer: 2, explanation: "Passa o bastão para o rodízio.", tags: [vocab.email-docs] }
+
+srsCards:
+  - { front: "blocked for a week", back: "O contexto da escalada — tempo de bloqueio.", tag: vocab.email-docs }
+  - { front: "attempt history", back: "Ticket, e-mail, ping — fatos, não nomes.", tag: vocab.email-docs }
+  - { front: "help unblock", back: "O pedido com duas saídas — ou me aponta quem aprova.", tag: vocab.email-docs }
+  - { front: "expect vs actual", back: "O critério de parada em código.", tag: vocab.email-docs }
+  - { front: "the on-call path", back: "Canal + quem + limite de retries.", tag: vocab.email-docs }
+  - { front: "dry run", back: "O ensaio em staging antes do real.", tag: vocab.email-docs }
+  - { front: "hand it off", back: "Passar o bastão — o runbook vira do time.", tag: vocab.email-docs }
+  - { front: "sign-off on the doc", back: "O aval antes do rodízio.", tag: vocab.email-docs }
+  - { front: "the recap", back: "Entregue + o que falta — o resumo falado.", tag: vocab.email-docs }
+  - { front: "owner and date", back: "Runbook sem dono morre em seis meses.", tag: vocab.email-docs }
+
+review:
+  preferTags: [vocab.email-docs, br.i-wait-reply, br.it-not-works]
+  notes: "Revisão prioriza as duas peças finais e os calques do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
