@@ -1,0 +1,294 @@
+id: M16-05
+module: M16
+order: 5
+title: "Simulação: a bridge de 15 minutos — você é o IC"
+objective: >-
+  Ao final, você conduz uma bridge inteira como incident commander:
+  abre com papéis, extrai fatos com fonte, decide, realinha e fecha —
+  tudo em uma conversa de 15 minutos.
+durationMin: 45
+competencies: [SPK, LIS, CNF]
+tags: [vocab.bridge, comp.speaking, comp.listening]
+prerequisites: [M16-04]
+
+context:
+  scenario: |
+    Sexta-feira, 17:40. O alerta dispara: checkout com 60% de erro.
+    Você é o incident commander — a bridge abre com três pessoas
+    esperando direção.
+
+    Os três interlocutores:
+
+    - **Marcos** (backend) — tem os logs, fala rápido, tende a
+      pular para a causa raiz
+    - **Ana** (support/comms) — traz o impacto no cliente, precisa
+      de conteúdo para a status page
+    - **Rafa** (database SME) — entra no meio da chamada, fala
+      baixo, tem o fato decisivo
+
+    A sua bridge em quatro batidas: **roles → fatos → decisão →
+    fechamento.** Quinze minutos, uma decisão, zero pânico.
+  roles: [Yuri (IC), Marcos (backend), Ana (comms lead), Rafa (database SME)]
+
+vocabulary:
+  - term: "all-clear"
+    meaning: o sinal verde — o incidente resolvido declarado
+    example: "All-clear on payments — error rate back to zero."
+    translation: "All-clear em pagamentos — taxa de erro zerada."
+    note: "A palavra que encerra a bridge."
+  - term: "command the call"
+    meaning: comandar a chamada — conduzir, não participar
+    example: "As IC, you command the call — you don't debug."
+    translation: "Como IC, você comanda a chamada — não debugga."
+    note: "IC dirige; SME executa."
+  - term: "timebox"
+    meaning: a caixa de tempo — o limite declarado para cada etapa
+    example: "Timebox: ten minutes to confirm the rollback."
+    translation: "Caixa de tempo: dez minutos para confirmar o rollback."
+    note: "Tempo declarado = urgência sem pânico."
+  - term: "hand over"
+    meaning: passar o controle — transferir o papel de IC
+    example: "I'm handing over to Yuri — he's IC for the next hour."
+    translation: "Estou passando para o Yuri — ele é IC pela próxima hora."
+    note: "Bridge longa tem revezamento declarado."
+  - term: "recap"
+    meaning: a recapitulação — o resumo que alinha todos
+    example: "Quick recap: what happened, what we did, what's next."
+    translation: "Recap rápido: o que houve, o que fizemos, o que vem."
+    note: "Toda entrada tardia merece um recap de 15 segundos."
+  - term: "status check"
+    meaning: a verificação periódica — "em que pé estamos"
+    example: "Status check in five — everyone reports one line."
+    translation: "Verificação em cinco — cada um reporta uma linha."
+    note: "Ritmo declarado evita o 'e aí?' constante."
+  - term: "mute when not speaking"
+    meaning: 'mute quando não falar — a etiqueta do áudio limpo'
+    example: "Mute when not speaking — there's keyboard noise."
+    translation: "Mute quando não falar — tem barulho de teclado."
+    note: "Etiqueta declarada no início poupa interrupções."
+  - term: "eyes on"
+    meaning: 'olhos em — quem vigia qual métrica'
+    example: "Yuri, eyes on the error rate — call it when it drops."
+    translation: "Yuri, olhos na taxa de erro — avise quando cair."
+    note: "Vigilância distribuída com dono."
+  - term: "wrap up"
+    meaning: encerrar — fechar a bridge com o resumo
+    example: "Let's wrap up — Marcos posts the timeline, I close the bridge."
+    translation: "Vamos encerrar — Marcos posta a timeline, eu fecho a bridge."
+    note: "Fechamento = ações + agradecimento + fim declarado."
+  - term: "drop the bridge"
+    meaning: derrubar a chamada — encerrar a bridge
+    example: "All-clear confirmed — dropping the bridge, thanks all."
+    translation: "All-clear confirmado — encerrando a bridge, obrigado."
+    note: "O fim declarado — ninguém fica na chamada vazia."
+  - term: "first update at"
+    meaning: 'primeira atualização às — o prazo da status page'
+    example: "Ana, first update at 17:50 — 'investigating'."
+    translation: "Ana, primeira atualização às 17:50 — 'investigando'."
+    note: "O IC dá o prazo — comms não adivinha."
+  - term: "stand down"
+    meaning: desmobilizar — liberar quem não é mais necessário
+    example: "EU folks can stand down — region is clean."
+    translation: "O pessoal da EU pode desmobilizar — a região está limpa."
+    note: "Liberar gente é tão IC quanto convocar."
+
+grammar:
+  title: "A bridge em quatro batidas: roles → fatos → decisão → fechamento"
+  explanation: |
+    O IC conduz a bridge inteira com o vocabulário das quatro aulas:
+
+    - **Abertura (roles):** "roles first — Marcos on logs, Ana on
+      comms, I'm IC." Roll call + protocolo + timebox.
+    - **Fatos:** "what are we seeing? facts with sources." Cada
+      fala = fonte + fato. "Confirm or deny."
+    - **Decisão:** "options?" → trade-off nomeado → "on my call:
+      we roll back" → "go ahead — read back first" → plano de
+      desfazer.
+    - **Fechamento:** "all-clear" → recap → "thanks all —
+      dropping the bridge" → quem posta o quê.
+
+    E as ferramentas de controle durante: "hang on", "park it",
+    "keep it tight", "eyes on the graph".
+  examples:
+    - { en: "Roles first: I'm IC — Marcos on logs, Ana on comms, Rafa on the database.", pt: "Papéis primeiro: eu sou IC — Marcos nos logs, Ana na comunicação, Rafa no banco." }
+    - { en: "What are we seeing? Facts with sources, one at a time.", pt: "O que estamos vendo? Fatos com fontes, um de cada vez." }
+    - { en: "On my call: we roll back. Marcos, go ahead — read back first.", pt: "Sob minha decisão: revertemos. Marcos, pode ir — repita antes." }
+    - { en: "Park the root cause — the 'why' waits for the post-mortem.", pt: "Estacione a causa raiz — o 'porquê' espera o post-mortem." }
+    - { en: "Status check in five — everyone reports one line.", pt: "Verificação em cinco — cada um reporta uma linha." }
+    - { en: "All-clear on payments — dropping the bridge, thanks all.", pt: "All-clear em pagamentos — encerrando a bridge, obrigado." }
+
+examples:
+  - en: "Roles first — I'm IC. Marcos on logs, Ana on comms, Rafa on the database."
+    pt: "Papéis primeiro — eu sou IC. Marcos nos logs, Ana na comunicação, Rafa no banco."
+    context: "A abertura como IC."
+  - en: "Timebox: ten minutes to confirm the rollback — then we decide."
+    pt: "Caixa de tempo: dez minutos para confirmar o rollback — depois decidimos."
+    context: "Urgência declarada sem pânico."
+  - en: "Rafa just joined — quick recap: 60% checkout errors, suspect is the 17:38 deploy."
+    pt: "O Rafa acabou de entrar — recap rápido: 60% de erro no checkout, suspeito é o deploy das 17:38."
+    context: "Entrada tardia merece recap de 15 segundos."
+  - en: "Hang on, Marcos — root cause later. Confirm the deploy touched payments: yes or no?"
+    pt: "Espera aí, Marcos — causa raiz depois. Confirme se o deploy tocou pagamentos: sim ou não?"
+    context: "Interromper + pergunta binária."
+  - en: "Eyes on the error rate — call it the second it drops."
+    pt: "Olhos na taxa de erro — avise no segundo em que cair."
+    context: "Vigilância com dono."
+  - en: "EU can stand down — region is clean, thanks for joining."
+    pt: "A EU pode desmobilizar — região limpa, obrigado por entrarem."
+    context: "Liberar gente é trabalho do IC."
+  - en: "Wrap up: Marcos posts the timeline, Ana schedules the post-mortem, I drop the bridge."
+    pt: "Encerrando: Marcos posta a timeline, Ana agenda o post-mortem, eu fecho a bridge."
+    context: "Fechamento com ações."
+  - en: "Recap for the thread: deploy at 17:38, rollback at 17:52, all-clear at 18:05."
+    pt: "Recap para a thread: deploy às 17:38, rollback às 17:52, all-clear às 18:05."
+    context: "O fechamento em três timestamps."
+
+variations:
+  - idea: '"abrindo como IC"'
+    items:
+      - { register: "Boa", text: "Roles first — I'm IC. Marcos on logs, Ana on comms.", adequate: true }
+      - { register: "Boa", text: "Timebox: ten minutes to confirm — then we decide.", adequate: true }
+      - { register: "Inadequada", text: "So… anyone have ideas what broke?", adequate: false, note: "O IC abre com papéis e fatos — 'what are we seeing?', não brainstorm." }
+      - { register: "Inadequada", text: "I'll debug it myself — everyone just wait.", adequate: false, note: "IC que debugga deixa a bridge sem comando — direcione, não execute." }
+  - idea: '"fechando a bridge"'
+    items:
+      - { register: "Boa", text: "All-clear confirmed — dropping the bridge, thanks all.", adequate: true }
+      - { register: "Boa", text: "Wrap up: Marcos posts the timeline, Ana schedules the post-mortem.", adequate: true }
+      - { register: "Inadequada", text: "Ok, bye everyone.", adequate: false, note: "Fechamento declara ações — quem posta o quê, quem agenda o quê." }
+      - { register: "Inadequada", text: "(deixar a chamada aberta por acaso)", adequate: false, note: "Bridge aberta sem propósito consome gente — 'dropping the bridge'." }
+
+brErrors:
+  - { wrong: "The call fell in the middle of the recap.", right: "The call dropped in the middle of the recap.", why: "dropped", tag: br.call-fell }
+  - { wrong: "Stay in the line — the all-clear is coming.", right: "Stay on the line — the all-clear is coming.", why: "on the line", tag: br.in-the-line }
+  - { wrong: "I can't listen Rafa — speak up.", right: "I can't hear Rafa — speak up.", why: "hear Rafa", tag: br.listen-you }
+  - { wrong: "Confirm me the error rate.", right: "Confirm the error rate.", why: "confirm, sem me", tag: br.confirm-me }
+  - { wrong: "In this moment I hand over the IC.", right: "Right now I hand over the IC.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The bridge not wait for the recap.", right: "The bridge doesn't wait for the recap.", why: "doesn't wait", tag: br.it-not-works }
+  - { wrong: "Rafa explain the pool issue.", right: "Rafa explains the pool issue.", why: "explains", tag: br.third-person-s }
+  - { wrong: "I need that you watch the graph.", right: "I need you to watch the graph.", why: "need you to", tag: br.need-that-you }
+  - { wrong: "Do you can take comms?", right: "Can you take comms?", why: "can you", tag: br.do-modal }
+  - { wrong: "The post-mortem depend of the timeline.", right: "The post-mortem depends on the timeline.", why: "depends on", tag: br.depend-of }
+
+dialogue:
+  title: "A bridge inteira — você no comando"
+  lines:
+    - { speaker: Yuri, text: "Roles first — I'm IC. Marcos on logs, Ana on comms, status page first update at 17:50. Timebox: ten minutes to confirm, then we decide." }
+    - { speaker: Ana, text: "Copy — support is reporting mobile fine, web checkout broken." }
+    - { speaker: Marcos, text: "I'm seeing 60% errors on the checkout graph — and the root cause is probably the connection pool—" }
+    - { speaker: Yuri, text: "Hang on — root cause for the post-mortem. Marcos, confirm or deny: did the 17:38 deploy touch payments?" }
+    - { speaker: Marcos, text: "Stand by… confirmed — it changed a config value." }
+    - { speaker: Yuri, text: "Rafa just joined — recap: 60% checkout errors since 17:42, suspect is the 17:38 deploy. Rafa, eyes on the database." }
+    - { speaker: Rafa, text: "Connections maxed out — I'm seeing pool exhaustion in the logs." }
+    - { speaker: Yuri, text: "On my call: we roll back. Marcos, go ahead — read back first. Ana, hold the status update until we have the result." }
+    - { speaker: Marcos, text: "Read back: 'helm rollback checkout to revision 88'. Running… done." }
+    - { speaker: Yuri, text: "Eyes on the error rate — call it the second it drops. If it doesn't drop in ten, we walk it back." }
+    - { speaker: Ana, text: "Error rate falling — 40%, 20%…" }
+    - { speaker: Rafa, text: "Pool recovering — connections draining back to normal." }
+    - { speaker: Yuri, text: "All-clear confirmed — zero errors, pool healthy. Wrap up: Marcos posts the timeline, Ana schedules the post-mortem for Monday, I drop the bridge. Thanks all." }
+  notes:
+    - "a bridge completa: abertura com papéis + timebox → fatos com fonte + confirmação binária → recap para quem entrou tarde → decisão com dono + read back → vigilância → all-clear + fechamento com ações."
+    - "quatorze falas, quinze minutos — cada ferramenta das quatro aulas aparece uma vez."
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "The whole bridge fits in four beats. Open with roles: 'I'm IC — Marcos on logs, Ana on comms' — plus a timebox. Pull facts with sources and binary questions. Decide: name the trade-off, 'on my call', authorize with a read-back. Close: all-clear, recap, actions, 'dropping the bridge'." }
+    - { speaker: Marcos, text: "The IC's tools during the call: 'hang on' cuts the tangent, 'park it' saves the topic for the post-mortem, 'eyes on the graph' assigns the watching, 'stand down' releases who isn't needed, and 'recap' catches up anyone who joined late." }
+    - { speaker: Ana, text: "Fifteen minutes, one decision, zero panic. The IC never debugs — Marcos runs the rollback, Rafa watches the pool, I own the status page. The IC thinks about the forest: what's the fact, what's the decision, what's the clock." }
+  questions:
+    - { id: M16-05-l1, type: multiple_choice, prompt: "The four beats of a bridge are…", options: ["panic → blame → fix → forget", "roles → facts → decision → closing", "hello → chat → goodbye → notes", "alert → meeting → email → done"], answer: 1, explanation: "Papéis → fatos → decisão → fechamento.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-05-l2, type: multiple_choice, prompt: "'Stand down' means…", options: ["stand up from the chair", "release who isn't needed — stand down, region is clean", "stop the rollback", "mute everyone"], answer: 1, explanation: "Liberar gente é trabalho do IC.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-05-l3, type: fill_blank, prompt: "Eyes ___ the error rate — call it the second it drops.", accepted: ["on"], explanation: '"eyes on X" — vigilância com dono.', tags: [vocab.bridge] }
+    - { id: M16-05-l4, type: error_correction, prompt: "The call fell during the all-clear.", accepted: ["The call dropped during the all-clear.", "The call dropped during the all-clear"], explanation: "dropped.", tags: [br.call-fell] }
+    - { id: M16-05-l5, type: multiple_choice, prompt: "Someone joins mid-bridge — the IC…", options: ["ignores them", "starts over", "gives a 15-second recap — what happened, what's now", "asks them to leave"], answer: 2, explanation: "Recap de 15 segundos para entrada tardia.", tags: [comp.listening, vocab.bridge] }
+    - { id: M16-05-l6, type: multiple_choice, prompt: "The IC's job during the rollback is…", options: ["watch the forest — fact, decision, clock", "run the commands", "update the status page personally", "debug the pool"], answer: 0, explanation: "IC pensa na floresta — SME executa.", tags: [comp.listening, vocab.bridge] }
+
+writing:
+  prompt: |
+    **Cenário:** a bridge de 15 minutos acabou — all-clear às 18:05.
+    Você, como IC, posta o resumo na thread.
+
+    **Tarefa:** escreva 70–100 palavras com o resumo da bridge:
+    papéis, a linha do tempo (deploy 17:38 → alerta 17:42 → rollback
+    17:52 → all-clear 18:05), a decisão tomada e o que vem a seguir
+    (post-mortem segunda, re-deploy do fix depois).
+  constraints:
+    - { label: "Papéis", pattern: "\\b(ic|scribe|comms|sme|commander)\\b" }
+    - { label: "Timeline", pattern: "\\b(17:38|17:42|17:52|18:05|timeline)\\b" }
+    - { label: "A decisão", pattern: "\\b(roll ?back|decided|decision|on my call|walk)\\b" }
+    - { label: "O próximo passo", pattern: "\\b(post-mortem|re-deploy|monday|follow.?up|timeline in the thread)\\b" }
+  rubric:
+    - "Papéis e decisão nomeados"
+    - "Timeline com timestamps"
+    - "Próximo passo com dono"
+    - "Sem calques"
+  model: >-
+    Bridge recap — all-clear at 18:05. Roles: I was IC, Marcos ran
+    the rollback, Ana owned comms, Rafa was the database SME.
+    Timeline: deploy at 17:38, alert at 17:42 (60% checkout
+    errors), rollback at 17:52, all-clear at 18:05. Decision on my
+    call: roll back the 17:38 deploy — a config value had maxed out
+    the connection pool. Next: Ana schedules the post-mortem for
+    Monday; Marcos posts the full timeline in this thread; the
+    search fix re-deploys after the all-clear holds.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.bridge]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos como IC conduzindo a bridge inteira em resumo: abertura com papéis, a pergunta de fato, a decisão 'on my call' e o fechamento com all-clear."
+    maxSeconds: 60
+    targetPhrases:
+      - roles first
+      - i'm ic
+      - timebox
+      - what are we seeing
+      - confirm or deny
+      - quick recap
+      - on my call
+      - go ahead
+      - read back
+      - eyes on
+      - walk it back
+      - all-clear
+      - stand down
+      - wrap up
+      - dropping the bridge
+      - thanks all
+    checklist:
+      - "Papéis declarados na abertura"
+      - "Pergunta de fato com fonte"
+      - "Decisão assumida + autorização"
+      - "Fechamento com ações e all-clear"
+
+quiz:
+  - { id: M16-05-q1, type: multiple_choice, prompt: "A bridge opens with…", options: ["'roles first — I'm IC' + a timebox", "'what broke?'", "'sorry for the late call'", "silence"], answer: 0, explanation: "Papéis + timebox antes de tudo.", tags: [vocab.bridge] }
+  - { id: M16-05-q2, type: error_correction, prompt: "Stay in the line — the all-clear is coming.", accepted: ["Stay on the line — the all-clear is coming.", "Stay on the line — the all-clear is coming"], explanation: "on the line.", tags: [br.in-the-line] }
+  - { id: M16-05-q3, type: multiple_choice, prompt: "'Recap' on a bridge exists for…", options: ["the post-mortem only", "the recording", "small talk", "latecomers — what happened, what's now, in 15 seconds"], answer: 3, explanation: "Entrada tardia merece 15 segundos de recap.", tags: [vocab.bridge] }
+  - { id: M16-05-q4, type: fill_blank, prompt: "All-___ confirmed — dropping the bridge.", accepted: ["clear"], explanation: '"all-clear" — o sinal que encerra.', tags: [vocab.bridge] }
+  - { id: M16-05-q5, type: error_correction, prompt: "Confirm me the pool is healthy.", accepted: ["Confirm the pool is healthy.", "Confirm the pool is healthy"], explanation: "confirm, sem me.", tags: [br.confirm-me] }
+  - { id: M16-05-q6, type: translate, prompt: "Olhos na taxa de erro — avise no segundo em que cair.", accepted: ["Eyes on the error rate — call it the second it drops.", "Eyes on the error rate — call it when it drops."], explanation: '"eyes on X" — vigilância com dono.', tags: [vocab.bridge] }
+  - { id: M16-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "dropping", "bridge", "all", "thanks"], answer: "dropping the bridge thanks all", explanation: '"dropping the bridge" — o fim declarado.', tags: [vocab.bridge] }
+  - { id: M16-05-q8, type: multiple_choice, prompt: "A bridge closes with…", options: ["'bye everyone'", "the call just ends", "all-clear + recap + actions with owners", "the next meeting"], answer: 2, explanation: "Fechamento = sinal + resumo + ações.", tags: [vocab.bridge] }
+
+srsCards:
+  - { front: "all-clear", back: "O sinal verde que encerra a bridge.", tag: vocab.bridge }
+  - { front: "timebox", back: "O limite de tempo declarado por etapa.", tag: vocab.bridge }
+  - { front: "hand over", back: "Passar o IC — revezamento declarado.", tag: vocab.bridge }
+  - { front: "recap", back: "15 segundos para quem entrou tarde.", tag: vocab.bridge }
+  - { front: "status check", back: "A verificação periódica — uma linha cada.", tag: vocab.bridge }
+  - { front: "eyes on", back: "Vigilância com dono — 'eyes on the graph'.", tag: vocab.bridge }
+  - { front: "wrap up", back: "Fechamento — ações + agradecimento + fim.", tag: vocab.bridge }
+  - { front: "drop the bridge", back: "O fim declarado — ninguém fica na chamada vazia.", tag: vocab.bridge }
+  - { front: "stand down", back: "Liberar quem não é mais necessário.", tag: vocab.bridge }
+  - { front: "first update at", back: "O prazo da status page dado pelo IC.", tag: vocab.bridge }
+  - { front: "command the call", back: "IC dirige — não debugga.", tag: vocab.bridge }
+
+review:
+  preferTags: [vocab.bridge, br.call-fell, br.confirm-me]
+  notes: "Revisão prioriza as quatro batidas e os calques de chamada."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
