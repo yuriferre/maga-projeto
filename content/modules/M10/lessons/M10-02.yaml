@@ -1,0 +1,286 @@
+id: M10-02
+module: M10
+order: 2
+title: "Causa e efeito: turned out, because of, which caused, led to"
+objective: >-
+  Ao final, você liga o problema à causa com os conectores certos —
+  "turned out to be", "because of", "which caused", "led to" — e distingue
+  causa raiz de consequência sem confundir o leitor.
+durationMin: 35
+competencies: [SPK, WRI, VOC]
+tags: [vocab.troubleshoot, comp.speaking, comp.writing, br.same-of, br.it-not-works]
+prerequisites: [M10-01]
+
+context:
+  scenario: |
+    A caça terminou: o deploy travava porque o readiness probe apontava
+    para um endpoint que exigia auth — adicionada no release das 14h. Agora
+    vem a parte que separa relato de adivinhação: **declarar a causa**.
+
+    O inglês técnico tem um arsenal curto e preciso para isso:
+    **turned out** ("it turned out to be the probe") para a revelação,
+    **because of** + substantivo ("because of the new auth") para a causa,
+    **which caused** + consequência ("the probe required auth, which caused
+    the timeouts") para o encadeamento, e **led to** para a cadeia
+    ("a missing header led to 401s, which led to unready pods").
+  roles: [Yuri (platform engineer), Ana (SRE), Priya (tech lead)]
+
+vocabulary:
+  - term: "it turned out to be"
+    meaning: acabou sendo — a revelação da causa
+    example: "It turned out to be the readiness probe, not the release."
+    translation: "Acabou sendo o readiness probe, não o release."
+    note: "O veredito depois da investigação — sempre 'turned out to be X'."
+  - term: "because of"
+    meaning: por causa de — causa + substantivo
+    example: "The timeout happened because of the new auth requirement."
+    translation: "O timeout aconteceu por causa da nova exigência de auth."
+    note: '"because of" + substantivo; "because" + frase inteira.'
+  - term: "which caused"
+    meaning: o que causou — encadeia a consequência
+    example: "The probe required auth, which caused the 401s."
+    translation: "O probe exigia auth, o que causou os 401."
+    note: '"which" retoma a frase inteira anterior.'
+  - term: "led to"
+    meaning: levou a — a cadeia causal
+    example: "A missing header led to 401s, which led to unready pods."
+    translation: "Um header ausente levou a 401s, que levaram a pods não prontos."
+    note: "Passado de 'lead to' — irregular: lead → led → led."
+  - term: "root cause"
+    meaning: causa raiz — o fundo do poço
+    example: "Root cause: the readiness endpoint started requiring auth."
+    translation: "Causa raiz: o endpoint de readiness passou a exigir auth."
+    note: "Distinto de sintoma — o post-mortem vive disso."
+  - term: "the culprit"
+    meaning: o culpado — o componente que causou
+    example: "The culprit was the auth middleware added in 14h release."
+    translation: "O culpado foi o middleware de auth adicionado no release das 14h."
+    note: "Informal e comum em threads — personifica o componente."
+  - term: "to trace back to"
+    meaning: rastrear até — seguir a cadeia de volta
+    example: "We traced the timeouts back to the auth change."
+    translation: "Rastreamos os timeouts até a mudança de auth."
+    note: '"trace X back to Y" — a investigação reversa.'
+  - term: "it all comes down to"
+    meaning: tudo se resume a — a essência da causa
+    example: "It all comes down to one missing header."
+    translation: "Tudo se resume a um header ausente."
+    note: "Fecha a explicação com a essência."
+  - term: "side effect"
+    meaning: efeito colateral — a consequência não intencional
+    example: "The auth change was a side effect of the security patch."
+    translation: "A mudança de auth foi efeito colateral do patch de segurança."
+    note: "Causa indireta — ninguém quis quebrar o probe."
+  - term: "chain of events"
+    meaning: cadeia de eventos — a sequência que levou ao bug
+    example: "The chain of events: auth patch → 401s → unready pods → timeouts."
+    translation: "A cadeia de eventos: patch de auth → 401s → pods não prontos → timeouts."
+    note: "O post-mortem conta essa cadeia."
+  - term: "that's why"
+    meaning: é por isso que — o efeito explicado
+    example: "The probe needed auth — that's why the pods stayed unready."
+    translation: "O probe precisava de auth — é por isso que os pods ficaram não prontos."
+    note: "Liga o achado ao sintoma numa frase."
+  - term: "in turn"
+    meaning: por sua vez — o próximo elo da cadeia
+    example: "The 401s, in turn, kept the pods unready."
+    translation: "Os 401, por sua vez, mantiveram os pods não prontos."
+    note: "Elegante para cadeias longas — 'X, in turn, caused Y'."
+
+grammar:
+  title: "Quatro formas de ligar causa e efeito"
+  explanation: |
+    Cada conector tem um formato e um momento:
+
+    | Conector | Formato | Momento |
+    |---|---|---|
+    | **it turned out to be** | + substantivo | a revelação — depois de investigar |
+    | **because of** | + substantivo (não frase!) | a causa direta |
+    | **which caused** | vírgula + which + verbo | encadeia a consequência |
+    | **led to** | + substantivo/-ing | a cadeia — passado de "lead" |
+
+    Duas armadilhas BR: "**because of**" só aceita substantivo — "because
+    of the auth", nunca "because of it was added" (isso é "because").
+    E "lead" no passado é "**led**" — "it led to timeouts", não "leaded".
+
+    | Errado | Certo |
+    |---|---|
+    | *because of the probe was broken* | *because the probe was broken* |
+    | *the bug lead to timeouts* | *the bug led to timeouts* |
+    | *it turned out being the probe* | *it turned out to be the probe* |
+  examples:
+    - { en: "It turned out to be the readiness probe — it required auth now.", pt: "Acabou sendo o readiness probe — ele passou a exigir auth." }
+    - { en: "The timeouts happened because of the auth middleware.", pt: "Os timeouts aconteceram por causa do middleware de auth." }
+    - { en: "The probe required auth, which caused a wave of 401s.", pt: "O probe exigia auth, o que causou uma onda de 401." }
+    - { en: "The missing header led to 401s, which led to unready pods.", pt: "O header ausente levou a 401s, que levaram a pods não prontos." }
+    - { en: "We traced it back to the security patch — a side effect nobody expected.", pt: "Rastreamos até o patch de segurança — um efeito colateral que ninguém esperava." }
+    - { en: "Root cause: one missing auth header. That's why everything downstream failed.", pt: "Causa raiz: um header de auth ausente. É por isso que tudo a jusante falhou." }
+
+examples:
+  - en: "It turned out to be the readiness probe — it started requiring auth at 14h."
+    pt: "Acabou sendo o readiness probe — passou a exigir auth às 14h."
+    context: "A revelação depois da investigação."
+  - en: "The timeouts happened because of the auth middleware, not the release itself."
+    pt: "Os timeouts aconteceram por causa do middleware de auth, não do release em si."
+    context: '"because of" + substantivo — causa direta nomeada.'
+  - en: "The probe required auth, which caused the 401s, which kept the pods unready."
+    pt: "O probe exigia auth, o que causou os 401, o que manteve os pods não prontos."
+    context: "Duas gerações de 'which' — a cadeia inteira."
+  - en: "A missing header led to the auth failures."
+    pt: "Um header ausente levou às falhas de auth."
+    context: '"led to" — o passado de "lead to".'
+  - en: "We traced the timeouts back to the 14h security patch."
+    pt: "Rastreamos os timeouts até o patch de segurança das 14h."
+    context: '"trace back to" — a investigação reversa.'
+  - en: "The auth requirement was a side effect of the security patch."
+    pt: "A exigência de auth foi efeito colateral do patch de segurança."
+    context: "Causa indireta — ninguém mirou o probe."
+  - en: "The 401s, in turn, kept every pod unready — that's why deploys timed out."
+    pt: "Os 401, por sua vez, mantiveram todos os pods não prontos — é por isso que os deploys estouraram."
+    context: '"in turn" + "that''s why" fecha a cadeia.'
+  - en: "It all comes down to one missing header in the probe config."
+    pt: "Tudo se resume a um header ausente na config do probe."
+    context: "A essência — uma frase para o post-mortem."
+
+variations:
+  - idea: '"declarar a causa na thread"'
+    items:
+      - { register: "Boa", text: "Update: it turned out to be the readiness probe — it requires auth since the 14h patch, which caused the timeouts.", adequate: true }
+      - { register: "Boa", text: "Root cause: the probe's auth requirement, a side effect of the security patch. The 401s kept pods unready.", adequate: true }
+      - { register: "Inadequada", text: "It was the probe because of it needed auth.", adequate: false, note: '"because of" não aceita frase — "because it needed" ou "because of the auth".' }
+      - { register: "Inadequada", text: "I think maybe it's the probe? Or the release? Or the network?", adequate: false, note: "Depois de investigar, declare — três hipóteses abertas não é causa." }
+  - idea: '"a cadeia causal completa"'
+    items:
+      - { register: "Boa", text: "The auth patch led to 401s, which led to unready pods, which caused the deploy timeouts.", adequate: true }
+      - { register: "Boa", text: "Chain of events: security patch → auth on the probe → 401s → unready pods → timeouts.", adequate: true }
+      - { register: "Inadequada", text: "The timeouts were caused by the pods which were unready because of the 401s from the auth from the patch.", adequate: false, note: "Cadeia ao contrário e enrolada — vá do gatilho ao sintoma, ou use setas." }
+      - { register: "Inadequada", text: "Everything caused everything, basically.", adequate: false, note: "Sem a cadeia, ninguém sabe onde cortar na próxima vez." }
+
+brErrors:
+  - { wrong: "The pod not fails because of the probe.", right: "The pod doesn't fail because of the probe.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same cause of the last incident.", right: "It's the same cause as the last incident.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "Before to deploy, check the probe.", right: "Before deploying, check the probe.", why: "before + gerúndio", tag: br.after-to }
+  - { wrong: "The bug lead to timeouts yesterday.", right: "The bug led to timeouts yesterday.", why: "passado de lead é led", tag: br.irregular-past }
+  - { wrong: "I finded the root cause in the logs.", right: "I found the root cause in the logs.", why: "found, não finded", tag: br.irregular-past }
+  - { wrong: "We didn't knew about the auth change.", right: "We didn't know about the auth change.", why: "didn't + base", tag: br.did-past }
+  - { wrong: "It works in my machine, must be prod.", right: "It works on my machine, must be prod.", why: '"on my machine"', tag: br.in-my-machine }
+  - { wrong: "The patch caused errors in the internet settings.", right: "The patch caused errors in the network settings.", why: '"network", não "internet" para a rede local', tag: br.in-the-internet }
+  - { wrong: "Can you explain me the chain of events?", right: "Can you explain the chain of events to me?", why: "explain + to me", tag: br.explain-me }
+  - { wrong: "The probe is more fragile than we thinked.", right: "The probe is more fragile than we thought.", why: "thought, não thinked", tag: br.irregular-past }
+
+dialogue:
+  title: "Declarando a causa no fim da caça"
+  lines:
+    - { speaker: Priya, text: "Status? The thread's been quiet for a while." }
+    - { speaker: Yuri, text: "Found it. It turned out to be the readiness probe — it started requiring auth after the security patch." }
+    - { speaker: Ana, text: "So the 14h release was involved, just not directly." }
+    - { speaker: Yuri, text: "Right — the auth requirement was a side effect of the patch. The probe got 401s, which kept the pods unready, which caused the timeouts." }
+    - { speaker: Priya, text: "Walk me through the chain once more." }
+    - { speaker: Yuri, text: "Chain of events: security patch → auth on the probe endpoint → 401s → pods never ready → 10-minute timeouts. It all comes down to one missing header in the probe config." }
+    - { speaker: Ana, text: "That's why the health check was green — liveness doesn't hit the auth endpoint." }
+    - { speaker: Yuri, text: "Exactly. We traced it back by diffing the probe config against staging." }
+    - { speaker: Priya, text: "Clean. Write that chain in the thread — the post-mortem will reuse it." }
+  notes:
+    - "a revelação ('turned out to be'), a causa direta ('because of'), a cadeia ('led to / which caused')."
+    - "'traced it back' — a investigação reversa contada numa frase."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "'It turned out to be' is the phrase for the reveal — after forty minutes of hunting, you say 'it turned out to be the probe'. It's the verdict sentence: investigation over, cause named." }
+    - { speaker: Priya, text: "Watch the trap with 'because of' — it only takes a noun. 'Because of the auth patch' is right; 'because of the patch was applied' needs 'because' without 'of'. One word changes the grammar." }
+    - { speaker: Yuri, text: "For the chain, I use 'led to' — and it's irregular: lead, led, led. 'The missing header led to 401s, which led to unready pods.' Two 'led to's and the whole story is told." }
+    - { speaker: Priya, text: "And when the cause is indirect, name it a 'side effect' — 'the auth requirement was a side effect of the security patch'. It keeps blame off the release while still being precise." }
+  questions:
+    - { id: M10-02-l1, type: multiple_choice, prompt: "'It turned out to be' marks…", options: ["the first hypothesis", "the verdict — investigation over, cause named", "the symptom", "the next step"], answer: 1, explanation: "A revelação depois da caça.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-02-l2, type: multiple_choice, prompt: "The 'because of' trap:", options: ["it takes a full clause", "it's informal", "it's only for past tense", "it only takes a noun — a clause needs 'because'"], answer: 3, explanation: '"because of the patch", "because the patch landed".', tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-02-l3, type: fill_blank, prompt: "The missing header ___ to 401s.", accepted: ["led"], explanation: "Passado irregular de lead: led.", tags: [vocab.troubleshoot] }
+    - { id: M10-02-l4, type: error_correction, prompt: "The pod not fails because of the probe.", accepted: ["The pod doesn't fail because of the probe.", "The pod doesn't fail because of the probe"], explanation: "doesn't + base.", tags: [br.it-not-works] }
+    - { id: M10-02-l5, type: multiple_choice, prompt: "Naming the cause a 'side effect'…", options: ["hides the real cause", "blames the release", "keeps blame off the release while staying precise", "delays the fix"], answer: 2, explanation: "Preciso sem apontar dedo.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-02-l6, type: multiple_choice, prompt: "The chain 'auth → 401s → unready pods → timeouts' is told with…", options: ["'turned out to be' only", "guessing words", "only past tense", "'led to' and 'which caused' linking each step"], answer: 3, explanation: "Os conectores de cadeia.", tags: [comp.listening, vocab.troubleshoot] }
+
+writing:
+  prompt: |
+    **Cenário:** a caça acabou — causa raiz encontrada. A thread do
+    `#billing` e o rascunho do post-mortem precisam da explicação causal:
+    o patch de segurança das 14h adicionou auth ao endpoint do readiness
+    probe → 401s → pods nunca prontos → timeouts de 10 minutos.
+
+    **Tarefa:** escreva 80–120 palavras declarando a causa. Use "it turned
+    out to be" para a revelação, "because of" para a causa direta, e
+    "led to"/"which caused" para a cadeia. Feche com a root cause numa
+    frase.
+  constraints:
+    - { label: "Revelação", pattern: "\\bturned out\\b" }
+    - { label: "Causa com because of/because", pattern: "\\bbecause(\\s+of)?\\b" }
+    - { label: "Cadeia causal", pattern: "\\b(led to|which caused|which led|in turn|that.s why)\\b" }
+    - { label: "Causa raiz nomeada", pattern: "\\b(root cause|comes down to|culprit|side effect)\\b" }
+  rubric:
+    - "Revelação com 'it turned out to be'"
+    - "Cadeia com 'led to'/'which caused' — gatilho até o sintoma"
+    - "Root cause numa frase final"
+    - "'because of' só com substantivo"
+  model: >-
+    Update on the billing deploys. It turned out to be the readiness probe:
+    because of the 14h security patch, the probe endpoint started requiring auth,
+    which caused a wave of 401s. The 401s led to pods never becoming ready,
+    which in turn caused the 10-minute timeouts. The auth requirement was a
+    side effect of the patch — nobody aimed at the probe. Root cause: one
+    missing auth header in the probe config. That's why the health check
+    stayed green while readiness failed.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.troubleshoot]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando a cadeia causal do incidente em voz: a revelação, a causa direta e a cadeia de eventos até o sintoma."
+    maxSeconds: 45
+    targetPhrases:
+      - it turned out to be
+      - because of
+      - which caused
+      - led to
+      - root cause
+      - side effect
+      - chain of events
+      - traced it back to
+      - that's why
+      - in turn
+      - it all comes down to
+      - the culprit
+    checklist:
+      - Revelação declarada
+      - Cadeia do gatilho ao sintoma
+      - Root cause numa frase
+      - "'because of' só com substantivo"
+
+quiz:
+  - { id: M10-02-q1, type: multiple_choice, prompt: "After 40 minutes of hunting, the verdict sentence is…", options: ["'Maybe it's the probe'", "'Let's see'", "'It turned out to be the probe'", "'The probe exists'"], answer: 2, explanation: '"turned out to be" — a revelação.', tags: [vocab.troubleshoot] }
+  - { id: M10-02-q2, type: error_correction, prompt: "The timeouts happened because of the probe was broken.", accepted: ["The timeouts happened because the probe was broken.", "The timeouts happened because the probe was broken"], explanation: '"because of" só leva substantivo — frase inteira pede "because".', tags: [vocab.troubleshoot] }
+  - { id: M10-02-q3, type: multiple_choice, prompt: "The past tense of 'lead to' is…", options: ["lead to", "leaded to", "led to", "laid to"], answer: 2, explanation: "lead → led → led.", tags: [vocab.troubleshoot] }
+  - { id: M10-02-q4, type: fill_blank, prompt: "The probe required auth, ___ caused the 401s.", accepted: ["which"], explanation: '"which" retoma a frase inteira.', tags: [vocab.troubleshoot] }
+  - { id: M10-02-q5, type: error_correction, prompt: "It's the same cause of the last incident.", accepted: ["It's the same cause as the last incident.", "It's the same cause as the last incident"], explanation: '"the same X as".', tags: [br.same-of] }
+  - { id: M10-02-q6, type: translate, prompt: "Um header ausente levou aos 401, que levaram aos pods não prontos.", accepted: ["A missing header led to the 401s, which led to the unready pods.", "A missing header led to 401s, which led to unready pods."], explanation: '"led to" + "which led to" — a cadeia.', tags: [vocab.troubleshoot] }
+  - { id: M10-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["down", "to", "comes", "one", "all", "it", "header", "missing"], answer: "it all comes down to one missing header", explanation: '"it all comes down to X" — a essência.', tags: [vocab.troubleshoot] }
+  - { id: M10-02-q8, type: multiple_choice, prompt: "An indirect cause nobody aimed at is…", options: ["the root cause", "a symptom", "a culprit", "a side effect"], answer: 3, explanation: '"side effect" — consequência não intencional.', tags: [vocab.troubleshoot] }
+
+srsCards:
+  - { front: "it turned out to be", back: "A revelação depois da investigação — 'turned out to be the probe'.", tag: vocab.troubleshoot }
+  - { front: "because of", back: "+ substantivo apenas — frase inteira pede 'because'.", tag: vocab.troubleshoot }
+  - { front: "which caused", back: "Retoma a frase anterior e encadeia a consequência.", tag: vocab.troubleshoot }
+  - { front: "led to", back: "Passado irregular de 'lead to' — a cadeia causal.", tag: vocab.troubleshoot }
+  - { front: "root cause", back: "A causa raiz — o fundo do poço do post-mortem.", tag: vocab.troubleshoot }
+  - { front: "the culprit", back: "O componente culpado — informal em threads.", tag: vocab.troubleshoot }
+  - { front: "trace back to", back: "Rastrear até a origem — a investigação reversa.", tag: vocab.troubleshoot }
+  - { front: "side effect", back: "Causa indireta não intencional.", tag: vocab.troubleshoot }
+  - { front: "that's why", back: "Liga o achado ao sintoma — 'é por isso que'.", tag: vocab.troubleshoot }
+  - { front: "in turn", back: "O próximo elo da cadeia — 'por sua vez'.", tag: vocab.troubleshoot }
+
+review:
+  preferTags: [vocab.troubleshoot, br.same-of, br.it-not-works]
+  notes: "Revisão prioriza os conectores causais e os padrões BR novos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
