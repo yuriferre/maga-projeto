@@ -298,3 +298,32 @@ patterns:
     right: "She gave me some feedback about my presentation / a piece of feedback"
     why: "Feedback é incontável — some feedback, a piece of feedback. ('A feedback loop' é outra coisa.)"
     tag: br.uncountable
+  # "did a comment" é calque de "fiz um comentário" — em inglês se "leave a comment".
+  # "made a comment" é inglês válido; o calque é só com do/did/does/doing.
+  - id: did-a-comment
+    pattern: "\\b(do|did|done|doing|does) a comment\\b"
+    wrong: "I did a comment on your PR"
+    right: "I left a comment on your PR"
+    why: '"Leave a comment" — "do a comment" é calque. ("Made a comment" é válido.)'
+    tag: br.did-comment
+  # "seems me" é calque de "me parece" — o pronome vai depois de "to".
+  - id: seems-me
+    pattern: "\\bseems?\\s+(me|us|him|her|them)\\b"
+    wrong: "The code seems me fine"
+    right: "The code seems fine to me"
+    why: '"Seems to me" — o pronome não cola no verbo. ("He seems tired" é outra estrutura.)'
+    tag: br.seems-me
+  # "according to me" é calque de "segundo eu" — opinião própria é "in my view" / "I think".
+  - id: according-to-me
+    pattern: "\\baccording to me\\b"
+    wrong: "According to me, we should revert"
+    right: "In my view, we should revert"
+    why: '"According to" leva fonte externa (the docs, the logs); opinião própria é "in my view".'
+    tag: br.according-to-me
+  # "worth" não é verbo: "it worths" vira "it's worth" / "worth doing".
+  - id: it-worths
+    pattern: "\\bworths\\b"
+    wrong: "It worths the refactor"
+    right: "It's worth the refactor"
+    why: '"Worth" não é verbo — "it''s worth it" ou "worth doing".'
+    tag: br.worths

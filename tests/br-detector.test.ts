@@ -388,4 +388,48 @@ describe("detectBrErrors", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.uncountable");
   });
+
+  // M09: code review
+  it("flags 'did a comment' but not valid review verbs", () => {
+    expect(tagsOf("I did a comment on your PR.")).toContain("br.did-comment");
+    expect(tagsOf("She does a comment on every line.")).toContain("br.did-comment");
+    const clean = [
+      "I left a comment on your PR.",
+      "He made a comment about the weather.",
+      "I did a review of the change.",
+      "She added a comment in the thread.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.did-comment");
+  });
+  it("flags 'seems me' but not 'seems to me' or 'seems tired'", () => {
+    expect(tagsOf("The code seems me fine.")).toContain("br.seems-me");
+    expect(tagsOf("It seems me wrong to skip tests.")).toContain("br.seems-me");
+    const clean = [
+      "The code seems fine to me.",
+      "It seems to me we should wait.",
+      "He seems tired after the on-call.",
+      "It seems fine.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.seems-me");
+  });
+  it("flags 'according to me' but not 'according to the docs'", () => {
+    expect(tagsOf("According to me, we should revert.")).toContain("br.according-to-me");
+    expect(tagsOf("According to me this refactor is risky.")).toContain("br.according-to-me");
+    const clean = [
+      "According to the docs, retries are on.",
+      "In my view, we should revert.",
+      "I think we should revert.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.according-to-me");
+  });
+  it("flags 'it worths' but not 'worth it'", () => {
+    expect(tagsOf("It worths the refactor.")).toContain("br.worths");
+    expect(tagsOf("The change worths a second look.")).toContain("br.worths");
+    const clean = [
+      "It's worth the refactor.",
+      "The change is worth a second look.",
+      "Worth doing, in my view.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.worths");
+  });
 });
