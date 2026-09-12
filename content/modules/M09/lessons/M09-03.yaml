@@ -1,0 +1,296 @@
+id: M09-03
+module: M09
+order: 3
+title: "Respondendo reviews: good catch, addressed in abc123, discordar com motivo"
+objective: >-
+  Ao final, você responde comentários de review — concorda e aponta o commit
+  ("good catch — addressed in abc123"), discorda com motivo ("I'd keep it —
+  here's why"), e pede re-review ("PTAL").
+durationMin: 35
+competencies: [WRI, REA, VOC]
+tags: [vocab.review, topic.code-review, comp.writing, comp.reading, br.i-am-agree, br.explain-me]
+prerequisites: [M09-02]
+
+context:
+  scenario: |
+    Receber review é a metade esquecida do code review. O comentário chegou —
+    e agora? Três respostas possíveis: **concordar** ("good catch —
+    addressed in abc123"), **discordar com motivo** ("I'd keep it — the
+    empty case can't happen here because the API always returns a list"), e
+    **esclarecer** ("good question — this runs before auth, so the token
+    isn't set yet").
+
+    A regra: cada comentário merece resposta, nem que seja "done". Silêncio
+    lê como ignorado; e discordar sem motivo lê como teimosia. Fechado o
+    ciclo, pede re-review: "PTAL" (*please take another look*).
+  roles: [Yuri (platform engineer, autor do PR), Priya (tech lead, reviewer), Marcos (backend, reviewer)]
+
+vocabulary:
+  - term: "good catch"
+    meaning: boa pescada — reconhecer que o reviewer achou algo real
+    example: "Good catch — I'd missed the empty case entirely."
+    translation: "Boa pescada — eu tinha perdido o caso vazio completamente."
+    note: "A resposta padrão quando o reviewer estava certo."
+  - term: "addressed in abc123"
+    meaning: resolvido no commit — concordar + apontar a correção
+    example: "Addressed in 4f2a1c — extracted the helper and renamed."
+    translation: "Resolvido em 4f2a1c — extrai o helper e renomeei."
+    note: "O SHA diz 'feito, vá olhar' — fecha o ciclo."
+  - term: "done"
+    meaning: feito — a resposta mínima legítima
+    example: "done — also renamed the variable while I was there."
+    translation: "feito — também renomeei a variável já que estava lá."
+    note: "Válido para nits; blocking pede mais contexto."
+  - term: "PTAL"
+    meaning: please take another look — pedido de re-review
+    example: "All comments addressed — PTAL when you have a minute."
+    translation: "Todos os comentários resolvidos — PTAL quando tiver um minuto."
+    note: "Sigla de review: 'please take another look'."
+  - term: "I'd keep it"
+    meaning: eu manteria — discordar com a sua leitura
+    example: "I'd keep it — the map version reads worse with three keys."
+    translation: "Eu manteria — a versão com map lê pior com três chaves."
+    note: "Discordância + o motivo — nunca 'I disagree' sozinho."
+  - term: "here's why"
+    meaning: aqui está o porquê — o motivo depois da discordância
+    example: "I'd keep the loop — here's why: the map hides the ordering."
+    translation: "Eu manteria o loop — aqui está o porquê: o map esconde a ordenação."
+    note: "Discordar precisa do 'porquê' — é o que separa de teimosia."
+  - term: "fair — but"
+    meaning: justo — mas — aceita o ponto e contesta
+    example: "Fair — but the ordering matters here, so the loop stays."
+    translation: "Justo — mas a ordem importa aqui, então o loop fica."
+    note: "Reconhece antes de discordar — mesmo padrão do feedback."
+  - term: "that's intentional"
+    meaning: é proposital — a resposta ao 'por que assim?'
+    example: "That's intentional — the sleep gives the pod time to drain."
+    translation: "É proposital — o sleep dá tempo do pod drenar."
+    note: "Quando o 'erro' é decisão: explica a razão."
+  - term: "good question"
+    meaning: boa pergunta — a resposta ao comentário de dúvida
+    example: "Good question — this runs before auth, so the token isn't set yet."
+    translation: "Boa pergunta — isso roda antes do auth, então o token ainda não existe."
+    note: "Reconhece a dúvida e responde o contexto."
+  - term: "you're right"
+    meaning: você está certo — concordar sem rodeio
+    example: "You're right — the retry would double-count. Fixing now."
+    translation: "Você está certo — o retry contaria dobrado. Corrigindo agora."
+    note: "Concordância limpa + ação imediata."
+  - term: "resolved"
+    meaning: resolvido — o botão que fecha a thread
+    example: "Resolving this thread — the fix landed in the latest push."
+    translation: "Resolvendo esta thread — a correção entrou no último push."
+    note: "Quem resolve a thread varia por time — combine antes."
+  - term: "missed the point"
+    meaning: perdeu o ponto — quando o comentário errou o alvo
+    example: "I think the comment missed the point — the check is for retries, not timeouts."
+    translation: "Acho que o comentário perdeu o ponto — a verificação é para retries, não timeouts."
+    note: "Discordar do alvo: reeduca sem atacar."
+  - term: "push back"
+    meaning: resistir — discordar com fundamento
+    example: "I pushed back on the rename — the name matches the domain."
+    translation: "Resisti ao renomear — o nome casa com o domínio."
+    note: "Mesmo 'pushback' do M08 — com o motivo junto."
+  - term: "landed"
+    meaning: entrou — a mudança que foi mergeada/commitada
+    example: "The fix landed in 4f2a1c — PTAL."
+    translation: "A correção entrou em 4f2a1c — PTAL."
+    note: "'land' = entrar no branch — 'the fix landed'."
+
+grammar:
+  title: "Responder review: concorda, discorda com motivo, ou esclarece"
+  explanation: |
+    Toda resposta a comentário de review cai em três formas: **concordar**
+    (*good catch — addressed in abc123*, *done*, *you're right — fixing*),
+    **discordar com motivo** (*I'd keep it — here's why:…*, *fair — but…*,
+    *that's intentional —…*) e **esclarecer** (*good question —…*). Depois
+    do ciclo, o autor pede re-review: *PTAL*.
+
+    | Situação | Resposta-modelo |
+    |---|---|
+    | reviewer achou um bug | *Good catch — addressed in 4f2a1c.* |
+    | nit | *done* |
+    | você discorda | *I'd keep it — here's why: the ordering matters.* |
+    | foi decisão, não erro | *That's intentional — the sleep drains the pod.* |
+    | dúvida do reviewer | *Good question — it runs before auth.* |
+
+    **Erros BR:** "I **am** agree" (*I agree*), "can you explain **me**"
+    (*explain X to me*), "I did **a** comment" (*left*), "**according to
+    me**" (*in my view*).
+  examples:
+    - { en: "Good catch — the retry would double-count. Addressed in 4f2a1c.", pt: "Boa pescada — o retry contaria dobrado. Resolvido em 4f2a1c." }
+    - { en: "done — renamed it while I was there.", pt: "feito — renomeei já que estava lá." }
+    - { en: "I'd keep the loop — here's why: the map hides the ordering.", pt: "Eu manteria o loop — aqui está o porquê: o map esconde a ordenação." }
+    - { en: "That's intentional — the sleep gives the pod time to drain.", pt: "É proposital — o sleep dá tempo do pod drenar." }
+    - { en: "Good question — this runs before auth, so the token isn't set yet.", pt: "Boa pergunta — isso roda antes do auth, então o token ainda não existe." }
+    - { en: "All comments addressed — PTAL when you have a minute.", pt: "Todos os comentários resolvidos — PTAL quando tiver um minuto." }
+
+examples:
+  - en: "Good catch — I'd missed the empty case entirely. Addressed in 4f2a1c."
+    pt: "Boa pescada — eu tinha perdido o caso vazio completamente. Resolvido em 4f2a1c."
+    context: "Reconhece + aponta o commit — o ciclo fecha."
+  - en: "You're right — the retry would double-count. Fixing now."
+    pt: "Você está certo — o retry contaria dobrado. Corrigindo agora."
+    context: "Concordância limpa + ação — sem se justificar."
+  - en: "I'd keep it — here's why: with three keys, the map reads worse than the loop."
+    pt: "Eu manteria — aqui está o porquê: com três chaves, o map lê pior que o loop."
+    context: "Discordância + motivo — nunca 'I disagree' sozinho."
+  - en: "Fair — but the ordering matters here, so the loop stays."
+    pt: "Justo — mas a ordem importa aqui, então o loop fica."
+    context: "Aceita o ponto antes de contestar — mesma skill do feedback."
+  - en: "That's intentional — the sleep gives the pod time to drain before the kill."
+    pt: "É proposital — o sleep dá tempo do pod drenar antes do kill."
+    context: "O 'erro' era decisão — explica a razão."
+  - en: "Good question — this runs before auth, so the token isn't set yet."
+    pt: "Boa pergunta — isso roda antes do auth, então o token ainda não existe."
+    context: "A dúvida do reviewer era o contexto que faltava."
+  - en: "I think the comment missed the point — the check guards retries, not timeouts."
+    pt: "Acho que o comentário perdeu o ponto — a verificação protege retries, não timeouts."
+    context: "Discordar do alvo do comentário — reeduca sem atacar."
+  - en: "All comments addressed — PTAL when you have a minute."
+    pt: "Todos os comentários resolvidos — PTAL quando tiver um minuto."
+    context: "O fecho do ciclo: pede o re-review."
+
+variations:
+  - idea: '"o comentário pede uma mudança que piora o código"'
+    items:
+      - { register: "Boa", text: "I'd keep it — here's why: the map hides the ordering, and order matters here.", adequate: true }
+      - { register: "Boa", text: "Fair point on duplication — but extracting it couples the callers. Keeping it.", adequate: true }
+      - { register: "Inadequada", text: "I disagree.", adequate: false, note: "Sem o motivo, lê como teimosia — sempre o 'porquê'." }
+      - { register: "Inadequada", text: "(silence — just don't do it)", adequate: false, note: "Comentário sem resposta lê como ignorado." }
+  - idea: '"o comentário estava certo"'
+    items:
+      - { register: "Boa", text: "Good catch — the retry would double-count. Addressed in 4f2a1c.", adequate: true }
+      - { register: "Boa", text: "You're right — fixing now.", adequate: true }
+      - { register: "Inadequada", text: "Well, technically it rarely double-counts.", adequate: false, note: "Minimizar o bug que acharam desgasta o reviewer." }
+      - { register: "Inadequada", text: "I did a comment saying it was fine.", adequate: false, note: '"left a comment" — e a resposta não defende o bug.' }
+
+brErrors:
+  - { wrong: "I am agree — fixing now.", right: "I agree — fixing now.", why: "agree é verbo — sem am", tag: br.i-am-agree }
+  - { wrong: "Can you explain me what broke?", right: "Can you explain to me what broke?", why: "explain + to me", tag: br.explain-me }
+  - { wrong: "I did a comment explaining the choice.", right: "I left a comment explaining the choice.", why: '"leave a comment"', tag: br.did-comment }
+  - { wrong: "According to me, the loop is fine.", right: "In my view, the loop is fine.", why: "opinião própria é in my view", tag: br.according-to-me }
+  - { wrong: "It worths a second look.", right: "It's worth a second look.", why: "worth não é verbo", tag: br.worths }
+  - { wrong: "The change seems me risky.", right: "The change seems risky to me.", why: "seems + to me", tag: br.seems-me }
+  - { wrong: "I have a doubt about this comment.", right: "I have a question about this comment.", why: "doubt = desconfiança", tag: br.doubt }
+  - { wrong: "He said me the test was missing.", right: "He told me the test was missing.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "The code make sense now.", right: "The code makes sense now.", why: "terceira pessoa: makes", tag: br.it-makes-sense }
+  - { wrong: "I need that you review again.", right: "I need you to review again.", why: '"need X to"', tag: br.need-that-you }
+
+dialogue:
+  title: "O ciclo de review fecha"
+  lines:
+    - { speaker: Priya, text: "Left three comments on the retry PR — the big one is the counter." }
+    - { speaker: Yuri, text: "Looking… good catch on the counter — it would double-count. Addressing now." }
+    - { speaker: Marcos, text: "And my comment about the loop — did you see it?" }
+    - { speaker: Yuri, text: "Saw it. I'd keep the loop — here's why: the map version hides the ordering, and order matters for the retry sequence." }
+    - { speaker: Marcos, text: "Fair — hadn't noticed the ordering. Keep it." }
+    - { speaker: Priya, text: "And the sleep on line 12 — that was intentional?" }
+    - { speaker: Yuri, text: "That's intentional — the pod needs a beat to drain before the kill. I'll add a comment so the next reader knows." }
+    - { speaker: Priya, text: "Good. Resolve the threads when the push lands." }
+    - { speaker: Yuri, text: "Pushed — all comments addressed. PTAL when you have a minute." }
+  notes:
+    - "três respostas no diálogo: concordar (good catch + addressed), discordar com motivo (I'd keep it — here's why), esclarecer decisão (that's intentional)."
+    - "o fecho é sempre o pedido de re-review: PTAL."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Every comment gets an answer, even if it's just 'done'. Silence reads as ignored — and a reviewer who feels ignored stops reviewing you carefully." }
+    - { speaker: Marcos, text: "The answers I trust: 'good catch, addressed in abc123' when I was right, and 'I'd keep it, here's why' when I wasn't. Both take the same ten seconds." }
+    - { speaker: Priya, text: "And when the comment is actually a question — 'why is this here?' — the answer is context, not code. 'Good question — it runs before auth' ends the thread better than any refactor." }
+  questions:
+    - { id: M09-03-l1, type: multiple_choice, prompt: "Why answer every comment, even 'done'?", options: ["it's polite", "silence reads as ignored — and reviewers stop reviewing carefully", "GitHub requires it", "it bumps the PR"], answer: 1, explanation: "O silêncio desgasta quem revisa.", tags: [comp.listening, vocab.review] }
+    - { id: M09-03-l2, type: multiple_choice, prompt: "When the comment is really a question, the answer is…", options: ["a refactor", "a new commit", "silence", "context — 'good question, it runs before auth'"], answer: 3, explanation: "Pergunta pede contexto, não código.", tags: [comp.listening, vocab.review] }
+    - { id: M09-03-l3, type: fill_blank, prompt: "Good ___ — the retry would double-count. Addressed in 4f2a1c.", accepted: ["catch"], explanation: '"good catch" — o reviewer achou algo real.', tags: [vocab.review] }
+    - { id: M09-03-l4, type: multiple_choice, prompt: "'I'd keep it — here's why' is the right shape because…", options: ["it's polite", "it defends the code", "disagreement + reason — 'I disagree' alone reads as stubbornness", "it's short"], answer: 2, explanation: "Discordar precisa do motivo.", tags: [comp.listening, vocab.review] }
+    - { id: M09-03-l5, type: error_correction, prompt: "I am agree — fixing now.", accepted: ["I agree — fixing now.", "I agree — fixing now"], explanation: "agree é verbo — sem am.", tags: [br.i-am-agree] }
+    - { id: M09-03-l6, type: multiple_choice, prompt: "PTAL stands for…", options: ["please test after launch", "please take another look", "post to a later", "patch then approve later"], answer: 1, explanation: "O pedido de re-review depois de endereçar tudo.", tags: [vocab.review] }
+
+writing:
+  prompt: |
+    **Cenário:** seu PR de retry recebeu três comentários: um bug real no
+    contador (certeiro), um pedido para trocar o loop por um map (que piora
+    o código — a ordem importa), e uma dúvida sobre um `sleep` (que é
+    proposital — o pod precisa drenar).
+
+    **Tarefa:** escreva 60–90 palavras de resposta aos três: concordar com
+    o commit ("good catch — addressed in…"), discordar com motivo ("I'd
+    keep it — here's why"), e esclarecer a decisão ("that's intentional").
+    Feche pedindo re-review.
+  constraints:
+    - { label: "Concordar + commit", pattern: "\\b(good catch|addressed|done|you.re right|landed)\\b" }
+    - { label: "Discordar com motivo", pattern: "\\b(i.d keep|here.s why|fair — but|fair, but|intentional)\\b" }
+    - { label: "Re-review", pattern: "\\b(ptal|another look|re-?review)\\b" }
+  rubric:
+    - Cada comentário respondido
+    - Discordância com motivo, não 'I disagree'
+    - Decisão proposital explicada
+    - Fecha pedindo re-review
+  model: >-
+    Thanks for the reviews. On the counter — good catch, it would
+    double-count; addressed in 4f2a1c with the atomic increment. On the
+    loop: I'd keep it — here's why, the map version hides the ordering and
+    order matters for the retry sequence. On the sleep: that's
+    intentional, it gives the pod time to drain — added a comment so the
+    next reader knows. All threads answered; PTAL when you have a minute.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.review]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo reviews em voz alta: um good catch com commit, uma discordância com motivo, uma decisão explicada, e o pedido de re-review."
+    maxSeconds: 45
+    targetPhrases:
+      - good catch
+      - addressed in
+      - done
+      - PTAL
+      - I'd keep it
+      - here's why
+      - fair — but
+      - that's intentional
+      - good question
+      - you're right
+      - landed
+      - push back
+      - resolved
+      - all comments addressed
+    checklist:
+      - Concorda apontando o commit
+      - Discorda com o motivo junto
+      - Explica o que era decisão
+      - Fecha com PTAL
+
+quiz:
+  - { id: M09-03-q1, type: multiple_choice, prompt: "'Addressed in 4f2a1c' means…", options: ["the comment was wrong", "the fix is in that commit — go look", "the PR is closed", "4f2a1c is the reviewer"], answer: 1, explanation: "O SHA aponta a correção — fecha o ciclo.", tags: [vocab.review] }
+  - { id: M09-03-q2, type: error_correction, prompt: "I am agree the name is confusing.", accepted: ["I agree the name is confusing.", "I agree the name is confusing"], explanation: "agree é verbo — sem am.", tags: [br.i-am-agree] }
+  - { id: M09-03-q3, type: multiple_choice, prompt: "The right shape for disagreeing with a comment:", options: ["\"I disagree.\"", "\"No.\"", "\"I'd keep it — here's why: the ordering matters.\"", "(don't reply)"], answer: 2, explanation: "Discordância + motivo — nunca 'I disagree' sozinho.", tags: [vocab.review] }
+  - { id: M09-03-q4, type: error_correction, prompt: "Can you explain me why the check is there?", accepted: ["Can you explain to me why the check is there?", "Can you explain to me why the check is there", "Can you explain why the check is there?"], explanation: "explain + to me — nunca explain me.", tags: [br.explain-me] }
+  - { id: M09-03-q5, type: multiple_choice, prompt: "'That's intentional' answers a comment that…", options: ["found a bug", "suggested a rename", "requested tests", "asked why the code is the way it is — it was a decision"], answer: 3, explanation: "O 'erro' era decisão — explique a razão.", tags: [vocab.review] }
+  - { id: M09-03-q6, type: translate, prompt: "Boa pescada — resolvido no último push.", accepted: ["Good catch — addressed in the latest push.", "Good catch — addressed in the latest push", "Good catch — it landed in the latest push."], explanation: '"good catch" + o commit/push — o par padrão.', tags: [vocab.review] }
+  - { id: M09-03-q7, type: reorder, prompt: "Monte a frase: / todos os comentários / resolvidos / PTAL / quando tiver um minuto", tokens: ["All", "comments", "addressed", "—", "PTAL", "when", "you", "have", "a", "minute."], answer: "All comments addressed — PTAL when you have a minute.", explanation: "O fecho do ciclo: tudo respondido + re-review.", tags: [vocab.review] }
+  - { id: M09-03-q8, type: multiple_choice, prompt: "Why is silence on a comment a problem?", options: ["the PR can't merge", "it reads as ignored — reviewers disengage", "CI fails", "it's not — silence is fine"], answer: 1, explanation: "Cada comentário merece resposta, nem que seja 'done'.", tags: [vocab.review, topic.code-review] }
+
+review:
+  count: 5
+  preferTags: [vocab.review, br.i-am-agree, br.explain-me]
+
+srsCards:
+  - { front: "good catch", back: "o reviewer achou algo real — 'good catch — addressed in abc123'", tag: vocab.review }
+  - { front: "addressed in <sha>", back: "concordar + apontar o commit — fecha o ciclo", tag: vocab.review }
+  - { front: "PTAL", back: "please take another look — o pedido de re-review", tag: vocab.review }
+  - { front: "I'd keep it — here's why", back: "discordar com motivo — nunca 'I disagree' sozinho", tag: vocab.review }
+  - { front: "that's intentional", back: "o 'erro' era decisão — explique a razão", tag: vocab.review }
+  - { front: "good question", back: "a resposta ao comentário-dúvida: contexto, não código", tag: vocab.review }
+  - { front: "landed", back: "a mudança entrou — 'the fix landed in 4f2a1c'", tag: vocab.review }
+  - { front: "fair — but", back: "aceita o ponto antes de contestar — mesma skill do feedback", tag: vocab.review }
+  - { front: "done", back: "a resposta mínima legítima para nits", tag: vocab.review }
+  - { front: "I agree × I am agree", back: "agree é verbo — nunca 'I am agree'", hint: "I agree — fixing now", tag: br.i-am-agree }
+  - { front: "explain X to me", back: "explain não leva pessoa como objeto direto", hint: "explain the choice to me", tag: br.explain-me }
+  - { front: "left a comment", back: "o verbo de review — nunca 'did a comment'", tag: br.did-comment }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
