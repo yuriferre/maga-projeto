@@ -1,0 +1,287 @@
+id: M10-01
+module: M10
+order: 1
+title: "Narrativa de problema: symptom → context → what I tried → what I found"
+objective: >-
+  Ao final, você conta um problema técnico em quatro batidas — o sintoma,
+  o contexto, o que tentou e o que encontrou — sem se perder no meio, e a
+  pessoa que lê sabe exatamente onde a história está.
+durationMin: 35
+competencies: [SPK, WRI, VOC]
+tags: [vocab.troubleshoot, comp.speaking, comp.writing, br.it-not-works, br.after-to]
+prerequisites: [M04-05, M05-05, M09-05]
+
+context:
+  scenario: |
+    Quarta-feira, 15h. O job de deploy do billing falha em produção e a
+    thread do canal `#billing` cresce rápido. Você investigou por 40 minutos
+    e agora precisa reportar — sem que ninguém pergunte "tá, mas o que você
+    já tentou?".
+
+    Narrativa de problema tem formato, não é stream of consciousness:
+    **symptom** (o que está visível — "deploys are timing out"),
+    **context** (quando começou, o que mudou — "started after the 14h
+    release"), **what I tried** (em ordem — "rolled back, still failing"),
+    **what I found** (a evidência — "the health check returns 200 but the
+    pod isn't ready"). Quatro frases, quatro âncoras — quem lê sabe onde
+    está e o que falta.
+  roles: [Yuri (platform engineer), Ana (SRE), Priya (tech lead)]
+
+vocabulary:
+  - term: "symptom"
+    meaning: sintoma — o que se vê de fora
+    example: "The symptom: deploys time out after 10 minutes."
+    translation: "O sintoma: os deploys estouram o tempo depois de 10 minutos."
+    note: "Primeira batida — o visível, não a causa."
+  - term: "context"
+    meaning: contexto — quando começou e o que mudou
+    example: "Context: it started right after the 14h release."
+    translation: "Contexto: começou logo depois do release das 14h."
+    note: "Segunda batida — o que mudou no mundo em volta."
+  - term: "what I tried"
+    meaning: o que eu tentei — a trilha de tentativas
+    example: "What I tried: rolled back, same failure. Restarted the runner, same."
+    translation: "O que tentei: rollback, mesma falha. Reiniciei o runner, mesma coisa."
+    note: "Terceira batida — lista em ordem, com o resultado de cada uma."
+  - term: "what I found"
+    meaning: o que eu encontrei — a evidência
+    example: "What I found: health check returns 200 but the pod stays unready."
+    translation: "O que encontrei: o health check retorna 200 mas o pod não fica pronto."
+    note: "Quarta batida — o dado que aponta a direção."
+  - term: "to notice"
+    meaning: notar — quando o sintoma apareceu no radar
+    example: "I first noticed it around 14:20."
+    translation: "Notei pela primeira vez por volta das 14h20."
+    note: '"first noticed" ancora a linha do tempo.'
+  - term: "intermittent"
+    meaning: intermitente — vai e volta, o pior tipo
+    example: "The timeout is intermittent — green twice, red three times."
+    translation: "O timeout é intermitente — verde duas vezes, vermelho três."
+    note: "Intermitente ≠ reproduzível — declare logo."
+  - term: "consistent"
+    meaning: consistente — falha toda vez
+    example: "It's consistent — every deploy since 14h fails."
+    translation: "É consistente — todo deploy desde as 14h falha."
+    note: "O oposto de intermitente — informação de caça ao bug."
+  - term: "actual vs expected"
+    meaning: real vs esperado — o par que define o bug
+    example: "Expected: pod ready in 30s. Actual: it never becomes ready."
+    translation: "Esperado: pod pronto em 30s. Real: ele nunca fica pronto."
+    note: '"expected X, actual Y" — a frase que define qualquer bug.'
+  - term: "steps to reproduce"
+    meaning: passos para reproduzir — a receita do bug
+    example: "Steps to reproduce: trigger any deploy on prod."
+    translation: "Passos para reproduzir: dispare qualquer deploy em prod."
+    note: '"steps to reproduce" — nunca "steps for reproduce".'
+  - term: "still failing"
+    meaning: continua falhando — a tentativa não mudou nada
+    example: "Rolled back — still failing, so it's not the release itself."
+    translation: "Rollback feito — continua falhando, então não é o release em si."
+    note: "O resultado negativo também é dado — reporte."
+  - term: "no luck"
+    meaning: sem sorte — a tentativa não resolveu
+    example: "Tried increasing the timeout — no luck, same 10-minute wall."
+    translation: "Tentei aumentar o timeout — sem sorte, mesma parede de 10 minutos."
+    note: "Registro informal e curto de tentativa falha."
+  - term: "so far"
+    meaning: até agora — o resumo parcial
+    example: "So far: rollback didn't help, restart didn't help."
+    translation: "Até agora: rollback não ajudou, restart não ajudou."
+    note: "Fecha a lista de tentativas antes da evidência."
+
+grammar:
+  title: "As quatro batidas e os verbos de cada uma"
+  explanation: |
+    A narrativa anda em quatro blocos, cada um com seus verbos:
+
+    - **symptom** — presente contínuo ou presente: "deploys **are timing
+      out**", "the job **fails** on step 3"
+    - **context** — passado + marco temporal: "it **started** after the
+      release", "I **first noticed** around 14:20"
+    - **what I tried** — passado + resultado: "I **rolled back** — still
+      failing", "we **increased** the timeout — no luck"
+    - **what I found** — presente para o dado: "the health check **returns**
+      200", "the pod **never becomes** ready"
+
+    A ordem importa: sintoma sem contexto vira chute; tentativas sem
+    evidência viram lista de compras. As quatro batidas levam ~5 frases —
+    mais que isso, a thread perde o leitor.
+  examples:
+    - { en: "Symptom: deploys are timing out. Context: started right after the 14h release.", pt: "Sintoma: deploys estourando o tempo. Contexto: começou logo depois do release das 14h." }
+    - { en: "What I tried: rolled back to the previous image — still failing.", pt: "O que tentei: rollback para a imagem anterior — continua falhando." }
+    - { en: "What I found: the health check returns 200, but readiness never flips.", pt: "O que encontrei: o health check retorna 200, mas o readiness nunca vira." }
+    - { en: "Expected a ready pod in 30s — actual, it sits unready for 10 minutes.", pt: "Esperava pod pronto em 30s — na real, fica não pronto por 10 minutos." }
+    - { en: "Steps to reproduce: any prod deploy. It's consistent, not intermittent.", pt: "Passos para reproduzir: qualquer deploy em prod. É consistente, não intermitente." }
+    - { en: "So far: rollback, restart, and a bigger timeout — no luck on any.", pt: "Até agora: rollback, restart e timeout maior — sem sorte em nenhum." }
+
+examples:
+  - en: "Symptom: deploys on prod are timing out after 10 minutes."
+    pt: "Sintoma: deploys em prod estouram o tempo depois de 10 minutos."
+    context: "Abre a thread com o visível — uma frase."
+  - en: "Context: it started right after the 14h release — could be related."
+    pt: "Contexto: começou logo depois do release das 14h — pode ter relação."
+    context: "Segunda batida — o que mudou, com hedge."
+  - en: "What I tried: rolled back to the previous image — still failing. Restarted the runner — same."
+    pt: "O que tentei: rollback para a imagem anterior — continua falhando. Reiniciei o runner — igual."
+    context: "Cada tentativa com o resultado na mesma frase."
+  - en: "What I found: the health check returns 200, but the pod never becomes ready."
+    pt: "O que encontrei: o health check retorna 200, mas o pod nunca fica pronto."
+    context: "A evidência que contradiz — o gancho da investigação."
+  - en: "I first noticed it around 14:20 — the dashboard went red."
+    pt: "Notei por volta das 14h20 — o dashboard ficou vermelho."
+    context: "Ancora temporal do sintoma."
+  - en: "Expected: pod ready in 30 seconds. Actual: it sits unready for 10 minutes."
+    pt: "Esperado: pod pronto em 30 segundos. Real: fica não pronto por 10 minutos."
+    context: "O par expected/actual — a definição do bug."
+  - en: "It's consistent, not intermittent — every single deploy fails."
+    pt: "É consistente, não intermitente — todo deploy falha."
+    context: "Declare a frequência — muda a estratégia de caça."
+  - en: "Steps to reproduce: trigger any deploy on prod and watch step 3."
+    pt: "Passos para reproduzir: dispare qualquer deploy em prod e observe o passo 3."
+    context: "A receita que qualquer um pode rodar."
+
+variations:
+  - idea: '"a mesma informação em quatro formatos"'
+    items:
+      - { register: "Boa", text: "Deploys are timing out. Started after the 14h release — rolled back, still failing. Health check returns 200 but the pod stays unready.", adequate: true }
+      - { register: "Boa", text: "Symptom: 10-min timeouts on every prod deploy. Context: since 14h. Tried rollback and restart — no luck. Found: health check 200, readiness never flips.", adequate: true }
+      - { register: "Inadequada", text: "Everything is broken, I've been on this for 40 minutes, I tried a bunch of stuff.", adequate: false, note: "Sem as quatro batidas, vira desabafo — ninguém sabe o que já foi descartado." }
+      - { register: "Inadequada", text: "The health check returns 200 but the pod is unready. Also deploys time out.", adequate: false, note: "Começar pela evidência sem sintoma deixa o leitor montar o puzzle sozinho." }
+  - idea: '"reportar em voz, numa call"'
+    items:
+      - { register: "Boa", text: "Quick update: deploys are timing out since the 14h release. I rolled back — still failing. Health check is green but readiness never flips.", adequate: true }
+      - { register: "Boa", text: "So far: it's consistent, every deploy fails after 10 minutes. Rollback and restart, no luck on either.", adequate: true }
+      - { register: "Inadequada", text: "Um, so, there was a release, and then I did some stuff, and anyway it's not working.", adequate: false, note: "Em voz as batidas valem ainda mais — ninguém relê áudio." }
+      - { register: "Inadequada", text: "I think it's the release because it started after it, and I rolled back but it didn't help, and also the health check is weird, and—", adequate: false, note: "Stream of consciousness emendada — separe sintoma, tentativa e achado." }
+
+brErrors:
+  - { wrong: "It not works after the release.", right: "It doesn't work after the release.", why: '"doesn''t work" — auxiliar + base', tag: br.it-not-works }
+  - { wrong: "After to roll back, it still fails.", right: "After rolling back, it still fails.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "It's the same problem of yesterday.", right: "It's the same problem as yesterday.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "The deploy works in my machine.", right: "The deploy works on my machine.", why: '"on my machine"', tag: br.in-my-machine }
+  - { wrong: "I followed the steps for reproduce it.", right: "I followed the steps to reproduce it.", why: '"steps to reproduce"', tag: br.steps-for }
+  - { wrong: "I didn't understood the symptom.", right: "I didn't understand the symptom.", why: "didn't + forma base", tag: br.did-past }
+  - { wrong: "I finded the evidence in the logs.", right: "I found the evidence in the logs.", why: "found é o passado de find", tag: br.irregular-past }
+  - { wrong: "Can you explain me the context?", right: "Can you explain the context to me?", why: "explain + to me", tag: br.explain-me }
+  - { wrong: "It's giving timeout on every deploy.", right: "It's timing out on every deploy.", why: "timing out, não 'giving timeout'", tag: br.giving-error }
+  - { wrong: "The release was more recent than we thinked.", right: "The release was more recent than we thought.", why: "thought é o passado de think", tag: br.irregular-past }
+
+dialogue:
+  title: "A thread do #billing em quatro batidas"
+  lines:
+    - { speaker: Priya, text: "Deploys red on #billing — what do we know?" }
+    - { speaker: Yuri, text: "Symptom: deploys are timing out after 10 minutes, consistent — every one since 14h." }
+    - { speaker: Ana, text: "When did it start?" }
+    - { speaker: Yuri, text: "Context: right after the 14h release. I first noticed at 14:20." }
+    - { speaker: Priya, text: "Tried anything yet?" }
+    - { speaker: Yuri, text: "Rolled back to the previous image — still failing. Restarted the runner — no luck. Bigger timeout — same 10-minute wall." }
+    - { speaker: Ana, text: "So it's not the release itself." }
+    - { speaker: Yuri, text: "Right. What I found: the health check returns 200, but the pod never becomes ready. Expected 30s to ready — actual, it sits unready." }
+    - { speaker: Priya, text: "Clean narrative — health check lying to readiness. Dig into the readiness probe, I'll take the thread." }
+  notes:
+    - "quatro batidas em oito falas — sintoma, contexto, tentativas com resultado, achado."
+    - "'clean narrative' — a Priya reconhece a estrutura; é isso que a thread quer."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "When somebody says 'what I tried', I want the attempts in order, each with its result — 'rolled back, still failing; restarted, same'. An attempt without a result isn't information." }
+    - { speaker: Priya, text: "The pair that defines any bug is expected versus actual — 'expected a ready pod in thirty seconds, actual, it sits unready for ten'. Once you say that pair, the bug is half described." }
+    - { speaker: Yuri, text: "I learned to say 'consistent or intermittent' right after the symptom. Consistent means the bug shows up every time; intermittent means it comes and goes — and that changes how you hunt it." }
+    - { speaker: Priya, text: "And 'so far' is the magic phrase for the attempts block — 'rollback, no luck; restart, no luck — so far'. It closes the list and sets up what you found." }
+  questions:
+    - { id: M10-01-l1, type: multiple_choice, prompt: "An attempt without its result is…", options: ["still useful", "the first thing to report", "not information — 'rolled back, still failing' pairs them", "a context item"], answer: 2, explanation: "Tentativa + resultado na mesma frase.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-01-l2, type: multiple_choice, prompt: "The pair that defines any bug:", options: ["symptom and context", "cause and fix", "rolled back and restarted", "expected vs actual"], answer: 3, explanation: "expected/actual — metade do bug descrita.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-01-l3, type: fill_blank, prompt: "Rolled back — ___ failing.", accepted: ["still"], explanation: '"still failing" — a tentativa não mudou nada.', tags: [vocab.troubleshoot] }
+    - { id: M10-01-l4, type: multiple_choice, prompt: "'Intermittent' means the failure…", options: ["shows up every time", "is consistent", "never shows up", "comes and goes — harder to hunt"], answer: 3, explanation: "Vai e volta — declare logo após o sintoma.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-01-l5, type: error_correction, prompt: "After to roll back, it still fails.", accepted: ["After rolling back, it still fails.", "After rolling back, it still fails"], explanation: "after + gerúndio.", tags: [br.after-to] }
+    - { id: M10-01-l6, type: multiple_choice, prompt: "'So far' closes…", options: ["the context block", "the symptom", "the fix", "the attempts list and sets up what you found"], answer: 3, explanation: "O resumo parcial antes da evidência.", tags: [comp.listening, vocab.troubleshoot] }
+
+writing:
+  prompt: |
+    **Cenário:** a thread do `#billing` precisa do seu reporte. Deploys
+    estourando 10 minutos em prod desde o release das 14h; você já fez
+    rollback e reiniciou o runner; o health check retorna 200 mas o pod não
+    fica pronto.
+
+    **Tarefa:** escreva 80–120 palavras nas quatro batidas — symptom,
+    context, what I tried (cada tentativa com resultado), what I found.
+    Feche com o que ainda falta checar.
+  constraints:
+    - { label: "Sintoma declarado", pattern: "\\b(symptom|timing?\\s*out|fails?|failing)\\b" }
+    - { label: "Tentativas com resultado", pattern: "\\b(tried|rolled back|restarted|still failing|no luck|same)\\b" }
+    - { label: "Evidência encontrada", pattern: "\\b(found|health check|returns?|ready|unready|expected|actual)\\b" }
+    - { label: "Marco temporal", pattern: "\\b(started|since|after|first noticed|around)\\b" }
+  rubric:
+    - "Quatro batidas em ordem: sintoma → contexto → tentativas → achado"
+    - "Cada tentativa carrega o resultado (still failing / no luck / same)"
+    - "Achado com o par expected/actual"
+    - "Fecha com o próximo passo"
+  model: >-
+    Symptom: prod deploys are timing out after 10 minutes — consistent, every
+    one since the 14h release. Context: I first noticed at 14:20, right after
+    the release went out, so it could be related. What I tried: rolled back
+    to the previous image — still failing; restarted the runner — no luck.
+    What I found: the health check returns 200, but the pod never becomes
+    ready. Expected a ready pod in 30 seconds — actual, it sits unready.
+    Next: digging into the readiness probe config.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.troubleshoot]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos reportando o problema em voz: sintoma, contexto, o que tentou (com resultado de cada tentativa) e o que encontrou."
+    maxSeconds: 45
+    targetPhrases:
+      - the symptom is
+      - timing out
+      - started after
+      - I first noticed
+      - what I tried
+      - rolled back
+      - still failing
+      - no luck
+      - what I found
+      - the health check returns
+      - never becomes ready
+      - expected
+      - actual
+      - consistent
+      - intermittent
+      - steps to reproduce
+    checklist:
+      - Quatro batidas em ordem
+      - Tentativas com resultado
+      - Par expected/actual no achado
+      - Fecha com o próximo passo
+
+quiz:
+  - { id: M10-01-q1, type: multiple_choice, prompt: "The four beats of a problem narrative, in order:", options: ["symptom → context → what I tried → what I found", "context → fix → symptom → tried", "found → tried → symptom → context", "symptom → fix → context → found"], answer: 0, explanation: "Visível → mundo → tentativas → evidência.", tags: [vocab.troubleshoot] }
+  - { id: M10-01-q2, type: error_correction, prompt: "It not works after the release.", accepted: ["It doesn't work after the release.", "It doesn't work after the release"], explanation: '"doesn''t work" — auxiliar + forma base.', tags: [br.it-not-works] }
+  - { id: M10-01-q3, type: multiple_choice, prompt: "'Expected a ready pod in 30s — actual, it sits unready' is the pair that…", options: ["closes the thread", "replaces the symptom", "defines the bug", "starts the context"], answer: 2, explanation: "expected/actual = a definição do bug.", tags: [vocab.troubleshoot] }
+  - { id: M10-01-q4, type: fill_blank, prompt: "What I tried: rolled back — still ___.", accepted: ["failing"], explanation: "Resultado da tentativa na mesma frase.", tags: [vocab.troubleshoot] }
+  - { id: M10-01-q5, type: error_correction, prompt: "The deploy works in my machine.", accepted: ["The deploy works on my machine.", "The deploy works on my machine"], explanation: '"on my machine".', tags: [br.in-my-machine] }
+  - { id: M10-01-q6, type: translate, prompt: "Tentei fazer rollback — continua falhando. Reiniciei o runner — sem sorte.", accepted: ["I tried rolling back — still failing. I restarted the runner — no luck.", "Tried rolling back — still failing. Restarted the runner — no luck."], explanation: "Tentativa + resultado na mesma frase.", tags: [vocab.troubleshoot] }
+  - { id: M10-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["reproduce", "bug", "the", "steps", "the", "are", "to", "these"], answer: "these are the steps to reproduce the bug", explanation: '"steps to reproduce".', tags: [vocab.troubleshoot] }
+  - { id: M10-01-q8, type: multiple_choice, prompt: "Declare 'consistent' or 'intermittent' right after…", options: ["the fix", "the symptom — it changes the hunting strategy", "the closing line", "the context"], answer: 1, explanation: "Frequência muda a caça.", tags: [vocab.troubleshoot] }
+
+srsCards:
+  - { front: "symptom → context → what I tried → what I found", back: "As quatro batidas da narrativa de problema: o visível, o que mudou, as tentativas com resultado, a evidência.", tag: vocab.troubleshoot }
+  - { front: "still failing", back: "Continua falhando — a tentativa não mudou nada.", tag: vocab.troubleshoot }
+  - { front: "no luck", back: "Sem sorte — tentativa que não resolveu.", tag: vocab.troubleshoot }
+  - { front: "expected vs actual", back: "Esperado vs real — o par que define o bug.", tag: vocab.troubleshoot }
+  - { front: "consistent", back: "Falha toda vez — o oposto de intermitente.", tag: vocab.troubleshoot }
+  - { front: "intermittent", back: "Vai e volta — declare logo após o sintoma.", tag: vocab.troubleshoot }
+  - { front: "first noticed", back: "Ancora temporal do sintoma.", tag: vocab.troubleshoot }
+  - { front: "steps to reproduce", back: "A receita do bug — nunca 'steps for reproduce'.", tag: vocab.troubleshoot }
+  - { front: "so far", back: "Até agora — fecha a lista de tentativas.", tag: vocab.troubleshoot }
+  - { front: "what I found", back: "A quarta batida — a evidência.", tag: vocab.troubleshoot }
+
+review:
+  preferTags: [vocab.troubleshoot, br.it-not-works, br.after-to]
+  notes: "Revisão prioriza os verbos de narrativa e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
