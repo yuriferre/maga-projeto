@@ -262,13 +262,13 @@ quiz:
   - { id: M07-01-q3, type: multiple_choice, prompt: "'The story meets the definition of ready' means…", options: ["it's already done", "the sprint started", "the PO approved it verbally", "criteria written, dependencies known — it can be estimated"], answer: 3, explanation: "DoR: critérios + sem bloqueios + estimável.", tags: [vocab.agile] }
   - { id: M07-01-q4, type: error_correction, prompt: "I have a compromise at 3pm, so I'll miss refinement.", accepted: ["I have a commitment at 3pm, so I'll miss refinement.", "I have a commitment at 3pm, so I'll miss refinement", "I have an appointment at 3pm, so I'll miss refinement."], explanation: '"compromise" = concessão; compromisso na agenda é "commitment" ou "appointment".', tags: [br.compromise] }
   - { id: M07-01-q5, type: multiple_choice, prompt: "The dead-letter work grew inside the retry story. The right call is…", options: ["estimate it all as one big story", "split it — that's scope creep", "delete it from the backlog", "extend the sprint"], answer: 1, explanation: "Cresceu sem decisão → scope creep → split.", tags: [vocab.agile, topic.refinement] }
-  - { id: M07-01-q6, type: fill_blank, prompt: "The multi-region ___ has five stories; two are done.", accepted: ["epic"], explanation: "Epic = o bloco grande que agrupa stories.", tags: [vocab.agile] }
-  - { id: M07-01-q7, type: error_correction, prompt: "It make sense to send a spike first.", accepted: ["It makes sense to send a spike first.", "It makes sense to send a spike first"], explanation: "Terceira pessoa: it makes sense.", tags: [br.it-makes-sense, vocab.agile] }
+  - { id: M07-01-q6, type: translate, prompt: "A história está pronta para estimar — os critérios foram escritos.", accepted: ["The story is ready to estimate — the criteria are written.", "The story is ready to estimate — the criteria are written", "The story meets the definition of ready — the criteria are written."], explanation: '"ready to estimate" ou "meets the definition of ready".', tags: [vocab.agile] }
+  - { id: M07-01-q7, type: reorder, prompt: "Monte a frase: / primeiro / enviar / faz sentido / um spike", tokens: ["It", "makes", "sense", "to", "send", "a", "spike", "first."], answer: "It makes sense to send a spike first.", explanation: "Terceira pessoa: it makes sense.", tags: [br.it-makes-sense, vocab.agile] }
   - { id: M07-01-q8, type: multiple_choice, prompt: "Acceptance criteria are written…", options: ["after the story is done", "only by the PO", "during the retrospective", "before estimating — they define 'done'"], answer: 3, explanation: "Sem critérios, a estimativa é chute.", tags: [vocab.agile, topic.refinement] }
 
 review:
   count: 5
-  preferTags: [vocab.agile]
+  preferTags: [vocab.agile, topic.refinement, br.estimative]
 
 srsCards:
   - { front: "story", back: "unidade entregável ('as a user, I can…') — dentro do epic", tag: vocab.agile }
