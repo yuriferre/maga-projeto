@@ -1,0 +1,292 @@
+id: M15-03
+module: M15
+order: 3
+title: "Atualizações periódicas: still investigating, identified, mitigated, monitoring"
+objective: >-
+  Ao final, você mantém a cadência de atualizações de um incidente em
+  andamento — cada update com um status que mudou de verdade, e
+  "still investigating" honesto quando nada mudou.
+durationMin: 35
+competencies: [WRI, VOC]
+tags: [vocab.incident, comp.writing]
+prerequisites: [M15-02]
+
+context:
+  scenario: |
+    14h30: a primeira atualização está no ar e a fila de suporte
+    encheu. O incidente continua — e agora começa a parte difícil:
+    escrever a segunda, a terceira e a quarta atualização sem repetir
+    a primeira.
+
+    O ciclo de vida do status tem nome e cada nome é uma promessa:
+
+    - **still investigating** — ainda sem causa; o update existe
+      porque a cadência é a promessa, não a novidade
+    - **identified** — causa encontrada, correção em andamento
+    - **mitigated** — o dano parou de crescer; ainda não está normal
+    - **monitoring** — correção aplicada, observando a métrica
+      recuperar antes de declarar resolved
+
+    A tentação é pular etapas — declarar "identified" com suspeita ou
+    "resolved" com a métrica ainda quente. Cada promessa quebrada
+    publicamente custa mais que o incidente.
+  roles: [Yuri (platform engineer), Priya (tech lead), Ana (support lead)]
+
+vocabulary:
+  - term: "still investigating"
+    meaning: ainda investigando — o update honesto sem novidade
+    example: "Still investigating — no cause confirmed yet. Next update at 15:00 UTC."
+    translation: "Ainda investigando — nenhuma causa confirmada. Próxima às 15:00 UTC."
+    note: "Update vazio também é update — a cadência é a promessa."
+  - term: "identified"
+    meaning: identificado — a causa foi encontrada e provada
+    example: "Cause identified: a bad config pushed at 13:58 UTC."
+    translation: "Causa identificada: uma config ruim subiu às 13:58 UTC."
+    note: "Só quando provada — suspeita não é identified."
+  - term: "mitigated"
+    meaning: mitigado — o estrago parou de crescer, a causa ainda existe
+    example: "Mitigated: traffic is shifted away from the bad region."
+    translation: "Mitigado: o tráfego foi desviado da região ruim."
+    note: "Mitigated ≠ resolved — a ferida parou de sangrar, não cicatrizou."
+  - term: "monitoring"
+    meaning: monitorando — correção aplicada, observando a recuperação
+    example: "A fix is deployed; we're monitoring the error rate."
+    translation: "A correção subiu; estamos monitorando a taxa de erro."
+    note: "O último passo antes de resolved — dá tempo à métrica."
+  - term: "root cause"
+    meaning: a causa raiz — o porquê de verdade, não o sintoma
+    example: "Root cause is still under investigation — post-mortem follows."
+    translation: "A causa raiz segue em investigação — post-mortem depois."
+    note: "Identified ≠ root cause fechado — isso é do post-mortem."
+  - term: "rolling back"
+    meaning: revertendo — desfazendo a mudança que quebrou
+    example: "We're rolling back the 13:58 deploy now."
+    translation: "Estamos revertendo o deploy das 13:58 agora."
+    note: "A ação de mitigação mais comum."
+  - term: "error budget"
+    meaning: o orçamento de erro — quanto de falha o SLO ainda permite
+    example: "This incident burned a week of error budget."
+    translation: "Esse incidente queimou uma semana de error budget."
+    note: "Liga o incidente ao SLO — vem forte no M18."
+  - term: "contained"
+    meaning: contido — o blast radius parou de crescer
+    example: "The issue is contained to us-east."
+    translation: "O problema está contido em us-east."
+    note: "Antes de mitigated — primeiro contém, depois mitiga."
+  - term: "recovering"
+    meaning: recuperando — a métrica voltando ao normal
+    example: "Error rate is recovering — down to 5% and falling."
+    translation: "A taxa de erro está recuperando — 5% e caindo."
+    note: "O verbo do monitoring: recovering, trending down."
+  - term: "no ETA"
+    meaning: sem previsão — honesto quando não há como estimar
+    example: "No ETA for full recovery yet — monitoring."
+    translation: "Sem ETA para recuperação total ainda — monitorando."
+    note: "Melhor que inventar — 'no ETA' é uma resposta."
+  - term: "on track"
+    meaning: no caminho certo — a correção está funcionando
+    example: "Recovery is on track — errors halved since the fix."
+    translation: "A recuperação está no caminho — erros caíram pela metade."
+    note: "Otimismo com número, não com adjetivo."
+  - term: "follow-up"
+    meaning: o desdobramento — o que vem depois do resolved
+    example: "We'll follow up with a post-mortem by Friday."
+    translation: "Vamos dar seguimento com um post-mortem até sexta."
+    note: "Prepara o M17 — o incidente não acaba no resolved."
+
+grammar:
+  title: "A linha do tempo do status: past para fatos, continuous para o que corre"
+  explanation: |
+    Cada status tem seu tempo verbal — a gramática carrega a certeza:
+
+    - **still investigating** — present continuous: "we're still
+      investigating" (corre agora, sem novidade).
+    - **identified** — particípio de fato fechado: "cause identified",
+      "we've identified the cause" (present perfect: o achado vale
+      agora).
+    - **mitigated** — "we've mitigated the impact" / "impact is
+      mitigated" (a ação fechou; o efeito continua).
+    - **monitoring** — "a fix is deployed; we're monitoring" (ação no
+      passado + observação contínua).
+    - **recovering** — "error rate is recovering" — a métrica em
+      movimento, ainda não no destino.
+
+    E a cadência que sustenta tudo: "**next update at HH:MM UTC**" em
+    TODA linha — inclusive e principalmente na que diz "still
+    investigating".
+  examples:
+    - { en: "We're still investigating — nothing new since the last update.", pt: "Ainda estamos investigando — nada novo desde a última atualização." }
+    - { en: "Cause identified: a bad config in the 13:58 deploy.", pt: "Causa identificada: uma config ruim no deploy das 13:58." }
+    - { en: "We've rolled back the deploy — impact is mitigated.", pt: "Revertemos o deploy — o impacto está mitigado." }
+    - { en: "The fix is live; we're monitoring the error rate.", pt: "A correção está no ar; estamos monitorando a taxa de erro." }
+    - { en: "Errors are recovering — down to 5% and falling.", pt: "Os erros estão recuperando — 5% e caindo." }
+    - { en: "No ETA for full recovery — next update at 15:30 UTC.", pt: "Sem ETA para recuperação total — próxima às 15:30 UTC." }
+
+examples:
+  - en: "Still investigating — the 13:58 deploy is the prime suspect, not yet confirmed."
+    pt: "Ainda investigando — o deploy das 13:58 é o principal suspeito, não confirmado."
+    context: "Suspeito ≠ causa — 'prime suspect' é honesto."
+  - en: "Identified: a bad config value in the deploy — we're rolling back now."
+    pt: "Identificado: um valor de config ruim no deploy — estamos revertendo agora."
+    context: "Causa provada + ação em curso."
+  - en: "Mitigated: checkout errors dropped to 2% after the rollback."
+    pt: "Mitigado: erros de checkout caíram para 2% após o rollback."
+    context: "O dano parou — não declare resolved ainda."
+  - en: "Monitoring: the fix is live and the error rate is recovering."
+    pt: "Monitorando: a correção está no ar e a taxa de erro está recuperando."
+    context: "A pausa disciplinada antes de resolved."
+  - en: "Contained to us-east — EU traffic was never affected."
+    pt: "Contido em us-east — o tráfego da EU nunca foi afetado."
+    context: "O blast radius que não cresce."
+  - en: "No ETA for full recovery — we'll update at 15:30 UTC regardless."
+    pt: "Sem ETA para recuperação total — atualizamos às 15:30 UTC de qualquer forma."
+    context: "Sem ETA, com cadência."
+  - en: "Recovery is on track — error budget took a hit, post-mortem follows."
+    pt: "Recuperação no caminho — o error budget levou um golpe, post-mortem a seguir."
+    context: "Amarrando o incidente ao SLO e ao M17."
+  - en: "We'll follow up with a post-mortem by Friday, EOD UTC."
+    pt: "Daremos seguimento com um post-mortem até sexta, fim do dia UTC."
+    context: "O follow-up já com prazo."
+
+variations:
+  - idea: '"quando nada mudou"'
+    items:
+      - { register: "Boa", text: "Still investigating — no confirmed cause. Next update at 15:00 UTC.", adequate: true }
+      - { register: "Boa", text: "No news is the update — we're still investigating, next at 15:00 UTC.", adequate: true }
+      - { register: "Inadequada", text: "(silêncio — só atualizar quando tiver novidade)", adequate: false, note: "A cadência É a promessa — pular um update quebra a confiança mais que o incidente." }
+      - { register: "Inadequada", text: "We're making progress.", adequate: false, note: "Vago — 'still investigating' + horário diz o mesmo com honestidade." }
+  - idea: '"a escada do status"'
+    items:
+      - { register: "Boa", text: "Identified: bad config in the 13:58 deploy — rolling back.", adequate: true }
+      - { register: "Boa", text: "Mitigated — monitoring the error rate before we call it resolved.", adequate: true }
+      - { register: "Inadequada", text: "Probably fixed — closing this.", adequate: false, note: "'Probably' não fecha incidente — monitoring existe para provar." }
+      - { register: "Inadequada", text: "Identified: maybe the deploy, maybe the database.", adequate: false, note: "Suspeita dupla não é identified — é 'still investigating, two leads'." }
+
+brErrors:
+  - { wrong: "The service normalized but we keep monitoring.", right: "The service recovered but we keep monitoring.", why: "recovered", tag: br.normalized }
+  - { wrong: "Thanks for the patience — still investigating.", right: "Thanks for your patience — still investigating.", why: "your patience", tag: br.thanks-patience }
+  - { wrong: "We'll know more as soon possible.", right: "We'll know more as soon as possible.", why: "as soon as", tag: br.asap-missing-as }
+  - { wrong: "In this moment the rollback is running.", right: "Right now the rollback is running.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The deploy was happened at 13:58.", right: "The deploy happened at 13:58.", why: "happened — ativa", tag: br.was-succeeded }
+  - { wrong: "Revert back the config first.", right: "Revert the config first.", why: "revert sem back", tag: br.revert-back }
+  - { wrong: "The errors not stopped yet.", right: "The errors haven't stopped yet.", why: "haven't stopped", tag: br.it-not-works }
+  - { wrong: "The error rate climb slowly.", right: "The error rate climbs slowly.", why: "climbs", tag: br.third-person-s }
+  - { wrong: "We discovered the cause on yesterday's deploy.", right: "We discovered the cause in yesterday's deploy.", why: "in the deploy", tag: br.merge-in }
+  - { wrong: "The same root cause of last month.", right: "The same root cause as last month.", why: "same as", tag: br.same-of }
+
+dialogue:
+  title: "A cadência no meio do incidente"
+  lines:
+    - { speaker: Ana, text: "Support queue is filling up — what do I tell people at 14:30?" }
+    - { speaker: Yuri, text: "The truth: 'still investigating — the 13:58 deploy is the prime suspect, not confirmed. Next update at 15:00 UTC.'" }
+    - { speaker: Priya, text: "Update: the config diff came back — bad value in the deploy. That's confirmed." }
+    - { speaker: Yuri, text: "Then the next post is 'identified: bad config in the 13:58 deploy — rolling back now'." }
+    - { speaker: Ana, text: "And after the rollback?" }
+    - { speaker: Yuri, text: "If errors drop — 'mitigated'. Not resolved. We watch the metric recover first." }
+    - { speaker: Priya, text: "Exactly. Monitoring for fifteen minutes, then resolved — and we promise the post-mortem by Friday." }
+    - { speaker: Yuri, text: "Every post closes with 'next update at' — even the one that says nothing new." }
+  notes:
+    - "a escada inteira numa conversa: still investigating → identified → mitigated → monitoring → resolved."
+    - "'prime suspect, not confirmed' — como carregar suspeita sem mentir."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The status ladder: 'still investigating' when nothing is proven — say it anyway, the cadence is the promise. 'Identified' only when the cause is confirmed. 'Mitigated' when the damage stops growing — the bleeding stopped, not healed. 'Monitoring' while the metric recovers. And 'resolved' only after monitoring proves it." }
+    - { speaker: Yuri, text: "Each status has its tense. 'We're still investigating' — continuous, happening now. 'Cause identified' — closed fact. 'We've rolled back' — present perfect, the action is done and matters now. 'We're monitoring' — action finished, observation ongoing. 'Errors are recovering' — moving, not arrived." }
+    - { speaker: Ana, text: "The two honest sentences people skip: 'no ETA yet' — better than inventing one — and 'still investigating' posted on time. An empty update posted on schedule builds more trust than a rich update posted late." }
+  questions:
+    - { id: M15-03-l1, type: multiple_choice, prompt: "The status ladder order is…", options: ["investigating → monitoring → identified → resolved", "identified → investigating → mitigated → resolved", "investigating → identified → mitigated → monitoring → resolved", "identified → mitigated → investigating → resolved"], answer: 2, explanation: "Cada status só sobe quando o anterior é fato.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-03-l2, type: multiple_choice, prompt: "'Mitigated' means…", options: ["fully fixed", "the cause is confirmed", "the damage stopped growing — not healed yet", "the incident is closed"], answer: 2, explanation: "Parou de sangrar, não cicatrizou.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-03-l3, type: fill_blank, prompt: "Still ___ — no confirmed cause. Next update at 15:00 UTC.", accepted: ["investigating"], explanation: "O update honesto sem novidade.", tags: [vocab.incident] }
+    - { id: M15-03-l4, type: error_correction, prompt: "The service normalized but we keep monitoring.", accepted: ["The service recovered but we keep monitoring.", "The service recovered but we keep monitoring"], explanation: "recovered.", tags: [br.normalized] }
+    - { id: M15-03-l5, type: multiple_choice, prompt: "When nothing changed since the last update, you post…", options: ["nothing — wait for news", "the rollback ETA", "'still investigating' + next update time — on schedule", "an apology"], answer: 2, explanation: "Update vazio no horário > update rico atrasado.", tags: [comp.listening, vocab.incident] }
+    - { id: M15-03-l6, type: multiple_choice, prompt: "Between 'fix deployed' and 'resolved' comes…", options: ["celebrating", "monitoring — let the metric prove it", "the post-mortem", "closing the bridge"], answer: 1, explanation: "Monitoring prova antes de declarar.", tags: [comp.listening, vocab.incident] }
+
+writing:
+  prompt: |
+    **Cenário:** o incidente do checkout continua — você escreve a
+    sequência de atualizações na status page.
+
+    **Tarefa:** escreva 60–90 palavras com DUAS atualizações separadas
+    por `---`: a primeira com "still investigating" + suspeito honesto,
+    a segunda com "identified" + ação de rollback — cada uma fechando
+    com "next update at" e horário.
+  constraints:
+    - { label: "Still investigating", pattern: "\\b(still investigating|investigating)\\b" }
+    - { label: "Identified + ação", pattern: "\\b(identified|confirmed|rolling back|rollback)\\b" }
+    - { label: "Suspeito honesto", pattern: "\\b(suspect|likely|appears|not confirmed|prime)\\b" }
+    - { label: "Cadência", pattern: "\\b(next update at|\\d{2}:\\d{2}|utc)\\b" }
+  rubric:
+    - "Duas atualizações, cada uma com horário"
+    - "Suspeito ≠ causa na primeira"
+    - "Identified com ação na segunda"
+    - "Sem calques"
+  model: >-
+    14:30 UTC — Still investigating the checkout errors. The 13:58
+    deploy is the prime suspect, not confirmed yet. No ETA for full
+    recovery at this point. Next update at 15:00 UTC. --- 15:00 UTC —
+    Cause identified: a bad config value in the 13:58 deploy. We're
+    rolling back now; checkout errors should start dropping shortly.
+    Next update at 15:30 UTC.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.incident]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos narrando a escada do status de um incidente real ou inventado: still investigating → identified → mitigated → monitoring — e por que cada etapa só sobe quando é fato."
+    maxSeconds: 45
+    targetPhrases:
+      - still investigating
+      - identified
+      - mitigated
+      - monitoring
+      - rolling back
+      - the prime suspect
+      - not confirmed
+      - next update at
+      - no eta
+      - contained to
+      - error rate is recovering
+      - we've rolled back
+      - the fix is live
+      - root cause
+      - on track
+      - follow up with
+    checklist:
+      - A escada na ordem certa
+      - Suspeito ≠ causa
+      - Mitigated ≠ resolved
+      - "Cada update com 'next update at'"
+
+quiz:
+  - { id: M15-03-q1, type: multiple_choice, prompt: "Between 'identified' and 'resolved' the honest ladder is…", options: ["fixed → closed", "mitigated → monitoring → resolved", "monitoring → mitigated → resolved", "celebrating → closed"], answer: 1, explanation: "Mitiga, observa, declara.", tags: [vocab.incident] }
+  - { id: M15-03-q2, type: error_correction, prompt: "The deploy was happened at 13:58 UTC.", accepted: ["The deploy happened at 13:58 UTC.", "The deploy happened at 13:58 UTC"], explanation: "happened — voz ativa.", tags: [br.was-succeeded] }
+  - { id: M15-03-q3, type: multiple_choice, prompt: "A 'prime suspect' is…", options: ["the confirmed cause", "the leading theory — not yet confirmed", "the person on call", "the worst severity"], answer: 1, explanation: "Suspeito forte, mas ainda suspeito.", tags: [vocab.incident] }
+  - { id: M15-03-q4, type: fill_blank, prompt: "Mitigated — errors dropped to 2% after the roll___.", accepted: ["back"], explanation: "Rollback — a mitigação clássica.", tags: [vocab.incident] }
+  - { id: M15-03-q5, type: error_correction, prompt: "We'll know more as soon possible.", accepted: ["We'll know more as soon as possible.", "We'll know more as soon as possible"], explanation: "as soon as.", tags: [br.asap-missing-as] }
+  - { id: M15-03-q6, type: translate, prompt: "A correção está no ar; estamos monitorando a taxa de erro.", accepted: ["The fix is live; we're monitoring the error rate.", "The fix is live — we're monitoring the error rate."], explanation: '"the fix is live" + "monitoring".', tags: [vocab.incident] }
+  - { id: M15-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["rate", "error", "is", "recovering", "the"], answer: "the error rate is recovering", explanation: '"the error rate is recovering" — a métrica em movimento.', tags: [vocab.incident] }
+  - { id: M15-03-q8, type: multiple_choice, prompt: "'No ETA for full recovery' is…", options: ["an honest answer — better than an invented ETA", "a failure of communication", "only for SEV1", "forbidden on status pages"], answer: 0, explanation: "Sem ETA, com cadência.", tags: [vocab.incident] }
+
+srsCards:
+  - { front: "still investigating", back: "Update sem novidade — a cadência é a promessa.", tag: vocab.incident }
+  - { front: "identified", back: "Causa provada — suspeita não conta.", tag: vocab.incident }
+  - { front: "mitigated", back: "O dano parou de crescer — não é resolved.", tag: vocab.incident }
+  - { front: "monitoring", back: "Fix no ar, métrica recuperando — antes do resolved.", tag: vocab.incident }
+  - { front: "prime suspect", back: "A teoria líder — 'not confirmed yet'.", tag: vocab.incident }
+  - { front: "rolling back", back: "Revertendo a mudança — mitigação nº1.", tag: vocab.incident }
+  - { front: "contained", back: "Blast radius parou — 'contained to us-east'.", tag: vocab.incident }
+  - { front: "recovering", back: "Métrica voltando — 'errors are recovering'.", tag: vocab.incident }
+  - { front: "no ETA", back: "Honesto — melhor que ETA inventado.", tag: vocab.incident }
+  - { front: "error budget", back: "O quanto de falha o SLO permite.", tag: vocab.incident }
+  - { front: "follow up with", back: "O desdobramento — post-mortem com prazo.", tag: vocab.incident }
+
+review:
+  preferTags: [vocab.incident, br.normalized, br.was-succeeded]
+  notes: "Revisão prioriza a escada de status e os calques de incidente."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
