@@ -1,3 +1,4 @@
+import { Link } from "react-router";
 import type { Dashboard } from "../../lib/api.ts";
 import { Card } from "../ui/Card.tsx";
 
@@ -30,9 +31,9 @@ export function TagHeatmap({ stats, weak, days }: { stats: Dashboard["tags"]["st
             <h3 className="text-xs font-medium uppercase tracking-wide text-slate-500">{g.label}</h3>
             <div className="mt-1 flex flex-wrap gap-1">
               {mine.map((s) => (
-                <span key={s.tag} title={`${s.tag}: ${s.errors} erro(s) em ${s.attempts}`} className={`rounded px-2 py-1 text-xs ${tone(s.errorRate)} ${weakSet.has(s.tag) ? "ring-2 ring-rose-500" : ""}`}>
+                <Link key={s.tag} to={`/tags/${s.tag}`} title={`${s.tag}: ${s.errors} erro(s) em ${s.attempts} — exercícios extras`} className={`rounded px-2 py-1 text-xs hover:underline ${tone(s.errorRate)} ${weakSet.has(s.tag) ? "ring-2 ring-rose-500" : ""}`}>
                   {s.label} <span className="opacity-70">{s.errors}/{s.attempts}</span>
-                </span>
+                </Link>
               ))}
             </div>
           </div>

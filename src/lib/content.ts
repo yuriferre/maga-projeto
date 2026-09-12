@@ -1,5 +1,5 @@
 import raw from "../generated/content.json";
-import type { ContentBundle, Lesson, LessonRef, Level, ModuleMeta } from "../../shared/schema.ts";
+import type { ContentBundle, Exercise, Lesson, LessonRef, Level, ModuleMeta } from "../../shared/schema.ts";
 
 export const content = raw as unknown as ContentBundle;
 export const levels: Level[] = content.levels;
@@ -13,6 +13,11 @@ export function tagLabel(id: string): string {
 
 export function getLesson(id: string): Lesson | undefined {
   return content.lessons[id];
+}
+
+/** Exercícios respondíveis de uma aula (quiz + listening), na ordem do conteúdo. */
+export function lessonExercises(lesson: Lesson): Exercise[] {
+  return [...lesson.quiz, ...lesson.listening.questions];
 }
 
 export function hasContent(id: string): boolean {

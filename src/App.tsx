@@ -9,6 +9,7 @@ import { Lesson } from "./pages/Lesson.tsx";
 import { Placement } from "./pages/Placement.tsx";
 import { Review } from "./pages/Review.tsx";
 import { Glossary } from "./pages/Glossary.tsx";
+import { TagDrill } from "./pages/TagDrill.tsx";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
       { path: "levels/:n/assessment", element: <LevelAssessment /> },
       { path: "lessons/:id", element: <Lesson /> },
       { path: "review", element: <Review /> },
+      { path: "tags/:tag", element: <TagDrill /> },
       { path: "glossary", element: <Glossary /> },
       { path: "placement", element: <Placement /> },
     ],
