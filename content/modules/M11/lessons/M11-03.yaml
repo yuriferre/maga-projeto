@@ -1,0 +1,290 @@
+id: M11-03
+module: M11
+order: 3
+title: "Terraform/IaC em conversa: plan, apply, drift, state, it wants to recreate"
+objective: >-
+  Ao final, você conversa sobre uma mudança de Terraform com o vocabulário
+  de quem opera IaC — "the plan wants to recreate the cluster", "state
+  drifted", "apply after review" — e sabe ler o plan antes de assinar.
+durationMin: 35
+competencies: [VOC, SPK, WRI]
+tags: [vocab.iac, comp.speaking, comp.writing, br.apply-terraform, br.depends-in]
+prerequisites: [M11-02]
+
+context:
+  scenario: |
+    Quinta-feira. O PR do `payments-api` adiciona um node pool ao cluster
+    via Terraform — e o `terraform plan` no CI mostra uma surpresa: além do
+    pool novo, ele quer **recriar** o banco de dados. "It wants to
+    recreate the database" é a frase que para o merge.
+
+    IaC tem um fluxo de conversa próprio: **plan** mostra o que vai mudar
+    antes de mudar (+ create, ~ change, − destroy), **apply** executa o
+    plan, o **state** é o arquivo que diz o que o Terraform acha que
+    existe, e **drift** é quando a realidade saiu do state — alguém clicou
+    no console. O trabalho em conversa é ler o plan em voz alta: "it adds
+    a node pool, changes two tags, and wants to recreate the database —
+    that last one is a red flag".
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "plan"
+    meaning: o diff do Terraform — o que vai mudar
+    example: "The plan shows 3 to add, 1 to change, 1 to destroy."
+    translation: "O plan mostra 3 a adicionar, 1 a mudar, 1 a destruir."
+    note: "Leia o plan antes do apply — sempre."
+  - term: "apply"
+    meaning: executar o plan — a mudança real
+    example: "Apply after review — never straight from the plan."
+    translation: "Apply depois do review — nunca direto do plan."
+    note: '"run terraform apply" — terraform não se "aplica".'
+  - term: "state"
+    meaning: o arquivo-estado — o que o Terraform acha que existe
+    example: "The state says the bucket exists — it doesn't, it drifted."
+    translation: "O state diz que o bucket existe — não existe, divergiu."
+    note: "State é a memória do Terraform — remoto e travado."
+  - term: "drift"
+    meaning: drift — a realidade divergiu do state
+    example: "Someone resized the node pool in the console — the state drifted."
+    translation: "Alguém redimensionou o node pool no console — o state divergiu."
+    note: "Drift = mundo real ≠ state — o plan vai querer 'corrigir'."
+  - term: "it wants to recreate"
+    meaning: ele quer recriar — o sinal de perigo do plan
+    example: "Careful — the plan wants to recreate the database, not change it."
+    translation: "Cuidado — o plan quer recriar o banco, não alterá-lo."
+    note: '"recreate" = destroy + create — dados morrem no caminho.'
+  - term: "to destroy"
+    meaning: destruir — o − do plan
+    example: "The plan would destroy the old security group."
+    translation: "O plan destruiria o security group antigo."
+    note: "O símbolo − do plan — confira cada um antes do apply."
+  - term: "state lock"
+    meaning: trava do state — quem está mexendo agora
+    example: "Can't apply — Ana has the state lock while her plan runs."
+    translation: "Não dá para aplicar — a Ana está com a trava do state enquanto o plan dela roda."
+    note: "O state é compartilhado — o lock evita applies concorrentes."
+  - term: "to import"
+    meaning: importar — trazer recurso existente pro state
+    example: "The bucket was created by hand — we imported it into the state."
+    translation: "O bucket foi criado na mão — importamos ele para o state."
+    note: '"terraform import" — adota o que já existe.'
+  - term: "module"
+    meaning: módulo — o bloco reutilizável de Terraform
+    example: "The cluster lives in the eks module — change the input, not the module."
+    translation: "O cluster vive no módulo eks — mude o input, não o módulo."
+    note: "Módulo = caixa com inputs; a mudança certa é na chamada."
+  - term: "red flag"
+    meaning: sinal de alerta — o que para o merge
+    example: "A 'destroy' on the database is a red flag — stop and ask."
+    translation: "Um 'destroy' no banco é sinal de alerta — pare e pergunte."
+    note: "No plan, destroy em recurso com dados = pare."
+  - term: "to refresh"
+    meaning: atualizar — reler a realidade no state
+    example: "Run a refresh first — the state might be stale."
+    translation: "Rode um refresh primeiro — o state pode estar velho."
+    note: '"terraform refresh"/plan -refresh-only — reconcilia com a realidade.'
+  - term: "no-op"
+    meaning: sem efeito — o plan que não muda nada
+    example: "After the import, the plan is a no-op — state matches reality."
+    translation: "Depois do import, o plan é no-op — state bate com a realidade."
+    note: "Plan limpo = nada a fazer — o objetivo do IaC saudável."
+
+grammar:
+  title: "Lendo o plan em voz alta"
+  explanation: |
+    O plan tem três verbos e um sinal de perigo. Os símbolos: **+ create**
+    (adiciona), **~ change/update** (modifica no lugar), **− destroy**
+    (apaga). A contagem fecha a leitura: "*3 to add, 1 to change, 1 to
+    destroy*".
+
+    | Verbo do plan | Sinal | Reação |
+    |---|---|---|
+    | *it adds X* | + | normal — recurso novo |
+    | *it changes X* | ~ | confira o atributo |
+    | *it wants to recreate X* | −/+ | **red flag** — destroy + create, dados morrem |
+    | *it destroys X* | − | confira se X tem dados |
+
+    Dois vocabulários de conversa: "**drift**" para quando alguém clicou
+    no console e o state mentiu, e "**no-op**" para o plan que confirma
+    que state e realidade concordam.
+
+    Cuidado BR: "apliquei o terraform" é calque — você **runs terraform
+    apply** ou **applies the changes**. E a dependência é "**depends
+    on**", nunca "depends in".
+  examples:
+    - { en: "The plan shows 3 to add, 1 to change, 1 to destroy — the destroy is the database.", pt: "O plan mostra 3 a adicionar, 1 a mudar, 1 a destruir — o destroy é o banco." }
+    - { en: "It wants to recreate the node pool — that's a destroy plus a create, not an update.", pt: "Ele quer recriar o node pool — isso é destroy mais create, não um update." }
+    - { en: "Someone resized it in the console — the state drifted, and the plan wants to 'fix' it back.", pt: "Alguém redimensionou no console — o state divergiu, e o plan quer 'corrigir' de volta." }
+    - { en: "Apply after review — and never with a destroy you didn't expect.", pt: "Apply depois do review — e nunca com um destroy inesperado." }
+    - { en: "The bucket was created by hand — we imported it and the plan went no-op.", pt: "O bucket foi criado na mão — importamos e o plan virou no-op." }
+    - { en: "Can't apply yet — Ana holds the state lock while her plan runs.", pt: "Ainda não dá para aplicar — a Ana segura a trava do state enquanto o plan dela roda." }
+
+examples:
+  - en: "The plan shows 3 to add, 1 to change, 1 to destroy — the destroy is the database."
+    pt: "O plan mostra 3 a adicionar, 1 a mudar, 1 a destruir — o destroy é o banco."
+    context: "A contagem do plan — e o sinal de perigo."
+  - en: "It wants to recreate the database — destroy plus create, not an in-place update."
+    pt: "Ele quer recriar o banco — destroy mais create, não um update no lugar."
+    context: '"recreate" é a palavra-perigo — dados morrem.'
+  - en: "Someone resized the pool in the console — the state drifted from reality."
+    pt: "Alguém redimensionou o pool no console — o state divergiu da realidade."
+    context: "Drift: clique no console que o Terraform não viu."
+  - en: "Refresh first — if the state is stale, the plan lies."
+    pt: "Refresh primeiro — se o state está velho, o plan mente."
+    context: "Reconcilia o state com a realidade antes de ler o plan."
+  - en: "We imported the hand-made bucket — the plan went no-op."
+    pt: "Importamos o bucket feito à mão — o plan virou no-op."
+    context: "Import adota o que já existe."
+  - en: "Can't apply — Ana holds the state lock until her run finishes."
+    pt: "Não dá para aplicar — a Ana segura a trava do state até a execução dela terminar."
+    context: "O lock evita applies concorrentes."
+  - en: "A destroy on a stateful resource is a red flag — stop and ask before apply."
+    pt: "Um destroy em recurso com dados é sinal de alerta — pare e pergunte antes do apply."
+    context: "A regra de ouro do review de IaC."
+  - en: "Change the input on the module call, not the module itself."
+    pt: "Mude o input na chamada do módulo, não o módulo em si."
+    context: "Módulo = caixa com inputs — mexa na chamada."
+
+variations:
+  - idea: '"o comentário de review no PR de Terraform"'
+    items:
+      - { register: "Boa", text: "Blocking: the plan wants to recreate the database — destroy + create, not an update. Hold the apply.", adequate: true }
+      - { register: "Boa", text: "The pool resize looks like console drift — refresh the state first, the plan may be lying.", adequate: true }
+      - { register: "Inadequada", text: "Plan looks fine, apply it.", adequate: false, note: "Sem ler a contagem (+/~/−) e o destroy, 'apply it' é roleta." }
+      - { register: "Inadequada", text: "I applied the terraform and it deleted the database.", adequate: false, note: "Dois problemas: o calque 'applied the terraform' e o apply sem ler o plan." }
+  - idea: '"explicar o drift"'
+    items:
+      - { register: "Boa", text: "The state drifted — someone resized the pool in the console. Import or refresh before applying.", adequate: true }
+      - { register: "Boa", text: "The plan wants to 'fix' the resize back because the state doesn't know about it — that's drift.", adequate: true }
+      - { register: "Inadequada", text: "Terraform is crazy, it wants to destroy everything for no reason.", adequate: false, note: "O plan não mente sozinho — drift é a explicação, não bug." }
+      - { register: "Inadequada", text: "Just apply it, the plan knows what it's doing.", adequate: false, note: "O plan 'corrige' para o state, não para a intenção — drift faz ele destruir o que alguém criou à mão." }
+
+brErrors:
+  - { wrong: "I applied the terraform on staging.", right: "I ran terraform apply on staging.", why: '"terraform apply" ou "applied the changes"', tag: br.apply-terraform }
+  - { wrong: "The plan depends in the state file.", right: "The plan depends on the state file.", why: "depends on", tag: br.depends-in }
+  - { wrong: "Ana suggested me to refresh the state.", right: "Ana suggested that I refresh the state.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "The apply was succeeded.", right: "The apply succeeded.", why: "succeed não tem passiva", tag: br.was-succeeded }
+  - { wrong: "The pipeline not runs the plan.", right: "The pipeline doesn't run the plan.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "It's the same drift of last month.", right: "It's the same drift as last month.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "Before to apply, read the plan.", right: "Before applying, read the plan.", why: "before + gerúndio", tag: br.after-to }
+  - { wrong: "I didn't knew about the state lock.", right: "I didn't know about the state lock.", why: "didn't + base", tag: br.did-past }
+  - { wrong: "We maked a change in the module.", right: "We made a change in the module.", why: "made, não maked", tag: br.irregular-past }
+  - { wrong: "Can you explain me the state file?", right: "Can you explain the state file to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "O PR de Terraform com uma surpresa no plan"
+  lines:
+    - { speaker: Marcos, text: "PR up — adds a node pool to the cluster. Plan's in CI." }
+    - { speaker: Yuri, text: "Reading it… 3 to add, 1 to change, 1 to destroy." }
+    - { speaker: Ana, text: "The destroy is what?" }
+    - { speaker: Yuri, text: "The database. The plan wants to recreate it — destroy plus create, not an in-place update." }
+    - { speaker: Marcos, text: "Wait, why? I only touched the node pool." }
+    - { speaker: Yuri, text: "Probably drift — someone changed the db config in the console. Let me refresh the state first." }
+    - { speaker: Ana, text: "Right — if the state is stale, the plan lies. Refresh, then re-plan." }
+    - { speaker: Yuri, text: "Refreshed — now the plan is clean: just the node pool, no destroy. The db change was drift; I'll import that config properly." }
+    - { speaker: Priya, text: "Good catch — a destroy on a stateful resource is always a red flag. Apply after my review, and file a ticket for the console change." }
+    - { speaker: Marcos, text: "State lock is free now, by the way — Ana's run finished." }
+    - { speaker: Yuri, text: "Applying after Priya's LGTM. Lesson learned: no apply with an unexpected destroy." }
+  notes:
+    - "a contagem do plan em voz alta, o destroy como red flag, e o drift explicado."
+    - "'refresh → re-plan' — o state velho fazia o plan mentir."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Read the plan like a diff: plus is create, tilde is change in place, minus is destroy. And the sentence that stops merges is 'it wants to recreate' — destroy plus create looks like an update but your data doesn't survive the trip." }
+    - { speaker: Priya, text: "Drift is when someone clicks in the console and the state doesn't know. The plan isn't crazy when it wants to destroy the manually-resized pool — it's correcting reality back to a state that's lying. Refresh first, always." }
+    - { speaker: Marcos, text: "The rule I learned the hard way: never apply with an unexpected destroy. If the plan shows a minus you didn't write, stop — it's either drift or a wrong input, and both deserve a pause." }
+    - { speaker: Ana, text: "And the state lock isn't bureaucracy — it's what stops two applies from corrupting the same file. If someone holds it, you wait; you don't force-unlock because you're in a hurry." }
+  questions:
+    - { id: M11-03-l1, type: multiple_choice, prompt: "'It wants to recreate' means…", options: ["a simple update", "a new resource", "destroy plus create — your data doesn't survive", "a no-op"], answer: 2, explanation: "Recriar = destruir + criar — perigo para stateful.", tags: [comp.listening, vocab.iac] }
+    - { id: M11-03-l2, type: multiple_choice, prompt: "The plan 'lying' about a resize is…", options: ["a terraform bug", "drift — someone clicked in the console, state doesn't know", "a cache miss", "a lock issue"], answer: 1, explanation: "State velho → plan corrige para o que não existe mais.", tags: [comp.listening, vocab.iac] }
+    - { id: M11-03-l3, type: fill_blank, prompt: "Never apply with an unexpected ___.", accepted: ["destroy"], explanation: "O − inesperado para o apply.", tags: [vocab.iac] }
+    - { id: M11-03-l4, type: error_correction, prompt: "I applied the terraform on staging.", accepted: ["I ran terraform apply on staging.", "I applied the changes on staging.", "I ran terraform apply on staging"], explanation: '"terraform apply" ou "applied the changes".', tags: [br.apply-terraform] }
+    - { id: M11-03-l5, type: multiple_choice, prompt: "The state lock exists to…", options: ["slow you down", "audit changes", "stop two applies from corrupting the same state file", "lock the console"], answer: 2, explanation: "Uma trava contra applies concorrentes.", tags: [comp.listening, vocab.iac] }
+    - { id: M11-03-l6, type: multiple_choice, prompt: "A plan that says 'no changes' after an import is…", options: ["a no-op — state and reality agree", "a red flag", "drift", "a destroy"], answer: 0, explanation: "No-op é o IaC saudável.", tags: [comp.listening, vocab.iac] }
+
+writing:
+  prompt: |
+    **Cenário:** o PR de Terraform do `payments-api` mostrou um destroy
+    inesperado no plan — o banco. Você descobriu drift (alguém mudou o
+    config no console), fez refresh do state, o plan ficou limpo, e o apply
+    foi aprovado.
+
+    **Tarefa:** escreva 80–120 palavras contando a revisão do PR: a
+    contagem do plan, o destroy como red flag, o drift e sua causa, e a
+    decisão final — com o ticket do console change.
+  constraints:
+    - { label: "Vocabulário do plan", pattern: "\\b(plan|apply|destroy|create|change|add)\\b" }
+    - { label: "Drift e state", pattern: "\\b(drift\\w*|state|refresh|import\\w*|console)\\b" }
+    - { label: "Sinal de perigo", pattern: "\\b(red flag|recreate|unexpected|blocking|hold)\\b" }
+    - { label: "Decisão e follow-up", pattern: "\\b(apply|ticket|approved|follow-up|review)\\b" }
+  rubric:
+    - "Contagem do plan (+ / ~ / −)"
+    - "Destroy nomeado como red flag"
+    - "Drift explicado com causa"
+    - "Decisão + ticket do console change"
+  model: >-
+    PR review on the payments-api terraform change. The plan showed 3 to
+    add, 1 to change, 1 to destroy — and the destroy was the database,
+    which is always a red flag since recreate means data loss. Turned out
+    to be drift: someone had resized the db config in the console, and the
+    state didn't know. Refreshed the state, re-planned — clean now, just
+    the new node pool. Approved, apply after review. Follow-up: a ticket to
+    move that console change into terraform so it doesn't drift again.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.iac]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando o que o plan mostrou, por que o destroy era um red flag, o que era o drift e a decisão final."
+    maxSeconds: 45
+    targetPhrases:
+      - the plan shows
+      - to add
+      - to change
+      - to destroy
+      - it wants to recreate
+      - red flag
+      - the state drifted
+      - refresh
+      - no-op
+      - state lock
+      - apply after review
+      - import
+    checklist:
+      - Contagem do plan
+      - Red flag nomeado
+      - Drift explicado
+      - Decisão final
+
+quiz:
+  - { id: M11-03-q1, type: multiple_choice, prompt: "The symbols in a terraform plan:", options: ["+ change, ~ create, − destroy", "+ create, ~ change, − destroy", "+ destroy, − create", "all creates"], answer: 1, explanation: "+ create, ~ change no lugar, − destroy.", tags: [vocab.iac] }
+  - { id: M11-03-q2, type: error_correction, prompt: "The plan depends in the state file.", accepted: ["The plan depends on the state file.", "The plan depends on the state file"], explanation: "depends on.", tags: [br.depends-in] }
+  - { id: M11-03-q3, type: multiple_choice, prompt: "A 'destroy' on the database in the plan is…", options: ["normal", "a no-op", "fine to apply", "a red flag — stop and ask before applying"], answer: 3, explanation: "Destroy em stateful = pausa obrigatória.", tags: [vocab.iac] }
+  - { id: M11-03-q4, type: fill_blank, prompt: "Someone resized it in the console — the state ___.", accepted: ["drifted"], explanation: "Drift — a realidade saiu do state.", tags: [vocab.iac] }
+  - { id: M11-03-q5, type: error_correction, prompt: "Ana suggested me to refresh the state.", accepted: ["Ana suggested that I refresh the state.", "Ana suggested refreshing the state.", "Ana suggested that I refresh the state"], explanation: "suggest + that + sujeito, ou + gerúndio.", tags: [br.suggested-me] }
+  - { id: M11-03-q6, type: translate, prompt: "Ele quer recriar o banco — destroy mais create, não um update no lugar.", accepted: ["It wants to recreate the database — destroy plus create, not an in-place update.", "It wants to recreate the db — destroy plus create, not an in-place update."], explanation: '"wants to recreate" — o sinal de perigo.', tags: [vocab.iac] }
+  - { id: M11-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["review", "apply", "after"], answer: "apply after review", explanation: "A regra do IaC — apply depois do review.", tags: [vocab.iac] }
+  - { id: M11-03-q8, type: multiple_choice, prompt: "A plan that shows no changes is…", options: ["a red flag", "drift", "a destroy", "a no-op — state matches reality"], answer: 3, explanation: "No-op = IaC saudável.", tags: [vocab.iac] }
+
+srsCards:
+  - { front: "plan", back: "O diff do Terraform — + create, ~ change, − destroy.", tag: vocab.iac }
+  - { front: "apply", back: "Executar o plan — 'terraform apply', nunca 'apply the terraform'.", tag: vocab.iac }
+  - { front: "state", back: "O que o Terraform acha que existe — o arquivo-memória.", tag: vocab.iac }
+  - { front: "drift", back: "A realidade divergiu do state — clique no console.", tag: vocab.iac }
+  - { front: "it wants to recreate", back: "Destroy + create disfarçado — red flag para stateful.", tag: vocab.iac }
+  - { front: "state lock", back: "A trava contra applies concorrentes — espere, não force.", tag: vocab.iac }
+  - { front: "import", back: "Adotar recurso feito à mão para o state.", tag: vocab.iac }
+  - { front: "no-op", back: "Plan sem mudanças — state e realidade concordam.", tag: vocab.iac }
+  - { front: "red flag", back: "O que para o merge — destroy inesperado em stateful.", tag: vocab.iac }
+  - { front: "refresh", back: "Reler a realidade no state antes de planejar.", tag: vocab.iac }
+
+review:
+  preferTags: [vocab.iac, br.apply-terraform, br.depends-in]
+  notes: "Revisão prioriza o vocabulário de plan/drift e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
