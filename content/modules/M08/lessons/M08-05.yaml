@@ -1,0 +1,294 @@
+id: M08-05
+module: M08
+order: 5
+title: "Simulação: a retro e o 1:1"
+objective: >-
+  Integra o módulo em dois cenários curtos: conduzir um trecho de retro (sem
+  culpa, com action items) e um 1:1 (pauta, carga, carreira) — incluindo dar
+  e receber feedback ao vivo.
+durationMin: 40
+competencies: [SPK, CNF]
+tags: [vocab.feedback, topic.retro, comp.speaking, comp.confidence, br.do-mistake, br.ed-ing]
+prerequisites: [M08-01, M08-02, M08-03, M08-04]
+
+context:
+  scenario: |
+    Dois cenários em sequência, na mesma semana. **Cenário 1 — a retro:** a
+    sprint terminou com o deploy quebrado na sexta e um rollback de madrugada.
+    Você leva os três quadros ("what went well / what didn't / action items"),
+    dá feedback sobre o checklist que foi pulado — sem culpar ninguém — e
+    recebe o feedback de que seus alerts ficaram finos.
+
+    **Cenário 2 — o 1:1:** dois dias depois, seus 30 minutos com a gestora.
+    Pauta: a carga depois do rollback (fatos, não queixa), a prioridade entre
+    o runbook e o projeto novo, e carreira — pedir a rubrica de sênior e um
+    stretch assignment.
+
+    O objetivo: nenhuma frase na defensiva, nenhuma pessoa culpada, tudo com
+    dono e data.
+  roles: [Yuri (platform engineer), Priya (scrum master), Marcos (backend), Fernanda (engineering manager)]
+
+vocabulary:
+  - term: "recap"
+    meaning: recapitulação — o resumo que fecha a reunião
+    example: "Quick recap: two action items, owners and dates."
+    translation: "Recap rápido: dois action items, donos e datas."
+    note: "Fecha retro e 1:1 — 'let me recap'."
+  - term: "to land"
+    meaning: cair bem (ou mal) — como a fala chega
+    example: "My comment about the checklist landed as blame — not the intent."
+    translation: "Meu comentário sobre o checklist caiu como culpa — não era a intenção."
+    note: '"landed as blame" = foi recebido como culpa.'
+  - term: "own it"
+    meaning: assumir — ficar com a tarefa ou o erro
+    example: "I'll own the runbook update — Friday."
+    translation: "Eu assumo a atualização do runbook — sexta."
+    note: "O dono se declara: 'I'll own it'."
+  - term: "rough week"
+    meaning: semana pesada — reconhecer o custo sem drama
+    example: "Rough week — let's end with what we learned, not who erred."
+    translation: "Semana pesada — vamos fechar com o que aprendemos, não com quem errou."
+    note: "Nomear a semana difícil abre a conversa honesta."
+  - term: "the rollout plan"
+    meaning: o plano de implantação — alvo comum de action items
+    example: "Action item: tighten the rollout plan with a staging gate."
+    translation: "Action item: apertar o plano de rollout com um gate de staging."
+    note: "Action items de retro costumam mirar o processo."
+  - term: "burnout"
+    meaning: esgotamento — o que a carga vira quando ninguém fala
+    example: "Flagging it now beats a burnout conversation in a month."
+    translation: "Sinalizar agora é melhor que uma conversa de burnout em um mês."
+    note: "A razão para falar de carga cedo."
+  - term: "career chat"
+    meaning: conversa de carreira — o bloco do 1:1 sobre o futuro
+    example: "Last item is a career chat — what's the path to senior?"
+    translation: "Último item é conversa de carreira — qual o caminho para sênior?"
+    note: "Nomear o bloco deixa claro que não é status."
+  - term: "the rubric"
+    meaning: a rubrica — os critérios escritos do próximo nível
+    example: "Can we write down the senior rubric next week?"
+    translation: "Podemos escrever a rubrica de sênior na semana que vem?"
+    note: "A régua objetiva — 'aim at the rubric'."
+  - term: "to follow up"
+    meaning: dar sequência — verificar se o action item andou
+    example: "I'll follow up on the checklist item next retro."
+    translation: "Vou dar sequência ao item do checklist na próxima retro."
+    note: "Action item sem follow-up morre — 'follow up on X'."
+  - term: "a thin alert"
+    meaning: alerta fino — sem contexto nem ação
+    example: "The 3 a.m. page was a thin alert — no runbook link, no severity."
+    translation: "O page das 3h foi um alerta fino — sem link de runbook, sem severidade."
+    note: "O feedback que Yuri recebe no cenário 1."
+  - term: "tighten"
+    meaning: apertar — melhorar um processo sem reescrevê-lo
+    example: "Let's tighten the deploy checklist, not rewrite it."
+    translation: "Vamos apertar o checklist de deploy, não reescrevê-lo."
+    note: "Ação de melhoria incremental — verbo de retro."
+  - term: "no casualties"
+    meaning: sem vítimas — a meta do feedback sobre processo
+    example: "Same complaint, zero casualties — aim at the process."
+    translation: "Mesma reclamação, zero vítimas — mire no processo."
+    note: "A imagem que fecha o loop de feedback do módulo."
+
+grammar:
+  title: "Os dois cenários juntos: retro limpa + 1:1 com pauta"
+  explanation: |
+    A simulação junta os três movimentos do módulo em duas salas:
+
+    **Na retro:** abra com os três quadros, dê feedback com *I noticed* +
+    *it would help if* mirando o processo, receba feedback com *fair point* +
+    *I'll work on that*, e feche com action items com dono e data.
+
+    **No 1:1:** abra com a pauta (*two things on my list*), fale de carga com
+    fatos (*three on-call weekends — my plate is full*), force a priorização
+    (*which should I drop?*) e feche carreira com pedido concreto
+    (*a stretch assignment*, *the senior rubric*).
+
+    | Sala | Abertura | Fecho |
+    |---|---|---|
+    | retro | *What went well this sprint?* | *Recap: items, owners, dates.* |
+    | 1:1 | *On my list: load and growth.* | *I'll own the runbook — Friday.* |
+  examples:
+    - { en: "What went well? The rollback itself was clean.", pt: "O que foi bem? O rollback em si foi limpo." }
+    - { en: "I noticed the staging check got skipped — it would help to gate it.", pt: "Notei que a verificação de staging foi pulada — ajudaria colocar um gate." }
+    - { en: "Fair point on the alerts — I'll work on that.", pt: "Ponto justo sobre os alertas — vou trabalhar nisso." }
+    - { en: "My plate is full — which should I drop?", pt: "Meu prato está cheio — o que eu solto?" }
+    - { en: "I'd like the multi-region work as a stretch assignment.", pt: "Gostaria do trabalho multi-região como tarefa-alongamento." }
+    - { en: "Recap: Marcos owns the checklist, I own the runbook — both Friday.", pt: "Recap: Marcos fica com o checklist, eu com o runbook — ambos sexta." }
+
+examples:
+  - en: "Rough week — let's end with what we learned, not who erred."
+    pt: "Semana pesada — vamos fechar com o que aprendemos, não com quem errou."
+    context: "A abertura que protege a retro do tribunal."
+  - en: "I noticed the staging check got skipped on Friday — it would help to gate it in CI."
+    pt: "Notei que a verificação de staging foi pulada na sexta — ajudaria colocar um gate no CI."
+    context: "Feedback com I noticed + it would help — alvo no processo."
+  - en: "Fair point — the 3 a.m. page was a thin alert. I'll work on that."
+    pt: "Ponto justo — o page das 3h foi um alerta fino. Vou trabalhar nisso."
+    context: "Receber: reconhece + ação, sem defesa."
+  - en: "Action item: tighten the deploy checklist. Marcos, you own it — Friday?"
+    pt: "Action item: apertar o checklist de deploy. Marcos, você assume — sexta?"
+    context: "Item com dono e data — o fecho de retro."
+  - en: "On my list today: the load after the rollback, and a career chat."
+    pt: "Na minha pauta hoje: a carga depois do rollback, e conversa de carreira."
+    context: "O 1:1 abre com a pauta — não com status."
+  - en: "Three on-call weekends plus the migration — my plate is full. Which should I drop?"
+    pt: "Três fins de semana de on-call mais a migração — meu prato está cheio. O que eu solto?"
+    context: "Fatos de carga + a pergunta de priorização."
+  - en: "Where do I go from here? Can we write down the senior rubric — and is the multi-region work a stretch assignment for me?"
+    pt: "Para onde vou daqui? Podemos escrever a rubrica de sênior — e o trabalho multi-região seria uma tarefa-alongamento para mim?"
+    context: "Carreira: a régua + o pedido concreto."
+  - en: "Recap: I own the runbook update by Friday, you'll bring the rubric next week."
+    pt: "Recap: eu assumo a atualização do runbook até sexta, você traz a rubrica semana que vem."
+    context: "O 1:1 também fecha com donos e datas."
+
+variations:
+  - idea: '"o feedback foi recebido como culpa — como consertar ao vivo"'
+    items:
+      - { register: "Boa", text: "That landed as blame — let me rephrase: the staging gate isn't enforced for anyone.", adequate: true }
+      - { register: "Boa", text: "My bad on the phrasing — same point, aimed at the process: the check is skippable.", adequate: true }
+      - { register: "Inadequada", text: "Well, it's true.", adequate: false, note: "Dobrar na culpa fecha a conversa." }
+      - { register: "Inadequada", text: "Forget I said anything.", adequate: false, note: "Retirar o feedback inteiro mata a retro." }
+  - idea: '"o gestor oferece tudo — como escolher"'
+    items:
+      - { register: "Boa", text: "Between rotating off on-call and dropping the dashboard — dropping the dashboard solves it; I just need the load known.", adequate: true }
+      - { register: "Boa", text: "I'd keep on-call if the epic moves a sprint — the collision is the problem.", adequate: true }
+      - { register: "Inadequada", text: "Everything is too much.", adequate: false, note: "Sem a escolha concreta, nada muda." }
+      - { register: "Inadequada", text: "Whatever you decide.", adequate: false, note: "A decisão de prioridade precisa do seu input." }
+
+brErrors:
+  - { wrong: "We did a mistake in Friday's deploy.", right: "We made a mistake in Friday's deploy.", why: '"make a mistake" — "do a mistake" é calque', tag: br.do-mistake }
+  - { wrong: "I am agree the alert was thin.", right: "I agree the alert was thin.", why: "agree é verbo — sem am", tag: br.i-am-agree }
+  - { wrong: "I'm boring in long retros.", right: "I'm bored in long retros.", why: "quem sente leva -ed", tag: br.ed-ing }
+  - { wrong: "The team moral dropped after the rollback.", right: "The team morale dropped after the rollback.", why: "moral do time é morale", tag: br.morale }
+  - { wrong: "He gave me a feedback about the page.", right: "He gave me some feedback about the page.", why: "feedback é incontável", tag: br.uncountable }
+  - { wrong: "I have a doubt about the action item.", right: "I have a question about the action item.", why: "doubt = desconfiança; dúvida-pergunta é question", tag: br.doubt }
+  - { wrong: "I need that you own the checklist.", right: "I need you to own the checklist.", why: '"need X to" — inglês não usa "need that"', tag: br.need-that-you }
+  - { wrong: "Can you explain me the rubric?", right: "Can you explain the rubric to me?", why: "explain não leva pessoa como objeto direto", tag: br.explain-me }
+  - { wrong: "She said me the dashboard could wait.", right: "She told me the dashboard could wait.", why: "say não leva objeto indireto sem to", tag: br.said-me }
+  - { wrong: "I pretend to own the runbook update.", right: "I plan to own the runbook update.", why: "pretend = fingir; pretender é plan/intend", tag: br.pretend }
+
+dialogue:
+  title: "Sexta de manhã: a retro. Terça: o 1:1."
+  lines:
+    - { speaker: Priya, text: "Rough week — let's run the three boards. What went well?" }
+    - { speaker: Marcos, text: "The rollback itself was clean — fifteen minutes, no data loss." }
+    - { speaker: Priya, text: "And what didn't?" }
+    - { speaker: Yuri, text: "The deploy went out without the staging check. I noticed it got skipped when the pipeline was rerun — it would help if the gate weren't optional." }
+    - { speaker: Marcos, text: "I skipped it — rerun felt safe. Fair point on the gate." }
+    - { speaker: Priya, text: "Before we move on — Yuri, your 3 a.m. page was a thin alert. No runbook link, no severity." }
+    - { speaker: Yuri, text: "That's on me — I'll work on that. Action item for me: every page gets a runbook link and a severity line." }
+    - { speaker: Priya, text: "Action items: Marcos owns the CI gate, Yuri owns the alert format — both by Friday. Recap done." }
+    - { speaker: Fernanda, text: "Tuesday — your thirty minutes. What's on your list?" }
+    - { speaker: Yuri, text: "Two things: load and growth. On load — three on-call weekends plus the migration; my plate is full. If the dashboard work stays, which should I drop?" }
+    - { speaker: Fernanda, text: "The dashboard waits a sprint. Growth?" }
+    - { speaker: Yuri, text: "Where do I go from here — can we write down the senior rubric? And I'd like the multi-region work as a stretch assignment." }
+    - { speaker: Fernanda, text: "Rubric next week; the multi-region scoping is yours to lead. Good 1:1 — recap: you own the runbook update by Friday, I bring the rubric." }
+  notes:
+    - "cenário 1 fecha em 8 falas: quadros → feedback com I noticed → feedback recebido com fair point → action items com dono e data."
+    - "cenário 2 em 5 falas: pauta → carga com fatos → priorização → carreira com pedido concreto → recap."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The retro that works has a rhythm: well, not well, actions. Skip 'well' and people brace; skip 'actions' and it's just venting. And the rule that makes it safe — aim everything at the process." }
+    - { speaker: Fernanda, text: "In a 1:1 I listen for facts versus feelings. 'Three on-call weekends' I can act on. 'I'm exhausted' I can only sympathize with. Bring me the countable facts." }
+    - { speaker: Priya, text: "The best sign a retro worked: next sprint's 'what went well' quotes this sprint's action items. If they never come back, the items are theater." }
+    - { speaker: Fernanda, text: "And when someone asks me 'where do I go from here' — that's the meeting I want. Growth questions get my best thirty minutes." }
+  questions:
+    - { id: M08-05-l1, type: multiple_choice, prompt: "Skip 'what went well' and…", options: ["the retro is faster and better", "people brace — the rhythm breaks", "nothing changes", "actions improve"], answer: 1, explanation: "O quadro positivo abre espaço para a parte difícil.", tags: [comp.listening, topic.retro] }
+    - { id: M08-05-l2, type: multiple_choice, prompt: "Fernanda acts on…", options: ["feelings", "complaints", "moods", "countable facts — 'three on-call weekends'"], answer: 3, explanation: "Fatos contáveis viram ação; sentimentos, só simpatia.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-05-l3, type: fill_blank, prompt: "Fair ___ — the 3 a.m. page was a thin alert.", accepted: ["point"], explanation: '"fair point" — reconhece sem defesa.', tags: [vocab.feedback] }
+    - { id: M08-05-l4, type: multiple_choice, prompt: "The sign a retro worked:", options: ["everyone felt heard", "it ended on time", "next sprint's 'went well' quotes this sprint's action items", "nobody argued"], answer: 2, explanation: "Itens que voltam como 'went well' = o loop fechou.", tags: [comp.listening, topic.retro] }
+    - { id: M08-05-l5, type: error_correction, prompt: "We did a mistake on Friday's deploy.", accepted: ["We made a mistake on Friday's deploy.", "We made a mistake on Friday's deploy"], explanation: '"make a mistake" — "do a mistake" é calque.', tags: [br.do-mistake] }
+    - { id: M08-05-l6, type: multiple_choice, prompt: "Growth questions in a 1:1…", options: ["are off-limits", "get the manager's best thirty minutes", "belong in the retro", "signal unhappiness"], answer: 1, explanation: "'Where do I go from here' é a reunião que o gestor quer.", tags: [comp.listening, vocab.feedback] }
+    - { id: M08-05-l7, type: fill_blank, prompt: "My ___ is full — which should I drop?", accepted: ["plate"], explanation: '"my plate is full" + a pergunta de priorização.', tags: [vocab.feedback] }
+    - { id: M08-05-l8, type: multiple_choice, prompt: "'Aim everything at the process' means…", options: ["blame the process owner", "skip feedback", "the same fact, zero casualties — 'the gate isn't enforced'", "document everything"], answer: 2, explanation: "Mira no processo, não na pessoa.", tags: [comp.listening, topic.retro] }
+
+writing:
+  prompt: |
+    **Cenário:** os dois cenários aconteceram. Priya pede o resumo da retro por
+    escrito no canal do time, e Fernanda pede a pauta do próximo 1:1 por
+    escrito.
+
+    **Tarefa:** escreva 80–120 palavras cobrindo as duas saídas: o recap da
+    retro (um went-well, um didn't, os action items com dono e data) e a pauta
+    do próximo 1:1 (prioridades, carga, carreira com pedido concreto).
+  constraints:
+    - { label: "Recap com dono e data", pattern: "\\b(action item|owns?|by friday|recap)\\b" }
+    - { label: "Pauta do 1:1", pattern: "\\b(on my list|agenda|1:1)\\b" }
+    - { label: "Carga ou prioridade", pattern: "\\b(plate|priorit|which should|workload|on-call)\\b" }
+    - { label: "Carreira", pattern: "\\b(stretch|rubric|senior|next level|growth)\\b" }
+  rubric:
+    - Recap da retro com donos e datas
+    - Pauta do 1:1 em blocos claros
+    - Nenhuma pessoa culpada
+    - Pedido de carreira concreto
+  model: >-
+    Retro recap: what went well — the rollback was clean, fifteen minutes, no
+    data loss. What didn't — the staging check got skipped on the rerun.
+    Action items: Marcos owns the CI gate, I own the alert format, both by
+    Friday. 1:1 agenda: priorities — is the dashboard work still below the
+    migration? Load — three on-call weekends; my plate is full, so which
+    should I drop? Growth — can we write down the senior rubric, and could I
+    take the multi-region scoping as a stretch assignment?
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.feedback, topic.retro]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos: primeiro o fecho da retro (went well, didn't, action items com donos), depois a abertura do seu 1:1 (pauta, carga, pedido de carreira)."
+    maxSeconds: 60
+    targetPhrases:
+      - what went well
+      - what didn't go well
+      - action item
+      - I noticed
+      - it would help if
+      - fair point
+      - that's on me
+      - I'll work on that
+      - recap
+      - on my list
+      - my plate is full
+      - which should I drop
+      - stretch assignment
+      - the senior rubric
+    checklist:
+      - Retro fecha com donos e datas
+      - Feedback mirado no processo
+      - 1:1 abre com pauta declarada
+      - Carreira com pedido concreto
+
+quiz:
+  - { id: M08-05-q1, type: multiple_choice, prompt: "The retro closes with…", options: ["a vote", "feelings", "the next sprint's goals", "action items with an owner and a date"], answer: 3, explanation: "Sem dono e data, o item é teatro.", tags: [topic.retro, vocab.feedback] }
+  - { id: M08-05-q2, type: error_correction, prompt: "The team moral dropped after the rollback.", accepted: ["The team morale dropped after the rollback.", "The team morale dropped after the rollback"], explanation: "Moral do time é morale.", tags: [br.morale] }
+  - { id: M08-05-q3, type: multiple_choice, prompt: "'That landed as blame — let me rephrase' is the fix when…", options: ["the feedback was wrong", "your process point was heard as personal blame", "the meeting ran long", "the retro was cancelled"], answer: 1, explanation: "Reformula mirando o processo — não retira nem dobra.", tags: [vocab.feedback] }
+  - { id: M08-05-q4, type: error_correction, prompt: "He gave me a feedback about the thin alert.", accepted: ["He gave me some feedback about the thin alert.", "He gave me some feedback about the thin alert", "He gave me feedback about the thin alert."], explanation: "feedback é incontável — some feedback.", tags: [br.uncountable] }
+  - { id: M08-05-q5, type: multiple_choice, prompt: "The 1:1 opens with…", options: ["the sprint status", "your declared list — 'two things on my list'", "the manager's agenda", "last week's review"], answer: 1, explanation: "A reunião é sua — a pauta vem primeiro.", tags: [vocab.feedback] }
+  - { id: M08-05-q6, type: translate, prompt: "Ponto justo — vou trabalhar nisso.", accepted: ["Fair point — I'll work on that.", "Fair point — I'll work on that"], explanation: "Reconhece + ação: o par que recebe feedback.", tags: [vocab.feedback] }
+  - { id: M08-05-q7, type: reorder, prompt: "Monte a frase: / meu prato / está cheio / o que / solto", tokens: ["My", "plate", "is", "full", "—", "which", "should", "I", "drop?"], answer: "My plate is full — which should I drop?", explanation: "Carga + a pergunta de priorização.", tags: [vocab.feedback] }
+  - { id: M08-05-q8, type: multiple_choice, prompt: "A growth ask that works:", options: ["\"I want to grow.\"", "\"When is my raise?\"", "\"Could the multi-region work be a stretch assignment?\"", "\"Am I senior yet?\""], answer: 2, explanation: "Pedido concreto = algo a dizer sim.", tags: [vocab.feedback] }
+
+review:
+  count: 6
+  preferTags: [vocab.feedback, topic.retro, br.do-mistake]
+
+srsCards:
+  - { front: "recap", back: "o resumo que fecha a reunião — 'quick recap: items, owners, dates'", tag: vocab.feedback }
+  - { front: "to land (as blame)", back: "como a fala chega — 'it landed as blame' pede reformula", tag: vocab.feedback }
+  - { front: "own it", back: "assumir a tarefa — 'I'll own the runbook, Friday'", tag: vocab.feedback }
+  - { front: "a thin alert", back: "alerta sem contexto nem ação — o feedback do cenário 1", tag: vocab.feedback }
+  - { front: "tighten", back: "apertar o processo sem reescrevê-lo — verbo de retro", tag: vocab.feedback }
+  - { front: "the rubric", back: "os critérios escritos do próximo nível — peça por escrito", tag: vocab.feedback }
+  - { front: "to follow up", back: "dar sequência ao action item — sem isso ele morre", tag: vocab.feedback }
+  - { front: "no casualties", back: "a meta do feedback de processo — mesma reclamação, zero vítimas", tag: vocab.feedback }
+  - { front: "rough week", back: "nomear a semana difícil abre a conversa honesta", tag: topic.retro }
+  - { front: "career chat", back: "o bloco do 1:1 sobre o futuro — nomeie-o", tag: vocab.feedback }
+  - { front: "make a mistake", back: '"do a mistake" é calque — errar é "make"', hint: '"we made a mistake Friday"', tag: br.do-mistake }
+  - { front: "bored × boring", back: "quem sente leva -ed: 'I'm bored in long retros'", tag: br.ed-ing }
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
