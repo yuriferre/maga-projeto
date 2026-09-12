@@ -1,0 +1,290 @@
+id: M14-03
+module: M14
+order: 3
+title: "Comparando e justificando: X is a better fit because…, the trade-off is…"
+objective: >-
+  Ao final, você defende uma escolha de provedor com a estrutura
+  completa: a recomendação, o critério que pesa, o trade-off nomeado
+  e o cenário em que a escolha muda.
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.cloud, gram.hedging, comp.speaking]
+prerequisites: [M14-02]
+
+context:
+  scenario: |
+    A proposta de migração precisa de um argumento, não de uma tabela:
+    "GCP is a better fit for the worker" tem que vir com o porque, o
+    que a gente perde e quando a resposta seria outra.
+
+    A estrutura da justificativa:
+
+    - **a recomendação** — "GCP is a better fit for this workload"
+      (não "GCP is better" — fit é sempre *para algo*)
+    - **o critério** — "because the job is bursty and Cloud Run prices
+      per request" — um critério observável, não uma preferência
+    - **o trade-off** — "the trade-off is egress: leaving AWS costs us
+      on data transfer"
+    - **o cenário contrário** — "if the load were steady, I'd pick
+      provisioned on AWS instead"
+
+    Justificar ≠ torcer: quem defende escolha sem nomear o trade-off
+    não está argumentando, está torcendo.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "a better fit"
+    meaning: o encaixe melhor — a recomendação com escopo
+    example: "GCP is a better fit for this bursty workload — Cloud Run prices per request."
+    translation: "GCP é melhor encaixe para essa carga espichada — Cloud Run cobra por request."
+    note: "Fit é sempre 'for X' — nunca 'better' no abstrato."
+  - term: "the trade-off is"
+    meaning: o que se perde — o preço da escolha
+    example: "The trade-off is egress — leaving AWS costs us on data transfer out."
+    translation: "O trade-off é egress — sair da AWS custa na transferência de dados."
+    note: "Nomear o trade-off é o que separa argumento de torcida."
+  - term: "on balance"
+    meaning: no saldo — depois de pesar tudo
+    example: "On balance, Cloud Run wins for spiky load; for steady load, EC2 wins."
+    translation: "No saldo, Cloud Run vence para carga espichada; para carga estável, EC2 vence."
+    note: '"On balance" = depois de pesar os dois lados.'
+  - term: "the deciding factor"
+    meaning: o fator decisivo — o que pende a balança
+    example: "Pricing was the deciding factor — per-request billing fits our traffic."
+    translation: "O preço foi o fator decisivo — cobrança por request encaixa no nosso tráfego."
+    note: "O critério que decide quando o resto empata."
+  - term: "it depends on the workload"
+    meaning: depende da carga — a resposta honesta
+    example: "Which provider? It depends on the workload — spiky favors serverless, steady favors provisioned."
+    translation: "Qual provedor? Depende da carga — espichada favorece serverless, estável favorece provisionado."
+    note: '"Depends on" é a resposta profissional — com o critério logo depois.'
+  - term: "at scale"
+    meaning: em escala — quando o volume muda a conta
+    example: "Serverless is cheap at low volume but pricey at scale."
+    translation: "Serverless é barato em volume baixo, mas caro em escala."
+    note: "At scale = quando os números ficam grandes."
+  - term: "the learning curve"
+    meaning: a curva de aprendizado — o custo de adoção
+    example: "The trade-off is the learning curve — the team knows AWS cold."
+    translation: "O trade-off é a curva de aprendizado — o time conhece AWS de cor."
+    note: "Custo não-monetário conta no trade-off."
+  - term: "we'd give up"
+    meaning: abriríamos mão de — o que a escolha sacrifica
+    example: "Moving to GCP, we'd give up the AWS credits we already paid for."
+    translation: "Migrando para GCP, abriríamos mão dos créditos AWS que já pagamos."
+    note: '"We''d give up X" — o sacrifício nomeado.'
+  - term: "it pays off"
+    meaning: compensa — quando o custo retorna
+    example: "The migration effort pays off in six months at current prices."
+    translation: "O esforço de migração compensa em seis meses nos preços atuais."
+    note: "Pay off = o retorno do investimento."
+  - term: "all else being equal"
+    meaning: tudo mais igual — a ressalva da comparação
+    example: "All else being equal, I'd pick the provider the team knows."
+    translation: "Tudo mais igual, eu escolheria o provedor que o time conhece."
+    note: "A ressalva honesta da comparação."
+  - term: "a no-brainer"
+    meaning: a escolha óbvia — sem discussão
+    example: "For a 3am cron that runs twice a week, serverless is a no-brainer."
+    translation: "Para um cron das 3h que roda duas vezes por semana, serverless é óbvio."
+    note: "No-brainer = não precisa de análise."
+  - term: "the devil's advocate"
+    meaning: o advogado do diabo — quem testa o argumento
+    example: "Playing devil's advocate: what if traffic triples — does per-request pricing still win?"
+    translation: "Fazendo de advogado do diabo: e se o tráfego triplicar — cobrança por request ainda vence?"
+    note: "O papel de quem testa a justificativa."
+
+grammar:
+  title: "Justificar com critério: better fit + because + trade-off + contrário"
+  explanation: |
+    A justificativa profissional tem quatro peças, na ordem:
+
+    1. **recomendação com escopo** — "GCP is a better fit *for this
+       workload*" — nunca "GCP is better" (better sem escopo é torcida)
+    2. **critério observável** — "because the job is bursty and Cloud
+       Run bills per request" — um fato, não uma opinião
+    3. **trade-off nomeado** — "the trade-off is egress pricing" — o
+       que a escolha custa
+    4. **cenário contrário** — "if the load were steady, I'd pick
+       provisioned on AWS" — a condicional que mostra que você pensou
+
+    O cenário contrário usa a **segunda condicional** — "if the load
+    *were* steady, I'*d* pick" — porque é hipotético, não previsão.
+    Compare: "if the load *is* steady, we stay" (real, possível) ×
+    "if the load *were* steady, I'd move" (contrafactual, teste mental).
+  examples:
+    - { en: "GCP is a better fit for this workload — the job is bursty and Cloud Run bills per request.", pt: "GCP é melhor encaixe para essa carga — o job é espichado e o Cloud Run cobra por request." }
+    - { en: "The trade-off is egress — leaving AWS costs us on data transfer out.", pt: "O trade-off é egress — sair da AWS nos custa na transferência de saída." }
+    - { en: "If the load were steady, I'd pick provisioned on AWS instead.", pt: "Se a carga fosse estável, eu escolheria provisionado na AWS." }
+    - { en: "On balance, serverless wins here — but the learning curve is real.", pt: "No saldo, serverless vence aqui — mas a curva de aprendizado é real." }
+    - { en: "It depends on the workload: spiky favors Cloud Run, steady favors provisioned.", pt: "Depende da carga: espichada favorece Cloud Run, estável favorece provisionado." }
+    - { en: "All else being equal, I'd pick the provider the team already knows.", pt: "Tudo mais igual, escolheria o provedor que o time já conhece." }
+
+examples:
+  - en: "For a bursty cron, Cloud Run is a better fit — you pay per request, not per idle hour."
+    pt: "Para um cron espichado, Cloud Run encaixa melhor — paga por request, não por hora ociosa."
+    context: "Recomendação + critério."
+  - en: "The trade-off is egress — moving data out of AWS isn't free."
+    pt: "O trade-off é egress — tirar dados da AWS não é de graça."
+    context: "O trade-off nomeado."
+  - en: "If the load were steady, I'd pick provisioned — the flat rate would beat per-request pricing."
+    pt: "Se a carga fosse estável, eu escolheria provisionado — a taxa fixa venceria o preço por request."
+    context: "Segunda condicional: o cenário contrário."
+  - en: "Pricing was the deciding factor — at our volume, per-request wins by 30%."
+    pt: "Preço foi o fator decisivo — no nosso volume, por-request vence por 30%."
+    context: "O fator que decide."
+  - en: "On balance, GCP wins for this workload — but we'd give up the AWS credits we prepaid."
+    pt: "No saldo, GCP vence para essa carga — mas abriríamos mão dos créditos AWS pré-pagos."
+    context: "On balance + we'd give up."
+  - en: "Playing devil's advocate: what happens when traffic triples?"
+    pt: "Fazendo de advogado do diabo: o que acontece quando o tráfego triplica?"
+    context: "Testando o argumento."
+  - en: "For a twice-a-week cron, serverless is a no-brainer — don't overthink it."
+    pt: "Para um cron de duas vezes por semana, serverless é óbvio — não pense demais."
+    context: "A escolha sem discussão."
+  - en: "It pays off in about six months — the migration cost returns in savings."
+    pt: "Compensa em uns seis meses — o custo de migração volta em economia."
+    context: "O retorno nomeado."
+
+variations:
+  - idea: '"a justificativa completa"'
+    items:
+      - { register: "Boa", text: "GCP is a better fit for this bursty workload — Cloud Run bills per request. The trade-off is egress; if load were steady, I'd pick provisioned on AWS.", adequate: true }
+      - { register: "Boa", text: "On balance, serverless wins here — the trade-off is the cold start on sync calls.", adequate: true }
+      - { register: "Inadequada", text: "GCP is just better. Everyone knows that.", adequate: false, note: "'Better' sem escopo nem critério é torcida — better fit *for X because Y*." }
+      - { register: "Inadequada", text: "I'd pick GCP. No trade-offs.", adequate: false, note: "Toda escolha tem trade-off — não nomeá-lo parece que você não olhou." }
+  - idea: '"a segunda condicional do cenário contrário"'
+    items:
+      - { register: "Boa", text: "If the load were steady, I'd pick provisioned — the flat rate would win.", adequate: true }
+      - { register: "Boa", text: "If we didn't have AWS credits, the answer would be different.", adequate: true }
+      - { register: "Inadequada", text: "If the load will be steady, I will pick provisioned. (quer dizer hipótese)", adequate: false, note: "Hipótese contrafactual pede were/would — will/would marca previsão real." }
+      - { register: "Inadequada", text: "If it was steady, I pick provisioned.", adequate: false, note: "Mistura de tempos — 'were' + 'would' é o par." }
+
+brErrors:
+  - { wrong: "I recommend to migrate for GCP.", right: "I recommend migrating to GCP.", why: "recommend + gerúndio + to", tag: br.recommend-to }
+  - { wrong: "GCP it's more cheap for bursty load.", right: "GCP is cheaper for bursty load.", why: "is + cheaper", tag: br.more-er }
+  - { wrong: "The same trade-off of last quarter.", right: "The same trade-off as last quarter.", why: "same as", tag: br.same-of }
+  - { wrong: "It depends of the workload.", right: "It depends on the workload.", why: "depends on", tag: br.depend-of }
+  - { wrong: "Egress not costs much at our volume.", right: "Egress doesn't cost much at our volume.", why: "doesn't cost", tag: br.it-not-works }
+  - { wrong: "I pretend to present the proposal Friday.", right: "I plan to present the proposal Friday.", why: "plan to", tag: br.pretend }
+  - { wrong: "We are in AWS since 2021.", right: "We've been on AWS since 2021.", why: "present perfect + since", tag: br.since-present }
+  - { wrong: "I have a doubt about egress pricing.", right: "I have a question about egress pricing.", why: "question", tag: br.doubt }
+  - { wrong: "She suggested me to compare Cloud Run.", right: "She suggested that I compare Cloud Run.", why: "suggested that", tag: br.suggested-me }
+  - { wrong: "Ask to Ana about the SLA.", right: "Ask Ana about the SLA.", why: "ask + pessoa", tag: br.ask-to }
+
+dialogue:
+  title: "Defendendo a escolha"
+  lines:
+    - { speaker: Priya, text: "The proposal needs an argument, not a table. Why GCP for the worker?" }
+    - { speaker: Yuri, text: "GCP is a better fit for this workload — the job is bursty, and Cloud Run bills per request instead of per idle hour." }
+    - { speaker: Priya, text: "And the trade-off?" }
+    - { speaker: Yuri, text: "Egress — leaving AWS costs us on data transfer out. And we'd give up the AWS credits we prepaid." }
+    - { speaker: Marcos, text: "Playing devil's advocate: what if the load goes steady?" }
+    - { speaker: Yuri, text: "If the load were steady, I'd pick provisioned on AWS instead — the flat rate would beat per-request pricing." }
+    - { speaker: Priya, text: "On balance?" }
+    - { speaker: Yuri, text: "On balance, GCP wins for this workload — pricing was the deciding factor, and the migration pays off in about six months." }
+    - { speaker: Priya, text: "And the honest caveat?" }
+    - { speaker: Yuri, text: "All else being equal I'd pick what the team knows — but the credits expire anyway, so the learning curve is the real cost." }
+  notes:
+    - "a estrutura completa: recomendação com escopo → critério → trade-off → cenário contrário."
+    - "'if it were…, I'd…' — a segunda condicional do teste mental."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A justification has four parts, in order. The recommendation with scope — 'GCP is a better fit for this workload', never just 'better'. The observable criterion — 'because the job is bursty and Cloud Run bills per request'. The named trade-off — 'the trade-off is egress'. And the counterfactual — 'if the load were steady, I'd pick provisioned'." }
+    - { speaker: Marcos, text: "The counterfactual uses the second conditional — 'if it were, I'd pick' — because it's a thought experiment, not a prediction. 'If the load is steady, we stay' is a real possibility; 'if it were steady, I'd move' is the test." }
+    - { speaker: Yuri, text: "And the honest answer is often 'it depends on the workload' — spiky favors serverless, steady favors provisioned. Depends on is professional, as long as the criterion comes right after." }
+    - { speaker: Priya, text: "Naming the trade-off is what separates arguing from cheering. Whoever recommends without naming what we give up isn't arguing — they're cheering." }
+  questions:
+    - { id: M14-03-l1, type: multiple_choice, prompt: "'A better fit' always comes with…", options: ["a scope — 'a better fit *for* this workload'", "a provider name", "a price", "a competitor"], answer: 0, explanation: "Fit é sempre 'for X'.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-03-l2, type: multiple_choice, prompt: "'If the load were steady, I'd pick provisioned' is…", options: ["a prediction", "a counterfactual — second conditional, testing the choice", "a promise", "wrong grammar"], answer: 1, explanation: "Were/would = teste mental.", tags: [comp.listening, gram.hedging] }
+    - { id: M14-03-l3, type: fill_blank, prompt: "The trade-off is ___ — leaving AWS costs us on data transfer.", accepted: ["egress"], explanation: "Egress = a saída de dados que cobra.", tags: [vocab.cloud] }
+    - { id: M14-03-l4, type: error_correction, prompt: "It depends of the workload.", accepted: ["It depends on the workload.", "It depends on the workload"], explanation: "depends on.", tags: [br.depend-of] }
+    - { id: M14-03-l5, type: multiple_choice, prompt: "Naming the trade-off…", options: ["weakens the argument", "is optional", "is rude", "separates arguing from cheering — you show you looked"], answer: 3, explanation: "Quem não nomeia o custo está torcendo.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-03-l6, type: multiple_choice, prompt: "'It depends on the workload' works when…", options: ["you have no opinion", "the criterion comes right after — spiky favors X, steady favors Y", "you want to end the discussion", "you're unsure"], answer: 1, explanation: "Depends + o critério = resposta profissional.", tags: [comp.listening, vocab.cloud] }
+
+writing:
+  prompt: |
+    **Cenário:** a Priya pede o parágrafo de justificativa da proposta
+    de migração — GCP para o worker.
+
+    **Tarefa:** escreva 80–120 palavras com a estrutura completa:
+    recomendação com escopo, critério observável, trade-off nomeado e
+    o cenário contrário em segunda condicional.
+  constraints:
+    - { label: "Recomendação com escopo", pattern: "\\b(better fit|fit for|recommend|pick|choose)\\b" }
+    - { label: "Critério", pattern: "\\b(bursty|per request|per-request|workload|load|pricing)\\b" }
+    - { label: "Trade-off", pattern: "\\b(trade.?off|egress|give up|learning curve|credits)\\b" }
+    - { label: "Contrário", pattern: "\\b(if the load|were|would|steady|instead|on balance)\\b" }
+  rubric:
+    - "Recomendação com escopo (fit for)"
+    - "Critério observável"
+    - "Trade-off nomeado"
+    - "Cenário contrário em were/would"
+  model: >-
+    Recommendation: GCP is a better fit for this workload. The job is
+    bursty — short spikes twice a day — and Cloud Run bills per
+    request, so idle hours cost nothing. On balance it wins on pricing
+    at our volume. The trade-offs: egress — moving data out of AWS
+    isn't free — and we'd give up the prepaid AWS credits, plus the
+    team knows AWS cold, so there's a learning curve. If the load were
+    steady, I'd pick provisioned on AWS instead — the flat rate would
+    beat per-request pricing. It pays off in about six months at
+    current prices.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.cloud]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos defendendo a escolha: a recomendação com escopo, o critério, o trade-off e o cenário em que você escolheria o contrário."
+    maxSeconds: 60
+    targetPhrases:
+      - a better fit for
+      - because the job is bursty
+      - bills per request
+      - the trade-off is
+      - egress
+      - we'd give up
+      - if the load were steady
+      - i'd pick
+      - on balance
+      - the deciding factor
+      - it pays off
+      - all else being equal
+    checklist:
+      - Recomendação com escopo
+      - Critério observável
+      - Trade-off nomeado
+      - Cenário contrário (were/would)
+
+quiz:
+  - { id: M14-03-q1, type: multiple_choice, prompt: "The professional recommendation is…", options: ["'GCP is better.'", "'Everyone uses GCP.'", "'GCP is a better fit for this workload — here's why.'", "'GCP, obviously.'"], answer: 2, explanation: "Fit com escopo + critério.", tags: [vocab.cloud] }
+  - { id: M14-03-q2, type: error_correction, prompt: "It depends of the workload.", accepted: ["It depends on the workload.", "It depends on the workload"], explanation: "depends on.", tags: [br.depend-of] }
+  - { id: M14-03-q3, type: multiple_choice, prompt: "'If the load were steady, I'd pick provisioned' uses…", options: ["first conditional — a real possibility", "second conditional — a counterfactual test", "future tense", "past simple"], answer: 1, explanation: "Were/would = hipótese.", tags: [gram.hedging] }
+  - { id: M14-03-q4, type: fill_blank, prompt: "Moving to GCP, we'd ___ up the prepaid AWS credits.", accepted: ["give"], explanation: '"Give up" — o sacrifício nomeado.', tags: [vocab.cloud] }
+  - { id: M14-03-q5, type: error_correction, prompt: "I recommend to migrate for GCP.", accepted: ["I recommend migrating to GCP.", "I recommend migrating to GCP"], explanation: "recommend + gerúndio + to.", tags: [br.recommend-to, br.migrate-for] }
+  - { id: M14-03-q6, type: translate, prompt: "O trade-off é o egress — sair da AWS nos custa na transferência de dados.", accepted: ["The trade-off is egress — leaving AWS costs us on data transfer.", "The trade-off is egress — leaving AWS costs us on data transfer out."], explanation: '"the trade-off is" + egress.', tags: [vocab.cloud] }
+  - { id: M14-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["were", "load", "the", "if", "steady", "i'd", "pick", "provisioned"], answer: "if the load were steady i'd pick provisioned", explanation: "A segunda condicional.", tags: [gram.hedging] }
+  - { id: M14-03-q8, type: multiple_choice, prompt: "'Playing devil's advocate' means…", options: ["arguing against the proposal on purpose to test it", "lying", "agreeing loudly", "ending the meeting"], answer: 0, explanation: "Testar o argumento pelo lado contrário.", tags: [vocab.cloud] }
+
+srsCards:
+  - { front: "a better fit", back: "Sempre com escopo — 'a better fit for this workload'.", tag: vocab.cloud }
+  - { front: "the trade-off is", back: "O que se perde — nomear o custo é argumentar.", tag: vocab.cloud }
+  - { front: "on balance", back: "Depois de pesar — 'on balance, GCP wins'.", tag: vocab.cloud }
+  - { front: "the deciding factor", back: "O critério que decide o empate.", tag: vocab.cloud }
+  - { front: "it depends on", back: "Resposta honesta — com o critério logo depois.", tag: vocab.cloud }
+  - { front: "at scale", back: "Quando o volume muda a conta.", tag: vocab.cloud }
+  - { front: "we'd give up", back: "O sacrifício — 'we'd give up the credits'.", tag: vocab.cloud }
+  - { front: "it pays off", back: "O retorno — 'pays off in six months'.", tag: vocab.cloud }
+  - { front: "all else being equal", back: "A ressalva honesta da comparação.", tag: vocab.cloud }
+  - { front: "devil's advocate", back: "Testar o argumento pelo lado contrário.", tag: vocab.cloud }
+
+review:
+  preferTags: [vocab.cloud, gram.hedging, br.depend-of]
+  notes: "Revisão prioriza a justificativa e a segunda condicional."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

@@ -1,0 +1,295 @@
+id: M14-01
+module: M14
+order: 1
+title: "Mapa de serviços: compute, storage, networking, IAM nos três provedores"
+objective: >-
+  Ao final, você traduz o stack entre provedores sem travar: EC2 vira
+  Compute Engine ou VM, S3 vira Cloud Storage ou Blob, e você sabe o
+  que é equivalente de verdade e o que só parece.
+durationMin: 35
+competencies: [VOC, REA]
+tags: [vocab.cloud, comp.reading]
+prerequisites: [M05-05]
+
+context:
+  scenario: |
+    A Priya quer comparar o stack atual (AWS) com GCP e Azure para a
+    proposta de migração do módulo. Primeiro passo: o mapa — quem é quem
+    em cada provedor.
+
+    O mapa mental em quatro famílias:
+
+    - **compute** — EC2 × Compute Engine × Azure VMs; e o serverless:
+      Lambda × Cloud Functions × Azure Functions
+    - **storage** — S3 × Cloud Storage × Blob Storage; block: EBS ×
+      Persistent Disk × Managed Disks
+    - **networking** — VPC × VPC × VNet; load balancer em cada um
+    - **IAM** — IAM × IAM × Entra ID (ex-Azure AD) — o nome muda, o
+      papel é o mesmo: quem pode o quê
+
+    O truque: equivalente ≠ idêntico. "S3 is the equivalent of Cloud
+    Storage" é verdade no papel; nas features (object lifecycle,
+    consistency model) divergem — e a conversa boa é a que nomeia a
+    diferença.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "compute"
+    meaning: a família de máquinas — EC2, Compute Engine, Azure VMs
+    example: "On the compute side: EC2 on AWS, Compute Engine on GCP, Azure VMs on Azure."
+    translation: "No compute: EC2 na AWS, Compute Engine no GCP, Azure VMs no Azure."
+    note: "Compute = VMs + serverless + containers gerenciados."
+  - term: "object storage"
+    meaning: o storage de objetos — S3, Cloud Storage, Blob
+    example: "For object storage: S3 on AWS, Cloud Storage on GCP, Blob Storage on Azure."
+    translation: "Para storage de objetos: S3 na AWS, Cloud Storage no GCP, Blob no Azure."
+    note: "Buckets e objetos — os três têm o mesmo modelo."
+  - term: "serverless functions"
+    meaning: as funções serverless — Lambda, Cloud Functions, Azure Functions
+    example: "Lambda is the AWS answer; GCP has Cloud Functions, Azure has Azure Functions."
+    translation: "Lambda é a resposta da AWS; GCP tem Cloud Functions, Azure tem Azure Functions."
+    note: "Paga por invocação — 'pay per invocation'."
+  - term: "managed Kubernetes"
+    meaning: o K8s gerenciado — EKS, GKE, AKS
+    example: "EKS on AWS, GKE on GCP, AKS on Azure — GKE is the most hands-off."
+    translation: "EKS na AWS, GKE no GCP, AKS no Azure — GKE é o mais gerenciado."
+    note: "GKE nasceu no Google — é o mais maduro."
+  - term: "VPC"
+    meaning: a rede virtual — VPC na AWS/GCP, VNet no Azure
+    example: "AWS and GCP call it a VPC; Azure calls it a VNet — same thing."
+    translation: "AWS e GCP chamam de VPC; Azure chama de VNet — mesma coisa."
+    note: "A rede isolada onde os recursos moram."
+  - term: "IAM"
+    meaning: identidade e acesso — IAM, IAM, Entra ID
+    example: "IAM on AWS and GCP; Azure renamed theirs to Entra ID."
+    translation: "IAM na AWS e GCP; o Azure renomeou para Entra ID."
+    note: "Quem pode o quê — o ponto mais sensível da migração."
+  - term: "the equivalent of"
+    meaning: o equivalente — o serviço correspondente
+    example: "Cloud Storage is the GCP equivalent of S3."
+    translation: "Cloud Storage é o equivalente do S3 no GCP."
+    note: '"The X equivalent of Y" — a frase do mapa.'
+  - term: "their take on"
+    meaning: a versão deles de — o serviço análogo com sabor próprio
+    example: "Functions are GCP's take on Lambda — same idea, different ergonomics."
+    translation: "Functions é a versão do GCP para a Lambda — mesma ideia, ergonomia diferente."
+    note: "'Their take on X' — quando o equivalente não é idêntico."
+  - term: "load balancer"
+    meaning: o balanceador — ALB, Cloud Load Balancing, Azure LB
+    example: "AWS has ALB and NLB; GCP folds it into Cloud Load Balancing."
+    translation: "AWS tem ALB e NLB; o GCP junta tudo no Cloud Load Balancing."
+    note: "Os nomes divergem; o papel é o mesmo."
+  - term: "block storage"
+    meaning: o disco — EBS, Persistent Disk, Managed Disks
+    example: "Block storage: EBS on AWS, Persistent Disk on GCP, Managed Disks on Azure."
+    translation: "Storage de bloco: EBS na AWS, Persistent Disk no GCP, Managed Disks no Azure."
+    note: "O disco que monta na VM — não confunde com object storage."
+  - term: "managed service"
+    meaning: o serviço gerenciado — o provedor opera por você
+    example: "RDS is the managed database — AWS patches and backs it up."
+    translation: "RDS é o banco gerenciado — a AWS aplica patch e backup."
+    note: "Managed = o provedor opera; você configura."
+  - term: "feature parity"
+    meaning: paridade de features — quando o equivalente cobre tudo
+    example: "GKE has feature parity with EKS — plus autopilot mode."
+    translation: "GKE tem paridade com EKS — mais o modo autopilot."
+    note: '"Feature parity" — a pergunta-chave da migração.'
+
+grammar:
+  title: "Como falar de equivalência: equivalent of, their take on, corresponds to"
+  explanation: |
+    Três formas de mapear serviços, em ordem de precisão:
+
+    - "**X is the equivalent of Y**" — mesmo papel, features parecidas:
+      "Cloud Storage is the equivalent of S3."
+    - "**X is their take on Y**" — mesmo papel, sabor próprio:
+      "Functions is GCP's take on Lambda."
+    - "**X corresponds to Y**" — formal, de tabela de migração:
+      "Azure VNet corresponds to AWS VPC."
+
+    E a frase que evita o erro clássico — assumir paridade:
+
+    - "**Equivalent isn't identical** — check feature parity first."
+      O equivalente cobre o papel; as features divergem nos detalhes
+      (lifecycle, consistency, pricing model).
+
+    Preposições do mapa: "**on** AWS/GCP/Azure" (a plataforma),
+    "**in** the cloud" (o lugar), "**for** object storage" (a função).
+  examples:
+    - { en: "Compute Engine is the GCP equivalent of EC2 — same family, different console.", pt: "Compute Engine é o equivalente do EC2 no GCP — mesma família, console diferente." }
+    - { en: "Azure Functions is Microsoft's take on Lambda.", pt: "Azure Functions é a versão da Microsoft para a Lambda." }
+    - { en: "Azure's VNet corresponds to the AWS VPC.", pt: "A VNet do Azure corresponde à VPC da AWS." }
+    - { en: "Equivalent isn't identical — S3 and Cloud Storage differ on lifecycle rules.", pt: "Equivalente não é idêntico — S3 e Cloud Storage divergem nas regras de lifecycle." }
+    - { en: "We're on AWS today; the proposal moves the worker to GCP.", pt: "Estamos na AWS hoje; a proposta move o worker para GCP." }
+    - { en: "For object storage, all three offer a bucket model.", pt: "Para storage de objetos, os três oferecem o modelo de bucket." }
+
+examples:
+  - en: "Compute: EC2 on AWS, Compute Engine on GCP, plain Virtual Machines on Azure."
+    pt: "Compute: EC2 na AWS, Compute Engine no GCP, Virtual Machines no Azure."
+    context: "A família de máquinas."
+  - en: "Object storage maps cleanly: S3, Cloud Storage, Blob — buckets and objects in all three."
+    pt: "Storage de objetos mapeia limpo: S3, Cloud Storage, Blob — buckets e objetos nos três."
+    context: "O mapeamento mais direto."
+  - en: "Serverless: Lambda is the reference; Cloud Functions and Azure Functions are the equivalents."
+    pt: "Serverless: Lambda é a referência; Cloud Functions e Azure Functions são os equivalentes."
+    context: "Funções serverless."
+  - en: "Managed Kubernetes: EKS, GKE, AKS — GKE is the most hands-off of the three."
+    pt: "K8s gerenciado: EKS, GKE, AKS — o GKE é o mais gerenciado dos três."
+    context: "K8s gerenciado em cada provedor."
+  - en: "Networking: AWS and GCP say VPC; Azure says VNet — same isolated network."
+    pt: "Networking: AWS e GCP dizem VPC; Azure diz VNet — mesma rede isolada."
+    context: "A rede virtual."
+  - en: "IAM is the sensitive one — AWS IAM, GCP IAM, Azure Entra ID — roles don't map one-to-one."
+    pt: "IAM é o sensível — AWS IAM, GCP IAM, Azure Entra ID — papéis não mapeiam um-para-um."
+    context: "O ponto frágil da migração."
+  - en: "RDS is AWS's managed database; the GCP take is Cloud SQL, Azure's is Azure SQL."
+    pt: "RDS é o banco gerenciado da AWS; a versão do GCP é Cloud SQL, a do Azure é Azure SQL."
+    context: "Banco gerenciado."
+  - en: "Feature parity first: does the GCP equivalent cover our S3 lifecycle rules?"
+    pt: "Paridade antes: o equivalente do GCP cobre nossas regras de lifecycle do S3?"
+    context: "A pergunta-chave antes de migrar."
+
+variations:
+  - idea: '"o equivalente certo"'
+    items:
+      - { register: "Boa", text: "Cloud Storage is the GCP equivalent of S3 — same bucket model.", adequate: true }
+      - { register: "Boa", text: "GKE is their take on managed Kubernetes — the most hands-off.", adequate: true }
+      - { register: "Inadequada", text: "GCP has exactly the same service as S3.", adequate: false, note: "Nada é 'exatamente igual' entre provedores — diga 'equivalent' e cite a diferença." }
+      - { register: "Inadequada", text: "Azure doesn't have anything like Lambda.", adequate: false, note: "Todo provedor tem as quatro famílias — procure o equivalente, não assuma ausência." }
+  - idea: '"falando do mapa"'
+    items:
+      - { register: "Boa", text: "We're on AWS; for object storage, Cloud Storage is the GCP equivalent.", adequate: true }
+      - { register: "Boa", text: "IAM is where the migration gets fragile — roles don't map one-to-one.", adequate: true }
+      - { register: "Inadequada", text: "We run on the cloud.", adequate: false, note: "'In the cloud' — e diga qual provedor: 'on AWS'." }
+      - { register: "Inadequada", text: "We should migrate for GCP.", adequate: false, note: "'Migrate to' — 'for' marca motivo, não destino." }
+
+brErrors:
+  - { wrong: "The service runs on the cloud.", right: "The service runs in the cloud.", why: "in the cloud", tag: br.on-the-cloud }
+  - { wrong: "Terraform will provisionate the cluster.", right: "Terraform will provision the cluster.", why: "provision, não provisionate", tag: br.provisionate }
+  - { wrong: "We want to migrate for GCP.", right: "We want to migrate to GCP.", why: "migrate to", tag: br.migrate-for }
+  - { wrong: "I recommend to use Cloud Functions.", right: "I recommend using Cloud Functions.", why: "recommend + gerúndio", tag: br.recommend-to }
+  - { wrong: "The VM not boots after the resize.", right: "The VM doesn't boot after the resize.", why: "doesn't boot", tag: br.it-not-works }
+  - { wrong: "The bucket it's in another region.", right: "The bucket is in another region.", why: "is in", tag: br.third-person-s }
+  - { wrong: "AWS have a cheaper tier.", right: "AWS has a cheaper tier.", why: "AWS has", tag: br.third-person-s }
+  - { wrong: "The same issue of last month.", right: "The same issue as last month.", why: "same as", tag: br.same-of }
+  - { wrong: "I found the docs in the internet.", right: "I found the docs on the internet.", why: "on the internet", tag: br.in-the-internet }
+  - { wrong: "I have a doubt about the quota.", right: "I have a question about the quota.", why: "question", tag: br.doubt }
+
+dialogue:
+  title: "Mapeando o stack para a proposta"
+  lines:
+    - { speaker: Priya, text: "For the migration proposal, I need the service map — who's who across the three providers." }
+    - { speaker: Yuri, text: "Compute maps cleanly: EC2 on AWS, Compute Engine on GCP, Virtual Machines on Azure." }
+    - { speaker: Priya, text: "Storage?" }
+    - { speaker: Yuri, text: "Object storage: S3, Cloud Storage, Blob — buckets and objects everywhere. Block storage: EBS, Persistent Disk, Managed Disks." }
+    - { speaker: Marcos, text: "And Kubernetes?" }
+    - { speaker: Yuri, text: "EKS, GKE, AKS — GKE is the most hands-off; it has feature parity plus autopilot." }
+    - { speaker: Marcos, text: "What about functions?" }
+    - { speaker: Yuri, text: "Lambda is the reference — Cloud Functions is GCP's take, Azure Functions is Microsoft's. Same idea, different ergonomics." }
+    - { speaker: Priya, text: "And the fragile point?" }
+    - { speaker: Yuri, text: "IAM — AWS IAM, GCP IAM, Azure Entra ID. Roles don't map one-to-one; that's where the migration gets delicate." }
+    - { speaker: Priya, text: "Good map. Remember the rule: equivalent isn't identical — check feature parity before we commit." }
+  notes:
+    - "o mapa inteiro em 10 falas: compute, storage, K8s, functions, IAM."
+    - "'equivalent of' para papel igual, 'their take on' quando tem sabor próprio."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Every provider has the same four families — compute, object storage, networking, IAM. EC2, Compute Engine, Azure VMs. S3, Cloud Storage, Blob. VPC, VPC, VNet. The names change; the roles don't." }
+    - { speaker: Marcos, text: "When you map them, pick your words by how close they are. 'The equivalent of' when the role matches — Cloud Storage is the equivalent of S3. 'Their take on' when there's a flavor — Functions is GCP's take on Lambda." }
+    - { speaker: Yuri, text: "And the trap is assuming parity. Equivalent isn't identical — lifecycle rules, consistency models, pricing all diverge in the details. The sentence that saves you is 'check feature parity first'." }
+    - { speaker: Priya, text: "The sensitive spot is always IAM — AWS IAM, GCP IAM, Entra ID on Azure. Roles and policies never map one-to-one, and that's where migrations quietly break." }
+  questions:
+    - { id: M14-01-l1, type: multiple_choice, prompt: "The GCP equivalent of EC2 is…", options: ["App Engine", "Cloud Functions", "GKE", "Compute Engine"], answer: 3, explanation: "VM × VM — Compute Engine.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-01-l2, type: multiple_choice, prompt: "'Their take on' is for…", options: ["identical services", "the same role with a different flavor — Functions is GCP's take on Lambda", "missing services", "deprecated services"], answer: 1, explanation: "Mesmo papel, sabor próprio.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-01-l3, type: fill_blank, prompt: "Azure calls the VPC a ___ — same isolated network.", accepted: ["VNet", "vnet"], explanation: "VNet = VPC no Azure.", tags: [vocab.cloud] }
+    - { id: M14-01-l4, type: error_correction, prompt: "The service runs on the cloud.", accepted: ["The service runs in the cloud.", "The service runs in the cloud"], explanation: "in the cloud.", tags: [br.on-the-cloud] }
+    - { id: M14-01-l5, type: multiple_choice, prompt: "The migration's fragile point is…", options: ["storage", "compute", "IAM — roles never map one-to-one", "DNS"], answer: 2, explanation: "IAM é onde migração quebra quieto.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-01-l6, type: multiple_choice, prompt: "'Equivalent isn't identical' means…", options: ["there's no equivalent", "the role matches but features diverge — check parity", "one provider is better", "equivalents don't exist"], answer: 1, explanation: "Papel igual, features divergem.", tags: [comp.listening, vocab.cloud] }
+
+writing:
+  prompt: |
+    **Cenário:** a Priya pede o mapa de serviços por escrito para anexar
+    na proposta de migração.
+
+    **Tarefa:** escreva 80–120 palavras mapeando o stack atual (AWS)
+    para GCP e Azure: compute, object storage, K8s gerenciado e IAM —
+    usando "equivalent of" e "take on", e fechando com o aviso sobre
+    feature parity.
+  constraints:
+    - { label: "Compute", pattern: "\\b(ec2|compute engine|virtual machine|azure vm)\\b" }
+    - { label: "Storage", pattern: "\\b(s3|cloud storage|blob|bucket|object storage)\\b" }
+    - { label: "K8s e IAM", pattern: "\\b(eks|gke|aks|iam|entra)\\b" }
+    - { label: "Equivalência", pattern: "\\b(equivalent|take on|corresponds|parity)\\b" }
+  rubric:
+    - "As quatro famílias mapeadas"
+    - "'equivalent of' × 'take on' usados certo"
+    - "O aviso de feature parity no fim"
+    - "Sem calques (in the cloud, migrate to)"
+  model: >-
+    Service map for the migration proposal. Compute: EC2 on AWS maps to
+    Compute Engine on GCP and Virtual Machines on Azure. Object
+    storage: S3, Cloud Storage, Blob — the bucket model is the same in
+    all three. Managed Kubernetes: EKS, GKE, AKS; GKE is Google's take
+    on managed Kubernetes and the most hands-off. IAM is the sensitive
+    one: AWS IAM, GCP IAM, and Azure's Entra ID — roles don't map
+    one-to-one. One rule for the whole map: equivalent isn't identical.
+    Before we commit, check feature parity on lifecycle rules and IAM
+    policies — that's where migrations quietly break.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.cloud]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando o mapa de serviços: as quatro famílias, os equivalentes nos três provedores e onde a migração fica frágil."
+    maxSeconds: 45
+    targetPhrases:
+      - the equivalent of
+      - their take on
+      - object storage
+      - compute engine
+      - managed kubernetes
+      - feature parity
+      - on aws
+      - in the cloud
+      - load balancer
+      - block storage
+      - managed service
+      - entra id
+    checklist:
+      - As quatro famílias
+      - Equivalentes nomeados
+      - IAM como ponto frágil
+      - "'in the cloud' correto"
+
+quiz:
+  - { id: M14-01-q1, type: multiple_choice, prompt: "The Azure equivalent of S3 is…", options: ["Managed Disks", "Blob Storage", "Azure Files", "Cosmos DB"], answer: 1, explanation: "Blob = object storage no Azure.", tags: [vocab.cloud] }
+  - { id: M14-01-q2, type: error_correction, prompt: "We want to migrate for GCP next quarter.", accepted: ["We want to migrate to GCP next quarter.", "We want to migrate to GCP next quarter"], explanation: "migrate to.", tags: [br.migrate-for] }
+  - { id: M14-01-q3, type: multiple_choice, prompt: "The most hands-off managed Kubernetes is…", options: ["EKS", "AKS", "self-managed K8s", "GKE — Google's take, plus autopilot"], answer: 3, explanation: "GKE nasceu no Google.", tags: [vocab.cloud] }
+  - { id: M14-01-q4, type: fill_blank, prompt: "Check feature ___ before migrating — equivalent isn't identical.", accepted: ["parity"], explanation: "Feature parity — a pergunta-chave.", tags: [vocab.cloud] }
+  - { id: M14-01-q5, type: error_correction, prompt: "I recommend to use spot instances for the worker.", accepted: ["I recommend using spot instances for the worker.", "I recommend using spot instances for the worker"], explanation: "recommend + gerúndio.", tags: [br.recommend-to] }
+  - { id: M14-01-q6, type: translate, prompt: "Cloud Functions é a versão do GCP para a Lambda — mesma ideia, ergonomia diferente.", accepted: ["Cloud Functions is GCP's take on Lambda — same idea, different ergonomics.", "Cloud Functions is the GCP take on Lambda — same idea, different ergonomics."], explanation: '"their take on" — mesmo papel, sabor próprio.', tags: [vocab.cloud] }
+  - { id: M14-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["is", "storage", "of", "equivalent", "the", "s3", "cloud"], answer: "cloud storage is the equivalent of s3", explanation: '"the equivalent of".', tags: [vocab.cloud] }
+  - { id: M14-01-q8, type: multiple_choice, prompt: "IAM is the fragile point because…", options: ["roles and policies don't map one-to-one", "it's the most expensive", "it doesn't exist on GCP", "it's the slowest"], answer: 0, explanation: "Papéis não mapeiam 1:1.", tags: [vocab.cloud] }
+
+srsCards:
+  - { front: "the equivalent of", back: "Mesmo papel — 'Cloud Storage is the equivalent of S3'.", tag: vocab.cloud }
+  - { front: "their take on", back: "Mesmo papel, sabor próprio — 'GCP's take on Lambda'.", tag: vocab.cloud }
+  - { front: "compute", back: "EC2 × Compute Engine × Azure VMs.", tag: vocab.cloud }
+  - { front: "object storage", back: "S3 × Cloud Storage × Blob.", tag: vocab.cloud }
+  - { front: "managed kubernetes", back: "EKS × GKE × AKS — GKE é o mais hands-off.", tag: vocab.cloud }
+  - { front: "VPC / VNet", back: "AWS/GCP dizem VPC; Azure diz VNet.", tag: vocab.cloud }
+  - { front: "IAM / Entra ID", back: "Quem pode o quê — papéis não mapeiam 1:1.", tag: vocab.cloud }
+  - { front: "feature parity", back: "Equivalente cobre o papel; features divergem.", tag: vocab.cloud }
+  - { front: "block storage", back: "EBS × Persistent Disk × Managed Disks.", tag: vocab.cloud }
+  - { front: "managed service", back: "O provedor opera — RDS, Cloud SQL.", tag: vocab.cloud }
+
+review:
+  preferTags: [vocab.cloud, br.on-the-cloud, br.migrate-for]
+  notes: "Revisão prioriza o mapa de serviços e os calques de cloud."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

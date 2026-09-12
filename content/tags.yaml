@@ -129,3 +129,7 @@ tags:
   - { id: br.sorry-for-late, group: br, label: "sorry for late (the delay)" }
   - { id: gram.formal-register, group: gram, label: "Registro formal (e-mail, docs)" }
   - { id: vocab.email-docs,  group: vocab, label: "E-mail e documentação" }
+  - { id: br.on-the-cloud,    group: br, label: "on the cloud (in the cloud)" }
+  - { id: br.provisionate,    group: br, label: "provisionate (provision)" }
+  - { id: br.migrate-for,     group: br, label: "migrate for X (migrate to)" }
+  - { id: br.recommend-to,    group: br, label: "recommend to use (recommend using)" }

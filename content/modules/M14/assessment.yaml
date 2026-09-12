@@ -1,0 +1,80 @@
+# Avaliação do módulo M14: 15 itens cobrindo as cinco aulas + escrita + fala.
+id: M14
+title: "Avaliação do módulo M14: Cloud providers"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M14-A01, type: multiple_choice, prompt: "Cloud Storage is to GCP as Blob Storage is to…", options: ["Azure — same object-storage role", "AWS", "the file system", "the block device"], answer: 0, explanation: "Blob = object storage do Azure.", tags: [vocab.cloud] }
+  - { id: M14-A02, type: error_correction, prompt: "Terraform will provisionate the env on the cloud.", accepted: ["Terraform will provision the env in the cloud.", "Terraform will provision the env in the cloud"], explanation: 'Dois calques: "provision" + "in the cloud".', tags: [br.provisionate, br.on-the-cloud] }
+  - { id: M14-A03, type: multiple_choice, prompt: "'us-east-1a went down' means…", options: ["the whole region is down", "a provider is down", "one zone inside the region failed — tolerable by design", "the account is down"], answer: 2, explanation: "Zone = datacenter dentro da region.", tags: [vocab.cloud] }
+  - { id: M14-A04, type: error_correction, prompt: "The team recommends to migrate for Azure next quarter.", accepted: ["The team recommends migrating to Azure next quarter.", "The team recommends migrating to Azure next quarter"], explanation: 'Dois erros: "recommend + gerúndio" + "migrate to".', tags: [br.recommend-to, br.migrate-for] }
+  - { id: M14-A05, type: fill_blank, prompt: "Spin up a test box, run the script, then tear it ___.", accepted: ["down"], explanation: "Tear down — destruir de propósito.", tags: [vocab.cloud] }
+  - { id: M14-A06, type: error_correction, prompt: "It depends of the workload — it's the same issue of yesterday.", accepted: ["It depends on the workload — it's the same issue as yesterday.", "It depends on the workload — it's the same issue as yesterday"], explanation: 'Dois calques: "depends on" + "same as".', tags: [br.depend-of, br.same-of] }
+  - { id: M14-A07, type: multiple_choice, prompt: "'If traffic doubled, per-request pricing would lose' — this sentence…", options: ["predicts Friday's traffic", "tests the choice with a counterfactual — second conditional", "reports last month's outage", "promises a price drop"], answer: 1, explanation: "Were/would = teste mental.", tags: [gram.hedging] }
+  - { id: M14-A08, type: error_correction, prompt: "The SLA not covers maintenance — the quota it's per region.", accepted: ["The SLA doesn't cover maintenance — the quota is per region.", "The SLA doesn't cover maintenance — the quota is per region"], explanation: 'Dois erros: "doesn''t cover" + "is per region".', tags: [br.it-not-works, br.third-person-s] }
+  - { id: M14-A09, type: translate, prompt: "Cobrança por request, em incrementos de 100ms — o egress é cobrado à parte.", accepted: ["Per-request pricing, billed in 100ms increments — egress is billed separately.", "Per-request, billed in 100ms increments — egress is billed separately."], explanation: '"per-request" + "billed in" + "billed separately".', tags: [vocab.cloud, vocab.finops] }
+  - { id: M14-A10, type: error_correction, prompt: "She suggested me to ask to Ana — I have a doubt about the SLA.", accepted: ["She suggested that I ask Ana — I have a question about the SLA.", "She suggested I ask Ana — I have a question about the SLA."], explanation: 'Três erros: "suggested that" + "ask Ana" + "question".', tags: [br.suggested-me, br.ask-to, br.doubt] }
+  - { id: M14-A11, type: multiple_choice, prompt: "You hit the concurrency ceiling. The right move is…", options: ["accept it — limits never move", "file a quota increase — it's a soft cap, subject to approval", "change providers", "wait for the SLA"], answer: 3, explanation: "Quota sobe com pedido — subject to approval.", tags: [vocab.cloud] }
+  - { id: M14-A12, type: error_correction, prompt: "We pay on-demand since last year — explain me the tiers.", accepted: ["We've paid on-demand since last year — explain the tiers to me.", "We have paid on-demand since last year — walk me through the tiers."], explanation: 'Dois erros: present perfect + "explain X to me".', tags: [br.since-present, br.explain-me] }
+  - { id: M14-A13, type: error_correction, prompt: "I pretend to file the quota increase until Friday.", accepted: ["I plan to file the quota increase by Friday.", "I intend to file the quota increase by Friday."], explanation: 'Dois calques: "plan to" + "by Friday" (prazo).', tags: [br.pretend, br.until-by] }
+  - { id: M14-A14, type: error_correction, prompt: "Make a question in the channel — I found the doc in the internet and they billed us in the last week twice.", accepted: ["Ask a question in the channel — I found the doc on the internet and they billed us twice last week.", "Ask a question in the channel — I found the doc on the internet and they billed us twice last week"], explanation: 'Três erros: "ask a question" + "on the internet" + ordem do "last week".', tags: [br.make-a-question, br.in-the-internet, br.in-the-last-week] }
+  - { id: M14-A15, type: error_correction, prompt: "She said me egress is more cheap than ingress at our volume.", accepted: ["She told me egress is cheaper than ingress at our volume.", "She told me egress is cheaper than ingress at our volume"], explanation: 'Dois erros: "told me" + "cheaper".', tags: [br.said-me, br.more-er] }
+
+writing:
+  prompt: |
+    **Cenário:** a versão curta da proposta de migração para o documento
+    de decisão — o worker de pagamentos sai do EC2 e vai para o Cloud
+    Run.
+
+    **Tarefa:** escreva 90–130 palavras com: o que migra e por quê
+    (critério observável), os trade-offs nomeados, os números com
+    fonte (calculadora, letra miúda) e o ask — piloto de duas semanas
+    com critérios escritos.
+  constraints:
+    - { label: "O que migra", pattern: "\\b(ec2|cloud run|gcp|worker|migrat)\\b" }
+    - { label: "Critério + trade-off", pattern: "\\b(better fit|bursty|per.request|trade.?off|egress|credits|iam)\\b" }
+    - { label: "Números", pattern: "\\b(\\$|month|million|calculator|cheaper|bottom line)\\b" }
+    - { label: "O ask", pattern: "\\b(pilot|criteria|week|re.?evaluat|rollback|blast radius)\\b" }
+  rubric:
+    - "Recomendação com escopo e critério"
+    - "Trade-offs nomeados"
+    - "Números com fonte"
+    - "Ask = piloto com critérios"
+  model: >-
+    Proposal: move the payments worker from EC2 to Cloud Run on GCP.
+    The job is bursty — 2M requests a day in short spikes — so
+    per-request billing means idle hours cost nothing. Bottom line:
+    about $340 a month versus $520 on EC2 — 35% cheaper, per the
+    pricing calculator, with egress billed separately and already
+    counted. Trade-offs: the prepaid AWS credits, the IAM mapping —
+    roles don't map one-to-one — and the learning curve. If the load
+    went steady, I'd pick provisioned on AWS instead. The ask: a
+    two-week pilot, one worker, written criteria — p99 under 400ms,
+    cost under $400. EC2 stays deployable until the pilot passes.
+  minWords: 90
+  maxWords: 130
+  tags: [comp.writing, vocab.cloud]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando a proposta: o que migra, a justificativa com critério, um trade-off, os números e o ask com critérios de piloto."
+  maxSeconds: 60
+  targetPhrases:
+    - the equivalent of
+    - a better fit for
+    - bills per request
+    - the trade-off is
+    - egress billed separately
+    - fair point
+    - blast radius
+    - a two-week pilot
+    - if the load were steady
+    - bottom line
+    - quota
+    - three nines
+  checklist:
+    - "Proposta em uma linha"
+    - "Critério + trade-off"
+    - "Números com fonte"
+    - "Ask = piloto com critérios"

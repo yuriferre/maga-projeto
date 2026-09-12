@@ -451,3 +451,33 @@ patterns:
     right: "Sorry for the delay / sorry I'm late"
     why: '"Desculpa o atraso" é "sorry for the delay" ou "sorry I''m late" — "late" sozinho é adjetivo.'
     tag: br.sorry-for-late
+  # "runs on the cloud" — o calque de "na nuvem": inglês diz "in the cloud".
+  # "on the cloud platform/provider" fica fora — aí "on" pertence à plataforma.
+  - id: on-the-cloud
+    pattern: "\\bon the cloud\\b(?!\\s+(platform|provider))"
+    wrong: "The service runs on the cloud"
+    right: "The service runs in the cloud"
+    why: '"Na nuvem" é "in the cloud" — "on the cloud" só cola com platform/provider.'
+    tag: br.on-the-cloud
+  # "provisionate" — provisionar → provision; o sufixo -ate não existe aqui.
+  - id: provisionate
+    pattern: "\\bprovisionat(e|ed|es|ing)\\b"
+    wrong: "Terraform will provisionate the VM"
+    right: "Terraform will provision the VM"
+    why: '"Provisionar" é "provision" — provisioning, provisioned; "provisionate" não existe.'
+    tag: br.provisionate
+  # "migrate for AWS" — migrar PARA um provedor é "to"; for = motivo ("for better pricing").
+  - id: migrate-for
+    pattern: "\\bmigrat(e|ed|es|ing|ion|ions)\\s+for\\s+(aws|azure|gcp|google cloud|the cloud|another provider|a new provider)\\b"
+    wrong: "We want to migrate for AWS next quarter"
+    right: "We want to migrate to AWS next quarter"
+    why: '"Migrar para" é "migrate to" — "for" marca o motivo: "we migrate for cost".'
+    tag: br.migrate-for
+  # "recommend to use" — recommend pede gerúndio: "recommend using".
+  # Lista fechada de verbos — "recommend to the team" e "recommended X to us" ficam fora.
+  - id: recommend-to
+    pattern: "\\brecommend(s|ed|ing)?\\s+to\\s+(use|run|choose|pick|adopt|deploy|buy|migrate|host)\\b"
+    wrong: "I recommend to use spot instances"
+    right: "I recommend using spot instances"
+    why: '"Recomendo usar" é "recommend using" — "recommend to" só com pessoa: "recommend to the team".'
+    tag: br.recommend-to

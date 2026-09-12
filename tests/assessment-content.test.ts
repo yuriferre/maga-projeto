@@ -453,3 +453,50 @@ describe("M13 assessment variants", () => {
     expect(checkExercise(q, "The deadline is closer — I need you to listen on the channel and make a question if it stalls.").correct).toBe(false);
   });
 });
+
+describe("M14 assessment variants", () => {
+  const m14 = bundle.moduleAssessments["M14"]!;
+  it("requires both 'provision' and 'in the cloud'", () => {
+    const q = m14.items.find((q) => q.id === "M14-A02")!;
+    expect(checkExercise(q, "Terraform will provision the env in the cloud.").correct).toBe(true);
+    expect(checkExercise(q, "Terraform will provisionate the env in the cloud.").correct).toBe(false);
+    expect(checkExercise(q, "Terraform will provision the env on the cloud.").correct).toBe(false);
+  });
+  it("requires 'recommends migrating' and 'to Azure'", () => {
+    const q = m14.items.find((q) => q.id === "M14-A04")!;
+    expect(checkExercise(q, "The team recommends migrating to Azure next quarter.").correct).toBe(true);
+    expect(checkExercise(q, "The team recommends to migrate to Azure next quarter.").correct).toBe(false);
+    expect(checkExercise(q, "The team recommends migrating for Azure next quarter.").correct).toBe(false);
+  });
+  it("requires both 'depends on' and 'same as'", () => {
+    const q = m14.items.find((q) => q.id === "M14-A06")!;
+    expect(checkExercise(q, "It depends on the workload — it's the same issue as yesterday.").correct).toBe(true);
+    expect(checkExercise(q, "It depends of the workload — it's the same issue as yesterday.").correct).toBe(false);
+    expect(checkExercise(q, "It depends on the workload — it's the same issue of yesterday.").correct).toBe(false);
+  });
+  it("requires both 'doesn't cover' and 'is per region'", () => {
+    const q = m14.items.find((q) => q.id === "M14-A08")!;
+    expect(checkExercise(q, "The SLA doesn't cover maintenance — the quota is per region.").correct).toBe(true);
+    expect(checkExercise(q, "The SLA not covers maintenance — the quota is per region.").correct).toBe(false);
+    expect(checkExercise(q, "The SLA doesn't cover maintenance — the quota it's per region.").correct).toBe(false);
+  });
+  it("requires 'suggested that', 'ask Ana' and 'question'", () => {
+    const q = m14.items.find((q) => q.id === "M14-A10")!;
+    expect(checkExercise(q, "She suggested that I ask Ana — I have a question about the SLA.").correct).toBe(true);
+    expect(checkExercise(q, "She suggested me to ask Ana — I have a question about the SLA.").correct).toBe(false);
+    expect(checkExercise(q, "She suggested that I ask to Ana — I have a question about the SLA.").correct).toBe(false);
+    expect(checkExercise(q, "She suggested that I ask Ana — I have a doubt about the SLA.").correct).toBe(false);
+  });
+  it("requires 'plan/intend' and 'by Friday'", () => {
+    const q = m14.items.find((q) => q.id === "M14-A13")!;
+    expect(checkExercise(q, "I plan to file the quota increase by Friday.").correct).toBe(true);
+    expect(checkExercise(q, "I pretend to file the quota increase by Friday.").correct).toBe(false);
+    expect(checkExercise(q, "I plan to file the quota increase until Friday.").correct).toBe(false);
+  });
+  it("requires 'told me' and 'cheaper'", () => {
+    const q = m14.items.find((q) => q.id === "M14-A15")!;
+    expect(checkExercise(q, "She told me egress is cheaper than ingress at our volume.").correct).toBe(true);
+    expect(checkExercise(q, "She said me egress is cheaper than ingress at our volume.").correct).toBe(false);
+    expect(checkExercise(q, "She told me egress is more cheap than ingress at our volume.").correct).toBe(false);
+  });
+});

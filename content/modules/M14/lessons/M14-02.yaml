@@ -1,0 +1,292 @@
+id: M14-02
+module: M14
+order: 2
+title: "Termos que confundem: region/zone, managed/serverless, provisioned/on-demand, spin up, tear down"
+objective: >-
+  Ao final, você usa os pares que todo mundo confunde sem errar:
+  region × zone, managed × serverless, provisioned × on-demand —
+  e os phrasal verbs de ciclo de vida: spin up, tear down, scale out.
+durationMin: 35
+competencies: [VOC, REA]
+tags: [vocab.cloud, comp.reading]
+prerequisites: [M14-01]
+
+context:
+  scenario: |
+    Na conversa de migração, o Marcos misturou region com zone ("a região
+    caiu" quando na verdade foi uma zone) — e o rollback da discussão
+    levou dez minutos. A aula é para não repetir.
+
+    Os pares que confundem:
+
+    - **region × zone** — region é a geografia (us-east-1); zone é o
+      datacenter dentro dela (us-east-1a). "A zone went down" ≠ "the
+      region went down" — um é tolerável, o outro é incidente.
+    - **managed × serverless** — managed: o provedor opera o serviço,
+      você paga pela instância; serverless: não há instância, você paga
+      por uso — "nothing to patch, nothing to size".
+    - **provisioned × on-demand** — provisioned: você reserva capacidade
+      (mais barato, menos flexível); on-demand: paga pelo que pede na
+      hora (mais caro, zero compromisso).
+    - **spin up / tear down / scale out** — subir, destruir, escalar
+      horizontalmente. "Spin up a dev box", "tear down the test env",
+      "scale out to three zones".
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "region"
+    meaning: a geografia — us-east-1, southamerica-east1
+    example: "Our primary region is us-east-1; the DR region is us-west-2."
+    translation: "Nossa região primária é us-east-1; a de DR é us-west-2."
+    note: "Region = a cidade dos datacenters; zone = o prédio dentro."
+  - term: "availability zone"
+    meaning: o datacenter dentro da region — us-east-1a
+    example: "We span three zones — if one goes down, the other two hold."
+    translation: "Cobrimos três zones — se uma cair, as outras duas seguram."
+    note: "'A zone went down' é tolerável; 'the region went down' é incidente."
+  - term: "managed"
+    meaning: gerenciado — o provedor opera, você paga a instância
+    example: "RDS is managed — AWS patches it, but you still pick the instance size."
+    translation: "RDS é gerenciado — a AWS aplica patch, mas você ainda escolhe o tamanho."
+    note: "Managed ≠ serverless: managed ainda tem instância."
+  - term: "serverless"
+    meaning: sem servidor — paga por uso, nada para dimensionar
+    example: "Lambda is serverless — nothing to patch, nothing to size, pay per invocation."
+    translation: "Lambda é serverless — nada de patch, nada de dimensionar, paga por invocação."
+    note: "Serverless = sem instância visível; o billing é por uso."
+  - term: "provisioned"
+    meaning: provisionado — capacidade reservada, mais barata
+    example: "Provisioned throughput costs less but you pay whether you use it or not."
+    translation: "Throughput provisionado custa menos, mas você paga usando ou não."
+    note: "Provisioned = reserva — barato e rígido."
+  - term: "on-demand"
+    meaning: sob demanda — paga pelo que pede na hora
+    example: "On-demand instances cost more per hour but there's no commitment."
+    translation: "Instâncias on-demand custam mais por hora, mas sem compromisso."
+    note: "On-demand = flexível e mais caro — o default."
+  - term: "spin up"
+    meaning: subir — criar recurso rápido
+    example: "I spun up a dev box to test the image — took two minutes."
+    translation: "Subi uma VM de dev para testar a imagem — dois minutos."
+    note: "Spin up = criar; o par é tear down."
+  - term: "tear down"
+    meaning: destruir — remover o recurso
+    example: "Tear down the test environment at the end of the sprint."
+    translation: "Derrube o ambiente de teste no fim da sprint."
+    note: "Tear down = destruir de propósito — diferente de 'went down'."
+  - term: "scale out"
+    meaning: escalar horizontal — mais instâncias, não maiores
+    example: "We scaled out to three zones instead of scaling up the instance."
+    translation: "Escalamos para três zones em vez de aumentar a instância."
+    note: "Scale out × scale up — horizontal × vertical."
+  - term: "pay per"
+    meaning: paga por — o modelo de cobrança
+    example: "Lambda is pay per invocation; DynamoDB is pay per request."
+    translation: "Lambda paga por invocação; DynamoDB paga por request."
+    note: '"Pay per X" — o billing no nome.'
+  - term: "the free tier"
+    meaning: o nível grátis — o limite sem custo
+    example: "We're still on the free tier for Cloud Functions."
+    translation: "Ainda estamos no free tier das Cloud Functions."
+    note: "Free tier = a cota grátis — 'still on the free tier'."
+  - term: "cold start"
+    meaning: a partida fria — a latência da primeira invocação
+    example: "The function's cold start adds 800ms — fine for batch, bad for sync APIs."
+    translation: "O cold start da função adiciona 800ms — ok para batch, ruim para API síncrona."
+    note: "O preço do serverless: a primeira chamada acorda o runtime."
+
+grammar:
+  title: "Os pares que não se confundem — e a frase que desambigua"
+  explanation: |
+    Cada par tem uma **frase de desambiguação** — a que você diz quando
+    o interlocutor mistura:
+
+    | par | a distinção | a frase |
+    |---|---|---|
+    | region × zone | geografia × datacenter | "A zone went down, not the region — we're still up in 1b and 1c." |
+    | managed × serverless | operado por eles × sem instância | "RDS is managed — we still size it. Lambda is serverless — nothing to size." |
+    | provisioned × on-demand | reserva × por hora | "Provisioned is cheaper but rigid; on-demand costs more but commits to nothing." |
+    | spin up × tear down | criar × destruir | "Spin up a test box, tear it down after the demo." |
+
+    E o erro brasileiro do domínio: "**I was confused between region and
+    zone**" é aceitável — mas "**I'm confused**" (presente) descreve
+    estado; "**I confused** region with zone" é o erro que aconteceu.
+    "I mixed up region and zone" é a forma mais natural.
+  examples:
+    - { en: "A zone went down — not the region. We failed over to 1b and 1c.", pt: "Uma zone caiu — não a region. Fizemos failover para 1b e 1c." }
+    - { en: "RDS is managed — AWS patches it, but we still pick the instance size.", pt: "RDS é gerenciado — a AWS aplica patch, mas nós ainda escolhemos o tamanho." }
+    - { en: "Lambda is serverless — pay per invocation, nothing to size.", pt: "Lambda é serverless — paga por invocação, nada para dimensionar." }
+    - { en: "Provisioned throughput is cheaper but you pay whether you use it or not.", pt: "Throughput provisionado é mais barato, mas você paga usando ou não." }
+    - { en: "I spun up a test box this morning and tore it down after the demo.", pt: "Subi uma VM de teste de manhã e derrubei depois da demo." }
+    - { en: "I mixed up region and zone — it was a zone outage, not a regional one.", pt: "Confundi region com zone — foi uma falha de zone, não regional." }
+
+examples:
+  - en: "Primary region is us-east-1; we span zones 1a, 1b and 1c — a zone loss is tolerable by design."
+    pt: "Região primária us-east-1; cobrimos zones 1a, 1b e 1c — perder uma zone é tolerável por design."
+    context: "Region × zone na prática."
+  - en: "A zone went down at 14:00 — not the region. Traffic failed over to the other two."
+    pt: "Uma zone caiu às 14h — não a region. O tráfego migrou para as outras duas."
+    context: "A desambiguação que evita pânico."
+  - en: "RDS is managed — AWS patches it. Lambda is serverless — there's nothing to patch."
+    pt: "RDS é gerenciado — a AWS aplica patch. Lambda é serverless — não há nada para patchear."
+    context: "Managed × serverless."
+  - en: "Provisioned IOPS is cheaper at steady load; on-demand wins when the load is spiky."
+    pt: "IOPS provisionado é mais barato em carga estável; on-demand vence em carga espichada."
+    context: "Provisioned × on-demand."
+  - en: "Spin up a test box, run the migration script, tear it down — ten minutes total."
+    pt: "Suba uma VM de teste, rode o script de migração, derrube — dez minutos no total."
+    context: "Spin up + tear down."
+  - en: "We scaled out to three zones — scaling up the instance wouldn't survive a zone loss."
+    pt: "Escalamos para três zones — aumentar a instância não sobreviveria à perda de uma zone."
+    context: "Scale out × scale up."
+  - en: "It's still on the free tier — the first million invocations cost nothing."
+    pt: "Ainda está no free tier — o primeiro milhão de invocações é grátis."
+    context: "Free tier."
+  - en: "The cold start adds 800ms on the first call — acceptable for the nightly batch."
+    pt: "O cold start adiciona 800ms na primeira chamada — aceitável para o batch noturno."
+    context: "O preço do serverless."
+
+variations:
+  - idea: '"a desambiguação certa"'
+    items:
+      - { register: "Boa", text: "A zone went down, not the region — we failed over to 1b and 1c.", adequate: true }
+      - { register: "Boa", text: "RDS is managed — we still size it. Lambda is serverless — nothing to size.", adequate: true }
+      - { register: "Inadequada", text: "The region went down. (era só uma zone)", adequate: false, note: "Region ≠ zone — a frase errada muda o tamanho do incidente." }
+      - { register: "Inadequada", text: "It's serverless — we just need to pick the instance size.", adequate: false, note: "Serverless não tem instância — quem dimensiona instância está falando de managed." }
+  - idea: '"os phrasal verbs de ciclo de vida"'
+    items:
+      - { register: "Boa", text: "Spin up a dev box, test it, tear it down.", adequate: true }
+      - { register: "Boa", text: "We scaled out to three zones instead of scaling up.", adequate: true }
+      - { register: "Inadequada", text: "We provisionated a test box and then we downed it.", adequate: false, note: "'Provision' + 'tear down' — 'provisionate' e 'down it' não existem." }
+      - { register: "Inadequada", text: "Let's create the environment and later eliminate.", adequate: false, note: "Gramaticalmente ok, mas não é o idioma do domínio — 'spin up' e 'tear down' são as palavras." }
+
+brErrors:
+  - { wrong: "Terraform provisionated the dev box.", right: "Terraform provisioned the dev box.", why: "provisioned", tag: br.provisionate }
+  - { wrong: "Everything runs on the cloud.", right: "Everything runs in the cloud.", why: "in the cloud", tag: br.on-the-cloud }
+  - { wrong: "I recommend to choose the managed option.", right: "I recommend choosing the managed option.", why: "recommend + gerúndio", tag: br.recommend-to }
+  - { wrong: "The zone not responds — the AZ is down.", right: "The zone doesn't respond — the AZ is down.", why: "doesn't respond", tag: br.it-not-works }
+  - { wrong: "The instance have 8 vCPUs.", right: "The instance has 8 vCPUs.", why: "it has", tag: br.third-person-s }
+  - { wrong: "The cold start it's the price of serverless.", right: "The cold start is the price of serverless.", why: "is", tag: br.third-person-s }
+  - { wrong: "We have this config since last year.", right: "We've had this config since last year.", why: "present perfect + since", tag: br.since-present }
+  - { wrong: "The billing is more high than expected.", right: "The billing is higher than expected.", why: "higher", tag: br.more-er }
+  - { wrong: "I explained to him the zone outage.", right: "I explained the zone outage to him.", why: "explain X to him", tag: br.explain-me }
+  - { wrong: "Make a question in the channel about the quota.", right: "Ask a question in the channel about the quota.", why: "ask a question", tag: br.make-a-question }
+
+dialogue:
+  title: "A confusão region × zone"
+  lines:
+    - { speaker: Marcos, text: "So the outage yesterday — the region went down, right?" }
+    - { speaker: Yuri, text: "A zone went down, not the region. us-east-1a failed; we failed over to 1b and 1c — that's the whole point of spanning zones." }
+    - { speaker: Marcos, text: "Got it. And on the database — is RDS serverless?" }
+    - { speaker: Yuri, text: "Managed, not serverless. AWS patches it, but we still pick the instance size. Serverless is Lambda — nothing to size, pay per invocation." }
+    - { speaker: Priya, text: "And the cheaper-but-rigid option for steady load?" }
+    - { speaker: Yuri, text: "Provisioned — you reserve the capacity and pay whether you use it or not. On-demand costs more but commits to nothing." }
+    - { speaker: Priya, text: "For the migration test tomorrow?" }
+    - { speaker: Yuri, text: "I spin up a test box, run the script, tear it down. If the cold start is acceptable, we keep the function serverless." }
+    - { speaker: Marcos, text: "And if I mix the terms up again?" }
+    - { speaker: Yuri, text: "Say 'I mixed up region and zone' — past tense for the mistake, and the pair that names the real blast radius." }
+  notes:
+    - "os quatro pares desambiguados em diálogo — region/zone, managed/serverless, provisioned/on-demand, spin up/tear down."
+    - "'I mixed up X and Y' — a forma natural de admitir a confusão."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The pairs that confuse everyone: region is the geography — us-east-1 — and the zone is the datacenter inside it. A zone going down is tolerable; the region going down is an incident. Say which one it was." }
+    - { speaker: Marcos, text: "Managed versus serverless: RDS is managed — AWS patches it, but you still pick the size. Lambda is serverless — nothing to patch, nothing to size, you pay per invocation." }
+    - { speaker: Yuri, text: "Provisioned versus on-demand: provisioned reserves the capacity — cheaper, but you pay whether you use it or not. On-demand costs more per hour and commits to nothing." }
+    - { speaker: Priya, text: "And the lifecycle verbs: spin up a test box, tear it down when you're done, scale out to three zones instead of scaling up the instance." }
+  questions:
+    - { id: M14-02-l1, type: multiple_choice, prompt: "'A zone went down' vs 'the region went down':", options: ["same thing", "the region one is tolerable", "a zone loss is tolerable; a region loss is an incident", "zones are bigger"], answer: 2, explanation: "Zone = o prédio; region = a cidade.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-02-l2, type: multiple_choice, prompt: "Serverless means…", options: ["no patching needed from AWS", "nothing to size, pay per use — no visible instance", "a managed VM", "a smaller VM"], answer: 1, explanation: "Sem instância visível — billing por uso.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-02-l3, type: fill_blank, prompt: "___ up a test box, run the script, tear it down.", accepted: ["Spin"], explanation: "Spin up — criar; tear down — destruir.", tags: [vocab.cloud] }
+    - { id: M14-02-l4, type: error_correction, prompt: "Terraform will provisionate a dev box.", accepted: ["Terraform will provision a dev box.", "Terraform will provision a dev box"], explanation: "provision — 'provisionate' não existe.", tags: [br.provisionate] }
+    - { id: M14-02-l5, type: multiple_choice, prompt: "Provisioned throughput…", options: ["costs more and is flexible", "is free", "is cheaper but you pay whether you use it or not", "has no capacity limit"], answer: 2, explanation: "Reserva — barato e rígido.", tags: [comp.listening, vocab.cloud] }
+    - { id: M14-02-l6, type: multiple_choice, prompt: "'I mixed up region and zone' is…", options: ["wrong — say 'I confused'", "the natural way to admit the confusion", "too formal", "about billing"], answer: 1, explanation: "'Mix up' é a forma natural.", tags: [comp.listening, vocab.cloud] }
+
+writing:
+  prompt: |
+    **Cenário:** o post da conversa — o Marcos misturou region com zone
+    e a discussão perdeu dez minutos. Escreva o resumo no canal para
+    fixar os termos.
+
+    **Tarefa:** 80–120 palavras explicando os três pares (region/zone,
+    managed/serverless, provisioned/on-demand) com uma frase de
+    desambiguação para cada — e o que aconteceu de verdade ontem.
+  constraints:
+    - { label: "Region × zone", pattern: "\\b(region|zone|us-east|failover|went down)\\b" }
+    - { label: "Managed × serverless", pattern: "\\b(managed|serverless|patch|instance size|invocation)\\b" }
+    - { label: "Provisioned × on-demand", pattern: "\\b(provisioned|on-demand|reserve|commit|pay)\\b" }
+    - { label: "Clareza", pattern: "\\b(mixed up|not the|means|the difference)\\b" }
+  rubric:
+    - "Os três pares com a distinção certa"
+    - "Uma frase de desambiguação por par"
+    - "O incidente real descrito com o termo certo"
+    - "Sem calques"
+  model: >-
+    Quick summary so we stop mixing these up. Yesterday a zone went
+    down — us-east-1a — not the region; traffic failed over to 1b and
+    1c. Zone is the datacenter inside the region; losing one is
+    tolerable by design. Managed vs serverless: RDS is managed — AWS
+    patches it but we still pick the instance size; Lambda is
+    serverless — nothing to size, pay per invocation. Provisioned vs
+    on-demand: provisioned reserves capacity — cheaper, but you pay
+    whether you use it or not; on-demand costs more and commits to
+    nothing. For tomorrow's test I'll spin up a box, run the script,
+    tear it down.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.cloud]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando os pares para o Marcos: region × zone (o incidente de ontem), managed × serverless, provisioned × on-demand — com a frase de desambiguação de cada um."
+    maxSeconds: 45
+    targetPhrases:
+      - a zone went down
+      - not the region
+      - failed over
+      - managed
+      - serverless
+      - nothing to size
+      - pay per invocation
+      - provisioned
+      - on-demand
+      - spin up
+      - tear down
+      - scale out
+    checklist:
+      - Region × zone com o incidente
+      - Managed × serverless
+      - Provisioned × on-demand
+      - "'I mixed up' para admitir confusão"
+
+quiz:
+  - { id: M14-02-q1, type: multiple_choice, prompt: "us-east-1a is a…", options: ["region", "zone — a datacenter inside us-east-1", "provider", "instance type"], answer: 1, explanation: "Zone = datacenter dentro da region.", tags: [vocab.cloud] }
+  - { id: M14-02-q2, type: error_correction, prompt: "Everything runs on the cloud.", accepted: ["Everything runs in the cloud.", "Everything runs in the cloud"], explanation: "in the cloud.", tags: [br.on-the-cloud] }
+  - { id: M14-02-q3, type: multiple_choice, prompt: "Lambda is serverless because…", options: ["AWS manages it", "it's cheaper", "nothing to patch, nothing to size — pay per invocation", "it has no logs"], answer: 2, explanation: "Sem instância — paga por uso.", tags: [vocab.cloud] }
+  - { id: M14-02-q4, type: fill_blank, prompt: "Tear ___ the test environment after the demo.", accepted: ["down"], explanation: "Tear down — destruir de propósito.", tags: [vocab.cloud] }
+  - { id: M14-02-q5, type: error_correction, prompt: "I recommend to choose the managed option.", accepted: ["I recommend choosing the managed option.", "I recommend choosing the managed option"], explanation: "recommend + gerúndio.", tags: [br.recommend-to] }
+  - { id: M14-02-q6, type: translate, prompt: "Uma zone caiu, não a region — migramos o tráfego para 1b e 1c.", accepted: ["A zone went down, not the region — we failed over to 1b and 1c.", "A zone went down — not the region. We failed over to 1b and 1c."], explanation: '"went down" + "failed over" — a desambiguação.', tags: [vocab.cloud] }
+  - { id: M14-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["pay", "whether", "use", "you", "you", "it", "or", "not"], answer: "you pay whether you use it or not", explanation: "A rigidez do provisioned.", tags: [vocab.cloud] }
+  - { id: M14-02-q8, type: multiple_choice, prompt: "On-demand vs provisioned:", options: ["on-demand costs more per hour but commits to nothing", "on-demand is cheaper at steady load", "provisioned is flexible", "they're the same"], answer: 0, explanation: "On-demand = flexível e mais caro.", tags: [vocab.cloud] }
+
+srsCards:
+  - { front: "region", back: "A geografia — us-east-1; contém zones.", tag: vocab.cloud }
+  - { front: "availability zone", back: "O datacenter dentro da region — perder uma é tolerável.", tag: vocab.cloud }
+  - { front: "managed", back: "O provedor opera; você dimensiona — RDS.", tag: vocab.cloud }
+  - { front: "serverless", back: "Sem instância — paga por uso, nada para dimensionar.", tag: vocab.cloud }
+  - { front: "provisioned", back: "Capacidade reservada — barato e rígido.", tag: vocab.cloud }
+  - { front: "on-demand", back: "Paga na hora — flexível e mais caro.", tag: vocab.cloud }
+  - { front: "spin up", back: "Criar recurso — par: tear down.", tag: vocab.cloud }
+  - { front: "tear down", back: "Destruir de propósito — ≠ 'went down'.", tag: vocab.cloud }
+  - { front: "scale out", back: "Horizontal — mais instâncias; × scale up.", tag: vocab.cloud }
+  - { front: "cold start", back: "A latência da primeira invocação serverless.", tag: vocab.cloud }
+
+review:
+  preferTags: [vocab.cloud, br.provisionate, br.on-the-cloud]
+  notes: "Revisão prioriza os pares que confundem e os calques de cloud."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
