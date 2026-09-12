@@ -1,0 +1,290 @@
+id: M10-04
+module: M10
+order: 4
+title: "Propondo solução com alternativas: the quickest fix is…, the proper fix is…"
+objective: >-
+  Ao final, você propõe correções em camadas — "the quickest fix is a
+  workaround, the proper fix is…" — com trade-off declarado e uma
+  recomendação clara, sem fingir que existe só uma opção.
+durationMin: 35
+competencies: [SPK, WRI, VOC]
+tags: [vocab.troubleshoot, comp.speaking, comp.writing, br.more-er, br.same-of]
+prerequisites: [M10-03]
+
+context:
+  scenario: |
+    Causa encontrada: o probe exige auth. Agora a thread quer a proposta —
+    e proposta boa vem em camadas, porque "consertar direito" e "parar de
+    sangrar" são prazos diferentes.
+
+    O par de etiquetas que organiza tudo: **the quickest fix** ("the
+    quickest fix is to whitelist the probe path") para estancar, e **the
+    proper fix** ("the proper fix is a dedicated health endpoint") para
+    resolver de verdade. Em volta, o vocabulário de trade-off: **workaround**
+    (o remendo honesto), **trade-off** (o que se ganha e perde), **my
+    recommendation** (a posição declarada) e **for now** (o selo temporal
+    do remendo).
+  roles: [Yuri (platform engineer), Ana (SRE), Priya (tech lead)]
+
+vocabulary:
+  - term: "the quickest fix"
+    meaning: a correção mais rápida — a que estanca
+    example: "The quickest fix is to whitelist the probe path."
+    translation: "A correção mais rápida é liberar o path do probe."
+    note: "Declara a camada rápida — com o custo junto."
+  - term: "the proper fix"
+    meaning: a correção de verdade — a que resolve
+    example: "The proper fix is a dedicated health endpoint without auth."
+    translation: "A correção de verdade é um endpoint de health dedicado, sem auth."
+    note: '"proper fix" = a solução correta, não a remendada.'
+  - term: "workaround"
+    meaning: remendo — contorna sem resolver a causa
+    example: "As a workaround, we can skip auth on that path."
+    translation: "Como remendo, podemos pular auth nesse path."
+    note: "Honesto: nomeia que é remendo, não solução."
+  - term: "trade-off"
+    meaning: trade-off — o que se ganha e o que se perde
+    example: "The trade-off: it's fast but leaves the endpoint open."
+    translation: "O trade-off: é rápido, mas deixa o endpoint aberto."
+    note: "Declare os dois lados — ganho e custo."
+  - term: "my recommendation"
+    meaning: minha recomendação — a posição declarada
+    example: "My recommendation: whitelist now, dedicated endpoint this sprint."
+    translation: "Minha recomendação: liberar agora, endpoint dedicado nesta sprint."
+    note: "Depois das opções, posicione-se — não deixe a decisão no ar."
+  - term: "for now"
+    meaning: por ora — o selo temporal do remendo
+    example: "Let's whitelist the path for now and fix it properly this sprint."
+    translation: "Vamos liberar o path por ora e corrigir direito nesta sprint."
+    note: "O workaround com prazo — sem 'for now' ele vira permanente."
+  - term: "long-term"
+    meaning: de longo prazo — a solução durável
+    example: "Long-term, every probe should have a dedicated endpoint."
+    translation: "A longo prazo, todo probe deveria ter um endpoint dedicado."
+    note: "O par de 'for now' — o horizonte da correção real."
+  - term: "a quick win"
+    meaning: vitória rápida — ganho fácil e imediato
+    example: "Whitelisting the path is a quick win — one-line change."
+    translation: "Liberar o path é uma vitória rápida — mudança de uma linha."
+    note: "Baixo custo, alívio imediato."
+  - term: "to weigh"
+    meaning: pesar — comparar as opções
+    example: "We weighed both options — speed vs security."
+    translation: "Pesamos as duas opções — velocidade vs segurança."
+    note: '"weigh the options" — a comparação antes da decisão.'
+  - term: "open to"
+    meaning: aberto a — a alternativa que você aceita
+    example: "I'm open to other approaches — this is just my take."
+    translation: "Estou aberto a outras abordagens — essa é só a minha visão."
+    note: "O convite depois da recomendação."
+  - term: "a band-aid"
+    meaning: band-aid — remendo que não engana ninguém
+    example: "The whitelist is a band-aid — the real fix is the endpoint."
+    translation: "O whitelist é um band-aid — a correção real é o endpoint."
+    note: "Mais forte que workaround — assume a fragilidade."
+  - term: "I'd lean towards"
+    meaning: eu tenderia a — recomendação com hedge
+    example: "I'd lean towards whitelisting now and fixing it right this sprint."
+    translation: "Eu tenderia a liberar agora e corrigir direito nesta sprint."
+    note: "Recomendação que deixa espaço — mais suave que 'my recommendation'."
+
+grammar:
+  title: "A proposta em camadas: estancar, resolver, recomendar"
+  explanation: |
+    A proposta técnica madura tem três camadas e uma posição:
+
+    - **the quickest fix is…** — estanca o sangramento, com o custo
+      declarado (*"quick, but leaves the endpoint open"*)
+    - **the proper fix is…** — resolve a causa, com o prazo
+      (*"a dedicated endpoint — half a day of work"*)
+    - **the workaround** — o remendo nomeado como remendo
+      (*"as a workaround / a band-aid"*)
+    - **my recommendation / I'd lean towards…** — a posição depois
+      das opções
+
+    O selo temporal é obrigatório no remendo: "**for now**" para o
+    workaround, "**long-term**" para a correção real. Workaround sem
+    "for now" vira arquitetura.
+
+    | Fraco | Forte |
+    |---|---|
+    | *we can whitelist it* | *the quickest fix is whitelisting — for now* |
+    | *we should fix it properly* | *the proper fix is a dedicated endpoint, this sprint* |
+    | *whatever you decide* | *my recommendation: quick fix now, proper fix this sprint* |
+  examples:
+    - { en: "The quickest fix is to whitelist the probe path — five minutes of work.", pt: "A correção mais rápida é liberar o path do probe — cinco minutos de trabalho." }
+    - { en: "The proper fix is a dedicated health endpoint — half a day, this sprint.", pt: "A correção de verdade é um endpoint de health dedicado — meio dia, nesta sprint." }
+    - { en: "As a workaround, we skip auth on that path — for now.", pt: "Como remendo, pulamos auth nesse path — por ora." }
+    - { en: "The trade-off is clear: speed now, or security done right.", pt: "O trade-off é claro: velocidade agora, ou segurança feita direito." }
+    - { en: "My recommendation: the quick fix today, the proper fix this sprint.", pt: "Minha recomendação: a correção rápida hoje, a de verdade nesta sprint." }
+    - { en: "I'd lean towards the band-aid for now — but let's schedule the real fix.", pt: "Eu tenderia ao band-aid por ora — mas vamos agendar a correção real." }
+
+examples:
+  - en: "Two options: the quickest fix is whitelisting the probe path; the proper fix is a dedicated endpoint."
+    pt: "Duas opções: a mais rápida é liberar o path do probe; a de verdade é um endpoint dedicado."
+    context: "O par quickest/proper estrutura a proposta."
+  - en: "The trade-off: whitelisting is fast but leaves the endpoint open to the cluster."
+    pt: "O trade-off: liberar é rápido, mas deixa o endpoint aberto para o cluster."
+    context: "Ganho e custo na mesma frase."
+  - en: "As a workaround for now, we whitelist — long-term, every probe gets its own endpoint."
+    pt: "Como remendo por ora, liberamos — a longo prazo, todo probe ganha seu endpoint."
+    context: '"for now" + "long-term" — o remendo com prazo e o horizonte.'
+  - en: "My recommendation: band-aid today, proper fix this sprint."
+    pt: "Minha recomendação: band-aid hoje, correção de verdade nesta sprint."
+    context: "Posição declarada depois das opções."
+  - en: "Whitelisting is a quick win — one config line, deploys unblocked."
+    pt: "Liberar é uma vitória rápida — uma linha de config, deploys desbloqueados."
+    context: "Baixo custo, alívio imediato."
+  - en: "We weighed both options — speed versus not opening the endpoint."
+    pt: "Pesamos as duas opções — velocidade versus não abrir o endpoint."
+    context: "A comparação antes da posição."
+  - en: "I'm open to other approaches — this is just my take on it."
+    pt: "Estou aberto a outras abordagens — essa é só a minha visão."
+    context: "O convite depois de recomendar."
+  - en: "The whitelist is a band-aid — it buys us a day, not a solution."
+    pt: "O whitelist é um band-aid — nos compra um dia, não uma solução."
+    context: "Remendo honesto — sem fingir que resolveu."
+
+variations:
+  - idea: '"a proposta em duas camadas"'
+    items:
+      - { register: "Boa", text: "The quickest fix is whitelisting the probe path — for now. The proper fix is a dedicated endpoint — I'd schedule it this sprint.", adequate: true }
+      - { register: "Boa", text: "Two options: skip auth on that path as a workaround, or build the dedicated health endpoint. Trade-off: speed vs an open endpoint.", adequate: true }
+      - { register: "Inadequada", text: "We can whitelist it or fix it properly.", adequate: false, note: "Opções sem etiqueta nem custo — o leitor não sabe qual é remendo e qual é solução." }
+      - { register: "Inadequada", text: "The only fix is a dedicated endpoint.", adequate: false, note: "Ignorar a camada rápida quando prod está sangrando não é rigor — é lentidão." }
+  - idea: '"declarar a posição"'
+    items:
+      - { register: "Boa", text: "My recommendation: whitelist today, endpoint this sprint. Open to other takes.", adequate: true }
+      - { register: "Boa", text: "I'd lean towards the band-aid for now — the bleeding stops, and the real fix is already scheduled.", adequate: true }
+      - { register: "Inadequada", text: "Both options are fine, whatever you decide.", adequate: false, note: "Proposta sem posição transfere a decisão de volta para quem perguntou." }
+      - { register: "Inadequada", text: "Do the whitelist. Obviously.", adequate: false, note: "Posição sem trade-off lê como atalho — declare o custo." }
+
+brErrors:
+  - { wrong: "The quickest fix is more fast.", right: "The quickest fix is faster.", why: "fast já é curto — leva -er", tag: br.more-er }
+  - { wrong: "It's the same fix of the last incident.", right: "It's the same fix as the last incident.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "Without to whitelist, deploys stay red.", right: "Without whitelisting, deploys stay red.", why: "without + gerúndio", tag: br.after-to }
+  - { wrong: "The endpoint not accepts the probe.", right: "The endpoint doesn't accept the probe.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "We choosed the workaround.", right: "We chose the workaround.", why: "chose, não choosed", tag: br.irregular-past }
+  - { wrong: "I didn't understood the trade-off.", right: "I didn't understand the trade-off.", why: "didn't + base", tag: br.did-past }
+  - { wrong: "It works in my machine.", right: "It works on my machine.", why: '"on my machine"', tag: br.in-my-machine }
+  - { wrong: "We have a compromise to whitelist it today.", right: "We committed to whitelisting it today.", why: '"commitment", não "compromise"', tag: br.compromise }
+  - { wrong: "Can you explain me the trade-off?", right: "Can you explain the trade-off to me?", why: "explain + to me", tag: br.explain-me }
+  - { wrong: "The band-aid is more cheap than the real fix.", right: "The band-aid is cheaper than the real fix.", why: "cheap leva -er", tag: br.more-er }
+
+dialogue:
+  title: "A proposta em camadas na thread"
+  lines:
+    - { speaker: Priya, text: "Root cause is clear. What's the fix?" }
+    - { speaker: Yuri, text: "Two layers. The quickest fix: whitelist the probe path — five minutes, deploys unblocked. The trade-off: the endpoint stays open to the cluster." }
+    - { speaker: Ana, text: "And the proper fix?" }
+    - { speaker: Yuri, text: "A dedicated health endpoint with no auth — half a day of work. Long-term, every probe should have one." }
+    - { speaker: Priya, text: "So: band-aid now, real fix when?" }
+    - { speaker: Yuri, text: "My recommendation: whitelist for now — it buys us the day — and the dedicated endpoint this sprint. I'd lean towards doing both, not choosing." }
+    - { speaker: Ana, text: "The open endpoint worries me less than a week of red deploys." }
+    - { speaker: Priya, text: "Agreed — quick fix now, proper fix scheduled. Ship the whitelist." }
+    - { speaker: Yuri, text: "On it — and I'll put the endpoint in the sprint backlog so the band-aid doesn't become architecture." }
+  notes:
+    - "as duas camadas etiquetadas, o trade-off declarado e a recomendação com posição."
+    - "'band-aid doesn't become architecture' — o selo 'for now' cumprido no backlog."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A good proposal comes in layers: the quickest fix stops the bleeding, the proper fix solves the cause. If you only offer the proper fix, prod bleeds for a day. If you only offer the quick one, you built a workaround into the architecture." }
+    - { speaker: Ana, text: "The phrase 'for now' is the most important two words on a workaround. 'We whitelist the path' is a decision; 'we whitelist the path for now' is a plan with an expiration date." }
+    - { speaker: Yuri, text: "And after the options, take a position — 'my recommendation is' or 'I'd lean towards'. Offering two options and shrugging just hands the hard part back to whoever asked." }
+    - { speaker: Priya, text: "Name the trade-off out loud — 'it's fast but leaves the endpoint open'. The person approving the fix deserves to hear the cost in the same breath as the benefit." }
+  questions:
+    - { id: M10-04-l1, type: multiple_choice, prompt: "Offering only the proper fix while prod bleeds is…", options: ["slowness — the quick layer stops the bleeding first", "rigor", "the right call", "a workaround"], answer: 0, explanation: "As duas camadas existem por prazos diferentes.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-04-l2, type: multiple_choice, prompt: "'For now' on a workaround is…", options: ["optional politeness", "the expiration date — without it the patch becomes architecture", "a hedge", "a typo"], answer: 1, explanation: "Remendo sem prazo vira estrutura permanente.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-04-l3, type: fill_blank, prompt: "The ___ fix is a dedicated endpoint.", accepted: ["proper"], explanation: '"the proper fix" — a correção de verdade.', tags: [vocab.troubleshoot] }
+    - { id: M10-04-l4, type: error_correction, prompt: "The band-aid is more cheap than the real fix.", accepted: ["The band-aid is cheaper than the real fix.", "The band-aid is cheaper than the real fix"], explanation: "cheap leva -er.", tags: [br.more-er] }
+    - { id: M10-04-l5, type: multiple_choice, prompt: "After the options, 'my recommendation is…'…", options: ["hands the decision back", "delays the fix", "is too strong", "takes a position — the proposer's job"], answer: 3, explanation: "Posição declarada fecha a proposta.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M10-04-l6, type: multiple_choice, prompt: "Naming the trade-off out loud means…", options: ["only the benefit", "only the cost", "saying nothing", "the cost in the same breath as the benefit — 'fast but open'"], answer: 3, explanation: "Ganho e custo na mesma frase.", tags: [comp.listening, vocab.troubleshoot] }
+
+writing:
+  prompt: |
+    **Cenário:** a thread do `#billing` espera a proposta. Causa: o probe
+    exige auth desde o patch. Opção rápida: liberar o path do probe (5
+    minutos, endpoint aberto ao cluster). Opção real: endpoint de health
+    dedicado (meio dia). Você recomenda as duas — remendo hoje, correção
+    na sprint.
+
+    **Tarefa:** escreva 80–120 palavras propondo a correção em camadas:
+    quickest fix com trade-off, proper fix com prazo, e a recomendação
+    declarada.
+  constraints:
+    - { label: "Camadas etiquetadas", pattern: "\\b(quickest fix|proper fix|workaround|band-aid)\\b" }
+    - { label: "Trade-off declarado", pattern: "\\b(trade-off|but|however|cost|open|leaves)\\b" }
+    - { label: "Posição declarada", pattern: "\\b(recommend\\w*|i.d lean|i.d go|let.s)\\b" }
+    - { label: "Selo temporal", pattern: "\\b(for now|long-term|this sprint|today|later)\\b" }
+  rubric:
+    - "Quickest fix + custo na mesma frase"
+    - "Proper fix + prazo"
+    - "Recomendação com posição"
+    - "Remendo selado com 'for now'"
+  model: >-
+    Proposal for the billing probe issue. The quickest fix is whitelisting
+    the probe path — five minutes, deploys unblocked; the trade-off is the
+    endpoint stays open to the cluster, so it's a band-aid, for now. The
+    proper fix is a dedicated health endpoint with no auth — about half a
+    day of work. My recommendation: ship the workaround today and schedule
+    the real fix this sprint. Long-term, every probe should have its own
+    dedicated endpoint anyway. Open to other takes, but shipping the
+    whitelist now unless someone objects.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.troubleshoot]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos propondo a correção em voz: a opção rápida com o trade-off, a opção real com prazo e a sua recomendação."
+    maxSeconds: 45
+    targetPhrases:
+      - the quickest fix is
+      - the proper fix is
+      - workaround
+      - band-aid
+      - the trade-off
+      - my recommendation
+      - I'd lean towards
+      - for now
+      - long-term
+      - quick win
+      - weighed both options
+      - open to
+    checklist:
+      - Duas camadas etiquetadas
+      - Trade-off declarado
+      - Recomendação com posição
+      - Remendo com 'for now'
+
+quiz:
+  - { id: M10-04-q1, type: multiple_choice, prompt: "The two layers of a good proposal:", options: ["the fix and the bug", "the workaround and the workaround", "the quickest fix and the proper fix", "the cause and the fix"], answer: 2, explanation: "Estancar ≠ resolver — prazos diferentes.", tags: [vocab.troubleshoot] }
+  - { id: M10-04-q2, type: error_correction, prompt: "The whitelist is more cheap than the endpoint.", accepted: ["The whitelist is cheaper than the endpoint.", "The whitelist is cheaper than the endpoint"], explanation: "cheap leva -er.", tags: [br.more-er] }
+  - { id: M10-04-q3, type: multiple_choice, prompt: "A workaround without 'for now' becomes…", options: ["a proper fix", "architecture — the patch stays forever", "a quick win", "a recommendation"], answer: 1, explanation: "O selo temporal impede o remendo eterno.", tags: [vocab.troubleshoot] }
+  - { id: M10-04-q4, type: fill_blank, prompt: "The trade-___ is clear: speed now, or security done right.", accepted: ["off"], explanation: "O ganho e o custo nomeados.", tags: [vocab.troubleshoot] }
+  - { id: M10-04-q5, type: error_correction, prompt: "Without to whitelist, deploys stay red.", accepted: ["Without whitelisting, deploys stay red.", "Without whitelisting, deploys stay red"], explanation: "without + gerúndio.", tags: [br.after-to] }
+  - { id: M10-04-q6, type: translate, prompt: "Minha recomendação: o remendo hoje, a correção de verdade nesta sprint.", accepted: ["My recommendation: the workaround today, the proper fix this sprint.", "My recommendation: the band-aid today, the proper fix this sprint."], explanation: "Posição declarada depois das opções.", tags: [vocab.troubleshoot] }
+  - { id: M10-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["lean", "I'd", "the", "towards", "band-aid"], answer: "I'd lean towards the band-aid", explanation: '"I''d lean towards X" — recomendação com hedge.', tags: [vocab.troubleshoot] }
+  - { id: M10-04-q8, type: multiple_choice, prompt: "'Open to other takes' after a recommendation is…", options: ["the invitation — recommend, then leave the door open", "indecision", "weakness", "optional filler"], answer: 0, explanation: "Posição + abertura — o par profissional.", tags: [vocab.troubleshoot] }
+
+srsCards:
+  - { front: "the quickest fix", back: "A camada que estanca — com o custo declarado.", tag: vocab.troubleshoot }
+  - { front: "the proper fix", back: "A correção de verdade — resolve a causa.", tag: vocab.troubleshoot }
+  - { front: "workaround", back: "O remendo honesto — contorna sem resolver.", tag: vocab.troubleshoot }
+  - { front: "trade-off", back: "O ganho e o custo na mesma frase.", tag: vocab.troubleshoot }
+  - { front: "my recommendation", back: "A posição declarada depois das opções.", tag: vocab.troubleshoot }
+  - { front: "for now", back: "O selo temporal do remendo — sem ele, vira arquitetura.", tag: vocab.troubleshoot }
+  - { front: "long-term", back: "O horizonte da correção real.", tag: vocab.troubleshoot }
+  - { front: "band-aid", back: "Remendo que não engana ninguém — assume a fragilidade.", tag: vocab.troubleshoot }
+  - { front: "I'd lean towards", back: "Recomendação com hedge — mais suave que 'my recommendation'.", tag: vocab.troubleshoot }
+  - { front: "quick win", back: "Ganho fácil e imediato — baixo custo, alívio já.", tag: vocab.troubleshoot }
+
+review:
+  preferTags: [vocab.troubleshoot, br.more-er, br.same-of]
+  notes: "Revisão prioriza o léxico de proposta e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
