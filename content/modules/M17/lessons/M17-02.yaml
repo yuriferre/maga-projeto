@@ -1,0 +1,290 @@
+id: M17-02
+module: M17
+order: 2
+title: "A timeline: horários, timezones e os verbos do incidente"
+objective: >-
+  Ao final, você escreve a linha do tempo do incidente: cada entrada
+  com timestamp e timezone, verbos precisos ("alerts fired", "was
+  paged", "rolled back") e a ordem que o leitor consegue seguir.
+durationMin: 35
+competencies: [WRI]
+tags: [vocab.postmortem, gram.timeline, comp.writing]
+prerequisites: [M17-01]
+
+context:
+  scenario: |
+    O post-mortem precisa da timeline — e a sua está uma bagunça:
+    "then stuff broke, Marcos looked, we fixed it around six."
+
+    A timeline de post-mortem tem formato: **timestamp (com
+    timezone) + verbo no passado + fato.**
+
+    - "**17:38 UTC** — the deploy shipped"
+    - "**17:42 UTC** — alerts fired; the on-call was paged"
+    - "**17:52 UTC** — the rollback was run"
+
+    Os verbos são os mesmos de sempre: **fired, was paged, joined,
+    confirmed, rolled back, was run, recovered.** E a regra do
+    leitor: quem lê sabe **o que se sabia quando** — "at this
+    point, nobody knew the cause yet" é uma linha legítima.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "alerts fired"
+    meaning: 'os alertas dispararam — o início oficial do incidente'
+    example: "17:42 UTC — alerts fired for checkout errors."
+    translation: "17:42 UTC — alertas dispararam para erros no checkout."
+    note: "'Fire' é o verbo do alerta — nunca 'the alert rang'."
+  - term: "was paged"
+    meaning: 'foi acionado — o plantonista chamado'
+    example: "The on-call was paged at 17:43."
+    translation: "O plantonista foi acionado às 17:43."
+    note: "Timeline registra o page, não 'someone noticed'."
+  - term: "rolled back"
+    meaning: 'revertido — a ação que desfaz o deploy'
+    example: "17:52 UTC — the deploy was rolled back to revision 88."
+    translation: "17:52 UTC — o deploy foi revertido para a revisão 88."
+    note: "Ativa ou passiva: 'we rolled back' / 'was rolled back'."
+  - term: "the incident started"
+    meaning: 'o incidente começou — o primeiro timestamp do impacto'
+    example: "The incident started at 17:38 — deploy time, not alert time."
+    translation: "O incidente começou às 17:38 — hora do deploy, não do alerta."
+    note: "Start ≠ detecção — os dois são timestamps separados."
+  - term: "detected at"
+    meaning: 'detectado às — quando o time soube, não quando quebrou'
+    example: "Detected at 17:42 — four minutes after it started."
+    translation: "Detectado às 17:42 — quatro minutos depois de começar."
+    note: "O gap start→detect é o 'time to detect'."
+  - term: "time to detect (TTD)"
+    meaning: 'tempo até detectar — a métrica da observabilidade'
+    example: "TTD was four minutes — the alert did its job."
+    translation: "O TTD foi de quatro minutos — o alerta cumpriu o papel."
+    note: "Post-mortem registra TTD e TTR lado a lado."
+  - term: "time to resolve (TTR)"
+    meaning: 'tempo até resolver — do start ao all-clear'
+    example: "TTR: twenty-seven minutes, start to all-clear."
+    translation: "TTR: vinte e sete minutos, do início ao all-clear."
+    note: "Start → resolve; não detect → resolve."
+  - term: "at this point"
+    meaning: 'nesse ponto — o marcador do que se sabia'
+    example: "At this point, the cause was still unknown."
+    translation: "Nesse ponto, a causa ainda era desconhecida."
+    note: "Timeline honesta registra a ignorância de cada momento."
+  - term: "UTC"
+    meaning: 'o timezone padrão — o que o post-mortem usa sempre'
+    example: "All times UTC — no local timezones in the timeline."
+    translation: "Todos os horários em UTC — sem timezone local na timeline."
+    note: "Um timezone só — o leitor não converte."
+  - term: "between X and Y"
+    meaning: 'entre X e Y — a janela quando o exato não se sabe'
+    example: "Errors started between 17:38 and 17:40."
+    translation: "Os erros começaram entre 17:38 e 17:40."
+    note: "Janela honesta vale mais que timestamp inventado."
+  - term: "recovered"
+    meaning: 'recuperou — voltou ao normal'
+    example: "18:05 UTC — error rate recovered to zero."
+    translation: "18:05 UTC — taxa de erro recuperou para zero."
+    note: "'Recovered', nunca 'normalized' (calque)."
+  - term: "the window"
+    meaning: 'a janela — a duração total do impacto'
+    example: "The impact window: 17:38 to 18:05 — twenty-seven minutes."
+    translation: "A janela de impacto: 17:38 a 18:05 — vinte e sete minutos."
+    note: "O impacto tem janela declarada, não 'for a while'."
+
+grammar:
+  title: "A linha do tempo: timestamp + passado + o que se sabia"
+  explanation: |
+    Cada entrada da timeline segue a forma:
+
+    "**HH:MM UTC** — <fato no passado>"
+
+    - Verbos de incidente no passado: **fired, was paged, joined,
+      confirmed, rolled back, was run, recovered, dropped**.
+    - O que se sabia quando: "**at this point**, the cause was
+      unknown" — a timeline registra o conhecimento, não só o fato.
+    - Start × detecção × resolução são três timestamps: "started
+      17:38, **detected** 17:42, **resolved** 18:05" — TTD e TTR
+      saem daí.
+    - Incerteza honesta: "**between** 17:38 **and** 17:40" — a
+      janela é dado, não fraqueza.
+    - Um timezone só: **UTC** — e "**on Friday**", "**Friday's
+      incident**", nunca "in Friday" ou "the incident of Friday".
+  examples:
+    - { en: "17:38 UTC — the deploy shipped; errors began immediately.", pt: "17:38 UTC — o deploy subiu; os erros começaram na hora." }
+    - { en: "17:42 UTC — alerts fired; the on-call was paged.", pt: "17:42 UTC — os alertas dispararam; o plantonista foi acionado." }
+    - { en: "At this point, the cause was still unknown — rollback was proposed.", pt: "Nesse ponto, a causa ainda era desconhecida — o rollback foi proposto." }
+    - { en: "17:52 UTC — the deploy was rolled back to revision 88.", pt: "17:52 UTC — o deploy foi revertido para a revisão 88." }
+    - { en: "18:05 UTC — the error rate recovered to zero; all-clear declared.", pt: "18:05 UTC — a taxa de erro recuperou para zero; all-clear declarado." }
+    - { en: "TTD: four minutes. TTR: twenty-seven. The window: 17:38–18:05.", pt: "TTD: quatro minutos. TTR: vinte e sete. A janela: 17:38–18:05." }
+
+examples:
+  - en: "17:38 UTC — the deploy shipped. 17:42 — alerts fired."
+    pt: "17:38 UTC — o deploy subiu. 17:42 — os alertas dispararam."
+    context: "Duas entradas, dois timestamps, zero ruído."
+  - en: "The on-call was paged at 17:43 and joined the bridge at 17:45."
+    pt: "O plantonista foi acionado às 17:43 e entrou na bridge às 17:45."
+    context: "Page e join são eventos separados."
+  - en: "At this point, nobody knew the config value had changed."
+    pt: "Nesse ponto, ninguém sabia que o valor de config tinha mudado."
+    context: "A ignorância do momento é dado."
+  - en: "Errors started between 17:38 and 17:40 — the exact second is unknown."
+    pt: "Os erros começaram entre 17:38 e 17:40 — o segundo exato é desconhecido."
+    context: "A janela honesta."
+  - en: "TTD was four minutes — the alert fired as designed."
+    pt: "O TTD foi de quatro minutos — o alerta disparou como projetado."
+    context: "A métrica da detecção."
+  - en: "The impact window was 17:38 to 18:05 — twenty-seven minutes total."
+    pt: "A janela de impacto foi 17:38 a 18:05 — vinte e sete minutos no total."
+    context: "Duração declarada."
+  - en: "All timestamps UTC — Friday's incident, not 'the incident of Friday'."
+    pt: "Todos os timestamps em UTC — Friday's incident, não 'the incident of Friday'."
+    context: "Convenção dupla: timezone e possessivo."
+  - en: "The post-mortem is on Friday at 14:00 UTC."
+    pt: "O post-mortem é sexta às 14:00 UTC."
+    context: "Dia com 'on', hora com timezone."
+
+variations:
+  - idea: '"marcando o tempo"'
+    items:
+      - { register: "Boa", text: "17:42 UTC — alerts fired; the on-call was paged.", adequate: true }
+      - { register: "Boa", text: "Errors started between 17:38 and 17:40 — exact second unknown.", adequate: true }
+      - { register: "Inadequada", text: "Stuff broke around six, we fixed it fast.", adequate: false, note: "Sem timestamp, sem timezone, 'stuff' — a timeline pede '17:42 UTC — alerts fired'." }
+      - { register: "Inadequada", text: "The alert was fired in Friday afternoon.", adequate: false, note: "Duplo erro: 'fired' ativo (o alerta dispara, não é disparado) e 'on Friday'." }
+  - idea: '"o que se sabia"'
+    items:
+      - { register: "Boa", text: "At this point, the cause was still unknown.", adequate: true }
+      - { register: "Boa", text: "TTD four minutes — detected at 17:42, started at 17:38.", adequate: true }
+      - { register: "Inadequada", text: "Everyone knew what was wrong immediately.", adequate: false, note: "Revisão cor-de-rosa — a timeline honesta registra a ignorância do momento." }
+      - { register: "Inadequada", text: "The incident of Friday was resolved.", adequate: false, note: "'Friday's incident' ou 'the incident on Friday' — 'of Friday' é calque." }
+
+brErrors:
+  - { wrong: "The post-mortem is in Friday at 14:00.", right: "The post-mortem is on Friday at 14:00.", why: "on Friday", tag: br.in-weekday }
+  - { wrong: "The incident of Friday hit checkout.", right: "Friday's incident hit checkout.", why: "Friday's", tag: br.of-weekday }
+  - { wrong: "The rollback was ran at 17:52.", right: "The rollback was run at 17:52.", why: "was run", tag: br.was-past }
+  - { wrong: "The alert was forgot for forty minutes.", right: "The alert was forgotten for forty minutes.", why: "was forgotten", tag: br.was-past }
+  - { wrong: "The missing guardrail contributed for the window.", right: "The missing guardrail contributed to the window.", why: "contributed to", tag: br.contributed-for }
+  - { wrong: "In this moment the rate recovered.", right: "Right now the rate recovered.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The deploy not appear in the timeline.", right: "The deploy doesn't appear in the timeline.", why: "doesn't appear", tag: br.it-not-works }
+  - { wrong: "The timeline show the gap.", right: "The timeline shows the gap.", why: "shows", tag: br.third-person-s }
+  - { wrong: "I have a doubt about the TTD.", right: "I have a question about the TTD.", why: "question", tag: br.doubt }
+  - { wrong: "The call fell during the recap.", right: "The call dropped during the recap.", why: "dropped", tag: br.call-fell }
+
+dialogue:
+  title: "Montando a timeline"
+  lines:
+    - { speaker: Priya, text: "Your timeline says 'stuff broke around six'. Let's fix it." }
+    - { speaker: Yuri, text: "17:38 UTC — the deploy shipped. Errors began immediately." }
+    - { speaker: Priya, text: "And detection?" }
+    - { speaker: Yuri, text: "17:42 UTC — alerts fired, the on-call was paged. TTD: four minutes." }
+    - { speaker: Priya, text: "What did we know at that point?" }
+    - { speaker: Yuri, text: "At this point, the cause was still unknown — Marcos confirmed the config change at 17:48." }
+    - { speaker: Priya, text: "The resolution?" }
+    - { speaker: Yuri, text: "17:52 — the deploy was rolled back. 18:05 — the rate recovered, all-clear. TTR: twenty-seven minutes." }
+    - { speaker: Priya, text: "One timezone, exact times, honest gaps — that's a timeline. And write 'Friday's incident', not 'the incident of Friday'." }
+  notes:
+    - "a sequência timestamp a timestamp: ship → fired/paged → 'at this point' → rollback → recovered."
+    - "TTD e TTR saem da subtração dos timestamps — a timeline alimenta as métricas."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Every timeline entry is timestamp plus fact: '17:42 UTC — alerts fired; the on-call was paged'. The verbs are always the same set: fired, was paged, joined, confirmed, rolled back, was run, recovered. And one timezone — UTC — so the reader never converts." }
+    - { speaker: Marcos, text: "A timeline also records what was known when. 'At this point, the cause was still unknown' is a legitimate line — honest about the ignorance of the moment. And an honest window beats a fake exact time: 'between 17:38 and 17:40'." }
+    - { speaker: Yuri, text: "Three timestamps matter most: started, detected, resolved. Time to detect is start-to-alert — ours was four minutes. Time to resolve is start-to-all-clear — twenty-seven. The impact window is the whole thing: 17:38 to 18:05." }
+  questions:
+    - { id: M17-02-l1, type: multiple_choice, prompt: "A timeline entry is…", options: ["a paragraph of context", "timestamp + past-tense fact — '17:42 UTC — alerts fired'", "a screenshot", "the scribe's opinion"], answer: 1, explanation: "Timestamp + verbo no passado + fato.", tags: [comp.listening, gram.timeline] }
+    - { id: M17-02-l2, type: multiple_choice, prompt: "TTD measures…", options: ["start to all-clear", "alert to resolution", "start to detection — how fast we knew", "deploy to rollback"], answer: 2, explanation: "Time to detect: do início ao alerta.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-02-l3, type: fill_blank, prompt: "All timestamps in ___ — no local timezones.", accepted: ["utc"], explanation: "Um timezone só.", tags: [vocab.postmortem] }
+    - { id: M17-02-l4, type: error_correction, prompt: "The deploy of Monday caused the outage.", accepted: ["Monday's deploy caused the outage.", "Monday's deploy caused the outage", "The deploy on Monday caused the outage."], explanation: "Monday's deploy.", tags: [br.of-weekday] }
+    - { id: M17-02-l5, type: multiple_choice, prompt: "'At this point, the cause was unknown' is…", options: ["an admission of failure", "a legitimate line — the timeline records what was known when", "extra filler", "the scribe's job only"], answer: 1, explanation: "A ignorância do momento é dado.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-02-l6, type: multiple_choice, prompt: "When the exact time is unknown, write…", options: ["your best guess", "the approximate hour without saying so", "'between 17:38 and 17:40' — the honest window", "nothing"], answer: 2, explanation: "Janela honesta > timestamp inventado.", tags: [comp.listening, gram.timeline] }
+
+writing:
+  prompt: |
+    **Cenário:** o post-mortem precisa da timeline oficial do
+    incidente de sexta.
+
+    **Tarefa:** escreva 70–100 palavras com a timeline completa:
+    o deploy, a detecção (com TTD), o que se sabia a cada ponto, o
+    rollback, a recuperação e a janela total — tudo em UTC, verbos
+    no passado, sem nomes de pessoas.
+  constraints:
+    - { label: "Timestamps UTC", pattern: "\\b\\d{2}:\\d{2}\\s*(utc)?\\b" }
+    - { label: "Verbos do incidente", pattern: "\\b(fired|paged|rolled back|was run|recovered|detected|shipped|joined)\\b" }
+    - { label: "O que se sabia", pattern: "\\b(at this point|still unknown|confirmed|between)\\b" }
+    - { label: "Janela/métricas", pattern: "\\b(ttd|ttr|window|minutes)\\b" }
+  rubric:
+    - "Timestamps em UTC em cada entrada"
+    - "Start × detect × resolve separados"
+    - "O conhecimento de cada ponto"
+    - "Sem nomes, sem calques"
+  model: >-
+    Timeline (all times UTC): 17:38 — the change shipped; checkout
+    errors began between 17:38 and 17:40. 17:42 — alerts fired and
+    the on-call was paged; TTD four minutes. At this point the
+    cause was still unknown. 17:48 — the config change was
+    confirmed as the prime suspect. 17:52 — the deploy was rolled
+    back to revision 88. 18:05 — the error rate recovered to zero
+    and all-clear was declared. Impact window: twenty-seven
+    minutes. TTR: twenty-seven minutes from start.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, gram.timeline]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos narrando a timeline do incidente: deploy, alerta, descoberta, rollback e recuperação — com timestamps e o que se sabia em cada ponto."
+    maxSeconds: 45
+    targetPhrases:
+      - alerts fired
+      - was paged
+      - rolled back
+      - was run
+      - at this point
+      - still unknown
+      - time to detect
+      - time to resolve
+      - the window
+      - between
+      - utc
+      - recovered
+      - on friday
+      - detected at
+      - the incident started
+      - shipped
+    checklist:
+      - "Timestamps com UTC"
+      - "Verbos no passado ('fired', 'was paged')"
+      - "Start × detect × resolve"
+      - "Uma janela honesta ou 'at this point'"
+
+quiz:
+  - { id: M17-02-q1, type: multiple_choice, prompt: "A timeline entry has…", options: ["timestamp + past-tense fact", "a paragraph of context", "names and blame", "a theory of the cause"], answer: 0, explanation: "HH:MM UTC + fato no passado.", tags: [gram.timeline] }
+  - { id: M17-02-q2, type: error_correction, prompt: "The post-mortem is in Friday.", accepted: ["The post-mortem is on Friday.", "The post-mortem is on Friday"], explanation: "on Friday.", tags: [br.in-weekday] }
+  - { id: M17-02-q3, type: multiple_choice, prompt: "TTR is measured from…", options: ["detection to all-clear", "alert to rollback", "start to all-clear", "page to resolve"], answer: 2, explanation: "Time to resolve: do início ao all-clear.", tags: [vocab.postmortem] }
+  - { id: M17-02-q4, type: fill_blank, prompt: "The on-call was ___ at 17:43 and joined at 17:45.", accepted: ["paged"], explanation: '"was paged" — o plantonista acionado.', tags: [vocab.postmortem] }
+  - { id: M17-02-q5, type: error_correction, prompt: "The report was wrote by the scribe.", accepted: ["The report was written by the scribe.", "The report was written by the scribe"], explanation: "was written.", tags: [br.was-past] }
+  - { id: M17-02-q6, type: translate, prompt: "Os erros começaram entre 17:38 e 17:40.", accepted: ["Errors started between 17:38 and 17:40.", "The errors started between 17:38 and 17:40."], explanation: '"between X and Y" — a janela honesta.', tags: [gram.timeline] }
+  - { id: M17-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["unknown", "at", "still", "the", "cause", "was", "this", "point"], answer: "at this point the cause was still unknown", explanation: '"at this point" — o que se sabia quando.', tags: [gram.timeline] }
+  - { id: M17-02-q8, type: multiple_choice, prompt: "The incident 'started' at…", options: ["the alert time", "the deploy/impact time — detection is a separate timestamp", "the page", "the bridge opening"], answer: 1, explanation: "Start ≠ detecção.", tags: [gram.timeline] }
+
+srsCards:
+  - { front: "alerts fired", back: "Os alertas dispararam — 'fired', nunca 'rang'.", tag: vocab.postmortem }
+  - { front: "was paged", back: "O plantonista acionado — evento na timeline.", tag: vocab.postmortem }
+  - { front: "rolled back / was run", back: "Revertido / executado — particípio sempre.", tag: vocab.postmortem }
+  - { front: "detected at", back: "Quando soubemos — separado do início.", tag: vocab.postmortem }
+  - { front: "time to detect (TTD)", back: "Start → alerta — a métrica da observabilidade.", tag: vocab.postmortem }
+  - { front: "time to resolve (TTR)", back: "Start → all-clear — a métrica da resposta.", tag: vocab.postmortem }
+  - { front: "at this point", back: "O que se sabia quando — honestidade na timeline.", tag: vocab.postmortem }
+  - { front: "UTC", back: "Um timezone só na timeline.", tag: vocab.postmortem }
+  - { front: "between X and Y", back: "A janela honesta quando o exato não se sabe.", tag: vocab.postmortem }
+  - { front: "recovered", back: "Voltou ao normal — nunca 'normalized'.", tag: vocab.postmortem }
+  - { front: "the window", back: "A duração total do impacto.", tag: vocab.postmortem }
+
+review:
+  preferTags: [gram.timeline, br.of-weekday, br.was-past]
+  notes: "Revisão prioriza o formato timestamp+fato, TTD/TTR e os calques de dia e particípio."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
