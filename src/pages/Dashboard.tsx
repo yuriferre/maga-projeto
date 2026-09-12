@@ -10,6 +10,7 @@ import { StreakCard } from "../components/dashboard/StreakCard.tsx";
 import { SrsCard } from "../components/dashboard/SrsCard.tsx";
 import { WeeklyGoalCard } from "../components/dashboard/WeeklyGoalCard.tsx";
 import { Timeline } from "../components/dashboard/Timeline.tsx";
+import { DataCard } from "../components/dashboard/DataCard.tsx";
 
 const DAYS = 30;
 const AXES = ["REA", "VOC", "LIS", "WRI", "SPK", "PRO", "CNF"] as const;
@@ -39,6 +40,7 @@ export function Dashboard() {
       </div>
       <TagHeatmap stats={data.tags.stats} weak={data.tags.weak} days={DAYS} />
       <Timeline items={data.timeline} />
+      <DataCard onImported={reload} />
     </div>
   );
 }

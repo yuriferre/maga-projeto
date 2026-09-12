@@ -58,3 +58,17 @@ describe("selectWarmup", () => {
     expect(items.some((e) => e.tags.includes("gram.since-for"))).toBe(true);
   });
 });
+
+describe("aceite E6 — errar uma tag reflete no warm-up seguinte", () => {
+  it("3 erros propositais numa tag → weakTags a lista → warm-up traz item dela", () => {
+    completeLesson(db, "M01-01", 0.9, daysAgo(3));
+    const exerciseComTag = content.lessons["M01-01"]!.quiz.find((q) => q.tags.includes("br.doubt"))!;
+    // Sem o erro proposital, nada garante a tag no warm-up; depois de 3 erros em 7 dias, vira fraca.
+    for (let i = 0; i < 3; i++) {
+      insertAttempt(db, { lessonId: "M01-01", exerciseId: exerciseComTag.id, block: "quiz", type: exerciseComTag.type, correct: false, answer: "wrong", tags: exerciseComTag.tags }, daysAgo(1));
+    }
+    expect(weakTags(db, now)).toContain("br.doubt");
+    const items = selectWarmup(db, content, "M01-02", now, rng);
+    expect(items.some((e) => e.tags.includes("br.doubt"))).toBe(true);
+  });
+});

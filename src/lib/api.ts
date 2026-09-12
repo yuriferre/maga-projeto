@@ -107,4 +107,8 @@ export const api = {
   srsQueue: (limit = 50) => request<{ cards: CardRow[]; counts: CardCounts }>(`/api/srs/queue?limit=${limit}`),
   srsReview: (cardId: number, grade: number) => post<{ card: CardRow; maturity: Maturity; counts: CardCounts }>("/api/srs/review", { cardId, grade }),
   addCard: (body: { front: string; back: string; hint?: string; tag: string }) => post<{ inserted: boolean; id: number }>("/api/srs/cards", body),
+
+  // backup
+  exportData: () => request<{ version: 1; exportedAt: string; tables: Record<string, Array<Record<string, unknown>>> }>("/api/export"),
+  importData: (file: unknown) => post<{ imported: Record<string, number> }>("/api/import", file),
 };

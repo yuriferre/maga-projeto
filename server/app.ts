@@ -18,6 +18,7 @@ import { computeSpeakingMetrics } from "./speaking-metrics.ts";
 import { wordOverlap } from "../shared/speech-compare.ts";
 import { computePlacementResult, missingForFinish, parsePlacementAssessment, type PlacementInputs, type PlacementSpeakingMetrics } from "./placement.ts";
 import { checkpointDue } from "./checkpoint.ts";
+import { exportDb, importDb, parseImportFile } from "./transfer.ts";
 import { computeAssessmentResult, levelEligibility, missingForAssessment, moduleEligibility, parseAssessmentRecord, type AssessmentInputs } from "./assessment.ts";
 import { weekStart } from "./time.ts";
 import { buildDashboard } from "./dashboard.ts";
@@ -96,6 +97,20 @@ export function createApp({ db, content, now = nowIso }: AppDeps): Hono {
   });
 
   app.get("/api/health", (c) => c.json({ ok: true }));
+
+  // ---------- export/import (backup completo em JSON) ----------
+  app.get("/api/export", (c) => c.json(exportDb(db, now())));
+
+  app.post("/api/import", async (c) => {
+    const parsed = parseImportFile(await c.req.json().catch(() => null));
+    if (!parsed.success) return c.json({ error: "arquivo de importação inválido", issues: parsed.error.issues }, 400);
+    try {
+      const imported = importDb(db, parsed.data);
+      return c.json({ imported });
+    } catch (e) {
+      return c.json({ error: (e as Error).message }, 400);
+    }
+  });
 
   app.get("/api/progress/overview", (c) => {
     const modules = Object.fromEntries(latestModuleAssessments(db).map((r) => {
