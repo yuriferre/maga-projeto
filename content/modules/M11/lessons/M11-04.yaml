@@ -1,0 +1,286 @@
+id: M11-04
+module: M11
+order: 4
+title: "Estratégias: trunk-based, feature flags, blue/green, canary, rollback"
+objective: >-
+  Ao final, você discute estratégia de release com o vocabulário certo —
+  "ship behind a flag", "canary at 5%", "blue/green cutover",
+  "trunk-based with short-lived branches" — e compara risco e custo de
+  cada uma.
+durationMin: 35
+competencies: [VOC, SPK, WRI]
+tags: [vocab.ci, comp.speaking, comp.writing, br.depends-in, br.same-of]
+prerequisites: [M11-03]
+
+context:
+  scenario: |
+    A revisão de pipeline virou discussão de estratégia: o `payments-api`
+    vai para produção toda sexta, e a Priya quer decidir **como** o risco é
+    distribuído.
+
+    O cardápio: **trunk-based** (todos na main, branches curtas — merge
+    rápido, CI forte), **feature flags** (código vai junto, feature liga
+    depois — separa deploy de release), **blue/green** (duas stacks, o
+    tráfego troca de lado — rollback é um switch) e **canary** (5% do
+    tráfego primeiro — o canário na mina). E embaixo de tudo, **rollback**
+    — o plano B de toda estratégia.
+
+    A pergunta certa não é "qual é a melhor", é "quanto risco por usuário,
+    e quão rápido a gente volta atrás".
+  roles: [Yuri (platform engineer), Ana (SRE), Marcos (backend), Priya (tech lead)]
+
+vocabulary:
+  - term: "trunk-based development"
+    meaning: desenvolvimento na main — branches curtas
+    example: "We're trunk-based — branches live a day, not a week."
+    translation: "Somos trunk-based — branches vivem um dia, não uma semana."
+    note: "O oposto de feature branches longas — merge cedo, CI forte."
+  - term: "feature flag"
+    meaning: flag de feature — código mergeado, feature desligada
+    example: "Ship the code behind a flag — turn it on for beta users first."
+    translation: "Entregue o código atrás de uma flag — ligue para beta primeiro."
+    note: "Separa deploy de release — o superpoder do trunk-based."
+  - term: "blue/green deployment"
+    meaning: blue/green — duas stacks, o tráfego troca de lado
+    example: "Blue/green: run both versions, flip the load balancer."
+    translation: "Blue/green: as duas versões rodam, troca o load balancer."
+    note: "Rollback = apontar de volta — instantâneo, mas dobra a infra."
+  - term: "canary"
+    meaning: canário — libera para uma fração do tráfego
+    example: "Canary at 5% — if error rates stay flat, we ramp to 50%."
+    translation: "Canário a 5% — se as taxas de erro ficarem estáveis, subimos a 50%."
+    note: "O canário na mina de carvão — detecta cedo, afeta poucos."
+  - term: "rollback"
+    meaning: rollback — o retorno à versão boa
+    example: "The rollback plan is one click — flip back to blue."
+    translation: "O plano de rollback é um clique — voltar para o blue."
+    note: "Toda estratégia é tão boa quanto o rollback dela."
+  - term: "to ramp"
+    meaning: aumentar gradualmente — subir a porcentagem
+    example: "Ramp the canary: 5% → 25% → 50% → 100%."
+    translation: "Suba o canário: 5% → 25% → 50% → 100%."
+    note: "Ramp = os degraus do canary."
+  - term: "cutover"
+    meaning: o corte — o momento da troca
+    example: "The cutover is at 14h — traffic flips to green."
+    translation: "O corte é às 14h — o tráfego vira para o green."
+    note: "O instante do blue/green — planejado e observado."
+  - term: "to flip"
+    meaning: virar — trocar de lado (flag, tráfego)
+    example: "Flip the flag for internal users first."
+    translation: "Vire a flag para usuários internos primeiro."
+    note: '"flip the flag/switch" — o ato de ligar.'
+  - term: "blast radius"
+    meaning: raio de explosão — quantos usuários a falha atinge
+    example: "A 5% canary keeps the blast radius small."
+    translation: "Um canário de 5% mantém o raio de explosão pequeno."
+    note: "A métrica de risco — quanto menor, melhor."
+  - term: "kill switch"
+    meaning: interruptor de emergência — desliga na hora
+    example: "The flag is our kill switch — one click and the feature is off."
+    translation: "A flag é nosso interruptor — um clique e a feature desliga."
+    note: "Rollback instantâneo sem redeploy."
+  - term: "short-lived branch"
+    meaning: branch de vida curta — merge em horas/dias
+    example: "Short-lived branches keep the diff reviewable."
+    translation: "Branches curtas mantêm o diff revisável."
+    note: "A regra do trunk-based — branch velha vira merge hell."
+  - term: "to monitor the rollout"
+    meaning: observar o rollout — métricas durante a subida
+    example: "We monitor error rates during the ramp — flat means go."
+    translation: "Monitoramos as taxas de erro durante a subida — estável significa vá em frente."
+    note: "Canary sem monitoramento é só torcida."
+
+grammar:
+  title: "Comparando estratégias: risco, custo e velocidade de volta"
+  explanation: |
+    Cada estratégia responde três perguntas: quanto risco por usuário
+    (**blast radius**), quanto custa manter, e quão rápido volta atrás
+    (**rollback**).
+
+    | Estratégia | Blast radius | Rollback | Custo |
+    |---|---|---|---|
+    | **trunk-based + flags** | todos os usuários de uma vez | flip da flag — instantâneo | CI forte + higiene de flags |
+    | **blue/green** | todos, mas só no cutover | flip do LB — instantâneo | infra dobrada |
+    | **canary** | fração do tráfego (5%→100%) | para o ramp — fácil | métricas + tempo |
+
+    A conversa usa os pares: "ship behind a **flag**" (deploy ≠
+    release), "ramp the **canary**" (5% → 100%), "flip on
+    **cutover**" (blue/green), e "the **rollback** is one click"
+    (o plano B que toda estratégia precisa declarar).
+  examples:
+    - { en: "Ship it behind a flag — deploy today, release when we're ready.", pt: "Entregue atrás de uma flag — deploy hoje, release quando estivermos prontos." }
+    - { en: "Canary at 5% for an hour — if error rates stay flat, we ramp.", pt: "Canário a 5% por uma hora — se as taxas de erro ficarem estáveis, subimos." }
+    - { en: "Blue/green doubles the infra cost, but rollback is flipping the load balancer back.", pt: "Blue/green dobra o custo de infra, mas o rollback é virar o load balancer de volta." }
+    - { en: "We're trunk-based — short-lived branches, everything behind flags.", pt: "Somos trunk-based — branches curtas, tudo atrás de flags." }
+    - { en: "The blast radius of a full deploy is every user — the canary keeps it at 5%.", pt: "O raio de explosão de um deploy completo são todos os usuários — o canário mantém em 5%." }
+    - { en: "The flag is the kill switch — if the new flow misbehaves, one click turns it off.", pt: "A flag é o interruptor — se o novo fluxo der problema, um clique desliga." }
+
+examples:
+  - en: "Ship the refactor behind a flag — deploy Monday, enable for beta users Wednesday."
+    pt: "Entregue o refactor atrás de uma flag — deploy segunda, habilita para beta quarta."
+    context: "Flag separa deploy de release."
+  - en: "Canary at 5% — error rates flat for an hour, so we ramped to 50%."
+    pt: "Canário a 5% — taxas de erro estáveis por uma hora, então subimos a 50%."
+    context: "Canary + monitoramento + ramp."
+  - en: "Blue/green cutover at 14h — traffic flips to green, blue stays warm for rollback."
+    pt: "Corte blue/green às 14h — o tráfego vira para o green, o blue fica quente para rollback."
+    context: "Cutover com o plano B quente."
+  - en: "Trunk-based means short-lived branches — a day, maybe two, then merge behind a flag."
+    pt: "Trunk-based significa branches curtas — um dia, talvez dois, depois merge atrás de flag."
+    context: "Branch velha vira merge hell."
+  - en: "A 5% canary keeps the blast radius small — 95% of users never see the bug."
+    pt: "Um canário de 5% mantém o raio pequeno — 95% dos usuários nunca veem o bug."
+    context: "Blast radius = a métrica de risco."
+  - en: "The kill switch is the flag — the new checkout flow went off in one click."
+    pt: "O interruptor é a flag — o novo fluxo de checkout desligou num clique."
+    context: "Rollback sem redeploy."
+  - en: "We monitor the rollout — error budget flat means keep ramping."
+    pt: "Monitoramos o rollout — budget de erro estável significa continuar subindo."
+    context: "Canary sem métrica é torcida."
+  - en: "Rollback plan: flip the flag back — no redeploy, no downtime."
+    pt: "Plano de rollback: virar a flag de volta — sem redeploy, sem downtime."
+    context: "O plano B declarado antes do deploy."
+
+variations:
+  - idea: '"escolher a estratégia para o payments-api"'
+    items:
+      - { register: "Boa", text: "Payments is risky — canary at 5%, monitor error rates, ramp to 50% if flat.", adequate: true }
+      - { register: "Boa", text: "For the docs site, trunk-based with a flag is enough — low blast radius, instant kill switch.", adequate: true }
+      - { register: "Inadequada", text: "Let's just deploy everything to everyone at once — it usually works.", adequate: false, note: "Blast radius total sem plano B — 'usually works' até não funcionar." }
+      - { register: "Inadequada", text: "Blue/green for every tiny change — safest possible.", adequate: false, note: "Dobrar a infra para um typo é custo sem ganho — o custo entra na comparação." }
+  - idea: '"o rollback declarado"'
+    items:
+      - { register: "Boa", text: "Rollback plan: flip the flag back — it's our kill switch, no redeploy needed.", adequate: true }
+      - { register: "Boa", text: "If the canary shows errors at 5%, we stop the ramp — rollback is not ramping.", adequate: true }
+      - { register: "Inadequada", text: "If it breaks we'll figure out the rollback then.", adequate: false, note: "Rollback improvisado em incidente é o pior momento para descobrir que não existe." }
+      - { register: "Inadequada", text: "Rollback? We never needed one.", adequate: false, note: "Sorte passada não é estratégia." }
+
+brErrors:
+  - { wrong: "The rollout depends in the error rates.", right: "The rollout depends on the error rates.", why: "depends on", tag: br.depends-in }
+  - { wrong: "It's the same strategy of the last deploy.", right: "It's the same strategy as the last deploy.", why: '"the same X as"', tag: br.same-of }
+  - { wrong: "The deploy not fails with a canary.", right: "The deploy doesn't fail with a canary.", why: "doesn't + base", tag: br.it-not-works }
+  - { wrong: "The cutover was happened at 14h.", right: "The cutover happened at 14h.", why: "happen não tem passiva", tag: br.was-succeeded }
+  - { wrong: "Priya suggested me to use a canary.", right: "Priya suggested that I use a canary.", why: "suggest + that + sujeito", tag: br.suggested-me }
+  - { wrong: "After to ramp to 100%, we removed the flag.", right: "After ramping to 100%, we removed the flag.", why: "after + gerúndio", tag: br.after-to }
+  - { wrong: "We keeped the blue stack warm.", right: "We kept the blue stack warm.", why: "kept, não keeped", tag: br.irregular-past }
+  - { wrong: "The canary is more safe than a full deploy.", right: "The canary is safer than a full deploy.", why: "safe leva -er", tag: br.more-er }
+  - { wrong: "I need that you flip the flag.", right: "I need you to flip the flag.", why: "need + you + to", tag: br.need-that-you }
+  - { wrong: "Can you explain me the blast radius?", right: "Can you explain the blast radius to me?", why: "explain + to me", tag: br.explain-me }
+
+dialogue:
+  title: "Escolhendo a estratégia do payments-api"
+  lines:
+    - { speaker: Priya, text: "Payments goes live Friday — how do we ship it?" }
+    - { speaker: Yuri, text: "Not a full deploy — the blast radius is every user. I'd do a canary: 5% for an hour, ramp if error rates stay flat." }
+    - { speaker: Ana, text: "Blue/green is an option too — cutover flips the load balancer." }
+    - { speaker: Marcos, text: "Doubling the stack for a Friday release? The canary is cheaper." }
+    - { speaker: Yuri, text: "Right — and we're trunk-based anyway. The new flow ships behind a flag; the canary just controls who sees it." }
+    - { speaker: Priya, text: "Rollback plan?" }
+    - { speaker: Yuri, text: "Two layers: stop the ramp — that's the canary rollback — and the flag is the kill switch if it gets worse. No redeploy either way." }
+    - { speaker: Ana, text: "What do we watch during the ramp?" }
+    - { speaker: Yuri, text: "Error rates and latency on the canary cohort — flat means ramp, spike means stop." }
+    - { speaker: Priya, text: "Approved — 5% Friday at 14h, I'll watch the dashboard with you." }
+  notes:
+    - "blast radius, ramp, kill switch — a decisão sai dos três eixos: risco, custo, velocidade de volta."
+    - "flag + canary combinados — deploy e release separados de verdade."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Every release strategy answers three questions: how many users see the bug — the blast radius — how much it costs to run, and how fast you go back. There's no best strategy; there's the right answer for this release." }
+    - { speaker: Ana, text: "Feature flags are the superpower — deploy and release stop being the same event. You ship the code Tuesday, enable it for beta users Thursday, and if it misbehaves the flag is your kill switch." }
+    - { speaker: Marcos, text: "Blue/green is the expensive peace of mind — two full stacks, traffic flips at cutover, rollback is flipping back. Worth it when the blast radius can't be small; overkill for a docs change." }
+    - { speaker: Yuri, text: "And canary is the cheap version — five percent of traffic sees it first. But a canary without monitoring is just hoping: you ramp because the error rates stay flat, not because the hour passed." }
+  questions:
+    - { id: M11-04-l1, type: multiple_choice, prompt: "The three questions of a release strategy:", options: ["speed, cost, team size", "blast radius, cost, rollback speed", "tools, tests, time", "flags, canary, blue/green"], answer: 1, explanation: "Risco por usuário, custo, velocidade de volta.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-04-l2, type: multiple_choice, prompt: "Feature flags separate…", options: ["staging from prod", "tests from builds", "runners from jobs", "deploy from release — ship the code, enable later"], answer: 3, explanation: "O superpoder: dois eventos, não um.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-04-l3, type: fill_blank, prompt: "A 5% canary keeps the ___ radius small.", accepted: ["blast"], explanation: '"blast radius" — quantos usuários a falha atinge.', tags: [vocab.ci] }
+    - { id: M11-04-l4, type: error_correction, prompt: "The rollout depends in the error rates.", accepted: ["The rollout depends on the error rates.", "The rollout depends on the error rates"], explanation: "depends on.", tags: [br.depends-in] }
+    - { id: M11-04-l5, type: multiple_choice, prompt: "Blue/green rollback is…", options: ["a redeploy", "a terraform apply", "flipping the load balancer back — instant, but the infra costs double", "waiting a week"], answer: 2, explanation: "Switch instantâneo, infra dobrada.", tags: [comp.listening, vocab.ci] }
+    - { id: M11-04-l6, type: multiple_choice, prompt: "A canary without monitoring is…", options: ["a kill switch", "a blue/green deploy", "safe enough", "just hoping — you ramp because error rates stay flat, not because time passed"], answer: 3, explanation: "O degrau sobe por métrica, não por relógio.", tags: [comp.listening, vocab.ci] }
+
+writing:
+  prompt: |
+    **Cenário:** a Priya aprovou o canary de sexta para o `payments-api` e
+    pediu o plano por escrito no canal: estratégia, por que não full deploy
+    nem blue/green, os degraus do ramp, o que se observa e o rollback.
+
+    **Tarefa:** escreva 80–120 palavras comparando as opções e declarando o
+    plano: canary a 5%, ramp condicional às métricas, flag como kill
+    switch e rollback sem redeploy.
+  constraints:
+    - { label: "Estratégias nomeadas", pattern: "\\b(canary|blue.?green|trunk.?based|feature flag|flag)\\b" }
+    - { label: "Risco e custo", pattern: "\\b(blast radius|cost|infra|double|risk|5%|percent)\\b" }
+    - { label: "Ramp e métricas", pattern: "\\b(ramp|monitor|error rate|flat|spike|watch)\\b" }
+    - { label: "Rollback declarado", pattern: "\\b(rollback|kill switch|flip|stop|revert)\\b" }
+  rubric:
+    - "Estratégia escolhida + por que não as outras"
+    - "Degraus do ramp condicionados a métricas"
+    - "Rollback declarado (kill switch / stop ramp)"
+    - "Blast radius mencionado"
+  model: >-
+    Release plan for the payments-api, Friday 14h. Strategy: canary at 5%
+    — a full deploy puts every user in the blast radius, and blue/green
+    doubles the infra cost for a release this size. The new flow already
+    ships behind a feature flag, so deploy and release stay separate.
+    Ramp: 5% for an hour; if error rates and latency stay flat, we go to
+    50%, then 100% Monday. Rollback is two layers — stop the ramp, or flip
+    the flag as the kill switch. No redeploy either way. I'll monitor the
+    canary cohort with Priya.
+  minWords: 80
+  maxWords: 120
+  tags: [comp.writing, vocab.ci]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos defendendo a estratégia escolhida: por que canary e não full deploy nem blue/green, os degraus do ramp e o plano de rollback."
+    maxSeconds: 45
+    targetPhrases:
+      - canary
+      - blast radius
+      - feature flag
+      - blue/green
+      - trunk-based
+      - ramp
+      - error rates
+      - kill switch
+      - rollback
+      - cutover
+      - monitor the rollout
+      - ship behind a flag
+    checklist:
+      - Estratégia + comparação
+      - Degraus do ramp
+      - Rollback declarado
+      - Blast radius
+
+quiz:
+  - { id: M11-04-q1, type: multiple_choice, prompt: "The blast radius of a full deploy is…", options: ["5% of users", "nobody", "every user — the canary exists to shrink it", "the runner"], answer: 2, explanation: "Todos os usuários — o canary limita.", tags: [vocab.ci] }
+  - { id: M11-04-q2, type: error_correction, prompt: "The cutover was happened at 14h.", accepted: ["The cutover happened at 14h.", "The cutover happened at 14h"], explanation: "happen não tem passiva.", tags: [br.was-succeeded] }
+  - { id: M11-04-q3, type: multiple_choice, prompt: "'Ship behind a flag' means…", options: ["never deploy", "deploy the code, release the feature later — deploy ≠ release", "hide the code", "skip CI"], answer: 1, explanation: "Deploy e release viram dois eventos.", tags: [vocab.ci] }
+  - { id: M11-04-q4, type: fill_blank, prompt: "If error rates stay flat, we ___ to 50%.", accepted: ["ramp"], explanation: "Ramp — os degraus do canary.", tags: [vocab.ci] }
+  - { id: M11-04-q5, type: error_correction, prompt: "Priya suggested me to use a canary.", accepted: ["Priya suggested that I use a canary.", "Priya suggested using a canary.", "Priya suggested that I use a canary"], explanation: "suggest + that + sujeito.", tags: [br.suggested-me] }
+  - { id: M11-04-q6, type: translate, prompt: "O plano de rollback: virar a flag de volta — sem redeploy, sem downtime.", accepted: ["The rollback plan: flip the flag back — no redeploy, no downtime.", "Rollback plan: flip the flag back — no redeploy, no downtime."], explanation: "O plano B declarado.", tags: [vocab.ci] }
+  - { id: M11-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["flag", "kill", "our", "is", "switch", "the"], answer: "the flag is our kill switch", explanation: "Kill switch — rollback instantâneo.", tags: [vocab.ci] }
+  - { id: M11-04-q8, type: multiple_choice, prompt: "Blue/green's cost is…", options: ["slow rollback", "no monitoring", "flaky tests", "double infrastructure — two full stacks running"], answer: 3, explanation: "O rollback instantâneo cobra em infra.", tags: [vocab.ci] }
+
+srsCards:
+  - { front: "trunk-based", back: "Todos na main, branches curtas — merge cedo, CI forte.", tag: vocab.ci }
+  - { front: "feature flag", back: "Código mergeado, feature desligada — separa deploy de release.", tag: vocab.ci }
+  - { front: "blue/green", back: "Duas stacks, o LB troca — rollback instantâneo, custo dobrado.", tag: vocab.ci }
+  - { front: "canary", back: "5% do tráfego primeiro — o canário na mina.", tag: vocab.ci }
+  - { front: "rollback", back: "O retorno à versão boa — declare antes do deploy.", tag: vocab.ci }
+  - { front: "ramp", back: "Os degraus do canary — 5% → 50% → 100% por métrica.", tag: vocab.ci }
+  - { front: "cutover", back: "O instante da troca no blue/green.", tag: vocab.ci }
+  - { front: "blast radius", back: "Quantos usuários a falha atinge — a métrica de risco.", tag: vocab.ci }
+  - { front: "kill switch", back: "A flag como interruptor — desliga sem redeploy.", tag: vocab.ci }
+  - { front: "short-lived branch", back: "Branch de um dia — a regra do trunk-based.", tag: vocab.ci }
+
+review:
+  preferTags: [vocab.ci, br.depends-in, br.was-succeeded]
+  notes: "Revisão prioriza as estratégias de release e os padrões BR do módulo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
