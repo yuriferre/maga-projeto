@@ -1,0 +1,295 @@
+id: M19-01
+module: M19
+order: 1
+title: "Vocabulário de segurança: da vulnerability ao lateral movement"
+objective: >-
+  Ao final, você nomeia os conceitos centrais de segurança sem
+  traduzir do português: vulnerability, CVE, exposure, least
+  privilege, hardening, secret sprawl, lateral movement.
+durationMin: 35
+competencies: [VOC]
+tags: [vocab.security, comp.vocabulary, comp.reading]
+prerequisites: [M15-05]
+
+context:
+  scenario: |
+    O relatório do pentest chegou: sete findings, dois críticos.
+    A Priya pergunta: "**can you triage these?**" — e para triar
+    você precisa do vocabulário exato, não de aproximações.
+
+    O léxico essencial de segurança:
+
+    - **vulnerability** — a falha que existe: "a vulnerability in
+      the auth service". Ela existe independente de alguém usar.
+    - **CVE** — o identificador público da falha: "CVE-2024-3094".
+      Quando você diz "the CVE", todo mundo sabe qual.
+    - **exposure** — o quanto está exposto: "the bucket exposure
+      was public for six days". Falha ≠ exposição: a falha é a
+      porta destrancada; a exposição é o tempo que ficou aberta.
+    - **exploit** — o ato de usar a falha: "the attacker
+      **exploited** the flaw" — nunca "explored".
+    - **least privilege** — cada identidade só com o mínimo de
+      acesso necessário. "The role violates least privilege."
+    - **hardening** — reduzir a superfície: "OS hardening removed
+      the default accounts".
+    - **secret sprawl** — segredos espalhados: "API keys in three
+      repos — that's secret sprawl".
+    - **lateral movement** — o atacante andando de lado: "from the
+      web pod they moved laterally to the database".
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "vulnerability"
+    meaning: 'a vulnerabilidade — a falha que existe no sistema'
+    example: "There's a vulnerability in the auth service — unpatched since March."
+    translation: "Há uma vulnerabilidade no serviço de auth — sem patch desde março."
+    note: "A falha existe mesmo sem ataque — vulnerability ≠ incident."
+  - term: "CVE"
+    meaning: 'o identificador público da vulnerabilidade'
+    example: "The fix for CVE-2024-3094 shipped last week."
+    translation: "A correção para o CVE-2024-3094 saiu semana passada."
+    note: "CVE = Common Vulnerabilities and Exposures — 'the CVE' aponta a falha exata."
+  - term: "exposure"
+    meaning: 'a exposição — por quanto tempo e para quem a falha esteve aberta'
+    example: "The bucket exposure was public for six days."
+    translation: "A exposição do bucket foi pública por seis dias."
+    note: "Vulnerability é a porta destrancada; exposure é o tempo aberta."
+  - term: "exploit"
+    meaning: 'explorar a falha — o ato, não a descoberta'
+    example: "The attacker exploited the flaw within hours of disclosure."
+    translation: "O atacante explorou a falha em horas após a divulgação."
+    note: "'Exploit' = usar a falha; 'explored the vuln' é calque de 'explorou'."
+  - term: "least privilege"
+    meaning: 'privilégio mínimo — só o acesso estritamente necessário'
+    example: "The role violates least privilege — it can delete production."
+    translation: "A role viola o privilégio mínimo — ela pode deletar produção."
+    note: "Princípio: cada identidade carrega o mínimo, não o conveniente."
+  - term: "hardening"
+    meaning: 'o endurecimento — reduzir a superfície de ataque'
+    example: "OS hardening removed the default accounts and closed the ports."
+    translation: "O hardening do SO removeu as contas padrão e fechou as portas."
+    note: "Hardening = tirar o que não precisa estar lá."
+  - term: "secret sprawl"
+    meaning: 'a dispersão de segredos — chaves espalhadas por todo canto'
+    example: "API keys in three repos and two wikis — that's secret sprawl."
+    translation: "Chaves de API em três repos e duas wikis — isso é secret sprawl."
+    note: "O remédio: um vault central e rotação — não 'cuidado'."
+  - term: "lateral movement"
+    meaning: 'movimento lateral — o atacante andando de um sistema a outro'
+    example: "From the web pod they moved laterally to the database."
+    translation: "Do pod web eles se moveram lateralmente para o banco."
+    note: "O primeiro alvo raramente é o objetivo — lateral movement é o caminho."
+  - term: "attack surface"
+    meaning: 'a superfície de ataque — tudo que um atacante pode tocar'
+    example: "Every open port grows the attack surface."
+    translation: "Cada porta aberta aumenta a superfície de ataque."
+    note: "Hardening encolhe a superfície; features novas a expandem."
+  - term: "rotate"
+    meaning: 'rotacionar — trocar chaves/credenciais periodicamente ou após suspeita'
+    example: "Rotate the keys now — one was in the logs."
+    translation: "Rotacione as chaves agora — uma estava nos logs."
+    note: "'Rotate the keys/tokens/credentials' — a resposta padrão a segredo exposto."
+  - term: "blast radius"
+    meaning: 'o raio de explosão — o máximo que um comprometimento alcança'
+    example: "Least privilege shrinks the blast radius of a stolen key."
+    translation: "Privilégio mínimo encolhe o raio de explosão de uma chave roubada."
+    note: "A pergunta de segurança: 'se essa credencial vazar, o que ela alcança?'"
+  - term: "zero-day"
+    meaning: 'o zero-day — falha explorada antes de haver patch'
+    example: "It was a zero-day — no patch existed when it hit."
+    translation: "Era um zero-day — não havia patch quando atacou."
+    note: "Dia zero = zero dias para se preparar."
+
+grammar:
+  title: "vulnerability × exposure × exploit: três palavras, três coisas"
+  explanation: |
+    O trio que o português embaralha:
+
+    - **vulnerability** — a falha *existe*: "there's a vulnerability
+      in auth". Substantivo do problema.
+    - **exposure** — a falha *esteve aberta*: "the exposure lasted
+      six days". O tempo e a visibilidade.
+    - **exploit** — alguém *usou* a falha: "the attacker exploited
+      it". O verbo é **exploit**, nunca "explore" — "explored the
+      vuln" é o calque de "explorou".
+
+    E o adjetivo: "o finding é crítico" é "**critical**" —
+    "**critic**" é a pessoa que critica ("a film critic").
+  examples:
+    - { en: "The vulnerability existed for months; the exposure was six days.", pt: "A vulnerabilidade existiu por meses; a exposição foi de seis dias." }
+    - { en: "The attacker exploited the flaw — never 'explored'.", pt: "O atacante explorou a falha — nunca 'explored'." }
+    - { en: "The finding is critical — never 'is critic'.", pt: "O finding é crítico — nunca 'is critic'." }
+    - { en: "We must rotate the keys — never 'must to rotate'.", pt: "Devemos rotacionar as chaves — nunca 'must to rotate'." }
+    - { en: "We're in compliance with the policy — not 'to'.", pt: "Estamos em conformidade com a política — não 'to'." }
+    - { en: "Least privilege means the deploy role can't read secrets.", pt: "Privilégio mínimo significa que a role de deploy não lê segredos." }
+
+examples:
+  - en: "There's a known vulnerability in the auth library — CVE-2024-3094."
+    pt: "Há uma vulnerabilidade conhecida na biblioteca de auth — CVE-2024-3094."
+    context: "A falha com identificador."
+  - en: "The exposure was public for six days before anyone noticed."
+    pt: "A exposição foi pública por seis dias antes de alguém notar."
+    context: "O tempo aberta."
+  - en: "They moved laterally from the web pod to the database."
+    pt: "Eles se moveram lateralmente do pod web para o banco."
+    context: "O caminho do atacante."
+  - en: "The deploy role violates least privilege — it can read every secret."
+    pt: "A role de deploy viola o privilégio mínimo — ela lê todos os segredos."
+    context: "O acesso excessivo."
+  - en: "API keys in three repos — that's secret sprawl."
+    pt: "Chaves de API em três repos — isso é secret sprawl."
+    context: "A dispersão de segredos."
+  - en: "Hardening removed the default accounts and closed port 22."
+    pt: "O hardening removeu as contas padrão e fechou a porta 22."
+    context: "A superfície encolhida."
+  - en: "Rotate the keys today — one was committed to the repo."
+    pt: "Rotacione as chaves hoje — uma foi commitada no repo."
+    context: "A resposta a segredo exposto."
+  - en: "Least privilege shrinks the blast radius if this key leaks."
+    pt: "Privilégio mínimo encolhe o raio de explosão se essa chave vazar."
+    context: "A pergunta 'o que ela alcança?'"
+
+variations:
+  - idea: '"o termo exato"'
+    items:
+      - { register: "Boa", text: "The exposure was six days — the vulnerability itself is older.", adequate: true }
+      - { register: "Boa", text: "The attacker exploited the flaw before we patched it.", adequate: true }
+      - { register: "Inadequada", text: "The attacker explored the vulnerability.", adequate: false, note: "'Explorou a falha' é *exploited* — 'explored' é explorou opções." }
+      - { register: "Inadequada", text: "We had a six-day vulnerability.", adequate: false, note: "O que durou seis dias foi a *exposure* — a vulnerabilidade é mais antiga." }
+  - idea: '"privilégio e superfície"'
+    items:
+      - { register: "Boa", text: "The role violates least privilege — trim it to what deploy needs.", adequate: true }
+      - { register: "Boa", text: "Hardening shrank the attack surface.", adequate: true }
+      - { register: "Inadequada", text: "The role has too much privilege — it's critic.", adequate: false, note: "'Crítico' é *critical* — 'critic' é quem escreve resenha." }
+      - { register: "Inadequada", text: "We must to rotate the keys.", adequate: false, note: "Modal direto: 'we must rotate' — nunca 'must to'." }
+
+brErrors:
+  - { wrong: "The attacker explored the vulnerability.", right: "The attacker exploited the vulnerability.", why: "exploited", tag: br.explored-vuln }
+  - { wrong: "They explored the flaw before the patch.", right: "They exploited the flaw before the patch.", why: "exploited", tag: br.explored-vuln }
+  - { wrong: "The finding is critic — patch today.", right: "The finding is critical — patch today.", why: "critical", tag: br.is-critic }
+  - { wrong: "It looks critic to me.", right: "It looks critical to me.", why: "critical", tag: br.is-critic }
+  - { wrong: "We're in compliance to the policy.", right: "We're in compliance with the policy.", why: "with", tag: br.in-compliance-to }
+  - { wrong: "We must to rotate the keys.", right: "We must rotate the keys.", why: "must rotate", tag: br.modal-to }
+  - { wrong: "You should to patch it now.", right: "You should patch it now.", why: "should patch", tag: br.modal-to }
+  - { wrong: "The key was wrote in the logs.", right: "The key was written in the logs.", why: "was written", tag: br.was-past }
+  - { wrong: "The role not need secrets.", right: "The role doesn't need secrets.", why: "doesn't need", tag: br.it-not-works }
+  - { wrong: "The audit happen every year.", right: "The audit happens every year.", why: "happens", tag: br.third-person-s }
+
+dialogue:
+  title: "Triando o relatório do pentest"
+  lines:
+    - { speaker: Priya, text: "The pentest report is in — seven findings, two critical. Can you triage?" }
+    - { speaker: Yuri, text: "First one: a known vulnerability in the auth library — CVE-2024-3094. Unpatched since March." }
+    - { speaker: Priya, text: "Exploitable?" }
+    - { speaker: Yuri, text: "Yes — the report shows they exploited it and moved laterally to the database." }
+    - { speaker: Priya, text: "And the second critical?" }
+    - { speaker: Yuri, text: "Secret sprawl — API keys in three repos. The bucket exposure was public for six days." }
+    - { speaker: Priya, text: "What's the blast radius if one of those keys leaks?" }
+    - { speaker: Yuri, text: "Too big — the deploy role violates least privilege. It can read every secret in the vault." }
+    - { speaker: Priya, text: "So: patch the CVE, rotate the keys, trim the role. Hardening, not heroics." }
+  notes:
+    - "a triagem percorre: vulnerability → exploit → lateral movement → exposure → least privilege → blast radius."
+    - "'hardening, not heroics' — segurança é superfície menor, não esforço heroico."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Three words people confuse: a vulnerability is the flaw that exists — 'there's a vulnerability in auth'. The exposure is how long and how wide it was open — 'the bucket exposure was public for six days'. And the exploit is the act — 'the attacker exploited the flaw'. Never 'explored the vuln' — that's the calque; explored is for options." }
+    - { speaker: Marcos, text: "Least privilege means every identity carries the minimum access it needs — 'the role violates least privilege'. Hardening is shrinking the attack surface — removing default accounts, closing ports. Secret sprawl is keys scattered across repos and wikis — the fix is a central vault and rotation." }
+    - { speaker: Yuri, text: "Lateral movement is the attacker walking sideways — from the web pod to the database. The first target is rarely the goal. And the blast radius is the question: if this credential leaks, what can it reach? Least privilege is what shrinks it." }
+  questions:
+    - { id: M19-01-l1, type: multiple_choice, prompt: "The flaw that exists in the system is the…", options: ["exposure", "vulnerability", "exploit", "blast radius"], answer: 1, explanation: "A falha em si é a vulnerability.", tags: [comp.listening, vocab.security] }
+    - { id: M19-01-l2, type: multiple_choice, prompt: "'The exposure was six days' means…", options: ["how long the flaw was open", "the attack lasted six days", "the patch took six days", "six days of downtime"], answer: 0, explanation: "Exposure = o tempo e a abrangência da abertura.", tags: [comp.listening, vocab.security] }
+    - { id: M19-01-l3, type: fill_blank, prompt: "The role violates least ___ — it can delete production.", accepted: ["privilege"], explanation: "'Least privilege' — o mínimo necessário.", tags: [vocab.security] }
+    - { id: M19-01-l4, type: error_correction, prompt: "The attacker explored the vulnerability.", accepted: ["The attacker exploited the vulnerability.", "The attacker exploited the vulnerability"], explanation: "exploited.", tags: [br.explored-vuln] }
+    - { id: M19-01-l5, type: multiple_choice, prompt: "Secret sprawl is…", options: ["a DDoS attack", "secrets scattered across repos and wikis", "a password policy", "a vault"], answer: 1, explanation: "A dispersão de segredos.", tags: [comp.listening, vocab.security] }
+    - { id: M19-01-l6, type: multiple_choice, prompt: "Lateral movement means the attacker…", options: ["left the network", "moved sideways from one system to another", "encrypted the disk", "sent phishing"], answer: 1, explanation: "De um sistema a outro — o primeiro alvo não é o objetivo.", tags: [comp.listening, vocab.security] }
+
+writing:
+  prompt: |
+    **Cenário:** o relatório do pentest chegou. A Priya pede um
+    resumo escrito do finding principal para o canal de segurança.
+
+    **Tarefa:** escreva 60–90 palavras cobrindo: a vulnerabilidade
+    (com CVE), a exposição (quanto tempo), o que o atacante fez
+    (exploit + lateral movement) e a violação de least privilege
+    que aumentou o blast radius. Feche com a ação imediata.
+  constraints:
+    - { label: "A falha nomeada", pattern: "\\b(vulnerabilit|CVE|flaw)\\w*" }
+    - { label: "A exposição", pattern: "\\bexposure\\b" }
+    - { label: "O que o atacante fez", pattern: "\\b(exploit|lateral|moved)\\w*" }
+    - { label: "A ação", pattern: "\\b(patch|rotate|hardening|least privilege|trim)\\w*" }
+  rubric:
+    - "Vulnerability × exposure × exploit distintos"
+    - "O CVE identificado"
+    - "Least privilege e blast radius ligados"
+    - "Sem calques (exploited, critical, 'in compliance with')"
+  model: >-
+    The main finding is a known vulnerability in the auth library
+    — CVE-2024-3094, unpatched since March. The exposure window
+    was six days, public. The report shows the flaw was exploited
+    and the tester moved laterally to the database. The deploy
+    role violates least privilege — it reads every secret — so the
+    blast radius of a stolen key is the whole vault. Immediate
+    action: patch the CVE today and rotate the exposed keys.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.security]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos resumindo um finding de pentest: a vulnerabilidade, a exposição, o que o atacante fez e a ação imediata."
+    maxSeconds: 45
+    targetPhrases:
+      - vulnerability
+      - the CVE
+      - exposure
+      - exploited the flaw
+      - least privilege
+      - hardening
+      - secret sprawl
+      - lateral movement
+      - blast radius
+      - rotate the keys
+      - attack surface
+      - the finding is critical
+      - in compliance with
+      - we must patch
+      - the role violates
+      - sized for
+    checklist:
+      - "'exploited', nunca 'explored'"
+      - "vulnerability × exposure distintos"
+      - "least privilege ligado ao blast radius"
+      - "a ação imediata no final"
+
+quiz:
+  - { id: M19-01-q1, type: multiple_choice, prompt: "A falha que existe no sistema — independente de ataque — é a…", options: ["vulnerability", "exposure", "exploit", "sprawl"], answer: 0, explanation: "A vulnerability existe; a exposure é o tempo aberta.", tags: [vocab.security] }
+  - { id: M19-01-q2, type: error_correction, prompt: "The finding is critic — we patch today.", accepted: ["The finding is critical — we patch today.", "The finding is critical — we patch today"], explanation: "critical.", tags: [br.is-critic] }
+  - { id: M19-01-q3, type: multiple_choice, prompt: "'Least privilege' significa…", options: ["ninguém tem acesso", "cada identidade carrega o mínimo de acesso necessário", "só admins têm acesso", "acesso temporário"], answer: 1, explanation: "O mínimo necessário, não o conveniente.", tags: [vocab.security] }
+  - { id: M19-01-q4, type: fill_blank, prompt: "From the web pod they moved ___ to the database.", accepted: ["laterally"], explanation: "'Moved laterally' — de lado, entre sistemas.", tags: [vocab.security] }
+  - { id: M19-01-q5, type: multiple_choice, prompt: "Chaves de API em três repos e duas wikis é…", options: ["hardening", "least privilege", "secret sprawl", "zero-day"], answer: 2, explanation: "A dispersão de segredos.", tags: [vocab.security] }
+  - { id: M19-01-q6, type: error_correction, prompt: "We must to rotate the keys now.", accepted: ["We must rotate the keys now.", "We must rotate the keys now"], explanation: "'must rotate' — modal sem 'to'.", tags: [br.modal-to] }
+  - { id: M19-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["shrinks", "privilege", "least", "the", "radius", "blast"], answer: "least privilege shrinks the blast radius", explanation: "O mínimo encolhe o alcance do comprometimento.", tags: [vocab.security] }
+  - { id: M19-01-q8, type: multiple_choice, prompt: "Remover contas padrão e fechar portas é…", options: ["lateral movement", "secret sprawl", "an exploit", "hardening — shrinking the attack surface"], answer: 3, explanation: "Hardening = encolher a superfície.", tags: [vocab.security] }
+
+srsCards:
+  - { front: "vulnerability", back: "A falha que existe — 'a vulnerability in auth'.", tag: vocab.security }
+  - { front: "CVE", back: "O identificador público da falha — 'CVE-2024-3094'.", tag: vocab.security }
+  - { front: "exposure", back: "Quanto tempo/abrangência a falha ficou aberta.", tag: vocab.security }
+  - { front: "exploit", back: "Usar a falha — 'exploited', nunca 'explored'.", tag: vocab.security }
+  - { front: "least privilege", back: "Só o acesso necessário — 'the role violates it'.", tag: vocab.security }
+  - { front: "hardening", back: "Encolher a superfície — tirar o que não precisa.", tag: vocab.security }
+  - { front: "secret sprawl", back: "Segredos espalhados — chaves em repos e wikis.", tag: vocab.security }
+  - { front: "lateral movement", back: "O atacante andando de lado entre sistemas.", tag: vocab.security }
+  - { front: "attack surface", back: "Tudo que o atacante pode tocar.", tag: vocab.security }
+  - { front: "rotate", back: "Trocar credenciais — 'rotate the keys now'.", tag: vocab.security }
+  - { front: "blast radius", back: "O máximo que um comprometimento alcança.", tag: vocab.security }
+
+review:
+  preferTags: [vocab.security, br.explored-vuln, br.modal-to]
+  notes: "Revisão prioriza vulnerability × exposure × exploit, least privilege e os calques (explored, is critic, must to)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
