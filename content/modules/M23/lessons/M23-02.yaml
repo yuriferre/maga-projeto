@@ -1,0 +1,323 @@
+id: M23-02
+module: M23
+order: 2
+title: "As fórmulas: 'where we differ is…', 'what would change your mind?'"
+objective: >-
+  Ao final, você monta discordância em quatro peças — validar,
+  discordar, dar a razão, devolver a pergunta — com as fórmulas
+  que carregam cada peça.
+durationMin: 40
+competencies: [SPK, CNF, LIS]
+tags: [vocab.disagreement, gram.hedging, gram.softeners, comp.speaking, comp.confidence]
+prerequisites: [M23-01]
+
+context:
+  scenario: |
+    A escala da M23-01 diz *o quanto* discordar. Esta aula dá
+    a anatomia: toda discordância profissional tem quatro
+    peças, e cada peça tem suas fórmulas.
+
+    - **Validar**: "*I hear you*", "*fair point*",
+      "*that's true as far as it goes*" — mostra que ouviu
+      antes de contestar.
+    - **Discordar**: "*I see it differently*",
+      "*where we differ is the timeline*" — nomeia exatamente
+      onde a divergência mora.
+    - **Razão**: "*because the schema causes the bugs*" —
+      sem razão, discordância é só barulho.
+    - **Devolver**: "*what would change your mind?*",
+      "*what am I missing?*" — a pergunta que transforma
+      debate em investigação.
+
+    E a postura que amarra tudo: "**strong opinions, loosely
+    held**" — defenda firme o que os dados mostram, solte
+    rápido o que eles desmentem.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "where we differ is…"
+    meaning: 'onde divergimos é… — localiza a discordância com precisão'
+    example: "Where we differ is the timeline — I say ten weeks, you say six."
+    translation: "Onde divergimos é o prazo — eu digo dez semanas, você diz seis."
+    note: "Transforma 'discordo de tudo' em 'discordo disto aqui'."
+  - term: "that's true as far as it goes"
+    meaning: 'é verdade até onde vai — concede e limita ao mesmo tempo'
+    example: "That's true as far as it goes — but it ignores the audit trail."
+    translation: "Isso é verdade até onde vai — mas ignora a trilha de auditoria."
+    note: "Concessão com limite embutido — prepara o 'but'."
+  - term: "what would change your mind?"
+    meaning: 'o que mudaria sua opinião? — a pergunta que testa convicções'
+    example: "What would change your mind — a spike test on the schema fix?"
+    translation: "O que mudaria sua opinião — um spike test no conserto do schema?"
+    note: "Se a resposta é 'nada', você está num debate de fé, não de dados."
+  - term: "what am I missing?"
+    meaning: 'o que estou perdendo? — humildade que pede o dado ausente'
+    example: "I'm not convinced — what am I missing about the rewrite?"
+    translation: "Não estou convencido — o que estou perdendo sobre a reescrita?"
+    note: "Assume que a lacuna pode ser sua — e força a evidência do outro."
+  - term: "strong opinions, loosely held"
+    meaning: 'opiniões fortes, seguradas com leveza — a postura do bom debatedor'
+    example: "Strong opinions, loosely held — I'll argue hard and update fast."
+    translation: "Opiniões fortes, seguradas com leveza — argumento firme e atualizo rápido."
+    note: "Firme na defesa, rápido em soltar — o contrário do teimoso."
+  - term: "I'm with you on X"
+    meaning: 'concordo com você em X — isola o ponto de acordo primeiro'
+    example: "I'm with you on the freeze — where we differ is the scope."
+    translation: "Concordo com você no freeze — onde divergimos é o escopo."
+    note: "Delimita o campo: acordo aqui, divergência ali."
+  - term: "I take your point"
+    meaning: 'aceito seu ponto — reconhecimento antes do contraponto'
+    example: "I take your point about the quiet weeks — the risk stays, though."
+    translation: "Aceito seu ponto sobre as semanas calmas — o risco permanece, porém."
+    note: "Igual ao 'fair point' — valida sem desistir."
+  - term: "help me understand"
+    meaning: 'me ajude a entender — pedido que questiona sem confrontar'
+    example: "Help me understand how the rewrite fixes the audit trail."
+    translation: "Me ajude a entender como a reescrita conserta a trilha de auditoria."
+    note: "Pergunta legítima que também expõe a lacuna da proposta."
+  - term: "let me push back on that a bit"
+    meaning: 'deixe-me contestar isso um pouco — avisa antes de discordar'
+    example: "Let me push back on that a bit — the data doesn't show it."
+    translation: "Deixe-me contestar isso um pouco — os dados não mostram isso."
+    note: "O 'a bit' suaviza; o aviso prepara o ouvinte."
+  - term: "steelman"
+    meaning: 'a versão mais forte do argumento alheio — antes de refutar'
+    example: "Let me steelman it: the rewrite does remove legacy code paths."
+    translation: "Deixe-me fazer o steelman: a reescrita de fato remove caminhos legados."
+    note: "Refutar a melhor versão do argumento vale por dez refutações."
+  - term: "that's a fair concern"
+    meaning: 'é uma preocupação justa — reconhece o risco do outro'
+    example: "That's a fair concern — the timeline is tight. Here's how I'd de-risk it."
+    translation: "É uma preocupação justa — o prazo é apertado. Veja como eu reduziria o risco."
+    note: "Reconhecer a preocupação ≠ concordar com a proposta."
+  - term: "I'll concede that"
+    meaning: 'concedo isso — entrega o ponto que é do outro'
+    example: "I'll concede that the monolith has grown hard to navigate."
+    translation: "Concedo que o monólito ficou difícil de navegar."
+    note: "Conceder o que é verdade fortalece o que você contesta."
+  - term: "happy to be wrong"
+    meaning: 'feliz em estar errado — convida a correção'
+    example: "I'd be happy to be wrong — show me the schema is fine."
+    translation: "Ficaria feliz em estar errado — me mostre que o schema está bem."
+    note: "O convite à correção desarma o debate e testa os dados."
+  - term: "let's not talk past each other"
+    meaning: 'não falemos um por cima do outro — realinha o debate'
+    example: "Let's not talk past each other — are we debating scope or timeline?"
+    translation: "Não vamos falar um por cima do outro — estamos debatendo escopo ou prazo?"
+    note: "Para quando os dois debatem coisas diferentes sem perceber."
+
+grammar:
+  title: "as quatro peças e seus conectores"
+  explanation: |
+    A discordância completa segue uma ordem — e os conectores
+    marcam as transições:
+
+    - **Validar → discordar**: "*I hear you, and*",
+      "*fair point, but*", "*that's true as far as it
+      goes — but*". O 'and' soma; o 'but' divide. Use 'and'
+      quando o acréscimo não anula o ponto do outro.
+    - **Discordar com precisão**: "*where we differ is X*",
+      "*I'm with you on X; my issue is Y*" — sempre um
+      ponto nomeado, nunca uma nuvem de discordância.
+    - **A razão**: "*because*", "*the reason is*",
+      "*here's why*" — a peça que separa opinião de análise.
+    - **Devolver**: "*what am I missing?*",
+      "*what would change your mind?*",
+      "*help me understand…*" — debate bom termina em
+      pergunta, não em ponto final.
+
+    E os calques do debate:
+
+    - "**I am agree**" → "**I agree**" — agree já é verbo.
+    - "**the same opinion than**" → "**the same opinion
+      as**" — 'the same' pede 'as'.
+    - "**instead the rewrite**" → "**instead OF the
+      rewrite**" — o 'of' não some.
+    - "**in my vision**" → "**in my view**".
+  examples:
+    - { en: "I hear you, and the quiet weeks help — but the schema bug stays.", pt: "Eu te ouço, e as semanas calmas ajudam — mas o bug do schema fica." }
+    - { en: "I'm with you on the freeze; where we differ is the scope.", pt: "Concordo com você no freeze; onde divergimos é o escopo." }
+    - { en: "That's true as far as it goes — but it ignores the audit trail.", pt: "Isso é verdade até onde vai — mas ignora a trilha de auditoria." }
+    - { en: "I'd push back on that because the data doesn't support it.", pt: "Eu contestaria isso porque os dados não sustentam." }
+    - { en: "What would change your mind — a spike test on the schema fix?", pt: "O que mudaria sua opinião — um spike test no conserto do schema?" }
+    - { en: "Let me steelman it: the rewrite does kill some legacy paths.", pt: "Deixe-me fazer o steelman: a reescrita de fato mata alguns caminhos legados." }
+
+examples:
+  - en: "I'm with you on the deadline pressure — where we differ is the fix."
+    pt: "Concordo com você na pressão do prazo — onde divergimos é a solução."
+    context: "Acordo delimitado, divergência nomeada."
+  - en: "That's true as far as it goes — but it ignores the freeze window."
+    pt: "É verdade até onde vai — mas ignora a janela de freeze."
+    context: "Concessão com limite."
+  - en: "What would change your mind — a spike test on the schema fix?"
+    pt: "O que mudaria sua opinião — um spike test no conserto do schema?"
+    context: "A pergunta que testa convicção."
+  - en: "Help me understand how the rewrite fixes the audit trail."
+    pt: "Me ajude a entender como a reescrita conserta a trilha de auditoria."
+    context: "Pergunta que expõe a lacuna."
+  - en: "Let me steelman it: yes, the rewrite removes legacy code paths."
+    pt: "Deixe-me fazer o steelman: sim, a reescrita remove caminhos legados."
+    context: "A melhor versão do argumento alheio."
+  - en: "I'll concede that the monolith is hard to navigate — that's not the same as broken."
+    pt: "Concedo que o monólito é difícil de navegar — não é o mesmo que quebrado."
+    context: "Concede o ponto real, separa do exagerado."
+  - en: "Let's not talk past each other — are we debating scope or timeline?"
+    pt: "Não vamos falar um por cima do outro — estamos debatendo escopo ou prazo?"
+    context: "O realinhamento do debate."
+  - en: "I'd be happy to be wrong — show me the schema is fine and I'll drop it."
+    pt: "Ficaria feliz em estar errado — me mostre que o schema está bem e eu largo."
+    context: "O convite à correção."
+
+variations:
+  - idea: '"a ordem das quatro peças"'
+    items:
+      - { register: "Boa", text: "I hear you on the quiet weeks, and I'm not convinced — what am I missing?", adequate: true }
+      - { register: "Boa", text: "That's true as far as it goes, but it ignores the audit trail.", adequate: true }
+      - { register: "Inadequada", text: "No. Because the data doesn't show it.", adequate: false, note: "Razão sem validação soa como porta na cara — valide antes de negar." }
+      - { register: "Inadequada", text: "I agree with everything, but actually the whole plan is wrong.", adequate: false, note: "Concessão total seguida de rejeição total é contradição — delimite o acordo." }
+  - idea: '"a pergunta que devolve o debate"'
+    items:
+      - { register: "Boa", text: "What would change your mind — a spike test?", adequate: true }
+      - { register: "Boa", text: "Help me understand how the rewrite fixes the schema.", adequate: true }
+      - { register: "Inadequada", text: "What would change your mind? Nothing, right?", adequate: false, note: "Pergunta retórica com resposta embutida é deboche — a pergunta é de verdade." }
+      - { register: "Inadequada", text: "In my vision, you are wrong, no?", adequate: false, note: "Dois calques: *in my view* + tag question (*right?*)." }
+
+brErrors:
+  - { wrong: "You disagree with me, no?", right: "You disagree with me, right?", why: "tag question", tag: br.no-tag }
+  - { wrong: "The scope is polemic for the team.", right: "The scope is controversial for the team.", why: "controversial", tag: br.polemic }
+  - { wrong: "In my vision, we differ on scope.", right: "In my view, we differ on scope.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "I don't know nothing about the audit trail.", right: "I don't know anything about the audit trail.", why: "anything", tag: br.double-negative }
+  - { wrong: "I am agree the timeline is tight.", right: "I agree the timeline is tight.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "She has the same opinion than me.", right: "She has the same opinion as me.", why: "the same as", tag: br.same-than }
+  - { wrong: "Instead a rewrite, fix the schema.", right: "Instead of a rewrite, fix the schema.", why: "instead of", tag: br.instead-of }
+  - { wrong: "We discussed about the scope.", right: "We discussed the scope.", why: "discussed the scope", tag: br.discuss-about }
+  - { wrong: "I have doubt about the scope.", right: "I have a doubt about the scope.", why: "a doubt", tag: br.doubt }
+  - { wrong: "We must to align on scope.", right: "We must align on scope.", why: "must align", tag: br.modal-to }
+
+dialogue:
+  title: "Six weeks or ten?"
+  lines:
+    - { speaker: Beth, text: "Six weeks covers it — rewrite plus schema." }
+    - { speaker: Yuri, text: "I'm with you on the goal — where we differ is the estimate." }
+    - { speaker: Beth, text: "The schema work is small." }
+    - { speaker: Yuri, text: "That's true as far as it goes — but the last two schema changes each took three weeks." }
+    - { speaker: Beth, text: "Those had migrations attached." }
+    - { speaker: Yuri, text: "Fair point. Let me steelman yours: if the schema fix is clean, the rewrite is mostly mechanical — is that the claim?" }
+    - { speaker: Beth, text: "Exactly." }
+    - { speaker: Yuri, text: "Then let me push back on it a bit: the audit trail lives inside those code paths. Help me understand how we keep it during the rewrite." }
+    - { speaker: Beth, text: "We rebuild it in the new service." }
+    - { speaker: Yuri, text: "That's where I'd concede you're right — if the audit trail survives, the timeline objection is weaker. What would change my mind is a spike on the schema piece: if it takes a week, I'll take your six." }
+    - { speaker: Carlos, text: "And if the spike takes three?" }
+    - { speaker: Yuri, text: "Then the ten-week estimate stands — and I'd be happy to be wrong." }
+    - { speaker: Beth, text: "Deal — spike this week, then we re-vote." }
+  notes:
+    - "quatro peças em sequência: 'I'm with you on the goal' → 'where we differ is the estimate' → 'the last two took three weeks' → 'what would change my mind is a spike'."
+    - "steelman antes de contestar — Yuri repete a melhor versão do argumento da Beth e só então empurra."
+    - "'I'd be happy to be wrong' + critério de mudança — convicção testável, não teimosia."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "Professional disagreement has four pieces. Validate — 'I hear you', 'fair point', 'that's true as far as it goes'. Disagree — 'where we differ is X', 'I'm with you on Y'. Give the reason — 'because the data shows otherwise'. And hand it back — 'what am I missing?', 'what would change your mind?'." }
+    - { speaker: Yuri, text: "The posture underneath is 'strong opinions, loosely held' — argue hard for what the data shows, drop fast what it doesn't. Steelman the other side before you push back: refuting the strongest version of their argument beats ten weak refutations." }
+    - { speaker: Beth, text: "Keep the calques out: 'I am agree' is 'I agree'; 'the same opinion than' is 'as'; 'instead the rewrite' is 'instead of'; and 'in my vision' is 'in my view'." }
+  questions:
+    - { id: M23-02-l1, type: multiple_choice, prompt: "A primeira peça da discordância é…", options: ["dar a razão", "validar — 'I hear you', 'fair point'", "devolver a pergunta", "discordar"], answer: 1, explanation: "Validar antes de contestar mantém a conversa aberta.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-02-l2, type: multiple_choice, prompt: "'Where we differ is the timeline' serve para…", options: ["discordar de tudo", "mudar de assunto", "nomear exatamente o ponto de divergência", "encerrar o debate"], answer: 2, explanation: "Precisão — um ponto nomeado, não uma nuvem.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-02-l3, type: fill_blank, prompt: "Strong opinions, ___ held — argue hard, update fast.", accepted: ["loosely"], explanation: "Firme na defesa, rápido em soltar.", tags: [vocab.disagreement] }
+    - { id: M23-02-l4, type: error_correction, prompt: "She has the same opinion than me.", accepted: ["She has the same opinion as me.", "She has the same opinion as me"], explanation: "'the same as'.", tags: [br.same-than] }
+    - { id: M23-02-l5, type: multiple_choice, prompt: "Fazer 'steelman' é…", options: ["enfraquecer o argumento do outro", "copiar o argumento", "ignorar o argumento", "montar a versão mais forte do argumento alheio antes de refutar"], answer: 3, explanation: "Refutar a melhor versão vale por dez.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-02-l6, type: multiple_choice, prompt: "'What would change your mind?' revela…", options: ["se o debate é de dados ou de fé", "o prazo", "quem manda", "o escopo"], answer: 0, explanation: "Sem resposta = debate de fé, não de dados.", tags: [comp.listening, vocab.disagreement] }
+
+writing:
+  prompt: |
+    **Cenário:** o debate sobre a reescrita do billing virou
+    thread no Slack — e o Carlos pediu sua posição por escrito.
+
+    **Tarefa:** escreva 70–100 palavras discordando do prazo
+    de seis semanas. Use as quatro peças em ordem: valide o
+    ponto da Beth, nomeie onde divergem, dê a razão, e feche
+    devolvendo uma pergunta (critério de mudança ou pedido de
+    esclarecimento).
+  constraints:
+    - { label: "A validação", pattern: "\\bhear you|fair point|with you|take your point|concede\\b" }
+    - { label: "A divergência nomeada", pattern: "\\bwhere we differ|my issue is|see it differently|push back\\b" }
+    - { label: "A razão", pattern: "\\bbecause|the reason|here's why\\b" }
+    - { label: "A pergunta de volta", pattern: "\\bwhat would change|what am I missing|help me understand\\b" }
+  rubric:
+    - "Quatro peças em ordem (validar → discordar → razão → pergunta)"
+    - "Divergência nomeada, não vaga"
+    - "Pergunta final de verdade, não retórica"
+    - "Sem calques ('I agree', 'same as', 'instead of', 'in my view')"
+  model: >-
+    I hear you on the quiet weeks, Beth — fair point. And
+    I'm with you on the goal; where we differ is the
+    estimate. I'd push back on six weeks because the last
+    two schema changes each took three — the audit trail
+    lives inside those code paths, and rebuilding it isn't
+    mechanical. I'd be happy to be wrong: what would change
+    my mind is a spike on the schema piece. If it lands in
+    a week, six is yours; if it takes three, we plan ten.
+    Help me understand what the spike would need to cover.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.disagreement, gram.hedging]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos discordando do prazo de seis semanas para Beth: valide, nomeie a divergência, dê a razão, devolva a pergunta."
+    maxSeconds: 45
+    targetPhrases:
+      - I hear you
+      - fair point
+      - I'm with you on
+      - where we differ is
+      - I'd push back on
+      - because the data
+      - what would change your mind
+      - what am I missing
+      - help me understand
+      - steelman
+      - strong opinions, loosely held
+      - happy to be wrong
+      - I'll concede
+      - that's a fair concern
+      - let's not talk past each other
+      - in my view
+    checklist:
+      - "valida antes de discordar"
+      - "nomeia o ponto exato da divergência"
+      - "razão explícita com 'because'"
+      - "fecha com pergunta real — critério ou esclarecimento"
+
+quiz:
+  - { id: M23-02-q1, type: multiple_choice, prompt: "A ordem das quatro peças é…", options: ["discordar → validar → pergunta → razão", "validar → discordar → razão → pergunta", "razão → pergunta → validar → discordar", "pergunta → razão → discordar → validar"], answer: 1, explanation: "Ouve, opõe, explica, devolve.", tags: [vocab.disagreement] }
+  - { id: M23-02-q2, type: error_correction, prompt: "You agree the estimate is wrong, no?", accepted: ["You agree the estimate is wrong, right?", "You agree the estimate is wrong, right", "You agree the estimate is wrong, don't you?", "You agree the estimate is wrong, don't you"], explanation: "Tag question — 'right?' ou 'don't you?'.", tags: [br.no-tag] }
+  - { id: M23-02-q3, type: multiple_choice, prompt: "'I hear you, AND…' × 'fair point, BUT…' — quando usar 'and'?", options: ["quando a resposta anula o ponto do outro", "quando o acréscimo não anula o ponto do outro", "sempre", "nunca"], answer: 1, explanation: "'And' soma; 'but' divide — escolha consciente.", tags: [gram.argument-connectors, vocab.disagreement] }
+  - { id: M23-02-q4, type: fill_blank, prompt: "Where we ___ is the timeline — I say ten weeks.", accepted: ["differ"], explanation: "Nomeia o ponto exato da divergência.", tags: [vocab.disagreement] }
+  - { id: M23-02-q5, type: multiple_choice, prompt: "Por que fazer steelman antes de contestar?", options: ["para ganhar tempo", "para parecer inteligente", "para adiar a decisão", "refutar a versão mais forte vale mais que dez refutações fracas"], answer: 3, explanation: "A melhor versão do argumento é a única que importa.", tags: [vocab.disagreement, comp.confidence] }
+  - { id: M23-02-q6, type: error_correction, prompt: "Instead a rewrite, we fix the schema.", accepted: ["Instead of a rewrite, we fix the schema.", "Instead of a rewrite, we fix the schema"], explanation: "'instead of'.", tags: [br.instead-of] }
+  - { id: M23-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["change", "would", "mind", "your", "what"], answer: "what would change your mind", explanation: "A pergunta que testa convicção.", tags: [vocab.disagreement] }
+  - { id: M23-02-q8, type: multiple_choice, prompt: "'Strong opinions, loosely held' significa…", options: ["não ter opinião", "mudar de ideia a cada reunião", "defender firme o que os dados mostram, soltar rápido o que desmentem", "opinião fraca"], answer: 2, explanation: "Convicção firme + atualização rápida.", tags: [vocab.disagreement, comp.confidence] }
+
+srsCards:
+  - { front: "where we differ is…", back: "Nomeia o ponto exato — 'where we differ is the estimate'.", tag: vocab.disagreement }
+  - { front: "that's true as far as it goes", back: "Concede com limite — '…but it ignores the audit trail'.", tag: vocab.disagreement }
+  - { front: "what would change your mind?", back: "Testa convicção — sem resposta = debate de fé.", tag: vocab.disagreement }
+  - { front: "what am I missing?", back: "Humildade que exige evidência do outro lado.", tag: vocab.disagreement }
+  - { front: "strong opinions, loosely held", back: "Defende firme, solta rápido — a postura do debatedor.", tag: vocab.disagreement }
+  - { front: "I'm with you on X", back: "Isola o acordo antes da divergência.", tag: vocab.disagreement }
+  - { front: "steelman", back: "A versão mais forte do argumento alheio — antes de refutar.", tag: vocab.disagreement }
+  - { front: "help me understand", back: "Pergunta que expõe a lacuna sem confrontar.", tag: vocab.disagreement }
+  - { front: "I'll concede that", back: "Entrega o ponto real — fortalece o resto.", tag: vocab.disagreement }
+  - { front: "let's not talk past each other", back: "Realinha — 'are we debating scope or timeline?'.", tag: vocab.disagreement }
+  - { front: "didn't see anything", back: "Sem dupla negação — 'didn't … anything'.", tag: br.double-negative }
+  - { front: "happy to be wrong", back: "O convite à correção — 'show me the schema is fine'.", tag: vocab.disagreement }
+
+review:
+  preferTags: [vocab.disagreement, gram.hedging, br.no-tag]
+  notes: "Revisão prioriza as quatro peças (validar → discordar → razão → pergunta), 'where we differ', steelman e os calques (right?, same as, instead of, in my view)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
