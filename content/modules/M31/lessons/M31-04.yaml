@@ -1,0 +1,348 @@
+id: M31-04
+module: M31
+order: 4
+title: "Negociação de oferta (simulação)"
+objective: >-
+  Ao final, você conduz uma negociação de oferta
+  completa de 20 minutos — leitura do pacote,
+  contra-pedido com razão, pivôs do "não" e o
+  fecho por escrito.
+durationMin: 40
+competencies: [SPK, WRI, REA, CNF]
+tags: [vocab.compensation, comp.speaking, comp.writing]
+prerequisites: [M31-03]
+simulation: true
+
+context:
+  scenario: |
+    A simulação completa — a ligação de
+    negociação de 20 minutos com a Rachel,
+    seguida do e-mail de fecho.
+
+    **O cenário:** você recebeu a oferta para
+    Senior Platform Engineer na CloudScale:
+
+    - Base: $150k (teto da banda, segundo ela)
+    - Bônus: 15% target, discricionário
+    - Equity: $80k em RSUs, 4 anos, cliff de 1
+    - Sign-on: $20k
+    - PTO: "unlimited"
+    - Start: flexível
+
+    **O que você quer:** base $160k — ou, se o
+    base não mover, fechar o gap no sign-on,
+    equity ou uma revisão de 6 meses por
+    escrito. Você está em fase final em outro
+    processo — a alavancagem é real.
+
+    **As cinco fases da ligação:**
+
+    1. **Abertura** — entusiasmo primeiro:
+       "I'm excited about the role — I want to
+       make it work."
+    2. **Leitura** — confirme o que entendeu:
+       "let me make sure I read this right —
+       $150k base, 15% target, $80k RSUs…"
+    3. **O pedido** — "I was hoping for $160k
+       on the base, given the on-call scope."
+    4. **Os pivôs** — a cada "não", outra peça:
+       sign-on → equity → review por escrito →
+       PTO.
+    5. **O fecho** — "that's close — let me
+       think it over tonight and get back to
+       you tomorrow" + o e-mail de aceite.
+
+    **Rubrica da simulação** (autoavaliação):
+
+    - Abriu com entusiasmo, não com pedido?
+    - Leu o pacote antes de negociar?
+    - Pediu com número + razão, uma peça por vez?
+    - Pivotou o "não" para outra peça?
+    - Usou a alavancagem honesta, sem ultimato?
+    - Fechou com data e confirmou por escrito?
+
+    A gravação se ouve depois — um critério por
+    passada.
+  roles: [Yuri (candidate), Rachel (recruiter)]
+
+vocabulary:
+  - term: "let me make sure I read this right"
+    meaning: 'deixe-me confirmar que li certo — a leitura em voz alta'
+    example: "Let me make sure I read this right — $150k base, 15% target, $80k RSUs."
+    translation: "Deixe-me confirmar que li certo — $150k base, 15% alvo, $80k RSUs."
+    note: "Confirmar antes de negociar — pega erros e mostra cuidado."
+  - term: "I want to be transparent"
+    meaning: 'quero ser transparente — a introdução da alavancagem'
+    example: "I want to be transparent — I'm in final rounds with another company."
+    translation: "Quero ser transparente — estou em fase final com outra empresa."
+    note: "A alavancagem como informação, não como ameaça."
+  - term: "the top of the band"
+    meaning: 'o teto da faixa — onde o recrutador diz que o base para'
+    example: "$150k is the top of the band for this level."
+    translation: "$150k é o teto da faixa para este nível."
+    note: "Quando ouve isso, pivô para outra peça."
+  - term: "put it in writing"
+    meaning: 'pôr por escrito — a promessa que vale'
+    example: "If you can put the six-month review in writing, that works for me."
+    translation: "Se puderem pôr a revisão de seis meses por escrito, funciona para mim."
+    note: "Promessa verbal não entra no pacote."
+  - term: "meet me in the middle"
+    meaning: 'me encontrar no meio — a concessão mútua'
+    example: "Can you meet me in the middle at $155k?"
+    translation: "Conseguem me encontrar no meio em $155k?"
+    note: "Pedir a concessão como gesto mútuo."
+  - term: "I'll take it"
+    meaning: 'aceito — o fecho quando o pacote fecha'
+    example: "With the review in writing, I'll take it."
+    translation: "Com a revisão por escrito, eu aceito."
+    note: "O aceite verbal que o e-mail confirma depois."
+  - term: "a six-month review"
+    meaning: 'revisão de seis meses — o compromisso futuro por escrito'
+    example: "Could we add a six-month compensation review in writing?"
+    translation: "Podemos adicionar uma revisão de remuneração em seis meses por escrito?"
+    note: "Quando o número não move hoje, a data move."
+  - term: "close the gap"
+    meaning: 'fechar o gap — o que o sign-on/equity faz pelo ano um'
+    example: "A $30k sign-on would close the first-year gap."
+    translation: "Um sign-on de $30k fecharia o gap do primeiro ano."
+    note: "Nomear o que a peça resolve."
+  - term: "weighing both offers"
+    meaning: 'ponderando as duas ofertas — a posição honesta'
+    example: "I'm weighing both offers — this one has the scope I want."
+    translation: "Estou ponderando as duas — esta tem o escopo que quero."
+    note: "Honesto sem dar detalhe demais."
+  - term: "it's a good problem to have"
+    meaning: 'é um bom problema para ter — duas ofertas fortes'
+    example: "Two strong offers — it's a good problem to have."
+    translation: "Duas ofertas fortes — é um bom problema para ter."
+    note: "O tom leve para a posição de escolha."
+  - term: "rushed yes"
+    meaning: 'um sim apressado — o que você evita pedindo tempo'
+    example: "I want to give it proper thought, not a rushed yes."
+    translation: "Quero pensar direito, não dar um sim apressado."
+    note: "A justificativa elegante para pedir tempo."
+  - term: "welcome aboard"
+    meaning: 'bem-vindo a bordo — a resposta do aceite'
+    example: "Welcome aboard — sending the paperwork today."
+    translation: "Bem-vindo a bordo — enviando a papelada hoje."
+    note: "O que você quer ouvir no fim."
+
+grammar:
+  title: "a gramática da ligação de negociação"
+  explanation: |
+    A ligação junta as três aulas numa sequência:
+
+    - **Abertura**: "**I'm excited about the
+      role** — I want to make it work."
+    - **Leitura**: "**let me make sure I read
+      this right** — $150k base, 15% target…"
+    - **Pedido**: "**I was hoping for** $160k,
+      **given** the on-call scope."
+    - **Pivô**: "**if the base is fixed, could
+      we look at** the sign-on / equity / a
+      six-month review **in writing**?"
+    - **Fecho**: "**that's close — let me think
+      it over and get back to you tomorrow**."
+
+    E a concessão mútua: "**can you meet me in
+    the middle at** $155k?".
+  examples:
+    - { en: "Let me make sure I read this right — $150k base, 15% target, $80k RSUs.", pt: "Deixe-me confirmar — $150k base, 15% alvo, $80k RSUs." }
+    - { en: "I was hoping for $160k on the base, given the on-call scope.", pt: "Esperava $160k no base, dado o escopo do on-call." }
+    - { en: "If the base is fixed, could we look at a six-month review in writing?", pt: "Se o base é fixo, olhamos uma revisão de 6 meses por escrito?" }
+    - { en: "Can you meet me in the middle at $155k?", pt: "Consegue me encontrar no meio em $155k?" }
+    - { en: "With the review in writing, I'll take it.", pt: "Com a revisão por escrito, eu aceito." }
+    - { en: "I want to be transparent — I'm in final rounds elsewhere.", pt: "Quero ser transparente — estou em fase final em outro lugar." }
+
+examples:
+  - en: "I'm excited about the role — I want to make it work. Let me make sure I read this right."
+    pt: "Estou animado com o papel — quero fazer funcionar. Deixe-me confirmar que li certo."
+    context: "Abertura + leitura."
+  - en: "I was hoping for $160k on the base, given the on-call scope."
+    pt: "Esperava $160k no base, dado o escopo do on-call."
+    context: "O pedido."
+  - en: "If the base is fixed, could we look at the sign-on instead? $30k would close the gap."
+    pt: "Se o base é fixo, olhamos o sign-on? $30k fecharia o gap."
+    context: "O pivô."
+  - en: "I want to be transparent — I'm in final rounds elsewhere, weighing both offers."
+    pt: "Quero ser transparente — em fase final em outro lugar, ponderando as duas."
+    context: "A alavancagem honesta."
+  - en: "Could we add a six-month compensation review in writing?"
+    pt: "Podemos adicionar uma revisão de 6 meses por escrito?"
+    context: "O compromisso futuro."
+  - en: "Can you meet me in the middle at $155k?"
+    pt: "Consegue me encontrar no meio em $155k?"
+    context: "A concessão mútua."
+  - en: "That's close — let me think it over tonight and get back to you tomorrow."
+    pt: "Está perto — deixe-me pensar hoje à noite e retorno amanhã."
+    context: "O fecho com data."
+  - en: "With the review in writing, I'll take it — sending the accept email today."
+    pt: "Com a revisão por escrito, aceito — envio o e-mail de aceite hoje."
+    context: "O aceite que o e-mail confirma."
+
+variations:
+  - idea: '"a ligação"'
+    items:
+      - { register: "Forte", text: "I'm excited about the role — I was hoping for $160k given the scope.", adequate: true }
+      - { register: "Forte", text: "If the base is fixed, could we look at a six-month review in writing?", adequate: true }
+      - { register: "Fraco", text: "The offer is too low — call me when it's higher.", adequate: false, note: "Rejeitar sem propor nada encerra a conversa." }
+      - { register: "Fraco", text: "I have another offer so you'd better match it.", adequate: false, note: "Alavancagem como ultimato azeda a cooperação." }
+  - idea: '"o fecho da ligação"'
+    items:
+      - { register: "Forte", text: "That's close — let me think it over tonight and get back to you tomorrow.", adequate: true }
+      - { register: "Forte", text: "With the review in writing, I'll take it.", adequate: true }
+      - { register: "Fraco", text: "Yes! Done — whatever the details were.", adequate: false, note: "Aceitar sem confirmar os números por escrito é risco." }
+      - { register: "Fraco", text: "I'll get back whenever I've decided.", adequate: false, note: "Sem data, parece dúvida — ou desinteresse." }
+
+brErrors:
+  - { wrong: "My actual salary is $140k.", right: "My current salary is $140k.", why: "current", tag: br.actual-current }
+  - { wrong: "The job proposal arrived today.", right: "The job offer arrived today.", why: "job offer", tag: br.job-proposal }
+  - { wrong: "I'd like more vacations in writing.", right: "I'd like more vacation days in writing.", why: "vacation days/PTO", tag: br.more-vacations }
+  - { wrong: "We don't have a thirteenth salary there.", right: "We don't have a 13th-month bonus there.", why: "13th-month bonus", tag: br.thirteenth-salary }
+  - { wrong: "My salary pretension is $160k.", right: "My salary expectations are around $160k.", why: "expectations", tag: br.pretension }
+  - { wrong: "I'd win more at the other company.", right: "I'd earn more at the other company.", why: "earn", tag: br.win-money }
+  - { wrong: "I have interest in the counteroffer.", right: "I'm interested in the counteroffer.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I'll give my two weeks advice Friday.", right: "I'll give my two weeks' notice Friday.", why: "notice", tag: br.advice-notice }
+  - { wrong: "We discussed about the equity.", right: "We discussed the equity.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision $155k is fair.", right: "In my view $155k is fair.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "A ligação de negociação — 20 minutos"
+  lines:
+    - { speaker: Rachel, text: "Thanks for making time — I know you're weighing options. Where did we land?" }
+    - { speaker: Yuri, text: "First — I'm excited about the role, and I want to make it work. Let me make sure I read this right: $150k base, 15% target bonus, $80k in RSUs over four years, $20k sign-on, unlimited PTO." }
+    - { speaker: Rachel, text: "That's the package." }
+    - { speaker: Yuri, text: "Two reading questions: is the 15% guaranteed or discretionary? And on the unlimited PTO — how much do people actually take?" }
+    - { speaker: Rachel, text: "Discretionary but paid out three years running. PTO — about four weeks." }
+    - { speaker: Yuri, text: "Good. On the base — I was hoping for $160k, given the on-call scope and where the market is for this role." }
+    - { speaker: Rachel, text: "$150k is the top of the band — the base can't move." }
+    - { speaker: Yuri, text: "Understood. If the base is fixed, could we look at the sign-on instead? $30k would close the first-year gap while the equity vests." }
+    - { speaker: Rachel, text: "I can get you to $25k on the sign-on — that's the ceiling there too." }
+    - { speaker: Yuri, text: "Appreciated. Two more paths: is there flexibility on the equity, and could we add a six-month compensation review in writing? For transparency — I'm in final rounds elsewhere, and this role is where I want to land." }
+    - { speaker: Rachel, text: "The equity I can stretch to $90k. The six-month review — yes, in writing." }
+    - { speaker: Yuri, text: "That's close. Annualized: $150k base, ~$22k bonus, ~$22.5k equity — about $195k, plus the sign-on. Can you meet me in the middle — make the sign-on $30k and we're done?" }
+    - { speaker: Rachel, text: "…Done. $30k sign-on, $90k RSUs, the review in writing. I'll send the revised offer today." }
+    - { speaker: Yuri, text: "Then I can say it now — I'll take it. The written accept lands in your inbox tonight: title, base, bonus, RSUs, sign-on, PTO, start date — everything confirmed." }
+    - { speaker: Rachel, text: "Welcome aboard, Yuri. That was a textbook negotiation — reasons, pivots, no drama." }
+  notes:
+    - "as cinco fases: entusiasmo → leitura → pedido → pivôs → fecho com escrita."
+    - "três 'nãos' viraram três ganhos: sign-on, equity e a revisão por escrito."
+    - "o aceite verbal ('I'll take it') só vale depois que o pacote fecha — e o e-mail confirma tudo."
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "The full negotiation call in five phases: enthusiasm first, then read the package back — 'let me make sure I read this right' — then the ask with a number and a reason." }
+    - { speaker: Yuri, text: "Every 'no' is a pivot — base fixed, look at the sign-on; sign-on capped, look at equity or a six-month review in writing. Leverage stays honest: 'final rounds elsewhere' without an ultimatum." }
+    - { speaker: Rachel, text: "And the close: 'can you meet me in the middle?' — then 'I'll take it' only once the package is final, confirmed by the written accept email the same night." }
+  questions:
+    - { id: M31-04-l1, type: multiple_choice, prompt: "As cinco fases da ligação são…", options: ["pedido → discussão → fecho", "entusiasmo → leitura → pedido → pivôs → fecho", "silêncio → ultimato → aceite", "apresentação → perguntas → talvez"], answer: 1, explanation: "A sequência das três aulas juntas.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-04-l2, type: fill_blank, prompt: "Can you meet me in the ___ at $155k?", accepted: ["middle"], explanation: "A concessão mútua.", tags: [vocab.compensation] }
+    - { id: M31-04-l3, type: error_correction, prompt: "My actual salary is $140k.", accepted: ["My current salary is $140k.", "My current salary is $140k"], explanation: "'Current'.", tags: [br.actual-current] }
+    - { id: M31-04-l4, type: multiple_choice, prompt: "O 'top of the band' no base significa…", options: ["fim da negociação", "pivô para sign-on, equity ou revisão por escrito", "aceitar na hora", "pedir demissão"], answer: 1, explanation: "O 'não' numa peça abre as outras.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-04-l5, type: multiple_choice, prompt: "O aceite verbal vale…", options: ["sempre", "nunca", "só com testemunhas", "só depois que o pacote fecha — e o e-mail confirma tudo"], answer: 3, explanation: "'I'll take it' vem no fim, e o escrito confirma.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-04-l6, type: multiple_choice, prompt: "A alavancagem na simulação é…", options: ["'final rounds elsewhere' — transparente, sem ultimato", "um blefe", "uma ameaça de sair", "segredo"], answer: 0, explanation: "Informação honesta, não ameaça.", tags: [comp.listening, vocab.compensation] }
+
+writing:
+  prompt: |
+    **Cenário:** a ligação terminou — $150k base,
+    $25k→$30k sign-on, $90k RSUs, revisão de 6
+    meses por escrito. Agora o e-mail de aceite
+    e a autoavaliação da simulação.
+
+    **Tarefa:** escreva 100–130 palavras em duas
+    partes: (1) o e-mail de aceite com cada número
+    confirmado por escrito e o próximo passo;
+    (2) três linhas de autoavaliação pela rubrica —
+    o que foi bem (pivôs, alavancagem) e o que
+    melhorar na próxima negociação.
+  constraints:
+    - { label: "O aceite com números", pattern: "\\baccept|base|bonus|rsu|sign.on|pto|start|confirming|thrilled\\b" }
+    - { label: "A revisão por escrito", pattern: "\\bsix.month|review|in writing|written\\b" }
+    - { label: "A autoavaliação", pattern: "\\bwent well|pivot|next time|improve|better|self|hindsight\\b" }
+    - { label: "O próximo passo", pattern: "\\bsign|paperwork|onboarding|get back|by (tonight|tomorrow|monday)\\b" }
+  rubric:
+    - "O aceite confirma cada número + a revisão por escrito"
+    - "Autoavaliação nomeia um pivô que funcionou"
+    - "Um ponto de melhoria concreto"
+    - "Sem calques ('current salary', 'job offer', 'vacation days')"
+  model: >-
+    The accept email: "Rachel — I'm thrilled to
+    accept the offer for Senior Platform Engineer.
+    Confirming: $150k base, 15% target bonus, $90k
+    in RSUs over four years, $30k sign-on,
+    unlimited PTO, the six-month compensation
+    review in writing, start date March 3rd. I'll
+    sign the paperwork the day it arrives." The
+    self-review: what went well — the pivots
+    turned three 'nos' into sign-on, equity and
+    the written review; the leverage stayed honest.
+    What to improve next time — I named my target
+    base before asking about the band; asking
+    first would have anchored higher. Still, the
+    package closed at ~$195k annualized plus
+    sign-on — a negotiation worth the twenty
+    minutes.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.compensation]
+
+speaking:
+  modeA:
+    prompt: "Grave 120 segundos: a ligação de negociação comprimida — abertura com entusiasmo, leitura do pacote, o pedido ('I was hoping for $160k given…'), dois pivôs do 'não' (sign-on, revisão por escrito), a alavancagem honesta, e o fecho ('I'll take it' + e-mail de aceite hoje à noite)."
+    maxSeconds: 120
+    targetPhrases:
+      - i'm excited about the role
+      - let me make sure i read this right
+      - i was hoping for
+      - given the on-call scope
+      - the top of the band
+      - could we look at the sign-on instead
+      - close the gap
+      - flexibility on the equity
+      - six-month review in writing
+      - i want to be transparent
+      - final rounds elsewhere
+      - meet me in the middle
+      - annualized
+      - i'll take it
+      - get back to you tomorrow
+      - confirming the details
+    checklist:
+      - "as cinco fases na ordem"
+      - "pelo menos dois pivôs do 'não'"
+      - "a revisão por escrito exigida"
+      - "'I'll take it' só depois do pacote fechar"
+      - "sem calques ('current salary', 'job offer', 'vacation days', 'pretension')"
+
+quiz:
+  - { id: M31-04-q1, type: multiple_choice, prompt: "A primeira fala da ligação é…", options: ["o entusiasmo — 'I'm excited about the role, I want to make it work'", "o pedido", "a alavancagem", "o ultimato"], answer: 0, explanation: "Entusiasmo primeiro — sempre.", tags: [vocab.compensation] }
+  - { id: M31-04-q2, type: error_correction, prompt: "I'd like more vacations in writing.", accepted: ["I'd like more vacation days in writing.", "I'd like more vacation days in writing", "I'd like more PTO in writing."], explanation: "'Vacation days/PTO'.", tags: [br.more-vacations] }
+  - { id: M31-04-q3, type: multiple_choice, prompt: "Quando o base está no 'top of the band', o movimento é…", options: ["desistir", "insistir no mesmo número", "pivotar para sign-on, equity ou revisão por escrito", "ameaçar sair"], answer: 2, explanation: "O 'não' numa peça abre as outras.", tags: [vocab.compensation] }
+  - { id: M31-04-q4, type: fill_blank, prompt: "Could we add a six-month compensation review ___ writing?", accepted: ["in"], explanation: "Promessa verbal não entra no pacote.", tags: [vocab.compensation] }
+  - { id: M31-04-q5, type: multiple_choice, prompt: "'Meet me in the middle' é…", options: ["um ultimato", "uma desculpa", "uma recusa", "a concessão mútua — o fecho da negociação"], answer: 3, explanation: "Pedir a concessão como gesto mútuo.", tags: [vocab.compensation] }
+  - { id: M31-04-q6, type: error_correction, prompt: "I'd win more at the other company.", accepted: ["I'd earn more at the other company.", "I'd earn more at the other company", "I'd make more at the other company."], explanation: "'Earn/make'.", tags: [br.win-money] }
+  - { id: M31-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["take", "i'll", "it", "writing", "in", "review", "the", "with"], answer: "with the review in writing i'll take it", explanation: "O aceite depois do pacote fechar.", tags: [vocab.compensation] }
+  - { id: M31-04-q8, type: multiple_choice, prompt: "A autoavaliação da simulação se faz…", options: ["de memória", "pela rubrica — um critério por passada, ouvindo a gravação", "só no fim do mês", "pelo recrutador"], answer: 1, explanation: "Um critério por passada.", tags: [vocab.compensation] }
+
+srsCards:
+  - { front: "let me make sure I read this right", back: "A leitura em voz alta antes de negociar.", tag: vocab.compensation }
+  - { front: "I want to be transparent", back: "A introdução da alavancagem honesta.", tag: vocab.compensation }
+  - { front: "the top of the band", back: "Onde o base para — hora do pivô.", tag: vocab.compensation }
+  - { front: "put it in writing", back: "A promessa que vale é a escrita.", tag: vocab.compensation }
+  - { front: "meet me in the middle", back: "A concessão mútua que fecha.", tag: vocab.compensation }
+  - { front: "I'll take it", back: "O aceite verbal depois do pacote fechar.", tag: vocab.compensation }
+  - { front: "a six-month review", back: "O compromisso futuro por escrito.", tag: vocab.compensation }
+  - { front: "close the gap", back: "O que o sign-on faz pelo ano um.", tag: vocab.compensation }
+  - { front: "weighing both offers", back: "A posição honesta sem detalhe demais.", tag: vocab.compensation }
+  - { front: "it's a good problem to have", back: "Duas ofertas fortes — o tom leve.", tag: vocab.compensation }
+  - { front: "rushed yes", back: "O que se evita pedindo tempo.", tag: vocab.compensation }
+  - { front: "welcome aboard", back: "O que você quer ouvir no fim.", tag: vocab.compensation }
+
+review:
+  preferTags: [vocab.compensation, br.actual-current, br.win-money, br.more-vacations]
+  notes: "Revisão prioriza as cinco fases e os pivôs."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
