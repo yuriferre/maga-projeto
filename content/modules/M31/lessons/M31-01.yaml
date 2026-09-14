@@ -1,0 +1,319 @@
+id: M31-01
+module: M31
+order: 1
+title: "Componentes de oferta: base, bonus, equity, benefits, PTO, sign-on"
+objective: >-
+  Ao final, você sabe ler uma oferta inteira —
+  base, bônus, equity, benefícios, PTO, sign-on —
+  e comparar pacotes pelo valor total, não só
+  pelo salário-base.
+durationMin: 30
+competencies: [SPK, REA, WRI]
+tags: [vocab.compensation, comp.speaking, comp.reading]
+prerequisites: [M28-04]
+
+context:
+  scenario: |
+    A oferta chegou — e ela nunca é só o salário.
+    O pacote tem seis peças:
+
+    - **Base salary** — o salário-base anual,
+      o número que ancoram em você.
+    - **Bonus** — bônus anual, normalmente % do
+      base ("10% target bonus"); pergunte se é
+      garantido ou discricionário.
+    - **Equity** — RSUs ou stock options;
+      pergunte o **vesting** (4 anos, cliff de 1)
+      e o strike/valuation.
+    - **Sign-on bonus** — o bônus de entrada,
+      usado para fechar gaps do ano um.
+    - **Benefits** — health insurance, 401(k),
+      relocation, learning budget.
+    - **PTO** — paid time off: férias + sick
+      days; "unlimited PTO" merece pergunta
+      ("quanto as pessoas realmente tiram?").
+
+    A conta certa é o **total compensation**
+    (base + bônus + equity anualizado + sign-on),
+    não o base isolado. E tudo se compara por
+    ano, não por pacote bruto.
+
+    O erro do brasileiro: comparar o base com o
+    salário BR atual sem converter a estrutura —
+    equity e vesting não têm tradução direta.
+  roles: [Yuri (platform engineer), Rachel (recruiter)]
+
+vocabulary:
+  - term: "base salary"
+    meaning: 'salário-base — o componente fixo anual'
+    example: "The base salary is $150k — the rest is bonus and equity."
+    translation: "O salário-base é $150k — o resto é bônus e equity."
+    note: "O número que ancoram — mas não é a conta toda."
+  - term: "total compensation (TC)"
+    meaning: 'remuneração total — base + bônus + equity anualizado'
+    example: "Total comp comes to about $210k a year, not just the base."
+    translation: "A remuneração total dá uns $210k por ano, não só o base."
+    note: "A comparação certa é TC por ano."
+  - term: "sign-on bonus"
+    meaning: 'bônus de entrada — pago no início para fechar gaps'
+    example: "They added a $20k sign-on bonus to cover the first-year gap."
+    translation: "Adicionaram $20k de bônus de entrada para cobrir o gap do primeiro ano."
+    note: "Compensa equity que vem só depois."
+  - term: "equity / RSUs / stock options"
+    meaning: 'participação acionária — RSUs ou opções de ações'
+    example: "The offer includes $80k in RSUs vesting over four years."
+    translation: "A oferta inclui $80k em RSUs com vesting de quatro anos."
+    note: "RSU = ação que veste; option = direito de comprar."
+  - term: "vesting / cliff"
+    meaning: 'vesting / cliff — o cronograma de liberacao do equity'
+    example: "Four-year vesting with a one-year cliff — nothing before year one."
+    translation: "Vesting de quatro anos com cliff de um — nada antes do primeiro ano."
+    note: "Cliff = o marco mínimo antes de receber qualquer parte."
+  - term: "target bonus"
+    meaning: 'bônus-alvo — o percentual esperado do base'
+    example: "There's a 15% target bonus — is it guaranteed or discretionary?"
+    translation: "Há um bônus-alvo de 15% — é garantido ou discricionário?"
+    note: "Pergunte sempre: garantido ou discricionário."
+  - term: "PTO (paid time off)"
+    meaning: 'tempo livre remunerado — férias + sick days juntos'
+    example: "The package has 25 days of PTO plus holidays."
+    translation: "O pacote tem 25 dias de PTO mais feriados."
+    note: "Nos EUA, férias e sick days vêm no mesmo balaio."
+  - term: "unlimited PTO"
+    meaning: 'PTO ilimitado — merece a pergunta de quanto as pessoas tiram'
+    example: "Unlimited PTO sounds great — how much do people actually take?"
+    translation: "PTO ilimitado parece ótimo — quanto as pessoas realmente tiram?"
+    note: "Pergunte a média real — ilimitado pode virar zero."
+  - term: "benefits package"
+    meaning: 'pacote de benefícios — saúde, 401(k), relocation'
+    example: "The benefits package covers health insurance and 401(k) matching."
+    translation: "O pacote de benefícios cobre plano de saúde e matching de 401(k)."
+    note: "'Health insurance' — não 'health plan'."
+  - term: "401(k) match"
+    meaning: 'contribuição do empregador na aposentadoria'
+    example: "They match 50% of 401(k) contributions up to 6%."
+    translation: "Eles dão match de 50% nas contribuições do 401(k) até 6%."
+    note: "Dinheiro grátis — o match conta no TC."
+  - term: "relocation package"
+    meaning: 'pacote de mudança — custos de realocação cobertos'
+    example: "The relocation package covers the move plus two months of housing."
+    translation: "O pacote de mudança cobre a mudança mais dois meses de moradia."
+    note: "Se houver visto/realocação, entra na negociação."
+  - term: "annualized"
+    meaning: 'anualizado — o equity dividido por ano para comparar'
+    example: "Annualized, the equity adds about $20k a year to the package."
+    translation: "Anualizado, o equity soma uns $20k por ano ao pacote."
+    note: "A forma certa de somar equity ao TC."
+
+grammar:
+  title: "a gramática dos números de oferta"
+  explanation: |
+    Os componentes têm preposições próprias:
+
+    - "**base salary is** $150k" / "**a 15%
+      target bonus**" — % com "target".
+    - "**equity vesting over four years**",
+      "**a one-year cliff**".
+    - "**$20k sign-on**", "**25 days of PTO**",
+      "**401(k) match up to 6%**".
+    - "**annualized, that's $X a year**" — a
+      conta de comparação.
+
+    E as perguntas de leitura:
+
+    - "**Is the bonus guaranteed or
+      discretionary?**"
+    - "**How much PTO do people actually
+      take?**" (para "unlimited").
+    - "**What's the vesting schedule?**"
+  examples:
+    - { en: "The base is $150k, plus a 15% target bonus and $80k in RSUs.", pt: "O base é $150k, mais bônus-alvo de 15% e $80k em RSUs." }
+    - { en: "Four-year vesting with a one-year cliff — nothing before year one.", pt: "Vesting de quatro anos com cliff de um — nada antes do ano um." }
+    - { en: "Annualized, that's about $210k a year in total comp.", pt: "Anualizado, dá uns $210k por ano de remuneração total." }
+    - { en: "Is the bonus guaranteed or discretionary?", pt: "O bônus é garantido ou discricionário?" }
+    - { en: "Unlimited PTO — how much do people actually take?", pt: "PTO ilimitado — quanto as pessoas realmente tiram?" }
+    - { en: "They match 50% of 401(k) contributions up to 6%.", pt: "Dão match de 50% no 401(k) até 6%." }
+
+examples:
+  - en: "The base salary is $150k — the rest is bonus and equity."
+    pt: "O salário-base é $150k — o resto é bônus e equity."
+    context: "O número de abertura."
+  - en: "Total comp comes to about $210k a year, not just the base."
+    pt: "A remuneração total dá uns $210k por ano."
+    context: "A conta certa."
+  - en: "They added a $20k sign-on to cover the first-year equity gap."
+    pt: "Adicionaram $20k de sign-on para o gap de equity do ano um."
+    context: "O bônus de entrada."
+  - en: "The offer includes $80k in RSUs vesting over four years, one-year cliff."
+    pt: "A oferta inclui $80k em RSUs com vesting de quatro anos, cliff de um."
+    context: "Equity com o cronograma."
+  - en: "Is the 15% target bonus guaranteed or discretionary?"
+    pt: "O bônus-alvo de 15% é garantido ou discricionário?"
+    context: "A pergunta que sempre se faz."
+  - en: "Unlimited PTO sounds great — how much do people actually take?"
+    pt: "PTO ilimitado parece ótimo — quanto as pessoas realmente tiram?"
+    context: "A pergunta sobre o ilimitado."
+  - en: "The benefits cover health insurance and 50% 401(k) match up to 6%."
+    pt: "Os benefícios cobrem saúde e match de 50% no 401(k) até 6%."
+    context: "O pacote de benefícios."
+  - en: "The relocation package covers the move plus two months of housing."
+    pt: "O pacote de mudança cobre a mudança mais dois meses de moradia."
+    context: "Realocação na negociação."
+
+variations:
+  - idea: '"ler a oferta"'
+    items:
+      - { register: "Forte", text: "Let me annualize this — base plus bonus plus equity over four years.", adequate: true }
+      - { register: "Forte", text: "Is the bonus guaranteed or discretionary?", adequate: true }
+      - { register: "Fraco", text: "The base is lower than I make now — no.", adequate: false, note: "Comparar só o base ignora equity, bônus e sign-on." }
+      - { register: "Fraco", text: "Unlimited PTO — amazing, accepted.", adequate: false, note: "Ilimitado sem a pergunta 'quanto tiram?' pode valer zero." }
+  - idea: '"o equity"'
+    items:
+      - { register: "Forte", text: "$80k in RSUs, four-year vesting, one-year cliff — what's the strike or valuation?", adequate: true }
+      - { register: "Forte", text: "Annualized, that's $20k a year — let me add it to the TC.", adequate: true }
+      - { register: "Fraco", text: "Equity is just paper — I ignore it.", adequate: false, note: "Equity conta — anualize e some ao TC." }
+      - { register: "Fraco", text: "Vesting? Sure, whatever it is.", adequate: false, note: "O cronograma decide quando o dinheiro é seu." }
+
+brErrors:
+  - { wrong: "My actual salary is $120k.", right: "My current salary is $120k.", why: "current", tag: br.actual-current }
+  - { wrong: "I got a job proposal yesterday.", right: "I got a job offer yesterday.", why: "job offer", tag: br.job-proposal }
+  - { wrong: "I want more vacations in the package.", right: "I want more vacation days in the package.", why: "vacation days/PTO", tag: br.more-vacations }
+  - { wrong: "In Brazil we have a thirteenth salary.", right: "In Brazil we have a 13th-month bonus.", why: "13th-month bonus", tag: br.thirteenth-salary }
+  - { wrong: "My salary pretension is $150k.", right: "My salary expectations are around $150k.", why: "expectations", tag: br.pretension }
+  - { wrong: "I win a good salary here.", right: "I earn a good salary here.", why: "earn", tag: br.win-money }
+  - { wrong: "I have interest in the offer.", right: "I'm interested in the offer.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I need to give two weeks advice.", right: "I need to give two weeks' notice.", why: "notice", tag: br.advice-notice }
+  - { wrong: "We discussed about the package.", right: "We discussed the package.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision the equity is small.", right: "In my view the equity is small.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "Lendo a oferta peça por peça"
+  lines:
+    - { speaker: Rachel, text: "Here's the offer: base $150k, 15% target bonus, $80k in RSUs, plus a $20k sign-on." }
+    - { speaker: Yuri, text: "Thanks — let me read it properly. Is the 15% bonus guaranteed or discretionary?" }
+    - { speaker: Rachel, text: "Target — paid out the last three years at or above." }
+    - { speaker: Yuri, text: "Got it. And the RSUs — what's the vesting schedule?" }
+    - { speaker: Rachel, text: "Four-year vesting, one-year cliff." }
+    - { speaker: Yuri, text: "So annualized: $150k base, ~$22k bonus, $20k equity — that's about $192k total comp, plus the sign-on in year one. Am I reading that right?" }
+    - { speaker: Rachel, text: "Exactly right — most candidates never do that math." }
+    - { speaker: Yuri, text: "Two more: the PTO is listed as unlimited — how much do people actually take? And the benefits — health insurance and 401(k) match?" }
+    - { speaker: Rachel, text: "People take about four weeks. Health is covered; we match 50% up to 6%." }
+    - { speaker: Yuri, text: "That's a complete picture. I'll review it against my other conversations and get back to you by Friday." }
+    - { speaker: Rachel, text: "Perfect — that's exactly how an offer should be read." }
+  notes:
+    - "a leitura em camadas: base → bônus (garantido?) → equity (vesting?) → anualizar → TC."
+    - "'unlimited PTO' merece a pergunta de quanto as pessoas realmente tiram."
+    - "o fecho: revisar + data de retorno — nunca aceite na hora."
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "An offer is never just the base salary. Six pieces: base, target bonus, equity — RSUs or options, with a vesting schedule and a cliff — sign-on bonus, benefits like health insurance and 401(k) match, and PTO." }
+    - { speaker: Yuri, text: "The right comparison is total compensation, annualized — base plus bonus plus equity per year. Two questions always: is the bonus guaranteed or discretionary, and for unlimited PTO, how much do people actually take." }
+    - { speaker: Rachel, text: "And the Brazilian mistake: comparing the base to a BR salary without converting the structure — equity and vesting don't translate directly. Never accept on the spot — 'I'll review it and get back to you by Friday'." }
+  questions:
+    - { id: M31-01-l1, type: multiple_choice, prompt: "A comparação certa entre ofertas é…", options: ["o total compensation anualizado — base + bônus + equity/ano", "só o base", "só o equity", "só os benefícios"], answer: 0, explanation: "TC por ano — nunca o base isolado.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-01-l2, type: fill_blank, prompt: "Four-year ___ with a one-year cliff.", accepted: ["vesting"], explanation: "O cronograma do equity.", tags: [vocab.compensation] }
+    - { id: M31-01-l3, type: error_correction, prompt: "My actual salary is $120k.", accepted: ["My current salary is $120k.", "My current salary is $120k"], explanation: "'Current' — 'actual' é real/de verdade.", tags: [br.actual-current] }
+    - { id: M31-01-l4, type: multiple_choice, prompt: "'Unlimited PTO' merece a pergunta…", options: ["'quanto é o salário?'", "'posso acumular?'", "nenhuma — é sempre bom", "'quanto as pessoas realmente tiram?'"], answer: 3, explanation: "Ilimitado pode valer zero na prática.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-01-l5, type: multiple_choice, prompt: "A pergunta certa sobre o bônus é…", options: ["'é alto?'", "'é garantido ou discricionário?'", "'quando vem?'", "'é em dinheiro?'"], answer: 1, explanation: "Target bonus ≠ bônus garantido.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-01-l6, type: multiple_choice, prompt: "O erro do brasileiro ao ler a oferta é…", options: ["pedir demais", "ler devagar", "comparar o base com o salário BR sem converter a estrutura", "não ler"], answer: 2, explanation: "Equity e vesting não têm tradução direta.", tags: [comp.listening, vocab.compensation] }
+
+writing:
+  prompt: |
+    **Cenário:** a oferta chegou por e-mail e o
+    coach pediu por escrito a sua leitura dela —
+    antes de responder qualquer coisa.
+
+    **Tarefa:** escreva 90–120 palavras: a leitura
+    da oferta — os componentes presentes, o TC
+    anualizado, as duas perguntas que você faria
+    (bônus garantido? PTO real?) e o que falta
+    saber antes de decidir.
+  constraints:
+    - { label: "Os componentes", pattern: "\\bbase|bonus|equity|rsu|sign.on|pto|benefits|401\\b" }
+    - { label: "O TC anualizado", pattern: "\\btotal comp|annualized|per year|a year|comes to\\b" }
+    - { label: "As perguntas", pattern: "\\bguaranteed|discretionary|vesting|cliff|actually take\\b" }
+    - { label: "O que falta", pattern: "\\bneed to know|missing|before i decide|get back|review\\b" }
+  rubric:
+    - "TC anualizado, não só o base"
+    - "As perguntas de leitura presentes"
+    - "Sem aceite na hora — revisar e dar prazo"
+    - "Sem calques ('current salary', 'job offer', 'vacation days')"
+  model: >-
+    Reading the offer before answering. The
+    pieces: $150k base, 15% target bonus, $80k
+    in RSUs, $20k sign-on, unlimited PTO.
+    Annualized: roughly $192k total comp plus the
+    sign-on — that's the number that matters, not
+    the base alone. Two questions before I decide:
+    is the bonus guaranteed or discretionary, and
+    for the unlimited PTO, how much do people
+    actually take? What I still need: the vesting
+    schedule on the RSUs and the 401(k) match
+    details. Then I'll review it against my other
+    conversations and get back by Friday — never
+    accept on the spot.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.compensation]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: leia uma oferta em voz alta — nomeie os componentes, anualize o TC, faça as duas perguntas de leitura (bônus garantido? PTO real?), e feche com 'I'll review it and get back to you by Friday'."
+    maxSeconds: 90
+    targetPhrases:
+      - base salary
+      - total compensation
+      - target bonus
+      - guaranteed or discretionary
+      - equity
+      - rsus
+      - vesting
+      - one-year cliff
+      - sign-on bonus
+      - annualized
+      - unlimited pto
+      - how much do people actually take
+      - benefits package
+      - 401k match
+      - i'll review it and get back to you
+      - health insurance
+    checklist:
+      - "os seis componentes nomeados"
+      - "o TC anualizado calculado"
+      - "as duas perguntas de leitura"
+      - "o fecho com prazo, sem aceite na hora"
+      - "sem calques ('current salary', 'job offer', 'vacation days', 'expectations')"
+
+quiz:
+  - { id: M31-01-q1, type: multiple_choice, prompt: "O número que importa numa oferta é…", options: ["o base", "o sign-on", "o equity bruto", "o total compensation anualizado"], answer: 3, explanation: "TC/ano — base + bônus + equity anualizado.", tags: [vocab.compensation] }
+  - { id: M31-01-q2, type: error_correction, prompt: "I got a job proposal yesterday.", accepted: ["I got a job offer yesterday.", "I got a job offer yesterday", "I got an offer yesterday."], explanation: "'Job offer'.", tags: [br.job-proposal] }
+  - { id: M31-01-q3, type: multiple_choice, prompt: "'Four-year vesting, one-year cliff' significa…", options: ["tudo de uma vez", "nada antes do ano um, depois liberação gradual", "só no fim", "todo mês desde o dia um"], answer: 1, explanation: "Cliff = marco mínimo antes de receber.", tags: [vocab.compensation] }
+  - { id: M31-01-q4, type: fill_blank, prompt: "Is the bonus guaranteed or ___?", accepted: ["discretionary"], explanation: "A pergunta que sempre se faz sobre o bônus.", tags: [vocab.compensation] }
+  - { id: M31-01-q5, type: multiple_choice, prompt: "'Unlimited PTO' na prática…", options: ["é sempre melhor", "pode valer zero — pergunte quanto as pessoas realmente tiram", "não existe", "é proibido"], answer: 1, explanation: "A média real é o que conta.", tags: [vocab.compensation] }
+  - { id: M31-01-q6, type: error_correction, prompt: "I want more vacations in the package.", accepted: ["I want more vacation days in the package.", "I want more vacation days in the package", "I want more PTO in the package."], explanation: "'Vacation days/PTO'.", tags: [br.more-vacations] }
+  - { id: M31-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["review", "i'll", "it", "and", "get", "back", "to", "you"], answer: "i'll review it and get back to you", explanation: "Nunca aceite na hora.", tags: [vocab.compensation] }
+  - { id: M31-01-q8, type: multiple_choice, prompt: "O sign-on bonus serve para…", options: ["pagar impostos", "fechar o gap do primeiro ano — equity vem só depois", "comprar equipamento", "pagar o relocation"], answer: 1, explanation: "Compensa o que só vem depois.", tags: [vocab.compensation] }
+
+srsCards:
+  - { front: "base salary", back: "O componente fixo — não é a conta toda.", tag: vocab.compensation }
+  - { front: "total compensation (TC)", back: "Base + bônus + equity anualizado — a comparação certa.", tag: vocab.compensation }
+  - { front: "sign-on bonus", back: "O bônus de entrada que fecha o gap do ano um.", tag: vocab.compensation }
+  - { front: "equity / RSUs / stock options", back: "A participação — RSU veste, option é direito de compra.", tag: vocab.compensation }
+  - { front: "vesting / cliff", back: "O cronograma — nada antes do cliff.", tag: vocab.compensation }
+  - { front: "target bonus", back: "O % esperado — pergunte se é garantido.", tag: vocab.compensation }
+  - { front: "PTO (paid time off)", back: "Férias + sick days no mesmo balaio.", tag: vocab.compensation }
+  - { front: "unlimited PTO", back: "Pergunte quanto as pessoas realmente tiram.", tag: vocab.compensation }
+  - { front: "benefits package", back: "Health insurance, 401(k), relocation.", tag: vocab.compensation }
+  - { front: "401(k) match", back: "Dinheiro grátis — conta no TC.", tag: vocab.compensation }
+  - { front: "relocation package", back: "Custos de mudança cobertos.", tag: vocab.compensation }
+  - { front: "annualized", back: "Equity dividido por ano para comparar.", tag: vocab.compensation }
+
+review:
+  preferTags: [vocab.compensation, br.actual-current, br.job-proposal, br.more-vacations]
+  notes: "Revisão prioriza os componentes e o TC anualizado."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
