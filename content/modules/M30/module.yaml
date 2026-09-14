@@ -1,0 +1,8 @@
+id: M30
+assessment:
+  title: Module assessment
+  description: "Pensar em voz alta, requisitos, system design e troubleshooting — 15 itens, escrita e fala."
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
