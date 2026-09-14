@@ -621,3 +621,38 @@ describe("M17 assessment variants", () => {
     expect(checkExercise(q, "The call dropped — the item is due until Friday.").correct).toBe(false);
   });
 });
+
+describe("M18 assessment variants", () => {
+  const m18 = bundle.moduleAssessments["M18"]!;
+  it("accepts 'rose' and 'went up' but rejects 'raised' on A02", () => {
+    const q = m18.items.find((q) => q.id === "M18-A02")!;
+    expect(checkExercise(q, "Error rate rose to 4% after the release.").correct).toBe(true);
+    expect(checkExercise(q, "Error rate went up to 4% after the release.").correct).toBe(true);
+    expect(checkExercise(q, "Error rate raised to 4% after the release.").correct).toBe(false);
+  });
+  it("requires 'at 95%' on A05", () => {
+    const q = m18.items.find((q) => q.id === "M18-A05")!;
+    expect(checkExercise(q, "Disk usage is at 95% — we're out of headroom.").correct).toBe(true);
+    expect(checkExercise(q, "Disk usage is in 95% — we're out of headroom.").correct).toBe(false);
+  });
+  it("requires 'availability is' on A07", () => {
+    const q = m18.items.find((q) => q.id === "M18-A07")!;
+    expect(checkExercise(q, "Availability is 99.95% this quarter.").correct).toBe(true);
+    expect(checkExercise(q, "We have an availability of 99.95% this quarter.").correct).toBe(false);
+  });
+  it("requires 'exceeded' on A09", () => {
+    const q = m18.items.find((q) => q.id === "M18-A09")!;
+    expect(checkExercise(q, "Demand exceeded capacity during the launch.").correct).toBe(true);
+    expect(checkExercise(q, "Demand overpassed capacity during the launch.").correct).toBe(false);
+  });
+  it("requires the weekday fix on A11", () => {
+    const q = m18.items.find((q) => q.id === "M18-A11")!;
+    expect(checkExercise(q, "Monday's outage burned half the budget.").correct).toBe(true);
+    expect(checkExercise(q, "The outage of Monday burned half the budget.").correct).toBe(false);
+  });
+  it("requires 'burning' on A13", () => {
+    const q = m18.items.find((q) => q.id === "M18-A13")!;
+    expect(checkExercise(q, "We're burning the error budget fast.").correct).toBe(true);
+    expect(checkExercise(q, "We're spending the error budget fast.").correct).toBe(false);
+  });
+});

@@ -1,0 +1,76 @@
+# Avaliação do módulo M18: 15 itens cobrindo as cinco aulas + escrita (análise de degradação) + fala.
+id: M18
+title: "Avaliação do módulo M18: Observabilidade, SLOs e performance"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M18-A01, type: multiple_choice, prompt: "Which pillar answers 'where did this request go'?", options: ["the trace — each hop is a span", "the metric — a number over time", "the log — a timestamped event", "the dashboard"], answer: 0, explanation: "Trace = o caminho do request.", tags: [vocab.observability] }
+  - { id: M18-A02, type: error_correction, prompt: "Error rate raised to 4% after the release.", accepted: ["Error rate rose to 4% after the release.", "Error rate went up to 4% after the release.", "The error rate rose to 4% after the release."], explanation: '"rose/went up" — "raise" pede objeto.', tags: [br.metric-raised] }
+  - { id: M18-A03, type: fill_blank, prompt: "Request rate dropped ___ 8k to 3k during the deploy freeze.", accepted: ["from"], explanation: "'from X to Y'.", tags: [gram.describing-trends] }
+  - { id: M18-A04, type: multiple_choice, prompt: "The SLO differs from the SLA because…", options: ["they're synonyms", "the SLO is yearly", "the SLO is the tighter internal target; the SLA is the external contract", "the SLA has no numbers"], answer: 2, explanation: "SLO interno e mais apertado; SLA é o contrato.", tags: [vocab.slo] }
+  - { id: M18-A05, type: error_correction, prompt: "Disk usage is in 95% — we're out of headroom.", accepted: ["Disk usage is at 95% — we're out of headroom.", "Disk usage is at 95% — we're out of headroom"], explanation: '"at 95%".', tags: [br.in-percent] }
+  - { id: M18-A06, type: multiple_choice, prompt: "Requests waiting behind an exhausted pool are…", options: ["dropped", "queuing up — the latency is the wait, not the work", "lost forever", "retried automatically"], answer: 1, explanation: "A fila explica a latência.", tags: [vocab.observability] }
+  - { id: M18-A07, type: error_correction, prompt: "We have an availability of 99.95% this quarter.", accepted: ["Availability is 99.95% this quarter.", "Availability is 99.95% this quarter", "The availability is 99.95% this quarter."], explanation: '"availability is".', tags: [br.have-a-latency] }
+  - { id: M18-A08, type: fill_blank, prompt: "We're ___ SLO this month — but the budget is thin.", accepted: ["within"], explanation: '"within SLO" — nunca "in the SLO".', tags: [vocab.slo] }
+  - { id: M18-A09, type: error_correction, prompt: "Demand overpassed capacity during the launch.", accepted: ["Demand exceeded capacity during the launch.", "Demand exceeded capacity during the launch"], explanation: '"exceeded".', tags: [br.overpassed] }
+  - { id: M18-A10, type: multiple_choice, prompt: "The line climbed for twenty minutes, then stayed at a high level — it…", options: ["spiked", "dipped", "flatlined", "plateaued"], answer: 3, explanation: "Subiu e ficou num patamar.", tags: [gram.describing-trends] }
+  - { id: M18-A11, type: error_correction, prompt: "The outage of Monday burned half the budget.", accepted: ["Monday's outage burned half the budget.", "Monday's outage burned half the budget", "The outage on Monday burned half the budget."], explanation: '"Monday''s outage".', tags: [br.of-weekday] }
+  - { id: M18-A12, type: translate, prompt: "A latência subiu de 200ms para 800ms logo depois do deploy.", accepted: ["Latency went from 200ms to 800ms right after the deploy.", "The latency went from 200ms to 800ms right after the deploy.", "Latency rose from 200ms to 800ms right after the deploy."], explanation: '"went/rose from X to Y".', tags: [gram.describing-trends] }
+  - { id: M18-A13, type: error_correction, prompt: "We're spending the error budget fast.", accepted: ["We're burning the error budget fast.", "We're burning the error budget fast", "We're burning error budget fast."], explanation: 'O verbo é "burn".', tags: [vocab.slo] }
+  - { id: M18-A14, type: multiple_choice, prompt: "'The job is I/O-bound' means…", options: ["it uses no disk", "disk or network is the ceiling — more CPU won't help", "the job is fast", "the job crashed"], answer: 1, explanation: "O recurso nomeia o teto.", tags: [vocab.observability] }
+  - { id: M18-A15, type: match, prompt: "Associe o pilar à pergunta que ele responde.", pairs: [{ left: "metrics", right: "how much, how fast" }, { left: "logs", right: "what happened" }, { left: "traces", right: "where the request went" }, { left: "burn rate", right: "how fast the budget is spent" }], explanation: "Cada pilar tem sua pergunta.", tags: [vocab.observability, vocab.slo] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** a análise de degradação da review,
+    por escrito, no doc da reunião.
+
+    **Tarefa:** escreva 80–110 palavras com as quatro batidas:
+    o quê (o que degradou e quando), onde no gráfico (o movimento
+    com valores e âncora), o gargalo (o recurso saturado e a fila)
+    e o custo+correção (o que o error budget pagou e o que muda).
+  constraints:
+    - { label: "O 'what'", pattern: "\\bdegraded\\b" }
+    - { label: "Movimento no gráfico", pattern: "\\b(went from|plateaued|jumped|spiked|held steady)\\b" }
+    - { label: "O gargalo", pattern: "\\b(saturated|bottleneck|queued|capped|exhausted)\\b" }
+    - { label: "Custo ou correção", pattern: "\\b(burned|budget|drained|within SLO|what changes|takeaway)\\b" }
+  rubric:
+    - "As quatro batidas na ordem"
+    - "went from X to Y com âncora temporal"
+    - "O gargalo nomeado com a fila"
+    - "'what changes' com ação concreta"
+  model: >-
+    Payments p99 degraded for three hours on Wednesday. On the
+    graph it went from 300 to 900ms at 10:14, right after the
+    canary, and plateaued — no recovery. The bottleneck was the
+    thread pool: it saturated, requests queued up, and throughput
+    capped at 2k per second. Those three hours burned through a
+    quarter of the error budget — still within SLO, but thin.
+    Rolling back the canary drained the queue in two minutes.
+    What changes: the pool gets sized for peak, and a saturation
+    alert goes out this week.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, gram.describing-trends]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando a análise de degradação: o quê, onde no gráfico, o gargalo, o custo no budget e o que muda."
+  maxSeconds: 60
+  targetPhrases:
+    - let me walk you through
+    - degraded
+    - went from
+    - plateaued
+    - right after the deploy
+    - the bottleneck
+    - saturated
+    - queued up
+    - throughput capped
+    - hitting the limit
+    - within SLO
+    - burned through
+    - the queue drained
+    - the takeaway
+    - what changes
