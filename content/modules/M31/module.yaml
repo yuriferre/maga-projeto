@@ -1,0 +1,8 @@
+id: M31
+assessment:
+  title: Module assessment
+  description: "Componentes de oferta, negociação e respostas por escrito — 15 itens, escrita e fala."
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
