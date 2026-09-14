@@ -1,0 +1,324 @@
+id: M30-04
+module: M30
+order: 4
+title: "Troubleshooting em entrevista: the site is slow — walk me through"
+objective: >-
+  Ao final, você sabe responder a um cenário de
+  troubleshooting narrando a investigação —
+  sintoma → hipóteses → checagens → isolamento —
+  como faria num incidente real.
+durationMin: 30
+competencies: [SPK, LIS, CNF]
+tags: [vocab.sysdesign, vocab.troubleshoot, vocab.incident, comp.speaking]
+prerequisites: [M30-03]
+
+context:
+  scenario: |
+    A pergunta de troubleshooting é a mais SRE de
+    todas: "*the site is slow — walk me through
+    how you'd debug it*". Não há resposta certa —
+    há um **método certo**.
+
+    A estrutura da investigação narrada:
+
+    - **Definir o sintoma**: "*slow how — for
+      whom, since when, how slow?*" — esclarecer
+      vale aqui também.
+    - **Listar hipóteses antes de checar**:
+      "*my candidates: the DB, the network, a
+      bad deploy — let me rank them*".
+    - **Checar do mais provável/fácil**: "*first
+      I'd check the dashboards — is it us or
+      the edge?*"
+    - **Isolar por eliminação**: "*the API is
+      fine — that rules out the app tier*".
+    - **Narrar cada leitura**: "*latency's fine
+      at the edge but slow at the DB — so the
+      problem sits between*".
+
+    O que o entrevistador mede: **a ordem da
+    investigação** — sintoma → hipóteses →
+    checagens baratas → isolamento — e se você
+    narra cada passo.
+
+    O erro do brasileiro: pular direto para a
+    causa favorita ("é o banco!") sem mostrar
+    a eliminação — ou listar comandos sem
+    hipótese.
+  roles: [Yuri (platform engineer), Dana (staff engineer, interviewer)]
+
+vocabulary:
+  - term: "walk me through how you'd debug it"
+    meaning: 'me guie por como você depuraria — a pergunta de troubleshooting'
+    example: "The site is slow — walk me through how you'd debug it."
+    translation: "O site está lento — me guie por como você depuraria."
+    note: "A pergunta que abre o cenário de troubleshooting."
+  - term: "slow how — for whom, since when?"
+    meaning: 'lento como — para quem, desde quando? — definir o sintoma'
+    example: "First, slow how — for all users or one region? Since when?"
+    translation: "Primeiro, lento como — para todos ou uma região? Desde quando?"
+    note: "Esclarecer vale no troubleshooting também."
+  - term: "my candidates are…"
+    meaning: 'meus candidatos são… — listar hipóteses antes de checar'
+    example: "My candidates: the DB, the network, a bad deploy — let me rank them."
+    translation: "Meus candidatos: o banco, a rede, um deploy ruim — deixe-me ordená-los."
+    note: "Hipóteses nomeadas antes de qualquer comando."
+  - term: "first I'd check the dashboards"
+    meaning: 'primeiro eu checaria os dashboards — a checagem mais barata'
+    example: "First I'd check the dashboards — is it us or the edge?"
+    translation: "Primeiro eu checaria os dashboards — somos nós ou a borda?"
+    note: "Da checagem mais barata/provável para a cara."
+  - term: "is it us or the edge?"
+    meaning: 'somos nós ou a borda? — a primeira bissecção'
+    example: "The first bisect: is it us or the edge — check CDN vs origin latency."
+    translation: "A primeira bissecção: somos nós ou a borda — latência do CDN vs origem."
+    note: "Bissecção: cortar o espaço do problema ao meio."
+  - term: "that rules out the app tier"
+    meaning: 'isso elimina a camada de app — isolar por eliminação'
+    example: "API latency is normal — that rules out the app tier."
+    translation: "A latência da API está normal — isso elimina a camada de app."
+    note: "Cada checagem elimina um candidato — diga qual."
+  - term: "the problem sits between X and Y"
+    meaning: 'o problema está entre X e Y — o isolamento por camadas'
+    example: "Edge is fine, DB is slow — the problem sits between app and DB."
+    translation: "A borda está bem, o banco está lento — o problema está entre app e banco."
+    note: "Camadas: localize o trecho lento."
+  - term: "let me correlate with the deploy timeline"
+    meaning: 'deixe-me correlacionar com a linha do tempo de deploy'
+    example: "It started at 14:00 — let me correlate that with the deploy timeline."
+    translation: "Começou às 14h — deixe-me correlacionar com a linha do tempo de deploys."
+    note: "Mudança recente é a primeira suspeita — correlacione."
+  - term: "I'd pull up the slow query log"
+    meaning: 'eu abriria o log de queries lentas — a checagem específica'
+    example: "If it's the DB, I'd pull up the slow query log first."
+    translation: "Se for o banco, eu abriria o log de queries lentas primeiro."
+    note: "A checagem certa para cada hipótese."
+  - term: "what changed recently?"
+    meaning: 'o que mudou recentemente? — a pergunta clássica de incidente'
+    example: "What changed recently — a deploy, a config flag, a traffic spike?"
+    translation: "O que mudou recentemente — deploy, flag de config, pico de tráfego?"
+    note: "A maioria dos incidentes é uma mudança recente."
+  - term: "I'd start broad, then narrow"
+    meaning: 'eu começaria amplo, depois afunilaria — a estratégia declarada'
+    example: "I'd start broad — dashboards — then narrow to the slowest layer."
+    translation: "Eu começaria amplo — dashboards — depois afunilaria para a camada mais lenta."
+    note: "A estratégia declarada antes das checagens."
+  - term: "if that's clean, I move one layer down"
+    meaning: 'se estiver limpo, desço uma camada — a progressão sistemática'
+    example: "If the edge is clean, I move one layer down — the app tier."
+    translation: "Se a borda estiver limpa, desço uma camada — a camada de app."
+    note: "Camada por camada — o método visível."
+
+grammar:
+  title: "a gramática da investigação narrada"
+  explanation: |
+    A investigação tem molduras por etapa:
+
+    - **Sintoma**: "**slow how — for whom, since
+      when?**".
+    - **Hipóteses**: "**my candidates are**… —
+      let me rank them".
+    - **Checagem**: "**first I'd check**…" /
+      "**I'd pull up** the slow query log".
+    - **Eliminação**: "**that rules out** X" /
+      "**if that's clean, I move one layer
+      down**".
+    - **Correlação**: "**let me correlate that
+      with** the deploy timeline".
+    - **Localização**: "**the problem sits
+      between** X and Y".
+
+    O padrão de ouro: hipótese → checagem →
+    leitura → eliminação. Cada checagem elimina
+    um candidato — **diga qual**.
+  examples:
+    - { en: "First, slow how — for all users or one region? Since when?", pt: "Primeiro, lento como — todos ou uma região? Desde quando?" }
+    - { en: "My candidates: the DB, the network, a bad deploy — let me rank them.", pt: "Meus candidatos: banco, rede, deploy ruim — deixe-me ordenar." }
+    - { en: "First I'd check the dashboards — is it us or the edge?", pt: "Primeiro os dashboards — somos nós ou a borda?" }
+    - { en: "API latency is normal — that rules out the app tier.", pt: "Latência da API normal — isso elimina a camada de app." }
+    - { en: "It started at 14:00 — let me correlate with the deploy timeline.", pt: "Começou às 14h — correlaciono com a linha de deploys." }
+    - { en: "Edge is clean — the problem sits between app and DB.", pt: "Borda limpa — o problema está entre app e banco." }
+
+examples:
+  - en: "The site is slow — first, slow how? All users or one region? Since when?"
+    pt: "O site está lento — primeiro, lento como? Todos ou uma região? Desde quando?"
+    context: "Definir o sintoma antes de qualquer comando."
+  - en: "My candidates: the DB, the network, a bad deploy — let me rank them."
+    pt: "Meus candidatos: banco, rede, deploy ruim — deixe-me ordenar."
+    context: "Hipóteses antes de checagens."
+  - en: "First I'd check the dashboards — is it us or the edge?"
+    pt: "Primeiro os dashboards — somos nós ou a borda?"
+    context: "A checagem mais barata primeiro."
+  - en: "API latency is normal — that rules out the app tier."
+    pt: "Latência da API normal — isso elimina a camada de app."
+    context: "Cada checagem elimina um candidato."
+  - en: "It started at 14:00 — let me correlate that with the deploy timeline."
+    pt: "Começou às 14h — correlaciono com os deploys."
+    context: "Mudança recente é a primeira suspeita."
+  - en: "If that's clean, I move one layer down — from edge to app to DB."
+    pt: "Se estiver limpo, desço uma camada — da borda ao app ao banco."
+    context: "A progressão sistemática."
+  - en: "The problem sits between the app and the DB — I'd pull the slow query log."
+    pt: "O problema está entre o app e o banco — abriria o log de queries lentas."
+    context: "Localizar o trecho lento."
+  - en: "What changed recently — a deploy, a config flag, a traffic spike?"
+    pt: "O que mudou — deploy, flag, pico de tráfego?"
+    context: "A pergunta clássica de incidente."
+
+variations:
+  - idea: '"a ordem da investigação"'
+    items:
+      - { register: "Forte", text: "My candidates first — then I check from cheapest to most involved.", adequate: true }
+      - { register: "Forte", text: "I'd start broad — dashboards — then narrow to the slowest layer.", adequate: true }
+      - { register: "Fraco", text: "It's the database — it always is.", adequate: false, note: "Pular para a causa favorita sem eliminar os outros." }
+      - { register: "Fraco", text: "I'd run top, iostat, tcpdump, strace…", adequate: false, note: "Comandos sem hipótese lê como adivinhação." }
+  - idea: '"a leitura de cada checagem"'
+    items:
+      - { register: "Forte", text: "Edge is clean — that rules out the CDN; I move one layer down.", adequate: true }
+      - { register: "Forte", text: "It started at 14:00 — let me correlate with the deploy timeline.", adequate: true }
+      - { register: "Fraco", text: "(checar coisas sem dizer o que cada uma elimina)", adequate: false, note: "Cada checagem deve eliminar um candidato — diga qual." }
+      - { register: "Fraco", text: "I'd restart everything and see.", adequate: false, note: "Reiniciar sem investigar é o anti-método." }
+
+brErrors:
+  - { wrong: "The site is not on air for some users.", right: "The site is not up for some users.", why: "is up", tag: br.on-air }
+  - { wrong: "The API falls under load.", right: "The API goes down under load.", why: "goes down", tag: br.service-falls }
+  - { wrong: "Let me make a test to isolate it.", right: "Let me run a test to isolate it.", why: "run a test", tag: br.make-a-test }
+  - { wrong: "I would mount a hypothesis first.", right: "I would build a hypothesis first.", why: "build", tag: br.mount-solution }
+  - { wrong: "I have a doubt about the symptom.", right: "I have a question about the symptom.", why: "a question", tag: br.doubt }
+  - { wrong: "It depends of the layer.", right: "It depends on the layer.", why: "depends on", tag: br.depend-of }
+  - { wrong: "We discussed about the incident.", right: "We discussed the incident.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision it's the DB.", right: "In my view it's the DB.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "The same symptom than yesterday.", right: "The same symptom as yesterday.", why: "the same as", tag: br.same-than }
+  - { wrong: "I debug issues since years.", right: "I've debugged issues for years.", why: "I've debugged", tag: br.work-since }
+
+dialogue:
+  title: "The site is slow — a investigação narrada"
+  lines:
+    - { speaker: Dana, text: "Users report the site is slow. Walk me through how you'd debug it." }
+    - { speaker: Yuri, text: "First, slow how — all users or one region? Since when? And what changed recently — a deploy, a flag, a traffic spike?" }
+    - { speaker: Dana, text: "All regions, started an hour ago, and yes — there was a deploy at 14:00." }
+    - { speaker: Yuri, text: "Then my candidates: the deploy itself, the DB, the network. The deploy timeline correlates — that's candidate one. I'd start broad: dashboards — is it us or the edge?" }
+    - { speaker: Dana, text: "Edge latency is normal; origin is slow." }
+    - { speaker: Yuri, text: "Edge is clean — that rules out the CDN. I move one layer down: app tier or DB. If the API itself is slow, I'd pull the slow query log — and correlate with what that deploy touched." }
+    - { speaker: Dana, text: "The deploy added a JOIN on the hot endpoint." }
+    - { speaker: Yuri, text: "There's the answer — a new JOIN on the hot path. The problem sits between app and DB; the deploy explains it. Roll back the query or add the index — and the post-incident note writes itself." }
+    - { speaker: Dana, text: "You never ran a single command and still found it — because every check eliminated a layer." }
+    - { speaker: Yuri, text: "That's the method: hypotheses, cheap checks first, each one rules something out." }
+  notes:
+    - "a ordem completa: sintoma → 'what changed' → candidatos → checagem barata → eliminação por camada → correlação com deploy → causa."
+    - "cada leitura elimina um candidato — 'rules out the CDN', 'move one layer down'."
+    - "a correlação com o deploy — a mudança recente é a primeira suspeita."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "Troubleshooting questions have no right answer — they have a right method. Define the symptom: 'slow how, for whom, since when'. Then hypotheses before checks: 'my candidates are — let me rank them'." }
+    - { speaker: Yuri, text: "Then cheap checks first — 'first I'd check the dashboards — is it us or the edge?' Every check eliminates a candidate, and you say which: 'that rules out the app tier', 'the problem sits between app and DB'." }
+    - { speaker: Dana, text: "And the killer question — 'what changed recently?' Most incidents are a recent deploy or flag. Correlate the timeline before diving anywhere." }
+  questions:
+    - { id: M30-04-l1, type: multiple_choice, prompt: "A pergunta de troubleshooting mede…", options: ["a resposta certa", "o método — sintoma → hipóteses → checagens → isolamento", "quantos comandos você conhece", "velocidade"], answer: 1, explanation: "Não há resposta certa — há método certo.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M30-04-l2, type: fill_blank, prompt: "API latency is normal — that rules ___ the app tier.", accepted: ["out"], explanation: "'Rules out' — a eliminação nomeada.", tags: [vocab.troubleshoot] }
+    - { id: M30-04-l3, type: error_correction, prompt: "The API falls under load.", accepted: ["The API goes down under load.", "The API goes down under load", "The API crashes under load."], explanation: "'Goes down/crashes'.", tags: [br.service-falls] }
+    - { id: M30-04-l4, type: multiple_choice, prompt: "A primeira pergunta num incidente é…", options: ["qual o comando certo", "qual o log", "'what changed recently?' — deploy, flag, spike", "quem é o culpado"], answer: 2, explanation: "A maioria dos incidentes é uma mudança recente.", tags: [comp.listening, vocab.incident] }
+    - { id: M30-04-l5, type: multiple_choice, prompt: "A ordem das checagens é…", options: ["da mais cara à mais barata", "aleatória", "da mais barata/provável à mais envolvida", "alfabética"], answer: 2, explanation: "Dashboards antes do strace.", tags: [comp.listening, vocab.troubleshoot] }
+    - { id: M30-04-l6, type: multiple_choice, prompt: "Cada checagem deve…", options: ["gerar mais dúvidas", "reiniciar algo", "demorar", "eliminar um candidato — e você diz qual"], answer: 3, explanation: "'That rules out X' — o isolamento visível.", tags: [comp.listening, vocab.troubleshoot] }
+
+writing:
+  prompt: |
+    **Cenário:** o entrevistador pediu por escrito
+    o seu plano de investigação para "the site is
+    slow" — o método, não os comandos.
+
+    **Tarefa:** escreva 100–130 palavras: o plano
+    de investigação — como você define o sintoma,
+    as hipóteses que lista primeiro, a ordem das
+    checagens, como correla com mudanças recentes
+    e como isola a camada lenta.
+  constraints:
+    - { label: "O sintoma", pattern: "\\bsymptom|slow how|since when|for whom|scope\\b" }
+    - { label: "As hipóteses", pattern: "\\bcandidates|hypothes|suspects|could be\\b" }
+    - { label: "As checagens", pattern: "\\bcheck|dashboard|log|metrics|first i'd\\b" }
+    - { label: "A eliminação", pattern: "\\brules out|eliminates|sits between|narrow|layer\\b" }
+  rubric:
+    - "Método antes de comandos"
+    - "Hipóteses nomeadas e ordenadas"
+    - "Cada checagem elimina um candidato"
+    - "Sem calques ('goes down', 'up', 'run a test')"
+  model: >-
+    My plan for "the site is slow". First the
+    symptom: slow how, for whom, since when — and
+    what changed recently: a deploy, a flag, a
+    spike. Then my candidates, ranked: the recent
+    deploy, the DB, the network. Cheap checks
+    first — the dashboards: is it us or the edge?
+    Edge clean rules out the CDN; I move one layer
+    down. If the app tier is slow, I'd pull the
+    slow query log and correlate it with whatever
+    the deploy touched. Every check eliminates a
+    candidate, and I say which — the problem sits
+    between two layers until it sits in one. Then:
+    rollback or fix, and the timeline for the
+    post-incident note.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.troubleshoot]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: 'the site is slow — walk me through how you'd debug it'. Narre a investigação completa: definir o sintoma, listar os candidatos, checar do mais barato, eliminar camada por camada, correlacionar com o deploy — sem pular para a causa favorita."
+    maxSeconds: 90
+    targetPhrases:
+      - walk me through
+      - slow how
+      - for whom, since when
+      - what changed recently
+      - my candidates are
+      - let me rank them
+      - first i'd check the dashboards
+      - is it us or the edge
+      - that rules out
+      - i move one layer down
+      - the problem sits between
+      - i'd pull up the slow query log
+      - let me correlate that with
+      - the deploy timeline
+      - i'd start broad, then narrow
+      - the hot path
+    checklist:
+      - "sintoma definido antes de checar"
+      - "hipóteses nomeadas e ordenadas"
+      - "cada checagem elimina um candidato"
+      - "correlação com mudança recente"
+      - "sem calques ('goes down', 'up', 'run a test')"
+
+quiz:
+  - { id: M30-04-q1, type: multiple_choice, prompt: "O primeiro passo em 'the site is slow' é…", options: ["definir o sintoma — slow how, for whom, since when", "reiniciar o serviço", "abrir o strace", "culpar o DNS"], answer: 0, explanation: "Esclarecer vale no troubleshooting também.", tags: [vocab.troubleshoot] }
+  - { id: M30-04-q2, type: error_correction, prompt: "The site is not on air for some users.", accepted: ["The site is not up for some users.", "The site is not up for some users", "The site is down for some users."], explanation: "'Up/down'.", tags: [br.on-air] }
+  - { id: M30-04-q3, type: multiple_choice, prompt: "Hipóteses vêm…", options: ["depois das checagens", "antes das checagens — 'my candidates are…'", "nunca", "só no fim"], answer: 1, explanation: "Comandos sem hipótese = adivinhação.", tags: [vocab.troubleshoot] }
+  - { id: M30-04-q4, type: fill_blank, prompt: "It started at 14:00 — let me correlate that with the ___ timeline.", accepted: ["deploy"], explanation: "A correlação com a mudança recente.", tags: [vocab.troubleshoot] }
+  - { id: M30-04-q5, type: multiple_choice, prompt: "'That rules out the app tier' é…", options: ["uma suposição", "a eliminação nomeada — cada checagem tira um candidato", "uma conclusão", "um chute"], answer: 1, explanation: "O isolamento visível.", tags: [vocab.troubleshoot] }
+  - { id: M30-04-q6, type: error_correction, prompt: "Let me make a test to isolate the layer.", accepted: ["Let me run a test to isolate the layer.", "Let me run a test to isolate the layer", "Let me test it to isolate the layer."], explanation: "'Run a test'.", tags: [br.make-a-test] }
+  - { id: M30-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["sits", "problem", "the", "between", "app", "and", "db"], answer: "the problem sits between app and db", explanation: "O isolamento por camadas.", tags: [vocab.troubleshoot] }
+  - { id: M30-04-q8, type: multiple_choice, prompt: "A estratégia declarada é…", options: ["'I restart everything and see'", "'it's always the database'", "(silêncio e comandos)", "'I'd start broad — dashboards — then narrow to the slowest layer'"], answer: 3, explanation: "Amplo → afunilado, camada por camada.", tags: [vocab.troubleshoot] }
+
+srsCards:
+  - { front: "walk me through how you'd debug it", back: "A pergunta de troubleshooting — mede método.", tag: vocab.troubleshoot }
+  - { front: "slow how — for whom, since when?", back: "Definir o sintoma antes de checar.", tag: vocab.troubleshoot }
+  - { front: "my candidates are…", back: "Hipóteses nomeadas antes de qualquer comando.", tag: vocab.troubleshoot }
+  - { front: "first I'd check the dashboards", back: "A checagem mais barata primeiro.", tag: vocab.troubleshoot }
+  - { front: "is it us or the edge?", back: "A primeira bissecção.", tag: vocab.troubleshoot }
+  - { front: "that rules out the app tier", back: "Cada checagem elimina um candidato — diga qual.", tag: vocab.troubleshoot }
+  - { front: "the problem sits between X and Y", back: "O isolamento por camadas.", tag: vocab.troubleshoot }
+  - { front: "let me correlate with the deploy timeline", back: "Mudança recente é a primeira suspeita.", tag: vocab.troubleshoot }
+  - { front: "I'd pull up the slow query log", back: "A checagem certa para cada hipótese.", tag: vocab.troubleshoot }
+  - { front: "what changed recently?", back: "A pergunta clássica de incidente.", tag: vocab.incident }
+  - { front: "I'd start broad, then narrow", back: "A estratégia declarada antes das checagens.", tag: vocab.troubleshoot }
+  - { front: "if that's clean, I move one layer down", back: "A progressão sistemática.", tag: vocab.troubleshoot }
+
+review:
+  preferTags: [vocab.troubleshoot, vocab.incident, br.on-air, br.service-falls]
+  notes: "Revisão prioriza a ordem da investigação e a eliminação nomeada."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
