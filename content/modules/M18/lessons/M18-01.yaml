@@ -1,0 +1,283 @@
+id: M18-01
+module: M18
+order: 1
+title: "Metrics, logs, traces: os três pilares"
+objective: >-
+  Ao final, você distingue métricas, logs e traces — qual pergunta
+  cada um responde — e usa os verbos certos: emit, scrape, sample,
+  correlate, instrument.
+durationMin: 35
+competencies: [VOC]
+tags: [vocab.observability, comp.vocabulary, comp.reading]
+prerequisites: [M12-05]
+
+context:
+  scenario: |
+    Semana que vem o serviço novo de checkout vai a produção. Na
+    revisão de observabilidade, a Priya pergunta: "**is it
+    instrumented?**" — e a resposta não pode ser "acho que sim".
+
+    Observabilidade descansa em **três pilares**, e cada um responde
+    uma pergunta diferente:
+
+    - **metrics** respondem *how much, how many, how fast?* — um
+      número ao longo do tempo: request rate, error rate, CPU, p99.
+      O serviço **emite** métricas; o coletor faz **scrape** —
+      o Prometheus puxa de um endpoint a cada 15 segundos.
+    - **logs** respondem *what happened?* — um evento com timestamp.
+      Quando a métrica sobe, você abre os logs naquela janela.
+      Log estruturado (JSON) é buscável; parede de texto, não.
+    - **traces** respondem *where did this request go?* — um trace
+      segue um request entre serviços; cada salto é um **span** com
+      a própria duração. Quando o p99 degrada, o trace mostra qual
+      salto ficou lento.
+
+    Nada disso existe de graça: alguém tem que **instrumentar** o
+    serviço. E quando o volume é alto demais, você faz **sampling**
+    — guarda 1 % dos traces em vez de 100 %.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "emit"
+    meaning: 'emitir — o serviço produz a telemetria'
+    example: "The service emits request and error metrics."
+    translation: "O serviço emite métricas de request e erro."
+    note: "O serviço emite; o coletor coleta — direções opostas."
+  - term: "scrape"
+    meaning: 'coletar por pull — o Prometheus busca as métricas'
+    example: "Prometheus scrapes the /metrics endpoint every fifteen seconds."
+    translation: "O Prometheus raspa o endpoint /metrics a cada quinze segundos."
+    note: "Pull, não push — o Prometheus que vai buscar."
+  - term: "sample"
+    meaning: 'amostrar — guardar uma fração dos traces'
+    example: "At our volume we sample 1% of traces."
+    translation: "No nosso volume, amostramos 1% dos traces."
+    note: "Sampling de erros costuma ser 100% — erro não se amostra."
+  - term: "correlate"
+    meaning: 'correlacionar — ligar dois sinais no tempo'
+    example: "We correlated the spike with the 14:02 deploy."
+    translation: "Correlacionamos o pico com o deploy das 14:02."
+    note: "'Correlate X with Y' — a ponte entre sintoma e causa."
+  - term: "instrument"
+    meaning: 'instrumentar — adicionar o código que produz telemetria'
+    example: "Is the new endpoint instrumented?"
+    translation: "O endpoint novo está instrumentado?"
+    note: "Pergunta normal de review — telemetria é parte da feature."
+  - term: "span"
+    meaning: 'span — um salto do trace, com a própria duração'
+    example: "The trace shows the payment span taking 400ms."
+    translation: "O trace mostra o span do pagamento levando 400ms."
+    note: "Trace = árvore de spans; o span lento é o suspeito."
+  - term: "structured logs"
+    meaning: 'logs estruturados — JSON buscável, não parede de texto'
+    example: "The logs are structured — I can filter by request id."
+    translation: "Os logs são estruturados — dá para filtrar por request id."
+    note: "'grepavel' não basta — structured = campo a campo."
+  - term: "trace id"
+    meaning: 'o id que costura o request entre serviços'
+    example: "Every log line carries the trace id."
+    translation: "Toda linha de log carrega o trace id."
+    note: "O trace id é a cola entre logs e traces."
+  - term: "cardinality"
+    meaning: 'cardinalidade — quantas combinações de labels uma métrica tem'
+    example: "Don't label metrics by user id — the cardinality explodes."
+    translation: "Não rotule métricas por user id — a cardinalidade explode."
+    note: "Label de alta cardinalidade quebra o banco de métricas."
+  - term: "telemetry"
+    meaning: 'telemetria — o conjunto: métricas, logs e traces'
+    example: "The service produces no telemetry yet."
+    translation: "O serviço ainda não produz telemetria."
+    note: "Palavra-guarda-chuva — 'the three pillars of telemetry'."
+
+grammar:
+  title: "Os verbos da telemetria: quem produz, quem coleta"
+  explanation: |
+    A direção do verbo importa:
+
+    - o **serviço emite**: "the service emits metrics" — a telemetria
+      nasce no código.
+    - o **coletor raspa**: "Prometheus scrapes the endpoint" — pull
+      agendado, nunca "collects" nesse contexto.
+    - você **amostra** o que sobra: "we sample 1% of traces".
+    - você **correlaciona** os sinais: "correlate the spike with the
+      deploy".
+
+    E o calque do português espreita: "temos uma latência de 200ms"
+    vira "**the latency is 200ms**", não "we have a latency of".
+    "A latência subiu" é "**rose/went up**" — "raise" pede objeto.
+  examples:
+    - { en: "The service emits metrics; Prometheus scrapes them every fifteen seconds.", pt: "O serviço emite métricas; o Prometheus as raspa a cada quinze segundos." }
+    - { en: "We sample 1% of traces but keep all error traces.", pt: "Amostramos 1% dos traces, mas guardamos todos os de erro." }
+    - { en: "The p99 latency is 200ms — not 'we have a latency of'.", pt: "A latência p99 é 200ms — não 'temos uma latência de'." }
+    - { en: "The latency rose after the deploy — never 'raised'.", pt: "A latência subiu depois do deploy — nunca 'raised'." }
+    - { en: "The CPU is at 80% — not 'in 80%'.", pt: "A CPU está em 80% — 'at', não 'in'." }
+    - { en: "The pool exceeded the limit — never 'overpassed'.", pt: "O pool excedeu o limite — nunca 'overpassed'." }
+
+examples:
+  - en: "Metrics answer 'how much'; logs answer 'what happened'; traces answer 'where did it go'."
+    pt: "Métricas respondem 'quanto'; logs respondem 'o que aconteceu'; traces respondem 'por onde foi'."
+    context: "Uma pergunta para cada pilar."
+  - en: "That's a log question, not a metric question."
+    pt: "Isso se responde em log, não em métrica."
+    context: "Escolher a ferramenta certa."
+  - en: "Don't label by user id — the cardinality will explode."
+    pt: "Não rotule por user id — a cardinalidade vai explodir."
+    context: "O erro clássico de design de métricas."
+  - en: "We correlated the error spike with the 14:02 deploy."
+    pt: "Correlacionamos o pico de erros com o deploy das 14:02."
+    context: "Sintoma + causa no mesmo eixo do tempo."
+  - en: "The trace showed the slow hop — payment took 400ms."
+    pt: "O trace mostrou o salto lento — pagamento levou 400ms."
+    context: "O p99 ruim explicado por um span."
+  - en: "Is the new endpoint instrumented, or are we flying blind?"
+    pt: "O endpoint novo está instrumentado, ou estamos voando às cegas?"
+    context: "A pergunta de review."
+  - en: "The CPU is at 80% during the batch window."
+    pt: "A CPU fica em 80% durante a janela de batch."
+    context: "'At 80%', nunca 'in 80%'."
+  - en: "We don't sample errors — we keep 100% of those."
+    pt: "Não amostramos erros — guardamos 100% deles."
+    context: "A exceção do sampling."
+
+variations:
+  - idea: '"qual pilar responde"'
+    items:
+      - { register: "Boa", text: "Request rate is a metric question — check the dashboard.", adequate: true }
+      - { register: "Boa", text: "Which service was slow? That's a trace question.", adequate: true }
+      - { register: "Inadequada", text: "Check the request rate in the logs.", adequate: false, note: "Taxa é métrica — logs respondem 'what happened'." }
+      - { register: "Inadequada", text: "The metric shows which hop was slow.", adequate: false, note: "Quem mostra o salto lento é o trace, não a métrica." }
+  - idea: '"os verbos certos"'
+    items:
+      - { register: "Boa", text: "Prometheus scrapes the endpoint every fifteen seconds.", adequate: true }
+      - { register: "Boa", text: "We sample 1% of traces at this volume.", adequate: true }
+      - { register: "Inadequada", text: "The service scrapes metrics to Prometheus.", adequate: false, note: "Direção invertida — o serviço *emits*, o Prometheus *scrapes*." }
+      - { register: "Inadequada", text: "We emit 1% of the traces.", adequate: false, note: "Quem emite é o serviço; o que se faz com o volume é *sample*." }
+
+brErrors:
+  - { wrong: "The latency raised after the deploy.", right: "The latency rose after the deploy.", why: "rose/went up — 'raise' pede objeto", tag: br.metric-raised }
+  - { wrong: "CPU raised during the batch.", right: "CPU went up during the batch.", why: "went up", tag: br.metric-raised }
+  - { wrong: "The CPU is in 80% already.", right: "The CPU is at 80%.", why: "at 80%", tag: br.in-percent }
+  - { wrong: "The error rate stays in 5%.", right: "The error rate stays at 5%.", why: "at 5%", tag: br.in-percent }
+  - { wrong: "We have a latency of 200ms.", right: "The latency is 200ms.", why: "the latency is", tag: br.have-a-latency }
+  - { wrong: "The service has an error rate of 5%.", right: "The error rate is 5%.", why: "the error rate is", tag: br.have-a-latency }
+  - { wrong: "The pool overpassed the limit.", right: "The pool exceeded the limit.", why: "exceeded", tag: br.overpassed }
+  - { wrong: "The metric not exists yet.", right: "The metric doesn't exist yet.", why: "doesn't exist", tag: br.it-not-works }
+  - { wrong: "Prometheus collect the metrics.", right: "Prometheus scrapes the metrics.", why: "scrapes", tag: br.third-person-s }
+  - { wrong: "We discussed about the sampling.", right: "We discussed the sampling.", why: "discussed, sem about", tag: br.discuss-about }
+
+dialogue:
+  title: "A revisão de observabilidade"
+  lines:
+    - { speaker: Priya, text: "The new checkout endpoint — is it instrumented?" }
+    - { speaker: Yuri, text: "It emits request and error metrics, and Prometheus scrapes them every fifteen seconds. Logs are structured JSON." }
+    - { speaker: Priya, text: "Traces?" }
+    - { speaker: Yuri, text: "Through the sidecar — we sample one percent at this volume, but we keep a hundred percent of error traces." }
+    - { speaker: Priya, text: "And when p99 degraded last week, how did you find the slow hop?" }
+    - { speaker: Yuri, text: "The trace showed the payment span taking four hundred milliseconds. We correlated the spike with the 14:02 deploy — a new join was scanning the table." }
+    - { speaker: Priya, text: "Good — that's the whole loop: metric fired, trace located, deploy correlated." }
+  notes:
+    - "a entrevista cobre os três pilares na ordem: metrics → logs → traces."
+    - "'metric fired, trace located, deploy correlated' — o loop fechado."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Each pillar answers a different question. Metrics answer 'how much, how many, how fast' — request rate, error rate, p99 latency. The service emits them, and Prometheus scrapes them every fifteen seconds. Logs answer 'what happened' — a timestamped record of one event, and structured logs are searchable. Traces answer 'where did the request go' — each hop is a span with its own duration." }
+    - { speaker: Marcos, text: "None of this is free. Someone has to instrument the service — add the code that emits metrics, writes structured logs, and propagates trace ids. When volume gets too high, you sample: we keep one percent of traces, but a hundred percent of error traces." }
+    - { speaker: Yuri, text: "The superpower is correlate. You correlate a metric spike with a deploy, a log error with a trace. That's how 'something is slow' becomes 'the 14:02 deploy added a join that scans the table'." }
+  questions:
+    - { id: M18-01-l1, type: multiple_choice, prompt: "Which pillar answers 'how much, how many, how fast'?", options: ["logs", "metrics", "traces", "dashboards"], answer: 1, explanation: "Métrica = número ao longo do tempo.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-01-l2, type: multiple_choice, prompt: "What does Prometheus do every fifteen seconds?", options: ["emits metrics", "samples traces", "scrapes the endpoint", "writes logs"], answer: 2, explanation: "Pull agendado — 'scrapes'.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-01-l3, type: fill_blank, prompt: "Each hop in a trace is a ___ with its own duration.", accepted: ["span"], explanation: "O salto do trace é o span.", tags: [vocab.observability] }
+    - { id: M18-01-l4, type: error_correction, prompt: "The latency raised to 800ms.", accepted: ["The latency rose to 800ms.", "The latency rose to 800ms", "The latency went up to 800ms."], explanation: "rose/went up — 'raise' pede objeto.", tags: [br.metric-raised] }
+    - { id: M18-01-l5, type: multiple_choice, prompt: "What does 'instrument the service' mean?", options: ["deploy the service", "add the code that produces telemetry", "restart the service", "monitor the service"], answer: 1, explanation: "Instrumentar = adicionar a telemetria ao código.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-01-l6, type: multiple_choice, prompt: "Which traces do they keep at 100%?", options: ["all traces", "error traces", "slow traces", "no traces"], answer: 1, explanation: "'A hundred percent of error traces.'", tags: [comp.listening, vocab.observability] }
+
+writing:
+  prompt: |
+    **Cenário:** o serviço novo de checkout vai a produção semana que
+    vem e a revisão de observabilidade pede o plano de telemetria por
+    escrito.
+
+    **Tarefa:** escreva 60–90 palavras cobrindo: quais métricas o
+    serviço emite, como são coletadas, a política de sampling dos
+    traces e como você correlacionaria uma degradação futura com um
+    deploy. Termine dizendo qual pergunta cada pilar responde.
+  constraints:
+    - { label: "Verbo 'emit'", pattern: "\\bemit(s|ted|ting)?\\b" }
+    - { label: "Verbo 'scrape'", pattern: "\\bscrap(e|es|ed|ing)\\b" }
+    - { label: "Sampling", pattern: "\\bsampl(e|es|ed|ing)\\b" }
+    - { label: "Correlação", pattern: "\\bcorrelat(e|es|ed|ing)\\b" }
+  rubric:
+    - "Os verbos emit/scrape/sample/correlate usados certos"
+    - "A política de sampling explícita"
+    - "A pergunta de cada pilar no final"
+    - "Sem calques (rose, at 80%, the latency is)"
+  model: >-
+    The service emits request, error, and latency metrics, and
+    Prometheus scrapes them every fifteen seconds. Logs are
+    structured JSON with the trace id on every line. We sample one
+    percent of traces but keep all error traces. If p99 degrades,
+    I'll correlate the spike with the last deploy. Metrics answer
+    how much; logs answer what happened; traces answer where the
+    request went.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.observability]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando a diferença entre metrics, logs e traces — qual pergunta cada um responde e o que significa 'instrument the service'."
+    maxSeconds: 45
+    targetPhrases:
+      - metrics answer how much
+      - logs answer what happened
+      - a trace follows one request
+      - instrument the service
+      - emits metrics
+      - scrapes them
+      - sample the traces
+      - correlate the spike
+      - each hop is a span
+      - structured logs
+      - trace id
+      - the latency rose
+      - at eighty percent
+      - exceeded the limit
+      - the slow hop
+      - telemetry
+    checklist:
+      - "Cada pilar ligado à sua pergunta"
+      - "'emits'/'scrapes'/'sample' na direção certa"
+      - "Instrument = adicionar telemetria ao código"
+      - "Frases curtas, sem travar"
+
+quiz:
+  - { id: M18-01-q1, type: multiple_choice, prompt: "Prometheus coleta métricas do serviço a cada 15s. Qual verbo?", options: ["scrapes", "emits", "samples", "traces"], answer: 0, explanation: "Pull agendado — 'scrapes'. O serviço 'emits'.", tags: [vocab.observability] }
+  - { id: M18-01-q2, type: error_correction, prompt: "We have a latency of 200ms on p99.", accepted: ["The p99 latency is 200ms.", "The p99 latency is 200ms", "The latency is 200ms on p99."], explanation: "'Temos uma latência de' → 'the latency is'.", tags: [br.have-a-latency] }
+  - { id: M18-01-q3, type: multiple_choice, prompt: "Volume de traces alto demais. O que você faz?", options: ["instrument the traces", "scrape the traces", "sample 1% of traces", "emit fewer traces"], answer: 2, explanation: "'Sample' = guardar uma fração.", tags: [vocab.observability] }
+  - { id: M18-01-q4, type: fill_blank, prompt: "The CPU is ___ 80% during the batch window.", accepted: ["at"], explanation: "'At 80%', nunca 'in 80%'.", tags: [br.in-percent] }
+  - { id: M18-01-q5, type: multiple_choice, prompt: "'Adicionar o código que emite métricas e propaga trace ids' é…", options: ["to scrape the service", "to instrument the service", "to sample the service", "to correlate the service"], answer: 1, explanation: "Instrument = adicionar telemetria ao código.", tags: [vocab.observability] }
+  - { id: M18-01-q6, type: error_correction, prompt: "The pool overpassed the connection limit.", accepted: ["The pool exceeded the connection limit.", "The pool exceeded the connection limit"], explanation: "'Ultrapassou' é 'exceeded'.", tags: [br.overpassed] }
+  - { id: M18-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["spike", "the", "we", "correlate", "with", "deploy", "the"], answer: "we correlate the spike with the deploy", explanation: "correlate X with Y.", tags: [vocab.observability] }
+  - { id: M18-01-q8, type: multiple_choice, prompt: "Qual pergunta um **trace** responde?", options: ["how many?", "what happened?", "how fast?", "where did the request go?"], answer: 3, explanation: "Trace = o caminho do request entre serviços.", tags: [vocab.observability] }
+
+srsCards:
+  - { front: "emit", back: "O serviço produz a métrica — 'the service emits metrics'.", tag: vocab.observability }
+  - { front: "scrape", back: "O coletor puxa — 'Prometheus scrapes the endpoint'.", tag: vocab.observability }
+  - { front: "sample", back: "Guardar uma fração — 'we sample 1% of traces'.", tag: vocab.observability }
+  - { front: "correlate", back: "Ligar sinais no tempo — 'correlate the spike with the deploy'.", tag: vocab.observability }
+  - { front: "instrument", back: "Adicionar telemetria ao código — 'is it instrumented?'", tag: vocab.observability }
+  - { front: "span", back: "Um salto do trace, com a própria duração.", tag: vocab.observability }
+  - { front: "structured logs", back: "JSON buscável, campo a campo — não parede de texto.", tag: vocab.observability }
+  - { front: "trace id", back: "O id que costura o request entre serviços.", tag: vocab.observability }
+  - { front: "cardinality", back: "Combinações de labels — user id como label a explode.", tag: vocab.observability }
+  - { front: "telemetry", back: "O conjunto: métricas + logs + traces.", tag: vocab.observability }
+
+review:
+  preferTags: [vocab.observability, br.metric-raised, br.have-a-latency]
+  notes: "Revisão prioriza os verbos de telemetria e os calques de métrica (rose, at 80%, the latency is)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

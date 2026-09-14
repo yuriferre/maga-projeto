@@ -782,4 +782,46 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.of-weekday");
   });
+
+  it("flags 'the latency raised' but not 'we raised the limit'", () => {
+    expect(tagsOf("The latency raised to 800ms.")).toContain("br.metric-raised");
+    expect(tagsOf("CPU raised during the deploy.")).toContain("br.metric-raised");
+    const clean = [
+      "The latency rose to 800ms.",
+      "We raised the limit.",
+      "It raised questions on the bridge.",
+      "Latency went up sharply.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.metric-raised");
+  });
+  it("flags 'the CPU is in 80%' but not 'in use'", () => {
+    expect(tagsOf("The CPU is in 80% already.")).toContain("br.in-percent");
+    expect(tagsOf("The error rate stays in 5%.")).toContain("br.in-percent");
+    const clean = [
+      "The CPU is at 80%.",
+      "The CPU is in use.",
+      "The rate stayed at 5%.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-percent");
+  });
+  it("flags 'we have a latency of 200' but not 'a latency problem'", () => {
+    expect(tagsOf("We have a latency of 200ms on p99.")).toContain("br.have-a-latency");
+    expect(tagsOf("The service has an error rate of 5%.")).toContain("br.have-a-latency");
+    const clean = [
+      "The p99 latency is 200ms.",
+      "We have a latency problem.",
+      "The error rate is 5%.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.have-a-latency");
+  });
+  it("flags 'overpassed' but not real verbs", () => {
+    expect(tagsOf("The pool overpassed the limit.")).toContain("br.overpassed");
+    expect(tagsOf("Traffic overpassed capacity at peak.")).toContain("br.overpassed");
+    const clean = [
+      "The pool exceeded the limit.",
+      "The truck overpassed the bridge safely.",
+      "Traffic passed capacity at peak.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.overpassed");
+  });
 });

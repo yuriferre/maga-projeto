@@ -1,0 +1,296 @@
+id: M18-05
+module: M18
+order: 5
+title: "Simulação: apresentando a análise de degradação"
+objective: >-
+  Ao final, você apresenta para o time uma análise de degradação
+  com gráfico: o que aconteceu, onde o gráfico mostra, qual o
+  gargalo e o que muda no SLO.
+durationMin: 40
+competencies: [SPK, CNF]
+tags: [vocab.observability, vocab.slo, gram.describing-trends, comp.speaking, comp.listening]
+prerequisites: [M18-04]
+
+context:
+  scenario: |
+    É a sua vez de apresentar na review semanal. O gráfico de p99
+    do checkout está na tela — e a plateia é o time inteiro.
+
+    O cenário: terça às 14:02 um deploy entrou. O p99 saiu de 200ms
+    para 800ms e **plateaued** — não voltou. O pool de conexões
+    saturou: requests enfileirando, throughput limitado a 5k/s.
+    O burn rate do error budget foi a 3x por quatro horas, até o
+    pool dobrar e a fila drenar.
+
+    A apresentação tem uma espinha dorsal de quatro batidas:
+
+    1. **o que** — "checkout p99 degraded on Tuesday" — uma linha.
+    2. **onde no gráfico** — "went from 200 to 800 at 14:02, right
+       after the deploy — and it plateaued, didn't come back".
+    3. **o gargalo** — "the connection pool saturated — requests
+       queued up, throughput capped at 5k".
+    4. **o custo e a correção** — "burned through a third of the
+       budget — we doubled the pool and the queue drained".
+
+    A etiqueta: o gráfico é a prova — "**you can see it here**"
+    aponta para a linha. E sempre termine com o que muda:
+    "**what changes**: pool sized for peak, alert on saturation."
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend), Dana (product)]
+
+vocabulary:
+  - term: "walk you through"
+    meaning: 'guiar pelo material — apresentar passo a passo'
+    example: "Let me walk you through the graph."
+    translation: "Deixa eu guiar vocês pelo gráfico."
+    note: "A abertura clássica de qualquer apresentação técnica."
+  - term: "you can see it here"
+    meaning: 'vocês veem aqui — apontando a prova no gráfico'
+    example: "The jump at 14:02 — you can see it here."
+    translation: "O salto às 14:02 — vocês veem aqui."
+    note: "A frase que liga a narrativa à imagem."
+  - term: "degraded"
+    meaning: 'degradado — piorou, mas não morreu'
+    example: "Checkout degraded on Tuesday — it didn't go down."
+    translation: "O checkout degradou na terça — não caiu."
+    note: "Degradation ≠ outage — a distinção que abre a análise."
+  - term: "the queue drained"
+    meaning: 'a fila drenou — os requests pararam de esperar'
+    example: "We doubled the pool and the queue drained in a minute."
+    translation: "Dobramos o pool e a fila drenou em um minuto."
+    note: "Drain = a prova de que a correção funcionou."
+  - term: "burned through a third"
+    meaning: 'queimou um terço — o gasto do orçamento de erro'
+    example: "Those four hours burned through a third of the budget."
+    translation: "Aquelas quatro horas queimaram um terço do orçamento."
+    note: "O custo da degradação em moeda de SLO."
+  - term: "what changes"
+    meaning: 'o que muda — o fechamento com ação'
+    example: "What changes: the pool gets sized for peak."
+    translation: "O que muda: o pool passa a ser dimensionado para o pico."
+    note: "Toda análise termina em ação — 'what changes' é o gancho."
+  - term: "sized for peak"
+    meaning: 'dimensionado para o pico — capacidade para o pior caso'
+    example: "The pool is now sized for peak, not for average."
+    translation: "O pool agora é dimensionado para o pico, não para a média."
+    note: "O dimensionamento que preveniria a saturação."
+  - term: "the takeaway"
+    meaning: 'a conclusão — o que a plateia leva'
+    example: "The takeaway: saturation alerts catch this early."
+    translation: "A conclusão: alertas de saturação pegam isso cedo."
+    note: "'The takeaway is…' — a frase de fechamento."
+  - term: "as you can see"
+    meaning: 'como vocês veem — conferindo a prova no gráfico'
+    example: "As you can see, it plateaued — it didn't recover."
+    translation: "Como vocês veem, ficou no platô — não recuperou."
+    note: "Ponte entre a fala e a imagem — use uma vez por apresentação."
+  - term: "that's on me"
+    meaning: 'essa é minha — assumindo um ponto da análise'
+    example: "The missing alert — that's on me, I own it."
+    translation: "O alerta que faltou — essa é minha, eu assumo."
+    note: "Blameless não isenta: dono claro para a ação."
+  - term: "in plain terms"
+    meaning: 'em termos simples — a tradução para não-técnicos'
+    example: "In plain terms: the checkout was slow for four hours."
+    translation: "Em termos simples: o checkout ficou lento por quatro horas."
+    note: "A frase que traduz o gráfico para a Dana (product)."
+
+grammar:
+  title: "a apresentação em quatro batidas: what → where → bottleneck → cost"
+  explanation: |
+    A estrutura fixa de uma análise de degradação:
+
+    1. **the what** — uma linha, sem jargão: "checkout p99
+       degraded on Tuesday".
+    2. **where on the graph** — "went from 200 to 800 at 14:02,
+       right after the deploy — and it **plateaued**, didn't
+       come back".
+    3. **the bottleneck** — "the connection pool **saturated** —
+       requests **queued up**, throughput **capped at** 5k".
+    4. **the cost + the fix** — "**burned through** a third of the
+       budget; we doubled the pool and the queue **drained**".
+
+    As pontes com a imagem: "**let me walk you through**",
+    "**you can see it here**", "**as you can see**". E o fecho:
+    "**the takeaway is**…" + "**what changes**: …".
+  examples:
+    - { en: "Let me walk you through the graph — p99 went from 200 to 800 at 14:02.", pt: "Deixa eu guiar vocês pelo gráfico — o p99 foi de 200 para 800 às 14:02." }
+    - { en: "It plateaued — it didn't come back, and that's the deploy's signature.", pt: "Ficou no platô — não voltou, e essa é a assinatura do deploy." }
+    - { en: "The pool saturated — requests queued up and throughput capped at 5k.", pt: "O pool saturou — os requests enfileiraram e a vazão travou em 5 mil." }
+    - { en: "Those four hours burned through a third of the error budget.", pt: "Aquelas quatro horas queimaram um terço do orçamento de erro." }
+    - { en: "We doubled the pool and the queue drained — you can see it here.", pt: "Dobramos o pool e a fila drenou — vocês veem aqui." }
+    - { en: "What changes: the pool gets sized for peak, plus a saturation alert.", pt: "O que muda: pool dimensionado para o pico, mais alerta de saturação." }
+
+examples:
+  - en: "The one-liner: checkout degraded for four hours on Tuesday."
+    pt: "A linha única: o checkout degradou por quatro horas na terça."
+    context: "O 'what' em uma frase."
+  - en: "Went from 200 to 800 at 14:02 — right after the deploy, and it plateaued."
+    pt: "Foi de 200 para 800 às 14:02 — logo depois do deploy, e ficou no platô."
+    context: "Onde no gráfico."
+  - en: "The pool saturated; the queue is the latency you see."
+    pt: "O pool saturou; a fila é a latência que vocês veem."
+    context: "O gargalo nomeado."
+  - en: "In plain terms: slow checkout, four hours, nobody lost a payment."
+    pt: "Em termos simples: checkout lento, quatro horas, ninguém perdeu pagamento."
+    context: "A tradução para product."
+  - en: "We burned through a third of the budget — within SLO, but thin."
+    pt: "Queimamos um terço do orçamento — dentro do SLO, mas apertado."
+    context: "O custo em moeda de SLO."
+  - en: "The fix worked — the queue drained in under a minute."
+    pt: "A correção funcionou — a fila drenou em menos de um minuto."
+    context: "A prova no gráfico."
+  - en: "What changes: pool sized for peak and a saturation alert."
+    pt: "O que muda: pool dimensionado para o pico e alerta de saturação."
+    context: "O fechamento com ação."
+  - en: "The takeaway: the graph tells the story if you anchor the times."
+    pt: "A conclusão: o gráfico conta a história se você ancora os horários."
+    context: "A moral da apresentação."
+
+variations:
+  - idea: '"as quatro batidas"'
+    items:
+      - { register: "Boa", text: "The what, the graph, the bottleneck, the fix — in that order.", adequate: true }
+      - { register: "Boa", text: "One line first: 'checkout degraded Tuesday' — details after.", adequate: true }
+      - { register: "Inadequada", text: "So, the connection pool had lock contention and the HikariCP config…", adequate: false, note: "Começar no detalhe perde a plateia — 'the what' em uma linha primeiro." }
+      - { register: "Inadequada", text: "It was slow. Then it was fine. Any questions?", adequate: false, note: "Sem o gargalo e o custo, não há análise — só constatação." }
+  - idea: '"a ponte com o gráfico"'
+    items:
+      - { register: "Boa", text: "You can see the jump here — 14:02, right after the deploy.", adequate: true }
+      - { register: "Boa", text: "As you can see, the queue drains the moment we double the pool.", adequate: true }
+      - { register: "Inadequada", text: "Look at the graph. It's bad.", adequate: false, note: "Aponte o que importa: 'the jump at 14:02', não 'look, it's bad'." }
+      - { register: "Inadequada", text: "The graph shows stuff happened.", adequate: false, note: "Nomeie o movimento — 'went from X to Y', 'plateaued'." }
+
+brErrors:
+  - { wrong: "The latency raised at 14:02.", right: "The latency jumped at 14:02.", why: "jumped/went up", tag: br.metric-raised }
+  - { wrong: "The pool is in 100% here.", right: "The pool is at 100% here.", why: "at 100%", tag: br.in-percent }
+  - { wrong: "We have a p99 of 800ms in this graph.", right: "P99 is 800ms in this graph.", why: "p99 is", tag: br.have-a-latency }
+  - { wrong: "Traffic overpassed the pool at 14:00.", right: "Traffic exceeded the pool at 14:00.", why: "exceeded", tag: br.overpassed }
+  - { wrong: "We are in the SLO still.", right: "We're still within SLO.", why: "within SLO", tag: br.in-percent }
+  - { wrong: "The queue not drained until 18:00.", right: "The queue didn't drain until 18:00.", why: "didn't drain", tag: br.it-not-works }
+  - { wrong: "The deploy cause this plateau.", right: "The deploy caused this plateau.", why: "caused", tag: br.third-person-s }
+  - { wrong: "The deploy of Tuesday caused it.", right: "Tuesday's deploy caused it.", why: "Tuesday's deploy", tag: br.of-weekday }
+  - { wrong: "The p99 is more high than Monday.", right: "P99 is higher than Monday.", why: "higher", tag: br.more-er }
+  - { wrong: "I have a doubt about the burn rate.", right: "I have a question about the burn rate.", why: "question", tag: br.doubt }
+
+dialogue:
+  title: "A apresentação na review semanal"
+  lines:
+    - { speaker: Yuri, text: "Let me walk you through the graph. The one-liner: checkout p99 degraded for four hours on Tuesday." }
+    - { speaker: Priya, text: "Where on the graph?" }
+    - { speaker: Yuri, text: "Here — it went from 200 to 800 at 14:02, right after the deploy. And it plateaued — didn't come back." }
+    - { speaker: Marcos, text: "What was the bottleneck?" }
+    - { speaker: Yuri, text: "The connection pool saturated — requests queued up, throughput capped at 5k. The database had headroom; the wait was in the queue." }
+    - { speaker: Dana, text: "In plain terms for me?" }
+    - { speaker: Yuri, text: "Slow checkout for four hours — nobody lost a payment, but everyone waited." }
+    - { speaker: Priya, text: "And the SLO cost?" }
+    - { speaker: Yuri, text: "We burned through a third of the budget — still within SLO, but thin. We doubled the pool; the queue drained in a minute — you can see it here." }
+    - { speaker: Priya, text: "What changes?" }
+    - { speaker: Yuri, text: "Two things: the pool gets sized for peak, and we add a saturation alert — we'd have caught this in minutes, not hours." }
+  notes:
+    - "as quatro batidas na ordem: what → where → bottleneck → cost+fix."
+    - "'in plain terms' — a tradução para a Dana, que é product."
+    - "a pergunta 'what changes?' recebe duas ações — a apresentação termina em mudança."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "A degradation analysis has a spine: four beats. The what — one line, no jargon: 'checkout p99 degraded Tuesday'. Where on the graph — 'went from 200 to 800 at 14:02, right after the deploy'. The bottleneck — 'the pool saturated, requests queued up'. And the cost plus the fix — 'burned through a third of the budget; we doubled the pool and the queue drained'." }
+    - { speaker: Marcos, text: "Bridge to the image: 'let me walk you through the graph', 'you can see it here', 'as you can see'. The graph is your proof — point at the line. And always close with 'the takeaway is' plus 'what changes' — an analysis without an action is just a story." }
+    - { speaker: Yuri, text: "Watch for the audience split. Engineers want the bottleneck; product wants 'in plain terms — slow checkout, four hours, nobody lost a payment'. Same graph, two translations. And if something was your miss — the alert that didn't exist — 'that's on me, I own it'. Blameless still has owners." }
+  questions:
+    - { id: M18-05-l1, type: multiple_choice, prompt: "The four beats of the analysis are…", options: ["hello → graph → blame → bye", "what → where on the graph → bottleneck → cost+fix", "metrics → logs → traces → done", "alert → page → fix → post"], answer: 1, explanation: "O quê → onde no gráfico → gargalo → custo+correção.", tags: [comp.listening, gram.describing-trends] }
+    - { id: M18-05-l2, type: multiple_choice, prompt: "'Let me walk you through the graph' is…", options: ["an apology", "the classic opening — guiding the audience step by step", "a request to leave", "small talk"], answer: 1, explanation: "A abertura que guia passo a passo.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-05-l3, type: fill_blank, prompt: "We doubled the pool and the queue ___ in a minute.", accepted: ["drained"], explanation: "'The queue drained' — a prova da correção.", tags: [vocab.observability] }
+    - { id: M18-05-l4, type: error_correction, prompt: "The latency raised at 14:02.", accepted: ["The latency jumped at 14:02.", "The latency jumped at 14:02", "The latency went up at 14:02."], explanation: "jumped/went up.", tags: [br.metric-raised] }
+    - { id: M18-05-l5, type: multiple_choice, prompt: "'In plain terms' exists for…", options: ["the recording", "the engineers", "translating the graph for non-technical stakeholders", "the post-mortem only"], answer: 2, explanation: "A tradução para quem não é técnico.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-05-l6, type: multiple_choice, prompt: "An analysis should always close with…", options: ["questions", "the takeaway + what changes — analysis without action is a story", "an apology", "the next graph"], answer: 1, explanation: "Conclusão + ação — sempre.", tags: [comp.listening, vocab.observability] }
+
+writing:
+  prompt: |
+    **Cenário:** você apresentou a análise na review e agora registra
+    o resumo por escrito no doc da reunião.
+
+    **Tarefa:** escreva 60–90 palavras cobrindo as quatro batidas:
+    o quê (checkout degradou terça), onde no gráfico (200→800 às
+    14:02, platô), o gargalo (pool saturado, fila, throughput
+    capped) e o custo+correção (um terço do budget, pool dobrado,
+    fila drenada) + "what changes".
+  constraints:
+    - { label: "O 'what' em uma linha", pattern: "\\bdegraded\\b" }
+    - { label: "Movimento no gráfico", pattern: "\\b(went from|plateaued|jumped|spiked)\\b" }
+    - { label: "O gargalo", pattern: "\\b(saturated|bottleneck|queued|capped)\\b" }
+    - { label: "O custo ou a correção", pattern: "\\b(burned|budget|drained|what changes|takeaway)\\b" }
+  rubric:
+    - "As quatro batidas na ordem"
+    - "went from X to Y com âncora temporal"
+    - "O gargalo nomeado com evidência"
+    - "'what changes' com ação concreta"
+  model: >-
+    Checkout p99 degraded for four hours on Tuesday. On the graph:
+    it went from 200 to 800 at 14:02, right after the deploy, and
+    plateaued — no recovery. The bottleneck was the connection
+    pool: it saturated, requests queued up, and throughput capped
+    at 5k per second. Those four hours burned through a third of
+    the error budget — still within SLO, but thin. We doubled the
+    pool and the queue drained in a minute. What changes: pool
+    sized for peak, plus a saturation alert.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, gram.describing-trends]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos apresentando a análise: o quê, onde no gráfico, o gargalo, o custo e o que muda. Imagine o gráfico na tela."
+    maxSeconds: 60
+    targetPhrases:
+      - let me walk you through
+      - degraded on tuesday
+      - went from
+      - right after the deploy
+      - plateaued
+      - the bottleneck
+      - saturated
+      - queued up
+      - throughput capped
+      - burned through
+      - within SLO
+      - the queue drained
+      - you can see it here
+      - in plain terms
+      - the takeaway
+      - what changes
+    checklist:
+      - "As quatro batidas na ordem"
+      - "'went from X to Y' + 'plateaued'"
+      - "O gargalo + a fila como explicação"
+      - "'what changes' fechando com ação"
+
+quiz:
+  - { id: M18-05-q1, type: multiple_choice, prompt: "A análise de degradação abre com…", options: ["o 'what' em uma linha — 'checkout degraded Tuesday'", "o gargalo técnico detalhado", "uma desculpa", "o histórico do serviço"], answer: 0, explanation: "Uma linha sem jargão primeiro — detalhes depois.", tags: [gram.describing-trends] }
+  - { id: M18-05-q2, type: error_correction, prompt: "We have a p99 of 800ms in this graph.", accepted: ["P99 is 800ms in this graph.", "P99 is 800ms in this graph", "The p99 is 800ms here."], explanation: "'p99 is'.", tags: [br.have-a-latency] }
+  - { id: M18-05-q3, type: multiple_choice, prompt: "'The queue drained' confirma que…", options: ["o alerta funcionou", "o pool acabou", "a correção funcionou — os requests pararam de esperar", "o gráfico zerou"], answer: 2, explanation: "A fila drenar é a prova da correção.", tags: [vocab.observability] }
+  - { id: M18-05-q4, type: fill_blank, prompt: "Those four hours ___ through a third of the error budget.", accepted: ["burned"], explanation: "'Burned through' — o gasto do orçamento.", tags: [vocab.slo] }
+  - { id: M18-05-q5, type: multiple_choice, prompt: "Para a Dana (product), a frase é…", options: ["'the pool saturated at 100%'", "'in plain terms: slow checkout, four hours, nobody lost a payment'", "'throughput capped at 5k'", "'the tail latency spiked'"], answer: 1, explanation: "Tradução sem jargão para não-técnicos.", tags: [vocab.observability] }
+  - { id: M18-05-q6, type: error_correction, prompt: "The deploy of Tuesday caused the plateau.", accepted: ["Tuesday's deploy caused the plateau.", "Tuesday's deploy caused the plateau"], explanation: "Tuesday's deploy.", tags: [br.of-weekday] }
+  - { id: M18-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["changes", "what", "for", "sized", "pool", "peak"], answer: "what changes pool sized for peak", explanation: "'What changes' + ação — o fecho.", tags: [vocab.observability] }
+  - { id: M18-05-q8, type: multiple_choice, prompt: "Toda análise fecha com…", options: ["'the takeaway' + 'what changes' — conclusão e ação", "perguntas da plateia", "o próximo gráfico", "um pedido de desculpas"], answer: 0, explanation: "Sem ação, a análise é só história.", tags: [vocab.observability] }
+
+srsCards:
+  - { front: "walk you through", back: "A abertura — 'let me walk you through the graph'.", tag: vocab.observability }
+  - { front: "you can see it here", back: "Apontando a prova — 'the jump at 14:02'.", tag: vocab.observability }
+  - { front: "degraded", back: "Piorou sem cair — 'degraded Tuesday', não 'went down'.", tag: vocab.observability }
+  - { front: "the queue drained", back: "A prova da correção — os requests pararam de esperar.", tag: vocab.observability }
+  - { front: "burned through", back: "O gasto do orçamento — 'burned through a third'.", tag: vocab.slo }
+  - { front: "what changes", back: "O fecho com ação — 'what changes: sized for peak'.", tag: vocab.observability }
+  - { front: "sized for peak", back: "Dimensionado para o pior caso, não para a média.", tag: vocab.observability }
+  - { front: "the takeaway", back: "A conclusão — 'the takeaway is…'.", tag: vocab.observability }
+  - { front: "in plain terms", back: "A tradução para não-técnicos — 'slow checkout, four hours'.", tag: vocab.observability }
+  - { front: "that's on me", back: "Assumindo um ponto — 'the missing alert, that's on me'.", tag: vocab.observability }
+
+review:
+  preferTags: [gram.describing-trends, vocab.slo, br.metric-raised]
+  notes: "Revisão prioriza as quatro batidas, 'went from X to Y', o gargalo nomeado e o fecho 'what changes'."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

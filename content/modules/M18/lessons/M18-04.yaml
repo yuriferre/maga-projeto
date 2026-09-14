@@ -1,0 +1,294 @@
+id: M18-04
+module: M18
+order: 4
+title: "Performance: bottleneck, throughput, saturation"
+objective: >-
+  Ao final, você diagnostica performance em inglês: identifica o
+  gargalo, nomeia o recurso saturado e diz "it's CPU-bound" ou
+  "we're hitting connection limits" sem hesitar.
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.observability, comp.vocabulary, comp.speaking]
+prerequisites: [M18-03]
+
+context:
+  scenario: |
+    O checkout está lento e o gráfico não explica sozinho. A Priya
+    pergunta: "**where's the bottleneck?**" — e a resposta tem uma
+    anatomia: o recurso que satura primeiro, a fila que cresce
+    atrás dele e o sintoma que o usuário sente.
+
+    O vocabulário de performance é de diagnóstico:
+
+    - **bottleneck** — o ponto que limita tudo: "the database is
+      the bottleneck". Consertar qualquer outra coisa não ajuda.
+    - **throughput** — quanto passa por segundo: "throughput is
+      capped at 5k requests". A vazão, não a velocidade.
+    - **saturation** — quão cheio o recurso está: "the connection
+      pool is at 100% saturation". A medida do aperto.
+    - **bound** — o que limita: "it's **CPU-bound**" (a CPU é o
+      teto), "it's **I/O-bound**" (o disco/rede), "**memory-bound**".
+    - **hitting limits** — encostando no teto: "we're **hitting
+      connection limits**", "we're **maxing out** the pool".
+    - **contention / queueing** — a fila atrás do gargalo: "requests
+      are **queuing up** behind the pool".
+
+    A frase de diagnóstico: "**it's not slow — it's saturated**"
+    — o recurso está cheio, e a latência é a fila esperando.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "bottleneck"
+    meaning: 'o gargalo — o ponto que limita todo o resto'
+    example: "The database is the bottleneck — everything queues behind it."
+    translation: "O banco é o gargalo — tudo faz fila atrás dele."
+    note: "Otimizar o que não é gargalo não muda nada — ache o bottleneck primeiro."
+  - term: "throughput"
+    meaning: 'a vazão — quanto o sistema processa por segundo'
+    example: "Throughput is capped at 5k requests per second."
+    translation: "A vazão está limitada a 5 mil requests por segundo."
+    note: "Throughput ≠ latency — quantidade por segundo × tempo por request."
+  - term: "saturation"
+    meaning: 'saturação — quão cheio o recurso está'
+    example: "The connection pool is at 100% saturation."
+    translation: "O pool de conexões está em 100% de saturação."
+    note: "Um dos quatro sinais dourados: latency, traffic, errors, saturation."
+  - term: "CPU-bound"
+    meaning: 'limitado pela CPU — o processador é o teto'
+    example: "The batch job is CPU-bound — more memory won't help."
+    translation: "O job de batch é limitado por CPU — mais memória não ajuda."
+    note: "Também I/O-bound, memory-bound, network-bound — o recurso é o teto."
+  - term: "hitting connection limits"
+    meaning: 'encostando no limite de conexões — o teto do pool'
+    example: "We're hitting connection limits — the pool is exhausted."
+    translation: "Estamos encostando no limite de conexões — o pool esgotou."
+    note: "'Hitting X limits' = encostando no teto de X."
+  - term: "maxing out"
+    meaning: 'estourando — usando o recurso no máximo'
+    example: "The pods are maxing out their CPU requests."
+    translation: "Os pods estão estourando os requests de CPU."
+    note: "'Maxing out the pool/CPU/bandwidth' — no teto."
+  - term: "queuing up"
+    meaning: 'enfileirando — requests esperando o recurso'
+    example: "Requests are queuing up behind the connection pool."
+    translation: "Os requests estão enfileirando atrás do pool de conexões."
+    note: "A fila é o sintoma — a latência sobe antes do recurso falhar."
+  - term: "contention"
+    meaning: 'contenção — a disputa pelo mesmo recurso'
+    example: "Lock contention is what makes it slow under load."
+    translation: "A contenção de lock é o que o torna lento sob carga."
+    note: "Contention = muitos querendo o mesmo recurso ao mesmo tempo."
+  - term: "hot spot"
+    meaning: 'o ponto quente — a parte que concentra a carga'
+    example: "One partition is a hot spot — it takes 80% of the writes."
+    translation: "Uma partição é um ponto quente — leva 80% das escritas."
+    note: "Hot spot = distribuição ruim, não falta de recurso."
+  - term: "tail latency"
+    meaning: 'a latência da cauda — o p95/p99, não a média'
+    example: "The average looks fine — the tail latency is what's bad."
+    translation: "A média parece boa — a latência da cauda é que está ruim."
+    note: "A média esconde; o p99 mostra o que o usuário azarado sente."
+  - term: "headroom"
+    meaning: 'a folga — quanto recurso sobra antes do teto'
+    example: "We have 30% headroom on CPU — fine for the launch."
+    translation: "Temos 30% de folga na CPU — suficiente para o lançamento."
+    note: "Headroom = a margem antes de saturar."
+  - term: "capacity"
+    meaning: 'capacidade — o máximo que o sistema sustenta'
+    example: "The cluster is at capacity — no room for the new service."
+    translation: "O cluster está na capacidade — sem espaço para o serviço novo."
+    note: "Capacity planning = planejar antes de saturar."
+
+grammar:
+  title: "-bound e hitting: nomeando o teto"
+  explanation: |
+    Dois padrões nomeiam o recurso limitante:
+
+    - "it's **X-bound**" — o recurso é o teto: "**CPU-bound**",
+      "**I/O-bound**", "**memory-bound**". A pergunta que responde:
+      "o que acontece se eu dobrar esse recurso?" — se melhora,
+      era bound nele.
+    - "we're **hitting**/**maxing out** X" — encostando no limite:
+      "hitting connection limits", "maxing out the pool".
+
+    E a distinção que organiza o diagnóstico: **throughput** é a
+    vazão (requests/s), **latency** é o tempo por request,
+    **saturation** é quão cheio está. "Está lento" pode ser os
+    três — o inglês separa.
+  examples:
+    - { en: "It's CPU-bound — doubling memory won't help.", pt: "É limitado por CPU — dobrar memória não ajuda." }
+    - { en: "We're hitting connection limits — the pool is exhausted.", pt: "Estamos encostando no limite de conexões — o pool esgotou." }
+    - { en: "Requests are queuing up behind the database.", pt: "Os requests estão enfileirando atrás do banco." }
+    - { en: "Throughput is capped at 5k — the bottleneck is the pool.", pt: "A vazão está limitada a 5 mil — o gargalo é o pool." }
+    - { en: "It's not slow — it's saturated.", pt: "Não está lento — está saturado." }
+    - { en: "The average is fine; the tail latency is the problem.", pt: "A média está boa; a latência da cauda é o problema." }
+
+examples:
+  - en: "The database is the bottleneck — everything queues behind it."
+    pt: "O banco é o gargalo — tudo faz fila atrás dele."
+    context: "O ponto que limita tudo."
+  - en: "It's CPU-bound — more replicas won't help, it's per-request work."
+    pt: "É limitado por CPU — mais réplicas não ajudam, é trabalho por request."
+    context: "O teto nomeado."
+  - en: "We're hitting connection limits at peak — the pool is too small."
+    pt: "Estamos encostando no limite de conexões no pico — o pool é pequeno demais."
+    context: "O teto encostado."
+  - en: "Throughput is capped at 5k requests per second."
+    pt: "A vazão está limitada a 5 mil requests por segundo."
+    context: "A vazão no teto."
+  - en: "The pool is at 100% saturation — that's why p99 exploded."
+    pt: "O pool está em 100% de saturação — é por isso que o p99 explodiu."
+    context: "Saturação explicando a cauda."
+  - en: "One partition is a hot spot — it takes 80% of the writes."
+    pt: "Uma partição é um ponto quente — leva 80% das escritas."
+    context: "A distribuição ruim."
+  - en: "Requests are queuing up — latency is the queue, not the work."
+    pt: "Os requests estão enfileirando — a latência é a fila, não o trabalho."
+    context: "A fila como sintoma."
+  - en: "We have headroom on CPU but none on connections."
+    pt: "Temos folga na CPU, mas nenhuma nas conexões."
+    context: "A margem por recurso."
+
+variations:
+  - idea: '"nomeando o gargalo"'
+    items:
+      - { register: "Boa", text: "The bottleneck is the connection pool — it's exhausted.", adequate: true }
+      - { register: "Boa", text: "It's CPU-bound — the work is compute, not waiting.", adequate: true }
+      - { register: "Inadequada", text: "The system is slow. I don't know.", adequate: false, note: "Nomeie o recurso: 'it's X-bound' ou 'we're hitting X limits'." }
+      - { register: "Inadequada", text: "The bottleneck is slow.", adequate: false, note: "O gargalo é um recurso nomeado — 'the database is the bottleneck'." }
+  - idea: '"throughput × latency × saturation"'
+    items:
+      - { register: "Boa", text: "Throughput is capped; latency is the queue building up.", adequate: true }
+      - { register: "Boa", text: "The pool is at 100% saturation — p99 follows.", adequate: true }
+      - { register: "Inadequada", text: "The throughput is slow.", adequate: false, note: "Throughput é vazão — 'capped' ou 'low', não 'slow' (slow é latency)." }
+      - { register: "Inadequada", text: "Latency is 100% saturated.", adequate: false, note: "Quem satura é o recurso — latência sobe por causa da saturação." }
+
+brErrors:
+  - { wrong: "The CPU is in 100%.", right: "The CPU is at 100%.", why: "at 100%", tag: br.in-percent }
+  - { wrong: "We have a throughput of 5k.", right: "Throughput is 5k.", why: "throughput is", tag: br.have-a-latency }
+  - { wrong: "The latency raised under load.", right: "Latency went up under load.", why: "went up", tag: br.metric-raised }
+  - { wrong: "Traffic overpassed capacity at peak.", right: "Traffic exceeded capacity at peak.", why: "exceeded", tag: br.overpassed }
+  - { wrong: "The pool not recovered.", right: "The pool didn't recover.", why: "didn't recover", tag: br.it-not-works }
+  - { wrong: "The queue grow fast.", right: "The queue grows fast.", why: "grows", tag: br.third-person-s }
+  - { wrong: "The pool is more small than we need.", right: "The pool is smaller than we need.", why: "smaller", tag: br.more-er }
+  - { wrong: "The incident of Tuesday hit the pool.", right: "Tuesday's incident hit the pool.", why: "Tuesday's", tag: br.of-weekday }
+  - { wrong: "We discussed about the bottleneck.", right: "We discussed the bottleneck.", why: "discussed, sem about", tag: br.discuss-about }
+  - { wrong: "I wait your analysis.", right: "I'll wait for your analysis.", why: "wait for / look forward to", tag: br.i-wait-reply }
+
+dialogue:
+  title: "Onde está o gargalo?"
+  lines:
+    - { speaker: Priya, text: "Checkout is slow. Where's the bottleneck?" }
+    - { speaker: Yuri, text: "The connection pool. It's at 100% saturation — we're hitting the limit." }
+    - { speaker: Priya, text: "How do you know it's the pool and not the database?" }
+    - { speaker: Yuri, text: "Database CPU is at 40% — plenty of headroom. Requests are queuing up waiting for a connection." }
+    - { speaker: Priya, text: "So throughput is capped by the pool size." }
+    - { speaker: Yuri, text: "Exactly — capped at 5k requests per second. Latency went from 200 to 800 because the wait is in the queue, not the work." }
+    - { speaker: Priya, text: "And the fix?" }
+    - { speaker: Yuri, text: "Double the pool. It's not slow — it's saturated." }
+    - { speaker: Priya, text: "Clean diagnosis. Raise the limit and watch the queue drain." }
+  notes:
+    - "o diagnóstico em cadeia: sintoma (slow) → recurso saturado (pool) → prova (headroom no banco) → teto (capped) → fila (queuing)."
+    - "'it's not slow — it's saturated' — a frase que separa sintoma de causa."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Performance vocabulary is diagnostic. The bottleneck is the point that limits everything else — fixing anything else changes nothing. Throughput is how much passes per second; saturation is how full the resource is. When a resource is the ceiling, you say 'it's CPU-bound', 'it's I/O-bound' — the resource names the limit." }
+    - { speaker: Marcos, text: "And the limits have verbs: 'we're hitting connection limits', 'the pods are maxing out their CPU'. Behind the bottleneck, requests queue up — the latency you see is the queue, not the work. Watch the tail latency, the p99 — the average hides what the unlucky user feels." }
+    - { speaker: Yuri, text: "One more distinction: a hot spot is a distribution problem — one partition taking 80% of writes — not a capacity problem. And headroom is the margin before you saturate: 'we have 30% headroom on CPU'." }
+  questions:
+    - { id: M18-04-l1, type: multiple_choice, prompt: "The point that limits everything else is the…", options: ["hot spot", "bottleneck", "tail", "queue"], answer: 1, explanation: "O gargalo — consertar o resto não ajuda.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-04-l2, type: multiple_choice, prompt: "'It's CPU-bound' means…", options: ["the CPU is broken", "the CPU is the ceiling — more of it helps, nothing else does", "it uses no CPU", "the CPU is new"], answer: 1, explanation: "O recurso nomeia o teto.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-04-l3, type: fill_blank, prompt: "We're hitting connection ___ — the pool is exhausted.", accepted: ["limits"], explanation: "'Hitting X limits' = encostando no teto.", tags: [vocab.observability] }
+    - { id: M18-04-l4, type: error_correction, prompt: "We have a throughput of 5k requests.", accepted: ["Throughput is 5k requests per second.", "Throughput is 5k requests per second", "The throughput is 5k requests."], explanation: "'throughput is'.", tags: [br.have-a-latency] }
+    - { id: M18-04-l5, type: multiple_choice, prompt: "A hot spot is…", options: ["a full disk", "a distribution problem — one partition takes most of the load", "a CPU at 100%", "a slow query"], answer: 1, explanation: "Distribuição ruim, não falta de recurso.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-04-l6, type: multiple_choice, prompt: "Why watch p99 instead of the average?", options: ["it's easier to graph", "the average hides what the unlucky user feels", "p99 is always higher", "the tooling requires it"], answer: 1, explanation: "A média esconde a cauda.", tags: [comp.listening, vocab.observability] }
+
+writing:
+  prompt: |
+    **Cenário:** o checkout está lento. Você diagnosticou: pool de
+    conexões em 100% de saturação, banco com 40% de CPU (folga),
+    requests enfileirando, throughput limitado a 5k/s. Escreva o
+    diagnóstico no canal.
+
+    **Tarefa:** escreva 50–80 palavras nomeando o gargalo, a
+    evidência (a folga do banco), o sintoma (a fila e o p99) e a
+    correção proposta.
+  constraints:
+    - { label: "Gargalo nomeado", pattern: "\\bbottleneck\\b" }
+    - { label: "Recurso no teto", pattern: "\\b(saturation|saturated|hitting|maxing out|exhausted|capped|bound)\\b" }
+    - { label: "A fila", pattern: "\\b(queue|queuing|queued|waiting)\\b" }
+  rubric:
+    - "O gargalo nomeado ('the X is the bottleneck')"
+    - "A evidência de que não é o banco (headroom)"
+    - "A fila como explicação do p99"
+    - "Sem calques ('at 100%', 'throughput is')"
+  model: >-
+    The bottleneck is the connection pool — it's at 100%
+    saturation and requests are queuing up waiting for a
+    connection. The database has headroom: CPU is at 40%, so the
+    work itself is fine. Throughput is capped at 5k requests per
+    second by the pool size, and the queue is what pushed p99 from
+    200 to 800ms. Fix: double the pool and watch the queue drain.
+  minWords: 50
+  maxWords: 80
+  tags: [comp.writing, vocab.observability]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo 'where's the bottleneck?': o pool saturado, a folga do banco, a fila e a correção."
+    maxSeconds: 45
+    targetPhrases:
+      - the bottleneck is
+      - at a hundred percent saturation
+      - hitting connection limits
+      - maxing out
+      - queuing up
+      - throughput is capped
+      - CPU-bound
+      - headroom
+      - tail latency
+      - hot spot
+      - contention
+      - it's not slow
+      - it's saturated
+      - the queue drains
+      - at capacity
+      - the wait is in the queue
+    checklist:
+      - "O gargalo nomeado primeiro"
+      - "'saturated' × 'slow' distintos"
+      - "A fila explicando a latência"
+      - "A correção de uma linha no final"
+
+quiz:
+  - { id: M18-04-q1, type: multiple_choice, prompt: "O ponto que limita todo o resto — consertar o resto não ajuda — é o…", options: ["bottleneck", "hot spot", "tail", "queue"], answer: 0, explanation: "O gargalo.", tags: [vocab.observability] }
+  - { id: M18-04-q2, type: error_correction, prompt: "The CPU is in 100% during peak.", accepted: ["The CPU is at 100% during peak.", "The CPU is at 100% during peak"], explanation: "at 100%.", tags: [br.in-percent] }
+  - { id: M18-04-q3, type: multiple_choice, prompt: "'It's CPU-bound' significa…", options: ["a CPU está quebrada", "não usa CPU", "a CPU é nova", "a CPU é o teto — mais dela ajuda, o resto não"], answer: 3, explanation: "O recurso nomeia o limite.", tags: [vocab.observability] }
+  - { id: M18-04-q4, type: fill_blank, prompt: "Requests are ___ up behind the connection pool.", accepted: ["queuing", "lining"], explanation: "'Queuing up' — a fila atrás do gargalo.", tags: [vocab.observability] }
+  - { id: M18-04-q5, type: multiple_choice, prompt: "Throughput × latency: a diferença é…", options: ["são sinônimos", "throughput é tempo por request; latency é requests por segundo", "throughput é a vazão (requests/s); latency é o tempo por request", "latency é o teto; throughput é a fila"], answer: 2, explanation: "Vazão × tempo — duas medidas diferentes.", tags: [vocab.observability] }
+  - { id: M18-04-q6, type: error_correction, prompt: "Traffic overpassed capacity at peak.", accepted: ["Traffic exceeded capacity at peak.", "Traffic exceeded capacity at peak"], explanation: "exceeded.", tags: [br.overpassed] }
+  - { id: M18-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["not", "it's", "it's", "slow", "saturated"], answer: "it's not slow it's saturated", explanation: "Sintoma × causa.", tags: [vocab.observability] }
+  - { id: M18-04-q8, type: multiple_choice, prompt: "Uma partição levando 80% das escritas é…", options: ["a hot spot — problema de distribuição", "um bottleneck — falta de recurso", "saturação normal", "tail latency"], answer: 0, explanation: "Hot spot = distribuição ruim.", tags: [vocab.observability] }
+
+srsCards:
+  - { front: "bottleneck", back: "O ponto que limita tudo — 'the database is the bottleneck'.", tag: vocab.observability }
+  - { front: "throughput", back: "A vazão — 'capped at 5k requests/s'.", tag: vocab.observability }
+  - { front: "saturation", back: "Quão cheio o recurso está — 'at 100% saturation'.", tag: vocab.observability }
+  - { front: "CPU-bound", back: "A CPU é o teto — 'it's CPU-bound'.", tag: vocab.observability }
+  - { front: "hitting limits", back: "Encostando no teto — 'hitting connection limits'.", tag: vocab.observability }
+  - { front: "maxing out", back: "No máximo — 'maxing out the pool'.", tag: vocab.observability }
+  - { front: "queuing up", back: "Enfileirando atrás do gargalo — a latência é a fila.", tag: vocab.observability }
+  - { front: "contention", back: "A disputa pelo mesmo recurso — 'lock contention'.", tag: vocab.observability }
+  - { front: "hot spot", back: "O ponto que concentra a carga — distribuição ruim.", tag: vocab.observability }
+  - { front: "tail latency", back: "O p95/p99 — o que a média esconde.", tag: vocab.observability }
+  - { front: "headroom", back: "A folga antes do teto — '30% headroom'.", tag: vocab.observability }
+
+review:
+  preferTags: [vocab.observability, br.have-a-latency, br.in-percent]
+  notes: "Revisão prioriza bottleneck × throughput × saturation, '-bound', 'hitting limits' e os calques de métrica."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

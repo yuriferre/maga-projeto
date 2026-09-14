@@ -1,0 +1,290 @@
+id: M18-02
+module: M18
+order: 2
+title: "Descrevendo gráficos: spiked, dropped, plateaued"
+objective: >-
+  Ao final, você narra um gráfico em inglês: o que subiu, o que
+  caiu, o que ficou plano — com os verbos e a estrutura
+  "went from X to Y".
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.observability, gram.describing-trends, comp.vocabulary, comp.speaking]
+prerequisites: [M18-01]
+
+context:
+  scenario: |
+    A daily começa com o gráfico de latência na tela. A Priya pergunta:
+    "**what are we looking at?**" — e "está meio esquisito" não é
+    resposta.
+
+    Descrever gráfico tem vocabulário próprio:
+
+    - **subidas:** *spiked* (pico rápido que voltou), *jumped*,
+      *went up*, *climbed* (subida gradual)
+    - **quedas:** *dropped*, *fell*, *went down*, *dipped*
+      (caiu e voltou), *crashed* (despencou de vez)
+    - **planos:** *flat*, *flatlined*, *plateaued* (subiu e
+      estabilizou num patamar), *held steady*
+    - **comportamento:** *spiky* (cheio de picos), *noisy*,
+      *smooth*, *trending up/down*
+    - **a estrutura de ouro:** "**p99 latency went from 200ms to
+      800ms**" — valor de origem, valor de destino, sem rodeio.
+
+    E a etiqueta: aponte **onde** no tempo — "at 14:02", "right
+    after the deploy", "for the last hour" — senão o gráfico vira
+    adivinhação.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "spiked"
+    meaning: 'deu um pico — subiu rápido e voltou'
+    example: "Error rate spiked at 14:02 and came back down."
+    translation: "A taxa de erro deu um pico às 14:02 e voltou."
+    note: "Spike sobe e desce — se ficou lá em cima, é 'jumped' ou 'plateaued'."
+  - term: "dropped"
+    meaning: 'caiu — queda clara no gráfico'
+    example: "Throughput dropped to zero during the outage."
+    translation: "O throughput caiu a zero durante o outage."
+    note: "'Dropped' cobre queda grande ou pequena; 'dipped' é a quedinha que volta."
+  - term: "plateaued"
+    meaning: 'estabilizou num patamar — subiu e ficou plano'
+    example: "Latency climbed for ten minutes, then plateaued at 800ms."
+    translation: "A latência subiu por dez minutos e estagnou em 800ms."
+    note: "Plateau = platô: sobe, e o topo é plano."
+  - term: "flat"
+    meaning: 'plano — sem movimento no gráfico'
+    example: "Traffic is flat all night — the batch is the only bump."
+    translation: "O tráfego fica plano a noite toda — o batch é a única elevação."
+    note: "'Flatlined' é o flat dramático — a linha morreu (ou o serviço)."
+  - term: "spiky"
+    meaning: 'espigado — cheio de picos, sem padrão'
+    example: "The CPU graph is spiky — short bursts every few seconds."
+    translation: "O gráfico de CPU está espigado — rajadas curtas a cada poucos segundos."
+    note: "Spiky ≠ spiked: spiky é o comportamento contínuo."
+  - term: "trending up"
+    meaning: 'em tendência de alta — subindo devagar e sem parar'
+    example: "Memory usage is trending up — that's a leak, not a spike."
+    translation: "O uso de memória está em tendência de alta — é vazamento, não pico."
+    note: "A tendência importa mais que o valor do momento."
+  - term: "went from X to Y"
+    meaning: 'foi de X para Y — a estrutura de origem e destino'
+    example: "P99 latency went from 200ms to 800ms at 14:02."
+    translation: "A latência p99 foi de 200ms para 800ms às 14:02."
+    note: "A frase que abre qualquer explicação de gráfico."
+  - term: "dipped"
+    meaning: 'mergulhou — caiu um pouco e recuperou'
+    example: "Throughput dipped during the failover, then recovered."
+    translation: "O throughput caiu durante o failover e depois recuperou."
+    note: "Dip = a quedinha; 'dropped' não promete recuperação."
+  - term: "held steady"
+    meaning: 'se manteve estável — não mexeu'
+    example: "Error rate held steady at 0.1% the whole time."
+    translation: "A taxa de erro se manteve estável em 0,1% o tempo todo."
+    note: "O 'flat' com intenção — ficou assim de propósito."
+  - term: "right after the deploy"
+    meaning: 'logo depois do deploy — a âncora temporal'
+    example: "Latency jumped right after the deploy."
+    translation: "A latência saltou logo depois do deploy."
+    note: "Sempre ancôre no tempo: at 14:02, right after X, for the last hour."
+  - term: "bump"
+    meaning: 'a elevaçãozinha — um aumento pequeno e visível'
+    example: "The only bump on the graph is the nightly batch."
+    translation: "A única elevação no gráfico é o batch noturno."
+    note: "Bump < spike — uma elevação modesta."
+  - term: "noise floor"
+    meaning: 'o piso de ruído — o nível de fundo que nunca zera'
+    example: "There's always a noise floor of 404s from scanners."
+    translation: "Sempre há um piso de ruído de 404s dos scanners."
+    note: "Útil para explicar por que 'zero' não é realista."
+
+grammar:
+  title: "went from X to Y: a estrutura que narra qualquer gráfico"
+  explanation: |
+    A estrutura fixa para narrar movimento:
+
+    - "**went from** 200ms **to** 800ms" — origem e destino.
+    - "**climbed from** 200 **to** 800" — idem, com subida gradual.
+    - "**dropped from** 5k **to** zero" — idem, na descida.
+    - "**held steady at** 0.1%" — sem movimento, com valor.
+    - "**plateaued at** 800ms" — patamar, com valor.
+
+    Preposições fechadas: "went **from** X **to** Y", "steady
+    **at** Z", "**at** 14:02", "**for** the last hour". E o calque
+    do percentual: "a CPU está **em** 80%" é "**at** 80%", nunca
+    "in 80%".
+  examples:
+    - { en: "P99 went from 200ms to 800ms at 14:02 — right after the deploy.", pt: "O p99 foi de 200ms para 800ms às 14:02 — logo depois do deploy." }
+    - { en: "Traffic dropped from 5k to 3k requests per second.", pt: "O tráfego caiu de 5 mil para 3 mil requests por segundo." }
+    - { en: "Error rate held steady at 0.1% all night.", pt: "A taxa de erro ficou estável em 0,1% a noite toda." }
+    - { en: "Memory is trending up — it went from 60% to 90% in a week.", pt: "A memória está em tendência de alta — foi de 60% para 90% numa semana." }
+    - { en: "Latency plateaued at 800ms and stayed there.", pt: "A latência estagnou em 800ms e ficou lá." }
+    - { en: "The CPU is at 80% — 'at', not 'in'.", pt: "A CPU está em 80% — 'at', não 'in'." }
+
+examples:
+  - en: "Error rate spiked at 14:02 — look at that vertical line."
+    pt: "A taxa de erro deu um pico às 14:02 — olha aquela linha vertical."
+    context: "O pico clássico."
+  - en: "Throughput dipped during the failover, then recovered."
+    pt: "O throughput caiu durante o failover e depois recuperou."
+    context: "A quedinha que volta."
+  - en: "The graph is spiky — bursts every few seconds, nothing steady."
+    pt: "O gráfico está espigado — rajadas a cada poucos segundos, nada estável."
+    context: "O comportamento sem padrão."
+  - en: "It's been flat for a week — then the deploy landed."
+    pt: "Ficou plano por uma semana — aí o deploy aterrissou."
+    context: "O contraste que aponta o culpado."
+  - en: "Memory is trending up slowly — that's a leak shape, not a spike."
+    pt: "A memória sobe devagar — formato de vazamento, não de pico."
+    context: "Ler a forma, não só o valor."
+  - en: "Latency plateaued at 800ms — it climbed and stayed."
+    pt: "A latência estagnou em 800ms — subiu e ficou."
+    context: "O patamar."
+  - en: "P99 went from 200ms to 800ms right after the deploy."
+    pt: "O p99 foi de 200ms para 800ms logo depois do deploy."
+    context: "A frase de abertura da investigação."
+  - en: "The line held steady at 99.9% the whole quarter."
+    pt: "A linha se manteve em 99,9% o trimestre inteiro."
+    context: "A estabilidade que se defende na review."
+
+variations:
+  - idea: '"o verbo certo para a forma"'
+    items:
+      - { register: "Boa", text: "It spiked at 14:02 and came back down.", adequate: true }
+      - { register: "Boa", text: "It climbed for ten minutes, then plateaued.", adequate: true }
+      - { register: "Inadequada", text: "It spiked and stayed at 800ms.", adequate: false, note: "Spike volta — se ficou lá em cima, é 'jumped' ou 'plateaued'." }
+      - { register: "Inadequada", text: "It flatlined at 800ms after climbing.", adequate: false, note: "Flatline = morreu/zerou — patamar alto é 'plateaued'." }
+  - idea: '"anclando no tempo"'
+    items:
+      - { register: "Boa", text: "Latency jumped at 14:02, right after the deploy.", adequate: true }
+      - { register: "Boa", text: "It's been trending up for the last hour.", adequate: true }
+      - { register: "Inadequada", text: "Latency jumped. Somewhere. At some point.", adequate: false, note: "Sem âncora temporal, o gráfico vira adivinhação — diga 'at 14:02'." }
+      - { register: "Inadequada", text: "It was high in Friday.", adequate: false, note: "'On Friday' — e melhor ainda: 'at 14:02 on Friday'." }
+
+brErrors:
+  - { wrong: "The latency raised to 800ms.", right: "The latency went up to 800ms.", why: "went up/rose — 'raise' pede objeto", tag: br.metric-raised }
+  - { wrong: "The CPU is in 80%.", right: "The CPU is at 80%.", why: "at 80%", tag: br.in-percent }
+  - { wrong: "The error rate stays in 2%.", right: "The error rate stays at 2%.", why: "at 2%", tag: br.in-percent }
+  - { wrong: "We have a latency of 800ms now.", right: "Latency is at 800ms now.", why: "latency is", tag: br.have-a-latency }
+  - { wrong: "It was high in Friday.", right: "It was high on Friday.", why: "on Friday", tag: br.in-weekday }
+  - { wrong: "The traffic not recovered.", right: "The traffic didn't recover.", why: "didn't recover", tag: br.it-not-works }
+  - { wrong: "The graph show a spike.", right: "The graph shows a spike.", why: "shows", tag: br.third-person-s }
+  - { wrong: "Traffic overpassed capacity at peak.", right: "Traffic exceeded capacity at peak.", why: "exceeded", tag: br.overpassed }
+  - { wrong: "The metric is more high than yesterday.", right: "The metric is higher than yesterday.", why: "higher", tag: br.more-er }
+  - { wrong: "I have a doubt about this spike.", right: "I have a question about this spike.", why: "question", tag: br.doubt }
+
+dialogue:
+  title: "O que estamos olhando?"
+  lines:
+    - { speaker: Priya, text: "What are we looking at? Walk me through the graph." }
+    - { speaker: Yuri, text: "This is p99 latency for checkout. It was flat at 200ms all morning." }
+    - { speaker: Priya, text: "And then?" }
+    - { speaker: Yuri, text: "At 14:02 it jumped — went from 200 to 800 in two minutes. Right after the deploy." }
+    - { speaker: Priya, text: "Did it recover?" }
+    - { speaker: Yuri, text: "No — it plateaued at 800. It's been there for an hour. And CPU is spiky, bursts every few seconds." }
+    - { speaker: Priya, text: "So not a spike — a new level. What about memory?" }
+    - { speaker: Yuri, text: "Trending up slowly. Sixty to seventy percent this week. Different shape — could be unrelated." }
+    - { speaker: Priya, text: "Good read. The deploy is the suspect; the memory is a separate thread." }
+  notes:
+    - "a narrativa cobre: flat → jumped → went from X to Y → plateaued → spiky → trending up."
+    - "'a new level' — a distinção entre spike (volta) e patamar (fica)."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Reading a graph out loud is a skill. 'Spiked' means it jumped and came back — if it stayed up, that's 'jumped' or 'plateaued'. 'Dropped' is a clear fall; 'dipped' is a small one that recovers. 'Flat' is no movement, 'spiky' is all movement, and 'trending up' is a slow climb that doesn't stop — that's your leak shape." }
+    - { speaker: Marcos, text: "The golden structure is 'went from X to Y'. 'P99 went from 200 milliseconds to 800 at 14:02.' Anchor it in time — 'at 14:02', 'right after the deploy', 'for the last hour' — or nobody knows which part of the graph you mean." }
+    - { speaker: Yuri, text: "And the calques: 'a CPU está em 80%' is 'at 80%', never 'in 80%'. 'A latência subiu' is 'rose' or 'went up' — 'raised' needs an object. And 'we have a latency of 200' becomes 'the latency is 200'." }
+  questions:
+    - { id: M18-02-l1, type: multiple_choice, prompt: "The graph jumped and came back down. The verb is…", options: ["spiked", "plateaued", "flatlined", "trended"], answer: 0, explanation: "Spike sobe e volta.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-02-l2, type: multiple_choice, prompt: "It climbed, then stayed at a high level. The verb is…", options: ["dipped", "spiked", "plateaued", "dropped"], answer: 2, explanation: "Subiu e ficou num patamar — 'plateaued'.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-02-l3, type: fill_blank, prompt: "P99 went from 200ms ___ 800ms.", accepted: ["to"], explanation: "went from X to Y.", tags: [gram.describing-trends] }
+    - { id: M18-02-l4, type: error_correction, prompt: "The CPU is in 80% during the batch.", accepted: ["The CPU is at 80% during the batch.", "The CPU is at 80% during the batch"], explanation: "at 80%.", tags: [br.in-percent] }
+    - { id: M18-02-l5, type: multiple_choice, prompt: "'Trending up' describes…", options: ["a single spike", "a slow climb that doesn't stop", "a flat line", "a recovered dip"], answer: 1, explanation: "A subida lenta e contínua — formato de leak.", tags: [comp.listening, vocab.observability] }
+    - { id: M18-02-l6, type: multiple_choice, prompt: "Why anchor the description 'at 14:02'?", options: ["it sounds professional", "so nobody has to guess which part of the graph you mean", "the tooling requires it", "it's faster to say"], answer: 1, explanation: "Sem âncora, a descrição vira adivinhação.", tags: [comp.listening, gram.describing-trends] }
+
+writing:
+  prompt: |
+    **Cenário:** o gráfico de p99 do checkout mostra: plano em 200ms
+    a manhã toda; salto para 800ms às 14:02 (logo após o deploy);
+    patamar desde então; CPU espigada; memória em subida lenta na
+    semana.
+
+    **Tarefa:** escreva 50–80 palavras narrando esse gráfico para o
+    canal do incidente — o que subiu, quando, onde estabilizou e o
+    que é uma thread separada.
+  constraints:
+    - { label: "Estrutura 'went from X to Y'", pattern: "\\bwent from\\s+\\S+\\s+to\\s+\\S+" }
+    - { label: "Verbo de forma", pattern: "\\b(spiked|jumped|plateaued|flat|spiky|dropped|dipped|trending|climbed|held steady)\\b" }
+    - { label: "Âncora temporal", pattern: "\\b(at\\s+\\d{1,2}[:.]\\d{2}|after the deploy|for the last|all morning|since then)\\b" }
+  rubric:
+    - "went from X to Y em pelo menos uma frase"
+    - "verbos de forma corretos (plateaued ≠ spiked)"
+    - "âncora temporal em cada afirmação"
+    - "sem calques (rose, at, 'the latency is')"
+  model: >-
+    P99 was flat at 200ms all morning. At 14:02, right after the
+    deploy, it jumped — went from 200 to 800 in two minutes. It
+    hasn't recovered: latency plateaued at 800ms for the last hour.
+    CPU is spiky with bursts every few seconds. Memory is trending
+    up slowly this week — sixty to seventy percent — a different
+    shape, probably a separate thread.
+  minWords: 50
+  maxWords: 80
+  tags: [comp.writing, gram.describing-trends]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos narrando um gráfico de latência: estava plano, saltou às 14:02 depois do deploy e estabilizou num patamar. Use 'went from X to Y'."
+    maxSeconds: 45
+    targetPhrases:
+      - went from
+      - spiked
+      - dropped
+      - plateaued
+      - flat
+      - spiky
+      - trending up
+      - dipped
+      - held steady
+      - right after the deploy
+      - at 14:02
+      - the latency rose
+      - jumped
+      - recovered
+      - a new level
+      - noise floor
+    checklist:
+      - "'went from X to Y' com os dois valores"
+      - "spiked × plateaued distintos"
+      - "âncora temporal ('at 14:02', 'right after')"
+      - "sem 'raised', sem 'in 80%'"
+
+quiz:
+  - { id: M18-02-q1, type: multiple_choice, prompt: "Subiu rápido e voltou ao normal. O verbo é…", options: ["spiked", "plateaued", "flatlined", "dropped"], answer: 0, explanation: "Spike = pico que volta.", tags: [vocab.observability] }
+  - { id: M18-02-q2, type: error_correction, prompt: "The latency raised to 800ms.", accepted: ["The latency rose to 800ms.", "The latency rose to 800ms", "The latency went up to 800ms."], explanation: "rose/went up — 'raise' pede objeto.", tags: [br.metric-raised] }
+  - { id: M18-02-q3, type: multiple_choice, prompt: "Subiu por dez minutos e ficou estável lá em cima. O verbo é…", options: ["dipped", "spiked", "plateaued", "crashed"], answer: 2, explanation: "O platô — 'plateaued at 800ms'.", tags: [vocab.observability] }
+  - { id: M18-02-q4, type: fill_blank, prompt: "Throughput dropped from 5k ___ zero.", accepted: ["to"], explanation: "'from X to Y'.", tags: [gram.describing-trends] }
+  - { id: M18-02-q5, type: multiple_choice, prompt: "O gráfico é cheio de picos irregulares, sem padrão. É…", options: ["flat", "spiky", "plateaued", "smooth"], answer: 1, explanation: "'Spiky' — o comportamento contínuo.", tags: [vocab.observability] }
+  - { id: M18-02-q6, type: error_correction, prompt: "The error rate is in 5% today.", accepted: ["The error rate is at 5% today.", "The error rate is at 5% today"], explanation: "at 5%.", tags: [br.in-percent] }
+  - { id: M18-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["from", "went", "p99", "200ms", "to", "800ms"], answer: "p99 went from 200ms to 800ms", explanation: "A estrutura de ouro.", tags: [gram.describing-trends] }
+  - { id: M18-02-q8, type: multiple_choice, prompt: "'Trending up' num gráfico de memória sugere…", options: ["a leak — a slow climb that doesn't stop", "a deploy spike", "normal noise", "a recovered dip"], answer: 0, explanation: "A subida lenta e contínua é o formato do leak.", tags: [vocab.observability] }
+
+srsCards:
+  - { front: "spiked", back: "Pico que volta — 'spiked at 14:02'.", tag: vocab.observability }
+  - { front: "dropped", back: "Queda clara — 'dropped to zero'.", tag: vocab.observability }
+  - { front: "dipped", back: "Quedinha que recupera — 'dipped during the failover'.", tag: vocab.observability }
+  - { front: "plateaued", back: "Subiu e ficou num patamar — 'plateaued at 800ms'.", tag: vocab.observability }
+  - { front: "flat", back: "Sem movimento — 'flat all night'.", tag: vocab.observability }
+  - { front: "spiky", back: "Cheio de picos, sem padrão — 'the CPU graph is spiky'.", tag: vocab.observability }
+  - { front: "trending up", back: "Subida lenta contínua — formato de leak.", tag: vocab.observability }
+  - { front: "went from X to Y", back: "A estrutura de origem e destino — 'went from 200 to 800'.", tag: gram.describing-trends }
+  - { front: "held steady", back: "Manteve-se estável — 'held steady at 0.1%'.", tag: vocab.observability }
+  - { front: "bump", back: "Elevaçãozinha modesta — 'the only bump is the batch'.", tag: vocab.observability }
+
+review:
+  preferTags: [gram.describing-trends, br.in-percent, br.metric-raised]
+  notes: "Revisão prioriza 'went from X to Y', os verbos de forma e o calque do percentual."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

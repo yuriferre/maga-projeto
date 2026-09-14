@@ -567,3 +567,31 @@ patterns:
     right: "Friday's incident hit the checkout / the incident on Friday"
     why: '"O incidente de sexta" é "Friday''s incident" ou "the incident on Friday".'
     tag: br.of-weekday
+  # "the latency raised" — raise é transitivo; sujeitos restritos a substantivos de métrica.
+  - id: metric-raised
+    pattern: "\\b(latency|traffic|errors?|error rate|load|usage|cpu|memory|disk|requests?|spikes?|throughput|p95|p99|the rate|the load|the cost)\\s+(raise|raises|raised)\\b"
+    wrong: "The latency raised to 800ms"
+    right: "The latency rose to 800ms / went up"
+    why: '"A latência subiu" é "rose/went up" — "raise" pede objeto ("we raised the limit").'
+    tag: br.metric-raised
+  # "the CPU is in 80%" — "em 80%" é calque; métricas ficam "at" o valor.
+  - id: in-percent
+    pattern: "\\b(is|are|was|were|stays?|remains?|sitting|sits)\\s+(at\\s+)?in\\s+\\d+(\\.\\d+)?\\s*%"
+    wrong: "The CPU is in 80% already"
+    right: "The CPU is at 80%"
+    why: '"Está em 80%" é "at 80%" — "in" não marca percentual.'
+    tag: br.in-percent
+  # "we have a latency of 200ms" — "temos uma latência de" é calque; "the latency is".
+  - id: have-a-latency
+    pattern: "\\b(have|has|had)\\s+an?\\s+(latency|error rate|throughput|availability|uptime|utilization)\\s+of\\b"
+    wrong: "We have a latency of 200ms on p99"
+    right: "The p99 latency is 200ms"
+    why: '"Temos uma latência de X" vira "the latency is X".'
+    tag: br.have-a-latency
+  # "overpassed" — "ultrapassou" é "exceeded"; sujeitos restritos a métricas.
+  - id: overpassed
+    pattern: "\\b(pool|traffic|latency|cost|usage|demand|load|cpu|memory|disk|budget|requests?|quota|capacity)\\s+overpass(ed|es|ing)?\\b"
+    wrong: "The pool overpassed the limit"
+    right: "The pool exceeded the limit"
+    why: '"Ultrapassou" é "exceeded" — "overpassed" não existe como verbo aqui.'
+    tag: br.overpassed
