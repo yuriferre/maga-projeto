@@ -1,0 +1,335 @@
+id: M30-06
+module: M30
+order: 6
+title: "Simulação: entrevista técnica de 45 min (design + troubleshooting)"
+objective: >-
+  Ao final, você atravessou uma entrevista técnica
+  simulada inteira — pensar em voz alta,
+  esclarecimento, design narrado e troubleshooting —
+  e se avaliou pela rubrica do entrevistador.
+durationMin: 50
+competencies: [SPK, LIS, CNF]
+tags: [vocab.sysdesign, vocab.troubleshoot, comp.speaking]
+prerequisites: [M30-05]
+
+context:
+  scenario: |
+    A entrevista técnica completa. A Dana te guia por
+    ~45 minutos em quatro blocos — e você responde
+    cada um de verdade, em voz alta.
+
+    **Os quatro blocos:**
+
+    - **Bloco 1 — Aquecimento** (5 min): factual
+      rápido — "why IaC?", "walk me through your
+      pipeline" → definição → porquê → exemplo.
+    - **Bloco 2 — System design** (20 min):
+      "design a rate limiter" → esclarecer (3–5
+      perguntas) → recap → interface → caixas →
+      fluxos → escala → trade-offs → "drill into".
+    - **Bloco 3 — Troubleshooting** (15 min): "the
+      site is slow — walk me through" → sintoma →
+      candidatos → checagens → eliminação → causa.
+    - **Bloco 4 — Fecho** (5 min): "what would you
+      monitor?" + suas perguntas técnicas.
+
+    **A rubrica (autoavaliação):**
+
+    - Pensou em voz alta o tempo todo (silêncio
+      ≤ 10 s)?
+    - Esclareceu antes de desenhar (3–5 perguntas)?
+    - Narrou na ordem: recap → interface → caixas →
+      fluxos → escala → trade-off?
+    - Investigou por eliminação, não por chute?
+    - Nomeou trade-offs e o que monitoraria?
+
+    Grave a simulação inteira. Ouça uma vez marcando
+    cada sinal da rubrica — a meta é o processo
+    visível do início ao fim.
+  roles: [Yuri (platform engineer), Dana (staff engineer, interviewer)]
+
+vocabulary:
+  - term: "let's start with a quick factual round"
+    meaning: 'vamos começar com uma rodada factual — a abertura'
+    example: "Let's start with a quick factual round — then we go deeper."
+    translation: "Vamos começar com uma rodada factual — depois aprofundamos."
+    note: "O aquecimento antes do design."
+  - term: "now the design portion"
+    meaning: 'agora a parte de design — a transição para o bloco principal'
+    example: "Good — now the design portion. Design a rate limiter for our API."
+    translation: "Bom — agora a parte de design. Desenhe um rate limiter para nossa API."
+    note: "A transição que abre o bloco de 20 minutos."
+  - term: "switching gears"
+    meaning: 'mudando de marcha — a transição entre blocos'
+    example: "Switching gears — the site is slow. Walk me through your debugging."
+    translation: "Mudando de marcha — o site está lento. Me guie pela sua depuração."
+    note: "A transição design → troubleshooting."
+  - term: "what would you monitor?"
+    meaning: 'o que você monitoraria? — a pergunta de observabilidade'
+    example: "Last one — what would you monitor on this rate limiter?"
+    translation: "Última — o que você monitoraria nesse rate limiter?"
+    note: "A pergunta que testa se você pensa em produção."
+  - term: "what would you add with more time?"
+    meaning: 'o que você adicionaria com mais tempo? — a pergunta de visão'
+    example: "What would you add with more time — priorities for v2?"
+    translation: "O que adicionaria com mais tempo — prioridades para a v2?"
+    note: "Mostra que você vê além do esboço."
+  - term: "you caught yourself — good"
+    meaning: 'você se corrigiu — bom — o sinal que o entrevistador dá'
+    example: "You caught yourself mid-thought — that's what I want to see."
+    translation: "Você se corrigiu no meio do pensamento — é isso que quero ver."
+    note: "A autocorreção sendo marcada positivamente."
+  - term: "walk me through the trade-off again"
+    meaning: 'me guie pelo trade-off de novo — o follow-up de design'
+    example: "Walk me through the trade-off again — why stale counters are fine."
+    translation: "Me guie pelo trade-off de novo — por que contadores velhos são ok."
+    note: "O follow-up que testa se o trade-off foi decisão, não sorte."
+  - term: "that's a senior answer"
+    meaning: 'essa é uma resposta de senior — o reconhecimento do processo'
+    example: "Clarifying first, narrating throughout — that's a senior answer."
+    translation: "Esclarecer primeiro, narrando o tempo todo — resposta de senior."
+    note: "O elogio ao processo, não à resposta."
+  - term: "any red flags in this design?"
+    meaning: 'alguma bandeira vermelha nesse design? — a autocrítica'
+    example: "Before we wrap — any red flags in this design you'd fix?"
+    translation: "Antes de fechar — alguma bandeira vermelha que você corrigiria?"
+    note: "A autocrítica do próprio design — diga uma."
+  - term: "the single point of failure"
+    meaning: 'o ponto único de falha — o que você deve nomear'
+    example: "The single point of failure is the counter store — I'd add a fallback."
+    translation: "O ponto único de falha é o store de contadores — eu adicionaria um fallback."
+    note: "Nomear o SPOF do próprio design é ouro."
+  - term: "let me pressure-test that"
+    meaning: 'deixe-me testar isso sob pressão — a autoverificação'
+    example: "Let me pressure-test that: 10x traffic, Redis down — what breaks?"
+    translation: "Deixe-me testar sob pressão: 10× o tráfego, Redis fora — o que quebra?"
+    note: "Testar o próprio design antes de ser testado."
+  - term: "time check — how are we doing?"
+    meaning: 'checagem de tempo — como estamos? — gerenciar o relógio'
+    example: "Time check — how are we doing? Should I go deeper on any piece?"
+    translation: "Checagem de tempo — como estamos? Aprofundo em alguma peça?"
+    note: "Gerenciar os 45 min é parte da prova."
+
+grammar:
+  title: "a gramática da entrevista inteira"
+  explanation: |
+    Os quatro blocos usam as molduras das aulas
+    anteriores — a novidade são as transições e a
+    autogestão:
+
+    - **Transições**: "**switching gears**…" /
+      "**now the design portion**".
+    - **Follow-ups**: "**walk me through the
+      trade-off again**" — testam se foi decisão.
+    - **Autocrítica**: "**any red flags** /
+      **the single point of failure is**…".
+    - **Autoverificação**: "**let me
+      pressure-test that**: 10x traffic, Redis
+      down — what breaks?".
+    - **O relógio**: "**time check — how are we
+      doing?**".
+
+    O entrevistador avalia o processo inteiro —
+    os blocos são as aulas 01–05 em sequência.
+  examples:
+    - { en: "Switching gears — the site is slow. Walk me through your debugging.", pt: "Mudando de marcha — o site está lento. Me guie pela depuração." }
+    - { en: "You caught yourself mid-thought — that's what I want to see.", pt: "Você se corrigiu no meio — é o que quero ver." }
+    - { en: "Walk me through the trade-off again — why stale counters are fine.", pt: "Me guie pelo trade-off de novo — por que contadores velhos são ok." }
+    - { en: "The single point of failure is the counter store — I'd add a fallback.", pt: "O SPOF é o store de contadores — adicionaria um fallback." }
+    - { en: "Let me pressure-test that: 10x traffic, Redis down — what breaks?", pt: "Testando sob pressão: 10× tráfego, Redis fora — o que quebra?" }
+    - { en: "Time check — how are we doing? Should I go deeper on any piece?", pt: "Checagem de tempo — aprofundo em alguma peça?" }
+
+examples:
+  - en: "Let's start with a quick factual round — then we go deeper."
+    pt: "Começamos com uma rodada factual — depois aprofundamos."
+    context: "O aquecimento."
+  - en: "Now the design portion — design a rate limiter for our API."
+    pt: "Agora a parte de design — um rate limiter para nossa API."
+    context: "A transição para o bloco principal."
+  - en: "Switching gears — the site is slow. Walk me through your debugging."
+    pt: "Mudando de marcha — o site está lento. Guie-me pela depuração."
+    context: "A transição design → troubleshooting."
+  - en: "You caught yourself mid-thought — that's exactly what I want to see."
+    pt: "Você se corrigiu no meio do pensamento — exatamente o que quero ver."
+    context: "A autocorreção marcada."
+  - en: "The single point of failure is the counter store — I'd add a fallback."
+    pt: "O ponto único de falha é o store — adicionaria um fallback."
+    context: "A autocrítica do próprio design."
+  - en: "Let me pressure-test that: 10x traffic, Redis down — what breaks?"
+    pt: "Testando sob pressão: 10×, Redis fora — o que quebra?"
+    context: "A autoverificação antes de ser testado."
+  - en: "Time check — how are we doing? Should I go deeper on any piece?"
+    pt: "Checagem de tempo — aprofundo em alguma peça?"
+    context: "Gerenciar o relógio."
+  - en: "Clarifying first, narrating throughout — that's a senior answer."
+    pt: "Esclarecer primeiro, narrando o tempo todo — resposta de senior."
+    context: "O reconhecimento do processo."
+
+variations:
+  - idea: '"a autocrítica do design"'
+    items:
+      - { register: "Forte", text: "The single point of failure is the counter store — I'd add a fallback.", adequate: true }
+      - { register: "Forte", text: "Let me pressure-test that: 10x traffic, Redis down — what breaks?", adequate: true }
+      - { register: "Fraco", text: "My design has no flaws.", adequate: false, note: "Todo design tem um SPOF — não nomeá-lo lê como não ver." }
+      - { register: "Fraco", text: "Everything would break — bad design.", adequate: false, note: "Autocrítica sem nomear o ponto específico não conta." }
+  - idea: '"gerenciar os 45 minutos"'
+    items:
+      - { register: "Forte", text: "Time check — should I go deeper on the write path?", adequate: true }
+      - { register: "Forte", text: "I've got ten minutes left — let me cover monitoring.", adequate: true }
+      - { register: "Fraco", text: "(gastar 40 min no design e zero no troubleshooting)", adequate: false, note: "O relógio é seu — gerencie os blocos." }
+      - { register: "Fraco", text: "(parar aos 20 min sem preencher o resto)", adequate: false, note: "Tempo sobrando = conteúdo faltando — aprofunde." }
+
+brErrors:
+  - { wrong: "Let me make a test of the limiter.", right: "Let me run a test of the limiter.", why: "run a test", tag: br.make-a-test }
+  - { wrong: "I would mount a solution for this.", right: "I would build a solution for this.", why: "build/design", tag: br.mount-solution }
+  - { wrong: "The service is on air again.", right: "The service is up again.", why: "is up", tag: br.on-air }
+  - { wrong: "The pod falls under 10x traffic.", right: "The pod goes down under 10x traffic.", why: "goes down", tag: br.service-falls }
+  - { wrong: "I have a doubt about the counter.", right: "I have a question about the counter.", why: "a question", tag: br.doubt }
+  - { wrong: "It depends of the scale.", right: "It depends on the scale.", why: "depends on", tag: br.depend-of }
+  - { wrong: "We discussed about the design.", right: "We discussed the design.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision Redis wins.", right: "In my view Redis wins.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "The same design than v1.", right: "The same design as v1.", why: "the same as", tag: br.same-than }
+  - { wrong: "I debug this since morning.", right: "I've been debugging this since morning.", why: "I've been debugging", tag: br.work-since }
+
+dialogue:
+  title: "A entrevista de 45 min (trechos dos quatro blocos)"
+  lines:
+    - { speaker: Dana, text: "Let's start with a quick factual round — why IaC over the console?" }
+    - { speaker: Yuri, text: "In one sentence: infra you can diff and roll back. The reason it matters — reviewable, repeatable, auditable. In my last project we caught 40 manual changes in one plan." }
+    - { speaker: Dana, text: "Now the design portion — design a rate limiter for our API." }
+    - { speaker: Yuri, text: "Before I answer, let me clarify a few things: what scale are we talking — RPS at peak? Any latency budget? Whole system or just the layer? What are we optimizing for?" }
+    - { speaker: Dana, text: "10k RPS, sub-5ms, just the layer, fairness first." }
+    - { speaker: Yuri, text: "So we need 10k RPS, sub-5ms, fairness — did I get that right? Let me draw the boxes: the check at the gateway, a counter store, the config." }
+    - { speaker: Dana, text: "Which algorithm?" }
+    - { speaker: Yuri, text: "My first instinct was fixed window — wait, that doesn't work; boundary bursts are unfair. Token bucket. On the read path, the counter must be in memory — we traded strict consistency for latency." }
+    - { speaker: Dana, text: "Switching gears — the site is slow. Walk me through your debugging." }
+    - { speaker: Yuri, text: "Slow how — all users or one region? What changed recently? My candidates: the deploy, the DB, the network. First I'd check the dashboards — is it us or the edge? Edge clean rules out the CDN; I move one layer down." }
+    - { speaker: Dana, text: "The deploy added a JOIN on the hot endpoint." }
+    - { speaker: Yuri, text: "Then the problem sits between app and DB — the deploy explains it. Roll back the query or add the index." }
+    - { speaker: Dana, text: "Time check — five minutes left. Any red flags in your design?" }
+    - { speaker: Yuri, text: "One: the counter store is the single point of failure — I'd add a local-cache fallback. Let me pressure-test the rest: 10x traffic, Redis down — the limiter degrades to allow-all, which is the right failure mode for us." }
+    - { speaker: Dana, text: "You caught yourself, named the trade-off, found your own SPOF — that's a senior loop." }
+  notes:
+    - "os quatro blocos comprimidos: factual → design (esclarecer → caixas → trade-off) → troubleshooting (sintoma → eliminação) → autocrítica."
+    - "'let me pressure-test that' — a autoverificação antes de ser testado."
+    - "o fecho: nomear o próprio SPOF + o failure mode correto ('degrades to allow-all')."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "The full loop: a factual warm-up, then design — clarify first, recap, boxes, paths, trade-offs — then troubleshooting — symptom, candidates, cheap checks, elimination — and the close: 'any red flags in this design?' Name your own single point of failure and what you'd monitor." }
+    - { speaker: Yuri, text: "Manage the clock yourself — 'time check, how are we doing?' And pressure-test your own design before they do: '10x traffic, Redis down — what breaks?' The best failure mode answer names what degrades gracefully." }
+    - { speaker: Dana, text: "What gets you hired isn't the perfect design — it's catching yourself, naming the trade-off, and finding your own SPOF before I do." }
+  questions:
+    - { id: M30-06-l1, type: multiple_choice, prompt: "Os quatro blocos da entrevista são…", options: ["factual → design → troubleshooting → fecho", "design → código → factual", "só design", "perguntas → silêncio"], answer: 0, explanation: "Aquecimento, design, troubleshooting, fecho.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-06-l2, type: fill_blank, prompt: "The counter store is the single point of ___ — I'd add a fallback.", accepted: ["failure"], explanation: "Nomear o próprio SPOF é ouro.", tags: [vocab.sysdesign] }
+    - { id: M30-06-l3, type: error_correction, prompt: "The pod falls under 10x traffic.", accepted: ["The pod goes down under 10x traffic.", "The pod goes down under 10x traffic", "The pod crashes under 10x traffic."], explanation: "'Goes down/crashes'.", tags: [br.service-falls] }
+    - { id: M30-06-l4, type: multiple_choice, prompt: "'Let me pressure-test that' é…", options: ["testar o próprio design antes de ser testado", "duvidar de si", "recomeçar", "uma pausa"], answer: 0, explanation: "10x, Redis down — o que quebra?", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-06-l5, type: multiple_choice, prompt: "O que te contrata não é o design perfeito — é…", options: ["a velocidade", "o vocabulário", "a certeza", "se corrigir, nomear o trade-off e achar o próprio SPOF"], answer: 3, explanation: "O loop de senior.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-06-l6, type: multiple_choice, prompt: "O relógio dos 45 min é gerenciado…", options: ["pelo entrevistador", "por você — 'time check, should I go deeper?'", "por ninguém", "pelo timer da sala"], answer: 1, explanation: "Gerenciar os blocos é parte da prova.", tags: [comp.listening, vocab.sysdesign] }
+
+writing:
+  prompt: |
+    **Cenário final:** depois da simulação, o coach
+    pediu por escrito a autoavaliação — pela
+    rubrica da entrevista técnica.
+
+    **Tarefa:** escreva 100–130 palavras: a
+    autoavaliação — 1) onde o processo ficou
+    visível (esclarecimento, narração,
+    eliminação), 2) onde você silenciou ou pulou
+    etapa, 3) o trade-off e o SPOF que nomeou, 4)
+    o que treina antes da real.
+  constraints:
+    - { label: "O processo visível", pattern: "\\bclarif|narrat|out loud|break.*down|eliminate|ruled out\\b" }
+    - { label: "Onde faltou", pattern: "\\bsilent|skipped|rushed|missed|forgot|too long\\b" }
+    - { label: "Trade-off/SPOF", pattern: "\\btraded|trade-off|single point|fallback|bottleneck\\b" }
+    - { label: "O treino", pattern: "\\bdrill|practice|work on|next time|before the real\\b" }
+  rubric:
+    - "Autoavaliação pela rubrica, honesta"
+    - "Trade-off e SPOF avaliados"
+    - "Plano de treino concreto"
+    - "Sem calques ('build', 'goes down', 'up', 'run a test')"
+  model: >-
+    Self-review, technical rubric. Where the
+    process stayed visible: clarifying came first
+    — five questions, each shaping the design —
+    and the narration held through the boxes and
+    the troubleshooting elimination. Where I
+    slipped: I went silent once, about fifteen
+    seconds on the algorithm choice — over the
+    ten-second line. The trade-off was named and
+    defended — consistency for latency — and I
+    found my own SPOF, the counter store, with a
+    fallback. Missing: "time check" — I let Dana
+    manage the clock. Before the real one: drill
+    the algorithm comparison until it's instant,
+    and narrate a fallback for every box, not just
+    the obvious one.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.sysdesign]
+
+speaking:
+  modeA:
+    prompt: "Grave até 2 minutos: a entrevista comprimida — uma resposta factual (definição→porquê→exemplo), o design do rate limiter na ordem (esclarecer→recap→caixas→trade-off), o troubleshooting por eliminação, e o fecho com o SPOF nomeado + 'what I'd monitor'."
+    maxSeconds: 120
+    targetPhrases:
+      - in one sentence
+      - the reason it matters
+      - for example, in my last project
+      - before i answer
+      - what scale are we talking
+      - did i get that right
+      - let me draw the boxes
+      - on the read path
+      - we traded consistency for latency
+      - the bottleneck moves to
+      - slow how
+      - my candidates are
+      - that rules out
+      - the problem sits between
+      - the single point of failure
+      - let me pressure-test that
+      - what i'd monitor
+      - time check
+      - drill into any piece
+      - any red flags
+    checklist:
+      - "os quatro blocos atravessados"
+      - "esclarecimento antes do design"
+      - "eliminação nomeada no troubleshooting"
+      - "SPOF próprio + o que monitoraria"
+      - "sem calques ('build', 'goes down', 'up', 'run a test')"
+
+quiz:
+  - { id: M30-06-q1, type: multiple_choice, prompt: "A entrevista técnica de 45 min avalia…", options: ["o design perfeito", "a memorização", "o processo visível do início ao fim", "a velocidade"], answer: 2, explanation: "O processo, não a resposta.", tags: [vocab.sysdesign] }
+  - { id: M30-06-q2, type: error_correction, prompt: "Let me make a test of the limiter.", accepted: ["Let me run a test of the limiter.", "Let me run a test of the limiter", "Let me test the limiter."], explanation: "'Run a test'.", tags: [br.make-a-test] }
+  - { id: M30-06-q3, type: multiple_choice, prompt: "O fecho forte da entrevista técnica é…", options: ["'any questions?'", "nomear o SPOF do próprio design + o que monitoraria", "'that's everything'", "silêncio"], answer: 1, explanation: "A autocrítica + a visão de produção.", tags: [vocab.sysdesign] }
+  - { id: M30-06-q4, type: fill_blank, prompt: "Switching ___ — the site is slow. Walk me through your debugging.", accepted: ["gears"], explanation: "'Switching gears' — a transição entre blocos.", tags: [vocab.sysdesign] }
+  - { id: M30-06-q5, type: multiple_choice, prompt: "'You caught yourself — good' significa que…", options: ["você errou feio", "a autocorreção em voz alta é o sinal que eles procuram", "a entrevista acabou", "você fala demais"], answer: 1, explanation: "Corrigir-se conta pontos.", tags: [vocab.sysdesign] }
+  - { id: M30-06-q6, type: error_correction, prompt: "The service is on air again after the rollback.", accepted: ["The service is up again after the rollback.", "The service is up again after the rollback", "The service is back online after the rollback."], explanation: "'Up/online'.", tags: [br.on-air] }
+  - { id: M30-06-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["me", "let", "that", "pressure-test"], answer: "let me pressure-test that", explanation: "Testar o próprio design.", tags: [vocab.sysdesign] }
+  - { id: M30-06-q8, type: multiple_choice, prompt: "O relógio dos 45 min se gerencia com…", options: ["ignorá-lo", "correr no fim", "o timer do entrevistador", "'time check — should I go deeper on any piece?'"], answer: 3, explanation: "Gerenciar os blocos é parte da prova.", tags: [vocab.sysdesign] }
+
+srsCards:
+  - { front: "let's start with a quick factual round", back: "O aquecimento antes do design.", tag: vocab.sysdesign }
+  - { front: "now the design portion", back: "A transição para o bloco principal.", tag: vocab.sysdesign }
+  - { front: "switching gears", back: "A transição design → troubleshooting.", tag: vocab.sysdesign }
+  - { front: "what would you monitor?", back: "A pergunta que testa visão de produção.", tag: vocab.sysdesign }
+  - { front: "what would you add with more time?", back: "A visão além do esboço.", tag: vocab.sysdesign }
+  - { front: "you caught yourself — good", back: "A autocorreção marcada positivamente.", tag: vocab.sysdesign }
+  - { front: "walk me through the trade-off again", back: "O follow-up que testa se foi decisão.", tag: vocab.sysdesign }
+  - { front: "that's a senior answer", back: "O elogio ao processo.", tag: vocab.sysdesign }
+  - { front: "any red flags in this design?", back: "A autocrítica — diga uma.", tag: vocab.sysdesign }
+  - { front: "the single point of failure", back: "Nomeie o SPOF do próprio design.", tag: vocab.sysdesign }
+  - { front: "let me pressure-test that", back: "10x, Redis down — o que quebra?", tag: vocab.sysdesign }
+  - { front: "time check — how are we doing?", back: "Gerenciar os 45 min é parte da prova.", tag: vocab.sysdesign }
+
+review:
+  preferTags: [vocab.sysdesign, vocab.troubleshoot, br.service-falls, br.on-air]
+  notes: "Revisão prioriza as transições, a autocrítica e a autoverificação."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
