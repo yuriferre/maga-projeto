@@ -1,0 +1,292 @@
+id: M20-03
+module: M20
+order: 3
+title: "Justificando gasto e apresentando economia"
+objective: >-
+  Ao final, você justifica um gasto e apresenta uma economia com
+  a estrutura certa: "this pays for itself in…", "the bulk of
+  the cost is…", "that's a saving of…", "worth it because…".
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.finops, gram.numbers-percentages, comp.speaking, comp.vocabulary]
+prerequisites: [M20-02]
+
+context:
+  scenario: |
+    Você quer um observability tool novo — $3k/mês. A Ana não
+    pergunta "quanto custa?"; ela pergunta "**why is this worth
+    it?**" A resposta que convence tem estrutura: custo →
+    retorno → prazo de payback.
+
+    As estruturas que carregam a justificativa:
+
+    - **"This pays for itself in…"** — o payback: "the tool
+      pays for itself in two months of reduced downtime".
+    - **"The bulk of the cost is…"** — onde o dinheiro está:
+      "the bulk of the cost is egress, not compute".
+    - **"A saving of $X"** — a economia nomeada: "right-sizing
+      is a saving of $40k a year" — nunca "an economy of".
+    - **"Worth it because…"** — o retorno explícito: "it's
+      worth it because one SEV1 costs more than a year of it".
+    - **"Compared to…"** — a âncora: "compared to one hour of
+      downtime, $3k a month is cheap".
+    - **"The ask is…"** — o pedido limpo: "the ask is $3k a
+      month; the return is cutting MTTR in half".
+  roles: [Yuri (platform engineer), Ana (product manager)]
+
+vocabulary:
+  - term: "pays for itself"
+    meaning: 'se paga sozinho — o payback do gasto'
+    example: "The tool pays for itself in two months of avoided downtime."
+    translation: "A ferramenta se paga em dois meses de downtime evitado."
+    note: "A frase mais curta de ROI: custo vs. o que ele evita."
+  - term: "the bulk of"
+    meaning: 'a maior parte de — onde o dinheiro concentra'
+    example: "The bulk of the cost is egress, not compute."
+    translation: "A maior parte do custo é egress, não compute."
+    note: "'Bulk of' aponta o driver dominante sem percentual exato."
+  - term: "a saving of"
+    meaning: 'uma economia de — o valor poupado nomeado'
+    example: "Right-sizing brings a saving of $40k a year."
+    translation: "O right-sizing traz uma economia de $40 mil por ano."
+    note: "'Saving', nunca 'an economy of' — economy é a do país."
+  - term: "worth it"
+    meaning: 'vale a pena — o veredito do custo-benefício'
+    example: "It's worth it because one SEV1 costs more than a year of it."
+    translation: "Vale a pena porque um SEV1 custa mais que um ano dela."
+    note: "'It's worth it' — 'worth' não é verbo, nunca 'it worths'."
+  - term: "compared to"
+    meaning: 'comparado a — a âncora que faz o número falar'
+    example: "Compared to one hour of downtime, $3k a month is cheap."
+    translation: "Comparado a uma hora de downtime, $3 mil por mês é barato."
+    note: "O número sozinho assusta; ancorado, convence."
+  - term: "the ask"
+    meaning: 'o pedido — quanto você está pedindo, limpo'
+    example: "The ask is $3k a month; the return is cutting MTTR in half."
+    translation: "O pedido é $3 mil por mês; o retorno é cortar o MTTR pela metade."
+    note: "Apresentação boa separa the ask de the return."
+  - term: "return on investment (ROI)"
+    meaning: 'retorno sobre o investimento — o que volta por cada dólar'
+    example: "The ROI is clear: $36k a year versus one avoided SEV1."
+    translation: "O ROI é claro: $36 mil por ano contra um SEV1 evitado."
+    note: "Em reunião ninguém diz 'return on investment' — é 'ROI'."
+  - term: "run the numbers"
+    meaning: 'fazer as contas — antes de pedir ou prometer'
+    example: "Let me run the numbers before I commit to a figure."
+    translation: "Deixa eu fazer as contas antes de me comprometer com um número."
+    note: "A saída elegante quando te pedem um número na hora."
+  - term: "break even"
+    meaning: 'empatar — o ponto onde o retorno cobre o custo'
+    example: "We break even in month three — after that it's pure saving."
+    translation: "Empatamos no terceiro mês — depois disso é economia pura."
+    note: "'Break even in X months' — a linha do payback."
+  - term: "at scale"
+    meaning: 'em escala — onde o número pequeno vira grande'
+    example: "$0.02 per request is nothing — at scale it's $30k a month."
+    translation: "$0,02 por requisição não é nada — em escala são $30 mil por mês."
+    note: "O argumento que muda de sinal conforme o volume."
+  - term: "headroom"
+    meaning: 'a folga — espaço no orçamento ou na capacidade'
+    example: "We have headroom in the budget until Q4."
+    translation: "Temos folga no orçamento até o Q4."
+    note: "Também de capacidade: 'the cluster has headroom'."
+  - term: "pay as you go"
+    meaning: 'pague conforme usa — sem compromisso, preço cheio'
+    example: "On-demand is pay as you go — flexible but full price."
+    translation: "On-demand é pague conforme usa — flexível mas preço cheio."
+    note: "Sinônimo de on-demand no discurso de custo."
+
+grammar:
+  title: "a estrutura que convence: custo → retorno → payback"
+  explanation: |
+    Pedir dinheiro em inglês corporativo tem molde:
+
+    1. **The ask** — o número limpo: "the ask is $3k a month".
+    2. **The return** — o que volta: "it cuts MTTR in half".
+    3. **The payback** — quando empata: "it pays for itself in
+       two months" / "we break even in month three".
+    4. **A âncora** — "compared to one hour of downtime…".
+
+    E os calques que entregam:
+
+    - "**An economy of $40k**" → "**a saving of $40k**".
+    - "**It worths**" → "**it's worth it**" — 'worth' não é
+      verbo.
+    - "**We spend money with AWS**" → "**spend on**".
+  examples:
+    - { en: "The tool pays for itself in two months.", pt: "A ferramenta se paga em dois meses." }
+    - { en: "The bulk of the cost is egress, not compute.", pt: "A maior parte do custo é egress, não compute." }
+    - { en: "That's a saving of $40k a year — never 'an economy of'.", pt: "Isso é uma economia de $40 mil por ano — nunca 'an economy of'." }
+    - { en: "It's worth it — 'worth' is never a verb.", pt: "Vale a pena — 'worth' nunca é verbo." }
+    - { en: "Compared to one SEV1, the ask is small.", pt: "Comparado a um SEV1, o pedido é pequeno." }
+    - { en: "We break even in month three.", pt: "Empatamos no terceiro mês." }
+
+examples:
+  - en: "The tool pays for itself in two months of avoided downtime."
+    pt: "A ferramenta se paga em dois meses de downtime evitado."
+    context: "O payback."
+  - en: "The bulk of the cost is egress, not compute."
+    pt: "A maior parte do custo é egress, não compute."
+    context: "Onde o dinheiro está."
+  - en: "Right-sizing brings a saving of $40k a year."
+    pt: "O right-sizing traz uma economia de $40 mil por ano."
+    context: "A economia nomeada."
+  - en: "It's worth it — one SEV1 costs more than a year of the tool."
+    pt: "Vale a pena — um SEV1 custa mais que um ano da ferramenta."
+    context: "O veredito com âncora."
+  - en: "Compared to one hour of downtime, $3k a month is cheap."
+    pt: "Comparado a uma hora de downtime, $3 mil por mês é barato."
+    context: "A âncora."
+  - en: "The ask is $3k a month; the return is cutting MTTR in half."
+    pt: "O pedido é $3 mil por mês; o retorno é cortar o MTTR pela metade."
+    context: "Ask × return."
+  - en: "We break even in month three — after that it's pure saving."
+    pt: "Empatamos no terceiro mês — depois disso é economia pura."
+    context: "A linha do payback."
+  - en: "$0.02 per request — at scale that's $30k a month."
+    pt: "$0,02 por requisição — em escala são $30 mil por mês."
+    context: "O número que muda de sinal."
+
+variations:
+  - idea: '"a estrutura do pedido"'
+    items:
+      - { register: "Boa", text: "The ask is $3k a month; it pays for itself in two.", adequate: true }
+      - { register: "Boa", text: "Compared to one SEV1, the tool is cheap.", adequate: true }
+      - { register: "Inadequada", text: "It worths the $3k — trust me.", adequate: false, note: "*It's worth it* — 'worth' não é verbo." }
+      - { register: "Inadequada", text: "This gives an economy of $40k.", adequate: false, note: "*A saving of* — 'economy' é a economia do país." }
+  - idea: '"onde o dinheiro está"'
+    items:
+      - { register: "Boa", text: "The bulk of the cost is egress.", adequate: true }
+      - { register: "Boa", text: "We spend most of the budget on compute.", adequate: true }
+      - { register: "Inadequada", text: "We spend the bulk of money with egress.", adequate: false, note: "*Spend on* — 'with' é para pessoas." }
+      - { register: "Inadequada", text: "The price of egress is expensive.", adequate: false, note: "Preço é *high* — 'expensive' descreve o item." }
+
+brErrors:
+  - { wrong: "This gives an economy of $40k a year.", right: "This brings a saving of $40k a year.", why: "a saving of", tag: br.an-economy }
+  - { wrong: "It's an economy of about 30%.", right: "It's a saving of about 30%.", why: "a saving of", tag: br.an-economy }
+  - { wrong: "It worths the refactor.", right: "It's worth the refactor.", why: "it's worth", tag: br.worths }
+  - { wrong: "The tool worths the price.", right: "The tool is worth the price.", why: "is worth", tag: br.worths }
+  - { wrong: "We spend $12k a month with the vendor.", right: "We spend $12k a month on the vendor.", why: "spend on", tag: br.spend-with }
+  - { wrong: "The rate is expensive per request.", right: "The rate is high per request.", why: "the rate is high", tag: br.price-expensive }
+  - { wrong: "Compute is the half of the spend.", right: "Compute is half the spend.", why: "half the spend", tag: br.the-half }
+  - { wrong: "We must to justify the spend.", right: "We must justify the spend.", why: "must justify", tag: br.modal-to }
+  - { wrong: "The cost raise every quarter.", right: "The cost rises every quarter.", why: "rises", tag: br.third-person-s }
+  - { wrong: "The tool not pay for itself.", right: "The tool doesn't pay for itself.", why: "doesn't pay", tag: br.it-not-works }
+
+dialogue:
+  title: "O pitch da ferramenta de observabilidade"
+  lines:
+    - { speaker: Yuri, text: "Quick pitch: I want the observability tool. The ask is $3k a month." }
+    - { speaker: Ana, text: "Why is this worth it?" }
+    - { speaker: Yuri, text: "It cuts our MTTR roughly in half. Compared to one SEV1 — which costs us more than a year of this tool — it's cheap." }
+    - { speaker: Ana, text: "And the current setup costs nothing?" }
+    - { speaker: Yuri, text: "It costs engineer-hours. The bulk of the debugging cost is the time we spend correlating logs — at scale that's more than the tool." }
+    - { speaker: Ana, text: "When do we break even?" }
+    - { speaker: Yuri, text: "Month three, conservatively — after that it's pure saving. Let me run the numbers properly and send you the slide." }
+    - { speaker: Ana, text: "Do that. If the payback is under six months, I'll approve it." }
+  notes:
+    - "'the ask is…' primeiro — o número limpo antes da justificativa."
+    - "a âncora: 'compared to one SEV1' — o custo fica pequeno perto do que ele evita."
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "A spending pitch has four beats. First the ask, clean — 'the ask is three K a month'. Then the return — 'it cuts MTTR in half'. Then the payback — 'it pays for itself in two months' or 'we break even in month three'. And the anchor — 'compared to one SEV1, that's cheap'. The number alone scares people; anchored, it convinces." }
+    - { speaker: Ana, text: "The words that carry it: 'the bulk of the cost is X' points at the dominant driver without an exact figure. 'A saving of forty K a year' — never 'an economy of'. 'It's worth it' — 'worth' isn't a verb, never 'it worths'. And 'at scale' is where small numbers turn big — 'two cents per request, at scale that's thirty K a month'." }
+  questions:
+    - { id: M20-03-l1, type: multiple_choice, prompt: "The four beats of a spending pitch are…", options: ["price → discount → contract → signature", "problem → team → timeline → budget", "ask → return → payback → anchor", "cost → risk → effort → approval"], answer: 2, explanation: "Ask, return, payback, anchor.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-03-l2, type: multiple_choice, prompt: "'It pays for itself in two months' means…", options: ["it's free after two months", "the return covers the cost in two months", "it costs two months of work", "the contract is two months"], answer: 1, explanation: "O payback — o retorno cobre o custo.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-03-l3, type: fill_blank, prompt: "The ___ of the cost is egress, not compute.", accepted: ["bulk"], explanation: "'The bulk of' — a maior parte.", tags: [vocab.finops] }
+    - { id: M20-03-l4, type: error_correction, prompt: "The tool worths the price.", accepted: ["The tool is worth the price.", "The tool is worth the price"], explanation: "'is worth' — worth não é verbo.", tags: [br.worths] }
+    - { id: M20-03-l5, type: multiple_choice, prompt: "'A saving of $40k a year' — o calque errado seria…", options: ["a discount of", "a saving for", "an economy of", "a save of"], answer: 2, explanation: "'An economy of' é o calque — economia de poupar é saving.", tags: [comp.listening, br.an-economy] }
+    - { id: M20-03-l6, type: multiple_choice, prompt: "'We break even in month three' means…", options: ["we go bankrupt", "we stop paying", "the tool is free", "the return covers the cost starting month three"], answer: 3, explanation: "O ponto de equilíbrio.", tags: [comp.listening, vocab.finops] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana pediu o pitch por escrito — "send me the
+    slide" virou "send me the paragraph".
+
+    **Tarefa:** escreva 60–90 palavras defendendo a ferramenta
+    de $3k/mês: o ask limpo, o retorno (MTTR), a âncora
+    (comparado a um SEV1) e o break even. Use "pays for
+    itself" ou "break even", "the bulk of" e "a saving of".
+  constraints:
+    - { label: "O ask", pattern: "\\b(the ask|we('re| are) asking|it costs)\\b" }
+    - { label: "O payback", pattern: "\\b(pays? for itself|break even|payback)\\b" }
+    - { label: "A âncora", pattern: "\\bcompared to|versus|than\\b" }
+    - { label: "A economia", pattern: "\\b(saving|bulk|worth|return)\\w*" }
+  rubric:
+    - "Ask limpo antes da justificativa"
+    - "Payback ou break even com prazo"
+    - "Âncora que faz o número parecer pequeno"
+    - "Sem calques ('a saving of', 'it's worth', 'spend on')"
+  model: >-
+    The ask is $3k a month for the observability tool. The
+    return: it cuts our MTTR roughly in half — the bulk of our
+    debugging cost today is engineer-hours correlating logs.
+    Compared to one SEV1, which costs more than a year of the
+    tool, it's cheap. We break even in month three; after that
+    it's a saving of about $30k a year in downtime alone. It's
+    worth it — I'll send the full numbers in the slide.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.finops]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos fazendo o pitch da ferramenta: ask, retorno, âncora e break even."
+    maxSeconds: 45
+    targetPhrases:
+      - the ask is
+      - pays for itself
+      - the bulk of the cost is
+      - a saving of
+      - it's worth it
+      - compared to
+      - break even
+      - at scale
+      - run the numbers
+      - the return is
+      - headroom
+      - pay as you go
+      - spend on
+      - the price is high
+      - month over month
+      - cutting MTTR in half
+    checklist:
+      - "ask → return → payback → âncora"
+      - "'a saving of', nunca 'an economy of'"
+      - "'it's worth it', nunca 'it worths'"
+      - "a âncora com 'compared to'"
+
+quiz:
+  - { id: M20-03-q1, type: multiple_choice, prompt: "'It pays for itself in two months' significa…", options: ["fica grátis em dois meses", "custa dois meses de trabalho", "o contrato é de dois meses", "o retorno cobre o custo em dois meses"], answer: 3, explanation: "O payback — o que ele evita paga o que ele custa.", tags: [vocab.finops] }
+  - { id: M20-03-q2, type: error_correction, prompt: "Right-sizing gives an economy of $40k a year.", accepted: ["Right-sizing gives a saving of $40k a year.", "Right-sizing brings a saving of $40k a year.", "Right-sizing gives a saving of $40k a year"], explanation: "'a saving of'.", tags: [br.an-economy] }
+  - { id: M20-03-q3, type: multiple_choice, prompt: "'The bulk of the cost is egress' aponta…", options: ["a parte dominante do custo", "o custo total", "o custo mínimo", "o desconto"], answer: 0, explanation: "O driver dominante sem número exato.", tags: [vocab.finops] }
+  - { id: M20-03-q4, type: fill_blank, prompt: "We break ___ in month three — after that it's pure saving.", accepted: ["even"], explanation: "'Break even' — o ponto de equilíbrio.", tags: [vocab.finops] }
+  - { id: M20-03-q5, type: multiple_choice, prompt: "A âncora do pitch é…", options: ["o preço cheio", "'compared to one SEV1, $3k a month is cheap'", "o contrato", "a demo"], answer: 1, explanation: "O número ancorado no que ele evita.", tags: [vocab.finops] }
+  - { id: M20-03-q6, type: error_correction, prompt: "It worths the $3k a month.", accepted: ["It's worth the $3k a month.", "It's worth it.", "It's worth the $3k a month"], explanation: "'it's worth' — worth não é verbo.", tags: [br.worths] }
+  - { id: M20-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["of", "bulk", "the", "cost", "is", "the", "egress"], answer: "the bulk of the cost is egress", explanation: "A maior parte.", tags: [vocab.finops] }
+  - { id: M20-03-q8, type: multiple_choice, prompt: "'Let me run the numbers' é a saída quando…", options: ["o gasto é zero", "pedem um número que você não calculou ainda", "a fatura chegou", "o contrato venceu"], answer: 1, explanation: "Fazer as contas antes de prometer.", tags: [vocab.finops] }
+
+srsCards:
+  - { front: "pays for itself", back: "O payback — 'pays for itself in two months'.", tag: vocab.finops }
+  - { front: "the bulk of", back: "A maior parte — 'the bulk of the cost is egress'.", tag: vocab.finops }
+  - { front: "a saving of", back: "Uma economia de — 'a saving of $40k', nunca 'an economy of'.", tag: vocab.finops }
+  - { front: "worth it", back: "Vale a pena — 'it's worth it', nunca 'it worths'.", tag: vocab.finops }
+  - { front: "compared to", back: "A âncora — 'compared to one SEV1, it's cheap'.", tag: vocab.finops }
+  - { front: "the ask", back: "O pedido limpo — 'the ask is $3k a month'.", tag: vocab.finops }
+  - { front: "ROI", back: "Return on investment — '$36k a year vs one SEV1'.", tag: vocab.finops }
+  - { front: "run the numbers", back: "Fazer as contas antes de prometer um número.", tag: vocab.finops }
+  - { front: "break even", back: "Empatar — 'we break even in month three'.", tag: vocab.finops }
+  - { front: "at scale", back: "Em escala — '$0.02 per request, at scale $30k'.", tag: vocab.finops }
+  - { front: "headroom", back: "A folga — 'headroom in the budget until Q4'.", tag: vocab.finops }
+  - { front: "pay as you go", back: "Pague conforme usa — on-demand, preço cheio.", tag: vocab.finops }
+
+review:
+  preferTags: [vocab.finops, br.an-economy, br.worths]
+  notes: "Revisão prioriza a estrutura ask → return → payback → âncora e os calques (an economy of, it worths, spend with)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
