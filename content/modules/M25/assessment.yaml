@@ -1,0 +1,88 @@
+# Avaliação do módulo M25: 15 itens cobrindo as cinco aulas + escrita (RFC curta + revisão) + fala.
+id: M25
+title: "Avaliação do módulo M25: RFCs e design reviews"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M25-A01, type: multiple_choice, prompt: "The right reading order for an RFC is…", options: ["top to bottom, every word", "comments first", "summary → non-goals → alternatives → open questions → design", "the diagrams only"], answer: 2, explanation: "Skim o esqueleto, dive no design e na migração.", tags: [vocab.rfc] }
+  - { id: M25-A02, type: error_correction, prompt: "I commented in the RFC, and I did a suggestion.", accepted: ["I commented on the RFC, and I made a suggestion.", "I commented on the RFC, and I made a suggestion", "I left a comment on the RFC, and I made a suggestion."], explanation: 'Dois calques: "commented on" + "made a suggestion".', tags: [br.comment-in, br.do-suggestion] }
+  - { id: M25-A03, type: fill_blank, prompt: "Under alternatives ___: they rejected the queue as too big a change.", accepted: ["considered"], explanation: "A seção do descarte — sua objeção pode já estar morta ali.", tags: [vocab.rfc] }
+  - { id: M25-A04, type: multiple_choice, prompt: "A strong proposal declares 'what would change my mind' because…", options: ["it shows doubt", "falsifiability disarms the objection before the reviewer raises it", "it's required", "it fills space"], answer: 1, explanation: "A condição de mudança declarada é a marca da proposta forte.", tags: [vocab.rfc, gram.hedging] }
+  - { id: M25-A05, type: error_correction, prompt: "I suggest to split the migration; in the other hand, it could wait.", accepted: ["I suggest splitting the migration; on the other hand, it could wait.", "I suggest splitting the migration; on the other hand, it could wait", "I suggest that we split the migration; on the other hand, it could wait"], explanation: 'Dois calques: "suggest splitting" + "on the other hand".', tags: [br.suggest-to, br.in-other-hand] }
+  - { id: M25-A06, type: multiple_choice, prompt: "'As written, the rollout has no rollback — is that intentional?' objects to…", options: ["the author", "the deadline", "the intention", "the text — leaving the intention room to breathe"], answer: 3, explanation: "'As written' ataca o texto, não a intenção.", tags: [vocab.rfc, gram.indirect-questions] }
+  - { id: M25-A07, type: error_correction, prompt: "I want that you review the draft — I have doubt about the scope.", accepted: ["I want you to review the draft — I have a doubt about the scope.", "I want you to review the draft — I have a doubt about the scope", "I want you to review the draft — I'm not sure about the scope"], explanation: 'Dois calques: "want you to" + "a doubt".', tags: [br.want-that, br.doubt] }
+  - { id: M25-A08, type: match, prompt: "Associe a seção/frase ao papel na RFC.", pairs: [{ left: "non-goals", right: "what the RFC won't fix" }, { left: "open questions", right: "what the author knows they don't know" }, { left: "the ask", right: "what the RFC wants from the reader" }, { left: "for the record", right: "the why, written against re-litigating" }], explanation: "O esqueleto da RFC e o registro da decisão.", tags: [vocab.rfc] }
+  - { id: M25-A09, type: multiple_choice, prompt: "'Resolving unless you object' closes a thread by…", options: ["asking permission", "ignoring the reviewer", "keeping your call while leaving the window open", "deleting the thread"], answer: 2, explanation: "Mantém a posição e ainda aceita o contra-argumento.", tags: [vocab.rfc] }
+  - { id: M25-A10, type: translate, prompt: "Podemos convergir em só-billing para a v1 e revisitar o resto no T3?", accepted: ["Can we converge on billing-only for v1 and revisit the rest in Q3?", "Can we converge on billing-only for v1 and revisit the rest in Q3"], explanation: '"converge on" + "revisit".', tags: [vocab.rfc] }
+  - { id: M25-A11, type: error_correction, prompt: "We discussed about it — the same concern than Ana raised.", accepted: ["We discussed it — the same concern as Ana raised.", "We discussed it — the same concern as Ana raised", "We discussed it — the same concern Ana raised"], explanation: 'Dois calques: "discussed it" + "the same as".', tags: [br.discuss-about, br.same-than] }
+  - { id: M25-A12, type: fill_blank, prompt: "Worth shipping a ___ first — one endpoint, one client, one week.", accepted: ["spike"], explanation: "O spike que reduz o risco da decisão grande.", tags: [vocab.rfc] }
+  - { id: M25-A13, type: multiple_choice, prompt: "Which opening carries the hedged claim?", options: ["'the design is wrong, period'", "'this will definitely fail'", "'my read is the RFC assumes a warm cache — is that fair?'", "'everyone knows this won't work'"], answer: 2, explanation: "A leitura declarada + a pergunta — hedging que convida correção.", tags: [gram.hedging] }
+  - { id: M25-A14, type: error_correction, prompt: "I am agree with Beth — she gave me a feedback yesterday.", accepted: ["I agree with Beth — she gave me feedback yesterday.", "I agree with Beth — she gave me feedback yesterday"], explanation: 'Dois calques: "I agree" + "feedback" sem artigo.', tags: [br.i-am-agree, br.uncountable] }
+  - { id: M25-A15, type: multiple_choice, prompt: "The decision at the top of the doc, dated, exists because…", options: ["the reader six months out finds it without reading forty comments", "templates require it", "it looks formal", "reviewers asked"], answer: 0, explanation: "Decisão no chat morre no chat.", tags: [vocab.rfc, gram.argument-connectors] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** duas entregas em uma —
+    a revisão da RFC do Carlos e o esqueleto da sua.
+
+    **Tarefa:** escreva 100–140 palavras. Parte 1 — a
+    revisão da RFC de webhooks: o que sustenta, a lacuna
+    (bloqueante), a sugestão com caminho, o aval
+    condicional. Parte 2 — a sua RFC: resumo com proposta
+    + porquê + pedido com prazo, uma alternativa com a
+    razão da morte, uma open question honesta.
+  constraints:
+    - { label: "O que sustenta", pattern: "\\bholds?|solid|real|checks? out|honest\\b" }
+    - { label: "A lacuna bloqueante", pattern: "\\bmissing|says nothing|blocking|doesn't (cover|mention)|failure path\\b" }
+    - { label: "A sugestão", pattern: "\\bcould we|worth|suggest|spike|i'd structure\\b" }
+    - { label: "A sua proposta", pattern: "\\bi('m| am) propos|the ask|open question|review closes|because\\b" }
+  rubric:
+    - "Revisão: sustenta + lacuna + sugestão + aval condicional"
+    - "RFC: resumo com pedido + alternativa + open question"
+    - "Tom de review — texto, não autor; razão, não gosto"
+    - "Sem calques ('commented on', 'make a suggestion', 'suggest doing', 'on the other hand')"
+  model: >-
+    Review — Carlos's webhook RFC. The parts that hold:
+    the motivation is real and the numbers check out.
+    Two things missing: the retry story and what happens
+    when the client's endpoint is down — it covers the
+    happy path, the failure path is one line. Blocking.
+    Suggestion: worth shipping a spike first — one
+    endpoint, one client, one week. Sign-off pending
+    the retry story. — My RFC draft: I'm proposing a
+    shared cache because catalog reads drive eighty
+    percent of p99 misses; the ask is review by Friday.
+    Alternative rejected: Redis, for ops overhead. Open
+    question, honestly: how it behaves on deploys.
+  minWords: 100
+  maxWords: 140
+  tags: [comp.writing, vocab.rfc, gram.hedging]
+
+speaking:
+  prompt: "Grave 90 segundos: 60 entregando o review da RFC do Carlos (o que sustenta, as lacunas, a sugestão do spike, o aval condicional) + 30 apresentando a sua proposta com o pedido e o prazo."
+  maxSeconds: 120
+  targetPhrases:
+    - the parts that hold
+    - two things missing
+    - the retry story
+    - happy path
+    - failure path
+    - worth shipping a spike
+    - sign-off pending
+    - comments welcome
+    - what would you need to see
+    - commented on
+    - make a suggestion
+    - on the other hand
+    - I suggest shipping
+    - under open questions
+    - it says nothing about
+    - I'm proposing
+  checklist:
+    - "reconhece o que sustenta antes das lacunas"
+    - "lacuna nomeada + peso ('blocking')"
+    - "sugestão com caminho + aval condicional"
+    - "sua proposta com pedido — sem calques"
+  tags: [comp.speaking, comp.confidence, vocab.rfc]
