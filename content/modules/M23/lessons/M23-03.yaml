@@ -1,0 +1,324 @@
+id: M23-03
+module: M23
+order: 3
+title: "Diferenças culturais: 'that's interesting' pode querer dizer 'não'"
+objective: >-
+  Ao final, você lê e calibra a discordância por cultura —
+  alemã e holandesa diretas, americana empacotada, britânica
+  subentendida, indiana indireta — e entende como o estilo
+  brasileiro soa para cada uma.
+durationMin: 45
+competencies: [SPK, CNF, LIS]
+tags: [vocab.disagreement, gram.hedging, gram.softeners, comp.speaking, comp.confidence, comp.listening]
+prerequisites: [M23-02]
+
+context:
+  scenario: |
+    O time é distribuído: a Katja em Berlim, o Priya em Pune,
+    o Tom em Londres, a Dana em Amsterdã e o Mike em Austin —
+    e o mesmo "I disagree" aterrissa diferente em cada mesa.
+
+    O mapa rápido de como cada um discorda:
+
+    - **Alemanha / Holanda**: direto é neutro. "*I disagree*"
+      é informação, não conflito — e hedge demais lê-se como
+      insegurança ou enrolação.
+    - **EUA**: positivo e empacotado. "*I love the direction,
+      and…*" — a discordância vem embrulhada em energia.
+    - **Reino Unido**: subentendido. "*that's interesting*" e
+      "*I'm not sure about that*" podem ser um "não" completo
+      — e "*with respect*" é sinal amarelo, não cortesia.
+    - **Índia**: indireto e hierárquico. "*yes*" pode ser
+      "ouvi você", não "concordo" — e a discordância vai ao
+      privado ou vira pergunta, não confronto público.
+    - **Brasil, para eles**: quente, relacional, cheio de
+      contexto. O alemão lê "evasivo"; o brasileiro lê o
+      alemão como "rude". Nenhum dos dois está — é o registr o
+      que difere.
+  roles: [Yuri (platform engineer), Katja (Berlin), Priya (Pune), Tom (London), Dana (Amsterdam), Mike (Austin)]
+
+vocabulary:
+  - term: "that's interesting"
+    meaning: 'o subentendido britânico — pode ser um "não" completo'
+    example: "Tom said 'that's interesting' — which, from a Brit, is a hard no."
+    translation: "O Tom disse 'interessante' — o que, vindo de um britânico, é um não redondo."
+    note: "Em inglês britânico, leia a contenção, não a cortesia."
+  - term: "I'm not sure about that"
+    meaning: 'a discordância britânica — suave na forma, firme no sentido'
+    example: "'I'm not sure about that' from Tom means he disagrees entirely."
+    translation: "'Não tenho certeza disso' do Tom significa que ele discorda por completo."
+    note: "UK: quanto mais leve a forma, mais séria a discordância."
+  - term: "with respect"
+    meaning: 'o aviso britânico — "vou discordar", não cortesia'
+    example: "'With respect, that's not right' — the respect marks the fight ahead."
+    translation: "'Com respeito, isso não está certo' — o respeito marca a briga que vem."
+    note: "Não é cortesia: é o sinal de que a discordância vem carregada."
+  - term: "read the room"
+    meaning: 'ler a sala — sentir o registro do grupo antes de falar'
+    example: "Read the room before pushing back — half the call is German."
+    translation: "Leia a sala antes de contestar — metade da call é alemã."
+    note: "A mesma frase certa numa mesa é a errada noutra."
+  - term: "direct"
+    meaning: 'direto — o registro alemão/holandês, sem embalagem'
+    example: "Katja is direct — 'I disagree' is information, not conflict."
+    translation: "A Katja é direta — 'eu discordo' é informação, não conflito."
+    note: "Para alemão/holandês, hedge demais soa inseguro."
+  - term: "blunt"
+    meaning: 'franco ao ponto da rispidez — direto demais para a mesa'
+    example: "Don't be blunt with Priya's team — disagree through questions."
+    translation: "Não seja ríspido com o time da Priya — discorde por perguntas."
+    note: "Direct é neutro; blunt já é o exagero que machuca."
+  - term: "take it the wrong way"
+    meaning: 'entender pelo lado errado — o mal-entendido de registro'
+    example: "She took the directness the wrong way — he wasn't angry."
+    translation: "Ela entendeu a franqueza pelo lado errado — ele não estava bravo."
+    note: "O erro clássico: confundir registro com emoção."
+  - term: "saving face"
+    meaning: 'salvar a face — discordar sem humilhar em público'
+    example: "With Priya's team, disagree privately — saving face matters."
+    translation: "Com o time da Priya, discorde em privado — salvar a face importa."
+    note: "Em culturas hierárquicas, o público muda o custo da discordância."
+  - term: "low-context / high-context"
+    meaning: 'baixo/alto contexto — quanto da mensagem está explícita'
+    example: "German is low-context — the words carry it all. Brazilian is high-context."
+    translation: "Alemão é baixo-contexto — as palavras carregam tudo. Brasileiro é alto-contexto."
+    note: "Alto contexto: o tom e a relação carregam metade da mensagem."
+  - term: "yes means 'I heard you'"
+    meaning: '"sim" que é só recebimento — não concordância'
+    example: "Priya's 'yes' meant 'I heard you' — the build still wasn't approved."
+    translation: "O 'sim' da Priya significava 'eu ouvi' — o build não estava aprovado."
+    note: "Confirme entendimento com pergunta específica, não com 'yes'."
+  - term: "don't take it personally"
+    meaning: 'não leve para o pessoal — separa ideia de pessoa'
+    example: "Don't take it personally — the pushback is on the plan, not you."
+    translation: "Não leve para o pessoal — a contestação é ao plano, não a você."
+    note: "Útil quando o registro alheio já soou mais duro que o intencionado."
+  - term: "that's just how they talk"
+    meaning: 'é só o jeito deles de falar — registro, não ataque'
+    example: "Dana sounds harsh — that's just how the Dutch talk."
+    translation: "A Dana soa dura — é só o jeito dos holandeses de falar."
+    note: "A frase que desarma o falso alarme de rispidez."
+  - term: "match the register"
+    meaning: 'igualar o registro — subir ou descer de diretude conforme a mesa'
+    example: "With Katja I go direct; with Tom I hedge — match the register."
+    translation: "Com a Katja vou direto; com o Tom uso hedges — igualo o registro."
+    note: "A habilidade é calibrar, não ter um estilo fixo."
+  - term: "feedback culture"
+    meaning: 'a cultura de feedback — como cada time entrega crítica'
+    example: "The Dutch feedback culture is blunt by Brazilian standards."
+    translation: "A cultura holandesa de feedback é ríspida para padrões brasileiros."
+    note: "Não é defeito — é o padrão local de honestidade."
+  - term: "the quiet yes"
+    meaning: 'o sim quieto — concordância que nunca existiu'
+    example: "Don't ship on a quiet yes — confirm the decision explicitly."
+    translation: "Não lance em cima de um sim quieto — confirme a decisão explicitamente."
+    note: "Silêncio ou 'yes' vago não são aprovação — confirme por escrito."
+
+grammar:
+  title: "o mesmo hedge, outra mesa"
+  explanation: |
+    Os hedges da M23-02 não são universais — a cultura muda
+    a dose:
+
+    - **Mesa alemã/holandesa**: corte os hedges pela metade.
+      "*I disagree*" puro é o padrão — "*I'm not sure maybe
+      possibly…*" lê-se como falta de convicção.
+    - **Mesa americana**: mantenha a embalagem positiva.
+      "*I love where this is going, and the timeline
+      worries me*" — energia primeiro, objeção depois.
+    - **Mesa britânica**: leia o subtexto. "*interesting*",
+      "*I'm not sure*", "*with respect*" — a forma leve
+      carrega a discordância inteira.
+    - **Mesa indiana**: discorde por pergunta e em privado.
+      "*could we look at the timeline?*" em público;
+      o pushback real vai ao 1:1.
+    - **A sua, brasileira**: seu "maybe", seu contexto
+      longo e seu calor são *high-context*. Para o alemão,
+      isso soa como evitar a resposta — entregue a
+      posição cedo, o contexto depois.
+  examples:
+    - { en: "I disagree — the timeline doesn't survive the schema work. (German table)", pt: "Eu discordo — o prazo não sobrevive ao trabalho no schema. (mesa alemã)" }
+    - { en: "I love the direction, and the timeline worries me — can we look at it? (US table)", pt: "Adoro a direção, e o prazo me preocupa — podemos olhar para ele? (mesa americana)" }
+    - { en: "That's an interesting approach — I'm not sure about the timeline. (British, meaning: no.)", pt: "Abordagem interessante — não tenho certeza sobre o prazo. (britânico, querendo dizer: não.)" }
+    - { en: "Could we look at the timeline together later? (Indian table — the real pushback goes private)", pt: "Podemos olhar o prazo juntos depois? (mesa indiana — o pushback real vai ao privado)" }
+    - { en: "Short version first: I disagree. Context after. (Brazilian, adjusted)", pt: "Versão curta primeiro: eu discordo. Contexto depois. (brasileiro, ajustado)" }
+    - { en: "Don't take it personally — the pushback is on the plan.", pt: "Não leve para o pessoal — a contestação é ao plano." }
+
+examples:
+  - en: "Katja said 'I disagree' — no hedge, no anger. That's just how Germans talk."
+    pt: "A Katja disse 'eu discordo' — sem hedge, sem raiva. É só o jeito dos alemães."
+    context: "Direto é neutro."
+  - en: "Tom's 'that's interesting' killed the proposal — read the understatement."
+    pt: "O 'interessante' do Tom enterrou a proposta — leia o subentendido."
+    context: "O subentendido britânico."
+  - en: "Priya's 'yes' meant 'I heard you' — the approval never happened."
+    pt: "O 'sim' da Priya significava 'eu ouvi' — a aprovação nunca aconteceu."
+    context: "O sim que é recebimento."
+  - en: "Mike wrapped the objection in enthusiasm — 'love the direction, and…'."
+    pt: "O Mike embrulhou a objeção em entusiasmo — 'adoro a direção, e…'."
+    context: "O pacote americano."
+  - en: "Dana went blunt — 'that won't work' — and meant nothing personal by it."
+    pt: "A Dana foi franca — 'isso não funciona' — e não quis dizer nada pessoal."
+    context: "A franqueza holandesa."
+  - en: "With Priya's team, the real pushback goes to the 1:1 — saving face matters."
+    pt: "Com o time da Priya, o pushback real vai ao 1:1 — salvar a face importa."
+    context: "Discordância em privado."
+  - en: "My Brazilian 'maybe, with all this context…' reads as evasive to Katja."
+    pt: "Meu 'talvez, com todo esse contexto…' brasileiro soa evasivo para a Katja."
+    context: "Como o Brasil soa."
+  - en: "Match the register: direct for Dana, hedged for Tom, questions for Priya."
+    pt: "Iguale o registro: direto para a Dana, hedge para o Tom, perguntas para a Priya."
+    context: "A calibragem por mesa."
+
+variations:
+  - idea: '"lendo o subentendido britânico"'
+    items:
+      - { register: "Boa", text: "Tom said 'I'm not sure about that' — he means he disagrees entirely.", adequate: true }
+      - { register: "Boa", text: "'With respect' from a Brit is a warning, not courtesy.", adequate: true }
+      - { register: "Inadequada", text: "He said 'interesting', so he liked it.", adequate: false, note: "'Interesting' de britânico frequentemente é um 'não' educado — leia a contenção." }
+      - { register: "Inadequada", text: "She said 'yes', so the plan is approved, no?", adequate: false, note: "Dois problemas: 'yes' pode ser só recebimento — e ', no?' é tag question (*right?*)." }
+  - idea: '"calibrando para a mesa"'
+    items:
+      - { register: "Boa", text: "With Katja I go direct — 'I disagree' is just information there.", adequate: true }
+      - { register: "Boa", text: "With Priya's team I ask questions in the call and push back in the 1:1.", adequate: true }
+      - { register: "Inadequada", text: "Dana was rude — she just said 'that won't work'.", adequate: false, note: "Franqueza holandesa é neutra — não confunda registro com emoção." }
+      - { register: "Inadequada", text: "I kept it Brazilian — long context, soft maybe — for the German review.", adequate: false, note: "Alto contexto para mesa de baixo contexto lê-se como evasão — posição primeiro." }
+
+brErrors:
+  - { wrong: "The plan is polemic for the Germans.", right: "The plan is controversial for the Germans.", why: "controversial", tag: br.polemic }
+  - { wrong: "She understood, no?", right: "She understood, right?", why: "tag question", tag: br.no-tag }
+  - { wrong: "In my vision, Tom disagrees.", right: "In my view, Tom disagrees.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "He doesn't want nothing changed.", right: "He doesn't want anything changed.", why: "anything", tag: br.double-negative }
+  - { wrong: "I am agree with Katja.", right: "I agree with Katja.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "The same style than Dana.", right: "The same style as Dana.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the register.", right: "We discussed the register.", why: "discussed the register", tag: br.discuss-about }
+  - { wrong: "Instead public pushback, go private.", right: "Instead of public pushback, go private.", why: "instead of", tag: br.instead-of }
+  - { wrong: "I have doubt about his 'yes'.", right: "I have a doubt about his 'yes'.", why: "a doubt", tag: br.doubt }
+  - { wrong: "You must to read the room.", right: "You must read the room.", why: "must read", tag: br.modal-to }
+
+dialogue:
+  title: "The same 'no', five ways"
+  lines:
+    - { speaker: Mike, text: "Alright — the proposal is on the table. Reactions?" }
+    - { speaker: Katja, text: "I disagree. The timeline ignores the schema work. Direct answer." }
+    - { speaker: Tom, text: "Mm. That's… an interesting approach. I'm not sure about the timeline." }
+    - { speaker: Dana, text: "That won't work — six weeks for a rewrite plus schema? No." }
+    - { speaker: Priya, text: "Yes, we can look at it. Perhaps we discuss the timeline later?" }
+    - { speaker: Mike, text: "Love the direction, and the timeline worries me — can we dig into it?" }
+    - { speaker: Yuri, text: "Reading the room: Katja and Dana said no outright. Tom's 'interesting' is a no too — British understatement. Priya's 'yes' was 'I heard you', not approval — I'd check in private." }
+    - { speaker: Katja, text: "And your take, Yuri?" }
+    - { speaker: Yuri, text: "Brazilian habit says context first — but let me match the register: I disagree with the timeline. Here's the context: the last two schema changes took three weeks each." }
+    - { speaker: Mike, text: "Five nos, five registers — and one position. Timeline goes back for revision." }
+  notes:
+    - "cinco discordâncias, cinco registros: direto alemão, franco holandês, subentendido britânico, indireto indiano, empacotado americano."
+    - "Yuri lê cada um certo — e ajusta o próprio: posição primeiro, contexto depois."
+    - "'the quiet yes' — o 'yes' da Priya não é aprovação; confirme por escrito ou no privado."
+
+listening:
+  lines:
+    - { speaker: Katja, text: "In Germany and the Netherlands, 'I disagree' is neutral — information, not conflict. Cut your hedges in half: too much 'maybe, I'm not sure, possibly' reads as weak conviction or stalling." }
+    - { speaker: Tom, text: "British English disagrees by understatement: 'that's interesting', 'I'm not sure about that', 'with respect'. The lighter it sounds, the harder the no. And in India, 'yes' often means 'I heard you' — the real pushback comes as a question, or privately." }
+    - { speaker: Yuri, text: "And Brazil? We sound warm, relational, high-context — 'maybe', long setup, the opinion buried in the relationship. To a German that reads evasive. The fix: position first, context after. And keep the calques out — 'in my view', 'controversial', 'right?', 'anything'." }
+  questions:
+    - { id: M23-03-l1, type: multiple_choice, prompt: "Para mesa alemã ou holandesa, o registro certo é…", options: ["máximo de hedges", "direto — 'I disagree' é neutro", "indireto e privado", "empacotado em elogios"], answer: 1, explanation: "Direto é informação — hedge demais soa inseguro.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-03-l2, type: multiple_choice, prompt: "'That's interesting' de um britânico geralmente é…", options: ["elogio", "pedido de detalhe", "um 'não' por subentendido", "desinteresse"], answer: 2, explanation: "Quanto mais leve a forma, mais duro o não.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-03-l3, type: fill_blank, prompt: "Priya's 'yes' meant 'I ___ you' — not approval.", accepted: ["heard"], explanation: "O 'sim' como recebimento, não concordância.", tags: [vocab.disagreement, comp.listening] }
+    - { id: M23-03-l4, type: error_correction, prompt: "In my vision, the Germans are too direct.", accepted: ["In my view, the Germans are too direct.", "In my view, the Germans are too direct"], explanation: "'in my view'.", tags: [br.in-my-vision] }
+    - { id: M23-03-l5, type: multiple_choice, prompt: "Com o time da Priya, o pushback real vai…", options: ["à call pública", "por e-mail para todos", "ao privado ou vira pergunta — saving face", "ao gestor dela"], answer: 2, explanation: "Cultura hierárquica: discordar em público tem custo.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-03-l6, type: multiple_choice, prompt: "O estilo brasileiro soa para um alemão como…", options: ["direto demais", "frio", "agressivo", "evasivo — opinião enterrada em contexto"], answer: 3, explanation: "Alto contexto em mesa de baixo contexto = evasão aparente.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** depois da call dos cinco, o Mike pediu um
+    resumo escrito: o que cada registro disse, e a posição
+    consolidada.
+
+    **Tarefa:** escreva 70–100 palavras mapeando como cada
+    cultura discordou (Katja/Dana diretas, Tom subentendido,
+    Priya indireta, Mike empacotado) e feche com a sua posição
+    — no registro certo para o leitor (Mike, americano:
+    embalagem + posição clara).
+  constraints:
+    - { label: "Os registros mapeados", pattern: "\\bdirect|understatement|indirect|blunt|yes.*heard|high-context|low-context\\b" }
+    - { label: "A leitura correta", pattern: "\\bmeans|reads|meant|that's just how\\b" }
+    - { label: "A posição clara", pattern: "\\bdisagree|timeline|position\\b" }
+    - { label: "A confirmação do 'yes'", pattern: "\\bconfirm|check|private|1:1\\b" }
+  rubric:
+    - "Cinco registros lidos corretamente"
+    - "'yes' da Priya não tratado como aprovação"
+    - "Posição própria clara, sem evasão"
+    - "Sem calques ('in my view', 'controversial', 'right?', 'anything')"
+  model: >-
+    Five nos, five registers. Katja and Dana went direct —
+    'I disagree', 'that won't work'; for them it's neutral
+    information. Tom's 'interesting' and 'I'm not sure'
+    are British understatement — a hard no in light
+    packaging. Priya's 'yes' meant 'I heard you'; I'd
+    confirm in private before counting it. Mike wrapped the
+    objection in energy — 'love the direction, and…'. My
+    position, register-adjusted: I disagree with the
+    timeline — the schema work alone took three weeks last
+    time. The 'yes' needs a written confirmation.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.disagreement]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos explicando como cada colega discordou na call (Katja, Dana, Tom, Priya, Mike) — e dê a sua posição no registro ajustado."
+    maxSeconds: 60
+    targetPhrases:
+      - read the room
+      - direct
+      - blunt
+      - understatement
+      - that's interesting
+      - I'm not sure about that
+      - with respect
+      - yes means I heard you
+      - saving face
+      - low-context
+      - high-context
+      - take it the wrong way
+      - don't take it personally
+      - that's just how they talk
+      - match the register
+      - in my view
+    checklist:
+      - "cinco registros identificados corretamente"
+      - "o 'yes' da Priya não vira aprovação"
+      - "posição própria primeiro, contexto depois"
+      - "sem calques — 'in my view', 'controversial', 'right?'"
+
+quiz:
+  - { id: M23-03-q1, type: multiple_choice, prompt: "A discordância alemã/holandesa é…", options: ["subentendida", "direta — 'I disagree' é informação, não conflito", "indireta e privada", "empacotada em elogio"], answer: 1, explanation: "O registro neutro: sem embalagem.", tags: [vocab.disagreement] }
+  - { id: M23-03-q2, type: error_correction, prompt: "This timeline debate is polemic.", accepted: ["This timeline debate is controversial.", "This timeline debate is controversial"], explanation: "'controversial'.", tags: [br.polemic] }
+  - { id: M23-03-q3, type: multiple_choice, prompt: "'With respect' de um britânico sinaliza…", options: ["concordância", "cortesia pura", "a discordância carregada que vem", "fim de reunião"], answer: 2, explanation: "É o aviso da briga, não a gentileza.", tags: [vocab.disagreement, comp.listening] }
+  - { id: M23-03-q4, type: fill_blank, prompt: "Read the ___ before pushing back — half the call is German.", accepted: ["room"], explanation: "Sentir o registro da mesa antes de falar.", tags: [vocab.disagreement] }
+  - { id: M23-03-q5, type: multiple_choice, prompt: "Como discordar com o time indiano da Priya?", options: ["'I disagree' direto na call", "perguntas na call, pushback no 1:1", "silêncio", "escalar ao gestor"], answer: 1, explanation: "Pergunta em público, contestação em privado.", tags: [vocab.disagreement] }
+  - { id: M23-03-q6, type: error_correction, prompt: "The American style is the same than the German.", accepted: ["The American style is the same as the German.", "The American style is the same as the German"], explanation: "'the same as'.", tags: [br.same-than] }
+  - { id: M23-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["room", "the", "read"], answer: "read the room", explanation: "O registro antes da frase.", tags: [vocab.disagreement] }
+  - { id: M23-03-q8, type: multiple_choice, prompt: "O brasileiro de alto contexto deve, para mesa alemã…", options: ["posição primeiro, contexto depois", "mais contexto ainda", "mais hedges", "falar menos"], answer: 0, explanation: "Entregar a posição cedo — o contexto vem depois.", tags: [vocab.disagreement, comp.confidence] }
+
+srsCards:
+  - { front: "that's interesting (UK)", back: "O subentendido britânico — frequentemente um 'não' completo.", tag: vocab.disagreement }
+  - { front: "with respect (UK)", back: "O aviso, não a cortesia — a discordância vem carregada.", tag: vocab.disagreement }
+  - { front: "yes means 'I heard you'", back: "O sim que é recebimento — confirme aprovação por escrito.", tag: vocab.disagreement }
+  - { front: "read the room", back: "Sentir o registro da mesa antes de discordar.", tag: vocab.disagreement }
+  - { front: "direct (DE/NL)", back: "'I disagree' é neutro — hedge demais soa inseguro.", tag: vocab.disagreement }
+  - { front: "saving face", back: "Discordar sem humilhar — em culturas hierárquicas, ao privado.", tag: vocab.disagreement }
+  - { front: "low-context / high-context", back: "Baixo: as palavras carregam tudo. Alto: tom e relação carregam metade.", tag: vocab.disagreement }
+  - { front: "don't take it personally", back: "Separa ideia de pessoa — o pushback é ao plano.", tag: vocab.disagreement }
+  - { front: "that's just how they talk", back: "Registro ≠ emoção — a franqueza holandesa é neutra.", tag: vocab.disagreement }
+  - { front: "match the register", back: "Calibra a diretude por mesa — direto p/ Dana, hedge p/ Tom.", tag: vocab.disagreement }
+  - { front: "the quiet yes", back: "O sim que nunca foi aprovação — confirme explicitamente.", tag: vocab.disagreement }
+  - { front: "didn't see anything", back: "Sem dupla negação no debate — 'didn't … anything'.", tag: br.double-negative }
+
+review:
+  preferTags: [vocab.disagreement, gram.hedging, br.polemic]
+  notes: "Revisão prioriza os cinco registros culturais, o subentendido britânico, o 'yes' indiano e a calibragem do estilo brasileiro."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
