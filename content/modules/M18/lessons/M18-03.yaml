@@ -1,0 +1,292 @@
+id: M18-03
+module: M18
+order: 3
+title: "SLOs e error budget: quanto erro a gente pode ter"
+objective: >-
+  Ao final, você conversa sobre SLO, SLI e error budget sem
+  traduzir do português: "the SLI is 99.95%", "we're within SLO",
+  "we're burning budget fast".
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.slo, vocab.observability, comp.vocabulary, comp.speaking]
+prerequisites: [M18-02]
+
+context:
+  scenario: |
+    A review mensal de confiabilidade abre com o número na tela:
+    **99.95%**. A Priya pergunta: "**are we within SLO?**" — e a
+    resposta certa não é "sim", é "sim, mas olha o burn rate".
+
+    O vocabulário de confiabilidade é pequeno e preciso:
+
+    - **SLI** — o que você mede: "the SLI is the success rate
+      over a rolling 30 days". O indicador, o número observado.
+    - **SLO** — a meta sobre o indicador: "our SLO is 99.9%".
+      O objetivo interno, a linha no chão.
+    - **SLA** — o contrato com o cliente, com multa. O SLO é
+      interno e mais apertado que o SLA — a folga entre eles é
+      proposital.
+    - **error budget** — quanto erro o SLO permite: 0.1% de
+      requests falhos no mês. O orçamento que se pode gastar.
+    - **burn rate** — a velocidade de gasto: "we're burning
+      budget at 2x" — nesse ritmo, o orçamento acaba em 15 dias.
+
+    A frase que organiza tudo: "**we're within SLO, but we're
+    burning budget faster than usual**" — dentro da meta, gastando
+    rápido demais. Quando o budget acaba, congela-se risco:
+    "**feature freeze until the budget recovers**".
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "SLI"
+    meaning: 'o indicador — o que você mede de fato'
+    example: "Our SLI is the success rate over a rolling 30 days."
+    translation: "Nosso SLI é a taxa de sucesso numa janela móvel de 30 dias."
+    note: "SLI = Service Level Indicator — o número observado."
+  - term: "SLO"
+    meaning: 'a meta sobre o indicador — o objetivo interno'
+    example: "The SLO is 99.9% — that's 43 minutes of downtime a month."
+    translation: "O SLO é 99,9% — são 43 minutos de indisponibilidade por mês."
+    note: "SLO = Objective — interno, mais apertado que o SLA."
+  - term: "SLA"
+    meaning: 'o contrato — a meta com consequência para o cliente'
+    example: "The SLA is 99.5% with credits below that."
+    translation: "O SLA é 99,5%, com créditos abaixo disso."
+    note: "SLA = Agreement — externo, com penalidade."
+  - term: "error budget"
+    meaning: 'o orçamento de erro — quanto o SLO permite falhar'
+    example: "99.9% means an error budget of 0.1% of requests."
+    translation: "99,9% significa um orçamento de erro de 0,1% dos requests."
+    note: "Budget é para gastar — 100% de confiabilidade não é a meta."
+  - term: "burn rate"
+    meaning: 'a taxa de queima — a velocidade de gasto do orçamento'
+    example: "We're burning budget at 2x — it'll be gone in two weeks."
+    translation: "Estamos queimando orçamento a 2x — acaba em duas semanas."
+    note: "Alerta de SLO costuma ser sobre burn rate, não sobre erro cru."
+  - term: "within SLO"
+    meaning: 'dentro do SLO — a meta está sendo cumprida'
+    example: "We're within SLO this month — barely."
+    translation: "Estamos dentro do SLO este mês — por pouco."
+    note: "'Within', não 'in the SLO' — a meta é um limite, não um lugar."
+  - term: "breached the SLO"
+    meaning: 'furou o SLO — passou da meta'
+    example: "We breached the SLO on Tuesday — the outage ate the budget."
+    translation: "Furamos o SLO na terça — o outage comeu o orçamento."
+    note: "Breach = violar a linha; 'missed the SLO' também vale."
+  - term: "rolling 30 days"
+    meaning: 'janela móvel de 30 dias — sem corte de mês'
+    example: "We measure availability over a rolling 30 days."
+    translation: "Medimos disponibilidade numa janela móvel de 30 dias."
+    note: "Rolling ≠ calendar month — a janela anda todo dia."
+  - term: "feature freeze"
+    meaning: 'congelamento de features — para de arriscar até recuperar'
+    example: "Budget exhausted — feature freeze until it recovers."
+    translation: "Orçamento esgotado — congelamento de features até recuperar."
+    note: "O budget é o freio: acabou, só sai mudança de estabilidade."
+  - term: "availability"
+    meaning: 'disponibilidade — a fração do tempo em pé'
+    example: "Availability is the SLI everyone checks first."
+    translation: "Disponibilidade é o SLI que todos olham primeiro."
+    note: "99.9% ≠ 'quase perfeito' — são 43 minutos fora do ar por mês."
+  - term: "nines"
+    meaning: 'os noves — 99.9 é "three nines"'
+    example: "Going from three nines to four is ten times harder."
+    translation: "Ir de três noves para quatro é dez vezes mais difícil."
+    note: "'Four nines' = 99.99% — cada nove custa uma ordem de magnitude."
+  - term: "budget exhausted"
+    meaning: 'orçamento esgotado — o erro permitido acabou'
+    example: "Error budget exhausted — no risky launches this week."
+    translation: "Orçamento de erro esgotado — sem lançamentos arriscados esta semana."
+    note: "A consequência concreta do burn rate alto."
+
+grammar:
+  title: "as preposições do SLO: within, at, over"
+  explanation: |
+    Três construções fechadas:
+
+    - "**within** SLO" — dentro da meta: "we're within SLO".
+    - "the SLI is **at** 99.95%" — o número com 'at', como todo
+      percentual.
+    - "**over** a rolling 30 days" — a janela de medição com 'over'.
+
+    E o verbo do gasto é **burn**: "we're **burning** budget",
+    "**burned through** the budget" — nunca "spending the budget"
+    (embora 'exhausted' sirva para o estado final). O calque do
+    português: "estamos no SLO" não é "in the SLO" — é **within**.
+  examples:
+    - { en: "We're within SLO — but barely, the budget is thin.", pt: "Estamos dentro do SLO — mas por pouco, o orçamento está fino." }
+    - { en: "The SLI is at 99.95% over a rolling 30 days.", pt: "O SLI está em 99,95% numa janela móvel de 30 dias." }
+    - { en: "We're burning budget at 2x — at this rate it's gone in two weeks.", pt: "Estamos queimando orçamento a 2x — nesse ritmo acaba em duas semanas." }
+    - { en: "We breached the SLO on Tuesday — not 'broke'.", pt: "Furamos o SLO na terça — não 'quebramos'." }
+    - { en: "Feature freeze until the budget recovers.", pt: "Congelamento de features até o orçamento recuperar." }
+    - { en: "The SLO is tighter than the SLA — the gap is on purpose.", pt: "O SLO é mais apertado que o SLA — a folga é proposital." }
+
+examples:
+  - en: "The SLI is the success rate; the SLO is the target on it."
+    pt: "O SLI é a taxa de sucesso; o SLO é a meta sobre ela."
+    context: "Indicador × meta — a distinção básica."
+  - en: "99.9% gives us 43 minutes of error budget a month."
+    pt: "99,9% nos dá 43 minutos de orçamento de erro por mês."
+    context: "O budget em minutos."
+  - en: "We're burning budget faster than usual since the migration."
+    pt: "Estamos queimando orçamento mais rápido que o normal desde a migração."
+    context: "O burn rate alto."
+  - en: "Budget exhausted — feature freeze until it recovers."
+    pt: "Orçamento esgotado — congelamento até recuperar."
+    context: "A consequência automática."
+  - en: "The SLA is 99.5%, but internally we hold 99.9%."
+    pt: "O SLA é 99,5%, mas internamente seguramos 99,9%."
+    context: "A folga proposital entre contrato e meta."
+  - en: "That outage burned through half the monthly budget."
+    pt: "Aquele outage queimou metade do orçamento do mês."
+    context: "'burned through' — o gasto feito."
+  - en: "Four nines costs ten times what three nines costs."
+    pt: "Quatro noves custa dez vezes o que três noves custa."
+    context: "O preço de cada nove."
+  - en: "Are we within SLO? Yes — but watch the burn rate."
+    pt: "Estamos dentro do SLO? Sim — mas olha o burn rate."
+    context: "A resposta completa da review."
+
+variations:
+  - idea: '"SLI × SLO × SLA"'
+    items:
+      - { register: "Boa", text: "The SLI is 99.95%; the SLO is 99.9% — we're within it.", adequate: true }
+      - { register: "Boa", text: "The SLA is the contract; the SLO is our tighter internal target.", adequate: true }
+      - { register: "Inadequada", text: "The SLA is 99.95% this month.", adequate: false, note: "O número observado é o SLI — o SLA é o contrato, não muda todo mês." }
+      - { register: "Inadequada", text: "Our SLO is the success rate over 30 days.", adequate: false, note: "Isso é o SLI — o SLO é a meta sobre o indicador." }
+  - idea: '"falando do orçamento"'
+    items:
+      - { register: "Boa", text: "We're burning budget at 2x — freeze risky launches.", adequate: true }
+      - { register: "Boa", text: "We're within SLO, but the budget is thin.", adequate: true }
+      - { register: "Inadequada", text: "We're spending the budget fast.", adequate: false, note: "O verbo do orçamento de erro é 'burn' — 'burning', 'burned through'." }
+      - { register: "Inadequada", text: "We're in the SLO this month.", adequate: false, note: "'Within SLO' — a meta é limite, não lugar." }
+
+brErrors:
+  - { wrong: "We are in the SLO this month.", right: "We're within SLO this month.", why: "within SLO", tag: br.in-percent }
+  - { wrong: "The SLI is in 99.95%.", right: "The SLI is at 99.95%.", why: "at 99.95%", tag: br.in-percent }
+  - { wrong: "We have a latency of 200ms at p99.", right: "P99 latency is 200ms.", why: "p99 latency is", tag: br.have-a-latency }
+  - { wrong: "The availability raised this quarter.", right: "Availability went up this quarter.", why: "went up", tag: br.metric-raised }
+  - { wrong: "The budget overpassed in March.", right: "The budget was exhausted in March.", why: "was exhausted", tag: br.overpassed }
+  - { wrong: "The SLO not recovered yet.", right: "The SLO hasn't recovered yet.", why: "hasn't recovered", tag: br.it-not-works }
+  - { wrong: "The burn rate stay high.", right: "The burn rate stays high.", why: "stays", tag: br.third-person-s }
+  - { wrong: "The review is in Monday.", right: "The review is on Monday.", why: "on Monday", tag: br.in-weekday }
+  - { wrong: "We discussed about the error budget.", right: "We discussed the error budget.", why: "discussed, sem about", tag: br.discuss-about }
+  - { wrong: "The SLI is more high than the SLO.", right: "The SLI is higher than the SLO.", why: "higher", tag: br.more-er }
+
+dialogue:
+  title: "A review de confiabilidade"
+  lines:
+    - { speaker: Priya, text: "Monthly reliability review. Are we within SLO?" }
+    - { speaker: Yuri, text: "Yes — the SLI is at 99.95% over a rolling 30 days, against a 99.9% SLO." }
+    - { speaker: Priya, text: "And the budget?" }
+    - { speaker: Yuri, text: "Thinner than it looks. We burned through half of it last Tuesday — the outage ate forty minutes." }
+    - { speaker: Priya, text: "So we're within, but burning fast." }
+    - { speaker: Yuri, text: "At 2x since the migration. If it holds, the budget is gone in two weeks." }
+    - { speaker: Priya, text: "Then we act like it's already gone. What's the rule?" }
+    - { speaker: Yuri, text: "Budget exhausted means feature freeze — only stability work ships until it recovers." }
+    - { speaker: Priya, text: "Right. Within SLO, burning fast — that's the headline for the review." }
+  notes:
+    - "a resposta completa: 'within SLO' + 'burning fast' — os dois números importam."
+    - "'act like it's already gone' — o budget muda o comportamento antes de acabar."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Three letters people mix up. The SLI is the indicator — what you actually measure, like the success rate over a rolling 30 days. The SLO is the objective — the internal target on that indicator, say 99.9%. The SLA is the agreement — the contract with the customer, with credits below the line. The SLO is tighter than the SLA on purpose — that gap is your safety margin." }
+    - { speaker: Marcos, text: "The error budget is how much failure the SLO allows: 99.9% means 0.1% of requests can fail, about 43 minutes of downtime a month. Burn rate is how fast you're spending it. 'We're burning at 2x' means the budget will be gone in half the window. When it's exhausted, you freeze — only stability work ships." }
+    - { speaker: Yuri, text: "And the grammar: 'within SLO', never 'in the SLO'. 'The SLI is at 99.95%' — 'at' for the number. 'Over a rolling 30 days' — 'over' for the window. And 'we're burning budget', not 'spending' — burn is the verb." }
+  questions:
+    - { id: M18-03-l1, type: multiple_choice, prompt: "The SLI is…", options: ["the contract with the customer", "the internal target", "the indicator you actually measure", "the monthly report"], answer: 2, explanation: "SLI = o indicador observado.", tags: [comp.listening, vocab.slo] }
+    - { id: M18-03-l2, type: multiple_choice, prompt: "Why is the SLO tighter than the SLA?", options: ["it's a mistake", "the gap is the safety margin", "contracts are always lower", "legal requires it"], answer: 1, explanation: "A folga entre SLO e SLA é proposital.", tags: [comp.listening, vocab.slo] }
+    - { id: M18-03-l3, type: fill_blank, prompt: "We're ___ SLO this month — barely.", accepted: ["within"], explanation: "'Within SLO' — nunca 'in the SLO'.", tags: [vocab.slo] }
+    - { id: M18-03-l4, type: error_correction, prompt: "We're spending the budget fast.", accepted: ["We're burning the budget fast.", "We're burning the budget fast", "We're burning budget fast."], explanation: "O verbo é 'burn'.", tags: [vocab.slo] }
+    - { id: M18-03-l5, type: multiple_choice, prompt: "'Burning at 2x' means…", options: ["double the requests", "the budget will be gone in half the window", "two alerts fired", "the SLO was doubled"], answer: 1, explanation: "2x = gastando o dobro do ritmo — metade da janela.", tags: [comp.listening, vocab.slo] }
+    - { id: M18-03-l6, type: multiple_choice, prompt: "When the error budget is exhausted…", options: ["the SLO resets", "you freeze — only stability work ships", "the SLA is breached", "the month ends"], answer: 1, explanation: "Budget acabou → congela risco.", tags: [comp.listening, vocab.slo] }
+
+writing:
+  prompt: |
+    **Cenário:** a review mensal pede um resumo escrito de
+    confiabilidade: SLI atual, SLO, estado do error budget e a
+    recomendação.
+
+    **Tarefa:** escreva 50–80 palavras: "the SLI is at…", "within
+    SLO", "burning budget at Nx", "burned through…", e a decisão
+    sobre freeze.
+  constraints:
+    - { label: "SLI com 'at'", pattern: "\\bSLI is at\\s+\\d" }
+    - { label: "Within SLO", pattern: "\\bwithin SLO\\b" }
+    - { label: "Burn", pattern: "\\bburn(ed|ing)?\\b" }
+    - { label: "Budget", pattern: "\\bbudget\\b" }
+  rubric:
+    - "SLI e SLO distintos, com os números"
+    - "'within SLO', 'at 99.9%', 'burning'"
+    - "a recomendação sobre freeze explícita"
+    - "sem calques ('in the SLO', 'spending the budget')"
+  model: >-
+    The SLI is at 99.95% over a rolling 30 days, against a 99.9%
+    SLO — we're within SLO, but barely. Tuesday's outage burned
+    through half the monthly budget, and we've been burning at 2x
+    since the migration. At this rate the budget is gone in two
+    weeks. Recommendation: feature freeze until the SLI recovers —
+    only stability work ships.
+  minWords: 50
+  maxWords: 80
+  tags: [comp.writing, vocab.slo]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo na review: 'are we within SLO?' — com SLI, burn rate e a recomendação sobre o freeze."
+    maxSeconds: 45
+    targetPhrases:
+      - within SLO
+      - the SLI is at
+      - burning budget
+      - burn rate
+      - error budget
+      - rolling 30 days
+      - breached the SLO
+      - feature freeze
+      - burned through
+      - the SLA
+      - three nines
+      - the budget is thin
+      - at this rate
+      - until it recovers
+      - the safety margin
+      - the indicator
+    checklist:
+      - "'within SLO', não 'in the SLO'"
+      - "SLI × SLO distintos"
+      - "'burning'/'burned through' como verbos do orçamento"
+      - "a recomendação sobre freeze ao final"
+
+quiz:
+  - { id: M18-03-q1, type: multiple_choice, prompt: "O que você mede de fato — a taxa de sucesso observada — é o…", options: ["SLI", "SLO", "SLA", "budget"], answer: 0, explanation: "SLI = o indicador.", tags: [vocab.slo] }
+  - { id: M18-03-q2, type: error_correction, prompt: "We are in the SLO this month.", accepted: ["We're within SLO this month.", "We're within SLO this month", "We are within SLO this month."], explanation: "'Within SLO'.", tags: [vocab.slo] }
+  - { id: M18-03-q3, type: multiple_choice, prompt: "99.9% de SLO significa um error budget de…", options: ["0.1% — cerca de 43 minutos por mês", "9.9% do mês", "99.9 minutos por mês", "zero — não pode falhar"], answer: 0, explanation: "0,1% de requests falhos ≈ 43 min/mês.", tags: [vocab.slo] }
+  - { id: M18-03-q4, type: fill_blank, prompt: "The SLI is ___ 99.95% over a rolling 30 days.", accepted: ["at"], explanation: "'At 99.95%' — percentual com 'at'.", tags: [br.in-percent] }
+  - { id: M18-03-q5, type: multiple_choice, prompt: "'We're burning budget at 2x' quer dizer…", options: ["o dobro de erros permitidos", "gastando o orçamento no dobro do ritmo — acaba na metade da janela", "dois SLOs furados", "o SLA dobrou"], answer: 1, explanation: "Burn rate 2x = metade da janela.", tags: [vocab.slo] }
+  - { id: M18-03-q6, type: error_correction, prompt: "The availability raised this quarter.", accepted: ["Availability went up this quarter.", "Availability went up this quarter", "The availability rose this quarter."], explanation: "went up/rose.", tags: [br.metric-raised] }
+  - { id: M18-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["freeze", "feature", "budget", "exhausted", "means"], answer: "budget exhausted means feature freeze", explanation: "Budget acabou → freeze.", tags: [vocab.slo] }
+  - { id: M18-03-q8, type: multiple_choice, prompt: "A diferença SLO × SLA é…", options: ["o SLO é o contrato; o SLA é interno", "são sinônimos", "o SLA é por mês; o SLO é por ano", "o SLA é o contrato externo; o SLO é a meta interna mais apertada"], answer: 3, explanation: "SLA externo com penalidade; SLO interno mais apertado.", tags: [vocab.slo] }
+
+srsCards:
+  - { front: "SLI", back: "O indicador medido — 'the SLI is the success rate'.", tag: vocab.slo }
+  - { front: "SLO", back: "A meta interna sobre o indicador — 'the SLO is 99.9%'.", tag: vocab.slo }
+  - { front: "SLA", back: "O contrato externo com penalidade — mais folgado que o SLO.", tag: vocab.slo }
+  - { front: "error budget", back: "Quanto erro o SLO permite — 0.1% ≈ 43 min/mês.", tag: vocab.slo }
+  - { front: "burn rate", back: "A velocidade de gasto — 'burning at 2x'.", tag: vocab.slo }
+  - { front: "within SLO", back: "Dentro da meta — nunca 'in the SLO'.", tag: vocab.slo }
+  - { front: "breached the SLO", back: "Furou a meta — 'breached on Tuesday'.", tag: vocab.slo }
+  - { front: "rolling 30 days", back: "Janela móvel — anda todo dia.", tag: vocab.slo }
+  - { front: "feature freeze", back: "Budget acabou → só trabalho de estabilidade sai.", tag: vocab.slo }
+  - { front: "nines", back: "99.9 = 'three nines' — cada nove custa 10x.", tag: vocab.slo }
+  - { front: "availability", back: "A fração do tempo em pé — o SLI clássico.", tag: vocab.slo }
+
+review:
+  preferTags: [vocab.slo, br.in-percent, vocab.observability]
+  notes: "Revisão prioriza SLI × SLO × SLA, 'within SLO', 'burn rate' e os calques de preposição."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
