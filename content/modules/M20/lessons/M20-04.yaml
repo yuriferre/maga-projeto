@@ -1,0 +1,295 @@
+id: M20-04
+module: M20
+order: 4
+title: "Trade-off: custo × risco × esforço"
+objective: >-
+  Ao final, você apresenta um trade-off de custo sem esconder o
+  preço: "we could save X, but…", "the trade-off is…", "cheap
+  but risky", "the effort isn't worth the saving".
+durationMin: 35
+competencies: [VOC, SPK]
+tags: [vocab.finops, gram.numbers-percentages, comp.speaking, comp.vocabulary]
+prerequisites: [M20-03]
+
+context:
+  scenario: |
+    Toda economia tem um preço escondido. A Ana pergunta:
+    "**what's the catch?**" — e a resposta que constrói
+    confiança nomeia o trade-off antes que alguém pergunte.
+
+    As estruturas do trade-off honesto:
+
+    - **"We could save X, but…"** — a economia com o porém:
+      "we could save $5k moving to spot, but batch jobs would
+      restart mid-run".
+    - **"The trade-off is…"** — nomeando a troca: "the
+      trade-off is availability — spot can be interrupted".
+    - **"Cheap but risky"** — o par de adjetivos: "it's cheap
+      but risky for anything customer-facing".
+    - **"The effort isn't worth the saving"** — quando o
+      trabalho custa mais que a economia: "rewriting the
+      pipeline to save $200 a month isn't worth the effort".
+    - **"On the other hand / that said"** — os conectores do
+      contrapeso.
+    - **"I'd rather pay for…"** — a preferência consciente:
+      "I'd rather pay for on-demand than lose a batch run".
+  roles: [Yuri (platform engineer), Ana (product manager), Marcos (backend)]
+
+vocabulary:
+  - term: "trade-off"
+    meaning: 'a troca — o que você abre mão para ganhar outra coisa'
+    example: "The trade-off with spot is availability — it can be interrupted."
+    translation: "O trade-off do spot é a disponibilidade — pode ser interrompido."
+    note: "Toda decisão de custo tem um — nomeá-lo primeiro é credibilidade."
+  - term: "we could save X, but…"
+    meaning: 'poderíamos economizar X, mas… — a economia com o porém'
+    example: "We could save $5k on spot, but jobs would restart mid-run."
+    translation: "Poderíamos economizar $5 mil com spot, mas os jobs reiniciariam no meio."
+    note: "O 'but' é o coração — sem ele, é promessa; com ele, é análise."
+  - term: "the catch"
+    meaning: 'a pegadinha — o custo escondido da economia'
+    example: "The catch is the cold start — spot instances take time to spin up."
+    translation: "A pegadinha é o cold start — instâncias spot demoram para subir."
+    note: "'What's the catch?' = 'onde está o truque?'"
+  - term: "cheap but risky"
+    meaning: 'barato mas arriscado — o par de adjetivos do trade-off'
+    example: "Spot is cheap but risky for anything customer-facing."
+    translation: "Spot é barato mas arriscado para qualquer coisa voltada ao cliente."
+    note: "O formato 'X but Y' resume o trade-off numa linha."
+  - term: "worth the effort"
+    meaning: 'vale o esforço — quando o trabalho se paga'
+    example: "Rewriting the pipeline to save $200 a month isn't worth the effort."
+    translation: "Reescrever a pipeline para economizar $200 por mês não vale o esforço."
+    note: "O filtro de FinOps: esforço de engenharia também é custo."
+  - term: "on the other hand / that said"
+    meaning: 'por outro lado / dito isso — os conectores do contrapeso'
+    example: "Spot saves 70%. That said, it's not for the API."
+    translation: "Spot economiza 70%. Dito isso, não é para a API."
+    note: "'That said' é o 'mas' elegante da reunião."
+  - term: "I'd rather"
+    meaning: 'eu prefiro — a preferência declarada'
+    example: "I'd rather pay for on-demand than lose a batch run."
+    translation: "Prefiro pagar on-demand a perder uma execução de batch."
+    note: "'Rather X than Y' — a escolha com o preço explícito."
+  - term: "best-case / worst-case"
+    meaning: 'melhor caso / pior caso — os limites do cenário'
+    example: "Worst case, spot interruptions delay the report by an hour."
+    translation: "No pior caso, interrupções de spot atrasam o relatório em uma hora."
+    note: "Sempre em par: 'best case X, worst case Y'."
+  - term: "acceptable risk"
+    meaning: 'risco aceitável — o que dá para assinar embaixo'
+    example: "A delayed batch report is an acceptable risk; downtime isn't."
+    translation: "Um relatório de batch atrasado é risco aceitável; downtime não é."
+    note: "Liga com M19: risk acceptance precisa de dono e prazo."
+  - term: "false economy"
+    meaning: 'falsa economia — o corte que custa mais caro depois'
+    example: "Cutting the staging environment was a false economy — bugs hit prod."
+    translation: "Cortar o ambiente de staging foi falsa economia — bugs chegaram a prod."
+    note: "O nome técnico do 'barato que sai caro'."
+  - term: "low-hanging fruit"
+    meaning: 'o fruto baixo — a economia fácil primeiro'
+    example: "Idle resources are the low-hanging fruit — kill them first."
+    translation: "Recursos ociosos são o fruto baixo — mate-os primeiro."
+    note: "A ordem certa do plano de redução: fácil antes de difícil."
+  - term: "bang for the buck"
+    meaning: 'retorno pelo dinheiro — informal, de reunião'
+    example: "Right-sizing gives the most bang for the buck here."
+    translation: "O right-sizing dá o maior retorno pelo dinheiro aqui."
+    note: "Informal — em doc escrito prefira 'best return'."
+
+grammar:
+  title: "o 'but' é o coração: economia + porém"
+  explanation: |
+    A fórmula do trade-off honesto tem dois lados sempre:
+
+    - "**We could save $5k on spot, but** jobs would restart
+      mid-run." — a economia primeiro, o porém depois.
+    - "**The trade-off is** availability." — ou o porém
+      nomeado direto.
+    - "**That said,** it's not for the API." — o conector que
+      sinaliza o contrapeso sem cancelar o ponto anterior.
+
+    O erro não é esconder o risco — é apresentar a economia
+    sem o "but". "We could save $5k on spot." sozinho é
+    promessa; com o "but" é análise. E cuidado com o calque:
+    "**an economy of $5k**" → "**a saving of $5k**".
+  examples:
+    - { en: "We could save $5k on spot, but jobs would restart mid-run.", pt: "Poderíamos economizar $5 mil com spot, mas os jobs reiniciariam no meio." }
+    - { en: "The trade-off is availability — spot can be interrupted.", pt: "O trade-off é disponibilidade — spot pode ser interrompido." }
+    - { en: "Spot saves 70%. That said, it's not for the API.", pt: "Spot economiza 70%. Dito isso, não é para a API." }
+    - { en: "I'd rather pay for on-demand than lose a batch run.", pt: "Prefiro pagar on-demand a perder uma execução de batch." }
+    - { en: "Cutting staging was a false economy — bugs hit prod.", pt: "Cortar staging foi falsa economia — bugs chegaram a prod." }
+    - { en: "A saving of $5k — never 'an economy of $5k'.", pt: "Uma economia de $5 mil — nunca 'an economy of'." }
+
+examples:
+  - en: "We could save $5k on spot, but jobs would restart mid-run."
+    pt: "Poderíamos economizar $5 mil com spot, mas os jobs reiniciariam no meio."
+    context: "A economia com o porém."
+  - en: "The trade-off is availability — spot can be interrupted."
+    pt: "O trade-off é a disponibilidade — spot pode ser interrompido."
+    context: "O porém nomeado."
+  - en: "Spot is cheap but risky for anything customer-facing."
+    pt: "Spot é barato mas arriscado para o que vai ao cliente."
+    context: "O par de adjetivos."
+  - en: "Saving $200 a month isn't worth the rewrite effort."
+    pt: "Economizar $200 por mês não vale o esforço de reescrita."
+    context: "O esforço como custo."
+  - en: "Worst case, spot delays the report by an hour — acceptable."
+    pt: "No pior caso, spot atrasa o relatório em uma hora — aceitável."
+    context: "O cenário delimitado."
+  - en: "Cutting staging was a false economy — bugs hit prod."
+    pt: "Cortar staging foi falsa economia — bugs chegaram a prod."
+    context: "O barato que sai caro."
+  - en: "Idle resources are the low-hanging fruit — kill them first."
+    pt: "Recursos ociosos são o fruto baixo — mate-os primeiro."
+    context: "A ordem do plano."
+  - en: "I'd rather pay for on-demand than lose a batch run."
+    pt: "Prefiro pagar on-demand a perder uma execução de batch."
+    context: "A preferência com preço."
+
+variations:
+  - idea: '"a economia com o porém"'
+    items:
+      - { register: "Boa", text: "We could save $5k on spot, but jobs would restart mid-run.", adequate: true }
+      - { register: "Boa", text: "Spot saves 70%. That said, keep it away from the API.", adequate: true }
+      - { register: "Inadequada", text: "We could save $5k on spot. Spot is great.", adequate: false, note: "Sem o 'but' é promessa — o trade-off precisa aparecer." }
+      - { register: "Inadequada", text: "We could have an economy of $5k on spot.", adequate: false, note: "*A saving of* — 'an economy of' é calque." }
+  - idea: '"quando não vale"'
+    items:
+      - { register: "Boa", text: "Saving $200 a month isn't worth the rewrite effort.", adequate: true }
+      - { register: "Boa", text: "Cutting staging was a false economy.", adequate: true }
+      - { register: "Inadequada", text: "It doesn't worth the effort.", adequate: false, note: "*It isn't worth* — 'worth' não é verbo." }
+      - { register: "Inadequada", text: "We spend too much effort with small savings.", adequate: false, note: "*Spend effort on* — 'with' é para pessoas." }
+
+brErrors:
+  - { wrong: "We could have an economy of $5k on spot.", right: "We could get a saving of $5k on spot.", why: "a saving of", tag: br.an-economy }
+  - { wrong: "It doesn't worth the effort.", right: "It isn't worth the effort.", why: "isn't worth", tag: br.worths }
+  - { wrong: "The effort not worth the saving.", right: "The effort isn't worth the saving.", why: "isn't worth", tag: br.worths }
+  - { wrong: "We spend too much effort with small savings.", right: "We spend too much effort on small savings.", why: "spend on", tag: br.spend-with }
+  - { wrong: "The costs look cheap on spot.", right: "The costs look low on spot.", why: "costs look low", tag: br.price-expensive }
+  - { wrong: "The half of the saving goes to egress.", right: "Half the saving goes to egress.", why: "half the saving", tag: br.the-half }
+  - { wrong: "We must to accept the trade-off.", right: "We must accept the trade-off.", why: "must accept", tag: br.modal-to }
+  - { wrong: "The risk is critic for the API.", right: "The risk is critical for the API.", why: "is critical", tag: br.is-critic }
+  - { wrong: "The price raised on spot last week.", right: "The spot price went up last week.", why: "went up", tag: br.metric-raised }
+  - { wrong: "We are in compliance to the budget.", right: "We're in compliance with the budget.", why: "in compliance with", tag: br.in-compliance-to }
+
+dialogue:
+  title: "What's the catch?"
+  lines:
+    - { speaker: Yuri, text: "Three levers on the table: right-sizing, spot for batch, and a savings plan for the baseline." }
+    - { speaker: Ana, text: "What's the catch on each?" }
+    - { speaker: Yuri, text: "Right-sizing: none — it's the low-hanging fruit. The nodes idle at 12%; we just shrink them." }
+    - { speaker: Marcos, text: "Spot is where I'd push back. We could save $5k a month, but jobs would restart mid-run." }
+    - { speaker: Yuri, text: "True — the trade-off is availability. Worst case, the nightly report lands an hour late. That's an acceptable risk for batch — not for anything customer-facing." }
+    - { speaker: Ana, text: "And rewriting the pipeline to handle interruptions?" }
+    - { speaker: Marcos, text: "That's two sprints of work to save maybe $800 more — not worth the effort. Cheap saving, expensive build." }
+    - { speaker: Ana, text: "So: right-size now, spot for batch with the delay accepted, skip the rewrite." }
+    - { speaker: Yuri, text: "And the savings plan on the baseline — no risk there, just the commitment. I'd rather pay for the commitment than keep bleeding on-demand." }
+  notes:
+    - "'what's the catch on each?' — o trade-off perguntado item a item."
+    - "'cheap saving, expensive build' — o esforço contado como custo."
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "Every saving has a hidden price, and the honest pitch names it first. 'We could save five K on spot, but jobs would restart mid-run' — the 'but' is the heart of it. Without it, that's a promise; with it, it's analysis. 'The trade-off is availability' names the downside directly, and 'that said' signals the counterweight — 'spot saves seventy percent; that said, it's not for the API'." }
+    - { speaker: Marcos, text: "Two more: 'the effort isn't worth the saving' — engineering time is a cost too, so 'two sprints to save eight hundred a month isn't worth it'. And 'false economy' — the cut that costs more later, like killing staging and shipping bugs to prod. When you'd still do it: 'a delayed report is an acceptable risk; downtime isn't'." }
+  questions:
+    - { id: M20-04-l1, type: multiple_choice, prompt: "The honest saving pitch starts with…", options: ["hiding the downside", "'we could save X, but…' — saving plus the catch", "the contract terms", "the cheapest option"], answer: 1, explanation: "A economia com o porém embutido.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-04-l2, type: multiple_choice, prompt: "'That said' signals…", options: ["agreement", "a counterweight — the downside after the upside", "the end of the meeting", "a question"], answer: 1, explanation: "O conector do contrapeso.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-04-l3, type: fill_blank, prompt: "Two sprints to save $800 a month isn't worth the ___.", accepted: ["effort"], explanation: "O esforço também é custo.", tags: [vocab.finops] }
+    - { id: M20-04-l4, type: error_correction, prompt: "It doesn't worth the effort.", accepted: ["It isn't worth the effort.", "It isn't worth the effort"], explanation: "'isn't worth' — worth não é verbo.", tags: [br.worths] }
+    - { id: M20-04-l5, type: multiple_choice, prompt: "A false economy is…", options: ["a big saving", "free capacity", "a cut that costs more later — like killing staging", "a discount"], answer: 2, explanation: "O barato que sai caro.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-04-l6, type: multiple_choice, prompt: "An acceptable risk here is…", options: ["customer downtime", "a security breach", "data loss", "a delayed batch report"], answer: 3, explanation: "O atraso aceitável; downtime não.", tags: [comp.listening, vocab.finops] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana quer o plano com os trade-offs por
+    escrito — cada alavanca com seu "catch" declarado.
+
+    **Tarefa:** escreva 60–90 palavras cobrindo três alavancas
+    (right-sizing, spot para batch, savings plan) cada uma com
+    seu trade-off nomeado: "we could save X, but…", "the
+    trade-off is…", "not worth the effort" para o que ficar
+    de fora.
+  constraints:
+    - { label: "A economia com o porém", pattern: "\\b(could save|would save|save[s]?\\s+\\$)[^.]{0,60}\\bbut\\b|\\btrade-off\\b" }
+    - { label: "O risco nomeado", pattern: "\\b(risk|risky|interrupted|downtime|acceptable)\\w*" }
+    - { label: "O que ficou de fora", pattern: "\\bnot worth|isn\\'t worth|skip|out of scope\\b" }
+    - { label: "A ordem", pattern: "\\b(first|then|finally|low-hanging|next)\\b" }
+  rubric:
+    - "Cada alavanca com seu trade-off"
+    - "O 'but' presente — economia com porém"
+    - "Algo descartado com razão de esforço"
+    - "Sem calques ('a saving of', 'isn't worth', 'spend on')"
+  model: >-
+    Three levers, three trade-offs. First, right-sizing the
+    node group — a saving of about $8k a month, no real catch;
+    it's the low-hanging fruit. Second, spot for batch: we
+    could save $5k, but jobs would restart mid-run — the
+    trade-off is availability, and a delayed report is an
+    acceptable risk. Third, the savings plan on the baseline —
+    no risk, just the commitment. Skipping the pipeline
+    rewrite: two sprints for $800 more isn't worth the effort.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.finops]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando três alavancas de economia — cada uma com seu trade-off nomeado."
+    maxSeconds: 45
+    targetPhrases:
+      - we could save
+      - the trade-off is
+      - cheap but risky
+      - not worth the effort
+      - that said
+      - I'd rather
+      - worst case
+      - acceptable risk
+      - false economy
+      - low-hanging fruit
+      - the catch is
+      - a saving of
+      - on the other hand
+      - it's worth it
+      - bang for the buck
+      - break even
+    checklist:
+      - "economia + 'but' + porém, nunca economia sozinha"
+      - "'isn't worth the effort', nunca 'doesn't worth'"
+      - "'a saving of', nunca 'an economy of'"
+      - "best/worst case delimitando o risco"
+
+quiz:
+  - { id: M20-04-q1, type: multiple_choice, prompt: "'We could save $5k on spot, but…' — o 'but' carrega…", options: ["o desconto", "o trade-off — o que se perde", "o prazo", "o contrato"], answer: 1, explanation: "O porém é o coração da frase.", tags: [vocab.finops] }
+  - { id: M20-04-q2, type: error_correction, prompt: "It doesn't worth the rewrite effort.", accepted: ["It isn't worth the rewrite effort.", "It isn't worth the rewrite effort"], explanation: "'isn't worth' — worth não é verbo.", tags: [br.worths] }
+  - { id: M20-04-q3, type: multiple_choice, prompt: "Uma falsa economia é…", options: ["um corte que custa mais caro depois", "uma economia grande", "um desconto", "um reembolso"], answer: 0, explanation: "O barato que sai caro.", tags: [vocab.finops] }
+  - { id: M20-04-q4, type: fill_blank, prompt: "___ case, spot delays the report by an hour — that's acceptable.", accepted: ["worst"], explanation: "'Worst case' — o pior cenário delimitado.", tags: [vocab.finops] }
+  - { id: M20-04-q5, type: multiple_choice, prompt: "'Low-hanging fruit' no plano de custo é…", options: ["o item mais difícil", "o maior risco", "a economia fácil que vem primeiro", "a fatura total"], answer: 2, explanation: "O fácil antes do difícil.", tags: [vocab.finops] }
+  - { id: M20-04-q6, type: error_correction, prompt: "We could have an economy of $5k on spot.", accepted: ["We could get a saving of $5k on spot.", "We could save $5k on spot."], explanation: "'a saving of' ou 'save $5k'.", tags: [br.an-economy] }
+  - { id: M20-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["pay", "rather", "i'd", "for", "on-demand", "than", "lose", "a", "run", "batch"], answer: "i'd rather pay for on-demand than lose a batch run", explanation: "A preferência com o preço explícito.", tags: [vocab.finops] }
+  - { id: M20-04-q8, type: multiple_choice, prompt: "'The catch' é…", options: ["a economia", "o desconto", "o bônus", "o custo escondido da economia"], answer: 3, explanation: "A pegadinha — 'what's the catch?'", tags: [vocab.finops] }
+
+srsCards:
+  - { front: "trade-off", back: "A troca — 'the trade-off is availability'.", tag: vocab.finops }
+  - { front: "we could save X, but…", back: "A economia com o porém — o 'but' é o coração.", tag: vocab.finops }
+  - { front: "the catch", back: "A pegadinha — 'what's the catch?'", tag: vocab.finops }
+  - { front: "cheap but risky", back: "O par de adjetivos — 'cheap but risky for the API'.", tag: vocab.finops }
+  - { front: "worth the effort", back: "Vale o esforço — 'not worth the effort'.", tag: vocab.finops }
+  - { front: "that said", back: "Dito isso — o conector do contrapeso.", tag: vocab.finops }
+  - { front: "I'd rather", back: "Prefiro — 'rather pay for X than lose Y'.", tag: vocab.finops }
+  - { front: "best/worst case", back: "Os limites — 'worst case, an hour late'.", tag: vocab.finops }
+  - { front: "acceptable risk", back: "O risco assinável — 'a delayed report is acceptable'.", tag: vocab.finops }
+  - { front: "false economy", back: "O corte que custa mais depois — 'cutting staging'.", tag: vocab.finops }
+  - { front: "low-hanging fruit", back: "A economia fácil primeiro — 'idle resources are'.", tag: vocab.finops }
+  - { front: "bang for the buck", back: "Retorno pelo dinheiro — informal de reunião.", tag: vocab.finops }
+
+review:
+  preferTags: [vocab.finops, br.worths, br.an-economy]
+  notes: "Revisão prioriza a estrutura economia+porém, 'not worth the effort', false economy e os calques (an economy of, doesn't worth, spend with)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
