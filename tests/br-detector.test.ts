@@ -1319,3 +1319,48 @@ describe("padrões BR — M29 (comportamental)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.its-already-years");
   });
 });
+
+describe("padrões BR — M30 (entrevista técnica)", () => {
+  it("flags 'make a test' but not 'make a wish'", () => {
+    expect(tagsOf("Let me make a test first.")).toContain("br.make-a-test");
+    expect(tagsOf("I made a test to confirm the fix.")).toContain("br.make-a-test");
+    const clean = [
+      "Let me run a test first.",
+      "Make a wish.",
+      "The test made a difference.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.make-a-test");
+  });
+  it("flags 'the site is on air' but not 'on-air talent'", () => {
+    expect(tagsOf("The site is on air again.")).toContain("br.on-air");
+    expect(tagsOf("Is the service on air now?")).toContain("br.on-air");
+    const clean = [
+      "The site is up again.",
+      "The service is back online.",
+      "She's an on-air presenter.",
+      "The comment was on air for a second.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.on-air");
+  });
+  it("flags 'the server falls' but not 'the call fell'", () => {
+    expect(tagsOf("The server falls every night.")).toContain("br.service-falls");
+    expect(tagsOf("The app fell during the deploy.")).toContain("br.service-falls");
+    const clean = [
+      "The server goes down every night.",
+      "The app crashed during the deploy.",
+      "The call fell twice already.",
+      "The temperature falls at night.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.service-falls");
+  });
+  it("flags 'mount a solution' but not 'mount the disk'", () => {
+    expect(tagsOf("I would mount a solution with a cache.")).toContain("br.mount-solution");
+    expect(tagsOf("We mounted a whole architecture in a week.")).toContain("br.mount-solution");
+    const clean = [
+      "I would build a solution with a cache.",
+      "Mount the disk at /data.",
+      "The evidence mounted against him.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.mount-solution");
+  });
+});

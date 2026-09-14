@@ -947,3 +947,35 @@ patterns:
     right: "It's been three years since I started / I've been here three years"
     why: '"Já faz X anos" é "it''s been X since" — "it''s already X years that" não existe.'
     tag: br.its-already-years
+  # "make a test" — "fazer um teste" vira "run a test".
+  # Exige artigo + test — "make a wish", "the test made a difference" fora.
+  - id: make-a-test
+    pattern: "\\b(make|makes|made|making)\\s+(a|the|some|this|that|another|one|quick)\\s+tests?\\b"
+    wrong: "Let me make a test first"
+    right: "Let me run a test first / let me test it"
+    why: '"Fazer um teste" é "run a test" — make test não existe.'
+    tag: br.make-a-test
+  # "the site is on air" — "no ar" vira "up/online". "On air" em inglês é broadcasting.
+  # Só com sujeito de infra — "the comment was on air" (broadcast) fora.
+  - id: on-air
+    pattern: "\\b(site|service|server|app|application|api|system|platform|endpoint|cluster)s?\\s+(is|are|was|were)\\s+(back\\s+|still\\s+)?on air\\b|\\b(is|are|was|were)\\s+(the\\s+|my\\s+|our\\s+)?(site|service|server|app|application|api|system|platform|endpoint|cluster)\\s+(back\\s+|still\\s+)?on air\\b"
+    wrong: "The site is on air again"
+    right: "The site is up again / back online"
+    why: '"No ar" (funcionando) é "up/online" — "on air" é transmitindo (TV/rádio).'
+    tag: br.on-air
+  # "the server falls" — "cair" (serviço) vira "go down/crash".
+  # Só sujeitos de infra — "the call fell" tem padrão próprio, "temperature falls" fora.
+  - id: service-falls
+    pattern: "\\b(server|servers|app|apps|application|service|services|site|sites|api|system|systems|pod|pods|cluster|clusters|database|databases|db)s?\\s+(fell|fall|falls)\\b"
+    wrong: "The server falls every night"
+    right: "The server goes down every night / the app crashes"
+    why: '"O serviço caiu" é "went down/crashed" — falls é calque de "cai".'
+    tag: br.service-falls
+  # "mount a solution" — "montar" (construir) vira "build/design".
+  # Só objetos abstratos — "mount the disk" literal fora.
+  - id: mount-solution
+    pattern: "\\bmount(s|ed|ing)?\\s+(a|an|the|this|that|one|new|full)\\s+(\\w+\\s+)?(solution|solutions|architecture|architectures|infrastructure|setup|setups|environment|environments|pipeline|pipelines|system|systems)\\b|\\bmount(s|ed|ing)?\\s+(solution|solutions|architecture|architectures|infrastructure|setup|setups|environment|environments|pipeline|pipelines|system|systems)\\b"
+    wrong: "I would mount a solution with a cache"
+    right: "I would build a solution with a cache / design it"
+    why: '"Montar" uma solução é "build/design" — "mount" é disco/quadro.'
+    tag: br.mount-solution
