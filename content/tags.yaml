@@ -45,6 +45,7 @@ tags:
   - { id: vocab.finops,        group: vocab, label: Custos e FinOps }
   - { id: vocab.interview,     group: vocab, label: Entrevistas e carreira }
   - { id: vocab.sysdesign,     group: vocab, label: "System design e entrevista técnica" }
+  - { id: vocab.compensation,  group: vocab, label: "Ofertas, remuneração e negociação" }
   # Erros típicos de brasileiros
   - { id: br.since-present,    group: br, label: "since/for + presente" }
   - { id: br.doubt,            group: br, label: "doubt em vez de question" }
@@ -213,3 +214,7 @@ tags:
   - { id: br.on-air,           group: br, label: "the site is on air → is up" }
   - { id: br.service-falls,    group: br, label: "the server falls → goes down" }
   - { id: br.mount-solution,   group: br, label: "mount a solution → build/design" }
+  - { id: br.actual-current,   group: br, label: "my actual salary → current" }
+  - { id: br.job-proposal,     group: br, label: "job proposal → job offer" }
+  - { id: br.more-vacations,   group: br, label: "more vacations → vacation days" }
+  - { id: br.thirteenth-salary, group: br, label: "thirteenth salary → 13th-month bonus" }

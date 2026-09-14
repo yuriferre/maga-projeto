@@ -979,3 +979,35 @@ patterns:
     right: "I would build a solution with a cache / design it"
     why: '"Montar" uma solução é "build/design" — "mount" é disco/quadro.'
     tag: br.mount-solution
+  # "my actual salary" — "atual" (corrente) é "current"; "actual" em inglês é "real".
+  # Só com possessivo + papel/emprego — "the actual cost" (custo real) fora.
+  - id: actual-current
+    pattern: "\\b(my|his|her|their|our)\\s+actual\\s+(salary|salaries|compensation|pay|package|role|job|position|company|employer|manager|team|boss|workload|title)\\b"
+    wrong: "My actual salary is lower than the offer"
+    right: "My current salary is lower than the offer"
+    why: '"Atual" (corrente) é "current" — "actual" em inglês significa "real/de verdade".'
+    tag: br.actual-current
+  # "job proposal" — proposta de emprego é "job offer".
+  # "Proposal" é de RFC/casamento/plano — "job proposal" soa como proposição de trabalho formal.
+  - id: job-proposal
+    pattern: "\\bjob\\s+proposals?\\b|\\b(work|employment)\\s+proposals?\\b"
+    wrong: "I got a job proposal yesterday"
+    right: "I got a job offer yesterday / an offer"
+    why: '"Proposta de emprego" é "job offer" — "proposal" é para RFC, casamento, plano.'
+    tag: br.job-proposal
+  # "more vacations" — "mais férias" é "more vacation days / more PTO".
+  # "Vacations" no plural é viagem — "two vacations a year" (duas viagens) fora.
+  - id: more-vacations
+    pattern: "\\b(more|extra|additional|longer)\\s+vacations\\b|\\bnegotiate\\s+vacations\\b"
+    wrong: "I want more vacations in the package"
+    right: "I want more vacation days / more PTO"
+    why: '"Férias" (benefício) é "vacation days/PTO" — "vacations" no plural soa como viagens.'
+    tag: br.more-vacations
+  # "thirteenth salary" — "décimo terceiro" não existe no inglês dos EUA.
+  # Vira "13th-month pay/bonus" ou "year-end bonus" — "thirteenth month" fora.
+  - id: thirteenth-salary
+    pattern: "\\b(thirteenth|13th)\\s+salar(y|ies)\\b"
+    wrong: "In Brazil we have a thirteenth salary"
+    right: "In Brazil we have a 13th-month bonus / year-end bonus"
+    why: '"Décimo terceiro" não existe como conceito fora do BR — "13th-month bonus" ou "year-end bonus".'
+    tag: br.thirteenth-salary

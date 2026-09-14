@@ -1364,3 +1364,47 @@ describe("padrões BR — M30 (entrevista técnica)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.mount-solution");
   });
 });
+
+describe("padrões BR — M31 (ofertas e negociação)", () => {
+  it("flags 'my actual salary' but not 'the actual cost'", () => {
+    expect(tagsOf("My actual salary is lower than the offer.")).toContain("br.actual-current");
+    expect(tagsOf("Her actual manager is remote.")).toContain("br.actual-current");
+    const clean = [
+      "My current salary is lower than the offer.",
+      "The actual cost was higher — the real cost.",
+      "I need the actual numbers.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.actual-current");
+  });
+  it("flags 'job proposal' but not 'marriage proposal'", () => {
+    expect(tagsOf("I got a job proposal yesterday.")).toContain("br.job-proposal");
+    expect(tagsOf("The job proposal came with equity.")).toContain("br.job-proposal");
+    const clean = [
+      "I got a job offer yesterday.",
+      "She made a marriage proposal.",
+      "The proposal for the RFC is in review.",
+      "His proposal to restructure the team landed well.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.job-proposal");
+  });
+  it("flags 'more vacations' but not 'two vacations a year'", () => {
+    expect(tagsOf("I want more vacations in the package.")).toContain("br.more-vacations");
+    expect(tagsOf("Can I negotiate extra vacations?")).toContain("br.more-vacations");
+    const clean = [
+      "I want more vacation days.",
+      "I take two vacations a year.",
+      "Our vacations were great.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.more-vacations");
+  });
+  it("flags 'thirteenth salary' but not 'thirteenth month'", () => {
+    expect(tagsOf("In Brazil we have a thirteenth salary.")).toContain("br.thirteenth-salary");
+    expect(tagsOf("The thirteenth salary arrives in December.")).toContain("br.thirteenth-salary");
+    const clean = [
+      "In Brazil we have a 13th-month bonus.",
+      "The thirteenth month of the calendar doesn't exist.",
+      "My thirteenth payment is due.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.thirteenth-salary");
+  });
+});
