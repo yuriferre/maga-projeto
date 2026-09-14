@@ -1,0 +1,322 @@
+id: M28-01
+module: M28
+order: 1
+title: "Screening call: o roteiro, as perguntas e o que o recrutador quer"
+objective: >-
+  Ao final, você reconhece a estrutura de um screening
+  call — abertura, trajetória, logística, expectativas,
+  perguntas — e sabe o que o recrutador está checando
+  em cada parte.
+durationMin: 30
+competencies: [SPK, LIS]
+tags: [vocab.interview, comp.speaking, comp.listening]
+prerequisites: [M27-05]
+
+context:
+  scenario: |
+    O e-mail chegou: "Hi Yuri — thanks for applying!
+    Do you have 20 minutes this week for a quick
+    screening call?"
+
+    O screening call NÃO é entrevista técnica — é um
+    filtro de encaixe. O recrutador checa quatro coisas
+    em vinte minutos:
+
+    - **Comunicação**: você se faz entender sem esforço?
+    - **Trajetória**: o seu pitch bate com o currículo?
+    - **Logística**: localização, visto, notice,
+      disponibilidade — algum bloqueio?
+    - **Expectativas**: salário na faixa? Senioridade
+      certa? Interesse real?
+
+    O roteiro quase sempre é o mesmo: **"tell me about
+    yourself"** (o pitch de 2 minutos do M27), **"why
+    this role?"**, **"walk me through your resume"**,
+    aí a parte logística — **"what's your notice
+    period?"**, **"what are your salary
+    expectations?"** — e fecha com **"do you have any
+    questions for me?"**.
+
+    A chave: o screening é curto, cordial e
+    superficial — respostas de dois minutos, não de
+    dez. Quem passa deixa o recrutador com três
+    frases para repassar ao hiring manager.
+  roles: [Yuri (platform engineer), Rachel (recruiter)]
+
+vocabulary:
+  - term: "a quick screening call"
+    meaning: 'uma call rápida de triagem — o primeiro filtro'
+    example: "Do you have 20 minutes this week for a quick screening call?"
+    translation: "Você tem 20 minutos essa semana para uma call rápida de triagem?"
+    note: "O primeiro filtro — encaixe, não técnica."
+  - term: "tell me about yourself"
+    meaning: 'fale sobre você — a abertura universal'
+    example: "So — tell me about yourself."
+    translation: "Então — fale sobre você."
+    note: "O pitch de 2 minutos do M27 — presente, passado, porquê da vaga."
+  - term: "walk me through your resume"
+    meaning: 'me guie pelo seu currículo — a trajetória narrada'
+    example: "Can you walk me through your resume quickly?"
+    translation: "Pode me guiar rapidamente pelo seu currículo?"
+    note: "Cronológico e curto — os mesmos pontos do pitch."
+  - term: "why this role?"
+    meaning: 'por que essa vaga? — o teste de interesse real'
+    example: "And why this role specifically?"
+    translation: "E por que essa vaga especificamente?"
+    note: "A resposta liga a SUA trajetória ao problema deles."
+  - term: "what's your notice period?"
+    meaning: 'qual seu aviso prévio? — a disponibilidade real'
+    example: "What's your notice period with your current employer?"
+    translation: "Qual é o seu aviso prévio no emprego atual?"
+    note: "'Two weeks' notice' — o tempo até poder começar."
+  - term: "what are your salary expectations?"
+    meaning: 'quais são suas expectativas salariais?'
+    example: "And what are your salary expectations for this role?"
+    translation: "E quais são suas expectativas salariais para essa vaga?"
+    note: "Nunca 'pretension' — expectations, target, range."
+  - term: "are you open to relocation?"
+    meaning: 'você topa realocar? — a pergunta de logística'
+    example: "The role is hybrid in Austin — are you open to relocation?"
+    translation: "A vaga é híbrida em Austin — você topa realocar?"
+    note: "Logística: remoto, híbrido, realocação, visto."
+  - term: "do you need sponsorship?"
+    meaning: 'você precisa de patrocínio de visto?'
+    example: "Would you need visa sponsorship to work in the US?"
+    translation: "Você precisaria de patrocínio de visto para trabalhar nos EUA?"
+    note: "A resposta curta e direta — sem pânico, é só logística."
+  - term: "the next step would be…"
+    meaning: 'o próximo passo seria… — o roteiro do processo'
+    example: "If it goes well, the next step would be a call with the hiring manager."
+    translation: "Se correr bem, o próximo passo seria uma call com o hiring manager."
+    note: "O recrutador descreve o funil — anote os passos."
+  - term: "do you have any questions for me?"
+    meaning: 'você tem perguntas para mim? — o fecho aberto'
+    example: "We're almost at time — do you have any questions for me?"
+    translation: "Estamos quase no tempo — você tem alguma pergunta para mim?"
+    note: "Sempre tenha duas — a aula M28-03 é sobre isso."
+  - term: "I'll pass your profile along"
+    meaning: 'vou encaminhar seu perfil — o sinal de aprovação'
+    example: "Great — I'll pass your profile along to the hiring manager."
+    translation: "Ótimo — vou encaminhar seu perfil ao hiring manager."
+    note: "O sinal de que o filtro passou."
+  - term: "the team is based in…"
+    meaning: 'o time fica em… — a geografia do trabalho'
+    example: "The team is based in Dublin, but the role is remote-friendly."
+    translation: "O time fica em Dublin, mas a vaga é amigável a remoto."
+    note: "Geografia: fuso, overlap, viagens ocasionais."
+
+grammar:
+  title: "as perguntas do screening e as respostas na medida"
+  explanation: |
+    O screening tem gramática própria — perguntas
+    diretas, respostas curtas:
+
+    - "**Would you need** sponsorship?" → resposta
+      sim/não + um fato: "*Yes, I'd need an H-1B —
+      or I'm authorized to work remotely from Brazil.*"
+    - "**Are you open to** relocation?" → "*I'm open
+      to it for the right role — though remote is my
+      preference.*"
+    - "**What are your** expectations?" →
+      "*I'm targeting the $140–160k range, depending
+      on the full package.*"
+    - "**Do you have** any questions?" → sempre duas.
+
+    Os tempos verbais do screening:
+
+    - Trajetória no **present perfect**: "*I've been
+      here since 2021*" — a janela aberta.
+    - Fatos do passado no **simple past**: "*I joined
+      as a mid, got promoted to senior.*"
+    - Disponibilidade no **present**: "*my notice is
+      two weeks.*"
+  examples:
+    - { en: "I've been at the fintech since 2021 — platform team.", pt: "Estou na fintech desde 2021 — time de plataforma." }
+    - { en: "I joined as a mid-level engineer and was promoted to senior last year.", pt: "Entrei como pleno e fui promovido a sênior no ano passado." }
+    - { en: "Yes, I'd need sponsorship — or I can work remotely from Brazil.", pt: "Sim, eu precisaria de patrocínio — ou posso trabalhar remoto do Brasil." }
+    - { en: "I'm targeting the $140–160k range, depending on the package.", pt: "Miro a faixa de $140–160k, dependendo do pacote." }
+    - { en: "My notice is two weeks — I could start in early March.", pt: "Meu aviso é de duas semanas — poderia começar no início de março." }
+    - { en: "I'm open to relocation for the right role — though remote is my preference.", pt: "Topo realocar pela vaga certa — mas remoto é minha preferência." }
+
+examples:
+  - en: "So — tell me about yourself."
+    pt: "Então — fale sobre você."
+    context: "A abertura — o pitch de 2 minutos."
+  - en: "Can you walk me through your resume quickly?"
+    pt: "Pode me guiar rapidamente pelo currículo?"
+    context: "Cronológico, os mesmos pontos do pitch."
+  - en: "What's your notice period with your current employer?"
+    pt: "Qual é seu aviso prévio no emprego atual?"
+    context: "Logística — resposta direta."
+  - en: "Would you need visa sponsorship to work in the US?"
+    pt: "Você precisaria de patrocínio de visto para os EUA?"
+    context: "Sim/não + um fato — sem pânico."
+  - en: "If it goes well, the next step would be a call with the hiring manager."
+    pt: "Se correr bem, o próximo passo seria uma call com o hiring manager."
+    context: "O recrutador descreve o funil."
+  - en: "We're almost at time — do you have any questions for me?"
+    pt: "Estamos quase no tempo — tem perguntas para mim?"
+    context: "Sempre tenha duas."
+  - en: "Great — I'll pass your profile along to the hiring manager."
+    pt: "Ótimo — vou encaminhar seu perfil ao hiring manager."
+    context: "O sinal de aprovação."
+  - en: "The team is based in Dublin, but the role is remote-friendly."
+    pt: "O time fica em Dublin, mas a vaga aceita remoto."
+    context: "Geografia e fuso — anote o overlap."
+
+variations:
+  - idea: '"o ritmo do screening"'
+    items:
+      - { register: "Na medida", text: "I'm a platform engineer — eight years, mostly SRE and CI. I've been at the fintech since 2021. (two minutes)", adequate: true }
+      - { register: "Na medida", text: "Happy to walk through the resume — want me to start from the most recent?", adequate: true }
+      - { register: "Demais", text: "(dez minutos narrando cada emprego desde o estágio)", adequate: false, note: "O screening é um filtro — dois minutos, não dez." }
+      - { register: "De menos", text: "It's all on the resume.", adequate: false, note: "A resposta que não responde reprova na comunicação." }
+  - idea: '"as respostas de logística"'
+    items:
+      - { register: "Na medida", text: "Yes, I'd need sponsorship — or I can work remotely from Brazil.", adequate: true }
+      - { register: "Na medida", text: "My notice is two weeks — I could start in early March.", adequate: true }
+      - { register: "Fraco", text: "It's complicated… the visa situation is hard to explain…", adequate: false, note: "Logística é sim/não + um fato — o drama assusta o recrutador." }
+      - { register: "Fraco", text: "I don't know yet — everything is up in the air.", adequate: false, note: "A indecisão na logística é o bloqueio que o filtro procura." }
+
+brErrors:
+  - { wrong: "I have interest in the position.", right: "I'm interested in the position.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "My salary pretension is $140k.", right: "My salary expectations are around $140k.", why: "expectations / targeting", tag: br.pretension }
+  - { wrong: "I made an interview yesterday.", right: "I had an interview yesterday.", why: "had an interview", tag: br.make-interview }
+  - { wrong: "I need to give two weeks advice.", right: "I need to give two weeks' notice.", why: "two weeks' notice", tag: br.advice-notice }
+  - { wrong: "I work here since 2021.", right: "I've been here since 2021.", why: "I've been", tag: br.work-since }
+  - { wrong: "I was responsible by the pipeline.", right: "I was responsible for the pipeline.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "I formed in CS in 2015.", right: "I have a degree in CS.", why: "a degree", tag: br.formed-in }
+  - { wrong: "I was promoted for senior last year.", right: "I was promoted to senior last year.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "In my vision the role fits.", right: "In my view the role fits.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "I have doubt about the range.", right: "I have a question about the range.", why: "a question", tag: br.doubt }
+
+dialogue:
+  title: "Os vinte minutos do screening"
+  lines:
+    - { speaker: Rachel, text: "Hi Yuri — thanks for making the time! We've got about twenty minutes. Tell me about yourself." }
+    - { speaker: Yuri, text: "Sure. I'm a platform engineer — eight years, mostly SRE and CI. I've been at the fintech since 2021, where I led the multi-AZ migration. This role caught my eye because of the scale you're describing." }
+    - { speaker: Rachel, text: "Nice. And why this role specifically?" }
+    - { speaker: Yuri, text: "The posting mentions the deploy-time problem — I cut ours from forty minutes to six last year, so it's a problem I know." }
+    - { speaker: Rachel, text: "Great. A few logistics: what's your notice period?" }
+    - { speaker: Yuri, text: "Two weeks — I could start in early March." }
+    - { speaker: Rachel, text: "And the role is remote-friendly but the team is in Dublin — does that work?" }
+    - { speaker: Yuri, text: "Remote works — I'm used to a five-hour overlap, that's my current setup." }
+    - { speaker: Rachel, text: "Last one from me: what are your salary expectations?" }
+    - { speaker: Yuri, text: "I'm targeting the $140–160k range, depending on the full package. What's the band for the role?" }
+    - { speaker: Rachel, text: "That's within our band. I'll pass your profile along — the next step would be a call with the hiring manager this week." }
+  notes:
+    - "cada resposta: curta, na medida — pitch de 2 min, logística sim/não + um fato."
+    - "'I'm targeting the range' + a devolução 'what's the band?' — expectativa sem travar."
+    - "o fecho: 'I'll pass your profile along' + o próximo passo nomeado."
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "A screening call is a fit check, not a technical interview. In twenty minutes I'm checking four things: can you communicate without effort, does your story match the resume, is there a logistics blocker — visa, notice, location — and are your expectations in range." }
+    - { speaker: Yuri, text: "The script is almost always the same: 'tell me about yourself', 'why this role', 'walk me through your resume', then logistics — notice, sponsorship, salary — and it closes with 'do you have any questions for me?'. Two-minute answers, not ten. The recruiter needs three sentences to pass to the hiring manager." }
+    - { speaker: Rachel, text: "The signals that pass: a tight pitch, direct logistics answers — 'yes, I'd need sponsorship, or I can work remotely' — a target range instead of a number, and two real questions at the end." }
+  questions:
+    - { id: M28-01-l1, type: multiple_choice, prompt: "O screening call checa…", options: ["encaixe — comunicação, trajetória, logística, expectativas", "conhecimento técnico", "algoritmos", "inglês apenas"], answer: 0, explanation: "Um filtro de encaixe em quatro eixos.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-01-l2, type: fill_blank, prompt: "What's your ___ period? — Two weeks.", accepted: ["notice"], explanation: "'Notice period' — o aviso prévio.", tags: [vocab.interview] }
+    - { id: M28-01-l3, type: error_correction, prompt: "I have interest in the position.", accepted: ["I'm interested in the position.", "I'm interested in the position", "I'm very interested in the position."], explanation: "'I'm interested'.", tags: [br.have-interest] }
+    - { id: M28-01-l4, type: multiple_choice, prompt: "A resposta certa sobre sponsorship é…", options: ["esconder", "drama", "mudar de assunto", "'yes, I'd need it — or I can work remotely from Brazil'"], answer: 3, explanation: "Sim/não + um fato — logística, não confissão.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-01-l5, type: multiple_choice, prompt: "O tamanho certo das respostas no screening é…", options: ["dez minutos", "trinta segundos", "dois minutos — o recrutador precisa de três frases", "sem limite"], answer: 2, explanation: "Curto — o recrutador repassa três frases.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-01-l6, type: multiple_choice, prompt: "O sinal de que o filtro passou é…", options: ["'we'll see'", "silêncio", "'good luck'", "'I'll pass your profile along' + o próximo passo"], answer: 3, explanation: "Encaminhamento + próximo passo nomeado.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** a Rachel confirmou o screening por
+    e-mail — e pediu três coisas por escrito antes da
+    call: a disponibilidade, a confirmação do fuso e
+    uma frase de resumo do seu perfil para repassar
+    ao hiring manager.
+
+    **Tarefa:** escreva 70–100 palavras: confirme o
+    horário ("Thursday at 10 works"), a sua janela de
+    notice ("I can start in…"), a disponibilidade de
+    remoto/visto em uma linha, e a frase de resumo —
+    o seu pitch em uma linha.
+  constraints:
+    - { label: "A confirmação", pattern: "\\bworks|works for me|confirmed|looking forward|sounds good\\b" }
+    - { label: "A logística", pattern: "\\bnotice|start in|remote|sponsorship|available\\b" }
+    - { label: "O resumo em uma frase", pattern: "\\bplatform engineer|sre|devops|years|i've been|i'm a\\b" }
+    - { label: "O fecho", pattern: "\\bhappy to|let me know|see you|thanks|any questions\\b" }
+  rubric:
+    - "Confirmação do horário sem ambiguidade"
+    - "Logística em uma linha — notice + remoto/visto"
+    - "O resumo repassável em uma frase"
+    - "Sem calques ('I'm interested', 'notice', 'had an interview')"
+  model: >-
+    Hi Rachel — Thursday at 10am your time works for
+    me, confirmed. Looking forward to it. On
+    logistics: my notice is two weeks, so I could
+    start in early March; remote works well — I'm
+    used to a five-hour overlap with Europe, and I
+    don't need sponsorship for remote work from
+    Brazil. The one-liner for the hiring manager:
+    platform engineer, eight years, led a multi-AZ
+    migration and cut deploy time from 40 to 6
+    minutes. Happy to send anything else — let me
+    know. See you Thursday!
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a primeira metade do screening — 'tell me about yourself' + 'why this role?'. O pitch de 2 minutos comprimido: quem você é, o resultado com número, e por que ESTA vaga liga à sua trajetória."
+    maxSeconds: 90
+    targetPhrases:
+      - tell me about yourself
+      - i'm a platform engineer
+      - i've been here since
+      - eight years
+      - i led the
+      - i was responsible for
+      - reduced deploy time from
+      - why this role
+      - the posting mentions
+      - it's a problem i know
+      - i'm interested in
+      - caught my eye
+      - walk me through your resume
+      - happy to expand
+      - the short version
+      - that's the headline
+    checklist:
+      - "pitch em três batidas: presente, número, porquê da vaga"
+      - "'why this role' ligado a um problema seu"
+      - "dois minutos, não dez"
+      - "sem calques ('I'm interested', 'I've been since', 'a degree')"
+
+quiz:
+  - { id: M28-01-q1, type: multiple_choice, prompt: "O screening call é…", options: ["um filtro de encaixe — comunicação, trajetória, logística, expectativas", "a entrevista técnica", "a oferta", "o teste de código"], answer: 0, explanation: "Vinte minutos, quatro eixos.", tags: [vocab.interview] }
+  - { id: M28-01-q2, type: error_correction, prompt: "My salary pretension is $140k.", accepted: ["My salary expectations are around $140k.", "My salary expectations are around $140k", "I'm targeting $140k."], explanation: "'Expectations' ou 'targeting'.", tags: [br.pretension] }
+  - { id: M28-01-q3, type: multiple_choice, prompt: "'Tell me about yourself' no screening pede…", options: ["a biografia completa", "os hobbies", "o pitch de 2 minutos — presente, passado, porquê da vaga", "o salário"], answer: 2, explanation: "O pitch do M27 — curto.", tags: [vocab.interview] }
+  - { id: M28-01-q4, type: fill_blank, prompt: "Are you ___ to relocation? — For the right role, yes.", accepted: ["open"], explanation: "'Open to relocation'.", tags: [vocab.interview] }
+  - { id: M28-01-q5, type: multiple_choice, prompt: "A resposta de logística certa é…", options: ["longa e cautelosa", "evasiva", "dramática", "sim/não + um fato — 'two weeks, I could start in March'"], answer: 3, explanation: "Logística é direta.", tags: [vocab.interview] }
+  - { id: M28-01-q6, type: error_correction, prompt: "I need to give two weeks advice.", accepted: ["I need to give two weeks' notice.", "I need to give two weeks' notice", "I need to give two weeks notice."], explanation: "'Two weeks' notice'.", tags: [br.advice-notice] }
+  - { id: M28-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["your", "pass", "profile", "i'll", "along"], answer: "i'll pass your profile along", explanation: "O sinal de aprovação.", tags: [vocab.interview] }
+  - { id: M28-01-q8, type: multiple_choice, prompt: "O que o recrutador repassa ao hiring manager é…", options: ["o currículo inteiro", "a gravação", "três frases — por isso as respostas são curtas", "as notas de rodapé"], answer: 2, explanation: "Três frases — a clareza vence o detalhe.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "a quick screening call", back: "O primeiro filtro — encaixe, não técnica.", tag: vocab.interview }
+  - { front: "tell me about yourself", back: "A abertura — o pitch de 2 minutos.", tag: vocab.interview }
+  - { front: "walk me through your resume", back: "A trajetória narrada — cronológico e curto.", tag: vocab.interview }
+  - { front: "why this role?", back: "O teste de interesse — liga sua trajetória ao problema deles.", tag: vocab.interview }
+  - { front: "what's your notice period?", back: "A disponibilidade real — 'two weeks' notice'.", tag: vocab.interview }
+  - { front: "what are your salary expectations?", back: "Expectativas — nunca 'pretension'.", tag: vocab.interview }
+  - { front: "are you open to relocation?", back: "A logística — remoto, híbrido, realocação.", tag: vocab.interview }
+  - { front: "do you need sponsorship?", back: "Sim/não + um fato — sem pânico.", tag: vocab.interview }
+  - { front: "the next step would be…", back: "O funil descrito — anote os passos.", tag: vocab.interview }
+  - { front: "do you have any questions for me?", back: "O fecho — sempre tenha duas.", tag: vocab.interview }
+  - { front: "I'll pass your profile along", back: "O sinal de que o filtro passou.", tag: vocab.interview }
+  - { front: "the team is based in…", back: "A geografia — fuso, overlap, viagens.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.have-interest, br.pretension]
+  notes: "Revisão prioriza o roteiro do screening, as respostas de logística e os calques novos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
