@@ -154,3 +154,7 @@ tags:
   - { id: br.have-a-latency, group: br, label: "have a latency of (latency is)" }
   - { id: br.overpassed,     group: br, label: "overpassed (exceeded)" }
   - { id: vocab.slo,         group: vocab, label: "SLOs e error budget" }
+  - { id: br.explored-vuln,    group: br, label: "explored the vuln (exploited)" }
+  - { id: br.is-critic,        group: br, label: "is critic (is critical)" }
+  - { id: br.in-compliance-to, group: br, label: "in compliance to (with)" }
+  - { id: br.modal-to,         group: br, label: "must to fix (must fix)" }

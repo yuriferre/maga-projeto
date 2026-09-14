@@ -824,4 +824,45 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.overpassed");
   });
+
+  it("flags 'explored the vuln' but not 'explored the options'", () => {
+    expect(tagsOf("The attacker explored the vulnerability.")).toContain("br.explored-vuln");
+    expect(tagsOf("They explored the flaw before we patched it.")).toContain("br.explored-vuln");
+    const clean = [
+      "The attacker exploited the vulnerability.",
+      "We explored the options.",
+      "They explored the design space.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.explored-vuln");
+  });
+  it("flags 'the finding is critic' but not 'a film critic'", () => {
+    expect(tagsOf("The finding is critic — patch today.")).toContain("br.is-critic");
+    expect(tagsOf("It looks critic to me.")).toContain("br.is-critic");
+    const clean = [
+      "The finding is critical — patch today.",
+      "She is a film critic.",
+      "It looks risky to me.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.is-critic");
+  });
+  it("flags 'in compliance to' but not 'in compliance with'", () => {
+    expect(tagsOf("We're in compliance to the policy.")).toContain("br.in-compliance-to");
+    expect(tagsOf("The change is in compliance of the standard.")).toContain("br.in-compliance-to");
+    const clean = [
+      "We're in compliance with the policy.",
+      "The audit checked compliance to the letter.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-compliance-to");
+  });
+  it("flags 'must to fix' but not 'want/have/used to'", () => {
+    expect(tagsOf("We must to fix this today.")).toContain("br.modal-to");
+    expect(tagsOf("You should to rotate the keys.")).toContain("br.modal-to");
+    const clean = [
+      "We must fix this today.",
+      "We have to fix this today.",
+      "I want to fix it.",
+      "We used to rotate them monthly.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.modal-to");
+  });
 });

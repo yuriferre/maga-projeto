@@ -595,3 +595,32 @@ patterns:
     right: "The pool exceeded the limit"
     why: '"Ultrapassou" é "exceeded" — "overpassed" não existe como verbo aqui.'
     tag: br.overpassed
+  # "explored the vulnerability" — "explorou" é exploited; explored = explorou opções.
+  - id: explored-vuln
+    pattern: "\\bexplor(ed|ing)\\s+(the\\s+|a\\s+|an\\s+|this\\s+)?(vuln|vulnerability|vulnerabilities|flaw|weakness|cve|bug)\\b"
+    wrong: "The attacker explored the vulnerability"
+    right: "The attacker exploited the vulnerability"
+    why: '"Explorar a falha" é "exploited" — "explored" é "explorou opções".'
+    tag: br.explored-vuln
+  # "the finding is critic" — "crítico" é critical; "critic" é a pessoa que critica.
+  - id: is-critic
+    pattern: "\\b(is|it's|its|seems|looks|remains|stays|became|becomes)\\s+critic\\b"
+    wrong: "The finding is critic — patch today"
+    right: "The finding is critical — patch today"
+    why: '"Crítico" é "critical" — "critic" é quem critica ("a film critic").'
+    tag: br.is-critic
+  # "in compliance to" — "em conformidade com" é "in compliance with".
+  - id: in-compliance-to
+    pattern: "\\bin compliance (to|of)\\b"
+    wrong: "We're in compliance to the policy"
+    right: "We're in compliance with the policy"
+    why: '"Em conformidade com" é "in compliance with".'
+    tag: br.in-compliance-to
+  # "must to fix" — modal nunca leva "to" depois ("want/have/used to" ficam fora;
+  # "can" fica fora de propósito: "a can to open" é legítimo).
+  - id: modal-to
+    pattern: "\\b(must|should|could|would|may|might|shall)\\s+to\\s+\\w+"
+    wrong: "We must to fix this today"
+    right: "We must fix this today"
+    why: 'Modal + verbo direto — "must fix", nunca "must to fix".'
+    tag: br.modal-to
