@@ -1,0 +1,319 @@
+id: M23-05
+module: M23
+order: 5
+title: "[SIM] O debate: monólito × microsserviços com colega insistente"
+objective: >-
+  Ao final, você sustenta um debate técnico completo contra
+  um colega insistente — calibrando a escala, usando as
+  quatro peças, lendo o registro e fechando em consenso.
+durationMin: 50
+competencies: [SPK, CNF, LIS]
+tags: [vocab.disagreement, gram.hedging, comp.speaking, comp.listening, comp.confidence]
+prerequisites: [M23-04]
+
+context:
+  scenario: |
+    A simulação final do módulo. A Beth insiste: o billing
+    vira microsserviço, ponto. Você defende: conserta o
+    schema no monólito primeiro. Quatro rodadas, e cada uma
+    pede uma ferramenta diferente do módulo:
+
+    - **Rodada 1 — ela abre forte**: "*microservices, no
+      debate needed*". Você responde no degrau certo —
+      pergunta, não espelhamento da força.
+    - **Rodada 2 — ela insiste e erra um fato**: validar →
+      corrigir → nomear a divergência exata.
+    - **Rodada 3 — ela não cede**: steelman + "what would
+      it take" — a oposição vira condição.
+    - **Rodada 4 — o fechamento**: estacionar o que trava,
+      inventariar o acordo, "disagree and commit".
+
+    O objetivo não é vencer — é o debate terminar com uma
+    decisão testável e os dois ainda conversando.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "no debate needed"
+    meaning: 'sem debate necessário — a tentativa de fechar antes de abrir'
+    example: "Beth opened with 'microservices, no debate needed' — a closed door."
+    translation: "A Beth abriu com 'microsserviços, sem debate necessário' — porta fechada."
+    note: "Responda com pergunta — não espelhe a força."
+  - term: "let's keep this about the facts"
+    meaning: 'mantenhamos isso nos fatos — realinha quando esquenta'
+    example: "Let's keep this about the facts — what does the bug data show?"
+    translation: "Vamos manter isso nos fatos — o que os dados de bugs mostram?"
+    note: "Tira o debate do plano pessoal e devolve aos dados."
+  - term: "you keep saying X — show me"
+    meaning: 'você continua dizendo X — me mostre; pede prova da repetição'
+    example: "You keep saying 'scale' — show me where the monolith hit its limit."
+    translation: "Você continua dizendo 'escala' — me mostre onde o monólito bateu no limite."
+    note: "Repetição não é evidência — peça o dado por trás."
+  - term: "we're going in circles"
+    meaning: 'estamos girando em círculos — nomeia o loop do debate'
+    example: "We're going in circles — let's park the rewrite and agree on the schema."
+    translation: "Estamos girando em círculos — vamos estacionar a reescrita e concordar no schema."
+    note: "Nomear o círculo é o primeiro passo para sair dele."
+  - term: "the burden of proof"
+    meaning: 'o ônus da prova — quem propõe a mudança prova'
+    example: "The burden of proof is on the rewrite — the monolith is the status quo."
+    translation: "O ônus da prova é da reescrita — o monólito é o status quo."
+    note: "Quem quer mudar é quem demonstra — não o contrário."
+  - term: "let me finish"
+    meaning: 'deixe-me terminar — retoma a palavra sem escalar'
+    example: "Let me finish — then the floor is yours."
+    translation: "Deixe-me terminar — depois a palavra é sua."
+    note: "Curto e neutro — devolve a palavra em seguida."
+  - term: "point taken"
+    meaning: 'ponto anotado — reconhece o argumento do outro'
+    example: "Point taken on the deploy coupling — that part is real."
+    translation: "Ponto anotado sobre o acoplamento do deploy — essa parte é real."
+    note: "Reconhecer o ponto real não enfraquece a sua posição."
+  - term: "that's a separate issue"
+    meaning: 'isso é outra questão — separa o que se misturou'
+    example: "The audit trail is a separate issue — it breaks under either design."
+    translation: "A trilha de auditoria é outra questão — quebra nas duas arquiteturas."
+    note: "Debates travam quando duas questões fingem ser uma."
+  - term: "I'll own the spike"
+    meaning: 'eu assumo o spike — pega a tarefa que destrava o debate'
+    example: "I'll own the spike — numbers by Thursday."
+    translation: "Eu assumo o spike — números até quinta."
+    note: "Quem propõe o teste e o executa move o debate de verdade."
+  - term: "let's not make it personal"
+    meaning: 'não vamos tornar pessoal — protege a relação'
+    example: "Let's not make it personal — we both want billing fixed."
+    translation: "Não vamos tornar pessoal — nós dois queremos o billing consertado."
+    note: "A frase que devolve o debate ao problema."
+  - term: "steel yourself for…"
+    meaning: 'se prepare para… — a frase não; o steelman, sim'
+    example: "I steelmanned her case: microservices do isolate the blast radius."
+    translation: "Fiz o steelman do caso dela: microsserviços de fato isolam o blast radius."
+    note: "O steelman honesto é o que dói de fazer — e o que convence."
+  - term: "the deciding factor"
+    meaning: 'o fator decisivo — o que pesa na escolha'
+    example: "The deciding factor isn't scale — it's the audit trail."
+    translation: "O fator decisivo não é escala — é a trilha de auditoria."
+    note: "Nomeie o que decide — debates vagos nunca fecham."
+
+grammar:
+  title: "o debate inteiro em uma gramática"
+  explanation: |
+    A sim junta as três aulas em uma gramática só:
+
+    - **O degrau certo sob pressão**: quando ela abre no
+      topo ("*no debate needed*"), você desce para a
+      pergunta — "*are we sure we need it?*" — e deixa a
+      escala trabalhar.
+    - **As quatro peças embaralhadas**: validar
+      ("*point taken*"), discordar ("*where we differ
+      is*"), razão ("*because the bug data says*"),
+      devolver ("*what would it take*").
+    - **O condicional do teste**: "*if the spike lands in
+      a week, the rewrite makes sense*" — a proposta
+      testável é o único fim honesto do debate.
+    - **O fecho sem vencedor**: "*we're going in circles —
+      let's park it*", "*aligned?*"
+
+    E os calques sob pressão — quando sobe a adrenalina,
+    volta o português:
+
+    - "**in my vision**" → "**in my view**"
+    - "**this is polemic**" → "**controversial**"
+    - "**you disagree, no?**" → "**, right?**"
+    - "**I didn't hear nothing**" → "**didn't hear
+      anything**"
+  examples:
+    - { en: "Are we sure we need microservices — or do we need the bugs gone?", pt: "Temos certeza de que precisamos de microsserviços — ou de que precisamos dos bugs fora?" }
+    - { en: "Point taken on the deploy coupling — where we differ is the fix.", pt: "Ponto anotado sobre o acoplamento do deploy — onde divergimos é a solução." }
+    - { en: "Let's keep this about the facts — what does the bug data show?", pt: "Vamos manter isso nos fatos — o que os dados de bugs mostram?" }
+    - { en: "You keep saying 'scale' — show me where the monolith hit its limit.", pt: "Você continua dizendo 'escala' — me mostre onde o monólito bateu no limite." }
+    - { en: "If the spike lands in a week, the rewrite makes sense — fair?", pt: "Se o spike cair numa semana, a reescrita faz sentido — justo?" }
+    - { en: "We're going in circles — park the rewrite, agree on the schema.", pt: "Estamos girando em círculos — estacione a reescrita, concorde no schema." }
+
+examples:
+  - en: "Are we sure we need microservices — or do we need the billing bugs gone?"
+    pt: "Temos certeza de que precisamos de microsserviços — ou de que precisamos dos bugs do billing fora?"
+    context: "A pergunta que reenquadra."
+  - en: "Let me finish — then the floor is yours."
+    pt: "Deixe-me terminar — depois a palavra é sua."
+    context: "Retomar a palavra sem escalar."
+  - en: "The burden of proof is on the rewrite — the monolith is the status quo."
+    pt: "O ônus da prova é da reescrita — o monólito é o status quo."
+    context: "Quem muda, prova."
+  - en: "The audit trail is a separate issue — it breaks under either design."
+    pt: "A trilha de auditoria é questão separada — quebra nas duas arquiteturas."
+    context: "Separando as questões misturadas."
+  - en: "We're going in circles — let's park the rewrite and agree on the schema."
+    pt: "Estamos girando em círculos — vamos estacionar a reescrita e concordar no schema."
+    context: "Nomear o loop para sair dele."
+  - en: "I'll own the spike — schema fix timed, numbers by Thursday."
+    pt: "Eu assumo o spike — conserto do schema cronometrado, números até quinta."
+    context: "O teste que destrava, com dono."
+  - en: "You keep saying 'scale' — show me where the monolith hit its limit."
+    pt: "Você continua dizendo 'escala' — me mostre onde o monólito bateu no limite."
+    context: "Repetição ≠ evidência."
+  - en: "The deciding factor isn't scale — it's the audit trail surviving."
+    pt: "O fator decisivo não é escala — é a trilha de auditoria sobreviver."
+    context: "Nomear o que decide."
+
+variations:
+  - idea: '"quando a pressão sobe"'
+    items:
+      - { register: "Boa", text: "Let me finish — then the floor is yours.", adequate: true }
+      - { register: "Boa", text: "Let's keep this about the facts — what does the data show?", adequate: true }
+      - { register: "Inadequada", text: "You never listen — this is pointless.", adequate: false, note: "Ataque pessoal + desistência — as duas saídas erradas ao mesmo tempo." }
+      - { register: "Inadequada", text: "In my vision you are wrong, no?", adequate: false, note: "Dois calques sob pressão: *in my view* + *right?*." }
+  - idea: '"fechando sem vencedor"'
+    items:
+      - { register: "Boa", text: "We're going in circles — park the rewrite, agree on the schema.", adequate: true }
+      - { register: "Boa", text: "I still prefer the monolith fix — and I'll disagree and commit.", adequate: true }
+      - { register: "Inadequada", text: "Fine — do the rewrite. I told you so in advance.", adequate: false, note: "O 'eu avisei' preventivo é sabotagem — commit de verdade não guarda recibo." }
+      - { register: "Inadequada", text: "We didn't agree on nothing.", adequate: false, note: "Dupla negação — *didn't agree on anything*." }
+
+brErrors:
+  - { wrong: "You disagree with me, no?", right: "You disagree with me, right?", why: "tag question", tag: br.no-tag }
+  - { wrong: "This debate is polemic.", right: "This debate is controversial.", why: "controversial", tag: br.polemic }
+  - { wrong: "In my vision, the monolith wins.", right: "In my view, the monolith wins.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "I didn't hear nothing about scale.", right: "I didn't hear anything about scale.", why: "anything", tag: br.double-negative }
+  - { wrong: "We are all agree on the spike.", right: "We all agree on the spike.", why: "all agree", tag: br.i-am-agree }
+  - { wrong: "The same architecture than before.", right: "The same architecture as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about microservices.", right: "We discussed microservices.", why: "discussed microservices", tag: br.discuss-about }
+  - { wrong: "Instead the rewrite, we spike.", right: "Instead of the rewrite, we spike.", why: "instead of", tag: br.instead-of }
+  - { wrong: "I have doubt about 'scale'.", right: "I have a doubt about 'scale'.", why: "a doubt", tag: br.doubt }
+  - { wrong: "You must to show me the data.", right: "You must show me the data.", why: "must show", tag: br.modal-to }
+
+dialogue:
+  title: "Monolith vs. microservices"
+  lines:
+    - { speaker: Beth, text: "Billing goes microservice. No debate needed — the monolith is the problem." }
+    - { speaker: Yuri, text: "Are we sure we need microservices — or do we need the billing bugs gone? Those aren't the same ask." }
+    - { speaker: Beth, text: "The monolith doesn't scale. We've been over this." }
+    - { speaker: Yuri, text: "You keep saying 'scale' — show me where the monolith hit its limit. The bug data I see points at the schema, not the architecture." }
+    - { speaker: Beth, text: "The deploys are coupled, the code is a mess—" }
+    - { speaker: Yuri, text: "Let me finish — then the floor is yours. Point taken on the deploy coupling, that's real. Where we differ is the fix." }
+    - { speaker: Beth, text: "The fix is extracting billing. Clean boundaries, own database." }
+    - { speaker: Yuri, text: "Let's keep this about the facts. The audit trail lives inside those boundaries — extracting billing means rebuilding it. That's a separate issue from scale." }
+    - { speaker: Beth, text: "So we do both. I'm not backing off the microservice." }
+    - { speaker: Yuri, text: "Let me steelman it: microservices do isolate the blast radius, and billing is the right candidate if any is. The burden of proof is on the rewrite, though — the monolith is the status quo." }
+    - { speaker: Beth, text: "Then prove me wrong." }
+    - { speaker: Yuri, text: "Deal — let's make it testable. If a spike on the schema fix lands inside a week, the rewrite loses its urgency. If it takes three, your microservice gets my vote. What would it take from your side — a real revisit date?" }
+    - { speaker: Beth, text: "Scheduled, not buried. Q3, on the roadmap." }
+    - { speaker: Yuri, text: "We're going in circles otherwise — so: park the rewrite debate, spike this week, revisit scheduled for Q3. I'll own the spike." }
+    - { speaker: Carlos, text: "Are we aligned? Schema fix now, spike Thursday, rewrite revisit on the Q3 roadmap." }
+    - { speaker: Beth, text: "Aligned. I still want the microservice — and I'll disagree and commit." }
+    - { speaker: Yuri, text: "Aligned — and if the spike says I'm wrong, I'll say so." }
+  notes:
+    - "rodada 1: 'no debate needed' respondido com pergunta — Yuri não espelha a força."
+    - "rodada 2: 'you keep saying scale — show me' transforma repetição em pedido de evidência; 'let me finish' retoma a palavra sem escalar."
+    - "rodada 3: steelman honesto ('do isolate the blast radius') + burden of proof + a proposta testável."
+    - "rodada 4: 'going in circles' nomeado, rewrite estacionada com data, 'disagree and commit' dos dois lados."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "Watch the whole toolkit in one debate. She opens hard — 'no debate needed' — and he answers one step down, with a question. She insists and repeats 'scale' — he asks for the evidence: 'show me where the monolith hit its limit'. She interrupts — 'let me finish, then the floor is yours'. Then the steelman, the burden of proof, and the testable close." }
+    - { speaker: Yuri, text: "The moves that mattered: 'point taken' before 'where we differ'; 'a separate issue' when the audit trail got mixed in; 'we're going in circles' to break the loop; 'I'll own the spike' to make the test real. And it ended with disagree and commit on both sides — nobody won, the decision did." }
+    - { speaker: Beth, text: "And under pressure the calques creep back — watch them: 'in my view', 'controversial', 'right?', 'didn't hear anything'." }
+  questions:
+    - { id: M23-05-l1, type: multiple_choice, prompt: "Quando Beth abre com 'no debate needed', Yuri responde…", options: ["espelhando a força", "um degrau abaixo — com pergunta", "cedendo", "escalando ao gestor"], answer: 1, explanation: "A escala trabalha: força se responde com calibração.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-05-l2, type: multiple_choice, prompt: "'You keep saying scale — show me' transforma…", options: ["repetição em pedido de evidência", "debate em briga", "pergunta em ordem", "fato em opinião"], answer: 0, explanation: "Repetição não é prova — peça o dado.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-05-l3, type: fill_blank, prompt: "The burden of ___ is on the rewrite — the monolith is the status quo.", accepted: ["proof"], explanation: "Quem propõe a mudança é quem prova.", tags: [vocab.disagreement] }
+    - { id: M23-05-l4, type: error_correction, prompt: "I didn't hear nothing about the audit trail.", accepted: ["I didn't hear anything about the audit trail.", "I didn't hear anything about the audit trail"], explanation: "'didn't hear anything'.", tags: [br.double-negative] }
+    - { id: M23-05-l5, type: multiple_choice, prompt: "O debate fecha com…", options: ["proposta testável + disagree and commit dos dois lados", "um vencedor", "o gestor decidindo", "o tema enterrado"], answer: 0, explanation: "Ninguém venceu — a decisão ficou testável.", tags: [comp.listening, comp.confidence] }
+    - { id: M23-05-l6, type: multiple_choice, prompt: "'I'll own the spike' move o debate porque…", options: ["transfere a culpa", "quem propõe o teste e o executa converte debate em dado", "adi a decisão", "agrada a Beth"], answer: 1, explanation: "O teste com dono é o que destrava.", tags: [comp.listening, vocab.disagreement] }
+
+writing:
+  prompt: |
+    **Cenário:** o debate acabou e o Carlos pediu o registro
+    da decisão — o que cada lado defendeu, o que destravou, e
+    o compromisso final.
+
+    **Tarefa:** escreva 80–110 palavras com o resumo do
+    debate: a posição da Beth, a sua, o ponto concedido de
+    cada lado, a proposta testável (o spike) e o fecho
+    (parked com data + disagree and commit).
+  constraints:
+    - { label: "As duas posições", pattern: "\\bmicroservice|monolith|rewrite|schema\\b" }
+    - { label: "O ponto concedido", pattern: "\\bpoint taken|concede|steelman|fair\\b" }
+    - { label: "A proposta testável", pattern: "\\bspike|if the spike|testable|week\\b" }
+    - { label: "O fecho", pattern: "\\bparked|commit|aligned|revisit\\b" }
+  rubric:
+    - "Duas posições representadas com justiça"
+    - "Concessões dos dois lados registradas"
+    - "Critério testável explícito"
+    - "Sem calques ('in my view', 'controversial', 'right?', 'anything')"
+  model: >-
+    Debate record — billing architecture. Beth argued for
+    extracting billing into a microservice: coupled deploys,
+    blast-radius isolation, clean boundaries. I argued for
+    fixing the schema inside the monolith first — the bug
+    data points there, not at the architecture. Point taken
+    on both sides: deploy coupling is real, and so is the
+    audit trail living inside those boundaries. The
+    testable close: I own a spike on the schema fix. If it
+    lands inside a week, the rewrite loses urgency; if it
+    takes three, the microservice gets her vote. The rewrite
+    debate is parked — with a scheduled Q3 revisit, not
+    buried. Both sides disagree and commit.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.disagreement, gram.hedging]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos como se fosse a sua fala de fechamento no debate: sua posição, o que você concedeu, a proposta testável e o fecho."
+    maxSeconds: 60
+    targetPhrases:
+      - are we sure we need
+      - where we differ is
+      - point taken
+      - let me finish
+      - keep this about the facts
+      - you keep saying
+      - the burden of proof
+      - steelman
+      - a separate issue
+      - going in circles
+      - what would it take
+      - I'll own the spike
+      - disagree and commit
+      - the deciding factor
+      - in my view
+      - right?
+    checklist:
+      - "posição própria clara sem espelhar a força dela"
+      - "concede o ponto real do outro lado"
+      - "proposta testável com dono e prazo"
+      - "fecha em aligned + commit, não em vitória"
+      - "sem calques sob pressão"
+
+quiz:
+  - { id: M23-05-q1, type: multiple_choice, prompt: "Responder 'no debate needed' com 'are we sure we need it?' é…", options: ["fraqueza", "mudança de assunto", "a escala trabalhando — força se responde com calibração", "concessão"], answer: 2, explanation: "Você não espelha a força — desce um degrau.", tags: [vocab.disagreement, comp.confidence] }
+  - { id: M23-05-q2, type: error_correction, prompt: "In my vision, microservices win.", accepted: ["In my view, microservices win.", "In my view, microservices win"], explanation: "'in my view'.", tags: [br.in-my-vision] }
+  - { id: M23-05-q3, type: multiple_choice, prompt: "'Let me finish — then the floor is yours' funciona porque…", options: ["interrompe de volta", "encerra o debate", "muda de assunto", "retoma a palavra e a devolve — sem escalar"], answer: 3, explanation: "Curto, neutro, com devolução.", tags: [vocab.disagreement] }
+  - { id: M23-05-q4, type: fill_blank, prompt: "We're going in ___ — let's park the rewrite.", accepted: ["circles"], explanation: "Nomear o loop para sair dele.", tags: [vocab.disagreement] }
+  - { id: M23-05-q5, type: multiple_choice, prompt: "O steelman do caso da Beth ('microservices do isolate the blast radius') serve para…", options: ["enfraquecer a posição dela", "provar que você entendeu a melhor versão antes de contestar", "ganhar tempo", "mudar de assunto"], answer: 1, explanation: "Refutar a versão forte vale por dez.", tags: [vocab.disagreement] }
+  - { id: M23-05-q6, type: error_correction, prompt: "You still disagree with me, no?", accepted: ["You still disagree with me, right?", "You still disagree with me, right", "You still disagree with me, don't you?", "You still disagree with me, don't you"], explanation: "Tag question — 'right?' ou 'don't you?'.", tags: [br.no-tag] }
+  - { id: M23-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["of", "burden", "the", "proof"], answer: "the burden of proof", explanation: "Quem muda, prova.", tags: [vocab.disagreement] }
+  - { id: M23-05-q8, type: multiple_choice, prompt: "O debate foi ganho por…", options: ["Yuri", "Beth", "ninguém — a decisão ficou testável e ambos committed", "o Carlos"], answer: 2, explanation: "O objetivo era a decisão, não o troféu.", tags: [vocab.disagreement, comp.confidence] }
+
+srsCards:
+  - { front: "no debate needed", back: "Porta fechada — responda com pergunta, não com força.", tag: vocab.disagreement }
+  - { front: "let's keep this about the facts", back: "Devolve o debate aos dados quando esquenta.", tag: vocab.disagreement }
+  - { front: "you keep saying X — show me", back: "Repetição ≠ evidência — peça o dado por trás.", tag: vocab.disagreement }
+  - { front: "we're going in circles", back: "Nomeia o loop — primeiro passo para sair dele.", tag: vocab.disagreement }
+  - { front: "the burden of proof", back: "Quem propõe a mudança é quem prova — status quo não.", tag: vocab.disagreement }
+  - { front: "let me finish", back: "Retoma a palavra e a devolve — 'then the floor is yours'.", tag: vocab.disagreement }
+  - { front: "point taken", back: "Reconhece o ponto real — não enfraquece a posição.", tag: vocab.disagreement }
+  - { front: "that's a separate issue", back: "Separa o que se misturou — 'breaks under either design'.", tag: vocab.disagreement }
+  - { front: "I'll own the spike", back: "O teste com dono que destrava o debate.", tag: vocab.disagreement }
+  - { front: "let's not make it personal", back: "Devolve o debate ao problema — protege a relação.", tag: vocab.disagreement }
+  - { front: "the deciding factor", back: "O que decide de verdade — 'isn't scale, it's the audit trail'.", tag: vocab.disagreement }
+  - { front: "in my view", back: "Sob pressão também — nunca 'in my vision'.", tag: br.in-my-vision }
+
+review:
+  preferTags: [vocab.disagreement, gram.hedging, br.double-negative]
+  notes: "Revisão prioriza o debate completo: escala sob pressão, as quatro peças, steelman + burden of proof, o fecho testável e disagree and commit."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
