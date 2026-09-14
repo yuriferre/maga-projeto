@@ -177,4 +177,10 @@ tags:
   - { id: br.in-my-vision,      group: br, label: "in my vision → in my view" }
   - { id: br.double-negative,   group: br, label: "didn't see nothing → anything" }
   - { id: vocab.disagreement,   group: vocab, label: "Discordância, debate e consenso" }
+  - { id: gram.signposting,    group: gram, label: "Sinalização de estrutura (signposting)" }
+  - { id: vocab.presentation,  group: vocab, label: "Apresentações, demos e Q&A" }
+  - { id: br.make-question,    group: br, label: "make a question → ask" }
+  - { id: br.in-the-screen,    group: br, label: "in the screen → on" }
+  - { id: br.the-graphic,      group: br, label: "the graphic → graph/chart" }
+  - { id: br.want-that,        group: br, label: "want that you → want you to" }
 
