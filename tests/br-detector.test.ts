@@ -1035,3 +1035,45 @@ describe("padrões BR — M23 (discordando profissionalmente)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.double-negative");
   });
 });
+
+describe("padrões BR — M24 (apresentações e demos)", () => {
+  it("flags 'make a question' but not 'ask a question' / authoring", () => {
+    expect(tagsOf("Can I make a question about the demo?")).toContain("br.make-question");
+    expect(tagsOf("Let me make a question.")).toContain("br.make-question");
+    const clean = [
+      "Can I ask a question about the demo?",
+      "She made the questions harder.",
+      "Good question — let me answer it.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.make-question");
+  });
+  it("flags 'in the screen' but not 'on the screen'", () => {
+    expect(tagsOf("As you can see in the screen, latency spiked.")).toContain("br.in-the-screen");
+    const clean = [
+      "As you can see on the screen, latency spiked.",
+      "The graph on my screen shows p99.",
+      "Pixels are stuck in the screen hardware.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-the-screen");
+  });
+  it("flags 'the graphic shows' but not 'graphic design'", () => {
+    expect(tagsOf("The graphic shows the latency spike.")).toContain("br.the-graphic");
+    expect(tagsOf("As you can see in the graphic, p99 rose.")).toContain("br.the-graphic");
+    const clean = [
+      "The graph shows the latency spike.",
+      "She works in graphic design.",
+      "The graphic novel was great.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.the-graphic");
+  });
+  it("flags 'I want that you see' but not 'I want that feature'", () => {
+    expect(tagsOf("I want that you see the error rate.")).toContain("br.want-that");
+    expect(tagsOf("We'd like that the team understands.")).toContain("br.want-that");
+    const clean = [
+      "I want you to see the error rate.",
+      "I want that feature merged.",
+      "We want that dashboard.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.want-that");
+  });
+});

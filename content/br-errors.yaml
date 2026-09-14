@@ -739,4 +739,36 @@ patterns:
     right: "I didn't see anything wrong with the plan"
     why: 'Ingles nao dobra a negacao: "didn''t ... anything".'
     tag: br.double-negative
+  # "make a question" — "fazer uma pergunta" é "ask a question".
+  # "made the questions harder" (criar questões) fica fora — exige "a question".
+  - id: make-question
+    pattern: "\\b(make|makes|made|making)\\s+a\\s+question\\b"
+    wrong: "Can I make a question about the demo?"
+    right: "Can I ask a question about the demo?"
+    why: '"Fazer uma pergunta" é "ask a question" — "make" cria, não pergunta.'
+    tag: br.make-question
+  # "in the screen" — "na tela" (conteúdo exibido) é "on the screen".
+  # Exige verbo/contexto visual antes — "pixels in the screen" (hardware) fica fora.
+  - id: in-the-screen
+    pattern: "\\b(see|shown|shows?|appears?|displayed|right there|here|as you can see)\\s+[^.]{0,40}in (the|my|this|your) screen\\b"
+    wrong: "As you can see in the screen, latency spiked"
+    right: "As you can see on the screen, latency spiked"
+    why: '"Na tela" é "on the screen" — "in" é para dentro do hardware.'
+    tag: br.in-the-screen
+  # "the graphic shows" — "gráfico" é "graph/chart", não "graphic".
+  # "graphic design" e "graphic novel" ficam fora.
+  - id: the-graphic
+    pattern: "\\bthe graphic (shows?|above|below|here|tells|says|depicts)\\b|\\bin the graphic\\b"
+    wrong: "The graphic shows the latency spike"
+    right: "The graph shows the latency spike"
+    why: '"Gráfico" é "graph" ou "chart" — "graphic" é design/imagem.'
+    tag: br.the-graphic
+  # "I want that you see" — "quero que você veja" é "I want you to see".
+  # Pessoas restritas — "I want that feature" fica fora.
+  - id: want-that
+    pattern: "\\b(want|need|'d like|would like)\\s+that\\s+(you|they|he|she|we|the team|everyone|everybody|people)\\b"
+    wrong: "I want that you see the error rate"
+    right: "I want you to see the error rate"
+    why: '"Quero que você" é "want you to" — "want that" só leva coisa.'
+    tag: br.want-that
 

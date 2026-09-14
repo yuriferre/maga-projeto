@@ -1,0 +1,324 @@
+id: M24-05
+module: M24
+order: 5
+title: "SIM: apresente seu projeto em cinco minutos — gravado e avaliado"
+objective: >-
+  Ao final, você apresenta um projeto pessoal ou do time
+  em cinco minutos gravados — estrutura com signposting,
+  diagrama narrado, demo legendada e Q&A fechado — e a
+  rubrica avalia cada peça.
+durationMin: 50
+competencies: [SPK, PRO, CNF]
+tags: [vocab.presentation, gram.signposting, comp.speaking, comp.confidence, comp.pronunciation]
+prerequisites: [M24-04]
+
+context:
+  scenario: |
+    O eng manager abriu um slot de cinco minutos no
+    tech talk de sexta: "apresenta aquele seu projeto —
+    o script que limpa os discos dos nós". Cinco minutos
+    é o formato mais difícil: não cabe enrolação e cada
+    peça do módulo aparece.
+
+    O mapa dos cinco minutos:
+
+    - **0:00–0:45 — abertura**: "*today I'll walk you
+      through the disk-cleaner in three parts — the
+      problem, how it works, and what it saved*".
+    - **0:45–2:00 — o problema**: o diagrama narrado —
+      "*top left, the nodes; on the right, the disk
+      filling up*".
+    - **2:00–3:30 — a demo**: "*I'm going to run it on a
+      staging node — while this runs, watch the freed
+      space on the graph*".
+    - **3:30–4:15 — o resultado**: "*what you just saw
+      is…*", números, o takeaway.
+    - **4:15–5:00 — Q&A**: uma pergunta reformulada, uma
+      admitida com plano, e o fechamento.
+
+    A rubrica avalia as quatro peças — estrutura, narração
+    visual, demo legendada e Q&A — além do tempo. Cinco
+    minutos honestos valem mais que dez com enrolação.
+  roles: [Yuri (platform engineer), Ana (eng manager), Beth (staff engineer)]
+
+vocabulary:
+  - term: "in three parts"
+    meaning: 'em três partes — o mapa da abertura curta'
+    example: "Today I'll walk you through the disk-cleaner in three parts."
+    translation: "Hoje vou apresentar o disk-cleaner em três partes."
+    note: "Em cinco minutos, o mapa tem três partes — nunca cinco."
+  - term: "the short version"
+    meaning: 'a versão curta — o resumo de um slide'
+    example: "The short version: nodes were dying at ninety percent disk."
+    translation: "A versão curta: os nós estavam morrendo a 90% de disco."
+    note: "A abertura do problema em uma frase."
+  - term: "here's where it gets interesting"
+    meaning: 'aqui fica interessante — o gancho antes do ponto alto'
+    example: "Here's where it gets interesting — it runs without a restart."
+    translation: "Aqui fica interessante — roda sem restart."
+    note: "O gancho recoloca a atenção antes do clímax."
+  - term: "to put a number on it"
+    meaning: 'para colocar um número nisso — quantifica o resultado'
+    example: "To put a number on it: forty incidents a month became zero."
+    translation: "Para colocar um número nisso: quarenta incidentes por mês viraram zero."
+    note: "O número concreto é o que a plateia leva para casa."
+  - term: "the before and after"
+    meaning: 'o antes e o depois — o contraste do resultado'
+    example: "Here's the before and after — ninety percent to sixty, flat."
+    translation: "Aqui está o antes e o depois — de 90% para 60%, plano."
+    note: "O contraste em um slide ou uma frase é o resultado."
+  - term: "I'll leave you with"
+    meaning: 'deixo vocês com — o fechamento antes do Q&A'
+    example: "I'll leave you with this: it took a weekend to build."
+    translation: "Deixo vocês com isso: levou um fim de semana para construir."
+    note: "O takeaway final — uma frase que fica."
+  - term: "happy to take questions"
+    meaning: 'feliz em responder perguntas — abre o Q&A'
+    example: "That's the project — happy to take questions."
+    translation: "Esse é o projeto — feliz em responder perguntas."
+    note: "O fechamento que abre espaço sem perder o palco."
+  - term: "one thing I'd do differently"
+    meaning: 'uma coisa que eu faria diferente — a autocrítica controlada'
+    example: "One thing I'd do differently: I'd start with the dry-run mode."
+    translation: "Uma coisa que eu faria diferente: começaria com o modo dry-run."
+    note: "A autocrítica voluntária é sinal de senioridade — ofereça uma."
+  - term: "the part I'm proudest of"
+    meaning: 'a parte de que mais me orgulho — o destaque pessoal'
+    example: "The part I'm proudest of is the safe-mode flag."
+    translation: "A parte de que mais me orgulho é a flag de modo seguro."
+    note: "Projeto pessoal merece um momento pessoal."
+  - term: "it's on the repo"
+    meaning: 'está no repo — o call to action técnico'
+    example: "It's on the repo if you want to steal it — disk-cleaner under tools."
+    translation: "Está no repo se quiserem roubar — disk-cleaner em tools."
+    note: "Apresentação interna de projeto termina com onde achar."
+  - term: "shameless plug"
+    meaning: 'propaganda descarada — o projeto/divulgação com humor'
+    example: "And a shameless plug: the same trick works for log rotation."
+    translation: "E uma propaganda descarada: o mesmo truque funciona para rotação de logs."
+    note: "O humor autorreferente que aponta o próximo uso."
+  - term: "we're at time"
+    meaning: 'estamos no limite — o fechamento no tempo certo'
+    example: "We're at time — I'll grab the rest in the doc. Thanks, everyone."
+    translation: "Estamos no limite — o resto eu pego no doc. Obrigado, pessoal."
+    note: "Terminar no tempo é parte da avaliação — feche sem pedir desculpa."
+
+grammar:
+  title: "a gramática da apresentação curta"
+  explanation: |
+    Cinco minutos juntam as estruturas das quatro aulas:
+
+    - **O mapa**: "*I'll walk you through X in three
+      parts*" — a estrutura anunciada antes de começar.
+    - **O signposting contínuo**: "*moving on to how it
+      works*", "*that brings me to the demo*",
+      "*to wrap up*" — a plateia sempre sabe onde está.
+    - **A narração visual**: "*top left…*", "*on the
+      right…*", "*watch the freed space*" — o diagrama e
+      a demo com legenda.
+    - **O fechamento + Q&A**: "*I'll leave you with*",
+      "*happy to take questions*", "*so you're asking
+      whether*", "*let me get back to you on that*".
+
+    E os calques do palco sob pressão:
+
+    - "**in the screen**" → "**on the screen**".
+    - "**the graphic shows**" → "**the graph shows**".
+    - "**I want that you notice**" → "**I want you to
+      notice**".
+    - "**make a question**" → "**ask a question**".
+  examples:
+    - { en: "Today I'll walk you through the disk-cleaner in three parts.", pt: "Hoje vou apresentar o disk-cleaner em três partes." }
+    - { en: "Top left, the nodes; on the right, the disk filling up.", pt: "No canto superior esquerdo, os nós; à direita, o disco enchendo." }
+    - { en: "While this runs, watch the freed space on the graph.", pt: "Enquanto isso roda, observem o espaço liberado no gráfico." }
+    - { en: "To put a number on it: forty incidents a month became zero.", pt: "Para colocar um número nisso: quarenta incidentes por mês viraram zero." }
+    - { en: "I'll leave you with this: it took a weekend to build.", pt: "Deixo vocês com isso: levou um fim de semana para construir." }
+    - { en: "So you're asking whether it handles log rotation too — good question.", pt: "Então você está perguntando se ele lida com rotação de logs também — boa pergunta." }
+
+examples:
+  - en: "The short version: nodes were dying at ninety percent disk — every week."
+    pt: "A versão curta: os nós estavam morrendo a 90% de disco — toda semana."
+    context: "O problema em uma frase."
+  - en: "Here's where it gets interesting — it runs without a restart or a daemon."
+    pt: "Aqui fica interessante — roda sem restart nem daemon."
+    context: "O gancho antes do ponto alto."
+  - en: "What you just saw is two gigabytes freed in forty seconds, on a live node."
+    pt: "O que vocês acabaram de ver é dois gigabytes liberados em quarenta segundos, num nó ao vivo."
+    context: "A legenda da demo."
+  - en: "Here's the before and after — ninety percent to sixty, and flat since March."
+    pt: "Aqui está o antes e o depois — de 90% para 60%, e plano desde março."
+    context: "O resultado no contraste."
+  - en: "One thing I'd do differently: I'd start with the dry-run mode on by default."
+    pt: "Uma coisa que eu faria diferente: começaria com o modo dry-run ligado por padrão."
+    context: "A autocrítica controlada."
+  - en: "It's on the repo — disk-cleaner under tools — if you want to steal it."
+    pt: "Está no repo — disk-cleaner em tools — se quiserem roubar."
+    context: "O call to action técnico."
+  - en: "So you're asking whether it handles log rotation — good question, and yes, same trick."
+    pt: "Então você está perguntando se ele lida com rotação de logs — boa pergunta, e sim, mesmo truque."
+    context: "A pergunta reformulada no Q&A."
+  - en: "We're at time — I'll grab the rest in the doc. Thanks, everyone."
+    pt: "Estamos no limite — o resto eu pego no doc. Obrigado, pessoal."
+    context: "O fechamento no tempo."
+
+variations:
+  - idea: '"os cinco minutos"'
+    items:
+      - { register: "Boa", text: "Today I'll walk you through it in three parts — problem, how it works, what it saved.", adequate: true }
+      - { register: "Boa", text: "We're at time — I'll grab the rest in the doc. Thanks, everyone.", adequate: true }
+      - { register: "Inadequada", text: "So, um, I made this thing, it's kind of a script, let me show you everything it does.", adequate: false, note: "Sem mapa, sem tempo — cinco minutos pedem estrutura anunciada." }
+      - { register: "Inadequada", text: "I know I'm over time, but just two more slides — actually three.", adequate: false, note: "Estourar o tempo pedindo licença é a pior saída — feche com 'I'll leave you with'." }
+  - idea: '"o fechamento"'
+    items:
+      - { register: "Boa", text: "I'll leave you with this: a weekend of work, zero incidents since March.", adequate: true }
+      - { register: "Boa", text: "One thing I'd do differently — the dry-run flag would be on by default.", adequate: true }
+      - { register: "Inadequada", text: "So… yeah. That's it, I guess. Questions? Anyone?", adequate: false, note: "O fechamento que murcha — takeaway + 'happy to take questions'." }
+      - { register: "Inadequada", text: "I want that you steal the script, it's in the repo.", adequate: false, note: "Calque: 'I want you to steal it'." }
+
+brErrors:
+  - { wrong: "As you see in the screen, it freed 2GB.", right: "As you see on the screen, it freed 2GB.", why: "on the screen", tag: br.in-the-screen }
+  - { wrong: "The graphic shows the disk filling up.", right: "The graph shows the disk filling up.", why: "the graph", tag: br.the-graphic }
+  - { wrong: "I want that you notice the before and after.", right: "I want you to notice the before and after.", why: "want you to notice", tag: br.want-that }
+  - { wrong: "Does anyone want to make a question?", right: "Does anyone want to ask a question?", why: "ask a question", tag: br.make-question }
+  - { wrong: "I am agree the demo was fast.", right: "I agree the demo was fast.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "The same result than staging.", right: "The same result as staging.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about it last week.", right: "We discussed it last week.", why: "discussed it", tag: br.discuss-about }
+  - { wrong: "I have doubt about the number.", right: "I have a doubt about the number.", why: "a doubt", tag: br.doubt }
+  - { wrong: "You must to rehearse the timing.", right: "You must rehearse the timing.", why: "must rehearse", tag: br.modal-to }
+  - { wrong: "This is polemic for a demo.", right: "This is controversial for a demo.", why: "controversial", tag: br.polemic }
+
+dialogue:
+  title: "Five minutes at the Friday tech talk"
+  lines:
+    - { speaker: Ana, text: "Next up — Yuri, five minutes on the disk-cleaner. Go." }
+    - { speaker: Yuri, text: "Today I'll walk you through it in three parts — the problem, how it works, and what it saved." }
+    - { speaker: Yuri, text: "The short version: nodes were dying at ninety percent disk, every week. Top left, the nodes; on the right, the disk filling up." }
+    - { speaker: Yuri, text: "Moving on to the demo — I'm going to run it on a staging node. While this runs, watch the freed space on the graph." }
+    - { speaker: Yuri, text: "Here's the money shot — what you just saw is two gigabytes freed in forty seconds, no restart." }
+    - { speaker: Yuri, text: "To put a number on it: forty incidents a month became zero. I'll leave you with this — it took a weekend to build. Happy to take questions." }
+    - { speaker: Beth, text: "Does it handle log rotation?" }
+    - { speaker: Yuri, text: "So you're asking whether it covers logs too — good question, and yes, the same trick works." }
+    - { speaker: Ana, text: "And the failure mode?" }
+    - { speaker: Yuri, text: "Fair question — honest answer: the dry-run flag exists, but I haven't tested it on the database nodes. I'll get back to you on that by Monday." }
+    - { speaker: Yuri, text: "We're at time — the script's on the repo under tools. Thanks, everyone." }
+    - { speaker: Ana, text: "Five minutes on the dot — map, diagram, demo, Q&A. That was the module in one take." }
+  notes:
+    - "mapa de três partes, signposting ('moving on to'), diagrama narrado ('top left'), demo legendada ('what you just saw')."
+    - "Q&A com os três destinos: resposta, admissão com prazo ('by Monday'), e o fechamento no tempo ('we're at time')."
+    - "a autocrítica e o call to action ('on the repo') fecham com personalidade."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Five minutes has a map: forty-five seconds to open and frame, about a minute on the problem with the diagram narrated — 'top left, the nodes' — ninety seconds on the demo — 'while this runs, watch the freed space' — then the number, the takeaway, and a minute of Q&A." }
+    - { speaker: Yuri, text: "The rubric scores four things: structure you can follow blind, the visual narration, the demo with a caption, and a Q&A where every question lands somewhere — an answer, an owner, or a deadline. Plus the clock: ending at five minutes is part of the grade." }
+    - { speaker: Beth, text: "And under pressure the calques come back — 'in the screen', 'the graphic shows', 'I want that you notice', 'make a question'. They're predictable, so rehearse the talk once, out loud, with the timer on." }
+  questions:
+    - { id: M24-05-l1, type: multiple_choice, prompt: "O mapa dos cinco minutos é…", options: ["abertura, problema, demo, resultado, Q&A", "introdução longa + demo", "só a demo", "slides + perguntas"], answer: 0, explanation: "45s abertura → problema+diagrama → demo → número+takeaway → Q&A.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-05-l2, type: multiple_choice, prompt: "A rubrica avalia…", options: ["só o inglês", "só o conteúdo técnico", "estrutura, narração visual, demo legendada, Q&A + o relógio", "só a fala"], answer: 2, explanation: "As quatro peças do módulo + terminar no tempo.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-05-l3, type: fill_blank, prompt: "To put a ___ on it: forty incidents became zero.", accepted: ["number"], explanation: "'To put a number on it' — quantifica o resultado.", tags: [vocab.presentation] }
+    - { id: M24-05-l4, type: error_correction, prompt: "I want that you notice the before and after.", accepted: ["I want you to notice the before and after.", "I want you to notice the before and after"], explanation: "'want you to notice'.", tags: [br.want-that] }
+    - { id: M24-05-l5, type: multiple_choice, prompt: "O tempo estourou e ainda falta um slide. Você…", options: ["pede 'só mais dois minutos'", "acelera o resto", "'I'll leave you with…' e fecha — o tempo é parte da nota", "pula o Q&A"], answer: 2, explanation: "Terminar no tempo é parte da avaliação.", tags: [comp.listening, comp.confidence] }
+    - { id: M24-05-l6, type: multiple_choice, prompt: "'One thing I'd do differently' no fechamento é…", options: ["fraqueza na apresentação", "a autocrítica controlada — sinal de senioridade", "pedido de ajuda", "fora de lugar"], answer: 1, explanation: "Oferecer uma autocrítica antes de perguntarem é postura sênior.", tags: [comp.listening, vocab.presentation] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana pediu o outline da sua apresentação
+    de cinco minutos para o runbook do tech talk — com o
+    tempo de cada seção.
+
+    **Tarefa:** escreva 80–110 palavras com o outline da
+    apresentação: as cinco seções com seus tempos, o mapa
+    de três partes, a legenda da demo, o número/takeaway,
+    e o plano do Q&A.
+  constraints:
+    - { label: "O mapa de três partes", pattern: "\\bthree parts|in three|walk you through\\b" }
+    - { label: "A narração visual/demo", pattern: "\\bwhile this runs|watch the|what you just saw|top left|on the (right|screen)\\b" }
+    - { label: "O número/takeaway", pattern: "\\bnumber on it|leave you with|before and after|takeaway\\b" }
+    - { label: "O plano do Q&A", pattern: "\\bquestions|take.?it.?offline|get back to|asking whether\\b" }
+  rubric:
+    - "Cinco seções com tempo atribuído"
+    - "Mapa anunciado + signposting"
+    - "Demo com legenda e Q&A com destinos"
+    - "Sem calques ('on the screen', 'want you to', 'the graph', 'ask a question')"
+  model: >-
+    Outline — disk-cleaner, five minutes. 0:00–0:45 open:
+    "I'll walk you through it in three parts — problem,
+    how it works, what it saved". 0:45–2:00 the problem,
+    diagram narrated: "top left, the nodes; on the right,
+    the disk filling up". 2:00–3:30 the demo: "while this
+    runs, watch the freed space" — then the caption, "what
+    you just saw is 2GB in forty seconds". 3:30–4:15 the
+    number — forty incidents became zero — and "I'll leave
+    you with: a weekend of work". 4:15–5:00 Q&A: rephrase
+    the questions, admit one with a deadline, take the
+    deep dive offline. We're at time.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.presentation, gram.signposting]
+
+speaking:
+  modeA:
+    prompt: "Grave a apresentação completa: cinco minutos sobre um projeto seu — abertura com mapa de três partes, problema com o diagrama narrado, demo com legenda ('what you just saw'), o número e o takeaway, e um Q&A simulado com pelo menos uma pergunta reformulada e uma admitida com plano."
+    maxSeconds: 300
+    targetPhrases:
+      - I'll walk you through
+      - in three parts
+      - moving on to
+      - that brings me to
+      - top left
+      - on the right
+      - while this runs
+      - watch the
+      - what you just saw
+      - the money shot
+      - to put a number on it
+      - the before and after
+      - I'll leave you with
+      - happy to take questions
+      - so you're asking whether
+      - let me get back to you
+      - we're at time
+      - on the screen
+      - the graph shows
+      - I want you to notice
+      - ask a question
+      - one thing I'd do differently
+    checklist:
+      - "mapa de três partes na abertura + signposting contínuo"
+      - "diagrama narrado com posição ('top left', 'on the right')"
+      - "demo com ação anunciada, tempo morto coberto e legenda"
+      - "número concreto + takeaway + fechamento no tempo"
+      - "Q&A: uma reformulada, uma admitida com plano e prazo"
+
+quiz:
+  - { id: M24-05-q1, type: multiple_choice, prompt: "A abertura dos cinco minutos tem…", options: ["a demo inteira", "o histórico completo", "agradecimentos longos", "o mapa de três partes + a promessa"], answer: 3, explanation: "'I'll walk you through it in three parts' — estrutura antes de começar.", tags: [vocab.presentation, gram.signposting] }
+  - { id: M24-05-q2, type: error_correction, prompt: "Does anyone want to make a question?", accepted: ["Does anyone want to ask a question?", "Does anyone want to ask a question"], explanation: "'ask a question'.", tags: [br.make-question] }
+  - { id: M24-05-q3, type: multiple_choice, prompt: "'We're at time — I'll grab the rest in the doc' é…", options: ["fuga do Q&A", "o fechamento no tempo — parte da nota", "falta de preparo", "rudeza"], answer: 1, explanation: "Cinco minutos honestos > dez com enrolação.", tags: [vocab.presentation, comp.confidence] }
+  - { id: M24-05-q4, type: fill_blank, prompt: "I'll ___ you with this: it took a weekend to build.", accepted: ["leave"], explanation: "'I'll leave you with' — o takeaway final.", tags: [vocab.presentation] }
+  - { id: M24-05-q5, type: multiple_choice, prompt: "No Q&A da simulação, cada pergunta precisa de…", options: ["um dos três destinos: resposta, dono, ou prazo", "resposta imediata sempre", "ser anotada", "ser reformulada"], answer: 0, explanation: "Resposta agora, dono certo, ou follow-up com prazo.", tags: [vocab.presentation] }
+  - { id: M24-05-q6, type: error_correction, prompt: "The graphic shows the disk filling up.", accepted: ["The graph shows the disk filling up.", "The graph shows the disk filling up"], explanation: "'the graph'.", tags: [br.the-graphic] }
+  - { id: M24-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["through", "you", "walk", "parts", "three", "in", "I'll", "it"], answer: "I'll walk you through it in three parts", explanation: "O mapa anunciado da abertura.", tags: [gram.signposting, vocab.presentation] }
+  - { id: M24-05-q8, type: multiple_choice, prompt: "'It's on the repo — disk-cleaner under tools' fecha com…", options: ["humildade", "o Q&A", "a autocrítica", "o call to action técnico — onde achar o projeto"], answer: 3, explanation: "Apresentação interna termina com onde achar.", tags: [vocab.presentation] }
+
+srsCards:
+  - { front: "in three parts", back: "O mapa da abertura curta — três partes, nunca cinco.", tag: vocab.presentation }
+  - { front: "the short version", back: "O problema em uma frase — 'nodes were dying at 90%'.", tag: vocab.presentation }
+  - { front: "here's where it gets interesting", back: "O gancho antes do ponto alto — recoloca a atenção.", tag: vocab.presentation }
+  - { front: "to put a number on it", back: "Quantifica o resultado — o que a plateia leva.", tag: vocab.presentation }
+  - { front: "the before and after", back: "O contraste do resultado em um slide ou frase.", tag: vocab.presentation }
+  - { front: "I'll leave you with", back: "O takeaway final — uma frase que fica.", tag: vocab.presentation }
+  - { front: "happy to take questions", back: "Abre o Q&A sem perder o palco.", tag: vocab.presentation }
+  - { front: "one thing I'd do differently", back: "A autocrítica voluntária — sinal de senioridade.", tag: vocab.presentation }
+  - { front: "it's on the repo", back: "O call to action técnico — onde achar o projeto.", tag: vocab.presentation }
+  - { front: "shameless plug", back: "A propaganda descarada com humor autorreferente.", tag: vocab.presentation }
+  - { front: "we're at time", back: "O fechamento no tempo — sem pedir desculpa.", tag: vocab.presentation }
+  - { front: "I want you to notice", back: "'Quero que você note' — nunca 'want that you'.", tag: br.want-that }
+
+review:
+  preferTags: [vocab.presentation, gram.signposting, br.in-the-screen, br.make-question]
+  notes: "Revisão prioriza o mapa dos cinco minutos, a rubrica de quatro peças, o fechamento no tempo e os calques de palco sob pressão."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

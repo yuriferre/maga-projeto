@@ -1,0 +1,320 @@
+id: M24-02
+module: M24
+order: 2
+title: "Diagramas e slides ao vivo: 'on the left you see…', ritmo e pausas"
+objective: >-
+  Ao final, você descreve um diagrama ou slide ao vivo —
+  guiando o olho da plateia em ordem, com ritmo e pausas que
+  deixam a imagem trabalhar.
+durationMin: 40
+competencies: [SPK, PRO, CNF]
+tags: [vocab.presentation, gram.signposting, comp.speaking, comp.confidence, comp.pronunciation]
+prerequisites: [M24-01]
+
+context:
+  scenario: |
+    Segundo slide: o diagrama de arquitetura do rollout. A
+    plateia vê caixas e setas — você é o narrador que diz
+    onde olhar, em que ordem, e o que importa.
+
+    Descrever diagrama ao vivo tem técnica:
+
+    - **Ancorar**: "*on the left you see the collectors*",
+      "*at the top, the edge*" — posição antes de nomear.
+    - **Seguir a seta**: "*data flows from the agents
+      into the pipeline*", "*this arrow is the part that
+      was missing*".
+    - **Nomear o que importa**: "*the piece to watch is
+      the queue depth*" — nem toda caixa merece voz.
+    - **O ritmo**: uma ideia por slide, pausa depois de
+      número — "*95% coverage.*" (pausa). A pausa é o
+      slide falando sozinho.
+
+    O erro é narrar tudo. A plateia lê mais rápido que
+    você fala — seu trabalho é dizer *onde* olhar e *por
+    quê*, não ler o diagrama em voz alta.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Ana (eng manager)]
+
+vocabulary:
+  - term: "on the left you see…"
+    meaning: 'à esquerda vocês veem… — a âncora espacial'
+    example: "On the left you see the collectors — everything starts there."
+    translation: "À esquerda vocês veem os coletores — tudo começa ali."
+    note: "Posição antes de nome: o olho acha antes do ouvido entender."
+  - term: "at the top / at the bottom"
+    meaning: 'no topo / embaixo — a âncora vertical'
+    example: "At the top, the edge; at the bottom, the storage tier."
+    translation: "No topo, a edge; embaixo, a camada de storage."
+    note: "Top/bottom/left/right — o vocabulário do olho."
+  - term: "data flows from X into Y"
+    meaning: 'os dados fluem de X para Y — a seta narrada'
+    example: "Data flows from the agents into the pipeline — then to storage."
+    translation: "Os dados fluem dos agentes para o pipeline — depois para o storage."
+    note: "'Flows into' — a seta vira verbo."
+  - term: "the piece to watch"
+    meaning: 'a peça a observar — o que merece a atenção'
+    example: "The piece to watch is the queue depth — that's where it backs up."
+    translation: "A peça a observar é a profundidade da fila — é ali que acumula."
+    note: "Nem toda caixa merece voz — escolha a que decide."
+  - term: "this arrow is the part that was missing"
+    meaning: 'esta seta é a parte que faltava — destaca a mudança'
+    example: "This arrow here — the feedback loop — is the part that was missing."
+    translation: "Essa seta aqui — o loop de feedback — é a parte que faltava."
+    note: "Num diagrama de antes/depois, narre a diferença, não o todo."
+  - term: "let me walk you through it"
+    meaning: 'deixe-me conduzi-los por ele — o diagrama ganha ordem'
+    example: "The diagram looks busy — let me walk you through it."
+    translation: "O diagrama parece cheio — deixe-me conduzi-los por ele."
+    note: "O aviso que organiza a leitura da plateia."
+  - term: "notice the…"
+    meaning: 'notem o… — o dedo apontando em voz alta'
+    example: "Notice the red box — that's the failure domain."
+    translation: "Notem a caixa vermelha — esse é o domínio de falha."
+    note: "Cor e posição são os ponteiros — use-os."
+  - term: "the red box / the green path"
+    meaning: 'a caixa vermelha / o caminho verde — nomear pela cor'
+    example: "The green path is the happy flow; the red box is what breaks."
+    translation: "O caminho verde é o fluxo feliz; a caixa vermelha é o que quebra."
+    note: "A plateia acha por cor mais rápido que por nome."
+  - term: "one idea per slide"
+    meaning: 'uma ideia por slide — a regra do ritmo'
+    example: "One idea per slide — the graph gets sixty seconds, not six."
+    translation: "Uma ideia por slide — o gráfico ganha sessenta segundos, não seis."
+    note: "Slide lotado = plateia lendo enquanto você fala outra coisa."
+  - term: "pause after the number"
+    meaning: 'pausa depois do número — deixe o dígito assentar'
+    example: "Ninety-five percent coverage. — let that sit."
+    translation: "Noventa e cinco por cento de cobertura. — deixem isso assentar."
+    note: "O número sem pausa passa; com pausa, fica."
+  - term: "it reads left to right"
+    meaning: 'lê-se da esquerda para a direita — a direção da leitura'
+    example: "The flow reads left to right — agents, pipeline, storage."
+    translation: "O fluxo lê-se da esquerda para a direita — agentes, pipeline, storage."
+    note: "Diga a direção — a plateia não sabe por onde começar."
+  - term: "zoom in on"
+    meaning: 'dar zoom em — focar a parte que importa'
+    example: "Let me zoom in on the queue — it's where the rollout lives."
+    translation: "Deixe-me dar zoom na fila — é onde o rollout mora."
+    note: "Zoom verbal: a plateia amplia onde você diz."
+  - term: "as you can see"
+    meaning: 'como vocês podem ver — convida a verificar'
+    example: "As you can see on the graph, p99 dropped after phase one."
+    translation: "Como vocês podem ver no gráfico, o p99 caiu depois da fase um."
+    note: "Sempre 'on the graph/screen' — nunca 'in'."
+  - term: "skip this for now"
+    meaning: 'pulem isso por ora — autoriza a plateia a ignorar'
+    example: "Skip the side boxes for now — they're legacy."
+    translation: "Pulem as caixas laterais por ora — são legado."
+    note: "Dizer o que NÃO olhar economiza atenção."
+
+grammar:
+  title: "a ordem da narração: lugar → nome → ação"
+  explanation: |
+    Descrever diagrama ao vivo segue uma ordem fixa:
+
+    - **Lugar primeiro**: "*on the left*", "*at the
+      top*", "*the red box*" — o olho precisa achar antes
+      de o ouvido entender.
+    - **Nome depois**: "*the collectors*", "*the failure
+      domain*" — nomear depois de posicionar.
+    - **Ação por último**: "*data flows into the
+      pipeline*", "*this is where it backs up*" — a seta
+      ou a função.
+    - **A pausa como pontuação**: depois de número ou de
+      "notice", cale. "*95% coverage.*" — a pausa é o
+      slide falando sozinho.
+    - **O imperativo-guia**: "*notice*",
+      "*look at*", "*picture*", "*zoom in on*" — comanda
+      o olho sem soar como ordem.
+
+    E os calques do diagrama:
+
+    - "**in the graphic**" → "**on the graph/chart**".
+    - "**the graphic shows**" → "**the graph shows**".
+    - "**I want that you notice**" → "**I want you to
+      notice**".
+    - "**in the screen**" → "**on the screen**".
+  examples:
+    - { en: "On the left you see the collectors — everything starts there.", pt: "À esquerda vocês veem os coletores — tudo começa ali." }
+    - { en: "Data flows from the agents into the pipeline — then to storage.", pt: "Os dados fluem dos agentes para o pipeline — depois para o storage." }
+    - { en: "Notice the red box — that's the failure domain.", pt: "Notem a caixa vermelha — esse é o domínio de falha." }
+    - { en: "Ninety-five percent coverage. — the number sits, then I move.", pt: "Noventa e cinco por cento de cobertura. — o número assenta, aí eu sigo." }
+    - { en: "The flow reads left to right — agents, pipeline, storage.", pt: "O fluxo lê-se da esquerda para a direita — agentes, pipeline, storage." }
+    - { en: "As you can see on the graph, p99 dropped after phase one.", pt: "Como vocês podem ver no gráfico, o p99 caiu depois da fase um." }
+
+examples:
+  - en: "On the left, the collectors; at the top, the edge — the flow reads left to right."
+    pt: "À esquerda, os coletores; no topo, a edge — o fluxo lê-se da esquerda para a direita."
+    context: "Lugar → nome → direção."
+  - en: "The diagram looks busy — let me walk you through it."
+    pt: "O diagrama parece cheio — deixe-me conduzi-los por ele."
+    context: "O aviso que organiza."
+  - en: "This arrow — the feedback loop — is the part that was missing."
+    pt: "Essa seta — o loop de feedback — é a parte que faltava."
+    context: "Narrar a diferença."
+  - en: "The piece to watch is the queue depth — that's where it backs up."
+    pt: "A peça a observar é a profundidade da fila — é ali que acumula."
+    context: "Escolher a caixa que decide."
+  - en: "Skip the side boxes for now — they're legacy, not the rollout."
+    pt: "Pulem as caixas laterais por ora — são legado, não o rollout."
+    context: "Autorizar a ignorar."
+  - en: "Ninety-five percent coverage — let that sit for a second."
+    pt: "Noventa e cinco por cento de cobertura — deixem isso assentar um segundo."
+    context: "A pausa depois do número."
+  - en: "As you can see on the graph, p99 dropped after phase one."
+    pt: "Como vocês podem ver no gráfico, o p99 caiu depois da fase um."
+    context: "Convidar a verificar."
+  - en: "Let me zoom in on the queue — it's where the rollout actually lives."
+    pt: "Deixe-me dar zoom na fila — é onde o rollout de fato mora."
+    context: "O zoom verbal."
+
+variations:
+  - idea: '"a narração na ordem certa"'
+    items:
+      - { register: "Boa", text: "On the left you see the collectors — data flows into the pipeline.", adequate: true }
+      - { register: "Boa", text: "Notice the red box — that's the failure domain.", adequate: true }
+      - { register: "Inadequada", text: "The collectors ingest data. They're on the left.", adequate: false, note: "Nome antes do lugar — a plateia ainda procurava a caixa quando você já falava da função." }
+      - { register: "Inadequada", text: "As you can see in the screen, in the graphic…", adequate: false, note: "Dois calques: *on the screen* + *on the graph*." }
+  - idea: '"o ritmo do número"'
+    items:
+      - { register: "Boa", text: "Ninety-five percent coverage. — let that sit.", adequate: true }
+      - { register: "Boa", text: "One idea per slide — the graph gets its sixty seconds.", adequate: true }
+      - { register: "Inadequada", text: "Coverage is 95% and latency dropped 40% and errors halved and—", adequate: false, note: "Números em rajada não assentam — um número, uma pausa." }
+      - { register: "Inadequada", text: "I want that you notice the queue.", adequate: false, note: "*I want you to notice* — 'want that' só leva coisa." }
+
+brErrors:
+  - { wrong: "Let me make a question first.", right: "Let me ask a question first.", why: "ask a question", tag: br.make-question }
+  - { wrong: "As you see in the screen.", right: "As you see on the screen.", why: "on the screen", tag: br.in-the-screen }
+  - { wrong: "The graphic shows the queue depth.", right: "The graph shows the queue depth.", why: "the graph", tag: br.the-graphic }
+  - { wrong: "I want that you notice the red box.", right: "I want you to notice the red box.", why: "want you to notice", tag: br.want-that }
+  - { wrong: "I am agree the diagram is busy.", right: "I agree the diagram is busy.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "The same diagram than before.", right: "The same diagram as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the slide order.", right: "We discussed the slide order.", why: "discussed the order", tag: br.discuss-about }
+  - { wrong: "Instead a diagram, use a graph.", right: "Instead of a diagram, use a graph.", why: "instead of", tag: br.instead-of }
+  - { wrong: "I have doubt about this arrow.", right: "I have a doubt about this arrow.", why: "a doubt", tag: br.doubt }
+  - { wrong: "You must to pause after numbers.", right: "You must pause after numbers.", why: "must pause", tag: br.modal-to }
+
+dialogue:
+  title: "Narrating the architecture"
+  lines:
+    - { speaker: Yuri, text: "This diagram looks busy — let me walk you through it. The flow reads left to right." }
+    - { speaker: Yuri, text: "On the left you see the collectors — everything starts there. Data flows from the agents into the pipeline." }
+    - { speaker: Yuri, text: "Skip the side boxes for now — they're legacy. The piece to watch is the queue depth, right here." }
+    - { speaker: Beth, text: "Why that box?" }
+    - { speaker: Yuri, text: "That's where it backs up under load. Notice the red box around it — that's the failure domain." }
+    - { speaker: Yuri, text: "Now the graph. As you can see on the screen, coverage went from 60 to 95 percent. Let that sit for a second." }
+    - { speaker: Ana, text: "Clean. What's the arrow you circled?" }
+    - { speaker: Yuri, text: "The feedback loop — it's the part that was missing before the rollout. That's what turns instrumented into observing." }
+    - { speaker: Ana, text: "Good narration — you told us where to look, not what we were already reading." }
+  notes:
+    - "ordem fixa: lugar ('on the left') → nome ('the collectors') → ação ('data flows into')."
+    - "'skip the side boxes' — autorizar a plateia a ignorar economiza atenção."
+    - "a pausa depois de '95 percent' é a frase mais barata da aula — e a mais difícil."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Narrating a diagram has a fixed order: place first — 'on the left', 'at the top', 'the red box'. Then the name — 'the collectors'. Then the action — 'data flows into the pipeline'. The eye finds it before the ear understands it." }
+    - { speaker: Yuri, text: "And the pace: one idea per slide, and a pause after every number. 'Ninety-five percent coverage' — then silence. The pause is the slide speaking by itself. Don't narrate everything — say where to look and why, and let people read." }
+    - { speaker: Beth, text: "The stage calques again: 'in the screen' and 'in the graphic' are both 'on'; 'the graphic shows' is 'the graph'; 'I want that you notice' is 'I want you to notice'." }
+  questions:
+    - { id: M24-02-l1, type: multiple_choice, prompt: "A ordem da narração ao vivo é…", options: ["lugar → nome → ação", "nome → lugar → ação", "ação → nome → lugar", "qualquer ordem"], answer: 0, explanation: "O olho acha antes de o ouvido entender.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-02-l2, type: multiple_choice, prompt: "Depois de dizer um número importante, você…", options: ["segue rápido", "repete o número", "pausa — o slide fala sozinho", "muda de slide"], answer: 2, explanation: "A pausa é a pontuação do número.", tags: [comp.listening, gram.signposting] }
+    - { id: M24-02-l3, type: fill_blank, prompt: "The piece to ___ is the queue depth — that's where it backs up.", accepted: ["watch"], explanation: "'The piece to watch' — a caixa que decide.", tags: [vocab.presentation] }
+    - { id: M24-02-l4, type: error_correction, prompt: "The graphic shows the failure domain.", accepted: ["The graph shows the failure domain.", "The graph shows the failure domain"], explanation: "'the graph'.", tags: [br.the-graphic] }
+    - { id: M24-02-l5, type: multiple_choice, prompt: "'Skip the side boxes for now' serve para…", options: ["esconder o legado", "pular conteúdo difícil", "encerrar mais rápido", "autorizar a plateia a ignorar — economiza atenção"], answer: 3, explanation: "Dizer o que não olhar também guia o olho.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-02-l6, type: multiple_choice, prompt: "Narrar 'tudo' do diagrama falha porque…", options: ["demora muito", "a plateia lê mais rápido que você fala — seu papel é dizer onde olhar", "o slide fica redundante", "cansem o palestrante"], answer: 1, explanation: "Não leia o diagrama — aponte e explique o porquê.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana vai reutilizar seu diagrama numa
+    apresentação dela — e pediu a narração escrita como
+    notas de orador.
+
+    **Tarefa:** escreva 70–100 palavras com o roteiro de
+    narração do diagrama de arquitetura: a direção da
+    leitura, três âncoras (lugar → nome → ação), o que
+    pular, a peça a observar e onde a pausa cai.
+  constraints:
+    - { label: "As âncoras espaciais", pattern: "\\bon the left|at the top|at the bottom|red box|right here\\b" }
+    - { label: "O fluxo narrado", pattern: "\\bflows|reads left to right|into the pipeline\\b" }
+    - { label: "O que pular/olhar", pattern: "\\bskip|piece to watch|notice|zoom in\\b" }
+    - { label: "A pausa", pattern: "\\bpause|sit|silence|second\\b" }
+  rubric:
+    - "Lugar antes de nome, nome antes de ação"
+    - "Diz o que pular e onde olhar"
+    - "A pausa marcada depois do número"
+    - "Sem calques ('on the screen', 'the graph', 'want you to', 'ask a question')"
+  model: >-
+    Speaker notes for the architecture diagram. Open with
+    the direction: "the flow reads left to right". Anchor
+    one: "on the left, the collectors — data flows into
+    the pipeline". Anchor two: "at the top, the edge —
+    that's the entry". Anchor three: "notice the red box —
+    the failure domain". Say what to skip: "the side boxes
+    are legacy — skip them for now". Then the piece to
+    watch: "the queue depth — that's where it backs up".
+    And after "ninety-five percent coverage", mark the
+    pause — the number sits, then you move.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.presentation, gram.signposting]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos narrando o diagrama do rollout: direção da leitura, duas âncoras espaciais, o que pular, a peça a observar — e a pausa depois do número."
+    maxSeconds: 45
+    targetPhrases:
+      - on the left
+      - at the top
+      - let me walk you through it
+      - reads left to right
+      - data flows into
+      - the piece to watch
+      - notice the
+      - the red box
+      - skip this for now
+      - zoom in on
+      - as you can see
+      - let that sit
+      - on the screen
+      - on the graph
+      - I want you to see
+      - ask a question
+    checklist:
+      - "lugar → nome → ação, nessa ordem"
+      - "diz o que pular e a peça a observar"
+      - "pausa real depois do número"
+      - "sem calques — 'on the graph', 'want you to'"
+
+quiz:
+  - { id: M24-02-q1, type: multiple_choice, prompt: "Por que 'lugar' vem antes de 'nome' na narração?", options: ["o olho acha a caixa antes de o ouvido processar o nome", "é mais formal", "gramática exige", "é hábito"], answer: 0, explanation: "Posição primeiro — a plateia precisa encontrar.", tags: [vocab.presentation] }
+  - { id: M24-02-q2, type: error_correction, prompt: "As you can see in the graphic, errors dropped.", accepted: ["As you can see in the graph, errors dropped.", "As you can see in the graph, errors dropped", "As you can see on the graph, errors dropped.", "As you can see on the graph, errors dropped"], explanation: "'the graph' — gráfico é graph/chart.", tags: [br.the-graphic] }
+  - { id: M24-02-q3, type: multiple_choice, prompt: "A função de 'let me walk you through it' é…", options: ["pedir licença", "avisar que o diagrama ganhará uma ordem de leitura", "começar o Q&A", "trocar de slide"], answer: 1, explanation: "O aviso que organiza a leitura da plateia.", tags: [vocab.presentation] }
+  - { id: M24-02-q4, type: fill_blank, prompt: "Skip the side boxes for ___ — they're legacy.", accepted: ["now"], explanation: "'For now' — pulem por ora, não para sempre.", tags: [vocab.presentation] }
+  - { id: M24-02-q5, type: multiple_choice, prompt: "Uma ideia por slide significa…", options: ["slides simples", "menos conteúdo", "fontes maiores", "o gráfico ganha seus sessenta segundos — ritmo é do palestrante"], answer: 3, explanation: "O ritmo é seu, não do slide.", tags: [vocab.presentation, comp.confidence] }
+  - { id: M24-02-q6, type: error_correction, prompt: "I want that you notice the green path.", accepted: ["I want you to notice the green path.", "I want you to notice the green path"], explanation: "'want you to notice'.", tags: [br.want-that] }
+  - { id: M24-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["see", "you", "the", "the", "left", "on", "collectors"], answer: "on the left you see the collectors", explanation: "Lugar → nome.", tags: [vocab.presentation] }
+  - { id: M24-02-q8, type: multiple_choice, prompt: "'The piece to watch is X' serve para…", options: ["narrar tudo", "apontar o erro", "escolher a caixa que decide — nem toda merece voz", "encerrar a seção"], answer: 2, explanation: "Curadoria do olhar — uma caixa decide.", tags: [vocab.presentation] }
+
+srsCards:
+  - { front: "on the left you see…", back: "A âncora espacial — lugar antes do nome.", tag: vocab.presentation }
+  - { front: "data flows from X into Y", back: "A seta narrada — 'into the pipeline'.", tag: vocab.presentation }
+  - { front: "the piece to watch", back: "A caixa que decide — 'the queue depth'.", tag: vocab.presentation }
+  - { front: "let me walk you through it", back: "O aviso que organiza a leitura do diagrama.", tag: vocab.presentation }
+  - { front: "notice the red box", back: "O dedo em voz alta — cor e posição apontam.", tag: vocab.presentation }
+  - { front: "one idea per slide", back: "A regra do ritmo — o gráfico ganha seus 60 s.", tag: vocab.presentation }
+  - { front: "pause after the number", back: "O número sem pausa passa; com pausa, fica.", tag: vocab.presentation }
+  - { front: "it reads left to right", back: "A direção da leitura — a plateia não adivinha.", tag: vocab.presentation }
+  - { front: "zoom in on", back: "O zoom verbal — 'on the queue'.", tag: vocab.presentation }
+  - { front: "skip this for now", back: "Autoriza a ignorar — 'they're legacy'.", tag: vocab.presentation }
+  - { front: "the graph/chart", back: "Gráfico é graph ou chart — nunca 'graphic'.", tag: br.the-graphic }
+  - { front: "as you can see", back: "Convida a verificar — sempre 'on the graph/screen'.", tag: vocab.presentation }
+
+review:
+  preferTags: [vocab.presentation, gram.signposting, br.the-graphic]
+  notes: "Revisão prioriza a ordem lugar→nome→ação, o ritmo (uma ideia por slide, pausa depois do número) e os calques do diagrama."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
