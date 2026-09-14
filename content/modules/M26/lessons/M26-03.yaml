@@ -1,0 +1,330 @@
+id: M26-03
+module: M26
+order: 3
+title: "Idiomas de verdade: 'low-hanging fruit', 'bandwidth' e os que evitar"
+objective: >-
+  Ao final, você reconhece e usa os idiomas de
+  reunião que valem a pena — 'low-hanging fruit',
+  'bandwidth', 'loop in', 'push back' — e reconhece
+  os que envelheceram mal ou ofendem, sem tentar
+  soar nativo à força.
+durationMin: 35
+competencies: [SPK, LIS, CNF]
+tags: [vocab.smalltalk, comp.speaking, comp.listening, comp.confidence]
+prerequisites: [M26-02]
+
+context:
+  scenario: |
+    A reunião americana tem um vocabulário paralelo —
+    os idiomas que não estão no dicionário:
+
+    - **"Low-hanging fruit"** = o ganho fácil primeiro:
+      "*the quick wins are the low-hanging fruit*".
+    - **"Bandwidth"** = capacidade humana, não rede:
+      "*I don't have the bandwidth this sprint*".
+    - **"Loop in"** = incluir alguém: "*loop Ana in on
+      the thread*".
+    - **"Push back"** = discordar/adiar: "*she pushed
+      back on the deadline*".
+    - **"Buy-in"** = adesão de quem decide: "*we need
+      leadership buy-in*".
+    - **"Ping me"** = me manda mensagem: "*ping me
+      when it's done*".
+
+    E os que **evitar**: "*open the kimono*" (racista/
+    sexista, morto), "*peanuts*" para dinheiro com
+    time que não entende, e o excesso de jargão que
+    vira paródia. A regra: **use o idioma que ouve,
+    não o que decorou** — quem força "nailed it" em
+    toda frase soa a quem decorou.
+
+    O erro do brasileiro não é não saber o idioma —
+    é traduzir o nosso: "*let's shoot two rabbits*"
+    não existe; "*kill two birds with one stone*" sim.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Ana (eng manager)]
+
+vocabulary:
+  - term: "low-hanging fruit"
+    meaning: 'o ganho fácil — o que se pega primeiro'
+    example: "The old cron jobs are low-hanging fruit — kill them first."
+    translation: "Os crons velhos são o ganho fácil — mate-os primeiro."
+    note: "Comece pelo fácil antes do estrutural."
+  - term: "bandwidth"
+    meaning: 'capacidade humana/tempo — não a rede'
+    example: "I don't have the bandwidth for a second project this sprint."
+    translation: "Não tenho capacidade para um segundo projeto nessa sprint."
+    note: "O eufemismo educado para 'estou cheio'."
+  - term: "loop (someone) in"
+    meaning: 'incluir alguém na conversa — o cc verbal'
+    example: "Loop Ana in on the thread — she owns the budget."
+    translation: "Inclua a Ana na thread — ela é dona do orçamento."
+    note: "Separável: 'loop her in', 'loop in the manager'."
+  - term: "push back (on X)"
+    meaning: 'resistir/discordar de X — o contraponto'
+    example: "She pushed back on the deadline — it's too tight."
+    translation: "Ela resistiu ao prazo — está apertado demais."
+    note: "Pode ser contra pessoa ou prazo; não é rude por si."
+  - term: "buy-in"
+    meaning: 'adesão de quem decide — o sim organizacional'
+    example: "The refactor needs leadership buy-in before we start."
+    translation: "O refactor precisa da adesão da liderança antes de começar."
+    note: "Ter razão não basta — precisa do buy-in."
+  - term: "ping me"
+    meaning: 'me chama/manda mensagem — o toque assíncrono'
+    example: "Ping me when the deploy finishes."
+    translation: "Me chama quando o deploy terminar."
+    note: "Leve e informal — o 'me dá um toque'."
+  - term: "run it up the flagpole"
+    meaning: 'levar para a liderança aprovar — testar aceitação'
+    example: "Before we commit, let's run it up the flagpole with Ana."
+    translation: "Antes de fechar, vamos levar para a Ana aprovar."
+    note: "Menos comum hoje, mas ainda ouvido — 'socializar' a ideia."
+  - term: "boil the ocean"
+    meaning: 'tentar o impossível — escopo infinito'
+    example: "We're not boiling the ocean here — just the auth service."
+    translation: "Não estamos fervendo o oceano — só o serviço de auth."
+    note: "O aviso clássico de escopo."
+  - term: "a rabbit hole"
+    meaning: 'o buraco sem fundo de detalhe — onde a reunião morre'
+    example: "The pricing discussion is a rabbit hole — take it offline."
+    translation: "A discussão de preço é um buraco sem fundo — leve para fora."
+    note: "Do Alice — a tangente infinita."
+  - term: "the ballpark (figure)"
+    meaning: 'a estimativa aproximada — a ordem de grandeza'
+    example: "Give me a ballpark — are we talking days or weeks?"
+    translation: "Me dá uma estimativa — estamos falando de dias ou semanas?"
+    note: "Do beisebol — perto o suficiente para decidir."
+  - term: "drink the Kool-Aid"
+    meaning: 'comprar a narrativa cegamente — culto à ideia'
+    example: "Everyone drank the microservices Kool-Aid in 2015."
+    translation: "Todo mundo bebeu o Kool-Aid dos microsserviços em 2015."
+    note: "Tom pejorativo — de Jonestown. Reconheça, use com cuidado."
+  - term: "kill two birds with one stone"
+    meaning: 'matar dois coelhos com uma cajadada'
+    example: "The refactor kills two birds: tech debt and the slow deploys."
+    translation: "O refactor mata dois coelhos: débito técnico e deploys lentos."
+    note: "O idioma existe — 'shoot two rabbits' não."
+  - term: "on the back burner"
+    meaning: 'no fogo de trás — prioridade baixa consciente'
+    example: "The docs rewrite is on the back burner until Q3."
+    translation: "A reescrita dos docs está no fogo de trás até o Q3."
+    note: "Adiado de propósito, não esquecido."
+  - term: "get the ball rolling"
+    meaning: 'começar a coisa andar — dar o pontapé'
+    example: "Let's get the ball rolling with a draft RFC."
+    translation: "Vamos dar o pontapé com um rascunho de RFC."
+    note: "A abertura de qualquer projeto."
+
+grammar:
+  title: "a gramática dos idiomas"
+  explanation: |
+    Idioma é vocabulário — mas três regras separam o
+    natural do forçado:
+
+    - **O verbo separável**: "*loop her in*",
+      "*push the date back*", "*run it up*" — o
+      objeto entra no meio ou depois.
+    - **O "the" fixo**: "*the* low-hanging fruit",
+      "*the* ballpark", "*on the* back burner" —
+      idioma perde o artigo, vira outra coisa.
+    - **O registro**: "*ping me*", "*no bandwidth*"
+      são de conversa; "*boil the ocean*" e
+      "*Kool-Aid*" são de tom — usá-los errado é
+      pior que não usar.
+    - **O que evitar**: "*open the kimono*",
+      "*guru/ninja*" para pessoas, e a metáfora
+      esportiva para quem não é do país — o idioma
+      que exclui custa mais do que ganha.
+
+    E o calque da tradução:
+
+    - "**shoot two rabbits**" → "**kill two birds
+      with one stone**" — o brasileiro traduz o
+      dele; o americano tem o dele.
+  examples:
+    - { en: "The cron cleanup is the low-hanging fruit — start there.", pt: "A limpeza dos crons é o ganho fácil — comece aí." }
+    - { en: "I don't have the bandwidth this sprint — can we push the review back?", pt: "Não tenho capacidade nessa sprint — podemos adiar a revisão?" }
+    - { en: "Loop Ana in — she owns the budget and will want a say.", pt: "Inclua a Ana — ela é dona do orçamento e vai querer voz." }
+    - { en: "She pushed back on the deadline — and she was right.", pt: "Ela resistiu ao prazo — e estava certa." }
+    - { en: "We're not boiling the ocean — just the auth service.", pt: "Não estamos fervendo o oceano — só o auth." }
+    - { en: "Give me a ballpark — days or weeks?", pt: "Me dá uma estimativa — dias ou semanas?" }
+
+examples:
+  - en: "Let's start with the low-hanging fruit: the cron jobs nobody owns."
+    pt: "Vamos começar pelo ganho fácil: os crons sem dono."
+    context: "O fácil primeiro, antes do estrutural."
+  - en: "I'd love to help, but I don't have the bandwidth this sprint."
+    pt: "Adoraria ajudar, mas não tenho capacidade nessa sprint."
+    context: "O 'não' educado com razão."
+  - en: "Loop Ana in on the thread — she'll want a say on the budget."
+    pt: "Inclua a Ana na thread — ela vai querer voz no orçamento."
+    context: "O cc verbal."
+  - en: "Beth pushed back on the two-week deadline — it was too tight."
+    pt: "A Beth resistiu ao prazo de duas semanas — estava apertado demais."
+    context: "O contraponto nomeado."
+  - en: "We need leadership buy-in before the refactor starts."
+    pt: "Precisamos da adesão da liderança antes do refactor começar."
+    context: "O sim organizacional."
+  - en: "Ping me when the migration finishes — I'll take the next step."
+    pt: "Me chama quando a migração terminar — eu cuido do próximo passo."
+    context: "O toque assíncrono."
+  - en: "Let's not boil the ocean — scope this to the auth service only."
+    pt: "Não vamos ferver o oceano — limite isso ao serviço de auth."
+    context: "O aviso de escopo."
+  - en: "The dashboard rewrite is on the back burner until the migration lands."
+    pt: "A reescrita do dashboard está no fogo de trás até a migração pousar."
+    context: "Adiado de propósito."
+
+variations:
+  - idea: '"os que valem × os que evitar"'
+    items:
+      - { register: "Boa", text: "The cron cleanup is the low-hanging fruit — start there.", adequate: true }
+      - { register: "Boa", text: "I don't have the bandwidth this sprint.", adequate: true }
+      - { register: "Inadequada", text: "Let's shoot two rabbits with this refactor.", adequate: false, note: "Tradução literal do brasileiro — o idioma é 'kill two birds with one stone'." }
+      - { register: "Inadequada", text: "Let's open the kimono on the numbers.", adequate: false, note: "Expressão morta — racista/sexista, não use." }
+  - idea: '"forçado × natural"'
+    items:
+      - { register: "Boa", text: "We need buy-in before we start.", adequate: true }
+      - { register: "Boa", text: "Ping me when it's done.", adequate: true }
+      - { register: "Inadequada", text: "Nailed it! Crushed it! We're killing it, team!", adequate: false, note: "Idioma decorado em sequência vira paródia — um por reunião, no máximo." }
+      - { register: "Inadequada", text: "As we say in Brazil, the dog that barks doesn't bite.", adequate: false, note: "Provérbio traduzido precisa de legenda — use o equivalente inglês ou nenhum." }
+
+brErrors:
+  - { wrong: "I don't have time — I'm boring.", right: "I don't have time — I'm bored.", why: "bored", tag: br.i-am-boring }
+  - { wrong: "Too much people in the meeting to decide.", right: "Too many people in the meeting to decide.", why: "too many people", tag: br.too-much-people }
+  - { wrong: "How long time will the refactor take?", right: "How long will the refactor take?", why: "how long", tag: br.how-long-time }
+  - { wrong: "Let's take a coffee and discuss.", right: "Let's grab a coffee and discuss.", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "Please revert back the config.", right: "Please revert the config.", why: "revert — sem 'back'", tag: br.revert-back }
+  - { wrong: "According to me, we should wait.", right: "In my view, we should wait.", why: "in my view / to me", tag: br.according-to-me }
+  - { wrong: "In my vision, we should wait.", right: "In my view, we should wait.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "I am agree with the ballpark.", right: "I agree with the ballpark.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "We discussed about the buy-in.", right: "We discussed the buy-in.", why: "discussed the buy-in", tag: br.discuss-about }
+  - { wrong: "She suggest to loop Ana in.", right: "She suggests looping Ana in.", why: "suggests looping", tag: br.suggest-to }
+
+dialogue:
+  title: "The idiom minefield"
+  lines:
+    - { speaker: Ana, text: "Before we commit, let's get the ball rolling on the plan — what's the low-hanging fruit?" }
+    - { speaker: Yuri, text: "The cron jobs nobody owns — kill those first. It's a two-birds situation: tech debt and the flaky alerts." }
+    - { speaker: Beth, text: "Agreed, but flag the scope — we're not boiling the ocean. Auth service only." }
+    - { speaker: Ana, text: "And the bigger refactor — do we have the bandwidth this quarter?" }
+    - { speaker: Beth, text: "Honest answer: no. Push it to next quarter, or we push back on the migration deadline." }
+    - { speaker: Yuri, text: "I'll loop Carlos in on the handoff thread — he owns the follow-the-sun piece." }
+    - { speaker: Ana, text: "Good. And run the budget number up to me before the RFC — I need a ballpark, not a spreadsheet." }
+    - { speaker: Beth, text: "Ballpark: two engineer-weeks. Days, not months." }
+    - { speaker: Yuri, text: "Docs rewrite stays on the back burner, then. Ping me when the cron cleanup lands — I'll write the summary." }
+    - { speaker: Ana, text: "Deal. No Kool-Aid on this one — if the numbers don't work, we say so." }
+  notes:
+    - "os idiomas certos no lugar certo: low-hanging fruit, bandwidth, loop in, push back, ballpark, back burner."
+    - "o que não aparece: 'open the kimono', 'shoot two rabbits', o provérbio traduzido."
+    - "um idioma por frase — o excesso vira paródia."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "Meeting English has a parallel vocabulary — 'bandwidth' means your time, not the network; 'loop in' means cc them; 'push back' means disagreeing. 'Low-hanging fruit' is the easy win you take first. These are worth learning because they carry real meaning fast." }
+    - { speaker: Ana, text: "But two rules: one, use the idiom you hear, not the one you memorized — nobody says 'open the kimono' anymore, it's dead and offensive. Two, don't translate yours — it's 'kill two birds with one stone', not 'shoot two rabbits'. And one idiom per sentence — a string of them becomes parody." }
+    - { speaker: Yuri, text: "The separable verbs matter: 'loop her in', 'push the date back', 'run it up'. And the articles: 'the low-hanging fruit', 'on the back burner' — drop the 'the' and it's a different thing." }
+  questions:
+    - { id: M26-03-l1, type: multiple_choice, prompt: "'I don't have the bandwidth' significa…", options: ["não tenho capacidade/tempo", "a internet caiu", "o servidor está cheio", "não entendi"], answer: 0, explanation: "Capacidade humana — o 'não' educado.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-03-l2, type: fill_blank, prompt: "Loop Ana ___ on the thread — she owns the budget.", accepted: ["in"], explanation: "'Loop in' — separável.", tags: [vocab.smalltalk] }
+    - { id: M26-03-l3, type: error_correction, prompt: "Let's shoot two rabbits with this refactor.", accepted: ["Let's kill two birds with one stone with this refactor.", "This refactor kills two birds with one stone", "Kill two birds with one stone with this refactor"], explanation: "O idioma inglês é 'kill two birds'.", tags: [vocab.smalltalk] }
+    - { id: M26-03-l4, type: multiple_choice, prompt: "'Low-hanging fruit' é…", options: ["a fruta do escritório", "o problema difícil", "a reunião de sexta", "o ganho fácil — o que se pega primeiro"], answer: 3, explanation: "O fácil antes do estrutural.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-03-l5, type: multiple_choice, prompt: "Qual expressão deve ser evitada?", options: ["'loop in'", "'push back'", "'open the kimono'", "'ballpark'"], answer: 2, explanation: "Morta e ofensiva — reconheça, não use.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-03-l6, type: multiple_choice, prompt: "'She pushed back on the deadline' significa…", options: ["ela adiou o prazo", "ela resistiu/discordou do prazo", "ela aceitou o prazo", "ela esqueceu o prazo"], answer: 1, explanation: "O contraponto — não é rude por si.", tags: [comp.listening, vocab.smalltalk] }
+
+writing:
+  prompt: |
+    **Cenário:** você manda a atualização da sprint para
+    a Ana — e quer usar os idiomas certos sem forçar.
+
+    **Tarefa:** escreva 70–100 palavras: o que andou
+    (começando pelo low-hanging fruit), o que espera
+    (bandwidth, back burner), quem você inclui (loop
+    in), onde você resiste (push back), e a estimativa
+    pedida (ballpark). Um idioma por frase, no máximo
+    três no texto.
+  constraints:
+    - { label: "O ganho fácil", pattern: "\\blow-hanging fruit|quick win\\b" }
+    - { label: "Capacidade/adiado", pattern: "\\bbandwidth|back burner|push(ed)? back\\b" }
+    - { label: "Incluir/estimativa", pattern: "\\bloop|ballpark|ping me\\b" }
+    - { label: "Escopo", pattern: "\\bboil the ocean|scope|rabbit hole\\b" }
+  rubric:
+    - "Idiomas naturais, um por frase"
+    - "O fácil antes do estrutural"
+    - "O que espera nomeado"
+    - "Sem calques nem expressões mortas"
+  model: >-
+    Sprint update, Ana. The cron cleanup is done —
+    that was the low-hanging fruit, and the flaky
+    alerts went with it. The bigger refactor is real
+    but we don't have the bandwidth this quarter;
+    I'd scope it to next quarter and keep the docs rewrite on
+    the back burner. I'm looping Carlos in on the
+    handoff thread — he owns the follow-the-sun
+    piece. On the migration deadline, I'm going to
+    push back gently — two weeks is tight. Ballpark
+    for the auth work: two engineer-weeks. Ping me
+    if you want the spreadsheet version.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.smalltalk]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos de atualização de sprint para a Ana: o que andou (começando pelo low-hanging fruit), o que espera (bandwidth/back burner), quem entra na thread (loop in), onde você resiste (push back), e a estimativa (ballpark)."
+    maxSeconds: 60
+    targetPhrases:
+      - low-hanging fruit
+      - bandwidth
+      - loop Ana in
+      - loop in
+      - push back
+      - pushed back
+      - buy-in
+      - ping me
+      - run it up
+      - boil the ocean
+      - rabbit hole
+      - ballpark
+      - kill two birds
+      - back burner
+      - get the ball rolling
+      - how long
+      - too many people
+    checklist:
+      - "um idioma por frase, no máximo três"
+      - "verbo separável correto ('loop her in')"
+      - "o 'the' fixo ('the low-hanging fruit')"
+      - "sem expressões mortas nem traduzidas"
+quiz:
+  - { id: M26-03-q1, type: multiple_choice, prompt: "'Bandwidth' numa reunião é…", options: ["a rede", "o orçamento", "o prazo", "a capacidade humana — 'estou cheio' educado"], answer: 3, explanation: "Capacidade — não rede.", tags: [vocab.smalltalk] }
+  - { id: M26-03-q2, type: error_correction, prompt: "Please revert back the config after the test.", accepted: ["Please revert the config after the test.", "Please revert the config after the test"], explanation: "'Revert' já é 'voltar' — sem 'back'.", tags: [br.revert-back] }
+  - { id: M26-03-q3, type: multiple_choice, prompt: "'Push back on the deadline' é…", options: ["adiar o prazo", "resistir ao prazo — contraponto", "aceitar o prazo", "ignorar o prazo"], answer: 1, explanation: "O contraponto nomeado.", tags: [vocab.smalltalk] }
+  - { id: M26-03-q4, type: fill_blank, prompt: "Give me a ___ — days or weeks?", accepted: ["ballpark"], explanation: "A estimativa aproximada.", tags: [vocab.smalltalk] }
+  - { id: M26-03-q5, type: multiple_choice, prompt: "O idioma correto para 'matar dois coelhos' é…", options: ["'kill two birds with one stone'", "'shoot two rabbits'", "'catch two fish'", "'hunt two rabbits'"], answer: 0, explanation: "O americano tem o dele — não traduza.", tags: [vocab.smalltalk] }
+  - { id: M26-03-q6, type: error_correction, prompt: "How long time will this take?", accepted: ["How long will this take?", "How long will this take"], explanation: "'How long'.", tags: [br.how-long-time] }
+  - { id: M26-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "low-hanging", "fruit", "is", "that"], answer: "that is the low-hanging fruit", explanation: "O ganho fácil nomeado.", tags: [vocab.smalltalk] }
+  - { id: M26-03-q8, type: multiple_choice, prompt: "'On the back burner' significa…", options: ["esquecido", "quente", "prioridade baixa consciente — adiado de propósito", "urgente"], answer: 2, explanation: "Adiado de propósito, não esquecido.", tags: [vocab.smalltalk] }
+
+srsCards:
+  - { front: "low-hanging fruit", back: "O ganho fácil — o que se pega primeiro.", tag: vocab.smalltalk }
+  - { front: "bandwidth", back: "Capacidade humana — o 'não' educado.", tag: vocab.smalltalk }
+  - { front: "loop (someone) in", back: "Incluir na conversa — o cc verbal.", tag: vocab.smalltalk }
+  - { front: "push back (on X)", back: "Resistir/discordar — contraponto.", tag: vocab.smalltalk }
+  - { front: "buy-in", back: "Adesão de quem decide.", tag: vocab.smalltalk }
+  - { front: "ping me", back: "Me chama — o toque assíncrono.", tag: vocab.smalltalk }
+  - { front: "boil the ocean", back: "Tentar o impossível — aviso de escopo.", tag: vocab.smalltalk }
+  - { front: "a rabbit hole", back: "O buraco sem fundo de detalhe.", tag: vocab.smalltalk }
+  - { front: "the ballpark", back: "A estimativa aproximada — ordem de grandeza.", tag: vocab.smalltalk }
+  - { front: "kill two birds with one stone", back: "Dois coelhos, uma cajadada — o idioma real.", tag: vocab.smalltalk }
+  - { front: "on the back burner", back: "Prioridade baixa consciente — adiado.", tag: vocab.smalltalk }
+  - { front: "'open the kimono'", back: "Expressão morta e ofensiva — reconheça, não use.", tag: vocab.smalltalk }
+
+review:
+  preferTags: [vocab.smalltalk, br.revert-back, br.according-to-me]
+  notes: "Revisão prioriza os seis idiomas úteis, os separáveis, e a lista do que evitar."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
