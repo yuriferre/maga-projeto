@@ -1,0 +1,318 @@
+id: M22-05
+module: M22
+order: 5
+title: "Prática: a análise de risco escrita da migração de banco"
+objective: >-
+  Ao final, você produz a análise de risco completa por
+  escrito: matriz likelihood × impact, trade-offs nomeados,
+  mitigações com gatilho e dono, e a recomendação com
+  walk-away condition e ask.
+durationMin: 45
+competencies: [WRI, SPK]
+tags: [vocab.risk, gram.probability-modals, comp.writing, comp.speaking, gram.conditionals-real]
+prerequisites: [M22-04]
+
+context:
+  scenario: |
+    A Ana aprovou condicionada ao ensaio — e o documento da
+    migração precisa da seção final: **a análise de risco
+    escrita**, a que fica no repo e responde por você quando
+    você não está na sala.
+
+    A análise escrita junta as quatro peças do módulo num
+    formato que se lê em dois minutos:
+
+    - **a matriz** — cada risco com likelihood (modal) e
+      impact delimitado: "*cutover overrun — likely; impact
+      bounded: abort and re-run*";
+    - **o trade-off** — a troca nomeada com o veredito:
+      "*we're trading consistency for availability — on
+      balance, it wins*";
+    - **as mitigações** — preventiva + plano B + gatilho +
+      dono, por risco;
+    - **a recomendação** — posição na primeira frase,
+      walk-away condition e ask com dono e prazo.
+
+    Escrita boa de risco não é a mais longa — é a que um
+    leitor apressado consegue auditar: cada afirmação tem
+    dimensão, cada risco tem plano, cada plano tem dono.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead), Ana (diretora)]
+
+vocabulary:
+  - term: "risk register"
+    meaning: 'o registro de riscos — a tabela com todos eles'
+    example: "The risk register lists each risk with owner and trigger."
+    translation: "O registro de riscos lista cada um com dono e gatilho."
+    note: "A tabela viva do doc: risk / likelihood / impact / mitigation / owner."
+  - term: "severity"
+    meaning: 'a severidade — o tamanho do impacto se acontecer'
+    example: "Severity: high for data loss, low for the cosmetic lag."
+    translation: "Severidade: alta para perda de dados, baixa para o lag cosmético."
+    note: "Severity = o impacto; likelihood = a chance. Não misture."
+  - term: "contingent on"
+    meaning: 'condicionado a — dependente de um evento'
+    example: "The go is contingent on Thursday's dry run passing."
+    translation: "O go está condicionado ao ensaio de quinta passar."
+    note: "'Contingent on X' — a aprovação que depende do dado."
+  - term: "in writing"
+    meaning: 'por escrito — o que fica registrado e auditável'
+    example: "The walk-away condition is in writing — no mid-meeting debate."
+    translation: "A condição de abandono está por escrito — sem debate no meio."
+    note: "Na pressão, vale o que está escrito — não o que foi dito."
+  - term: "a living risk"
+    meaning: 'risco vivo — o que ainda pode mudar de status'
+    example: "The 10x behavior is a living risk — the test closes it Thursday."
+    translation: "O comportamento a 10x é risco vivo — o teste o fecha quinta."
+    note: "Risco vivo tem dono e data — risco morto vira lição aprendida."
+  - term: "the appetite for risk"
+    meaning: 'o apetite a risco — quanto a organização aceita'
+    example: "Losing an hour of writes is within our appetite for risk."
+    translation: "Perder uma hora de escritas está dentro do nosso apetite a risco."
+    note: "O critério que decide accept × mitigate: cabe no apetite?"
+  - term: "to flag"
+    meaning: 'sinalizar — marcar o risco para atenção'
+    example: "I'm flagging the consumer bottleneck as a watch item."
+    translation: "Estou sinalizando o gargalo do consumer como item de observação."
+    note: "'Flag X as…' — o risco que não é decisão, é atenção."
+  - term: "watch item"
+    meaning: 'item de observação — risco monitorado, sem ação ainda'
+    example: "Consumer lag is a watch item — alert at five minutes."
+    translation: "O lag do consumer é item de observação — alerta em cinco minutos."
+    note: "Entre 'aceito' e 'mitigado' fica o 'observado' — com alerta."
+  - term: "go/no-go"
+    meaning: 'a decisão binária — vai ou não vai'
+    example: "The go/no-go happens right after the dry run."
+    translation: "O go/no-go acontece logo depois do ensaio."
+    note: "O checkpoint que separa preparação de execução."
+  - term: "assumption log"
+    meaning: 'o registro de premissas — o que se assume e quem valida'
+    example: "The assumption log lists 'traffic under 2x' — pending the test."
+    translation: "O registro de premissas lista 'tráfego abaixo de 2x' — pendente do teste."
+    note: "Premissas escritas viram testes; premissas de cabeça viram incidente."
+  - term: "to green-light"
+    meaning: 'dar sinal verde — aprovar a execução'
+    example: "Ana green-lights the migration once the dry run passes."
+    translation: "A Ana dá sinal verde para a migração quando o ensaio passar."
+    note: "'Green-light' — o verbo da aprovação informal."
+  - term: "the paper trail"
+    meaning: 'o rastro documental — decisões e riscos registrados'
+    example: "The paper trail matters if the migration goes wrong."
+    translation: "O rastro documental importa se a migração der errado."
+    note: "Análise escrita é proteção — sua e da decisão."
+
+grammar:
+  title: "a análise escrita — tabela, condicional e declaração"
+  explanation: |
+    A análise escrita tem sintaxe enxuta — o leitor audita,
+    não lê prosa:
+
+    - **A matriz em linhas**: "*risk: cutover overrun —
+      likelihood: likely — impact: bounded (abort and
+      re-run)*".
+    - **O condicional no plano**: "*if lag crosses five
+      minutes, we abort*"; formal: "*should lag cross five
+      minutes, we abort*".
+    - **A declaração de aceite**: "*accepted — cosmetic
+      lag; mitigation not worth the effort*".
+    - **A recomendação**: "*recommendation: migrate
+      Friday; walk-away: dry run fails → defer*".
+
+    Escala de modais no escrito: *will* (quase certo) →
+    *likely/should* (provável) → *could/might* (possível)
+    → *unlikely* (improvável). Consistência importa: o
+    mesmo 'could' não pode significar duas coisas no mesmo
+    doc.
+  examples:
+    - { en: "Risk: cutover overrun — likely; impact bounded: we abort and re-run.", pt: "Risco: estouro da virada — provável; impacto limitado: abortamos e rodamos de novo." }
+    - { en: "If replication lag crosses five minutes, Carlos calls the abort.", pt: "Se o lag de replicação passar de cinco minutos, o Carlos chama o abort." }
+    - { en: "The go is contingent on Thursday's dry run passing.", pt: "O go está condicionado ao ensaio de quinta passar." }
+    - { en: "Accepted: stale dashboards for a day — mitigation not worth the effort.", pt: "Aceito: dashboards velhos por um dia — mitigação não vale o esforço." }
+    - { en: "Recommendation: migrate Friday; walk-away — dry run fails, we defer.", pt: "Recomendação: migrar sexta; abandono — ensaio falha, adiamos." }
+    - { en: "Consumer lag is a watch item — flag it, alert at five minutes.", pt: "Lag do consumer é item de observação — sinalize, alerta em cinco minutos." }
+
+examples:
+  - en: "The risk register: each risk with likelihood, impact, mitigation and owner."
+    pt: "O registro de riscos: cada um com probabilidade, impacto, mitigação e dono."
+    context: "A tabela viva."
+  - en: "Severity high, likelihood low — the quadrant that gets a rehearsed plan B."
+    pt: "Severidade alta, probabilidade baixa — o quadrante que ganha plano B ensaiado."
+    context: "A matriz decidindo."
+  - en: "The assumption log: 'traffic stays under 2x' — pending Thursday's test."
+    pt: "O registro de premissas: 'tráfego abaixo de 2x' — pendente do teste de quinta."
+    context: "Premissa escrita vira teste."
+  - en: "I'm flagging the consumer as a watch item — alert at five minutes of lag."
+    pt: "Estou sinalizando o consumer como item de observação — alerta a cinco minutos de lag."
+    context: "O observado entre aceito e mitigado."
+  - en: "Losing an hour of writes is within our appetite for risk."
+    pt: "Perder uma hora de escritas está dentro do apetite a risco."
+    context: "O critério do aceite."
+  - en: "The go/no-go is right after the dry run — contingent on it passing."
+    pt: "O go/no-go é logo depois do ensaio — condicionado a ele passar."
+    context: "O checkpoint binário."
+  - en: "In writing: the walk-away condition is a failed dry run."
+    pt: "Por escrito: a condição de abandono é o ensaio falhar."
+    context: "O que vale sob pressão."
+  - en: "Ana green-lights the migration once the rehearsal passes."
+    pt: "A Ana dá sinal verde à migração quando o ensaio passar."
+    context: "A aprovação condicionada."
+
+variations:
+  - idea: '"o registro auditável"'
+    items:
+      - { register: "Boa", text: "Risk: overrun — likely; impact bounded: abort and re-run. Owner: Carlos; trigger: lag > 5 min.", adequate: true }
+      - { register: "Boa", text: "Accepted: cosmetic lag — mitigation costs more than the exposure.", adequate: true }
+      - { register: "Inadequada", text: "Some things could go wrong but we'll handle it.", adequate: false, note: "Sem dimensão, gatilho nem dono não é análise — é esperança." }
+      - { register: "Inadequada", text: "We are in risk on the cutover.", adequate: false, note: "*At risk* — 'em risco' é 'at'." }
+  - idea: '"a premissa que vira teste"'
+    items:
+      - { register: "Boa", text: "Assumption: traffic stays under 2x — pending the spike test Thursday.", adequate: true }
+      - { register: "Boa", text: "Consumer lag is a watch item — flagged, alert at five minutes.", adequate: true }
+      - { register: "Inadequada", text: "Traffic probably won't grow.", adequate: false, note: "Premissa de cabeça — *the assumption log* escreve e datilografa." }
+      - { register: "Inadequada", text: "There's a risk to lose writes.", adequate: false, note: "*Risk of losing* — 'risco de' é 'of + -ing'." }
+
+brErrors:
+  - { wrong: "We are in risk on the cutover.", right: "We are at risk on the cutover.", why: "at risk", tag: br.in-risk }
+  - { wrong: "There's a risk to lose writes.", right: "There's a risk of losing writes.", why: "risk of losing", tag: br.risk-to }
+  - { wrong: "The rehearsal compensates the risk.", right: "The rehearsal offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
+  - { wrong: "The migration is danger without a rollback.", right: "The migration is dangerous without a rollback.", why: "is dangerous", tag: br.is-danger }
+  - { wrong: "I am agree with the register.", right: "I agree with the register.", why: "I agree", tag: br.am-agree }
+  - { wrong: "The same risks than the last migration.", right: "The same risks as the last migration.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the register.", right: "We discussed the register.", why: "discussed the register", tag: br.discuss-about }
+  - { wrong: "We chose Friday instead Monday.", right: "We chose Friday instead of Monday.", why: "instead of", tag: br.instead-of }
+  - { wrong: "The analysis worths the effort.", right: "The analysis is worth the effort.", why: "is worth", tag: br.worths }
+  - { wrong: "We must to flag the watch item.", right: "We must flag the watch item.", why: "must flag", tag: br.modal-to }
+
+dialogue:
+  title: "A análise que responde por você"
+  lines:
+    - { speaker: Ana, text: "The summary was good. Now the written analysis — the one that answers for you when I'm not in the room." }
+    - { speaker: Yuri, text: "Risk register first: cutover overrun — likely, impact bounded, abort and re-run, Carlos owns it, trigger is lag over five minutes." }
+    - { speaker: Beth, text: "Data loss?" }
+    - { speaker: Yuri, text: "Exposure is uncommitted writes — low likelihood, high severity, so it gets the rehearsed rollback. Fallback is the old cluster, warm a week." }
+    - { speaker: Carlos, text: "What's accepted vs mitigated?" }
+    - { speaker: Yuri, text: "Accepted: stale dashboards for a day — mitigation costs more than the exposure. Watch item: consumer lag, flagged with a five-minute alert." }
+    - { speaker: Beth, text: "And the assumptions?" }
+    - { speaker: Yuri, text: "In the log: traffic under 2x — pending Thursday's test. If it breaks, the whole trade gets revisited." }
+    - { speaker: Ana, text: "And the decision line?" }
+    - { speaker: Yuri, text: "Recommendation: migrate Friday. Walk-away: a failed dry run defers it. The ask — your green-light on the window, contingent on the rehearsal." }
+    - { speaker: Ana, text: "That's a paper trail I can sign. Ship the doc." }
+  notes:
+    - "o doc inteiro em uma conversa: registro → aceite/observado → premissas → recomendação."
+    - "cada risco sai com dono e gatilho — a análise que se audita sozinha."
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "The written risk analysis has four parts a busy reader can audit. The register — every risk with likelihood, bounded impact, mitigation and owner. The accept versus mitigate split — 'accepted: cosmetic lag; mitigation not worth the effort'. The assumption log — each premise written, with the test that validates it. And the decision line — recommendation, walk-away condition, and the ask." }
+    - { speaker: Carlos, text: "Three registers, three habits. The risk register lists the risks. The assumption log lists what you're betting on. And the watch items sit between accepted and mitigated — flagged, with an alert. Everything in writing: under pressure, what's written is what exists." }
+    - { speaker: Beth, text: "Keep the modal scale consistent across the doc — 'will' near-certain, 'likely' probable, 'could' possible, 'unlikely' improbable. The same 'could' can't mean two things in one document. And the calques stay out: 'at risk', 'risk of losing', 'offsets the risk', 'dangerous'." }
+  questions:
+    - { id: M22-05-l1, type: multiple_choice, prompt: "As quatro partes da análise escrita são…", options: ["introdução, corpo, conclusão, apêndice", "registro, aceite/observado, premissas, decisão", "riscos, custos, prazo, time", "problema, solução, teste, deploy"], answer: 1, explanation: "Register → split → assumptions → decision line.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-05-l2, type: multiple_choice, prompt: "Um 'watch item' fica entre…", options: ["proposto e aceito", "aberto e fechado", "aceito e mitigado — sinalizado, com alerta", "risco e issue"], answer: 2, explanation: "Observado — nem aceito nem mitigado.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-05-l3, type: fill_blank, prompt: "The go/no-go is ___ on the dry run passing.", accepted: ["contingent"], explanation: "'Contingent on' — condicionado ao dado.", tags: [vocab.risk] }
+    - { id: M22-05-l4, type: error_correction, prompt: "There's a risk to lose the uncommitted writes.", accepted: ["There's a risk of losing the uncommitted writes.", "There's a risk of losing the uncommitted writes"], explanation: "'risk of losing'.", tags: [br.risk-to] }
+    - { id: M22-05-l5, type: multiple_choice, prompt: "Premissa escrita no assumption log…", options: ["fica aberta para sempre", "vira teste — com data e dono", "é segredo", "dispensa validação"], answer: 1, explanation: "Premissa escrita ganha plano de validação.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-05-l6, type: multiple_choice, prompt: "Sob pressão, o que vale é…", options: ["o que foi dito na reunião", "a memória do time", "a experiência de quem decide", "o que está escrito — o paper trail"], answer: 3, explanation: "In writing — o registro auditável.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana pediu a análise de risco escrita da
+    migração — "the one that answers for you when I'm not
+    in the room".
+
+    **Tarefa:** escreva a análise completa em 100–130
+    palavras: o risk register com os três riscos
+    (likelihood + impact delimitado + mitigação + dono +
+    gatilho), o que fica aceito e o que é watch item, a
+    premissa no assumption log, e a linha de decisão —
+    recomendação, walk-away condition e ask.
+  constraints:
+    - { label: "O registro", pattern: "\\brisk|likelihood|severity|impact\\b" }
+    - { label: "Mitigação com gatilho", pattern: "\\btrigger|owner|abort|roll back|fallback\\b" }
+    - { label: "Aceite/observado", pattern: "\\baccept\\w*|watch item|flagged\\b" }
+    - { label: "A decisão", pattern: "\\brecommend\\w*|walk-away|sign-off|green-light\\w*\\b" }
+  rubric:
+    - "Cada risco com likelihood + impact + dono + gatilho"
+    - "Aceito e watch item distintos e com critério"
+    - "Premissa no log com o teste que a valida"
+    - "Recomendação + walk-away + ask com dono e prazo"
+    - "Sem calques ('at risk', 'risk of', 'offsets', 'dangerous')"
+  model: >-
+    Risk register. Cutover overrun — likely; impact bounded:
+    abort and re-run next window. Owner: Carlos; trigger:
+    replication lag over five minutes. Data loss — low
+    likelihood, high severity: writes freeze for the last
+    ten minutes; fallback is the warm old cluster. Cosmetic
+    lag — accepted: mitigation costs more than the exposure.
+    Consumer bottleneck — watch item, flagged, alert at five
+    minutes of lag. Assumption log: traffic stays under 2x,
+    pending Thursday's spike test — if it breaks, we
+    revisit the whole trade. Recommendation: migrate Friday; walk-away
+    condition is a failed dry run. The ask: Ana's
+    green-light on the window, contingent on the rehearsal.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.risk]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos apresentando a análise de risco da migração como se lêsse o doc em voz alta: registro, aceite vs watch item, premissa e linha de decisão."
+    maxSeconds: 60
+    targetPhrases:
+      - the risk register
+      - likelihood
+      - severity
+      - bounded
+      - mitigation
+      - owner
+      - the trigger is
+      - we accept
+      - watch item
+      - assumption log
+      - contingent on
+      - go/no-go
+      - walk-away condition
+      - green-light
+      - at risk
+      - risk of
+      - recommendation
+      - pending
+      - in writing
+      - the exposure is
+    checklist:
+      - "cada risco com dimensão + dono + gatilho"
+      - "aceito × observado × mitigado distintos"
+      - "premissa escrita com o teste"
+      - "recomendação + walk-away + ask"
+
+quiz:
+  - { id: M22-05-q1, type: multiple_choice, prompt: "A análise escrita boa é a que…", options: ["é mais longa", "um leitor apressado consegue auditar", "tem mais adjetivos", "esconde os riscos"], answer: 1, explanation: "Cada afirmação com dimensão, cada risco com plano.", tags: [vocab.risk] }
+  - { id: M22-05-q2, type: error_correction, prompt: "We are in risk on the cutover.", accepted: ["We are at risk on the cutover.", "We are at risk on the cutover"], explanation: "'at risk'.", tags: [br.in-risk] }
+  - { id: M22-05-q3, type: multiple_choice, prompt: "O assumption log transforma premissa em…", options: ["segredo", "teste — com data e dono", "risco aceito", "documento"], answer: 1, explanation: "Premissa escrita ganha validação.", tags: [vocab.risk] }
+  - { id: M22-05-q4, type: fill_blank, prompt: "Consumer lag is a ___ item — alert at five minutes.", accepted: ["watch"], explanation: "'Watch item' — observado, nem aceito nem mitigado.", tags: [vocab.risk] }
+  - { id: M22-05-q5, type: multiple_choice, prompt: "'Contingent on the dry run' significa…", options: ["cancelado até o ensaio", "independente do ensaio", "condicionado ao ensaio passar", "depois do ensaio"], answer: 2, explanation: "A aprovação que depende do dado.", tags: [vocab.risk] }
+  - { id: M22-05-q6, type: error_correction, prompt: "The migration is danger without a rehearsed rollback.", accepted: ["The migration is dangerous without a rehearsed rollback.", "The migration is dangerous without a rehearsed rollback"], explanation: "'dangerous'.", tags: [br.is-danger] }
+  - { id: M22-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["condition", "walk-away", "is", "the", "dry", "failed", "a", "run"], answer: "the walk-away condition is a failed dry run", explanation: "Quando a recomendação morre.", tags: [vocab.risk] }
+  - { id: M22-05-q8, type: multiple_choice, prompt: "A mesma palavra 'could' no doc não pode significar duas coisas porque…", options: ["consistência da escala é o que torna o doc auditável", "é feio", "confunde a gramática", "o revisor pede"], answer: 0, explanation: "Escala consistente = leitura confiável.", tags: [gram.probability-modals, comp.writing] }
+
+srsCards:
+  - { front: "risk register", back: "A tabela viva — risk / likelihood / impact / mitigation / owner.", tag: vocab.risk }
+  - { front: "severity", back: "O tamanho do impacto — 'high for data loss'.", tag: vocab.risk }
+  - { front: "contingent on", back: "Condicionado a — 'go contingent on the dry run'.", tag: vocab.risk }
+  - { front: "in writing", back: "O que vale sob pressão — 'the walk-away is in writing'.", tag: vocab.risk }
+  - { front: "living risk", back: "Ainda pode mudar — 'the test closes it Thursday'.", tag: vocab.risk }
+  - { front: "appetite for risk", back: "Quanto se aceita — 'an hour of writes is within appetite'.", tag: vocab.risk }
+  - { front: "to flag", back: "Sinalizar para atenção — 'flag the consumer as a watch item'.", tag: vocab.risk }
+  - { front: "watch item", back: "Observado com alerta — entre aceito e mitigado.", tag: vocab.risk }
+  - { front: "go/no-go", back: "A decisão binária — 'right after the dry run'.", tag: vocab.risk }
+  - { front: "assumption log", back: "Premissas escritas — 'traffic under 2x, pending the test'.", tag: vocab.risk }
+  - { front: "to green-light", back: "Dar sinal verde — 'Ana green-lights the window'.", tag: vocab.risk }
+  - { front: "paper trail", back: "O rastro documental — proteção sua e da decisão.", tag: vocab.risk }
+
+review:
+  preferTags: [vocab.risk, gram.probability-modals, br.is-danger]
+  notes: "Revisão prioriza a análise escrita — registro, aceite/observado, premissas, decisão — e a escala de modais consistente."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
