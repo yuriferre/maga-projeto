@@ -1,0 +1,330 @@
+id: M31-02
+module: M31
+order: 2
+title: "Negociando: I was hoping for…; is there flexibility on…"
+objective: >-
+  Ao final, você sabe negociar uma oferta com
+  educação e alavancagem — pedir com contexto,
+  uma coisa de cada vez, e transformar "não" em
+  "então me dê X no lugar".
+durationMin: 30
+competencies: [SPK, REA, CNF]
+tags: [vocab.compensation, comp.speaking, comp.confidence]
+prerequisites: [M31-01]
+
+context:
+  scenario: |
+    Você leu a oferta — agora a conversa de
+    negociação. A regra de ouro nos EUA: **quase
+    sempre se espera que você negocie**; não
+    negociar deixa dinheiro na mesa e não ofende
+    ninguém — desde que o pedido venha com
+    contexto, não com exigência.
+
+    As molduras de pedido:
+
+    - **O pedido suave**: "*I was hoping for
+      $160k on the base*" — esperar, não exigir.
+    - **A flexibilidade por componente**: "*is
+      there flexibility on the equity?*" —
+      pergunte por peça, não no pacote todo.
+    - **O pedido com razão**: "*given the scope
+      of the on-call, I was hoping for…*" —
+      o contexto que justifica.
+    - **A alavancagem honesta**: "*I'm in final
+      rounds elsewhere — I want to be
+      transparent*" — se for verdade.
+    - **O pivô do "não"**: "*if the base is
+      fixed, could we look at the sign-on or
+      the equity?*".
+
+    Três regras:
+
+    - **Uma peça por vez** — não liste cinco
+      pedidos de uma vez.
+    - **Número com razão** — "hoping for $160k
+      given the on-call scope", nunca "want more".
+    - **Não é pessoal** — é uma conversa de
+      trabalho, não um julgamento do seu valor.
+
+    O erro do brasileiro: aceitar na hora por
+    medo de parecer ingrato — ou pedir com tom
+    de desculpa ("sorry to ask but…").
+  roles: [Yuri (platform engineer), Rachel (recruiter)]
+
+vocabulary:
+  - term: "I was hoping for…"
+    meaning: 'eu estava esperando… — o pedido suave'
+    example: "I was hoping for $160k on the base, given the on-call scope."
+    translation: "Eu estava esperando $160k no base, dado o escopo do on-call."
+    note: "Esperar, não exigir — o tom que mantém a porta aberta."
+  - term: "is there flexibility on…?"
+    meaning: 'há flexibilidade em…? — a pergunta por componente'
+    example: "Is there flexibility on the equity portion?"
+    translation: "Há flexibilidade na parte de equity?"
+    note: "Por peça, não no pacote todo."
+  - term: "given the scope of…"
+    meaning: 'dado o escopo de… — a razão que justifica o pedido'
+    example: "Given the scope of the on-call rotation, I was hoping for a higher base."
+    translation: "Dado o escopo do on-call, eu esperava um base mais alto."
+    note: "O número sempre com uma razão."
+  - term: "I'm in final rounds elsewhere"
+    meaning: 'estou em fases finais em outros lugares — a alavancagem honesta'
+    example: "I'm in final rounds elsewhere — I want to be transparent about timing."
+    translation: "Estou em fases finais em outros processos — quero ser transparente sobre o timing."
+    note: "Só se for verdade — e sem ultimato."
+  - term: "could we look at the sign-on instead?"
+    meaning: 'podemos olhar o sign-on no lugar? — o pivô do "não"'
+    example: "If the base is fixed, could we look at the sign-on or the equity instead?"
+    translation: "Se o base é fixo, podemos olhar o sign-on ou o equity no lugar?"
+    note: "O 'não' numa peça vira 'sim' noutra."
+  - term: "what would it take to get to…?"
+    meaning: 'o que seria preciso para chegar a…? — abrir caminho'
+    example: "What would it take to get to $160k — a level change, or scope?"
+    translation: "O que seria preciso para chegar a $160k — mudança de nível ou escopo?"
+    note: "Transforma o número em problema a resolver juntos."
+  - term: "I'm excited about the role — I want to make it work"
+    meaning: 'estou animado com o papel — quero fazer funcionar — o entusiasmo que ancora'
+    example: "I'm excited about the role — I want to make it work. Let's find the number."
+    translation: "Estou animado com o papel — quero fazer funcionar. Vamos achar o número."
+    note: "Entusiasmo primeiro, pedido depois — a negociação é cooperação."
+  - term: "that's above/below the band I had in mind"
+    meaning: 'isso está acima/abaixo da faixa que eu tinha em mente'
+    example: "$140k is below the band I had in mind — I was thinking $155–165k."
+    translation: "$140k está abaixo da faixa que eu tinha em mente — pensava em $155–165k."
+    note: "Nomear a sua faixa sem confronto."
+  - term: "can you do better on…?"
+    meaning: 'vocês conseguem melhorar em…? — o pedido direto mas leve'
+    example: "Can you do better on the sign-on? That would close the gap."
+    translation: "Conseguem melhorar o sign-on? Isso fecharia o gap."
+    note: "Direto e leve — com o objetivo nomeado."
+  - term: "I don't want to leave money on the table, but…"
+    meaning: 'não quero deixar dinheiro na mesa, mas… — a franqueza calibrada'
+    example: "I don't want to leave money on the table, but the role matters more than $5k."
+    translation: "Não quero deixar dinheiro na mesa, mas o papel importa mais que $5k."
+    note: "Saber quando parar também é negociação."
+  - term: "let me think about it and get back to you"
+    meaning: 'deixe-me pensar e te retorno — comprar tempo com elegância'
+    example: "That's close — let me think about it and get back to you tomorrow."
+    translation: "Está perto — deixe-me pensar e te retorno amanhã."
+    note: "Tempo com data marcada."
+  - term: "the whole package"
+    meaning: 'o pacote inteiro — negociar além do base'
+    example: "If the base can't move, the whole package can — sign-on, equity, PTO."
+    translation: "Se o base não se move, o pacote inteiro pode — sign-on, equity, PTO."
+    note: "Cinco peças móveis, não uma."
+
+grammar:
+  title: "a gramática do pedido educado"
+  explanation: |
+    O pedido de negociação tem três camadas:
+
+    - **Entusiasmo primeiro**: "**I'm excited
+      about the role** — I want to make it
+      work".
+    - **O pedido suave com razão**: "**I was
+      hoping for** $160k **given** the on-call
+      scope" — hoping for + número + given +
+      razão.
+    - **A flexibilidade por peça**: "**is there
+      flexibility on** the equity / sign-on /
+      PTO?".
+
+    E o pivô do "não": "**if the base is
+    fixed, could we look at** the sign-on
+    instead?" — condicional + alternativa.
+
+    "**What would it take to get to** $160k?"
+    transforma o número em problema conjunto.
+  examples:
+    - { en: "I was hoping for $160k on the base, given the on-call scope.", pt: "Esperava $160k no base, dado o escopo do on-call." }
+    - { en: "Is there flexibility on the equity portion?", pt: "Há flexibilidade na parte de equity?" }
+    - { en: "If the base is fixed, could we look at the sign-on instead?", pt: "Se o base é fixo, olhamos o sign-on no lugar?" }
+    - { en: "What would it take to get to $160k — a level change, or scope?", pt: "O que seria preciso para $160k — nível ou escopo?" }
+    - { en: "I'm excited about the role — I want to make it work.", pt: "Estou animado com o papel — quero fazer funcionar." }
+    - { en: "That's close — let me think about it and get back to you tomorrow.", pt: "Perto — deixe-me pensar e retorno amanhã." }
+
+examples:
+  - en: "I'm excited about the role — I want to make it work. Let's find the number."
+    pt: "Estou animado com o papel — quero fazer funcionar. Vamos achar o número."
+    context: "Entusiasmo primeiro."
+  - en: "I was hoping for $160k on the base, given the on-call scope."
+    pt: "Esperava $160k no base, dado o escopo do on-call."
+    context: "O pedido suave com razão."
+  - en: "Is there flexibility on the equity portion of the package?"
+    pt: "Há flexibilidade na parte de equity do pacote?"
+    context: "Por peça, não no todo."
+  - en: "I'm in final rounds elsewhere — I want to be transparent about timing."
+    pt: "Estou em fases finais em outros lugares — quero ser transparente."
+    context: "A alavancagem honesta."
+  - en: "If the base is fixed, could we look at the sign-on or equity instead?"
+    pt: "Se o base é fixo, olhamos o sign-on ou equity no lugar?"
+    context: "O pivô do 'não'."
+  - en: "What would it take to get to $160k — a level change, or more scope?"
+    pt: "O que seria preciso para $160k — nível ou mais escopo?"
+    context: "O número como problema conjunto."
+  - en: "That's close — let me think about it and get back to you tomorrow."
+    pt: "Está perto — deixe-me pensar e retorno amanhã."
+    context: "Tempo com data."
+  - en: "I don't want to leave money on the table, but the role matters more than $5k."
+    pt: "Não quero deixar dinheiro na mesa, mas o papel vale mais que $5k."
+    context: "Saber quando parar."
+
+variations:
+  - idea: '"o pedido"'
+    items:
+      - { register: "Forte", text: "I'm excited about the role — I was hoping for $160k given the on-call scope.", adequate: true }
+      - { register: "Forte", text: "Is there flexibility on the equity portion?", adequate: true }
+      - { register: "Fraco", text: "Sorry to ask, but… could you maybe pay more?", adequate: false, note: "O tom de desculpa desvaloriza o pedido antes dele." }
+      - { register: "Fraco", text: "$160k or I walk.", adequate: false, note: "Ultimato na primeira rodada quebra a cooperação." }
+  - idea: '"o não na peça"'
+    items:
+      - { register: "Forte", text: "If the base is fixed, could we look at the sign-on instead?", adequate: true }
+      - { register: "Forte", text: "What would it take to get to $160k?", adequate: true }
+      - { register: "Fraco", text: "No? Then forget it.", adequate: false, note: "Um 'não' numa peça não fecha as outras quatro." }
+      - { register: "Fraco", text: "Fine, I accept anything.", adequate: false, note: "Aceitar qualquer coisa depois de pedir lê como blefe." }
+
+brErrors:
+  - { wrong: "My actual salary is $120k — I want more.", right: "My current salary is $120k — I want more.", why: "current", tag: br.actual-current }
+  - { wrong: "I got a job proposal last week.", right: "I got a job offer last week.", why: "job offer", tag: br.job-proposal }
+  - { wrong: "Can I negotiate more vacations?", right: "Can I negotiate more vacation days?", why: "vacation days/PTO", tag: br.more-vacations }
+  - { wrong: "We have a thirteenth salary here.", right: "We have a 13th-month bonus here.", why: "13th-month bonus", tag: br.thirteenth-salary }
+  - { wrong: "My salary pretension is $160k.", right: "My salary expectations are around $160k.", why: "expectations", tag: br.pretension }
+  - { wrong: "I win a better salary there.", right: "I earn a better salary there.", why: "earn", tag: br.win-money }
+  - { wrong: "I have interest in negotiating.", right: "I'm interested in negotiating.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I need to give two weeks advice.", right: "I need to give two weeks' notice.", why: "notice", tag: br.advice-notice }
+  - { wrong: "We discussed about the offer.", right: "We discussed the offer.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision the base is low.", right: "In my view the base is low.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "A conversa de negociação"
+  lines:
+    - { speaker: Rachel, text: "So — $150k base, 15% target, $80k RSUs, $20k sign-on. Thoughts?" }
+    - { speaker: Yuri, text: "First — I'm excited about the role, and I want to make it work. On the base: I was hoping for $160k, given the on-call scope and what I'm seeing in the market." }
+    - { speaker: Rachel, text: "The base is pretty fixed at the band — $150k is the top of it." }
+    - { speaker: Yuri, text: "Understood. If the base is fixed, could we look at the sign-on instead? A $30k sign-on would close the first-year gap." }
+    - { speaker: Rachel, text: "I can probably get you $25k on the sign-on." }
+    - { speaker: Yuri, text: "That helps. And is there flexibility on the equity — or on PTO? For context, I'm in final rounds elsewhere — I want to be transparent about that." }
+    - { speaker: Rachel, text: "Appreciated. I can ask for another $10k in RSUs. That's the ceiling." }
+    - { speaker: Yuri, text: "That's close. What would it take to get to $160k base — a level change, or a six-month review?" }
+    - { speaker: Rachel, text: "A level change would mean re-leveling the whole process. The six-month review I can put in writing." }
+    - { speaker: Yuri, text: "Put the review in writing and we have a deal worth considering — let me think about it tonight and get back to you tomorrow." }
+    - { speaker: Rachel, text: "Fair. And Yuri — this is how a negotiation should feel: direct, with reasons, no drama." }
+  notes:
+    - "entusiasmo primeiro ('excited — want to make it work'), depois o pedido com razão."
+    - "o 'não' no base virou sign-on + equity + review por escrito — o pivô funcionando."
+    - "'final rounds elsewhere' — alavancagem honesta, sem ultimato."
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "In the US, negotiating is expected — not negotiating leaves money on the table and offends nobody. The frame: enthusiasm first, then the soft ask with a reason — 'I was hoping for $160k given the on-call scope'." }
+    - { speaker: Yuri, text: "One piece at a time — 'is there flexibility on the equity?' And the pivot on no: 'if the base is fixed, could we look at the sign-on instead?' Every 'no' on one piece is a 'yes' on another." }
+    - { speaker: Rachel, text: "Leverage only if it's true — 'I'm in final rounds elsewhere' without an ultimatum. And 'what would it take to get to $160k?' turns the number into a shared problem. Then take the time — 'let me think about it and get back to you tomorrow'." }
+  questions:
+    - { id: M31-02-l1, type: multiple_choice, prompt: "A primeira camada do pedido de negociação é…", options: ["o entusiasmo — 'I'm excited, I want to make it work'", "o número", "a ameaça", "a comparação"], answer: 0, explanation: "Entusiasmo primeiro — a negociação é cooperação.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-02-l2, type: fill_blank, prompt: "If the base is fixed, could we look at the sign-on ___?", accepted: ["instead"], explanation: "O pivô do 'não'.", tags: [vocab.compensation] }
+    - { id: M31-02-l3, type: error_correction, prompt: "My actual salary is $120k.", accepted: ["My current salary is $120k.", "My current salary is $120k"], explanation: "'Current'.", tags: [br.actual-current] }
+    - { id: M31-02-l4, type: multiple_choice, prompt: "'I was hoping for $160k' funciona porque…", options: ["exige", "espera com razão — tom que mantém a porta aberta", "implora", "blefa"], answer: 1, explanation: "Hoping for + número + given + razão.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-02-l5, type: multiple_choice, prompt: "A alavancagem 'final rounds elsewhere' se usa…", options: ["como ultimato", "como blefe", "só se for verdade, e transparente — sem ameaça", "nunca"], answer: 2, explanation: "Honesta ou não usa.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-02-l6, type: multiple_choice, prompt: "Um 'não' numa peça da oferta significa…", options: ["fim da negociação", "insulto", "sinal para ir embora", "'então me dê X no lugar' — as outras peças ainda movem"], answer: 3, explanation: "Cinco peças móveis, não uma.", tags: [comp.listening, vocab.compensation] }
+
+writing:
+  prompt: |
+    **Cenário:** a Rachel respondeu por e-mail que
+    o base está no teto da banda. O coach pediu
+    por escrito o seu contra-pedido — antes de
+    enviar.
+
+    **Tarefa:** escreva 90–120 palavras: o e-mail
+    de contra-pedido — entusiasmo primeiro, o
+    pedido suave com a razão, o pivô para outra
+    peça do pacote, a alavancagem honesta (se
+    houver) e o fecho com prazo de resposta.
+  constraints:
+    - { label: "O entusiasmo", pattern: "\\bexcited|interested|love|want to make it work|great\\b" }
+    - { label: "O pedido suave", pattern: "\\bhoping for|was hoping|flexibility|could we|would it take\\b" }
+    - { label: "A razão/pivô", pattern: "\\bgiven|scope|instead|sign.on|equity|pto|band\\b" }
+    - { label: "O fecho", pattern: "\\bget back|by (monday|tuesday|wednesday|thursday|friday)|let me|deadline|think about\\b" }
+  rubric:
+    - "Entusiasmo antes do pedido"
+    - "Número com razão, uma peça por vez"
+    - "Pivô do 'não' para outra peça"
+    - "Sem calques ('current salary', 'job offer', 'expectations')"
+  model: >-
+    The counter-email. Opening with enthusiasm:
+    "I'm excited about the role — I want to make
+    it work." Then the soft ask with the reason:
+    "I was hoping for $160k on the base, given the
+    on-call scope and the market." Since the base
+    is at the band's ceiling, the pivot: "could we
+    look at the sign-on instead — $30k would close
+    the first-year gap — or is there flexibility
+    on the equity?" The honest leverage: "for
+    transparency, I'm in final rounds elsewhere."
+    The close: "let me think it over and get back
+    to you by Friday." No ultimatum, no apology —
+    enthusiasm, reason, pivot, deadline.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.compensation]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a conversa de negociação — entusiasmo primeiro, o pedido 'I was hoping for X given Y', o pivô do 'não' ('could we look at the sign-on instead?'), a alavancagem honesta, e o fecho com 'let me think about it and get back to you tomorrow'."
+    maxSeconds: 90
+    targetPhrases:
+      - i'm excited about the role
+      - i want to make it work
+      - i was hoping for
+      - given the scope
+      - is there flexibility on
+      - could we look at the sign-on instead
+      - what would it take to get to
+      - i'm in final rounds elsewhere
+      - i want to be transparent
+      - the whole package
+      - that's above the band i had in mind
+      - let me think about it and get back to you
+      - can you do better on
+      - money on the table
+      - the base is fixed
+      - a level change
+    checklist:
+      - "entusiasmo antes do pedido"
+      - "pedido com número + razão"
+      - "o pivô do 'não' para outra peça"
+      - "fecho com prazo, sem aceite na hora"
+      - "sem calques ('current salary', 'job offer', 'vacation days')"
+
+quiz:
+  - { id: M31-02-q1, type: multiple_choice, prompt: "A ordem do pedido de negociação é…", options: ["pedido → entusiasmo", "ultimato → número", "razão → desculpa", "entusiasmo → pedido com razão → pivô se 'não'"], answer: 3, explanation: "Entusiasmo primeiro, sempre.", tags: [vocab.compensation] }
+  - { id: M31-02-q2, type: error_correction, prompt: "We have a thirteenth salary in Brazil.", accepted: ["We have a 13th-month bonus in Brazil.", "We have a 13th-month bonus in Brazil", "We have a year-end bonus in Brazil."], explanation: "'13th-month/year-end bonus'.", tags: [br.thirteenth-salary] }
+  - { id: M31-02-q3, type: multiple_choice, prompt: "'Is there flexibility on…?' pergunta…", options: ["no pacote todo", "numa peça de cada vez", "só no base", "só no equity"], answer: 1, explanation: "Uma peça por vez.", tags: [vocab.compensation] }
+  - { id: M31-02-q4, type: fill_blank, prompt: "What would it ___ to get to $160k — a level change?", accepted: ["take"], explanation: "'What would it take' — o número como problema conjunto.", tags: [vocab.compensation] }
+  - { id: M31-02-q5, type: multiple_choice, prompt: "O erro do brasileiro na negociação é…", options: ["aceitar na hora por medo de parecer ingrato — ou pedir com tom de desculpa", "pedir demais", "negociar por e-mail", "falar de dinheiro"], answer: 0, explanation: "Não negociar deixa dinheiro na mesa.", tags: [vocab.compensation] }
+  - { id: M31-02-q6, type: error_correction, prompt: "Can I negotiate more vacations?", accepted: ["Can I negotiate more vacation days?", "Can I negotiate more vacation days", "Can I negotiate more PTO?"], explanation: "'Vacation days/PTO'.", tags: [br.more-vacations] }
+  - { id: M31-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["was", "i", "hoping", "for", "base", "the", "on", "$160k"], answer: "i was hoping for $160k on the base", explanation: "O pedido suave.", tags: [vocab.compensation] }
+  - { id: M31-02-q8, type: multiple_choice, prompt: "Depois do contra-pedido, o fecho é…", options: ["aceitar na hora", "exigir resposta hoje", "'let me think about it and get back to you tomorrow'", "sumir"], answer: 2, explanation: "Tempo com data marcada.", tags: [vocab.compensation] }
+
+srsCards:
+  - { front: "I was hoping for…", back: "O pedido suave — esperar, não exigir.", tag: vocab.compensation }
+  - { front: "is there flexibility on…?", back: "A pergunta por peça do pacote.", tag: vocab.compensation }
+  - { front: "given the scope of…", back: "A razão que justifica o número.", tag: vocab.compensation }
+  - { front: "I'm in final rounds elsewhere", back: "A alavancagem honesta — sem ultimato.", tag: vocab.compensation }
+  - { front: "could we look at the sign-on instead?", back: "O pivô do 'não' para outra peça.", tag: vocab.compensation }
+  - { front: "what would it take to get to…?", back: "O número como problema conjunto.", tag: vocab.compensation }
+  - { front: "I'm excited about the role — I want to make it work", back: "O entusiasmo que ancora a negociação.", tag: vocab.compensation }
+  - { front: "that's above/below the band I had in mind", back: "Nomear a faixa sem confronto.", tag: vocab.compensation }
+  - { front: "can you do better on…?", back: "O pedido direto mas leve.", tag: vocab.compensation }
+  - { front: "I don't want to leave money on the table, but…", back: "Saber quando parar.", tag: vocab.compensation }
+  - { front: "let me think about it and get back to you", back: "Tempo com data marcada.", tag: vocab.compensation }
+  - { front: "the whole package", back: "Cinco peças móveis, não uma.", tag: vocab.compensation }
+
+review:
+  preferTags: [vocab.compensation, br.actual-current, br.thirteenth-salary, br.job-proposal]
+  notes: "Revisão prioriza as molduras do pedido e o pivô do 'não'."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
