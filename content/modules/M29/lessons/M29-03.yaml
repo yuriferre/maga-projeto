@@ -1,0 +1,321 @@
+id: M29-03
+module: M29
+order: 3
+title: "Pontos fracos, gaps, mudanças de emprego e demissões — sem defensividade"
+objective: >-
+  Ao final, você sabe responder às perguntas
+  desconfortáveis — maior fraqueza, gap no
+  currículo, por que saiu, foi demitido — com
+  fatos, contexto e o que mudou depois, sem soar
+  defensivo.
+durationMin: 30
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M29-02]
+
+context:
+  scenario: |
+    As perguntas que todo brasileiro teme — e que
+    quase sempre chegam:
+
+    - **"What's your biggest weakness?"** — a
+      fraqueza real + o que você faz sobre ela.
+      Nunca "perfectionism" sozinho (já é clichê) —
+      e nunca "defect".
+    - **"Why did you leave?"** — o motivo em uma
+      frase neutra + o que você procura. Nunca
+      fale mal do empregador anterior.
+    - **"I see a gap in 2022 — what happened?"** —
+      o gap nomeado + o que você fez nele + o
+      retorno.
+    - **"Were you let go?"** — se foi: fato, sem
+      drama, + o contexto (layoff de 30%, não
+      performance) + o que mudou.
+
+    A estrutura das respostas difíceis é sempre a
+    mesma: **fato → contexto → mudança → frente**.
+    "*I was let go in a 30% layoff (fato + contexto)
+    — I used the gap to get certified (mudança) —
+    and I'm looking for a platform role now
+    (frente).*"
+
+    O erro do brasileiro: a resposta defensiva —
+    justificativa demais, detalhe demais, emoção
+    demais. O tom certo é **matter-of-fact**: curto,
+    neutro, olhando para frente.
+  roles: [Yuri (platform engineer), Marcus (eng manager, interviewer)]
+
+vocabulary:
+  - term: "what's your biggest weakness?"
+    meaning: 'qual sua maior fraqueza? — a pergunta inevitável'
+    example: "So — what's your biggest weakness?"
+    translation: "Então — qual é a sua maior fraqueza?"
+    note: "Fraqueza real + o que você faz sobre ela — nunca 'defect'."
+  - term: "it's something I've been working on"
+    meaning: 'é algo em que venho trabalhando — fraqueza + ação'
+    example: "I tend to over-document — it's something I've been working on with shorter memos."
+    translation: "Tenho tendência a documentar demais — é algo em que venho trabalhando com memos mais curtos."
+    note: "A fraqueza vem sempre com a ação corretiva."
+  - term: "why did you leave?"
+    meaning: 'por que você saiu? — a pergunta sobre a saída'
+    example: "Why did you leave your last role?"
+    translation: "Por que você saiu do último emprego?"
+    note: "Uma frase neutra + o que você procura — nunca fale mal."
+  - term: "I was let go in a layoff"
+    meaning: 'fui demitido num layoff — a demissão nomeada sem drama'
+    example: "I was let go in a 30% layoff — it was business, not performance."
+    translation: "Fui demitido num layoff de 30% — foi negócio, não performance."
+    note: "'Let go' é o termo neutro — 'fired' carrega culpa."
+  - term: "there's a gap in 2022"
+    meaning: 'há um gap em 2022 — o intervalo no currículo'
+    example: "I see a gap between 2021 and 2022 — what happened there?"
+    translation: "Vejo um intervalo entre 2021 e 2022 — o que aconteceu aí?"
+    note: "O gap sempre será notado — prepare a resposta."
+  - term: "I used the gap to…"
+    meaning: 'usei o intervalo para… — o gap com propósito'
+    example: "I used the gap to get CKA-certified and do two consulting gigs."
+    translation: "Usei o intervalo para tirar a certificação CKA e fazer dois freelas de consultoria."
+    note: "O gap com propósito não é gap — é investimento."
+  - term: "looking for a better fit"
+    meaning: 'procurando um encaixe melhor — a saída neutra'
+    example: "I left looking for a better fit — more platform work, less maintenance."
+    translation: "Saí procurando um encaixe melhor — mais plataforma, menos manutenção."
+    note: "O motivo olhando para frente, não para trás."
+  - term: "it was a mutual decision"
+    meaning: 'foi uma decisão mútua — a saída sem vilão'
+    example: "Leaving was a mutual decision — the role had shifted away from what I do best."
+    translation: "Sair foi uma decisão mútua — o papel tinha mudado para longe do que faço melhor."
+    note: "Neutro e maduro — ninguém é o vilão."
+  - term: "the role had shifted"
+    meaning: 'o papel tinha mudado — a saída por evolução'
+    example: "The role had shifted from building to maintenance — not what I signed up for."
+    translation: "O papel tinha mudado de construção para manutenção — não foi para isso que entrei."
+    note: "Contexto sem reclamação."
+  - term: "I'd rather be upfront about it"
+    meaning: 'prefiro ser direto sobre isso — a postura honesta'
+    example: "I'd rather be upfront about it — the gap was a layoff, and I used it well."
+    translation: "Prefiro ser direto sobre isso — o gap foi um layoff, e eu o usei bem."
+    note: "A honestidade direta desarma a pergunta."
+  - term: "matter-of-fact"
+    meaning: 'de forma objetiva — o tom das respostas difíceis'
+    example: "Answer layoff questions matter-of-fact — short, neutral, looking forward."
+    translation: "Responda perguntas sobre layoff de forma objetiva — curto, neutro, olhando para frente."
+    note: "O tom: fato, não drama."
+  - term: "that's on me"
+    meaning: 'essa é minha — assumir a parte que é sua'
+    example: "The failed deploy? That's on me — I skipped the drill."
+    translation: "O deploy que falhou? Essa é minha — pulei o drill."
+    note: "Assumir a parte sua lê como senioridade."
+
+grammar:
+  title: "a gramática das respostas difíceis"
+  explanation: |
+    A estrutura é **fato → contexto → mudança →
+    frente**:
+
+    - **Fato** no simple past, neutro: "*I was let
+      go*", "*I left*", "*the role had shifted*".
+    - **Contexto** em uma cláusula: "*in a 30%
+      layoff*", "*not what I signed up for*".
+    - **Mudança** com ação: "*I used the gap to…*",
+      "*it's something I've been working on*"
+      (present perfect continuous — a ação
+      continua).
+    - **Frente** no present/looking forward:
+      "*I'm looking for a platform role*".
+
+    Os marcadores de postura:
+
+    - "**I'd rather be upfront about it**" —
+      honestidade direta.
+    - "**That's on me**" — assumir a parte sua.
+    - "**Matter-of-fact**" — o tom: fato, não drama.
+
+    E nunca: falar mal do empregador anterior —
+    quem ouve pensa "vai falar de mim assim também".
+  examples:
+    - { en: "I was let go in a 30% layoff — I used the gap to get certified.", pt: "Fui demitido num layoff de 30% — usei o intervalo para me certificar." }
+    - { en: "I tend to over-document — it's something I've been working on.", pt: "Tendo a documentar demais — é algo em que venho trabalhando." }
+    - { en: "I left looking for a better fit — more building, less maintenance.", pt: "Saí procurando um encaixe melhor — mais construção, menos manutenção." }
+    - { en: "Leaving was a mutual decision — the role had shifted.", pt: "Sair foi uma decisão mútua — o papel tinha mudado." }
+    - { en: "I'd rather be upfront about it — the gap was a layoff.", pt: "Prefiro ser direto — o gap foi um layoff." }
+    - { en: "The failed deploy? That's on me — I skipped the drill.", pt: "O deploy que falhou? Essa é minha — pulei o drill." }
+
+examples:
+  - en: "My weakness? I over-document — it's something I've been working on with shorter memos."
+    pt: "Minha fraqueza? Documento demais — venho trabalhando nisso com memos mais curtos."
+    context: "Fraqueza real + ação corretiva."
+  - en: "I was let go in a 30% layoff — business, not performance."
+    pt: "Fui demitido num layoff de 30% — negócio, não performance."
+    context: "Fato + contexto, sem drama."
+  - en: "I used the gap to get CKA-certified and do two consulting gigs."
+    pt: "Usei o intervalo para tirar a CKA e fazer dois freelas."
+    context: "O gap com propósito."
+  - en: "I left looking for a better fit — more platform work, less maintenance."
+    pt: "Saí procurando encaixe melhor — mais plataforma, menos manutenção."
+    context: "O motivo olhando para frente."
+  - en: "Leaving was a mutual decision — the role had shifted away from building."
+    pt: "Sair foi mútuo — o papel tinha mudado para longe de construção."
+    context: "Neutro, sem vilão."
+  - en: "I'd rather be upfront about it — that gap was a layoff, and I used it well."
+    pt: "Prefiro ser direto — aquele gap foi um layoff, e usei bem."
+    context: "A honestidade que desarma."
+  - en: "The failed deploy? That's on me — I skipped the failover drill."
+    pt: "O deploy que falhou? Essa é minha — pulei o drill de failover."
+    context: "Assumir a parte sua."
+  - en: "Since then I've kept my docs shorter — the weakness became a habit I'm fixing."
+    pt: "Desde então mantenho os docs mais curtos — a fraqueza virou um hábito que estou corrigindo."
+    context: "A mudança em andamento — present perfect continuous."
+
+variations:
+  - idea: '"a pergunta da fraqueza"'
+    items:
+      - { register: "Forte", text: "I over-document — it's something I've been working on with shorter memos.", adequate: true }
+      - { register: "Forte", text: "I used to avoid conflict — I've been practicing disagreeing earlier.", adequate: true }
+      - { register: "Fraco", text: "My defect is perfectionism.", adequate: false, note: "Clichê + calque — 'weakness' e uma fraqueza de verdade." }
+      - { register: "Fraco", text: "I don't really have any.", adequate: false, note: "Sem fraqueza = sem autoconsciência — pior que a fraqueza." }
+  - idea: '"a pergunta da saída/demissão"'
+    items:
+      - { register: "Forte", text: "I was let go in a 30% layoff — I used the gap to get certified.", adequate: true }
+      - { register: "Forte", text: "It was mutual — the role had shifted from building to maintenance.", adequate: true }
+      - { register: "Fraco", text: "My manager was terrible — worst company ever.", adequate: false, note: "Falar mal do anterior lê como 'vai falar de mim assim'." }
+      - { register: "Fraco", text: "(cinco minutos de justificativa defensiva)", adequate: false, note: "Defensividade é o que a pergunta mede — fato, contexto, frente." }
+
+brErrors:
+  - { wrong: "My defect is over-documenting.", right: "My weakness is over-documenting.", why: "weakness", tag: br.my-defect }
+  - { wrong: "It's already 3 years that I was there.", right: "It's been three years since I joined.", why: "it's been X since", tag: br.its-already-years }
+  - { wrong: "I make part of the layoff stats.", right: "I'm part of the layoff stats.", why: "I'm part of", tag: br.make-part-of }
+  - { wrong: "In that epoch the company grew fast.", right: "At that time the company grew fast.", why: "at that time", tag: br.in-that-epoch }
+  - { wrong: "I have interest in the role.", right: "I'm interested in the role.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I need to give two weeks advice.", right: "I need to give two weeks' notice.", why: "notice", tag: br.advice-notice }
+  - { wrong: "My pretension is platform work.", right: "My goal is platform work.", why: "goal", tag: br.pretension }
+  - { wrong: "I work there since the gap.", right: "I've been there since the gap.", why: "I've been", tag: br.work-since }
+  - { wrong: "We discussed about my exit.", right: "We discussed my exit.", why: "discussed my exit", tag: br.discuss-about }
+  - { wrong: "In my vision the role had shifted.", right: "In my view the role had shifted.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "As perguntas difíceis"
+  lines:
+    - { speaker: Marcus, text: "What's your biggest weakness?" }
+    - { speaker: Yuri, text: "Honestly? I over-document — I write three-page memos where a paragraph would do. It's something I've been working on — I now cap design notes at one page." }
+    - { speaker: Marcus, text: "Fair. I see a gap in 2022 — what happened there?" }
+    - { speaker: Yuri, text: "I'd rather be upfront about it: I was let go in a 30% layoff. Business, not performance — the whole platform team went. I used the gap to get CKA-certified and did two consulting gigs." }
+    - { speaker: Marcus, text: "And before that — why did you leave the startup?" }
+    - { speaker: Yuri, text: "Mutual decision. The role had shifted from building to maintenance — not what I signed up for. I'm looking for a better fit now: platform work with real scale." }
+    - { speaker: Marcus, text: "You answer these matter-of-fact — no defensiveness. Good." }
+    - { speaker: Yuri, text: "Fact, context, what changed, forward. The gap taught me more than a quiet year would have." }
+    - { speaker: Marcus, text: "That's exactly the tone that works." }
+  notes:
+    - "fraqueza real + ação ('cap design notes at one page') — nunca 'perfectionism' sozinho."
+    - "gap: fato ('let go in a 30% layoff') + contexto ('whole team went') + mudança ('CKA, gigs') + frente."
+    - "saída: 'mutual decision' + 'the role had shifted' — sem vilão, olhando para frente."
+
+listening:
+  lines:
+    - { speaker: Marcus, text: "The hard questions always come: biggest weakness, the gap, why you left, were you let go. The structure is the same every time — fact, context, change, forward. 'I was let go in a 30% layoff — I used the gap to get certified — and I'm looking for a platform role now.'" }
+    - { speaker: Yuri, text: "The tone is matter-of-fact — short, neutral, looking forward. Never badmouth the old employer; the listener thinks 'he'll talk about me that way too'. And the weakness needs a real one plus what you're doing about it — 'perfectionism' alone is a cliché they hear weekly." }
+    - { speaker: Marcus, text: "Two phrases I trust: 'I'd rather be upfront about it' and 'that's on me'. Owning your part reads as seniority — defensiveness reads as the opposite." }
+  questions:
+    - { id: M29-03-l1, type: multiple_choice, prompt: "A estrutura da resposta difícil é…", options: ["desculpa → drama → promessa", "fato → contexto → mudança → frente", "negação → justificativa", "silêncio → mudança de assunto"], answer: 0, explanation: "Fato, contexto, mudança, frente — sempre.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-03-l2, type: fill_blank, prompt: "I used the ___ to get CKA-certified.", accepted: ["gap"], explanation: "'Used the gap to' — o intervalo com propósito.", tags: [vocab.interview] }
+    - { id: M29-03-l3, type: error_correction, prompt: "My defect is over-documenting.", accepted: ["My weakness is over-documenting.", "My weakness is over-documenting", "My biggest weakness is over-documenting."], explanation: "'Weakness'.", tags: [br.my-defect] }
+    - { id: M29-03-l4, type: multiple_choice, prompt: "Falar mal do empregador anterior lê como…", options: ["honestidade", "coragem", "senso de humor", "'ele vai falar de mim assim também'"], answer: 3, explanation: "Quem ouve se projeta como próximo alvo.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-03-l5, type: multiple_choice, prompt: "'I was let go in a 30% layoff' funciona porque…", options: ["vitimiza", "fato + contexto — layoff de 30% não é performance", "esconde", "dramatiza"], answer: 2, explanation: "O contexto faz o trabalho — 'the whole team went'.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-03-l6, type: multiple_choice, prompt: "O tom certo para respostas difíceis é…", options: ["emocional", "defensivo", "matter-of-fact — curto, neutro, para frente", "ensaiado"], answer: 2, explanation: "Fato, não drama.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** a preparação pede por escrito as
+    respostas para as três perguntas difíceis que
+    você sabe que vão chegar.
+
+    **Tarefa:** escreva 90–120 palavras: três
+    respostas na estrutura fato→contexto→mudança→
+    frente — 1) a fraqueza real + a ação corretiva,
+    2) o gap ou a saída + o contexto + o que você
+    fez, 3) o que você procura agora (a frente).
+  constraints:
+    - { label: "A fraqueza + ação", pattern: "\\bweakness|tend to|working on|over-|i've been\\b" }
+    - { label: "O fato + contexto", pattern: "\\blet go|layoff|mutual|role had shifted|gap|left\\b" }
+    - { label: "A mudança", pattern: "\\bused the gap|certified|certification|learned|changed|since then\\b" }
+    - { label: "A frente", pattern: "\\blooking for|looking forward|better fit|now|next\\b" }
+  rubric:
+    - "Estrutura fato→contexto→mudança→frente"
+    - "Tom matter-of-fact, sem defensividade"
+    - "Nada contra o empregador anterior"
+    - "Sem calques ('weakness', 'it's been', 'interested')"
+  model: >-
+    The three hard answers: - Weakness: I tend to
+    over-document — it's something I've been working
+    on; I now cap design notes at one page. - The
+    gap: I was let go in a 30% layoff — business,
+    not performance. I used the gap to get
+    CKA-certified and ran two consulting gigs —
+    honestly, I learned more that year than in a
+    quiet one. - What I'm looking for: a platform
+    role with real scale — somewhere I can build
+    rather than just maintain. Fact, context, what
+    changed, forward — that's the whole structure.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: as três perguntas difíceis em sequência — 'what's your biggest weakness?', 'I see a gap — what happened?', 'why did you leave?'. Cada uma na estrutura fato→contexto→mudança→frente, tom matter-of-fact."
+    maxSeconds: 90
+    targetPhrases:
+      - what's your biggest weakness
+      - it's something i've been working on
+      - i was let go
+      - layoff
+      - i used the gap to
+      - i'd rather be upfront about it
+      - that's on me
+      - looking for a better fit
+      - the role had shifted
+      - mutual decision
+      - matter-of-fact
+      - why did you leave
+      - business, not performance
+      - i'm looking for
+      - what i learned
+      - moving forward
+    checklist:
+      - "três respostas na estrutura fato→contexto→mudança→frente"
+      - "tom matter-of-fact — sem defensividade"
+      - "fraqueza real + ação corretiva"
+      - "sem calques ('weakness', 'it's been', 'interested', 'notice')"
+
+quiz:
+  - { id: M29-03-q1, type: multiple_choice, prompt: "A estrutura da resposta difícil é…", options: ["fato → contexto → mudança → frente", "desculpa → explicação → promessa", "negação → defesa", "história → moral"], answer: 0, explanation: "Sempre as quatro batidas.", tags: [vocab.interview] }
+  - { id: M29-03-q2, type: error_correction, prompt: "It's already 3 years that I was at the startup.", accepted: ["It's been three years since I joined the startup.", "It's been three years since I joined the startup", "I was at the startup three years ago."], explanation: "'It's been X since'.", tags: [br.its-already-years] }
+  - { id: M29-03-q3, type: multiple_choice, prompt: "A fraqueza certa tem…", options: ["'perfectionism' sozinho", "uma real + o que você faz sobre ela", "nenhuma", "'I work too hard'"], answer: 2, explanation: "Real + ação corretiva.", tags: [vocab.interview] }
+  - { id: M29-03-q4, type: fill_blank, prompt: "Leaving was a ___ decision — the role had shifted.", accepted: ["mutual"], explanation: "'Mutual decision' — saída sem vilão.", tags: [vocab.interview] }
+  - { id: M29-03-q5, type: multiple_choice, prompt: "'That's on me' sinaliza…", options: ["culpa excessiva", "fraqueza", "confissão", "assumir a parte sua — senioridade"], answer: 3, explanation: "Owning your part reads as senior.", tags: [vocab.interview] }
+  - { id: M29-03-q6, type: error_correction, prompt: "I make part of the team since March.", accepted: ["I've been part of the team since March.", "I've been part of the team since March", "I joined the team in March."], explanation: "'Part of' + present perfect.", tags: [br.make-part-of, br.work-since] }
+  - { id: M29-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["rather", "upfront", "i'd", "be", "it", "about"], answer: "i'd rather be upfront about it", explanation: "A honestidade que desarma.", tags: [vocab.interview] }
+  - { id: M29-03-q8, type: multiple_choice, prompt: "O gap no currículo se responde com…", options: ["esconder", "vergonha", "fato + o que você fez nele — 'I used the gap to…'", "mudar de assunto"], answer: 2, explanation: "O gap com propósito não é gap.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "what's your biggest weakness?", back: "Fraqueza real + ação — nunca 'defect', nunca 'perfectionism' sozinho.", tag: vocab.interview }
+  - { front: "it's something I've been working on", back: "A fraqueza vem com a ação corretiva.", tag: vocab.interview }
+  - { front: "why did you leave?", back: "Uma frase neutra + o que você procura.", tag: vocab.interview }
+  - { front: "I was let go in a layoff", back: "Demissão sem drama — 'business, not performance'.", tag: vocab.interview }
+  - { front: "there's a gap in 2022", back: "O gap sempre é notado — prepare a resposta.", tag: vocab.interview }
+  - { front: "I used the gap to…", back: "O intervalo com propósito — certificação, gigs, aprendizado.", tag: vocab.interview }
+  - { front: "looking for a better fit", back: "A saída olhando para frente.", tag: vocab.interview }
+  - { front: "it was a mutual decision", back: "A saída sem vilão.", tag: vocab.interview }
+  - { front: "the role had shifted", back: "Contexto sem reclamação.", tag: vocab.interview }
+  - { front: "I'd rather be upfront about it", back: "A honestidade direta desarma a pergunta.", tag: vocab.interview }
+  - { front: "matter-of-fact", back: "O tom das respostas difíceis — fato, não drama.", tag: vocab.interview }
+  - { front: "that's on me", back: "Assumir a parte sua lê como senioridade.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.my-defect, br.its-already-years]
+  notes: "Revisão prioriza a estrutura das respostas difíceis e os calques novos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
