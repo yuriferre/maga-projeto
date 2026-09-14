@@ -1,0 +1,292 @@
+id: M19-02
+module: M19
+order: 2
+title: "Reportando: urgência sem pânico, canal certo"
+objective: >-
+  Ao final, você reporta um problema de segurança com a urgência
+  certa, no canal certo, com o que incluir — e sabe o que nunca
+  escrever em canal aberto.
+durationMin: 35
+competencies: [WRI, SPK]
+tags: [vocab.security, comp.writing, comp.speaking]
+prerequisites: [M19-01]
+
+context:
+  scenario: |
+    Terça, 9h: você acha uma chave de API commitada num repo
+    público. A tentação é postar no canal geral — e é exatamente
+    aí que a maioria erra.
+
+    Reportar segurança tem protocolo próprio:
+
+    - **canal certo** — o canal privado de segurança ou o
+      security@ da empresa. Nunca o canal público: quem lê um
+      segredo exposto em canal aberto inclui quem não devia.
+    - **urgência proporcional** — "**heads up, possible security
+      issue**" abre a conversa; o tom é factual, não alarmista.
+      Pânico gera pânico — e esconde o fato.
+    - **o que incluir** — o que você viu, onde, quando, e o que já
+      fez: "found a key in the repo, committed Tuesday, already
+      rotated".
+    - **o que NÃO escrever** — o próprio segredo, prints com o
+      segredo visível, nomes para culpar. "**Redacted**" —
+      o segredo vai mascarado ou não vai.
+    - **assume it's real** — reporte mesmo com dúvida: "might be
+      nothing, but…". Falso positivo é barato; silêncio é caro.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend), Rafa (security)]
+
+vocabulary:
+  - term: "heads up"
+    meaning: 'o aviso — abrindo o reporte sem alarme'
+    example: "Heads up — possible security issue in the public repo."
+    translation: "Aviso — possível problema de segurança no repo público."
+    note: "Abertura padrão: alerta sem pânico."
+  - term: "the right channel"
+    meaning: 'o canal certo — privado de segurança, nunca o público'
+    example: "Report it in #security, not in the public channel."
+    translation: "Reporte no #security, não no canal público."
+    note: "Canal aberto vaza o segredo para quem não devia ler."
+  - term: "redacted"
+    meaning: 'mascarado — o segredo omitido ou cortado'
+    example: "I pasted the line with the key redacted."
+    translation: "Colei a linha com a chave mascarada."
+    note: "Nunca cole o segredo — 'redacted' ou nada."
+  - term: "possible security issue"
+    meaning: 'possível problema de segurança — a formulação contida'
+    example: "Possible security issue — a key was committed to the repo."
+    translation: "Possível problema de segurança — uma chave foi commitada no repo."
+    note: "'Possible' protege a dúvida sem diminuir a urgência."
+  - term: "already rotated"
+    meaning: 'já rotacionada — a ação que você tomou antes de reportar'
+    example: "The key was already rotated — the report is for the record."
+    translation: "A chave já foi rotacionada — o reporte é para registro."
+    note: "Reporte o que fez: 'found, rotated, reporting now'."
+  - term: "assume it's real"
+    meaning: 'assuma que é real — reporte mesmo com dúvida'
+    example: "Assume it's real — might be nothing, but report it."
+    translation: "Assuma que é real — pode não ser nada, mas reporte."
+    note: "Falso positivo é barato; silêncio é caro."
+  - term: "don't post the secret"
+    meaning: 'não poste o segredo — nem para provar'
+    example: "Don't post the secret itself — describe where it is."
+    translation: "Não poste o segredo em si — descreva onde ele está."
+    note: "Print com segredo visível = segunda exposição."
+  - term: "loop in security"
+    meaning: 'chamar o time de segurança — trazer para a conversa'
+    example: "I'm looping in security — they'll take it from here."
+    translation: "Estou trazendo a segurança — eles assumem daqui."
+    note: "'Loop in X' = trazer X para o fio."
+  - term: "treat it as exposed"
+    meaning: 'trate como exposto — se tocou o público, vazou'
+    example: "If it was in the public repo, treat it as exposed."
+    translation: "Se estava no repo público, trate como exposto."
+    note: "A regra: commitado = comprometido."
+  - term: "who needs to know"
+    meaning: 'quem precisa saber — o círculo mínimo do reporte'
+    example: "Keep it to who needs to know — security and the on-call."
+    translation: "Restrinja a quem precisa saber — segurança e o plantão."
+    note: "Need-to-know = o círculo mínimo, não o canal cheio."
+  - term: "no names in the report"
+    meaning: 'sem nomes no reporte — o fato, não o culpado'
+    example: "Report the commit, not who committed it."
+    translation: "Reporte o commit, não quem commitou."
+    note: "Blameless vale aqui também — o sistema falhou em bloquear."
+  - term: "escalate"
+    meaning: 'escalar — subir para quem pode agir'
+    example: "If it's in production, escalate to the security on-call."
+    translation: "Se está em produção, escale para o plantão de segurança."
+    note: "Escale rápido — 'I'll escalate this now'."
+
+grammar:
+  title: "a estrutura do reporte: heads up → fato → onde → o que fiz"
+  explanation: |
+    O reporte de segurança tem quatro batidas, nessa ordem:
+
+    1. **heads up** — "heads up, possible security issue".
+    2. **o fato** — "an API key was committed to the public repo".
+    3. **onde/quando** — "committed Tuesday, in `config/prod.yaml`".
+    4. **o que já fiz** — "I've already rotated it; reporting for
+       the record".
+
+    O que fica fora: o segredo ("redacted"), o nome de quem
+    commitou ("no names"), e o canal errado ("the right channel
+    is #security"). E o modal sem "to": "**we must rotate**",
+    nunca "must to rotate".
+  examples:
+    - { en: "Heads up — possible security issue in the public repo.", pt: "Aviso — possível problema de segurança no repo público." }
+    - { en: "An API key was committed Tuesday — I've already rotated it.", pt: "Uma chave de API foi commitada terça — já rotacionei." }
+    - { en: "Don't post the key itself — I'll share it redacted in DM.", pt: "Não poste a chave em si — compartilho mascarada no DM." }
+    - { en: "Might be nothing, but I'm reporting it — assume it's real.", pt: "Pode não ser nada, mas estou reportando — assuma que é real." }
+    - { en: "Treat anything in the public repo as exposed.", pt: "Trate qualquer coisa no repo público como exposta." }
+    - { en: "We must rotate the keys — never 'must to rotate'.", pt: "Devemos rotacionar as chaves — nunca 'must to rotate'." }
+
+examples:
+  - en: "Heads up — possible security issue: a key in the public repo."
+    pt: "Aviso — possível problema de segurança: uma chave no repo público."
+    context: "A abertura."
+  - en: "Right channel first — this goes to #security, not here."
+    pt: "Canal certo primeiro — isso vai para o #security, não aqui."
+    context: "O redirecionamento."
+  - en: "Found it Tuesday, rotated it this morning, reporting now."
+    pt: "Achei terça, rotacionei hoje de manhã, reportando agora."
+    context: "O fato + o que fiz."
+  - en: "I pasted the line with the key redacted — the full string is in the vault ticket."
+    pt: "Colei a linha com a chave mascarada — a string completa está no ticket do vault."
+    context: "O segredo mascarado."
+  - en: "Assume it's real — might be nothing, but we treat it as exposed."
+    pt: "Assuma que é real — pode não ser nada, mas tratamos como exposto."
+    context: "A regra do falso positivo."
+  - en: "I'm looping in security — Rafa takes it from here."
+    pt: "Estou trazendo a segurança — o Rafa assume daqui."
+    context: "O handoff."
+  - en: "Keep it to who needs to know — no names, no screenshots."
+    pt: "Restrinja a quem precisa saber — sem nomes, sem prints."
+    context: "O círculo mínimo."
+  - en: "If it touched production, escalate now — don't wait for standup."
+    pt: "Se tocou produção, escale agora — não espere a daily."
+    context: "A urgência proporcional."
+
+variations:
+  - idea: '"o canal certo"'
+    items:
+      - { register: "Boa", text: "Reported in #security with the key redacted.", adequate: true }
+      - { register: "Boa", text: "Looping in security — moving this thread to the private channel.", adequate: true }
+      - { register: "Inadequada", text: "FYI everyone — found this API key in the repo: sk_live_51H…", adequate: false, note: "O segredo em canal aberto é a segunda exposição — canal privado + 'redacted'." }
+      - { register: "Inadequada", text: "Marcos committed a live key — check the repo!!!", adequate: false, note: "Nome + alarme — reporte o fato, não o culpado; urgência sem pânico." }
+  - idea: '"urgência proporcional"'
+    items:
+      - { register: "Boa", text: "Heads up — possible security issue, already rotated.", adequate: true }
+      - { register: "Boa", text: "Might be nothing, but reporting — assume it's real.", adequate: true }
+      - { register: "Inadequada", text: "WE'RE ALL COMPROMISED — EVERYTHING IS ON FIRE", adequate: false, note: "Pânico esconde o fato — o tom é factual." }
+      - { register: "Inadequada", text: "I'll mention it at the next retro, maybe.", adequate: false, note: "Segredo exposto não espera cerimônia — reporte já." }
+
+brErrors:
+  - { wrong: "We must to rotate the key today.", right: "We must rotate the key today.", why: "must rotate", tag: br.modal-to }
+  - { wrong: "You should to report it in #security.", right: "You should report it in #security.", why: "should report", tag: br.modal-to }
+  - { wrong: "The issue is critic — escalate now.", right: "The issue is critical — escalate now.", why: "critical", tag: br.is-critic }
+  - { wrong: "The repo is in compliance to the policy.", right: "The repo is in compliance with the policy.", why: "with", tag: br.in-compliance-to }
+  - { wrong: "The tester explored the vuln in staging.", right: "The tester exploited the vuln in staging.", why: "exploited", tag: br.explored-vuln }
+  - { wrong: "The key was wrote in the config.", right: "The key was written in the config.", why: "was written", tag: br.was-past }
+  - { wrong: "The channel not reached security.", right: "The channel didn't reach security.", why: "didn't reach", tag: br.it-not-works }
+  - { wrong: "The report is in Thursday.", right: "The report is on Thursday.", why: "on Thursday", tag: br.in-weekday }
+  - { wrong: "I have a doubt about this finding.", right: "I have a question about this finding.", why: "question", tag: br.doubt }
+  - { wrong: "The commit of Tuesday exposed the key.", right: "Tuesday's commit exposed the key.", why: "Tuesday's commit", tag: br.of-weekday }
+
+dialogue:
+  title: "O reporte no canal certo"
+  lines:
+    - { speaker: Yuri, text: "Heads up — possible security issue. An API key was committed to the public repo on Tuesday." }
+    - { speaker: Priya, text: "Good catch. Right channel — move it to #security?" }
+    - { speaker: Yuri, text: "Already there. I've rotated the key this morning; this report is for the record." }
+    - { speaker: Rafa, text: "Did you post the key anywhere?" }
+    - { speaker: Yuri, text: "No — I pasted the line redacted. The full string is only in the vault ticket." }
+    - { speaker: Rafa, text: "Perfect. Who needs to know?" }
+    - { speaker: Yuri, text: "Security and the on-call — that's it. And no names in the report; the scanner should've caught it." }
+    - { speaker: Rafa, text: "Right — the commit isn't the story, the missing guardrail is. Anything else touched?" }
+    - { speaker: Yuri, text: "Might be nothing, but the same repo had a second key last month — treat it as exposed, I'll escalate." }
+    - { speaker: Rafa, text: "Do it. Assume it's real — rotate that one too." }
+  notes:
+    - "o fluxo completo: heads up → fato → canal → o que fiz → círculo mínimo → escalate."
+    - "'the missing guardrail' — blameless vale em segurança também."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Reporting a security issue has a protocol. Right channel first — the private security channel or the security@ address, never the public one; whoever reads an exposed secret in an open channel includes who shouldn't. Then the four beats: 'heads up, possible security issue', the fact, where and when, and what you already did — 'found Tuesday, rotated this morning'." }
+    - { speaker: Marcos, text: "What stays out: the secret itself — paste it 'redacted' or don't paste it; a screenshot with the key visible is a second exposure. No names — report the commit, not who committed it. And keep it to who needs to know: security and the on-call." }
+    - { speaker: Yuri, text: "And the doubt rule: assume it's real. 'Might be nothing, but I'm reporting it.' A false positive is cheap; silence is expensive. If it touched the public repo, treat it as exposed — committed means compromised." }
+  questions:
+    - { id: M19-02-l1, type: multiple_choice, prompt: "Where does a security report go first?", options: ["#security or security@ — the private channel", "the public channel — more eyes", "the team standup", "a ticket next sprint"], answer: 0, explanation: "Canal privado — o público vaza o segredo.", tags: [comp.listening, vocab.security] }
+    - { id: M19-02-l2, type: multiple_choice, prompt: "What stays out of the report?", options: ["the timestamps", "the secret itself — paste it redacted", "the repo name", "what you did"], answer: 1, explanation: "O segredo nunca vai no texto.", tags: [comp.listening, vocab.security] }
+    - { id: M19-02-l3, type: fill_blank, prompt: "___ up — possible security issue in the public repo.", accepted: ["heads"], explanation: '"Heads up" — a abertura contida.', tags: [vocab.security] }
+    - { id: M19-02-l4, type: error_correction, prompt: "We must to rotate the key today.", accepted: ["We must rotate the key today.", "We must rotate the key today"], explanation: "must rotate.", tags: [br.modal-to] }
+    - { id: M19-02-l5, type: multiple_choice, prompt: "If you're not sure it's a real issue…", options: ["wait for the pentest", "assume it's real — a false positive is cheap, silence is expensive", "ignore it", "post anonymously"], answer: 1, explanation: "Reporte com dúvida — 'might be nothing, but…'.", tags: [comp.listening, vocab.security] }
+    - { id: M19-02-l6, type: multiple_choice, prompt: "'Treat it as exposed' applies when…", options: ["the secret is in the vault", "the audit passed", "the key is old", "it touched the public repo — committed means compromised"], answer: 3, explanation: "Tocou o público = comprometido.", tags: [comp.listening, vocab.security] }
+
+writing:
+  prompt: |
+    **Cenário:** você achou uma chave de API commitada num repo
+    público na terça. Já rotacionou. Agora escreva o reporte no
+    #security.
+
+    **Tarefa:** escreva 50–80 palavras nas quatro batidas: heads
+    up → o fato → onde/quando → o que já fez. Sem o segredo, sem
+    nomes, com o próximo passo.
+  constraints:
+    - { label: "A abertura", pattern: "\\bheads up\\b" }
+    - { label: "O fato", pattern: "\\b(key|secret|credential|token)\\b" }
+    - { label: "O que já fez", pattern: "\\b(rotated|revoked|redacted|reported)\\b" }
+    - { label: "O próximo passo", pattern: "\\b(escalat|treat|exposed|looping|needs to know)\\w*" }
+  rubric:
+    - "As quatro batidas na ordem"
+    - "O segredo mascarado, sem nomes"
+    - "O canal certo mencionado ou implícito"
+    - "Sem calques (must rotate, critical, exploited)"
+  model: >-
+    Heads up — possible security issue. An API key was committed
+    to the public repo on Tuesday, in `config/prod.yaml`. I've
+    already rotated it — this report is for the record. I'm not
+    posting the key itself; the full string is in the vault
+    ticket. Since it touched a public repo, we should treat it as
+    exposed. Might be nothing, but I'm escalating — a second key
+    showed up in the same repo last month.
+  minWords: 50
+  maxWords: 80
+  tags: [comp.writing, vocab.security]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos reportando a chave exposta para o time de segurança: heads up, o fato, o que você fez e o próximo passo."
+    maxSeconds: 45
+    targetPhrases:
+      - heads up
+      - possible security issue
+      - the right channel
+      - was committed
+      - already rotated
+      - redacted
+      - treat it as exposed
+      - assume it's real
+      - looping in security
+      - who needs to know
+      - no names
+      - escalate
+      - might be nothing
+      - for the record
+      - we must rotate
+      - the missing guardrail
+    checklist:
+      - "'heads up' abrindo, sem pânico"
+      - "o fato + onde + o que fez"
+      - "o segredo fora do texto ('redacted')"
+      - "o próximo passo ('escalate')"
+
+quiz:
+  - { id: M19-02-q1, type: multiple_choice, prompt: "A chave vazou no repo público. O primeiro passo é…", options: ["postar no canal geral", "apagar o commit", "reportar no canal privado de segurança", "avisar quem commitou"], answer: 2, explanation: "Canal certo primeiro — #security.", tags: [vocab.security] }
+  - { id: M19-02-q2, type: error_correction, prompt: "You should to report it in #security.", accepted: ["You should report it in #security.", "You should report it in #security"], explanation: "'should report'.", tags: [br.modal-to] }
+  - { id: M19-02-q3, type: multiple_choice, prompt: "O que nunca vai no reporte?", options: ["o horário do commit", "o nome do repo", "o segredo — vai 'redacted' ou não vai", "o que você já fez"], answer: 2, explanation: "O segredo fica fora — mascarado ou no ticket.", tags: [vocab.security] }
+  - { id: M19-02-q4, type: fill_blank, prompt: "Treat anything in the public repo as ___.", accepted: ["exposed"], explanation: "Commitado = comprometido.", tags: [vocab.security] }
+  - { id: M19-02-q5, type: multiple_choice, prompt: "Dúvida se é problema real. A regra é…", options: ["esperar o pentest", "ignorar se for pequeno", "perguntar no canal geral", "assume it's real — falso positivo é barato, silêncio é caro"], answer: 3, explanation: "Reporte mesmo com dúvida.", tags: [vocab.security] }
+  - { id: M19-02-q6, type: error_correction, prompt: "The issue is critic — escalate now.", accepted: ["The issue is critical — escalate now.", "The issue is critical — escalate now"], explanation: "critical.", tags: [br.is-critic] }
+  - { id: M19-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "report", "commit", "not", "who", "committed"], answer: "report the commit not who committed", explanation: "O fato, não o culpado.", tags: [vocab.security] }
+  - { id: M19-02-q8, type: multiple_choice, prompt: "'Looping in security' significa…", options: ["trancar o canal", "trazer o time de segurança para a conversa", "repetir o alerta", "fechar o ticket"], answer: 1, explanation: "'Loop in' = trazer para o fio.", tags: [vocab.security] }
+
+srsCards:
+  - { front: "heads up", back: "A abertura — 'heads up, possible security issue'.", tag: vocab.security }
+  - { front: "the right channel", back: "#security, nunca o público — canal aberto vaza.", tag: vocab.security }
+  - { front: "redacted", back: "Mascarado — o segredo nunca vai no texto.", tag: vocab.security }
+  - { front: "already rotated", back: "A ação tomada — 'found, rotated, reporting'.", tag: vocab.security }
+  - { front: "assume it's real", back: "Reporte com dúvida — falso positivo é barato.", tag: vocab.security }
+  - { front: "treat it as exposed", back: "Tocou o público = comprometido.", tag: vocab.security }
+  - { front: "loop in security", back: "Trazer a segurança para o fio.", tag: vocab.security }
+  - { front: "who needs to know", back: "O círculo mínimo — segurança e plantão.", tag: vocab.security }
+  - { front: "no names in the report", back: "O commit, não quem commitou.", tag: vocab.security }
+  - { front: "escalate", back: "Subir para quem pode agir — 'escalate now'.", tag: vocab.security }
+
+review:
+  preferTags: [vocab.security, br.modal-to, br.is-critic]
+  notes: "Revisão prioriza o protocolo de reporte, 'redacted', 'treat as exposed' e os calques de modal/critical."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
