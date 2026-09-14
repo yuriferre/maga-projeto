@@ -1120,3 +1120,69 @@ describe("padrões BR — M25 (RFCs e design reviews)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-other-hand");
   });
 });
+
+describe("padrões BR — M26 (colaboração multicultural)", () => {
+  it("flags 'I'm boring' but not object/subject use", () => {
+    expect(tagsOf("I'm boring in meetings.")).toContain("br.i-am-boring");
+    expect(tagsOf("We're tiring today.")).toContain("br.i-am-boring");
+    const clean = [
+      "I'm bored in meetings.",
+      "The meeting is boring.",
+      "This work is tiring.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.i-am-boring");
+  });
+  it("flags 'too much people' but not uncountables", () => {
+    expect(tagsOf("Too much people joined the call.")).toContain("br.too-much-people");
+    expect(tagsOf("We get too much emails.")).toContain("br.too-much-people");
+    const clean = [
+      "Too many people joined the call.",
+      "Too much work this week.",
+      "A lot of people joined.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.too-much-people");
+  });
+  it("flags 'how long time' but not 'how long'", () => {
+    expect(tagsOf("How long time have you been here?")).toContain("br.how-long-time");
+    expect(tagsOf("How long time does the deploy take?")).toContain("br.how-long-time");
+    const clean = [
+      "How long have you been here?",
+      "How long does the deploy take?",
+      "For a long time now.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.how-long-time");
+  });
+  it("flags 'take a coffee' but not 'coffee break'", () => {
+    expect(tagsOf("Want to take a coffee later?")).toContain("br.take-a-coffee");
+    expect(tagsOf("I take a coffee every morning.")).toContain("br.take-a-coffee");
+    const clean = [
+      "Want to grab a coffee later?",
+      "Let's have a coffee.",
+      "I need a coffee break.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.take-a-coffee");
+  });
+});
+
+describe("padrões BR — M26 (humor)", () => {
+  it("flags 'I'm kidding you' but not intransitive kidding", () => {
+    expect(tagsOf("I'm kidding you — relax.")).toContain("br.kidding-you");
+    expect(tagsOf("She's kidding you again.")).toContain("br.kidding-you");
+    const clean = [
+      "I'm kidding — relax.",
+      "Just kidding.",
+      "You're kidding me — that's the idiomatic object form.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.kidding-you");
+  });
+  it("flags 'he is humor' but not real adjectives", () => {
+    expect(tagsOf("He is very humor today.")).toContain("br.he-is-humor");
+    expect(tagsOf("She has such a humor about deploys.")).toContain("br.he-is-humor");
+    const clean = [
+      "He's very funny today.",
+      "His sense of humor is dry.",
+      "The humor in the channel helped.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.he-is-humor");
+  });
+});

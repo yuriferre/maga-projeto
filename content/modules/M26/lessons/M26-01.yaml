@@ -1,0 +1,314 @@
+id: M26-01
+module: M26
+order: 1
+title: "Small talk profissional: 'how's it going?' — e o que responder"
+objective: >-
+  Ao final, você abre reunião com dois minutos de small
+  talk natural — responde 'how's it going' sem relatório,
+  pergunta de fim de semana, e fecha a transição para o
+  trabalho sem corte seco.
+durationMin: 35
+competencies: [SPK, LIS, CNF]
+tags: [vocab.smalltalk, comp.speaking, comp.listening, comp.confidence]
+prerequisites: [M08-05]
+
+context:
+  scenario: |
+    A daily começou dois minutos antes — e ninguém fala
+    de trabalho ainda. O small talk profissional tem
+    regras pequenas e previsíveis:
+
+    - **"How's it going?" não é pergunta**: a resposta é
+      "*good — you?*" ou "*pretty good, just buried in
+      the migration*" — três segundos, não três minutos.
+    - **A reciprocidade manda**: respondeu, devolve —
+      "*how about you?*". Small talk sem devolução é
+      entrevista.
+    - **Os temas seguros**: fim de semana, clima,
+      feriado, o jogo — "*any plans for the weekend?*".
+      Os temas proibidos: salário, política, religião,
+      peso.
+    - **A transição**: "*anyway — should we get
+      started?*" — dois minutos e fecha, sem corte seco.
+
+    O brasileiro que responde "how's it going" com a
+    semana inteira não errou de inglês — errou de
+    género: é saudação, não abertura de pauta.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead), Ana (eng manager)]
+
+vocabulary:
+  - term: "how's it going?"
+    meaning: 'como vai? — saudação, não pergunta real'
+    example: "How's it going? — Good, you? Just buried in the migration."
+    translation: "Como vai? — Bem, e você? Só enterrado na migração."
+    note: "Resposta em três segundos — não é convite a relatório."
+  - term: "pretty good — you?"
+    meaning: 'bem — e você? — a resposta-padrão com devolução'
+    example: "Pretty good — you? How was the weekend?"
+    translation: "Bem — e você? Como foi o fim de semana?"
+    note: "Respondeu, devolveu — a reciprocidade é o motor do small talk."
+  - term: "any plans for the weekend?"
+    meaning: 'planos para o fim de semana? — a pergunta de quinta/sexta'
+    example: "Any plans for the weekend? — Mostly chores, maybe a barbecue."
+    translation: "Planos para o fim de semana? — Mais as tarefas de casa, talvez um churrasco."
+    note: "Quinta e sexta = small talk de fim de semana; segunda = como foi."
+  - term: "how was your weekend?"
+    meaning: 'como foi seu fim de semana? — a pergunta de segunda'
+    example: "How was your weekend? — Quiet, just recharged. Yours?"
+    translation: "Como foi seu fim de semana? — Tranquilo, só recarreguei. O seu?"
+    note: "Segunda-feira pergunta o passado; sexta pergunta o futuro."
+  - term: "not much — just recharged"
+    meaning: 'nada demais — só recarreguei — a resposta curta honesta'
+    example: "Not much — just recharged. How about you?"
+    translation: "Nada demais — só recarreguei. E você?"
+    note: "A resposta curta honesta é perfeitamente aceitável."
+  - term: "can't complain"
+    meaning: 'não posso reclamar — a resposta otimista-padrão'
+    example: "How's it going? — Can't complain. You?"
+    translation: "Como vai? — Não posso reclamar. E você?"
+    note: "O 'não posso reclamar' americano — positivo sem exagero."
+  - term: "busy week?"
+    meaning: 'semana cheia? — a abertura de meio de semana'
+    example: "Busy week? — Yeah, the migration's been eating my days."
+    translation: "Semana cheia? — Sim, a migração tem comido meus dias."
+    note: "O trabalho pode ser assunto — em uma frase, não dez."
+  - term: "did you catch the game?"
+    meaning: 'viu o jogo? — o clássico americano'
+    example: "Did you catch the game? — I did, what a finish."
+    translation: "Viu o jogo? — Vi, que final."
+    note: "Esporte é o tema seguro universal nos EUA — mas saiba de qual esporte."
+  - term: "anyway — should we get started?"
+    meaning: 'enfim — começamos? — a transição para o trabalho'
+    example: "Anyway — should we get started? The agenda is short."
+    translation: "Enfim — começamos? A pauta é curta."
+    note: "'Anyway' + pergunta é a transição clássica — sem corte seco."
+  - term: "before we dive in"
+    meaning: 'antes de mergulhar — a pré-transição educada'
+    example: "Before we dive in — anyone celebrating anything this week?"
+    translation: "Antes de mergulharmos — alguém comemorando algo essa semana?"
+    note: "O host que abre com humanidade antes da pauta."
+  - term: "good to see everyone"
+    meaning: 'bom ver todo mundo — a abertura de call remota'
+    example: "Good to see everyone — how's the weather over there, Carlos?"
+    translation: "Bom ver todo mundo — como está o clima aí, Carlos?"
+    note: "A abertura de call com um toque pessoal."
+  - term: "have a good one"
+    meaning: 'tenha um bom [dia/fim de semana] — o fecho de fim de call'
+    example: "Have a good one — see you Thursday."
+    translation: "Tenha um bom — te vejo quinta."
+    note: "O fecho mais americano que existe — curto, quente, vago."
+  - term: "same to you"
+    meaning: 'para você também — a devolução do fecho'
+    example: "Have a great weekend! — Same to you."
+    translation: "Bom fim de semana! — Para você também."
+    note: "A devolução mínima — nunca deixe o 'have a good one' sem resposta."
+
+grammar:
+  title: "a gramática do small talk"
+  explanation: |
+    Small talk tem gramática própria — respostas curtas
+    com devolução:
+
+    - **A saudação-resposta**: "*how's it going?* —
+      *good, you?*" — não use present perfect com
+      relatório; três palavras bastam.
+    - **A devolução**: "*how about you?*", "*yours?*" —
+      small talk sem devolução é entrevista.
+    - **"Any" + pergunta para planos**: "*any plans for
+      the weekend?*", "*any luck with the deploy?*" — o
+      "any" abre a pergunta leve.
+    - **"Anyway" para a transição**: "*anyway — should
+      we get started?*" — o marcador que fecha o warm-up.
+
+    E os calques do café:
+
+    - "**I'm boring**" → "**I'm bored**" (quem sente,
+      -ed).
+    - "**how long time**" → "**how long**".
+    - "**too much people**" → "**too many people**".
+    - "**take a coffee**" → "**grab a coffee**".
+  examples:
+    - { en: "How's it going? — Good, you? Just buried in the migration.", pt: "Como vai? — Bem, e você? Só enterrado na migração." }
+    - { en: "Any plans for the weekend? — Not much, just recharging.", pt: "Planos para o fim de semana? — Nada demais, só recarregando." }
+    - { en: "How was your weekend? — Quiet. Yours?", pt: "Como foi seu fim de semana? — Tranquilo. O seu?" }
+    - { en: "Anyway — should we get started? The agenda is short.", pt: "Enfim — começamos? A pauta é curta." }
+    - { en: "Before we dive in — good to see everyone this morning.", pt: "Antes de mergulharmos — bom ver todo mundo essa manhã." }
+    - { en: "Have a good one — see you Thursday. — Same to you.", pt: "Tenha um bom — te vejo quinta. — Para você também." }
+
+examples:
+  - en: "How's it going? — Pretty good, just buried in the migration. You?"
+    pt: "Como vai? — Bem, só enterrado na migração. E você?"
+    context: "Resposta + devolução em três segundos."
+  - en: "Any plans for the weekend? — Mostly chores, maybe a barbecue if the weather holds."
+    pt: "Planos para o fim de semana? — Mais tarefas de casa, talvez um churrasco se o tempo ajudar."
+    context: "A pergunta de sexta respondida leve."
+  - en: "How was your weekend? — Quiet, just recharged. How about you?"
+    pt: "Como foi seu fim de semana? — Tranquilo, só recarreguei. E o seu?"
+    context: "A pergunta de segunda."
+  - en: "Busy week? — Yeah, the migration has been eating my days. You holding up?"
+    pt: "Semana cheia? — Sim, a migração tem comido meus dias. Você segurando?"
+    context: "O trabalho em uma frase."
+  - en: "Anyway — should we get started? I know the agenda is packed."
+    pt: "Enfim — começamos? Sei que a pauta está cheia."
+    context: "A transição sem corte seco."
+  - en: "Before we dive in — how's the weather over there, Carlos?"
+    pt: "Antes de mergulharmos — como está o clima aí, Carlos?"
+    context: "O toque pessoal de quem abre a call."
+  - en: "Have a good one — and enjoy the long weekend."
+    pt: "Tenha um bom — e aproveite o feriadão."
+    context: "O fecho americano."
+  - en: "I'm bored in long meetings — coffee helps."
+    pt: "Fico entediado em reuniões longas — café ajuda."
+    context: "O calque corrigido: 'bored', não 'boring'."
+
+variations:
+  - idea: '"respondendo how''s it going"'
+    items:
+      - { register: "Boa", text: "Pretty good — you? Just buried in the migration.", adequate: true }
+      - { register: "Boa", text: "Can't complain. How about you?", adequate: true }
+      - { register: "Inadequada", text: "Well, Monday was rough, then Tuesday the deploy broke, and Wednesday…", adequate: false, note: "É saudação, não pauta — três segundos, devolve, segue." }
+      - { register: "Inadequada", text: "I'm fine, thank you. And you?", adequate: false, note: "O 'fine, thank you' do livro soa robótico — 'good, you?' é o natural." }
+  - idea: '"os temas"'
+    items:
+      - { register: "Boa", text: "Any plans for the weekend?", adequate: true }
+      - { register: "Boa", text: "How's the weather over there?", adequate: true }
+      - { register: "Inadequada", text: "How much do they pay you here, anyway?", adequate: false, note: "Salário é tema proibido no small talk americano." }
+      - { register: "Inadequada", text: "Too much people on this team, right?", adequate: false, note: "Calque ('too many people') + fofofa de equipe não é small talk." }
+
+brErrors:
+  - { wrong: "I'm boring in long meetings.", right: "I'm bored in long meetings.", why: "bored — quem sente leva -ed", tag: br.i-am-boring }
+  - { wrong: "How long time have you been here?", right: "How long have you been here?", why: "how long", tag: br.how-long-time }
+  - { wrong: "Too much people joined the call.", right: "Too many people joined the call.", why: "too many people", tag: br.too-much-people }
+  - { wrong: "Want to take a coffee after the standup?", right: "Want to grab a coffee after the standup?", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "I want that you enjoy the weekend.", right: "I want you to enjoy the weekend.", why: "want you to enjoy", tag: br.want-that }
+  - { wrong: "In the other hand, Monday is close.", right: "On the other hand, Monday is close.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "I am agree, the week was long.", right: "I agree, the week was long.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "I have doubt about the holiday.", right: "I have a doubt about the holiday.", why: "a doubt", tag: br.doubt }
+  - { wrong: "The same plan than last weekend.", right: "The same plan as last weekend.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the holiday.", right: "We discussed the holiday.", why: "discussed the holiday", tag: br.discuss-about }
+
+dialogue:
+  title: "Two minutes before the daily"
+  lines:
+    - { speaker: Ana, text: "Good to see everyone — how's it going?" }
+    - { speaker: Yuri, text: "Pretty good — just buried in the migration. You?" }
+    - { speaker: Ana, text: "Can't complain. Carlos, how's the weather over there?" }
+    - { speaker: Carlos, text: "Cold — but the week's almost over. Any plans for the weekend, anyone?" }
+    - { speaker: Beth, text: "Quiet one — just recharging. How about you?" }
+    - { speaker: Carlos, text: "Taking the kids to the lake. Yuri, you?" }
+    - { speaker: Yuri, text: "Not much — maybe a barbecue if the weather holds. How long have you had the lake place?" }
+    - { speaker: Carlos, text: "Three summers now — best decision we made." }
+    - { speaker: Ana, text: "Anyway — should we get started? The agenda is short today." }
+    - { speaker: Yuri, text: "Let's do it. And have a good one, Carlos — the lake sounds great." }
+  notes:
+    - "saudação → resposta curta + devolução → pergunta leve → transição com 'anyway'."
+    - "os temas seguros: clima, fim de semana, planos — nunca salário/política."
+    - "'have a good one' + 'same to you' — o fecho curto americano."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Small talk is a genre, not a conversation. 'How's it going' is a greeting — 'good, you?' is the answer, three seconds. Then reciprocity: 'how about you?' Friday asks about weekend plans, Monday asks how it was. Safe topics: weather, weekends, the game. Off-limits: salary, politics, religion." }
+    - { speaker: Carlos, text: "And the transition is 'anyway — should we get started?' Two minutes of warmth, then the agenda. Ending a call is 'have a good one' — answer 'same to you', never leave it hanging." }
+    - { speaker: Beth, text: "The Brazilian calques in the genre: 'I'm bored', not 'boring' — who feels takes -ed. 'How long', not 'how long time'. 'Too many people', not 'much'. And you 'grab a coffee', never 'take'." }
+  questions:
+    - { id: M26-01-l1, type: multiple_choice, prompt: "'How's it going?' pede…", options: ["resposta de três segundos + devolução", "um resumo da semana", "detalhes do trabalho", "silêncio"], answer: 0, explanation: "É saudação, não pauta — 'good, you?'.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-01-l2, type: fill_blank, prompt: "Any ___ for the weekend?", accepted: ["plans"], explanation: "A pergunta de quinta/sexta.", tags: [vocab.smalltalk] }
+    - { id: M26-01-l3, type: error_correction, prompt: "I'm boring in long meetings.", accepted: ["I'm bored in long meetings.", "I get bored in long meetings", "I'm bored in long meetings"], explanation: "'bored' — quem sente leva -ed.", tags: [br.i-am-boring] }
+    - { id: M26-01-l4, type: multiple_choice, prompt: "A transição do small talk para a pauta é…", options: ["silêncio e click no slide", "'enough, let's work'", "o alarme do calendário", "'anyway — should we get started?'"], answer: 3, explanation: "'Anyway' + pergunta — sem corte seco.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-01-l5, type: multiple_choice, prompt: "Qual tema é seguro no small talk americano?", options: ["salário", "política", "fim de semana e clima", "religião"], answer: 2, explanation: "Weekend, weather, the game — o resto é campo minado.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-01-l6, type: multiple_choice, prompt: "Respondeu 'how's it going'. O que vem depois?", options: ["nada — é retórica", "a devolução: 'how about you?' — sem ela, vira entrevista", "o relatório", "a pauta"], answer: 1, explanation: "A reciprocidade é o motor do small talk.", tags: [comp.listening, vocab.smalltalk] }
+
+writing:
+  prompt: |
+    **Cenário:** o chat do time tem o canal #random — e a
+    Beth postou "how was everyone's weekend?".
+
+    **Tarefa:** escreva 60–90 palavras no canal: sua
+    resposta curta ao fim de semana, a devolução para a
+    Beth, uma pergunta leve para o time, e o fecho da
+    sexta seguinte com o convite de café.
+  constraints:
+    - { label: "A resposta curta", pattern: "\\bquiet|recharged|not much|pretty good|good weekend\\b" }
+    - { label: "A devolução", pattern: "\\bhow about you|yours\\?|you\\?\\b" }
+    - { label: "A pergunta leve", pattern: "\\bany plans|how was|catch the game|busy week\\b" }
+    - { label: "O fecho", pattern: "\\bhave a good|same to you|grab a coffee|see you\\b" }
+  rubric:
+    - "Resposta curta, não relatório"
+    - "Devolução explícita"
+    - "Tema seguro (fim de semana, clima, café)"
+    - "Sem calques ('bored', 'how long', 'too many', 'grab a coffee')"
+  model: >-
+    Weekend was quiet — not much, just recharged after
+    the migration week. How about you, Beth? Anyone
+    catch the game Saturday? — And Friday note: good
+    week, everyone. Have a good one — and if anyone's
+    around Tuesday, want to grab a coffee before the
+    daily? Too many people have been heads-down lately;
+    a ten-minute chat would be nice. See you all
+    Thursday.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.smalltalk]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos de small talk de abertura de call: a saudação, sua resposta curta a 'how's it going', uma pergunta de fim de semana ou clima, e a transição para a pauta."
+    maxSeconds: 45
+    targetPhrases:
+      - how's it going
+      - pretty good
+      - you?
+      - how about you
+      - any plans for the weekend
+      - how was your weekend
+      - not much
+      - just recharged
+      - can't complain
+      - busy week
+      - anyway — should we get started
+      - before we dive in
+      - good to see everyone
+      - have a good one
+      - same to you
+      - grab a coffee
+      - I'm bored
+      - how long
+      - too many people
+    checklist:
+      - "resposta de três segundos + devolução"
+      - "pergunta leve de tema seguro"
+      - "transição com 'anyway' + 'should we get started'"
+      - "sem calques ('bored', 'how long', 'grab a coffee')"
+
+quiz:
+  - { id: M26-01-q1, type: multiple_choice, prompt: "'How's it going?' é…", options: ["uma pergunta real sobre a semana", "uma saudação — a resposta é curta e devolve", "um teste", "retórica sem resposta"], answer: 1, explanation: "Gênero errado é o erro — três segundos + 'you?'.", tags: [vocab.smalltalk] }
+  - { id: M26-01-q2, type: error_correction, prompt: "How long time have you been on the team?", accepted: ["How long have you been on the team?", "How long have you been on the team"], explanation: "'How long'.", tags: [br.how-long-time] }
+  - { id: M26-01-q3, type: multiple_choice, prompt: "Sexta-feira de manhã, a pergunta certa é…", options: ["'any plans for the weekend?'", "'how was your weekend?'", "'busy week?'", "'did you catch the game?'"], answer: 0, explanation: "Sexta pergunta o futuro; segunda pergunta o passado.", tags: [vocab.smalltalk] }
+  - { id: M26-01-q4, type: fill_blank, prompt: "Have a good one — ___ to you.", accepted: ["same"], explanation: "'Same to you' — a devolução do fecho.", tags: [vocab.smalltalk] }
+  - { id: M26-01-q5, type: multiple_choice, prompt: "Respondeu 'how's it going'. Faltou o quê em 'good.'?", options: ["nada", "o detalhe", "a devolução — 'you?' sem ela é entrevista, não conversa", "o assunto"], answer: 2, explanation: "A reciprocidade é o motor.", tags: [vocab.smalltalk] }
+  - { id: M26-01-q6, type: error_correction, prompt: "Too much people joined the daily today.", accepted: ["Too many people joined the daily today.", "Too many people joined the daily today"], explanation: "'Too many people'.", tags: [br.too-much-people] }
+  - { id: M26-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["we", "should", "started", "get", "anyway"], answer: "anyway should we get started", explanation: "A transição para a pauta.", tags: [vocab.smalltalk] }
+  - { id: M26-01-q8, type: multiple_choice, prompt: "O convite de café natural é…", options: ["'take a coffee?'", "'do you drink coffee?'", "'let's take a coffee'", "'want to grab a coffee?'"], answer: 3, explanation: "Café se 'grabs' — 'take a coffee' é calque.", tags: [vocab.smalltalk, br.take-a-coffee] }
+
+srsCards:
+  - { front: "how's it going?", back: "Saudação — 'good, you?' em três segundos.", tag: vocab.smalltalk }
+  - { front: "how about you / yours?", back: "A devolução — sem ela, vira entrevista.", tag: vocab.smalltalk }
+  - { front: "any plans for the weekend?", back: "A pergunta de quinta/sexta.", tag: vocab.smalltalk }
+  - { front: "how was your weekend?", back: "A pergunta de segunda.", tag: vocab.smalltalk }
+  - { front: "not much — just recharged", back: "A resposta curta honesta é aceitável.", tag: vocab.smalltalk }
+  - { front: "can't complain", back: "O otimismo-padrão americano.", tag: vocab.smalltalk }
+  - { front: "anyway — should we get started?", back: "A transição sem corte seco.", tag: vocab.smalltalk }
+  - { front: "before we dive in", back: "A pré-transição com toque pessoal.", tag: vocab.smalltalk }
+  - { front: "have a good one", back: "O fecho americano — curto, quente, vago.", tag: vocab.smalltalk }
+  - { front: "same to you", back: "A devolução mínima do fecho.", tag: vocab.smalltalk }
+  - { front: "grab a coffee", back: "O convite de café — nunca 'take a coffee'.", tag: br.take-a-coffee }
+  - { front: "I'm bored", back: "'Estou entediado' — nunca 'I'm boring'.", tag: br.i-am-boring }
+
+review:
+  preferTags: [vocab.smalltalk, br.i-am-boring, br.how-long-time]
+  notes: "Revisão prioriza a saudação-resposta, a devolução, os temas seguros e os calques do café."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
