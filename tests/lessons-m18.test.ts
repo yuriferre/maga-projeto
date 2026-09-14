@@ -8,4 +8,13 @@ describe("M18 lessons", () => {
   it("passes cross-validation", () => {
     expect(crossValidate(bundle)).toEqual([]);
   });
+  checkLesson(bundle, "M18-01", {
+    vocabMin: 10,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 45,
+    prerequisites: ["M12-05"],
+  });
 });
