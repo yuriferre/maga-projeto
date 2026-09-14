@@ -1,0 +1,77 @@
+# Avaliação do módulo M19: 15 itens cobrindo as cinco aulas + escrita (resposta a finding) + fala.
+id: M19
+title: "Avaliação do módulo M19: Segurança"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M19-A01, type: multiple_choice, prompt: "The flaw exists in the code; how long it was open to the internet is the…", options: ["exposure — the vulnerability is older", "exploit", "blast radius", "finding"], answer: 0, explanation: "Vulnerability é a falha; exposure é o tempo/abrangência aberta.", tags: [vocab.security] }
+  - { id: M19-A02, type: error_correction, prompt: "The attacker explored the flaw — we must to patch it.", accepted: ["The attacker exploited the flaw — we must patch it.", "The attacker exploited the flaw — we must patch it"], explanation: 'Dois calques: "exploited" + "must patch".', tags: [br.explored-vuln, br.modal-to] }
+  - { id: M19-A03, type: fill_blank, prompt: "We're in compliance ___ the retention policy.", accepted: ["with"], explanation: '"in compliance with".', tags: [br.in-compliance-to] }
+  - { id: M19-A04, type: multiple_choice, prompt: "A role that can only do its job — nothing more — follows…", options: ["the audit", "least privilege", "secret sprawl", "lateral movement"], answer: 1, explanation: "O mínimo de acesso necessário.", tags: [vocab.security] }
+  - { id: M19-A05, type: error_correction, prompt: "This finding is critic — the SLA is seven days.", accepted: ["This finding is critical — the SLA is seven days.", "This finding is critical — the SLA is seven days"], explanation: '"critical".', tags: [br.is-critic] }
+  - { id: M19-A06, type: multiple_choice, prompt: "The required control doesn't fit — the accepted equivalent alternative is the…", options: ["workaround", "hotfix", "compensating control", "false positive"], answer: 2, explanation: "Compensating control — proteção equivalente.", tags: [vocab.security] }
+  - { id: M19-A07, type: error_correction, prompt: "The remediation is due until next Friday.", accepted: ["The remediation is due by next Friday.", "The remediation is due by next Friday", "The remediation is due next Friday."], explanation: '"by Friday".', tags: [br.until-by] }
+  - { id: M19-A08, type: fill_blank, prompt: "We'll track it ___ SEC-1234 — owner: me, due Thursday.", accepted: ["under"], explanation: '"track it under" + ticket.', tags: [vocab.security] }
+  - { id: M19-A09, type: error_correction, prompt: "You should to rotate the exposed keys.", accepted: ["You should rotate the exposed keys.", "You should rotate the exposed keys"], explanation: '"should rotate".', tags: [br.modal-to] }
+  - { id: M19-A10, type: multiple_choice, prompt: "A WAF rule that holds the risk until the real fix ships is…", options: ["the remediation", "the audit", "the residual risk", "the mitigation — it holds, it doesn't resolve",], answer: 3, explanation: "Mitigar segura; remediar resolve.", tags: [vocab.security] }
+  - { id: M19-A11, type: error_correction, prompt: "The endpoint is in compliance to the standard.", accepted: ["The endpoint is in compliance with the standard.", "The endpoint is in compliance with the standard"], explanation: '"with".', tags: [br.in-compliance-to] }
+  - { id: M19-A12, type: translate, prompt: "O atacante explorou a falha e se moveu lateralmente para o banco.", accepted: ["The attacker exploited the flaw and moved laterally to the database.", "The attacker exploited the vulnerability and moved laterally to the database."], explanation: '"exploited" + "moved laterally".', tags: [vocab.security] }
+  - { id: M19-A13, type: error_correction, prompt: "The report is critic and due until Monday.", accepted: ["The report is critical and due by Monday.", "The report is critical and due by Monday"], explanation: 'Dois calques: "critical" + "by Monday".', tags: [br.is-critic, br.until-by] }
+  - { id: M19-A14, type: multiple_choice, prompt: "You found a committed key — the report goes to…", options: ["#general with the key attached", "the security channel with the key redacted", "the commit author's DM only", "next week's retro"], answer: 1, explanation: "Canal privado + segredo mascarado.", tags: [vocab.security] }
+  - { id: M19-A15, type: match, prompt: "Associe o termo ao que ele carrega.", pairs: [{ left: "vulnerability", right: "the flaw that exists" }, { left: "exposure", right: "how long and how wide it was open" }, { left: "compensating control", right: "the accepted alternative" }, { left: "residual risk", right: "what's left after the control" }], explanation: "Os quatro conceitos da linguagem de risco.", tags: [vocab.security] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** o finding do pentest "mobile
+    sessions never expire" foi triado. Registre a resposta formal
+    no ticket.
+
+    **Tarefa:** escreva 80–110 palavras cobrindo: o finding com
+    severidade e evidência, a decisão (mitigar agora + remediar
+    com a rewrite), a extensão aprovada ou o escopo menor, e o
+    rastreio com dono e prazo.
+  constraints:
+    - { label: "O finding", pattern: "\\b(finding|severity|sessions|expire)\\b" }
+    - { label: "A evidência", pattern: "\\b(reproduced|report|pentest|evidence)\\w*" }
+    - { label: "A decisão em camadas", pattern: "\\b(mitigat|remediat|extension|scope)\\w*" }
+    - { label: "O rastreio", pattern: "\\b(track|SEC-|owner|due|approved)\\w*" }
+  rubric:
+    - "Finding em uma linha + severidade"
+    - "Mitigar agora × remediar na dependência"
+    - "Extensão aprovada ou escopo alternativo"
+    - "Ticket, dono e prazo — sem calques"
+  model: >-
+    Finding: high severity — mobile sessions never expire, and the
+    pentester reproduced it on a stolen test device. We're
+    mitigating now: token refresh plus device binding caps the
+    exposure at hours and lands Friday. The real remediation ships
+    with the auth rewrite in three weeks, which doesn't fit the
+    14-day SLA — security approved the extension today. All of it
+    is tracked under SEC-1234 — owner: me; mitigation due Friday,
+    remediation due with the rewrite. Documented decision, and the
+    auditor can read the whole chain.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.security]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando o finding na triagem: a linha, a evidência, a proposta em duas camadas e o pedido de extensão."
+  maxSeconds: 60
+  targetPhrases:
+    - high severity
+    - sessions never expire
+    - reproduced
+    - the evidence
+    - mitigate now
+    - remediate with the rewrite
+    - the SLA is 14 days
+    - approved extension
+    - smaller scope
+    - documented decision
+    - tracked under
+    - least privilege
+    - the blast radius
+    - in compliance with
+    - the finding is critical

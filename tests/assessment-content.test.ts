@@ -656,3 +656,34 @@ describe("M18 assessment variants", () => {
     expect(checkExercise(q, "We're spending the error budget fast.").correct).toBe(false);
   });
 });
+
+describe("M19 assessment variants", () => {
+  const m19 = bundle.moduleAssessments["M19"]!;
+  it("requires 'exploited' and 'must patch' on A02", () => {
+    const q = m19.items.find((q) => q.id === "M19-A02")!;
+    expect(checkExercise(q, "The attacker exploited the flaw — we must patch it.").correct).toBe(true);
+    expect(checkExercise(q, "The attacker explored the flaw — we must patch it.").correct).toBe(false);
+    expect(checkExercise(q, "The attacker exploited the flaw — we must to patch it.").correct).toBe(false);
+  });
+  it("requires 'critical' on A05", () => {
+    const q = m19.items.find((q) => q.id === "M19-A05")!;
+    expect(checkExercise(q, "This finding is critical — the SLA is seven days.").correct).toBe(true);
+    expect(checkExercise(q, "This finding is critic — the SLA is seven days.").correct).toBe(false);
+  });
+  it("requires 'by Friday' on A07", () => {
+    const q = m19.items.find((q) => q.id === "M19-A07")!;
+    expect(checkExercise(q, "The remediation is due by next Friday.").correct).toBe(true);
+    expect(checkExercise(q, "The remediation is due until next Friday.").correct).toBe(false);
+  });
+  it("requires 'with' on A11", () => {
+    const q = m19.items.find((q) => q.id === "M19-A11")!;
+    expect(checkExercise(q, "The endpoint is in compliance with the standard.").correct).toBe(true);
+    expect(checkExercise(q, "The endpoint is in compliance to the standard.").correct).toBe(false);
+  });
+  it("requires 'critical' and 'by Monday' on A13", () => {
+    const q = m19.items.find((q) => q.id === "M19-A13")!;
+    expect(checkExercise(q, "The report is critical and due by Monday.").correct).toBe(true);
+    expect(checkExercise(q, "The report is critic and due by Monday.").correct).toBe(false);
+    expect(checkExercise(q, "The report is critical and due until Monday.").correct).toBe(false);
+  });
+});
