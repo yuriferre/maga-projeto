@@ -1,0 +1,294 @@
+id: M20-05
+module: M20
+order: 5
+title: "[SIM] Apresentar o plano de redução de custo"
+objective: >-
+  Simulação: você apresenta o plano de redução de custo para a
+  Ana, gestora não técnica — números com hedge, cada alavanca
+  com seu trade-off, e o pedido de aprovação no final.
+durationMin: 40
+competencies: [SPK, VOC]
+tags: [vocab.finops, gram.numbers-percentages, comp.speaking, comp.listening]
+prerequisites: [M20-04]
+
+context:
+  scenario: |
+    Reunião de 15 minutos com a Ana. O plano tem três alavancas
+    — right-sizing, spot para batch, savings plan — e um item
+    descartado (a reescrita da pipeline). Ela vai perguntar
+    "what's the catch?", "how much do we save?" e "what do you
+    need from me?". Suas falas devem carregar: números com a
+    forma certa, trade-offs nomeados, e um pedido limpo no fim.
+
+    O mapa da conversa:
+
+    1. **O problema** — "the bill is up 18%; roughly a third is
+       waste".
+    2. **As alavancas** — cada uma com economia + "but".
+    3. **O que ficou de fora** — "the rewrite isn't worth the
+       effort".
+    4. **O pedido** — "I need sign-off on the savings plan by
+       Friday".
+  roles: [Yuri (platform engineer), Ana (product manager)]
+
+vocabulary:
+  - term: "the plan"
+    meaning: 'o plano de redução — as alavancas em ordem'
+    example: "The plan has three levers, easiest first."
+    translation: "O plano tem três alavancas, da mais fácil primeiro."
+    note: "Estrutura: problema → alavancas → descartado → pedido."
+  - term: "sign-off"
+    meaning: 'a aprovação formal — o "pode seguir" do gestor'
+    example: "I need your sign-off on the savings plan by Friday."
+    translation: "Preciso do seu sign-off no savings plan até sexta."
+    note: "O pedido que fecha a reunião — com prazo."
+  - term: "the bottom line"
+    meaning: 'o resultado final — o número que sobra'
+    example: "Bottom line: $17k a month back, starting next quarter."
+    translation: "Resultado final: $17 mil por mês de volta, a partir do próximo trimestre."
+    note: "A frase que o gestor leva da reunião."
+  - term: "quick win"
+    meaning: 'a vitória rápida — o item que convence a plateia'
+    example: "Killing the idle databases is the quick win — $800, zero risk."
+    translation: "Matar os bancos ociosos é a vitória rápida — $800, risco zero."
+    note: "Abra com ele — credibilidade antes do item difícil."
+  - term: "runway"
+    meaning: 'a pista — quanto tempo o orçamento aguenta'
+    example: "At this burn rate, the budget runway ends in Q4."
+    translation: "Nesse ritmo de gasto, a pista do orçamento acaba no Q4."
+    note: "De startup: quanto tempo até o dinheiro acabar."
+  - term: "burn rate"
+    meaning: 'a taxa de queima — quanto se gasta por mês'
+    example: "Our burn rate is $65k a month — 18% over plan."
+    translation: "Nossa taxa de queima é $65 mil por mês — 18% acima do plano."
+    note: "O número que o gestor já conhece — use-o."
+  - term: "out of scope"
+    meaning: 'fora do escopo — o que o plano não cobre'
+    example: "The pipeline rewrite is out of scope — not worth the effort."
+    translation: "A reescrita da pipeline está fora do escopo — não vale o esforço."
+    note: "Nomear o fora-de-escopo protege o plano de scope creep."
+  - term: "net saving"
+    meaning: 'a economia líquida — depois de descontar custos'
+    example: "Net saving is $17k a month after the tool cost."
+    translation: "A economia líquida é $17 mil por mês depois do custo da ferramenta."
+    note: "Net = líquido; gross = bruto. O gestor quer o net."
+  - term: "no-brainer"
+    meaning: 'óbvio — a decisão que não precisa de análise'
+    example: "Killing idle resources is a no-brainer — money for nothing used."
+    translation: "Matar recursos ociosos é óbvio — dinheiro por nada usado."
+    note: "Informal — para o quick win da apresentação."
+  - term: "push back on"
+    meaning: 'contestar — a objeção que você deve esperar'
+    example: "She'll push back on the commitment — be ready with numbers."
+    translation: "Ela vai contestar o compromisso — esteja pronto com números."
+    note: "Antecipe: cada alavanca tem um pushback esperado."
+  - term: "worst-case scenario"
+    meaning: 'o pior cenário — o limite inferior do risco'
+    example: "Worst-case scenario, spot delays reports by an hour."
+    translation: "No pior cenário, spot atrasa os relatórios em uma hora."
+    note: "Delimite o risco antes que imaginem o pior."
+  - term: "the ask"
+    meaning: 'o pedido — o que você precisa que ela aprove'
+    example: "My ask: sign-off on the savings plan and the spot migration."
+    translation: "Meu pedido: sign-off no savings plan e na migração para spot."
+    note: "Repetir o ask no final — a reunião existe para isso."
+
+grammar:
+  title: "números com hedge, poréns com nome"
+  explanation: |
+    A simulação combina tudo do módulo:
+
+    - **Hedge nos números** — "roughly a third", "in the order
+      of $12k", "just under budget". Precisão falsa quebra a
+      credibilidade; hedge honesto constrói.
+    - **Economia com porém** — "we could save $5k, but jobs
+      would restart". Nunca a economia sozinha.
+    - **O pedido com prazo** — "I need sign-off by Friday" —
+      reunião sem ask é conversa.
+    - **Calques fora** — "a saving of", "it's worth it",
+      "spend on", "half the", "the price is high".
+  examples:
+    - { en: "Roughly a third of the bill is waste.", pt: "Aproximadamente um terço da fatura é desperdício." }
+    - { en: "We could save $5k on spot, but jobs would restart.", pt: "Poderíamos economizar $5 mil com spot, mas os jobs reiniciariam." }
+    - { en: "I need sign-off on the savings plan by Friday.", pt: "Preciso do sign-off no savings plan até sexta." }
+    - { en: "Bottom line: $17k a month back next quarter.", pt: "Resultado final: $17 mil por mês de volta no próximo trimestre." }
+    - { en: "That's a saving of $17k — never 'an economy of'.", pt: "Isso é uma economia de $17 mil — nunca 'an economy of'." }
+    - { en: "The rewrite isn't worth the effort.", pt: "A reescrita não vale o esforço." }
+
+examples:
+  - en: "The bill is up 18%; roughly a third of it is waste."
+    pt: "A fatura subiu 18%; aproximadamente um terço é desperdício."
+    context: "O problema em duas frases."
+  - en: "Killing the idle databases is the quick win — $800, zero risk."
+    pt: "Matar os bancos ociosos é a vitória rápida — $800, risco zero."
+    context: "Abrindo com o fácil."
+  - en: "We could save $5k on spot, but jobs would restart mid-run."
+    pt: "Poderíamos economizar $5 mil com spot, mas os jobs reiniciariam no meio."
+    context: "A alavanca com o trade-off."
+  - en: "The rewrite is out of scope — two sprints for $800 isn't worth it."
+    pt: "A reescrita está fora do escopo — duas sprints por $800 não vale."
+    context: "O descartado com razão."
+  - en: "Bottom line: $17k a month back, starting next quarter."
+    pt: "Resultado final: $17 mil por mês de volta, a partir do próximo trimestre."
+    context: "O número que sobra."
+  - en: "I need your sign-off on the savings plan by Friday."
+    pt: "Preciso do seu sign-off no savings plan até sexta."
+    context: "O pedido com prazo."
+  - en: "Worst-case scenario, the report lands an hour late — acceptable."
+    pt: "No pior cenário, o relatório chega uma hora atrasado — aceitável."
+    context: "O risco delimitado."
+  - en: "Net saving is $17k a month after the tool cost."
+    pt: "A economia líquida é $17 mil por mês depois do custo da ferramenta."
+    context: "O número líquido."
+
+variations:
+  - idea: '"o problema e o pedido"'
+    items:
+      - { register: "Boa", text: "The bill is up 18% — roughly a third is waste.", adequate: true }
+      - { register: "Boa", text: "My ask: sign-off on the savings plan by Friday.", adequate: true }
+      - { register: "Inadequada", text: "The bill is in 18% higher.", adequate: false, note: "*Up 18%* — variação não leva 'in'." }
+      - { register: "Inadequada", text: "I need an economy of $17k approved.", adequate: false, note: "*A saving of* — e o pedido é 'sign-off', não a economia." }
+  - idea: '"cada alavanca com o porém"'
+    items:
+      - { register: "Boa", text: "Spot saves $5k — the trade-off is jobs restarting mid-run.", adequate: true }
+      - { register: "Boa", text: "Right-sizing is the no-brainer: $8k back, zero risk.", adequate: true }
+      - { register: "Inadequada", text: "Spot is perfect — it saves $5k.", adequate: false, note: "Sem o trade-off é promessa — nomeie o 'but'." }
+      - { register: "Inadequada", text: "The rewrite doesn't worth it.", adequate: false, note: "*Isn't worth it* — 'worth' não é verbo." }
+
+brErrors:
+  - { wrong: "The bill is in 18% higher.", right: "The bill is 18% higher.", why: "18% higher, sem 'in'", tag: br.in-percent }
+  - { wrong: "We could have an economy of $17k.", right: "We could get a saving of $17k.", why: "a saving of", tag: br.an-economy }
+  - { wrong: "The rewrite doesn't worth it.", right: "The rewrite isn't worth it.", why: "isn't worth", tag: br.worths }
+  - { wrong: "We spend the budget with on-demand.", right: "We spend the budget on on-demand.", why: "spend on", tag: br.spend-with }
+  - { wrong: "The half of the saving is egress.", right: "Half the saving is egress.", why: "half the saving", tag: br.the-half }
+  - { wrong: "The spot price is cheap this week.", right: "The spot price is low this week.", why: "the price is low", tag: br.price-expensive }
+  - { wrong: "We must to present the plan Friday.", right: "We must present the plan Friday.", why: "must present", tag: br.modal-to }
+  - { wrong: "The utilization is in 35%.", right: "Utilization is at 35%.", why: "at 35%", tag: br.in-percent }
+  - { wrong: "The waste overpassed $12k.", right: "The waste exceeded $12k.", why: "exceeded", tag: br.overpassed }
+  - { wrong: "She not approve the plan.", right: "She doesn't approve the plan.", why: "doesn't approve", tag: br.it-not-works }
+
+dialogue:
+  title: "A reunião do plano de redução — você apresenta"
+  lines:
+    - { speaker: Ana, text: "Fifteen minutes — walk me through the cost plan." }
+    - { speaker: Yuri, text: "The problem first: the bill is up 18% month over month, and roughly a third of it is waste. The plan has three levers, easiest first." }
+    - { speaker: Ana, text: "Start with the easy one." }
+    - { speaker: Yuri, text: "Killing the three idle databases — that's the quick win, a no-brainer: $800 a month back, zero risk. Second, right-sizing the node group — it idles at 12% CPU. That's a saving of about $8k a month, and the trade-off is a redeploy window, fifteen minutes." }
+    - { speaker: Ana, text: "And the third lever?" }
+    - { speaker: Yuri, text: "Spot for the batch jobs — we could save $5k a month, but jobs would restart mid-run. Worst-case scenario, the nightly report lands an hour late. That's an acceptable risk; I'd keep spot away from the API." }
+    - { speaker: Ana, text: "What's the catch on the savings plan?" }
+    - { speaker: Yuri, text: "The commitment — one year on the baseline, about $30k. But it's capacity we always run; on-demand is just the expensive way to buy it. That said, if traffic drops hard, we still pay the commitment — that's the real risk." }
+    - { speaker: Ana, text: "What are you not doing?" }
+    - { speaker: Yuri, text: "The pipeline rewrite is out of scope — two sprints for maybe $800 more isn't worth the effort. Cheap saving, expensive build." }
+    - { speaker: Ana, text: "So what's the bottom line?" }
+    - { speaker: Yuri, text: "Net saving of about $17k a month — that's $200k a year — starting next quarter. My ask: sign-off on the savings plan and the spot migration by Friday, so we break even on the commitment before Q4." }
+    - { speaker: Ana, text: "Send me the one-pager with these numbers and you've got it." }
+  notes:
+    - "ordem da apresentação: problema → quick win → alavancas com trade-off → descartado → bottom line → ask."
+    - "o 'catch' da savings plan foi dito antes de ela perguntar de novo — credibilidade."
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "Presenting a cost plan to a non-technical manager has an order. Problem first — 'the bill is up eighteen percent; roughly a third is waste'. Then the quick win — 'killing the idle databases is a no-brainer, eight hundred a month, zero risk'. Then each lever with its trade-off — 'we could save five K on spot, but jobs would restart mid-run'. Then what you're not doing — 'the rewrite is out of scope'. And you close with the bottom line and the ask — 'net saving of seventeen K a month; I need sign-off by Friday'." }
+    - { speaker: Ana, text: "What convinces me isn't the big number — it's that you named the catch before I asked. 'The trade-off is availability', 'worst-case scenario an hour late', 'that said, if traffic drops we still pay'. A plan without a 'but' sounds like a promise; with it, it sounds like analysis. And always tell me what you need — 'sign-off by Friday' — or the meeting was just a nice chat." }
+  questions:
+    - { id: M20-05-l1, type: multiple_choice, prompt: "The order of the presentation is…", options: ["ask → levers → problem → bottom line", "problem → quick win → levers → out of scope → bottom line → ask", "numbers → apology → ask", "levers → problem → ask"], answer: 1, explanation: "Problema primeiro, pedido no fim.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-05-l2, type: multiple_choice, prompt: "What convinces the manager is…", options: ["the biggest number", "the slide design", "naming the catch before being asked", "promising zero risk"], answer: 2, explanation: "O 'but' dito primeiro é credibilidade.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-05-l3, type: fill_blank, prompt: "Net ___ of about $17k a month, starting next quarter.", accepted: ["saving"], explanation: "'Net saving' — a economia líquida.", tags: [vocab.finops] }
+    - { id: M20-05-l4, type: error_correction, prompt: "The bill is in 18% higher.", accepted: ["The bill is 18% higher.", "The bill is up 18%.", "The bill is 18% higher", "The bill is up 18%"], explanation: "'up 18%' — sem 'in'.", tags: [br.in-percent] }
+    - { id: M20-05-l5, type: multiple_choice, prompt: "'A plan without a but sounds like…'", options: ["analysis", "a promise — the trade-off is what makes it analysis", "a contract", "a question"], answer: 1, explanation: "Sem o porém é promessa.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-05-l6, type: multiple_choice, prompt: "The ask at the end is…", options: ["more budget", "sign-off on the plan by Friday", "a new tool", "a bigger team"], answer: 1, explanation: "O pedido com prazo.", tags: [comp.listening, vocab.finops] }
+
+writing:
+  prompt: |
+    **Cenário:** a reunião terminou com "send me the one-pager".
+
+    **Tarefa:** escreva o one-pager de 80–110 palavras: o
+    problema (a fatura e a fração de waste), as três alavancas
+    cada uma com economia e trade-off, o que ficou fora do
+    escopo e por quê, o bottom line líquido e o ask com prazo.
+  constraints:
+    - { label: "O problema com número", pattern: "\\bup \\d+|\\d+%|roughly|a third\\b" }
+    - { label: "Alavanca com trade-off", pattern: "\\b(could save|would save|saving[s]? of)[^.]{0,80}\\b(but|trade-off|catch)\\b|\\btrade-off\\b" }
+    - { label: "O fora de escopo", pattern: "\\bout of scope|not worth|isn\\'t worth\\b" }
+    - { label: "O ask com prazo", pattern: "\\b(sign-off|approve|approval|ask)\\b[^.]{0,40}\\b(by|before|until)\\b|\\bby (Friday|Q\\d|next week|month end)\\b" }
+  rubric:
+    - "Problema com número e fração"
+    - "Cada alavanca com o trade-off nomeado"
+    - "O descartado com razão de esforço"
+    - "Bottom line + ask com prazo"
+    - "Sem calques ('a saving of', 'isn't worth', 'at 35%')"
+  model: >-
+    The bill is up 18% month over month; roughly a third is
+    waste. Three levers. Quick win: kill the three idle
+    databases — $800 a month, zero risk. Right-size the node
+    group — a saving of about $8k, trade-off is a fifteen-minute
+    redeploy. Spot for batch — we could save $5k, but jobs
+    restart mid-run; worst case the report lands an hour late,
+    which is acceptable. Out of scope: the pipeline rewrite —
+    two sprints for $800 isn't worth the effort. Bottom line:
+    net saving of ~$17k a month, $200k a year. Ask: sign-off on
+    the savings plan and spot migration by Friday.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.finops]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos apresentando o plano para a Ana: problema, quick win, alavancas com trade-off, fora de escopo, bottom line e ask."
+    maxSeconds: 60
+    targetPhrases:
+      - the bill is up
+      - roughly a third
+      - quick win
+      - no-brainer
+      - a saving of
+      - we could save
+      - the trade-off is
+      - worst-case scenario
+      - acceptable risk
+      - out of scope
+      - not worth the effort
+      - bottom line
+      - net saving
+      - sign-off by Friday
+      - we break even
+      - burn rate
+    checklist:
+      - "problema → quick win → alavancas → descartado → bottom line → ask"
+      - "cada economia com seu 'but'"
+      - "números com hedge ('roughly', 'about', 'in the order of')"
+      - "sem calques ('a saving of', 'isn't worth', 'up 18%')"
+
+quiz:
+  - { id: M20-05-q1, type: multiple_choice, prompt: "A ordem da apresentação é…", options: ["pedido → alavancas → problema", "problema → quick win → alavancas → descartado → bottom line → pedido", "números → desculpa → pedido", "alavancas → problema → pedido"], answer: 1, explanation: "Problema primeiro, ask no fim.", tags: [vocab.finops] }
+  - { id: M20-05-q2, type: error_correction, prompt: "We could have an economy of $17k a month.", accepted: ["We could get a saving of $17k a month.", "We could save $17k a month.", "We could get a saving of $17k a month"], explanation: "'a saving of' ou 'save $17k'.", tags: [br.an-economy] }
+  - { id: M20-05-q3, type: multiple_choice, prompt: "O 'quick win' da apresentação é…", options: ["o savings plan", "a reescrita da pipeline", "matar os bancos ociosos — $800, risco zero", "mover a API para spot"], answer: 2, explanation: "O fácil com risco zero abre a apresentação.", tags: [vocab.finops] }
+  - { id: M20-05-q4, type: fill_blank, prompt: "The pipeline rewrite is out of ___ — not worth the effort.", accepted: ["scope"], explanation: "'Out of scope' — fora do plano.", tags: [vocab.finops] }
+  - { id: M20-05-q5, type: multiple_choice, prompt: "'Bottom line' é…", options: ["a linha de código final", "o orçamento", "a primeira frase", "o número que sobra — o resultado final"], answer: 3, explanation: "O que o gestor leva da reunião.", tags: [vocab.finops] }
+  - { id: M20-05-q6, type: error_correction, prompt: "The rewrite doesn't worth the effort.", accepted: ["The rewrite isn't worth the effort.", "The rewrite isn't worth the effort"], explanation: "'isn't worth'.", tags: [br.worths] }
+  - { id: M20-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["by", "sign-off", "need", "i", "friday", "your"], answer: "i need your sign-off by friday", explanation: "O pedido com prazo.", tags: [vocab.finops] }
+  - { id: M20-05-q8, type: multiple_choice, prompt: "Um plano sem 'but' soa como…", options: ["promessa — o trade-off é o que o torna análise", "análise", "contrato", "pergunta"], answer: 0, explanation: "O porém dito primeiro constrói credibilidade.", tags: [vocab.finops] }
+
+srsCards:
+  - { front: "the plan", back: "As alavancas em ordem — 'three levers, easiest first'.", tag: vocab.finops }
+  - { front: "sign-off", back: "A aprovação — 'I need your sign-off by Friday'.", tag: vocab.finops }
+  - { front: "the bottom line", back: "O número que sobra — 'bottom line: $17k a month'.", tag: vocab.finops }
+  - { front: "quick win", back: "A vitória rápida — '$800, zero risk'.", tag: vocab.finops }
+  - { front: "runway", back: "A pista do orçamento — 'runway ends in Q4'.", tag: vocab.finops }
+  - { front: "burn rate", back: "A taxa de queima — '$65k a month'.", tag: vocab.finops }
+  - { front: "out of scope", back: "Fora do plano — 'the rewrite is out of scope'.", tag: vocab.finops }
+  - { front: "net saving", back: "A economia líquida — depois dos custos.", tag: vocab.finops }
+  - { front: "no-brainer", back: "Óbvio — 'killing idle resources is a no-brainer'.", tag: vocab.finops }
+  - { front: "push back on", back: "Contestar — 'she'll push back on the commitment'.", tag: vocab.finops }
+  - { front: "worst-case scenario", back: "O pior cenário delimitado — 'an hour late'.", tag: vocab.finops }
+  - { front: "the ask", back: "O pedido — 'my ask: sign-off by Friday'.", tag: vocab.finops }
+
+review:
+  preferTags: [vocab.finops, gram.numbers-percentages, br.an-economy]
+  notes: "Revisão prioriza a estrutura problema → alavancas → descartado → ask e os calques (an economy of, doesn't worth, in 18%)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
