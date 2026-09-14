@@ -1275,3 +1275,47 @@ describe("padrões BR — M28 (recrutadores)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.advice-notice");
   });
 });
+
+describe("padrões BR — M29 (comportamental)", () => {
+  it("flags 'I make part of the team' but not 'make up part of'", () => {
+    expect(tagsOf("I make part of the on-call rotation.")).toContain("br.make-part-of");
+    expect(tagsOf("She made part of the migration team.")).toContain("br.make-part-of");
+    const clean = [
+      "I'm part of the on-call rotation.",
+      "I joined the platform team.",
+      "Remote work makes up part of the package.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.make-part-of");
+  });
+  it("flags 'in that epoch' but not geological epochs", () => {
+    expect(tagsOf("In that epoch I worked at the startup.")).toContain("br.in-that-epoch");
+    expect(tagsOf("In this epoch we used SVN.")).toContain("br.in-that-epoch");
+    const clean = [
+      "At that time I worked at the startup.",
+      "Back then we used SVN.",
+      "In the epoch of the dinosaurs.",
+      "A new epoch in computing.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-that-epoch");
+  });
+  it("flags 'my defect is perfectionism' but not product defects", () => {
+    expect(tagsOf("My defect is perfectionism.")).toContain("br.my-defect");
+    expect(tagsOf("Her main defect is impatience.")).toContain("br.my-defect");
+    const clean = [
+      "My weakness is perfectionism.",
+      "There's a defect in the deploy.",
+      "I filed a defect ticket.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.my-defect");
+  });
+  it("flags 'it's already 3 years that' but not 'years old'", () => {
+    expect(tagsOf("It's already 3 years that I work here.")).toContain("br.its-already-years");
+    expect(tagsOf("It's already two years since the migration.")).toContain("br.its-already-years");
+    const clean = [
+      "It's been three years since I joined.",
+      "The server is already 3 years old.",
+      "I joined three years ago.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.its-already-years");
+  });
+});

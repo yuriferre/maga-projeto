@@ -915,3 +915,35 @@ patterns:
     right: "I need to give two weeks' notice"
     why: '"Aviso prévio" é "notice" — "two weeks'' notice". ("Give advice" é dar conselho.)'
     tag: br.advice-notice
+  # "I make part of the team" — "fazer parte" vira "be part of".
+  # Sem artigo entre make e part — "makes up part of" (compõe) fica fora.
+  - id: make-part-of
+    pattern: "\\b(i|we|they|he|she)\\s+(make|makes|made|do|does|did)\\s+part\\s+of\\b"
+    wrong: "I make part of the on-call rotation"
+    right: "I'm part of the on-call rotation / I joined the rotation"
+    why: '"Fazer parte" é "be part of" — "make part of" não existe. ("Make up part of" = compor, outra coisa.)'
+    tag: br.make-part-of
+  # "in that epoch" — "naquela época" vira "at that time / back then".
+  # "Epoch" em inglês é era geológica/histórica — "the epoch of dinosaurs" fora.
+  - id: in-that-epoch
+    pattern: "\\bin\\s+(that|this)\\s+epoch\\b"
+    wrong: "In that epoch I worked at the startup"
+    right: "At that time I worked at the startup / Back then I worked there"
+    why: '"Naquela época" é "at that time / back then" — "epoch" é era geológica.'
+    tag: br.in-that-epoch
+  # "my defect is perfectionism" — defeito de caráter é "weakness".
+  # Possessivo + defect — "a defect in the code" (produto) fica fora.
+  - id: my-defect
+    pattern: "\\b(my|his|her)\\s+(biggest|main|only|worst)?\\s*defects?\\b"
+    wrong: "My defect is perfectionism"
+    right: "My weakness is perfectionism / my biggest flaw"
+    why: 'Defeito de pessoa é "weakness/flaw" — "defect" é de produto.'
+    tag: br.my-defect
+  # "it's already 3 years that I work here" — "já faz X anos" vira "it's been X since".
+  # Exige that/since/ago depois — "it's already 3 years old" fica fora.
+  - id: its-already-years
+    pattern: "\\bit'?s\\s+already\\s+\\w+\\s+(years?|months?)\\s+(that|since|ago)\\b"
+    wrong: "It's already 3 years that I work here"
+    right: "It's been three years since I started / I've been here three years"
+    why: '"Já faz X anos" é "it''s been X since" — "it''s already X years that" não existe.'
+    tag: br.its-already-years

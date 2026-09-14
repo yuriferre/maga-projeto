@@ -204,3 +204,7 @@ tags:
   - { id: br.pretension,       group: br, label: "salary pretension" }
   - { id: br.make-interview,   group: br, label: "I made an interview" }
   - { id: br.advice-notice,    group: br, label: "two weeks advice" }
+  - { id: br.make-part-of,     group: br, label: "I make part of the team" }
+  - { id: br.in-that-epoch,    group: br, label: "in that epoch" }
+  - { id: br.my-defect,        group: br, label: "my defect is perfectionism" }
+  - { id: br.its-already-years, group: br, label: "it's already 3 years that" }
