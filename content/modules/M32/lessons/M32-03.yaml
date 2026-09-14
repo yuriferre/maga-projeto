@@ -1,0 +1,340 @@
+id: M32-03
+module: M32
+order: 3
+title: "Pedindo contexto e documentação: is there a doc for…; who owns…"
+objective: >-
+  Ao final, você sabe pedir contexto e
+  documentação como sênior — achar o que
+  existe, perguntar pelo dono, e contribuir
+  para o doc que faltava.
+durationMin: 30
+competencies: [SPK, REA, WRI]
+tags: [vocab.onboarding, comp.speaking, comp.reading]
+prerequisites: [M32-02]
+
+context:
+  scenario: |
+    O terceiro movimento do onboarding: pedir
+    contexto sem parecer perdido. A diferença
+    entre o novato que pergunta bem e o que
+    pergunta mal é **a pesquisa antes da
+    pergunta**.
+
+    A ordem sênior:
+
+    1. **Procure primeiro** — wiki, repo,
+       canal. A pergunta que já tem resposta
+       escrita queima crédito.
+    2. **Pergunte com o que achou** — "*I
+       found the 2022 runbook — is it still
+       current?*" mostra trabalho, não
+       preguiça.
+    3. **Pergunte pelo dono, não pela
+       resposta** — "*who owns the deploy
+       docs?*" te dá a fonte permanente.
+
+    As molduras:
+
+    - **Achar o doc**: "*is there a doc for
+      the release process?*"
+    - **O dono**: "*who owns the runbooks —
+      you or the SRE team?*"
+    - **A checagem de validade**: "*is this
+      still current?*" / "*when was this
+      last updated?*"
+    - **Contexto de decisão**: "*what's the
+      story behind this design?*" — o porquê
+      que nenhum doc escreve.
+    - **A contribuição**: "*mind if I add
+      that to the onboarding doc?*" —
+      a lacuna que você achou vira página.
+
+    E a regra do pedido por escrito: a
+    pergunta no canal inclui o que você já
+    tentou — "*I checked the wiki and the
+    repo; the deploy doc seems stale — is
+    there a newer one?*"
+
+    O erro do brasileiro: perguntar sem
+    pesquisar ("where is X?") — ou o oposto,
+    ficar três horas procurando o que um
+    colega responde em dois minutos.
+  roles: [Yuri (new Senior Platform Engineer), Sam (senior engineer, the historian)]
+
+vocabulary:
+  - term: "is there a doc for…?"
+    meaning: 'existe um doc para…? — achar a documentação'
+    example: "Is there a doc for the release process, or is it tribal knowledge?"
+    translation: "Existe um doc para o processo de release, ou é conhecimento tribal?"
+    note: "Perguntar pelo doc, não pelo procedimento inteiro."
+  - term: "tribal knowledge"
+    meaning: 'conhecimento tribal — o que só existe na cabeça das pessoas'
+    example: "Half the deploy process is tribal knowledge — nobody wrote it down."
+    translation: "Metade do processo de deploy é conhecimento tribal — ninguém escreveu."
+    note: "O nome para o que falta em doc."
+  - term: "who owns…?"
+    meaning: 'quem é dono de…? — achar a pessoa-fonte'
+    example: "Who owns the runbooks — you or the SRE team?"
+    translation: "Quem é dono dos runbooks — você ou o time de SRE?"
+    note: "O dono é a fonte permanente, melhor que a resposta única."
+  - term: "is this still current?"
+    meaning: 'isso ainda está atual? — a checagem de validade do doc'
+    example: "I found the 2022 runbook — is it still current?"
+    translation: "Achei o runbook de 2022 — ainda está atual?"
+    note: "Doc velho é pior que nenhum — cheque a validade."
+  - term: "when was this last updated?"
+    meaning: 'quando isso foi atualizado pela última vez?'
+    example: "When was this page last updated — the screenshots look old."
+    translation: "Quando essa página foi atualizada — os prints parecem velhos."
+    note: "A data que decide se o doc se pode confiar."
+  - term: "what's the story behind…?"
+    meaning: 'qual é a história por trás de…? — o contexto da decisão'
+    example: "What's the story behind this design — why a queue and not a stream?"
+    translation: "Qual a história por trás desse design — por que fila e não stream?"
+    note: "O porquê que nenhum doc escreve — pergunte ao historiador."
+  - term: "I checked X and Y already"
+    meaning: 'já chequei X e Y — a pesquisa que vem antes da pergunta'
+    example: "I checked the wiki and the repo — the deploy doc seems stale."
+    translation: "Já chequei a wiki e o repo — o doc de deploy parece desatualizado."
+    note: "A pergunta com pesquisa vale dez vezes mais."
+  - term: "seems stale / outdated"
+    meaning: 'parece desatualizado — o doc que envelheceu'
+    example: "This runbook seems stale — it references a tool we retired."
+    translation: "Esse runbook parece desatualizado — cita uma ferramenta aposentada."
+    note: "'Stale' = velho/vencido — o adjetivo do doc."
+  - term: "mind if I add that to the doc?"
+    meaning: 'se importa se eu adicionar isso ao doc? — a contribuição'
+    example: "Mind if I add that step to the onboarding doc? It's missing."
+    translation: "Se importa se eu adicionar esse passo ao doc de onboarding? Está faltando."
+    note: "A lacuna que você acha vira contribuição sua."
+  - term: "the gap in the docs"
+    meaning: 'a lacuna nos docs — o que falta escrever'
+    example: "The gap in the docs: nothing explains the canary step."
+    translation: "A lacuna nos docs: nada explica o passo do canary."
+    note: "Cada gap que você acha é uma contribuição fácil."
+  - term: "point me to…"
+    meaning: 'me aponta para… — o pedido de direção'
+    example: "Can you point me to the architecture overview?"
+    translation: "Você pode me apontar para a visão de arquitetura?"
+    note: "Pedir direção, não a explicação inteira."
+  - term: "I'll write it up"
+    meaning: 'eu escrevo isso — a lacuna que você preenche'
+    example: "Nobody documented this — I'll write it up and share it."
+    translation: "Ninguém documentou isso — eu escrevo e compartilho."
+    note: "O novato que documenta vira referência em semanas."
+
+grammar:
+  title: "a gramática do pedido com pesquisa"
+  explanation: |
+    O pedido sênior de contexto tem três partes:
+
+    - **A pesquisa declarada**: "**I checked**
+      the wiki **and** the repo — **the doc
+      seems stale**."
+    - **A pergunta de direção**: "**is there a
+      doc for** the release process?" /
+      "**can you point me to** the overview?"
+    - **O dono**: "**who owns** the runbooks?"
+
+    O contexto de decisão: "**what's the
+    story behind** this design?" — o porquê
+    que nenhum doc escreve.
+
+    E a contribuição: "**mind if I add**
+    that to the doc?" / "**I'll write it
+    up**."
+  examples:
+    - { en: "Is there a doc for the release process, or is it tribal knowledge?", pt: "Existe doc para o release, ou é conhecimento tribal?" }
+    - { en: "Who owns the runbooks — you or the SRE team?", pt: "Quem é dono dos runbooks — você ou o SRE?" }
+    - { en: "I checked the wiki and the repo — this runbook seems stale.", pt: "Chequei a wiki e o repo — esse runbook parece velho." }
+    - { en: "When was this page last updated?", pt: "Quando essa página foi atualizada?" }
+    - { en: "What's the story behind this design?", pt: "Qual a história por trás desse design?" }
+    - { en: "Mind if I add that step to the onboarding doc?", pt: "Se importa se eu adicionar esse passo ao doc?" }
+
+examples:
+  - en: "Is there a doc for the release process, or is it tribal knowledge?"
+    pt: "Existe um doc para o processo de release, ou é conhecimento tribal?"
+    context: "Achar o doc."
+  - en: "Who owns the runbooks — you or the SRE team?"
+    pt: "Quem é dono dos runbooks — você ou o time de SRE?"
+    context: "O dono, não a resposta."
+  - en: "I checked the wiki and the repo — the deploy doc seems stale."
+    pt: "Chequei a wiki e o repo — o doc de deploy parece desatualizado."
+    context: "A pesquisa antes da pergunta."
+  - en: "I found the 2022 runbook — is it still current?"
+    pt: "Achei o runbook de 2022 — ainda está atual?"
+    context: "A checagem de validade."
+  - en: "What's the story behind this design — why a queue and not a stream?"
+    pt: "Qual a história do design — por que fila e não stream?"
+    context: "O contexto da decisão."
+  - en: "Mind if I add that step to the onboarding doc? It's missing."
+    pt: "Se importa se eu adicionar ao doc de onboarding? Está faltando."
+    context: "A lacuna que vira contribuição."
+  - en: "Can you point me to the architecture overview?"
+    pt: "Pode me apontar para a visão de arquitetura?"
+    context: "Direção, não a explicação inteira."
+  - en: "Nobody documented this — I'll write it up and share it."
+    pt: "Ninguém documentou — eu escrevo e compartilho."
+    context: "O novato que documenta."
+
+variations:
+  - idea: '"o pedido de contexto"'
+    items:
+      - { register: "Forte", text: "I checked the wiki and the repo — the deploy doc seems stale. Is there a newer one?", adequate: true }
+      - { register: "Forte", text: "Who owns the runbooks — you or the SRE team?", adequate: true }
+      - { register: "Fraco", text: "How do I deploy? (didn't check anything)", adequate: false, note: "A pergunta sem pesquisa queima crédito." }
+      - { register: "Fraco", text: "I'll search for three more hours before asking.", adequate: false, note: "O oposto também erra — pesquise 15 min, depois pergunte." }
+  - idea: '"a lacuna encontrada"'
+    items:
+      - { register: "Forte", text: "Mind if I add that step to the doc? It's missing.", adequate: true }
+      - { register: "Forte", text: "Nobody documented this — I'll write it up.", adequate: true }
+      - { register: "Fraco", text: "These docs are terrible — who wrote this?", adequate: false, note: "Criticar o doc sem oferecer a correção só atrita." }
+      - { register: "Fraco", text: "Not my job — I'm new.", adequate: false, note: "Documentar a lacuna é o trabalho mais visível do novato." }
+
+brErrors:
+  - { wrong: "I'm new in the platform team.", right: "I'm new to the platform team.", why: "new to", tag: br.new-in-company }
+  - { wrong: "In my first day I found the gap.", right: "On my first day I found the gap.", why: "on my first day", tag: br.in-first-day }
+  - { wrong: "I need a help finding the docs.", right: "I need help finding the docs.", why: "help sem artigo", tag: br.a-help }
+  - { wrong: "Who is the responsible for the runbooks?", right: "Who owns the runbooks?", why: "who owns", tag: br.the-responsible }
+  - { wrong: "I have a doubt about the runbook.", right: "I have a question about the runbook.", why: "a question", tag: br.doubt }
+  - { wrong: "I pretend to write it up today.", right: "I plan to write it up today.", why: "plan to", tag: br.pretend }
+  - { wrong: "Can you explain me the release process?", right: "Can you explain the release process to me?", why: "explain to me", tag: br.explain-me }
+  - { wrong: "Let me make a question about the docs.", right: "Let me ask a question about the docs.", why: "ask a question", tag: br.make-question }
+  - { wrong: "I want to take a coffee with the historian.", right: "I want to grab a coffee with the historian.", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "I assist the doc review.", right: "I attend the doc review.", why: "attend", tag: br.assist }
+
+dialogue:
+  title: "Pedindo o contexto do deploy"
+  lines:
+    - { speaker: Yuri, text: "Hey Sam — quick one. I checked the wiki and the repo, and the deploy runbook seems stale — it references a tool we retired. Is there a newer one?" }
+    - { speaker: Sam, text: "Good catch — the runbook moved to the team drive last quarter. I'll send you the link." }
+    - { speaker: Yuri, text: "Thanks. And who owns the runbooks now — you or the SRE team?" }
+    - { speaker: Sam, text: "Priya's team owns them officially; I keep the historical ones." }
+    - { speaker: Yuri, text: "Speaking of history — what's the story behind the manual canary step? Seems like it should be automated." }
+    - { speaker: Sam, text: "There was an incident in 2023 — auto-canary pushed a bad deploy. The manual step is the scar tissue." }
+    - { speaker: Yuri, text: "That context isn't in any doc, is it?" }
+    - { speaker: Sam, text: "Nope — tribal knowledge. You're getting it because you asked the right way." }
+    - { speaker: Yuri, text: "Then let me pay it forward — mind if I add the story to the runbook? A 'why this step exists' section." }
+    - { speaker: Sam, text: "Please do. The gap in the docs is real — half of what I know lives in my head." }
+    - { speaker: Yuri, text: "I'll write it up today and tag you for review." }
+  notes:
+    - "a pesquisa declarada antes da pergunta: 'I checked the wiki and the repo'."
+    - "'who owns' acha a fonte permanente; 'the story behind' tira o porquê do historiador."
+    - "a lacuna vira contribuição: 'mind if I add that to the doc?' + 'I'll write it up'."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "Asking for context like a senior means research before the question. The order: search first — wiki, repo, channel — then ask with what you found: 'I found the 2022 runbook — is it still current?'" }
+    - { speaker: Yuri, text: "Ask for the doc, not the procedure — 'is there a doc for the release process?' Ask for the owner, not the answer — 'who owns the runbooks?' And ask the historian for the story — 'what's the story behind this design?'" }
+    - { speaker: Sam, text: "When you find a gap, it becomes your contribution — 'mind if I add that to the doc?' The mistake is asking without searching, or searching for three hours when a colleague answers in two minutes. Fifteen minutes of search, then ask." }
+  questions:
+    - { id: M32-03-l1, type: multiple_choice, prompt: "A ordem sênior do pedido de contexto é…", options: ["perguntar → pesquisar", "pesquisar → perguntar com o que achou → perguntar pelo dono", "nunca perguntar", "perguntar a todos"], answer: 1, explanation: "Pesquisa primeiro — a pergunta com trabalho vale mais.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-03-l2, type: fill_blank, prompt: "Is there a ___ for the release process, or is it tribal knowledge?", accepted: ["doc"], explanation: "Perguntar pelo doc, não pelo procedimento.", tags: [vocab.onboarding] }
+    - { id: M32-03-l3, type: error_correction, prompt: "Who is the responsible for the runbooks?", accepted: ["Who owns the runbooks?", "Who owns the runbooks", "Who is the owner of the runbooks?"], explanation: "'Who owns'.", tags: [br.the-responsible] }
+    - { id: M32-03-l4, type: multiple_choice, prompt: "'Tribal knowledge' é…", options: ["o que está no wiki", "o que só existe na cabeça das pessoas — nenhum doc", "o treinamento formal", "o erro"], answer: 1, explanation: "O conhecimento não documentado.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-03-l5, type: multiple_choice, prompt: "A lacuna que você acha nos docs vira…", options: ["uma reclamação", "problema de outro", "uma contribuição — 'mind if I add that to the doc?'", "silêncio"], answer: 2, explanation: "Documentar a lacuna é o trabalho visível do novato.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-03-l6, type: multiple_choice, prompt: "O tempo de pesquisa antes de perguntar é…", options: ["zero — pergunta direto", "umas três horas", "~15 minutos — depois pergunte", "uma semana"], answer: 2, explanation: "15 min de busca, depois a pergunta.", tags: [comp.listening, vocab.onboarding] }
+
+writing:
+  prompt: |
+    **Cenário:** você achou a lacuna — o passo
+    manual do canary não está em doc nenhum, e a
+    história por trás (o incidente de 2023) só
+    existe na cabeça do Sam. O coach pediu por
+    escrito a mensagem para o canal + a página
+    que você vai escrever.
+
+    **Tarefa:** escreva 100–130 palavras: (1) a
+    mensagem no canal — pesquisa declarada +
+    pergunta pelo doc/dono; (2) o esboço da
+    página nova: o passo, o porquê ("the story
+    behind"), e quem revisa.
+  constraints:
+    - { label: "A pesquisa declarada", pattern: "\\bi checked|i found|seems stale|already looked|searched\\b" }
+    - { label: "Doc e dono", pattern: "\\bdoc|doc for|who owns|point me|current|updated\\b" }
+    - { label: "A história", pattern: "\\bstory behind|why this step|incident|context|tribal knowledge\\b" }
+    - { label: "A contribuição", pattern: "\\badd.*doc|write it up|mind if i|contribute|tag.*review\\b" }
+  rubric:
+    - "Pesquisa declarada antes da pergunta"
+    - "Pergunta pelo dono, não só pela resposta"
+    - "A lacuna vira página com 'the story behind'"
+    - "Sem calques ('who owns', 'help' sem artigo, 'on my first day')"
+  model: >-
+    The channel message: "Hey team — new here,
+    week one. I checked the wiki and the repo;
+    the deploy runbook seems stale — references
+    a retired tool. Is there a newer doc, and
+    who owns the runbooks now?" The page I'll
+    write up: "The manual canary step — why it
+    exists." The step itself, then the story
+    behind it: the 2023 incident where an
+    auto-canary pushed a bad deploy — this is
+    scar tissue, not bureaucracy. Then the
+    checklist of what to verify by hand, and
+    Sam tagged for review since he's the
+    historian. A gap found in week one becomes
+    the page the next newcomer reads.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.onboarding]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: o pedido de contexto sênior — a pesquisa declarada ('I checked the wiki and the repo — seems stale'), a pergunta pelo doc e pelo dono ('is there a doc for…?', 'who owns…?'), a pergunta ao historiador ('what's the story behind…?'), e a contribuição ('mind if I add that to the doc? I'll write it up')."
+    maxSeconds: 90
+    targetPhrases:
+      - is there a doc for
+      - tribal knowledge
+      - who owns
+      - is this still current
+      - when was this last updated
+      - what's the story behind
+      - i checked the wiki and the repo
+      - seems stale
+      - mind if i add that to the doc
+      - the gap in the docs
+      - point me to
+      - i'll write it up
+      - who should i talk to
+      - the runbook
+      - tag you for review
+      - newer one
+    checklist:
+      - "a pesquisa antes da pergunta"
+      - "pergunta pelo dono, não só pela resposta"
+      - "'the story behind' para o contexto da decisão"
+      - "a lacuna vira contribuição oferecida"
+      - "sem calques ('who owns', 'help' sem artigo, 'a doc for')"
+
+quiz:
+  - { id: M32-03-q1, type: multiple_choice, prompt: "A pergunta sênior de contexto começa com…", options: ["a dúvida direta", "a pesquisa declarada — 'I checked the wiki and the repo'", "um elogio", "uma desculpa"], answer: 1, explanation: "Mostrar o que já tentou vale crédito.", tags: [vocab.onboarding] }
+  - { id: M32-03-q2, type: error_correction, prompt: "I need a help finding the docs.", accepted: ["I need help finding the docs.", "I need help finding the docs", "I need some help finding the docs."], explanation: "'Help' sem artigo.", tags: [br.a-help] }
+  - { id: M32-03-q3, type: multiple_choice, prompt: "'Who owns the runbooks?' é melhor que 'how do runbooks work?' porque…", options: ["é mais curto", "acha a fonte permanente, não só a resposta única", "é mais formal", "evita trabalho"], answer: 1, explanation: "O dono responde para sempre.", tags: [vocab.onboarding] }
+  - { id: M32-03-q4, type: fill_blank, prompt: "I found the 2022 runbook — is it still ___?", accepted: ["current"], explanation: "A checagem de validade do doc.", tags: [vocab.onboarding] }
+  - { id: M32-03-q5, type: multiple_choice, prompt: "O contexto que nenhum doc escreve se pede com…", options: ["'what's the story behind this design?'", "'is this wrong?'", "'who wrote this?'", "'why me?'"], answer: 0, explanation: "A pergunta ao historiador.", tags: [vocab.onboarding] }
+  - { id: M32-03-q6, type: error_correction, prompt: "Can you explain me the release process?", accepted: ["Can you explain the release process to me?", "Can you explain the release process to me"], explanation: "'Explain X to me'.", tags: [br.explain-me] }
+  - { id: M32-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["if", "mind", "i", "add", "that", "to", "the", "doc"], answer: "mind if i add that to the doc", explanation: "A lacuna vira contribuição.", tags: [vocab.onboarding] }
+  - { id: M32-03-q8, type: multiple_choice, prompt: "O erro do brasileiro no pedido de contexto é…", options: ["perguntar sem pesquisar — ou pesquisar três horas sem perguntar", "pesquisar demais sempre", "usar o canal", "escrever docs"], answer: 0, explanation: "Os dois extremos erram — 15 min, depois pergunte.", tags: [vocab.onboarding] }
+
+srsCards:
+  - { front: "is there a doc for…?", back: "Perguntar pelo doc, não pelo procedimento.", tag: vocab.onboarding }
+  - { front: "tribal knowledge", back: "O que só existe na cabeça das pessoas.", tag: vocab.onboarding }
+  - { front: "who owns…?", back: "A fonte permanente > a resposta única.", tag: vocab.onboarding }
+  - { front: "is this still current?", back: "A checagem de validade do doc.", tag: vocab.onboarding }
+  - { front: "when was this last updated?", back: "A data que decide se o doc vale.", tag: vocab.onboarding }
+  - { front: "what's the story behind…?", back: "O porquê que nenhum doc escreve.", tag: vocab.onboarding }
+  - { front: "I checked X and Y already", back: "A pesquisa que vem antes da pergunta.", tag: vocab.onboarding }
+  - { front: "seems stale / outdated", back: "O doc que envelheceu.", tag: vocab.onboarding }
+  - { front: "mind if I add that to the doc?", back: "A lacuna vira contribuição.", tag: vocab.onboarding }
+  - { front: "the gap in the docs", back: "O que falta escrever.", tag: vocab.onboarding }
+  - { front: "point me to…", back: "Direção, não a explicação inteira.", tag: vocab.onboarding }
+  - { front: "I'll write it up", back: "O novato que documenta vira referência.", tag: vocab.onboarding }
+
+review:
+  preferTags: [vocab.onboarding, br.the-responsible, br.a-help, br.explain-me]
+  notes: "Revisão prioriza a pesquisa declarada e a contribuição nos docs."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
