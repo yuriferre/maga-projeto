@@ -1,0 +1,310 @@
+id: M27-02
+module: M27
+order: 2
+title: "Cargos e responsabilidades: 'I led', 'I owned', 'I partnered with'"
+objective: >-
+  Ao final, você descreve o que fez em cada papel com
+  o verbo certo — 'I was responsible for' para o
+  escopo, 'I led' para liderança, 'I owned' para
+  autonomia, 'I partnered with' para colaboração —
+  e sabe por que 'I helped with' enfraquece a resposta.
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M27-01]
+
+context:
+  scenario: |
+    "What did you do there?" — a pergunta seguinte ao
+    pitch. O verbo carrega a senioridade:
+
+    - **"I was responsible for X"** — o escopo nomeado,
+      neutro e honesto.
+    - **"I led X"** — pessoas ou iniciativa: "*I led
+      the migration*", "*I led a team of four*".
+    - **"I owned X"** — a autonomia: "*I owned the
+      release pipeline end to end*".
+    - **"I partnered with X"** — a colaboração com
+      peso: "*I partnered with security on the audit*".
+    - **"I drove X"** — a iniciativa que empurrou:
+      "*I drove the post-mortem culture*".
+    - **"I mentored X"** — a alavanca de senior:
+      "*I mentored two engineers into on-call*".
+
+    E o anti-verbo: "**I helped with**" — "ajudei" é
+    o verbo que apaga você. Se foi seu, diga "*I ran
+    the migration*"; se dividiu, diga com quem ("*I
+    partnered with…*") — nunca o vago.
+
+    O erro do brasileiro: "I was responsible by" (por
+    → for) e o "helped" que esconde o trabalho real.
+  roles: [Yuri (platform engineer), Ana (eng manager, interviewer)]
+
+vocabulary:
+  - term: "I was responsible for X"
+    meaning: 'eu era responsável por X — o escopo neutro e honesto'
+    example: "I was responsible for the release pipeline — builds, gates, rollbacks."
+    translation: "Eu era responsável pelo pipeline de release — builds, gates, rollbacks."
+    note: "'For', nunca 'by' — o escopo declarado sem inflar."
+  - term: "I led X"
+    meaning: 'eu liderei X — pessoas ou a iniciativa'
+    example: "I led the migration — eight engineers across three time zones."
+    translation: "Eu liderei a migração — oito engenheiros em três fusos."
+    note: "Led = conduziu. Pode ser gente ('led a team of four') ou a coisa ('led the RFC')."
+  - term: "I owned X"
+    meaning: 'eu era dono de X — autonomia total, de ponta a ponta'
+    example: "I owned the alerting stack — from the rules to the rotation."
+    translation: "Eu era dono do stack de alertas — das regras ao plantão."
+    note: "Owned > responsible: quem 'owns' responde pelo resultado."
+  - term: "I partnered with X"
+    meaning: 'trabalhei em parceria com X — colaboração com peso'
+    example: "I partnered with security on the SOC2 audit."
+    translation: "Trabalhei em parceria com segurança na auditoria SOC2."
+    note: "O 'ajudei' adulto — nomeia o parceiro e o trabalho."
+  - term: "I drove X"
+    meaning: 'eu empurrei X — a iniciativa que não nasceria sem você'
+    example: "I drove the blameless post-mortem culture — wrote the first template."
+    translation: "Eu impulsionei a cultura de post-mortem sem culpa — escrevi o primeiro template."
+    note: "Drove = a coisa que existiu porque você empurrou."
+  - term: "I mentored X"
+    meaning: 'eu mentorei X — a alavanca de quem multiplica'
+    example: "I mentored two engineers into on-call readiness."
+    translation: "Mentorei dois engenheiros até o plantão."
+    note: "O sinal de senior: multiplicar, não só entregar."
+  - term: "I reported to X"
+    meaning: 'eu reportava a X — a cadeia, quando perguntam'
+    example: "I reported to the head of infrastructure — dotted line to the CTO."
+    translation: "Reportava ao head de infra — linha pontilhada ao CTO."
+    note: "Útil para contexto — 'reported to', 'dotted line'."
+  - term: "my scope was X"
+    meaning: 'meu escopo era X — o tamanho da fronteira'
+    example: "My scope was the whole deploy path — four teams' worth of pipelines."
+    translation: "Meu escopo era o caminho de deploy inteiro — pipelines de quatro times."
+    note: "Escopo nomeado vale mais que título inflado."
+  - term: "I built X from scratch"
+    meaning: 'construí X do zero — a criação'
+    example: "I built the on-call rotation from scratch — no playbook existed."
+    translation: "Construí o rodízio de plantão do zero — não existia playbook."
+    note: "'From scratch' = do zero — criação, não manutenção."
+  - term: "I inherited X"
+    meaning: 'herdei X — o que veio pronto (e o que fiz com isso)'
+    example: "I inherited a 40-minute build — left it at 6."
+    translation: "Herdei um build de 40 minutos — deixei em 6."
+    note: "'Inherited + melhoria' é a dupla honesta: o antes era de outro."
+  - term: "a team of four"
+    meaning: 'um time de quatro — o tamanho em número'
+    example: "I led a team of four — two seniors, two juniors."
+    translation: "Liderei um time de quatro — dois seniors, dois juniors."
+    note: "Sempre com o número — 'led a team' sem tamanho é vago."
+  - term: "I helped with X"
+    meaning: 'ajudei com X — o anti-verbo que apaga você'
+    example: "Not 'I helped with the migration' — 'I ran the migration with Carlos'."
+    translation: "Não 'ajudei na migração' — 'rodei a migração com o Carlos'."
+    note: "Se foi seu, nomeie o verbo; se dividiu, nomeie o parceiro."
+
+grammar:
+  title: "a gramática do verbo de senioridade"
+  explanation: |
+    O verbo de responsabilidade segue a escala:
+
+    - **Escopo**: "*I was responsible for*",
+      "*my scope was*", "*I covered*".
+    - **Liderança**: "*I led* (+ team/iniciativa)",
+      "*I drove*", "*I ran*".
+    - **Autonomia**: "*I owned*", "*I built X from
+      scratch*", "*I inherited X and…*".
+    - **Colaboração**: "*I partnered with*",
+      "*I worked alongside*", "*I mentored*".
+
+    E o que não fazer:
+
+    - "**responsible by**" → "**responsible for**".
+    - "**promoted for senior**" → "**promoted to**".
+    - "**I helped with**" → o verbo real ("*I ran*",
+      "*I owned*") ou o parceiro ("*partnered with*").
+  examples:
+    - { en: "I was responsible for the release pipeline — builds, gates, rollbacks.", pt: "Eu era responsável pelo pipeline de release — builds, gates, rollbacks." }
+    - { en: "I led the migration — a team of four across three time zones.", pt: "Liderei a migração — um time de quatro em três fusos." }
+    - { en: "I owned the alerting stack end to end — rules, dashboards, rotation.", pt: "Eu era dono do stack de alertas de ponta a ponta — regras, dashboards, rodízio." }
+    - { en: "I partnered with security on the SOC2 audit — they wrote, I fixed.", pt: "Trabalhei em parceria com segurança no SOC2 — eles escreveram, eu corrigi." }
+    - { en: "I drove the post-mortem culture — wrote the first template myself.", pt: "Impulsionei a cultura de post-mortem — escrevi o primeiro template eu mesmo." }
+    - { en: "I mentored two engineers into on-call — both still on the rotation.", pt: "Mentorei dois engenheiros até o plantão — os dois ainda estão no rodízio." }
+
+examples:
+  - en: "I was responsible for the deploy path — four teams' pipelines."
+    pt: "Eu era responsável pelo caminho de deploy — pipelines de quatro times."
+    context: "O escopo nomeado."
+  - en: "I led a team of four through the migration — two seniors, two juniors."
+    pt: "Liderei um time de quatro na migração — dois seniors, dois juniors."
+    context: "Liderança com o número."
+  - en: "I owned the on-call rotation end to end — built it from scratch."
+    pt: "Eu era dono do rodízio de ponta a ponta — construí do zero."
+    context: "Autonomia + criação."
+  - en: "I partnered with the security team on the audit — they scoped, I remediated."
+    pt: "Trabalhei em parceria com segurança na auditoria — eles delimitaram, eu remediava."
+    context: "A colaboração com divisão clara."
+  - en: "I inherited a 40-minute build and left it at 6 — the number tells the story."
+    pt: "Herdei um build de 40 minutos e deixei em 6 — o número conta a história."
+    context: "Inherited + melhoria — a dupla honesta."
+  - en: "I drove the FinOps practice — first showback report, then the chargeback."
+    pt: "Impulsionei a prática de FinOps — primeiro o showback, depois o chargeback."
+    context: "A iniciativa que não nasceria sem você."
+  - en: "I mentored two engineers into on-call — both are still on the rotation."
+    pt: "Mentorei dois engenheiros até o plantão — os dois continuam no rodízio."
+    context: "A alavanca de senior."
+  - en: "I reported to the head of infra — my scope was everything between commit and production."
+    pt: "Reportava ao head de infra — meu escopo era tudo entre o commit e a produção."
+    context: "A cadeia + a fronteira."
+
+variations:
+  - idea: '"o verbo certo"'
+    items:
+      - { register: "Forte", text: "I owned the alerting stack end to end.", adequate: true }
+      - { register: "Forte", text: "I partnered with security on the audit — they scoped, I remediated.", adequate: true }
+      - { register: "Fraco", text: "I helped with the migration.", adequate: false, note: "'Helped' apaga — se foi seu, 'I ran'; se dividiu, 'partnered with'." }
+      - { register: "Fraco", text: "I was responsible by the deploys.", adequate: false, note: "Calque — 'responsible for'." }
+  - idea: '"liderança × autonomia"'
+    items:
+      - { register: "Forte", text: "I led a team of four through the migration.", adequate: true }
+      - { register: "Forte", text: "I built the rotation from scratch — nothing existed.", adequate: true }
+      - { register: "Fraco", text: "I was the boss of the team.", adequate: false, note: "'Boss' soa errado — 'I led a team of four' é a forma." }
+      - { register: "Fraco", text: "I did everything alone — nobody helped me.", adequate: false, note: "O trabalho solo exagerado levanta a pergunta: e a colaboração?" }
+
+brErrors:
+  - { wrong: "I was responsible by the on-call rotation.", right: "I was responsible for the on-call rotation.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "I was promoted for tech lead.", right: "I was promoted to tech lead.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "I work there since 2019.", right: "I've worked there since 2019.", why: "I've worked", tag: br.work-since }
+  - { wrong: "I formed in Computer Engineering.", right: "I have a degree in Computer Engineering.", why: "a degree in", tag: br.formed-in }
+  - { wrong: "I have 15 years — and 8 of experience.", right: "I'm 35 — with 8 years of experience.", why: "years de idade ≠ experiência", tag: br.have-years }
+  - { wrong: "I pretend to grow into staff.", right: "I plan to grow into staff.", why: "plan to", tag: br.pretend }
+  - { wrong: "We discussed about my scope.", right: "We discussed my scope.", why: "discussed my scope", tag: br.discuss-about }
+  - { wrong: "She suggest to split the team.", right: "She suggested splitting the team.", why: "suggested splitting", tag: br.suggest-to }
+  - { wrong: "I have doubt about the title.", right: "I have a question about the title.", why: "a question", tag: br.doubt }
+  - { wrong: "In the other hand, the scope was bigger.", right: "On the other hand, the scope was bigger.", why: "on the other hand", tag: br.in-other-hand }
+
+dialogue:
+  title: "What did you do there?"
+  lines:
+    - { speaker: Ana, text: "And at the fintech — what did you actually do there?" }
+    - { speaker: Yuri, text: "I owned the release pipeline end to end — builds, gates, rollbacks. My scope was four teams' worth of deploys." }
+    - { speaker: Ana, text: "Alone?" }
+    - { speaker: Yuri, text: "No — I led a team of four, two seniors and two juniors. And I partnered with security on the SOC2 audit — they scoped, I remediated." }
+    - { speaker: Ana, text: "Anything you built that didn't exist?" }
+    - { speaker: Yuri, text: "The on-call rotation — built it from scratch. And I drove the post-mortem culture: wrote the first template, ran the first three reviews." }
+    - { speaker: Ana, text: "What about the build time I heard about?" }
+    - { speaker: Yuri, text: "Inherited a 40-minute build — left it at 6. That's the number I'm proudest of." }
+    - { speaker: Ana, text: "And the team — did you grow people?" }
+    - { speaker: Yuri, text: "I mentored two engineers into on-call. Both are still on the rotation — that part outlasted me, which is the point." }
+  notes:
+    - "cada verbo no lugar: owned (autonomia), led + número (liderança), partnered with (colaboração), built from scratch (criação), drove (iniciativa), mentored (alavanca)."
+    - "'inherited X — left it at Y' — o antes honesto faz o depois brilhar."
+    - "nenhum 'helped with' — todo trabalho nomeado ou com parceiro."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "The verb carries the seniority. 'I was responsible for' names scope — neutral, honest. 'I led' is people or initiative — always with a number. 'I owned' is end-to-end autonomy. 'I partnered with' is collaboration that counts. 'I drove' is the thing that wouldn't exist without you. And 'I mentored' is the senior's lever." }
+    - { speaker: Yuri, text: "The anti-verb is 'I helped with' — it erases you. If it was yours, name the verb: 'I ran', 'I owned'. If you shared it, name the partner: 'partnered with security'. And the calques: 'responsible for', never 'by'; 'promoted to', never 'for'; 'I've worked since 2019', not 'I work since'." }
+    - { speaker: Ana, text: "One more honest pair: 'I inherited X — left it at Y'. Owning that the before was someone else's makes the after more credible, not less." }
+  questions:
+    - { id: M27-02-l1, type: multiple_choice, prompt: "'I owned X' versus 'I was responsible for X':", options: ["'owned' é autonomia de ponta a ponta — responde pelo resultado", "sinônimos", "'owned' é informal", "'responsible' é mais forte"], answer: 0, explanation: "Owned > responsible — quem 'owns' responde pelo resultado.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-02-l2, type: fill_blank, prompt: "I ___ a team of four through the migration.", accepted: ["led"], explanation: "'Led' + o número — a liderança.", tags: [vocab.interview] }
+    - { id: M27-02-l3, type: error_correction, prompt: "I was responsible by the deploys.", accepted: ["I was responsible for the deploys.", "I was responsible for the deploys"], explanation: "'Responsible for'.", tags: [br.responsible-by] }
+    - { id: M27-02-l4, type: multiple_choice, prompt: "O anti-verbo que apaga você é…", options: ["'I led'", "'I owned'", "'I helped with'", "'I drove'"], answer: 2, explanation: "'Helped with' é vago — nomeie o verbo ou o parceiro.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-02-l5, type: multiple_choice, prompt: "Trabalho que dividiu se descreve com…", options: ["'I helped with'", "'I partnered with security on X — they scoped, I fixed'", "'we did stuff'", "'I participated'"], answer: 1, explanation: "O parceiro nomeado + a divisão clara.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-02-l6, type: multiple_choice, prompt: "'I drove the post-mortem culture' significa…", options: ["eu dirigia", "eu participava", "eu criticava", "a iniciativa existiu porque eu empurrei"], answer: 3, explanation: "'Drove' = a coisa que não nasceria sem você.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** o formulário da vaga pede "describe your
+    most recent role" em texto livre.
+
+    **Tarefa:** escreva 80–110 palavras: o escopo
+    (responsible for / scope), a liderança (led + número),
+    o que você criou (built from scratch / drove), a
+    colaboração (partnered with), a herança melhorada
+    (inherited → left it at), e a alavanca (mentored).
+  constraints:
+    - { label: "Escopo/autonomia", pattern: "\\bresponsible for|owned|my scope|end to end\\b" }
+    - { label: "Liderança/criação", pattern: "\\bled a team|built.*from scratch|drove|ran\\b" }
+    - { label: "Colaboração/alavanca", pattern: "\\bpartnered with|mentored|worked alongside\\b" }
+    - { label: "A herança melhorada", pattern: "\\binherited|left it at|from \\d+ to \\d+\\b" }
+  rubric:
+    - "Cada verbo na categoria certa"
+    - "Liderança com número ('a team of four')"
+    - "Nada de 'helped with' — tudo nomeado"
+    - "Sem calques ('responsible for', 'promoted to')"
+  model: >-
+    Most recently I owned the release pipeline end to
+    end at a fintech — my scope was four teams' worth
+    of deploys. I led a team of four, two seniors and
+    two juniors, through the cache migration. I built
+    the on-call rotation from scratch and drove the
+    blameless post-mortem culture — wrote the first
+    template myself. I partnered with security on the
+    SOC2 audit: they scoped, I remediated. The number
+    I'm proudest of: I inherited a 40-minute build and
+    left it at 6. And I mentored two engineers into
+    on-call — both are still on the rotation.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos respondendo 'what did you do there?': o escopo, a liderança com número, uma criação sua, uma parceria com divisão clara, a herança melhorada e quem você mentorou."
+    maxSeconds: 60
+    targetPhrases:
+      - i was responsible for
+      - my scope was
+      - i led a team of
+      - i owned
+      - end to end
+      - i partnered with
+      - i drove
+      - i mentored
+      - i built from scratch
+      - i inherited
+      - left it at
+      - a team of four
+      - reported to
+      - dotted line
+      - promoted to
+      - responsible for
+    checklist:
+      - "cada verbo na categoria certa"
+      - "'led' com o número do time"
+      - "nada de 'helped with'"
+      - "sem calques ('responsible for', 'promoted to')"
+
+quiz:
+  - { id: M27-02-q1, type: multiple_choice, prompt: "'I was responsible for X' comunica…", options: ["liderança", "autonomia total", "colaboração", "o escopo — neutro e honesto"], answer: 3, explanation: "O escopo nomeado.", tags: [vocab.interview] }
+  - { id: M27-02-q2, type: error_correction, prompt: "I was promoted for tech lead in 2023.", accepted: ["I was promoted to tech lead in 2023.", "I was promoted to tech lead in 2023"], explanation: "'Promoted to'.", tags: [br.promoted-for] }
+  - { id: M27-02-q3, type: multiple_choice, prompt: "'I partnered with security' × 'I helped with security':", options: ["sinônimos", "'partnered with' nomeia o parceiro e a divisão — 'helped' apaga", "'helped' é mais humilde", "nenhum"], answer: 1, explanation: "A colaboração com peso.", tags: [vocab.interview] }
+  - { id: M27-02-q4, type: fill_blank, prompt: "I inherited a 40-minute build — ___ it at 6.", accepted: ["left"], explanation: "'Inherited X — left it at Y' — o antes honesto.", tags: [vocab.interview] }
+  - { id: M27-02-q5, type: multiple_choice, prompt: "'I mentored two engineers into on-call' é o sinal de…", options: ["júnior", "pleno", "o senior que multiplica — a alavanca", "fracasso"], answer: 2, explanation: "Mentorar é multiplicar — sinal de senioridade.", tags: [vocab.interview] }
+  - { id: M27-02-q6, type: error_correction, prompt: "I work there since 2019.", accepted: ["I've worked there since 2019.", "I've been there since 2019.", "I've worked there since 2019"], explanation: "Present perfect + since.", tags: [br.work-since] }
+  - { id: M27-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["scratch", "from", "built", "i", "it"], answer: "i built it from scratch", explanation: "A criação — do zero.", tags: [vocab.interview] }
+  - { id: M27-02-q8, type: multiple_choice, prompt: "'I led a team' fica forte com…", options: ["o número — 'a team of four'", "nada", "o adjetivo", "o tempo"], answer: 0, explanation: "Sempre com o tamanho.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "I was responsible for X", back: "O escopo — neutro e honesto ('for', não 'by').", tag: vocab.interview }
+  - { front: "I led a team of four", back: "Liderança — sempre com o número.", tag: vocab.interview }
+  - { front: "I owned X end to end", back: "Autonomia — responde pelo resultado.", tag: vocab.interview }
+  - { front: "I partnered with X", back: "Colaboração com peso — parceiro + divisão.", tag: vocab.interview }
+  - { front: "I drove X", back: "A iniciativa que não nasceria sem você.", tag: vocab.interview }
+  - { front: "I mentored X", back: "A alavanca — multiplicar pessoas.", tag: vocab.interview }
+  - { front: "I built X from scratch", back: "A criação — do zero.", tag: vocab.interview }
+  - { front: "I inherited X — left it at Y", back: "O antes honesto faz o depois brilhar.", tag: vocab.interview }
+  - { front: "my scope was X", back: "A fronteira — melhor que título inflado.", tag: vocab.interview }
+  - { front: "I reported to X", back: "A cadeia — 'dotted line' para a indireta.", tag: vocab.interview }
+  - { front: "nunca 'I helped with'", back: "O anti-verbo — nomeie o verbo ou o parceiro.", tag: vocab.interview }
+  - { front: "responsible for", back: "'Responsável por' — nunca 'responsible by'.", tag: br.responsible-by }
+
+review:
+  preferTags: [vocab.interview, br.responsible-by, br.promoted-for]
+  notes: "Revisão prioriza a escala de verbos (escopo→liderança→autonomia→colaboração) e o anti-verbo 'helped with'."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
