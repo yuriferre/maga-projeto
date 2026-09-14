@@ -1,0 +1,83 @@
+# Avaliação do módulo M23: 15 itens cobrindo as cinco aulas + escrita (registro do debate) + fala.
+id: M23
+title: "Avaliação do módulo M23: Discordando profissionalmente"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M23-A01, type: multiple_choice, prompt: "The disagreement scale runs from…", options: ["question → hedge → soft → direct → block", "direct → soft → hedge", "polite → rude", "written → spoken"], answer: 0, explanation: "Cinco degraus — comece no mais suave que o problema permite.", tags: [vocab.disagreement] }
+  - { id: M23-A02, type: error_correction, prompt: "In my vision, this rewrite is polemic.", accepted: ["In my view, this rewrite is controversial.", "In my view, this rewrite is controversial"], explanation: 'Dois calques: "in my view" + "controversial".', tags: [br.in-my-vision, br.polemic] }
+  - { id: M23-A03, type: fill_blank, prompt: "I'm with you on the goal — where we ___ is the scope.", accepted: ["differ"], explanation: '"where we differ is X" — a divergência nomeada.', tags: [vocab.disagreement] }
+  - { id: M23-A04, type: multiple_choice, prompt: "'I'd push back on that' — the 'would' does what?", options: ["hardens it", "keeps it soft — a polite hypothetical", "asks permission", "delays it"], answer: 1, explanation: "O modal de cautela gradua a oposição.", tags: [gram.hedging] }
+  - { id: M23-A05, type: error_correction, prompt: "You agree the estimate is off, no?", accepted: ["You agree the estimate is off, right?", "You agree the estimate is off, right", "You agree the estimate is off, don't you?", "You agree the estimate is off, don't you"], explanation: "Tag question — 'right?' ou 'don't you?'.", tags: [br.no-tag] }
+  - { id: M23-A06, type: error_correction, prompt: "We are all agree — nobody saw nothing in the data.", accepted: ["We all agree — nobody saw anything in the data.", "We all agree — nobody saw anything in the data"], explanation: 'Dois calques: "we all agree" + "saw anything".', tags: [br.i-am-agree, br.double-negative] }
+  - { id: M23-A07, type: fill_blank, prompt: "If the spike ___ in a week, the six-week plan holds.", accepted: ["lands"], explanation: "Condicional real — o teste que decide.", tags: [gram.conditionals-real, vocab.disagreement] }
+  - { id: M23-A08, type: multiple_choice, prompt: "A British 'that's interesting' usually means…", options: ["genuine interest", "a request for detail", "a hard 'no' by understatement", "the meeting is over"], answer: 2, explanation: "Quanto mais leve a forma, mais duro o não.", tags: [vocab.disagreement] }
+  - { id: M23-A09, type: error_correction, prompt: "She has the same position than me — instead the rewrite, the schema.", accepted: ["She has the same position as me — instead of the rewrite, the schema.", "She has the same position as me — instead of the rewrite, the schema"], explanation: 'Dois calques: "the same as" + "instead of".', tags: [br.same-than, br.instead-of] }
+  - { id: M23-A10, type: multiple_choice, prompt: "'I hear you, AND…' vs 'fair point, BUT…' — when does 'and' fit?", options: ["when it cancels their point", "always", "never", "when the addition doesn't cancel their point"], answer: 3, explanation: "'And' soma; 'but' divide — escolha consciente.", tags: [gram.argument-connectors, vocab.disagreement] }
+  - { id: M23-A11, type: translate, prompt: "Podemos concordar que o schema precisa de conserto, de qualquer jeito?", accepted: ["Can we agree that the schema needs fixing, regardless?", "Can we agree that the schema needs fixing regardless?", "Can we agree that the schema needs fixing either way?", "Can we agree that the schema needs fixing either way"], explanation: '"can we agree that" + "regardless/either way".', tags: [vocab.disagreement] }
+  - { id: M23-A12, type: match, prompt: "Associe o termo ao que ele carrega.", pairs: [{ left: "steelman", right: "the strongest version of their case" }, { left: "common ground", right: "what nobody disputes" }, { left: "disagree and commit", right: "keep the opinion, row with the decision" }, { left: "burden of proof", right: "whoever changes it, proves it" }], explanation: "O vocabulário central do debate e do consenso.", tags: [vocab.disagreement] }
+  - { id: M23-A13, type: multiple_choice, prompt: "Which phrase softens the pushback?", options: ["'you're wrong about the data'", "'let me push back on that a bit'", "'that makes no sense'", "'absolutely not'"], answer: 1, explanation: "O 'a bit' + o aviso prévio suavizam sem sumir.", tags: [gram.softeners, vocab.disagreement] }
+  - { id: M23-A14, type: error_correction, prompt: "He doesn't know nothing about the audit trail, no?", accepted: ["He doesn't know anything about the audit trail, right?", "He doesn't know anything about the audit trail, right", "He doesn't know anything about the audit trail, does he?", "He doesn't know anything about the audit trail, does he"], explanation: 'Dois calques: "anything" + tag question.', tags: [br.double-negative, br.no-tag] }
+  - { id: M23-A15, type: multiple_choice, prompt: "'I'm not sure that follows' questions…", options: ["the person", "the deadline", "the inference — the conclusion, not who made it", "the budget"], answer: 2, explanation: "Ataca a lógica — não o colega.", tags: [gram.hedging, vocab.disagreement] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** o debate monólito ×
+    microsserviços fechou em consenso — e o Carlos pediu o
+    registro formal da decisão.
+
+    **Tarefa:** escreva 90–120 palavras com o registro do
+    debate: as duas posições com justiça, o chão comum, a
+    condição de cada lado, o que ficou estacionado (com data),
+    e o fecho — aligned + disagree and commit.
+  constraints:
+    - { label: "As posições", pattern: "\\bmicroservice|monolith|rewrite|schema\\b" }
+    - { label: "O chão comum", pattern: "\\bcommon ground|agree(d)? that|nobody\\b" }
+    - { label: "As condições", pattern: "\\bwould it take|if the spike|condition|sign off\\b" }
+    - { label: "O fecho", pattern: "\\baligned|commit|parked|revisit|withdrawn\\b" }
+  rubric:
+    - "Duas posições representadas com justiça"
+    - "Chão comum e condições explícitas"
+    - "Estacionado com data de revisão"
+    - "Sem calques ('I agree', 'same as', 'instead of', 'in my view', 'right?')"
+  model: >-
+    Decision record — billing architecture debate. Beth
+    argued for extracting billing into a microservice:
+    coupled deploys, blast-radius isolation, clean
+    boundaries. I argued for fixing the schema inside the
+    monolith first — the bug data points there. Common
+    ground: nobody is defending the current schema. The
+    conditions: I sign off on a rewrite if the schema spike
+    lands inside a week; Beth accepts schema-first if the
+    rewrite gets a scheduled revisit. Parked: the rewrite
+    debate, with a real Q3 date. We are aligned — schema
+    first, spike Thursday. Beth still prefers the
+    microservice and disagrees and commits; so do I, the
+    other way.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.disagreement, gram.hedging]
+
+speaking:
+  prompt: "Grave 60 segundos como sua fala de fechamento num debate técnico insistente: sua posição clara, o ponto concedido, a proposta testável e o fecho em consenso."
+  maxSeconds: 60
+  targetPhrases:
+    - are we sure
+    - where we differ is
+    - point taken
+    - the burden of proof
+    - going in circles
+    - what would it take
+    - can we agree that
+    - common ground
+    - let's park
+    - disagree and commit
+    - are we aligned
+    - in my view
+  checklist:
+    - "posição clara sem espelhar a força do outro"
+    - "concede um ponto real do outro lado"
+    - "condição testável com dono e prazo"
+    - "fecha em aligned/commit — e sem calques ('in my view', 'right?', 'anything')"

@@ -806,3 +806,37 @@ describe("M22 assessment variants", () => {
     expect(checkExercise(q, "We are at risk — the same exposure than last week.").correct).toBe(false);
   });
 });
+
+describe("M23 assessment variants", () => {
+  const m23 = bundle.moduleAssessments["M23"]!;
+  it("requires 'in my view' and 'controversial' on A02", () => {
+    const q = m23.items.find((q) => q.id === "M23-A02")!;
+    expect(checkExercise(q, "In my view, this rewrite is controversial.").correct).toBe(true);
+    expect(checkExercise(q, "In my vision, this rewrite is controversial.").correct).toBe(false);
+    expect(checkExercise(q, "In my view, this rewrite is polemic.").correct).toBe(false);
+  });
+  it("requires a tag question on A05", () => {
+    const q = m23.items.find((q) => q.id === "M23-A05")!;
+    expect(checkExercise(q, "You agree the estimate is off, right?").correct).toBe(true);
+    expect(checkExercise(q, "You agree the estimate is off, don't you?").correct).toBe(true);
+    expect(checkExercise(q, "You agree the estimate is off, no?").correct).toBe(false);
+  });
+  it("requires 'we all agree' and 'anything' on A06", () => {
+    const q = m23.items.find((q) => q.id === "M23-A06")!;
+    expect(checkExercise(q, "We all agree — nobody saw anything in the data.").correct).toBe(true);
+    expect(checkExercise(q, "We are all agree — nobody saw anything in the data.").correct).toBe(false);
+    expect(checkExercise(q, "We all agree — nobody saw nothing in the data.").correct).toBe(false);
+  });
+  it("requires 'the same as' and 'instead of' on A09", () => {
+    const q = m23.items.find((q) => q.id === "M23-A09")!;
+    expect(checkExercise(q, "She has the same position as me — instead of the rewrite, the schema.").correct).toBe(true);
+    expect(checkExercise(q, "She has the same position than me — instead of the rewrite, the schema.").correct).toBe(false);
+    expect(checkExercise(q, "She has the same position as me — instead the rewrite, the schema.").correct).toBe(false);
+  });
+  it("requires 'anything' and a tag question on A14", () => {
+    const q = m23.items.find((q) => q.id === "M23-A14")!;
+    expect(checkExercise(q, "He doesn't know anything about the audit trail, right?").correct).toBe(true);
+    expect(checkExercise(q, "He doesn't know nothing about the audit trail, right?").correct).toBe(false);
+    expect(checkExercise(q, "He doesn't know anything about the audit trail, no?").correct).toBe(false);
+  });
+});
