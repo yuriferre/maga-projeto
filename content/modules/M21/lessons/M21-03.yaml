@@ -1,0 +1,308 @@
+id: M21-03
+module: M21
+order: 3
+title: "Pushback sem atrito: 'that's a fair concern, however…'"
+objective: >-
+  Ao final, você recebe objeções sem se defender nem ceder:
+  valida a preocupação, devolve o argumento e propõe o
+  caminho — "that's a fair concern, however…", "I hear
+  you, and…", "let me address that".
+durationMin: 40
+competencies: [SPK, CNF]
+tags: [vocab.decisions, gram.argument-connectors, comp.speaking, comp.confidence]
+prerequisites: [M21-02]
+
+context:
+  scenario: |
+    A review do ADR-003 começou e o ceticismo chegou em dois
+    fronts: a Beth questiona a consistência — "**the receipt
+    can arrive before the payment confirms?**" — e o Carlos
+    o custo operacional — "**you're signing us up to run
+    Kafka, do we have the people?**"
+
+    Responder errado tem duas falhas: atacar a pergunta
+    ("that won't happen") ou abandonar a decisão ("ok, we
+    can drop it"). A sequência que funciona em três batidas:
+
+    - **validar** — a preocupação é legítima antes de ser
+      respondida: "*that's a fair concern*".
+    - **responder** — o argumento, com dados ou com o
+      rationale original: "*however, the receipt is a
+      notification, not the record*".
+    - **propor** — o caminho que resolve ou verifica:
+      "*we'll add an idempotency check — I'll put it in
+      the ADR*".
+
+    As fórmulas que carregam isso: "**I hear you, and…**"
+    (nunca "but"), "**let me address that**", "**fair
+    point — here's the counterpoint**", "**I'd push back
+    on that — the data says…**". Pushback bom protege a
+    decisão E a relação.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "pushback"
+    meaning: 'a objeção — a resistência que a decisão recebe'
+    example: "The pushback focused on consistency and ops cost."
+    translation: "O pushback focou em consistência e custo operacional."
+    note: "Substantivo neutro — pushback é o trabalho do revisor, não um ataque."
+  - term: "a fair concern"
+    meaning: 'uma preocupação justa — a validação antes da resposta'
+    example: "That's a fair concern — the ordering does matter."
+    translation: "É uma preocupação justa — a ordem realmente importa."
+    note: "Validar primeiro desarma o tom — depois você responde."
+  - term: "I hear you, and…"
+    meaning: 'eu te ouço, e… — reconhece e continua, sem "but"'
+    example: "I hear you, and the receipt is only a notification."
+    translation: "Eu te ouço, e o recibo é só uma notificação."
+    note: "'But' apaga o que veio antes; 'and' mantém os dois lados de pé."
+  - term: "let me address that"
+    meaning: 'deixa eu responder isso — assume a objeção'
+    example: "Let me address that — we sized the cluster already."
+    translation: "Deixa eu responder isso — já dimensionamos o cluster."
+    note: "Pega a objeção direto — sinal de que você a entendeu."
+  - term: "counterpoint"
+    meaning: 'o contraponto — o argumento que responde à objeção'
+    example: "Fair point — here's the counterpoint: spikes are the actual problem."
+    translation: "Ponto justo — aqui está o contraponto: os picos são o problema real."
+    note: "Counterpoint ≠ rejeição: é o outro lado posto na mesa."
+  - term: "to push back"
+    meaning: 'responder a objeção — discordar com argumento'
+    example: "I'd push back on that — the data shows sync fails under load."
+    translation: "Eu contestaria isso — os dados mostram que síncrono falha sob carga."
+    note: "'Push back on X' — o verbo da discordância profissional."
+  - term: "concede"
+    meaning: 'conceder — dar o ponto que é realmente do outro'
+    example: "I'll concede the ops cost — Kafka is real work."
+    translation: "Concedo o custo operacional — Kafka dá trabalho de verdade."
+    note: "Conceder o ponto verdadeiro fortalece o resto da defesa."
+  - term: "meet halfway"
+    meaning: 'encontrar no meio — a concessão dos dois lados'
+    example: "Let's meet halfway: queue now, revisit consistency in Q4."
+    translation: "Vamos nos encontrar no meio: fila agora, consistência no Q4."
+    note: "O fechamento do pushback: o que cada lado leva."
+  - term: "steel-man"
+    meaning: 'fortalecer a objeção — responder à versão mais forte dela'
+    example: "Let me steel-man it: even with perfect retries, sync couples the services."
+    translation: "Deixa eu fortalecer a objeção: mesmo com retries perfeitos, síncrono acopla."
+    note: "Responder à objeção forte convence mais que vencer a fraca."
+  - term: "the objection stands"
+    meaning: 'a objeção permanece — quando a resposta não resolveu'
+    example: "If we can't staff on-call, the objection stands."
+    translation: "Se não tivermos quem faça on-call, a objeção permanece."
+    note: "Às vezes o pushback ganha — e a decisão muda ou adia."
+  - term: "valid point"
+    meaning: 'ponto válido — a objeção que merece resposta'
+    example: "Valid point about ops — we sized for three brokers minimum."
+    translation: "Ponto válido sobre ops — dimensionamos três brokers no mínimo."
+    note: "'Valid point' valida sem ceder — diferente de 'you're right'."
+  - term: "to take it offline"
+    meaning: 'levar para depois — tirar a objeção da reunião'
+    example: "The capacity question is real — let's take it offline with numbers."
+    translation: "A questão de capacidade é real — vamos tratar fora da reunião com números."
+    note: "Quando a resposta precisa de dado que você não tem na hora."
+
+grammar:
+  title: "validar → responder → propor: os conectores do pushback"
+  explanation: |
+    A gramática do pushback é a gramática da concessão
+    controlada — conectores que seguram os dois lados:
+
+    - **Validar**: "*that's a fair concern*", "*valid
+      point*", "*you're right that…*", "*I'll concede
+      that…*".
+    - **Responder**: "*however*", "*that said*", "*at the
+      same time*", "*here's the counterpoint*" — nunca
+      abra com "but" depois de validar; "and" e "however"
+      mantêm a validação viva.
+    - **Propor**: "*here's what we can do*", "*let's meet
+      halfway*", "*I'll put it in the ADR*".
+
+    A armadilha brasileira: "**I am agree** with the
+    concern" → "**I agree**". E na comparação: "the queue
+    gives **the same guarantees than**…" → "**as**".
+    "Instead" sem of — "**instead the rewrite**" →
+    "**instead of**".
+  examples:
+    - { en: "That's a fair concern; however, the receipt is a notification, not the record.", pt: "É uma preocupação justa; porém, o recibo é uma notificação, não o registro." }
+    - { en: "I hear you, and the ordering question deserves a test — I'll add one.", pt: "Eu te ouço, e a questão da ordem merece um teste — vou adicionar." }
+    - { en: "Let me address that: we sized the cluster for three brokers.", pt: "Deixa eu responder isso: dimensionamos o cluster para três brokers." }
+    - { en: "Valid point — here's the counterpoint: retries don't decouple.", pt: "Ponto válido — aqui o contraponto: retries não desacoplam." }
+    - { en: "I'll concede the ops cost; that said, the alternative couples us forever.", pt: "Concedo o custo de ops; dito isso, a alternativa nos acopla para sempre." }
+    - { en: "Let's take the capacity question offline — I'll bring numbers tomorrow.", pt: "Vamos tratar a questão de capacidade depois — trago números amanhã." }
+
+examples:
+  - en: "That's a fair concern — ordering does matter for the receipt."
+    pt: "É uma preocupação justa — a ordem importa para o recibo."
+    context: "Validar primeiro."
+  - en: "I hear you, and the mitigation is an idempotency check."
+    pt: "Eu te ouço, e a mitigação é um check de idempotência."
+    context: "'And', nunca 'but'."
+  - en: "Let me address that directly — we sized for three brokers."
+    pt: "Deixa eu responder isso diretamente — dimensionamos três brokers."
+    context: "Assumir a objeção."
+  - en: "Fair point — here's the counterpoint: spikes are the actual failure mode."
+    pt: "Ponto justo — aqui o contraponto: picos são o modo de falha real."
+    context: "O outro lado na mesa."
+  - en: "I'll concede the ops cost — Kafka is real work, and it's still cheaper than the rewrite."
+    pt: "Concedo o custo de ops — Kafka dá trabalho, e ainda é mais barato que o rewrite."
+    context: "Conceder fortalece."
+  - en: "Let's meet halfway: ship the queue now, revisit consistency in Q4."
+    pt: "Vamos nos encontrar no meio: fila agora, consistência no Q4."
+    context: "A concessão dos dois lados."
+  - en: "I'd push back on that — the data shows sync fails under load."
+    pt: "Eu contestaria isso — os dados mostram que síncrono falha sob carga."
+    context: "Discordar com argumento."
+  - en: "The capacity question is real — let's take it offline with the numbers."
+    pt: "A questão de capacidade é real — vamos tratar fora com os números."
+    context: "Tirar da reunião com plano."
+
+variations:
+  - idea: '"recebendo a objeção"'
+    items:
+      - { register: "Boa", text: "That's a fair concern — however, the receipt is only a notification.", adequate: true }
+      - { register: "Boa", text: "I hear you, and the ordering deserves a test — I'll add it to the plan.", adequate: true }
+      - { register: "Inadequada", text: "That won't happen — the receipt is a notification.", adequate: false, note: "Negar a preocupação escala o conflito — valide antes: *that's a fair concern*." }
+      - { register: "Inadequada", text: "I am agree with you — it's risky.", adequate: false, note: "*I agree* — agree é verbo, sem 'am'." }
+  - idea: '"concedendo sem ceder"'
+    items:
+      - { register: "Boa", text: "I'll concede the ops cost — that said, it's cheaper than the rewrite.", adequate: true }
+      - { register: "Boa", text: "Let's take capacity offline — I'll bring the broker numbers tomorrow.", adequate: true }
+      - { register: "Inadequada", text: "Ok, we can drop the queue then.", adequate: false, note: "Ceder tudo sem argumento abandona a decisão — proponha: *meet halfway*." }
+      - { register: "Inadequada", text: "The queue has the same cost than RabbitMQ.", adequate: false, note: "*The same as* — 'than' é só de comparativo." }
+
+brErrors:
+  - { wrong: "I am agree with your concern.", right: "I agree with your concern.", why: "I agree", tag: br.am-agree }
+  - { wrong: "We're agree that ops costs money.", right: "We agree that ops costs money.", why: "we agree", tag: br.am-agree }
+  - { wrong: "The queue costs the same than RabbitMQ.", right: "The queue costs the same as RabbitMQ.", why: "the same as", tag: br.same-than }
+  - { wrong: "We chose it instead the managed one.", right: "We chose it instead of the managed one.", why: "instead of", tag: br.instead-of }
+  - { wrong: "We discussed about your concern.", right: "We discussed your concern.", why: "discussed your concern", tag: br.discuss-about }
+  - { wrong: "Actually the receipt is a notification.", right: "In fact, the receipt is a notification.", why: "in fact", tag: br.actually }
+  - { wrong: "It depends of the traffic.", right: "It depends on the traffic.", why: "depends on", tag: br.depend-of }
+  - { wrong: "He explained me the risk.", right: "He explained the risk to me.", why: "explained the risk", tag: br.explain-me }
+  - { wrong: "The concern worths a test.", right: "The concern is worth a test.", why: "is worth", tag: br.worths }
+  - { wrong: "I have doubt about the capacity.", right: "I have a doubt about the capacity.", why: "a doubt", tag: br.doubt }
+
+dialogue:
+  title: "Dois céticos na review"
+  lines:
+    - { speaker: Beth, text: "The receipt can arrive before the payment confirms — how is that not a bug?" }
+    - { speaker: Yuri, text: "That's a fair concern. However, the receipt is a notification, not the record — the record is the payment itself." }
+    - { speaker: Beth, text: "Users will still see a receipt for a failed charge." }
+    - { speaker: Yuri, text: "I hear you, and the fix is an idempotency check on the consumer — I'll put it in the ADR." }
+    - { speaker: Carlos, text: "Now my side: you're signing us up to run Kafka. Do we have the people?" }
+    - { speaker: Yuri, text: "Valid point — here's the counterpoint: we already run Kafka for the event bus. The marginal cost is one topic." }
+    - { speaker: Carlos, text: "On-call though. Who takes it?" }
+    - { speaker: Yuri, text: "I'll concede on-call isn't free. Let's meet halfway: the team rotates it, and we revisit if the load justifies a managed service." }
+    - { speaker: Beth, text: "Addressed on my side. Update the ADR and I'll sign off." }
+  notes:
+    - "cada objeção recebe: validar → responder → propor."
+    - "'I'll concede on-call isn't free' — conceder o ponto verdadeiro protege o resto."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "When a decision gets pushback, the move is three beats. Validate the concern — 'that's a fair concern', 'valid point'. Answer it — 'however', 'here's the counterpoint', never opening with 'but'. And propose a path — 'I'll put it in the ADR', 'let's meet halfway'." }
+    - { speaker: Carlos, text: "Two failures to avoid: dismissing the question — 'that won't happen' — which escalates, and surrendering the decision — 'ok, we can drop it' — which abandons the work. Concede what's true — 'I'll concede the ops cost' — it strengthens everything else." }
+    - { speaker: Yuri, text: "And when you don't have the answer in the room, take it offline with a plan — 'the capacity question is real; I'll bring numbers tomorrow'. The calques stay out: 'I agree', not 'I am agree'; 'the same as', never 'the same than'." }
+  questions:
+    - { id: M21-03-l1, type: multiple_choice, prompt: "As três batidas do pushback são…", options: ["negar → defender → fechar", "validar → responder → propor", "ouvir → concordar → mudar", "escalar → adiar → esquecer"], answer: 1, explanation: "Validar, responder, propor — nessa ordem.", tags: [comp.listening, gram.argument-connectors] }
+    - { id: M21-03-l2, type: multiple_choice, prompt: "Depois de validar a preocupação, a resposta abre com…", options: ["'but', que apaga a validação", "'however' ou 'and', que mantêm os dois lados", "silêncio", "outra pergunta"], answer: 1, explanation: "'But' apaga o que veio antes.", tags: [comp.listening, gram.argument-connectors] }
+    - { id: M21-03-l3, type: fill_blank, prompt: "I'll ___ the ops cost — Kafka is real work.", accepted: ["concede"], explanation: "'Concede' — dar o ponto que é verdadeiro.", tags: [vocab.decisions] }
+    - { id: M21-03-l4, type: error_correction, prompt: "I am agree with your concern.", accepted: ["I agree with your concern.", "I agree with your concern"], explanation: "'I agree'.", tags: [br.am-agree] }
+    - { id: M21-03-l5, type: multiple_choice, prompt: "'Let's take it offline' significa…", options: ["cancelar a decisão", "encerrar a reunião", "tratar a objeção depois, com dados", "mudar de canal"], answer: 2, explanation: "Quando a resposta precisa de dado que não está na sala.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-03-l6, type: multiple_choice, prompt: "Conceder o ponto verdadeiro…", options: ["enfraquece a defesa", "é sinal de fraqueza", "empata a discussão", "fortalece o resto da defesa"], answer: 3, explanation: "Conceder o real protege o argumento principal.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** a review do ADR-003 gerou duas objeções por
+    escrito no canal — Beth: "the receipt can arrive before
+    the payment confirms"; Carlos: "who runs Kafka on-call?".
+
+    **Tarefa:** escreva 60–90 palavras respondendo às duas
+    objeções. Cada resposta passa pelas três batidas:
+    validar ("that's a fair concern" / "valid point"),
+    responder com o argumento, propor o caminho (o que entra
+    no ADR ou vai offline com números).
+  constraints:
+    - { label: "Validação", pattern: "\\bfair|valid\\b" }
+    - { label: "A resposta", pattern: "\\bhowever|that said|counterpoint\\b" }
+    - { label: "A proposta", pattern: "\\bADR|offline|meet halfway|I'll\\b" }
+    - { label: "As duas objeções", pattern: "\\breceipt|consist\\w*\\b" }
+  rubric:
+    - "Duas objeções respondidas, três batidas cada"
+    - "'However'/'that said', nunca 'but' após validar"
+    - "Proposta concreta — ADR ou offline com dados"
+    - "Sem calques ('I agree', 'the same as', 'instead of')"
+  model: >-
+    Beth, that's a fair concern — ordering matters. However,
+    the receipt is a notification, not the record; the fix
+    is an idempotency check on the consumer, and I'll put it
+    in the ADR. Carlos, valid point on on-call — here's the
+    counterpoint: we already run Kafka for the event bus,
+    so the marginal cost is one topic. Let's take the
+    capacity numbers offline and meet halfway — the team
+    rotates on-call, and we revisit a managed service if the
+    load justifies it.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.decisions, gram.argument-connectors]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo às duas objeções: a consistência do recibo (Beth) e o on-call do Kafka (Carlos) — validar, responder, propor."
+    maxSeconds: 45
+    targetPhrases:
+      - that's a fair concern
+      - I hear you
+      - let me address that
+      - valid point
+      - however
+      - the counterpoint
+      - I'll concede
+      - meet halfway
+      - take it offline
+      - I'll put it in the ADR
+      - I agree
+      - the same as
+      - instead of
+      - the receipt is a notification
+      - the record
+      - on-call
+    checklist:
+      - "validar antes de responder"
+      - "'however'/'and', nunca 'but' após validar"
+      - "conceder o ponto verdadeiro"
+      - "uma proposta concreta por objeção"
+
+quiz:
+  - { id: M21-03-q1, type: multiple_choice, prompt: "A sequência do pushback é…", options: ["responder → validar → fechar", "propor → validar → responder", "validar → responder → propor", "escalar → responder → adiar"], answer: 2, explanation: "A preocupação é validada antes de respondida.", tags: [gram.argument-connectors] }
+  - { id: M21-03-q2, type: error_correction, prompt: "The queue costs the same than RabbitMQ.", accepted: ["The queue costs the same as RabbitMQ.", "The queue costs the same as RabbitMQ"], explanation: "'the same as'.", tags: [br.same-than] }
+  - { id: M21-03-q3, type: multiple_choice, prompt: "'I hear you, and…' funciona melhor que 'I hear you, but…' porque…", options: ["'but' apaga a validação que veio antes", "'and' é mais curto", "'but' é informal demais", "'and' mostra certeza"], answer: 0, explanation: "'And' mantém os dois lados de pé.", tags: [gram.argument-connectors] }
+  - { id: M21-03-q4, type: fill_blank, prompt: "Let's meet ___ — queue now, consistency review in Q4.", accepted: ["halfway"], explanation: "'Meet halfway' — a concessão dos dois lados.", tags: [vocab.decisions] }
+  - { id: M21-03-q5, type: multiple_choice, prompt: "Responder 'that won't happen' a uma objeção real…", options: ["resolve rápido", "mostra confiança", "escala o conflito — a preocupação foi negada", "fecha a reunião"], answer: 2, explanation: "Negar a preocupação é a primeira falha do pushback.", tags: [vocab.decisions, comp.confidence] }
+  - { id: M21-03-q6, type: error_correction, prompt: "We discussed about your concern after the review.", accepted: ["We discussed your concern after the review.", "We discussed your concern after the review"], explanation: "'discussed your concern'.", tags: [br.discuss-about] }
+  - { id: M21-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["address", "that", "me", "let"], answer: "let me address that", explanation: "Assumir a objeção.", tags: [vocab.decisions] }
+  - { id: M21-03-q8, type: multiple_choice, prompt: "'Steel-man' a objeção é…", options: ["ignorar a versão fraca", "responder à versão mais forte dela", "endurecer o tom", "repassar a outro time"], answer: 1, explanation: "Vencer a versão forte convence de verdade.", tags: [vocab.decisions] }
+
+srsCards:
+  - { front: "pushback", back: "A objeção à decisão — 'the pushback focused on ops cost'.", tag: vocab.decisions }
+  - { front: "a fair concern", back: "A validação — 'that's a fair concern, however…'.", tag: vocab.decisions }
+  - { front: "I hear you, and…", back: "Reconhece e continua — 'and', nunca 'but'.", tag: vocab.decisions }
+  - { front: "let me address that", back: "Assumir a objeção — 'let me address that directly'.", tag: vocab.decisions }
+  - { front: "counterpoint", back: "O outro lado — 'here's the counterpoint: spikes are the problem'.", tag: vocab.decisions }
+  - { front: "to push back", back: "Discordar com argumento — 'I'd push back on that'.", tag: vocab.decisions }
+  - { front: "concede", back: "Dar o ponto verdadeiro — 'I'll concede the ops cost'.", tag: vocab.decisions }
+  - { front: "meet halfway", back: "Concessão mútua — 'queue now, revisit in Q4'.", tag: vocab.decisions }
+  - { front: "steel-man", back: "Responder à versão forte da objeção.", tag: vocab.decisions }
+  - { front: "the objection stands", back: "Quando a resposta não resolveu — a decisão muda.", tag: vocab.decisions }
+  - { front: "valid point", back: "Validar sem ceder — 'valid point on ops'.", tag: vocab.decisions }
+  - { front: "take it offline", back: "Tratar depois com dados — 'I'll bring numbers tomorrow'.", tag: vocab.decisions }
+
+review:
+  preferTags: [vocab.decisions, gram.argument-connectors, br.same-than]
+  notes: "Revisão prioriza a sequência validar → responder → propor, as fórmulas de concessão e os calques de comparação e concordância."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
