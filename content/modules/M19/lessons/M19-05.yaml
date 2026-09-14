@@ -1,0 +1,302 @@
+id: M19-05
+module: M19
+order: 5
+title: "Simulação: o finding do pentest na mesa"
+objective: >-
+  Ao final, você conduz a discussão de um finding de pentest com
+  o time: apresenta a severidade e a evidência, propõe a decisão
+  e negocia o prazo sem prometer o impossível.
+durationMin: 40
+competencies: [SPK, WRI, CNF]
+tags: [vocab.security, comp.speaking, comp.listening]
+prerequisites: [M19-04]
+
+context:
+  scenario: |
+    Reunião de triagem do pentest — você apresenta o finding.
+    Na mesa: a Priya (tech lead), o Rafa (security) e a Dana
+    (product, que quer o roadmap intacto).
+
+    O finding: **session tokens never expire on mobile** —
+    severidade alta, evidência reproduzida pelo pentester, e a
+    correção toca o fluxo de login inteiro. O SLA de high é 14
+    dias; a auth rewrite só entra em 3 semanas.
+
+    A discussão tem um roteiro:
+
+    1. **o finding em uma linha** — "high severity: mobile
+       sessions never expire — the pentester stayed logged in
+       for 30 days".
+    2. **a evidência** — "here's the report — reproduced on a
+       stolen test device".
+    3. **a decisão proposta** — "I'd mitigate now and remediate
+       with the rewrite — not defer silently".
+    4. **a negociação do prazo** — "the SLA is 14 days; the fix
+       lands with the rewrite in 3 weeks — I need an approved
+       extension or a smaller scope".
+
+    A saída certa: mitigação documentada agora (token refresh +
+    device binding), remediação com a rewrite, e a extensão do
+    SLA assinada pelo Rafa — "**extension approved, tracked
+    under SEC-1234**".
+  roles: [Yuri (platform engineer), Priya (tech lead), Rafa (security), Dana (product)]
+
+vocabulary:
+  - term: "high severity"
+    meaning: 'severidade alta — o SLA de 14 dias'
+    example: "This is high severity — 14-day SLA, not 30."
+    translation: "Isso é severidade alta — SLA de 14 dias, não 30."
+    note: "A severidade define o relógio antes de qualquer negociação."
+  - term: "reproduced"
+    meaning: 'reproduzido — o pentester provou, não só escreveu'
+    example: "The pentester reproduced it on a stolen test device."
+    translation: "O pentester reproduziu num aparelho de teste roubado."
+    note: "'Reproduced' = evidência — não é teoria."
+  - term: "the fix lands with"
+    meaning: 'a correção sai junto com — a dependência do prazo'
+    example: "The real fix lands with the auth rewrite in three weeks."
+    translation: "A correção real sai junto com a reescrita de auth em três semanas."
+    note: "Quando o fix depende de outro, o prazo é o da dependência."
+  - term: "approved extension"
+    meaning: 'extensão aprovada — o SLA estendido formalmente'
+    example: "I need an approved extension — 14 days won't cover the rewrite."
+    translation: "Preciso de uma extensão aprovada — 14 dias não cobrem a reescrita."
+    note: "Estender o SLA é pedir, documentar e receber o sign-off."
+  - term: "smaller scope"
+    meaning: 'escopo menor — a negociação que corta o fix'
+    example: "Or a smaller scope — expire sessions on new logins only."
+    translation: "Ou um escopo menor — expirar sessões só nos logins novos."
+    note: "A alternativa à extensão: entregar menos, mas dentro do SLA."
+  - term: "mitigate now"
+    meaning: 'mitigar já — a ação que segura o risco hoje'
+    example: "We mitigate now — token refresh plus device binding."
+    translation: "Mitigamos já — refresh de token mais device binding."
+    note: "A mitigação roda enquanto a remediação espera a dependência."
+  - term: "device binding"
+    meaning: 'vínculo ao aparelho — o token só vale no device original'
+    example: "Device binding stops a stolen token from working elsewhere."
+    translation: "O vínculo ao aparelho impede que um token roubado funcione em outro lugar."
+    note: "A mitigação que encolhe o blast radius do token roubado."
+  - term: "token refresh"
+    meaning: 'renovação do token — sessões curtas com refresh'
+    example: "Token refresh caps the exposure at hours, not days."
+    translation: "O refresh de token limita a exposição a horas, não dias."
+    note: "A janela de exposição encolhe sem reescrever o login."
+  - term: "documented decision"
+    meaning: 'decisão documentada — o registro que o auditor lê'
+    example: "Whatever we pick, it needs to be a documented decision."
+    translation: "Seja o que escolhermos, precisa ser uma decisão documentada."
+    note: "A auditoria lê o registro — 'we talked about it' não existe."
+  - term: "push back"
+    meaning: 'resistir — contestar o prazo ou o escopo com argumento'
+    example: "I have to push back — 14 days is before the rewrite lands."
+    translation: "Tenho que resistir — 14 dias é antes da reescrita sair."
+    note: "'Push back' = contestar com argumento, não com recusa vazia."
+  - term: "walk away with"
+    meaning: 'sair com — o que a reunião precisa produzir'
+    example: "I want to walk away with a decision and a date."
+    translation: "Quero sair com uma decisão e uma data."
+    note: "Reunião de finding sem decisão é reunião perdida."
+
+grammar:
+  title: "a negociação do prazo: mitigate now + fix with X + extension"
+  explanation: |
+    A fórmula para um prazo que não cabe:
+
+    - "**I'd mitigate now and remediate with the rewrite**" — a
+      proposta em duas camadas: segura hoje, resolve na
+      dependência.
+    - "**the SLA is 14 days; the fix lands in 3 weeks**" — os
+      dois números na mesa, sem esconder a colisão.
+    - "**I need an approved extension** — ou **a smaller
+      scope**" — o pedido com alternativa: estender o prazo
+      *ou* cortar o escopo.
+    - "**that's on me** / **I own the tracking**" — quem propõe
+      carrega o ticket.
+
+    O que não funciona: prometer o prazo que não fecha
+    ("we'll fix it in 14 days" sabendo que a rewrite leva 3
+    semanas) — a extensão aprovada é mais barata que o SLA
+    estourado.
+  examples:
+    - { en: "High severity — the pentester reproduced it on a stolen device.", pt: "Severidade alta — o pentester reproduziu num aparelho roubado." }
+    - { en: "I'd mitigate now — token refresh plus device binding.", pt: "Eu mitigaria já — refresh de token mais vínculo ao aparelho." }
+    - { en: "The SLA is 14 days; the real fix lands with the rewrite in three weeks.", pt: "O SLA é 14 dias; a correção real sai com a reescrita em três semanas." }
+    - { en: "I need an approved extension — or a smaller scope inside the SLA.", pt: "Preciso de uma extensão aprovada — ou um escopo menor dentro do SLA." }
+    - { en: "I have to push back on the 14 days — that's before the rewrite lands.", pt: "Tenho que resistir aos 14 dias — é antes da reescrita sair." }
+    - { en: "Extension approved — we'll track it under SEC-1234.", pt: "Extensão aprovada — vamos rastrear sob o SEC-1234." }
+
+examples:
+  - en: "The finding in one line: mobile sessions never expire — 30 days on a stolen device."
+    pt: "O finding em uma linha: sessões mobile nunca expiram — 30 dias num aparelho roubado."
+    context: "A abertura."
+  - en: "Here's the evidence — the report reproduces it end to end."
+    pt: "Aqui está a evidência — o relatório reproduz de ponta a ponta."
+    context: "A prova."
+  - en: "I'd mitigate now and remediate with the rewrite — not defer silently."
+    pt: "Eu mitigaria já e remediaria com a reescrita — não adiar em silêncio."
+    context: "A proposta em duas camadas."
+  - en: "14 days won't cover the rewrite — I need an approved extension."
+    pt: "14 dias não cobrem a reescrita — preciso de uma extensão aprovada."
+    context: "O pedido."
+  - en: "Or smaller scope: expire sessions on new logins only — inside the SLA."
+    pt: "Ou escopo menor: expirar sessões só nos logins novos — dentro do SLA."
+    context: "A alternativa ao prazo."
+  - en: "We mitigate now — the token refresh caps the exposure at hours."
+    pt: "Mitigamos já — o refresh de token limita a exposição a horas."
+    context: "A ação imediata."
+  - en: "I want to walk away with a decision and a date — not a maybe."
+    pt: "Quero sair com uma decisão e uma data — não um talvez."
+    context: "O que a reunião produz."
+  - en: "Extension approved, tracked under SEC-1234 — documented decision."
+    pt: "Extensão aprovada, rastreada sob o SEC-1234 — decisão documentada."
+    context: "O fechamento."
+
+variations:
+  - idea: '"o prazo que não cabe"'
+    items:
+      - { register: "Boa", text: "The SLA is 14 days; the fix lands in 3 weeks — I need an extension.", adequate: true }
+      - { register: "Boa", text: "Or smaller scope — expire on new logins only, inside the SLA.", adequate: true }
+      - { register: "Inadequada", text: "We'll fix it in 14 days. (the rewrite takes 3 weeks)", adequate: false, note: "Prometer o que não cabe estoura o SLA — peça a extensão antes." }
+      - { register: "Inadequada", text: "Can't do it. Next question.", adequate: false, note: "Recusa vazia — 'push back' vem com os dois números e a alternativa." }
+  - idea: '"mitigar já"'
+    items:
+      - { register: "Boa", text: "We mitigate now — device binding shrinks the blast radius today.", adequate: true }
+      - { register: "Boa", text: "Mitigation documented; the real fix is tracked under SEC-1234.", adequate: true }
+      - { register: "Inadequada", text: "We'll wait for the rewrite — it's only 3 weeks.", adequate: false, note: "Três semanas de sessão infinita é exposição — mitigue já." }
+      - { register: "Inadequada", text: "The mitigation fixes it — close the finding.", adequate: false, note: "Mitigação não remedia — a causa continua viva até a rewrite." }
+
+brErrors:
+  - { wrong: "We must to expire the sessions.", right: "We must expire the sessions.", why: "must expire", tag: br.modal-to }
+  - { wrong: "The finding is critic for the SLA.", right: "The finding is critical for the SLA.", why: "critical", tag: br.is-critic }
+  - { wrong: "We're in compliance to the SLA.", right: "We're in compliance with the SLA.", why: "with", tag: br.in-compliance-to }
+  - { wrong: "The pentester explored the weak sessions.", right: "The pentester exploited the weak sessions.", why: "exploited", tag: br.explored-vuln }
+  - { wrong: "The report was wrote by the pentester.", right: "The report was written by the pentester.", why: "was written", tag: br.was-past }
+  - { wrong: "The extension not approved yet.", right: "The extension wasn't approved yet.", why: "wasn't approved", tag: br.it-not-works }
+  - { wrong: "The rewrite land in three weeks.", right: "The rewrite lands in three weeks.", why: "lands", tag: br.third-person-s }
+  - { wrong: "The extension is due until Friday.", right: "The extension is due by Friday.", why: "by Friday", tag: br.until-by }
+  - { wrong: "The fix depend of the rewrite.", right: "The fix depends on the rewrite.", why: "depends on", tag: br.depend-of }
+  - { wrong: "The finding of Tuesday is high.", right: "Tuesday's finding is high.", why: "Tuesday's finding", tag: br.of-weekday }
+
+dialogue:
+  title: "A triagem do finding — você apresenta"
+  lines:
+    - { speaker: Yuri, text: "The finding in one line — high severity: mobile sessions never expire. The pentester stayed logged in for 30 days on a stolen test device." }
+    - { speaker: Priya, text: "Evidence?" }
+    - { speaker: Yuri, text: "Reproduced end to end — it's in the report. Not a false positive." }
+    - { speaker: Dana, text: "And the fix?" }
+    - { speaker: Yuri, text: "The real fix touches the auth rewrite — it lands in three weeks. The SLA is 14 days, so I'm proposing two layers." }
+    - { speaker: Rafa, text: "Go on." }
+    - { speaker: Yuri, text: "Mitigate now — token refresh plus device binding; that caps the exposure at hours. Remediate with the rewrite. For that, I need an approved extension — or we cut scope and expire only new logins inside the SLA." }
+    - { speaker: Dana, text: "Does the mitigation block the roadmap?" }
+    - { speaker: Yuri, text: "Two days of work — it doesn't touch the roadmap. The extension does, that's the trade-off." }
+    - { speaker: Rafa, text: "Extension approved — I'll sign it today. Track it under?" }
+    - { speaker: Yuri, text: "SEC-1234 — owner me, mitigation by Friday, remediation with the rewrite. Documented decision." }
+  notes:
+    - "a estrutura: finding em uma linha → evidência → proposta em duas camadas → o pedido com alternativa → o fechamento com ticket."
+    - "a Dana pergunta o que product pergunta: 'does it block the roadmap?' — a resposta separa mitigação (não toca) de extensão (toca)."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Presenting a pentest finding has a script. The finding in one line — 'high severity: mobile sessions never expire'. The evidence — 'reproduced on a stolen test device'. The proposal — 'I'd mitigate now and remediate with the rewrite'. And the negotiation — 'the SLA is 14 days; the fix lands in 3 weeks — I need an approved extension or a smaller scope'." }
+    - { speaker: Marcos, text: "Two traps: promising the deadline that doesn't fit — the extension approved is cheaper than the SLA blown — and treating mitigation as remediation. The mitigation holds the risk today; the rewrite kills the cause in three weeks. Both get said, both get tracked." }
+    - { speaker: Yuri, text: "And the meeting has to produce something — 'I want to walk away with a decision and a date'. Whatever you pick, it becomes a documented decision: 'extension approved, tracked under SEC-1234'." }
+  questions:
+    - { id: M19-05-l1, type: multiple_choice, prompt: "The finding presentation opens with…", options: ["the full report", "an apology", "the finding in one line + the severity", "the remediation plan"], answer: 2, explanation: "Uma linha + severidade — detalhes depois.", tags: [comp.listening, vocab.security] }
+    - { id: M19-05-l2, type: multiple_choice, prompt: "When the fix lands after the SLA, the move is…", options: ["promise the SLA anyway", "ask for an approved extension — or offer a smaller scope", "hide the finding", "quit"], answer: 1, explanation: "Extensão aprovada ou escopo menor — nunca prometer o que não cabe.", tags: [comp.listening, vocab.security] }
+    - { id: M19-05-l3, type: fill_blank, prompt: "I'd mitigate now and ___ with the rewrite.", accepted: ["remediate"], explanation: "Duas camadas: mitigar já, remediar na dependência.", tags: [vocab.security] }
+    - { id: M19-05-l4, type: error_correction, prompt: "We must to expire the sessions.", accepted: ["We must expire the sessions.", "We must expire the sessions"], explanation: "must expire.", tags: [br.modal-to] }
+    - { id: M19-05-l5, type: multiple_choice, prompt: "The mitigation's job is to…", options: ["close the finding forever", "hold the risk until the real fix lands", "replace the audit", "extend the SLA"], answer: 1, explanation: "Mitigar segura hoje; remediar resolve na dependência.", tags: [comp.listening, vocab.security] }
+    - { id: M19-05-l6, type: multiple_choice, prompt: "The meeting should end with…", options: ["a decision, a date and a ticket — documented", "a maybe", "the next meeting", "everyone's opinion"], answer: 0, explanation: "Decisão + data + rastreio.", tags: [comp.listening, vocab.security] }
+
+writing:
+  prompt: |
+    **Cenário:** após a triagem, você registra a decisão do finding
+    no ticket — o que a auditoria vai ler.
+
+    **Tarefa:** escreva 60–90 palavras: o finding em uma linha com
+    severidade, a evidência, a decisão em duas camadas (mitigação
+    agora + remediação com a rewrite), a extensão aprovada e o
+    rastreio com dono e datas.
+  constraints:
+    - { label: "O finding + severidade", pattern: "\\b(severity|sessions|expire|finding)\\b" }
+    - { label: "A evidência", pattern: "\\b(reproduced|report|evidence|pentest)\\w*" }
+    - { label: "As duas camadas", pattern: "\\b(mitigat|remediat)\\w*" }
+    - { label: "Extensão + rastreio", pattern: "\\b(extension|track|SEC-|approved)\\w*" }
+  rubric:
+    - "Finding em uma linha, severidade explícita"
+    - "Mitigar agora × remediar na dependência"
+    - "Extensão aprovada ou escopo menor"
+    - "Ticket, dono e datas — sem calques"
+  model: >-
+    Finding: high severity — mobile sessions never expire;
+    reproduced by the pentester on a stolen test device.
+    Decision in two layers: we mitigate now — token refresh plus
+    device binding caps the exposure at hours, lands Friday — and
+    remediate with the auth rewrite in three weeks. The 14-day
+    SLA doesn't cover the rewrite, so the extension was approved
+    by security today. Everything is tracked under SEC-1234 —
+    owner: me; mitigation due Friday, remediation due with the
+    rewrite. Documented decision.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.security]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos apresentando o finding na triagem: a linha, a evidência, a proposta em duas camadas e o pedido de extensão."
+    maxSeconds: 60
+    targetPhrases:
+      - high severity
+      - sessions never expire
+      - reproduced
+      - the evidence
+      - mitigate now
+      - remediate with the rewrite
+      - the SLA is 14 days
+      - approved extension
+      - smaller scope
+      - push back
+      - walk away with
+      - documented decision
+      - tracked under
+      - device binding
+      - token refresh
+      - the blast radius
+    checklist:
+      - "O finding em uma linha + severidade"
+      - "'mitigate now' × 'remediate with' separados"
+      - "O pedido: extensão OU escopo menor"
+      - "Fecha com decisão + data + ticket"
+
+quiz:
+  - { id: M19-05-q1, type: multiple_choice, prompt: "O fix sai em 3 semanas; o SLA é 14 dias. A jogada é…", options: ["prometer os 14 dias mesmo assim", "pedir extensão aprovada — ou cortar o escopo para caber no SLA", "ignorar o SLA", "esconder o finding"], answer: 1, explanation: "Extensão ou escopo — nunca prometer o que não cabe.", tags: [vocab.security] }
+  - { id: M19-05-q2, type: error_correction, prompt: "The pentester explored the weak sessions.", accepted: ["The pentester exploited the weak sessions.", "The pentester exploited the weak sessions"], explanation: "exploited.", tags: [br.explored-vuln] }
+  - { id: M19-05-q3, type: multiple_choice, prompt: "'Mitigate now, remediate with the rewrite' significa…", options: ["corrigir tudo hoje", "segurar o risco hoje; resolver a causa quando a dependência sair", "adiar tudo", "só documentar"], answer: 1, explanation: "As duas camadas da decisão.", tags: [vocab.security] }
+  - { id: M19-05-q4, type: fill_blank, prompt: "Extension approved — we'll track it ___ SEC-1234.", accepted: ["under"], explanation: '"Track it under" + ticket.', tags: [vocab.security] }
+  - { id: M19-05-q5, type: multiple_choice, prompt: "A Dana (product) pergunta se a mitigação trava o roadmap. A resposta separa…", options: ["a mitigação (não toca) da extensão (toca)", "o SLA do finding", "o pentest do audit", "o técnico do político"], answer: 0, explanation: "Dois dias de trabalho × a extensão que mexe no plano.", tags: [vocab.security] }
+  - { id: M19-05-q6, type: error_correction, prompt: "We're in compliance to the SLA.", accepted: ["We're in compliance with the SLA.", "We're in compliance with the SLA"], explanation: "with.", tags: [br.in-compliance-to] }
+  - { id: M19-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["with", "walk", "a", "decision", "away", "and", "a", "date"], answer: "walk away with a decision and a date", explanation: "O que a reunião produz.", tags: [vocab.security] }
+  - { id: M19-05-q8, type: multiple_choice, prompt: "'Push back' numa negociação de prazo é…", options: ["recusar em silêncio", "aceitar tudo", "escalar para o CEO", "contestar com os números e uma alternativa"], answer: 3, explanation: "Contestar com argumento — 'the SLA is 14 days; the fix lands in 3 weeks'.", tags: [vocab.security] }
+
+srsCards:
+  - { front: "high severity", back: "SLA de 14 dias — a severidade liga o relógio.", tag: vocab.security }
+  - { front: "reproduced", back: "Prova, não teoria — 'reproduced on a stolen device'.", tag: vocab.security }
+  - { front: "the fix lands with", back: "A dependência do prazo — 'lands with the rewrite'.", tag: vocab.security }
+  - { front: "approved extension", back: "O SLA estendido formalmente — pedido e sign-off.", tag: vocab.security }
+  - { front: "smaller scope", back: "A alternativa à extensão — caber no SLA.", tag: vocab.security }
+  - { front: "mitigate now", back: "Segurar o risco hoje — refresh + device binding.", tag: vocab.security }
+  - { front: "device binding", back: "O token só vale no aparelho original.", tag: vocab.security }
+  - { front: "token refresh", back: "Sessões curtas — exposição de horas, não dias.", tag: vocab.security }
+  - { front: "push back", back: "Contestar com números — 'the SLA is 14 days; the fix lands in 3'.", tag: vocab.security }
+  - { front: "walk away with", back: "Sair com decisão + data — o que a reunião produz.", tag: vocab.security }
+  - { front: "documented decision", back: "O registro que a auditoria lê.", tag: vocab.security }
+
+review:
+  preferTags: [vocab.security, br.explored-vuln, br.modal-to]
+  notes: "Revisão prioriza o roteiro da triagem, a negociação de prazo (extensão × escopo) e mitigate × remediate."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
