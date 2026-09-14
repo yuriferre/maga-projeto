@@ -149,3 +149,8 @@ tags:
   - { id: vocab.postmortem,  group: vocab, label: "Post-mortem: blameless e timeline" }
   - { id: gram.passive-blameless, group: gram, label: "Passiva blameless (foco no fato)" }
   - { id: gram.timeline,     group: gram, label: "Timeline de incidente (tempos e ordem)" }
+  - { id: br.metric-raised,  group: br, label: "the latency raised (rose/went up)" }
+  - { id: br.in-percent,     group: br, label: "is in 80% (at 80%)" }
+  - { id: br.have-a-latency, group: br, label: "have a latency of (latency is)" }
+  - { id: br.overpassed,     group: br, label: "overpassed (exceeded)" }
+  - { id: vocab.slo,         group: vocab, label: "SLOs e error budget" }
