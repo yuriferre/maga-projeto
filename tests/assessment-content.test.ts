@@ -948,3 +948,42 @@ describe("M26 assessment variants", () => {
     expect(checkExercise(q, "I want you to join the call — I have doubt about the agenda.").correct).toBe(false);
   });
 });
+
+describe("M27 assessment variants", () => {
+  const m27 = bundle.moduleAssessments["M27"]!;
+  it("requires 'I'm 34' and present perfect on A02", () => {
+    const q = m27.items.find((q) => q.id === "M27-A02")!;
+    expect(checkExercise(q, "I'm 34 and I've worked here since 2020.").correct).toBe(true);
+    expect(checkExercise(q, "I have 34 years and I've worked here since 2020.").correct).toBe(false);
+    expect(checkExercise(q, "I'm 34 and I work here since 2020.").correct).toBe(false);
+  });
+  it("requires 'graduated/degree' and 'promoted to' on A03", () => {
+    const q = m27.items.find((q) => q.id === "M27-A03")!;
+    expect(checkExercise(q, "I graduated in Computer Science in 2015 and was promoted to senior in 2021.").correct).toBe(true);
+    expect(checkExercise(q, "I formed in Computer Science in 2015 and was promoted to senior in 2021.").correct).toBe(false);
+    expect(checkExercise(q, "I graduated in Computer Science in 2015 and was promoted for senior in 2021.").correct).toBe(false);
+  });
+  it("requires 'responsible for' and 'in my view' on A04", () => {
+    const q = m27.items.find((q) => q.id === "M27-A04")!;
+    expect(checkExercise(q, "I was responsible for the pipeline — in my view it was clean.").correct).toBe(true);
+    expect(checkExercise(q, "I was responsible by the pipeline — in my view it was clean.").correct).toBe(false);
+    expect(checkExercise(q, "I was responsible for the pipeline — in my vision it was clean.").correct).toBe(false);
+  });
+  it("requires 'a saving' and 'the price is high' on A09", () => {
+    const q = m27.items.find((q) => q.id === "M27-A09")!;
+    expect(checkExercise(q, "Right-sizing brings a saving — the price is high today.").correct).toBe(true);
+    expect(checkExercise(q, "Right-sizing brings an economy — the price is high today.").correct).toBe(false);
+    expect(checkExercise(q, "Right-sizing brings a saving — the price is expensive today.").correct).toBe(false);
+  });
+  it("requires 'spend on' and 'plan/intend to' on A10", () => {
+    const q = m27.items.find((q) => q.id === "M27-A10")!;
+    expect(checkExercise(q, "We spend too much on the vendor — I plan to renegotiate.").correct).toBe(true);
+    expect(checkExercise(q, "We spend too much with the vendor — I plan to renegotiate.").correct).toBe(false);
+    expect(checkExercise(q, "We spend too much on the vendor — I pretend to renegotiate.").correct).toBe(false);
+  });
+  it("requires present perfect continuous on A12", () => {
+    const q = m27.items.find((q) => q.id === "M27-A12")!;
+    expect(checkExercise(q, "I've been working on the pitch since Monday.").correct).toBe(true);
+    expect(checkExercise(q, "I'm working on the pitch since Monday.").correct).toBe(false);
+  });
+});

@@ -1,0 +1,102 @@
+# Avaliação do módulo M27: 15 itens cobrindo as cinco aulas + escrita (história STAR) + fala (pitch + história).
+id: M27
+title: "Avaliação do módulo M27: apresentação profissional e histórias de experiência"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M27-A01, type: multiple_choice, prompt: "'Tell me about yourself' in an interview is answered with…", options: ["your whole biography", "the two-minute pitch — present, past, why this role", "your hobbies", "your salary history"], answer: 1, explanation: "O pitch profissional — presente, passado relevante, o porquê da vaga.", tags: [vocab.interview] }
+  - { id: M27-A02, type: error_correction, prompt: "I have 34 years and I work here since 2020.", accepted: ["I'm 34 and I've worked here since 2020.", "I'm 34 and I've worked here since 2020", "I'm 34 years old and I've been here since 2020."], explanation: 'Dois calques: "I''m 34" + "I''ve worked/been here since".', tags: [br.have-years, br.work-since] }
+  - { id: M27-A03, type: error_correction, prompt: "I formed in Computer Science in 2015 and was promoted for senior in 2021.", accepted: ["I graduated in Computer Science in 2015 and was promoted to senior in 2021.", "I graduated in Computer Science in 2015 and was promoted to senior in 2021", "I have a degree in Computer Science and was promoted to senior in 2021."], explanation: 'Dois calques: "graduated/have a degree" + "promoted to".', tags: [br.formed-in, br.promoted-for] }
+  - { id: M27-A04, type: error_correction, prompt: "I was responsible by the pipeline — in my vision it was clean.", accepted: ["I was responsible for the pipeline — in my view it was clean.", "I was responsible for the pipeline — in my view it was clean"], explanation: 'Dois calques: "responsible for" + "in my view".', tags: [br.responsible-by, br.in-my-vision] }
+  - { id: M27-A05, type: multiple_choice, prompt: "In a STAR answer, the Task is…", options: ["the team's mission", "optional", "the manager's ask", "yours — 'my job was to', not 'we had to'"], answer: 3, explanation: "O T é seu — a diferença que o entrevistador procura.", tags: [vocab.interview] }
+  - { id: M27-A06, type: error_correction, prompt: "We discussed about the outage and got the same result than before.", accepted: ["We discussed the outage and got the same result as before.", "We discussed the outage and got the same result as before"], explanation: 'Dois calques: "discussed the" + "the same as".', tags: [br.discuss-about, br.same-than] }
+  - { id: M27-A07, type: error_correction, prompt: "I have a doubt — it worths a second look before the offer.", accepted: ["I have a question — it's worth a second look before the offer.", "I have a question — it's worth a second look before the offer", "I'm not sure — it is worth a second look before the offer."], explanation: 'Dois calques: "a question" + "it''s worth".', tags: [br.doubt, br.worths] }
+  - { id: M27-A08, type: fill_blank, prompt: "That's the ___ — happy to expand on any part.", accepted: ["headline"], explanation: "'That's the headline' — a manchete antes do detalhe.", tags: [vocab.interview] }
+  - { id: M27-A09, type: error_correction, prompt: "Right-sizing brings an economy — the price is expensive today.", accepted: ["Right-sizing brings a saving — the price is high today.", "Right-sizing brings a saving — the price is high today", "Right-sizing saves money — the price is high today."], explanation: 'Dois calques: "a saving" + "the price is high".', tags: [br.an-economy, br.price-expensive] }
+  - { id: M27-A10, type: error_correction, prompt: "We spend too much with the vendor — I pretend to renegotiate.", accepted: ["We spend too much on the vendor — I plan to renegotiate.", "We spend too much on the vendor — I plan to renegotiate", "We spend too much on the vendor — I intend to renegotiate."], explanation: 'Dois calques: "spend on" + "I plan/intend to".', tags: [br.spend-with, br.pretend] }
+  - { id: M27-A11, type: error_correction, prompt: "In the other hand, I suggest to change the default.", accepted: ["On the other hand, I suggest changing the default.", "On the other hand, I suggest changing the default", "On the other hand, I suggest that we change the default."], explanation: 'Dois calques: "on the other hand" + "suggest changing".', tags: [br.in-other-hand, br.suggest-to] }
+  - { id: M27-A12, type: error_correction, prompt: "I'm working on the pitch since Monday.", accepted: ["I've been working on the pitch since Monday.", "I've been working on the pitch since Monday", "I have been working on the pitch since Monday."], explanation: '"Since" + ação em curso leva present perfect continuous.', tags: [br.since-present] }
+  - { id: M27-A13, type: match, prompt: "Associe a letra do STAR ao seu papel.", pairs: [{ left: "Situation", right: "context in two sentences" }, { left: "Task", right: "your responsibility — 'my job was to'" }, { left: "Action", right: "three steps in 'I', not 'we'" }, { left: "Result", right: "the number plus the lesson" }], explanation: "O esqueleto — cada letra com o seu papel.", tags: [vocab.interview] }
+  - { id: M27-A14, type: multiple_choice, prompt: "'Want the short version or the deep dive?' is…", options: ["the offer of scale — the interviewer picks the size", "a refusal", "a filler", "a trick question"], answer: 0, explanation: "O tempo é do entrevistador — você oferece a escala.", tags: [vocab.interview] }
+  - { id: M27-A15, type: multiple_choice, prompt: "The close of a STAR story is…", options: ["'the end'", "'next question'", "'that's the headline — happy to go deeper'", "silence"], answer: 2, explanation: "A manchete + o convite ao follow-up.", tags: [vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** o formulário da vaga
+    pede um exemplo escrito de "a time you solved a
+    hard problem" — e a preparação pede o índice do
+    seu banco.
+
+    **Tarefa:** escreva 100–130 palavras em duas
+    partes. Parte 1: uma história STAR sua —
+    Situation em duas frases, Task seu ("my job was"),
+    Action em três passos no "I", Result com número +
+    a reflexão ("looking back"/"in hindsight").
+    Parte 2: uma linha por história restante do banco
+    — a cola e o número.
+  constraints:
+    - { label: "Situation + Task", pattern: "\\bthe situation|it was|my job was|i owned|i was the\\b" }
+    - { label: "Action no I", pattern: "\\bi rolled|i built|i added|i wrote|i proposed|i ran|i found\\b" }
+    - { label: "Result com número", pattern: "\\b\\d+\\b" }
+    - { label: "Reflexão + banco", pattern: "\\blooking back|in hindsight|differently|the real lesson|bank|story\\b" }
+  rubric:
+    - "STAR completo: S curto, T seu, A no 'I', R com número"
+    - "Reflexão no fim da história"
+    - "O banco em linhas — cola + número por história"
+    - "Sem calques ('I've worked since', 'responsible for', 'in my view')"
+  model: >-
+    STAR: the situation — checkout was 500ing on a
+    Friday at 4pm, and I was the on-call. My job was
+    to stop the bleeding, not to find the root cause.
+    I rolled back first, found the missing index, and
+    added it. Result: back in 12 minutes, zero
+    repeats, and the load test joined the pipeline.
+    Looking back, the real lesson was the monitoring
+    gap — we watched the wrong metric. — The bank,
+    one line each: the multi-AZ migration, zero
+    downtime; the NAT gateway cut, $22000 a year; the
+    paging debate with Carlos, two windows instead of
+    forty pages; the on-call playbook, adopted by
+    three teams. Five stories, two minutes each,
+    recorded and corrected.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  prompt: "Grave 90–120 segundos em duas partes: 1) o seu pitch de 60 segundos — quem você é, o que você faz, um resultado com número, o que você procura; 2) uma história STAR do banco — S curto, T seu ('my job was'), A em três passos no 'I', R com número + 'looking back'/'in hindsight'. Abra a história com 'let me give you an example' e feche com 'that's the headline'."
+  maxSeconds: 120
+  targetPhrases:
+    - i'm a platform engineer
+    - i work on
+    - i've been here since
+    - i was responsible for
+    - i led
+    - i owned
+    - i partnered with
+    - reduced deploy time from
+    - let me give you an example
+    - the situation was
+    - my job was to
+    - i rolled back
+    - the result was
+    - looking back
+    - in hindsight
+    - what i'd do differently
+    - that's the headline
+    - happy to go deeper
+    - want the short version
+    - the real lesson was
+    - story bank
+  checklist:
+    - "pitch em três batidas: presente, resultado com número, o que procura"
+    - "STAR completo com Task seu e Action no 'I'"
+    - "reflexão — 'looking back'/'what I'd do differently'"
+    - "sem calques ('I've worked since', 'graduated', 'promoted to', 'responsible for')"
+
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
