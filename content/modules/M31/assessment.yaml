@@ -1,0 +1,102 @@
+# Avaliação do módulo M31: 15 itens cobrindo as quatro aulas + escrita (aceite + autoavaliação) + fala (ligação de negociação comprimida).
+id: M31
+title: "Avaliação do módulo M31: ofertas e negociação"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M31-A01, type: multiple_choice, prompt: "When comparing two offers, the right number is…", options: ["the annualized total comp — base + bonus + equity per year", "the base salary only", "the equity at face value", "the sign-on bonus"], answer: 0, explanation: "TC por ano — nunca o base isolado.", tags: [vocab.compensation] }
+  - { id: M31-A02, type: error_correction, prompt: "My actual salary is $120k, but I got a job proposal yesterday.", accepted: ["My current salary is $120k, but I got a job offer yesterday.", "My current salary is $120k, but I got a job offer yesterday", "My current salary is $120k, but I got an offer yesterday."], explanation: 'Dois calques: "current" + "job offer".', tags: [br.actual-current, br.job-proposal] }
+  - { id: M31-A03, type: error_correction, prompt: "They don't offer more vacations or a thirteenth salary.", accepted: ["They don't offer more vacation days or a 13th-month bonus.", "They don't offer more vacation days or a 13th-month bonus", "They don't offer more PTO or a year-end bonus."], explanation: 'Dois calques: "vacation days/PTO" + "13th-month bonus".', tags: [br.more-vacations, br.thirteenth-salary] }
+  - { id: M31-A04, type: error_correction, prompt: "My salary pretension is $160k — I'd win more than I do now.", accepted: ["My salary expectations are around $160k — I'd earn more than I do now.", "My salary expectations are around $160k — I'd earn more than I do now", "I'm targeting $160k — I'd make more than I do now."], explanation: 'Dois calques: "expectations" + "earn".', tags: [br.pretension, br.win-money] }
+  - { id: M31-A05, type: error_correction, prompt: "I have interest in the role, but I need to give two weeks advice.", accepted: ["I'm interested in the role, but I need to give two weeks' notice.", "I'm interested in the role, but I need to give two weeks' notice", "I'm interested in the role, but I need to give two weeks notice."], explanation: 'Dois calques: "interested" + "notice".', tags: [br.have-interest, br.advice-notice] }
+  - { id: M31-A06, type: error_correction, prompt: "We discussed about the package — in my vision the equity is small.", accepted: ["We discussed the package — in my view the equity is small.", "We discussed the package — in my view the equity is small"], explanation: 'Dois calques: "discussed the" + "in my view".', tags: [br.discuss-about, br.in-my-vision] }
+  - { id: M31-A07, type: multiple_choice, prompt: "A negotiation ask lands best as…", options: ["a demand with a deadline", "an apology before the number", "'I was hoping for $160k given the on-call scope' — number plus reason", "a hint they have to decode"], answer: 2, explanation: "Hoping for + número + given + razão.", tags: [vocab.compensation] }
+  - { id: M31-A08, type: fill_blank, prompt: "Is there ___ on the equity portion of the package?", accepted: ["flexibility"], explanation: "A pergunta por peça, não no pacote todo.", tags: [vocab.compensation] }
+  - { id: M31-A09, type: match, prompt: "Associe a peça do pacote ao que ela resolve.", pairs: [{ left: "sign-on bonus", right: "closes the first-year gap while equity vests" }, { left: "six-month review in writing", right: "a future commitment when the number can't move today" }, { left: "unlimited PTO", right: "ask how much people actually take" }, { left: "target bonus", right: "always ask: guaranteed or discretionary" }], explanation: "Cada peça tem a pergunta ou o papel certo.", tags: [vocab.compensation] }
+  - { id: M31-A10, type: multiple_choice, prompt: "Hearing 'the base is at the top of the band' means…", options: ["the negotiation is over", "pivot to the sign-on, the equity, or a review in writing", "accept immediately", "walk away"], answer: 1, explanation: "O 'não' numa peça abre as outras quatro.", tags: [vocab.compensation] }
+  - { id: M31-A11, type: fill_blank, prompt: "Declining gracefully: 'I hope we can stay in ___ for the future.'", accepted: ["touch"], explanation: "A porta aberta — o recrutador de hoje é seu contato em três anos.", tags: [vocab.compensation] }
+  - { id: M31-A12, type: multiple_choice, prompt: "A written accept must include…", options: ["just a 'yes, I accept'", "only the start date", "only the salary", "every number confirmed — base, bonus, equity, sign-on, PTO, start date"], answer: 3, explanation: "O que não está escrito não existe.", tags: [vocab.compensation] }
+  - { id: M31-A13, type: reorder, prompt: "Rearranje as palavras na ordem do pedido de concessão mútua.", tokens: ["you", "can", "meet", "me", "in", "the", "middle"], answer: "can you meet me in the middle", explanation: "A concessão mútua que fecha a negociação.", tags: [vocab.compensation] }
+  - { id: M31-A14, type: multiple_choice, prompt: "Asking for time to decide works as…", options: ["a reason plus a concrete date — 'by Monday EOD, workable?'", "an open-ended 'let me think'", "two weeks of silence", "ghosting until they call"], answer: 0, explanation: "2–3 dias no máximo, com data marcada.", tags: [vocab.compensation] }
+  - { id: M31-A15, type: multiple_choice, prompt: "The verbal 'I'll take it' belongs…", options: ["at the start of the call", "before reading the offer", "to every email", "after the package is final — and the written accept confirms it"], answer: 3, explanation: "O aceite verbal vem no fim; o escrito confirma.", tags: [vocab.compensation] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** a ligação de
+    negociação terminou — base travado na banda,
+    sign-on ampliado, equity esticado, revisão de
+    seis meses por escrito. O coach pediu o e-mail
+    de aceite e a autoavaliação.
+
+    **Tarefa:** escreva 100–130 palavras: 1) o
+    e-mail de aceite confirmando cada número e a
+    revisão por escrito, 2) a autoavaliação — qual
+    pivô funcionou e o que melhorar na próxima
+    negociação.
+  constraints:
+    - { label: "O aceite com números", pattern: "\\baccept|base|bonus|rsu|sign.on|pto|confirming|thrilled\\b" }
+    - { label: "A revisão por escrito", pattern: "\\bsix.month|review|in writing|written\\b" }
+    - { label: "A autoavaliação", pattern: "\\bpivot|went well|next time|improve|hindsight|better\\b" }
+    - { label: "O próximo passo", pattern: "\\bsign|paperwork|onboarding|start|get back\\b" }
+  rubric:
+    - "Aceite confirma cada número + a revisão por escrito"
+    - "Autoavaliação nomeia um pivô real"
+    - "Um ponto de melhoria concreto"
+    - "Sem calques ('current salary', 'job offer', 'vacation days', 'expectations')"
+  model: >-
+    The accept email: "Rachel — I'm thrilled to
+    accept the offer for Senior Platform Engineer.
+    Confirming the details: $150k base, 15% target
+    bonus, $90k in RSUs over four years, $30k
+    sign-on, unlimited PTO, the six-month
+    compensation review in writing, start date
+    March 3rd. I'll sign the paperwork the day it
+    arrives." The self-review: the pivots worked —
+    three 'nos' became sign-on, equity and the
+    written review. In hindsight, I named my
+    target base before asking about the band;
+    next time I'll ask first and anchor higher.
+    The package still closed near $195k
+    annualized — worth every minute of the
+    twenty-minute call.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.compensation]
+
+speaking:
+  prompt: "Grave até 120 segundos: a ligação de negociação comprimida — abertura com entusiasmo, leitura do pacote, o pedido com razão, dois pivôs do 'não' (sign-on + revisão por escrito), a alavancagem honesta, e o fecho com 'I'll take it' + e-mail de aceite."
+  maxSeconds: 120
+  targetPhrases:
+    - i'm excited about the role
+    - let me make sure i read this right
+    - i was hoping for
+    - given the scope
+    - is there flexibility on
+    - the top of the band
+    - could we look at the sign-on instead
+    - close the gap
+    - six-month review in writing
+    - i want to be transparent
+    - final rounds elsewhere
+    - meet me in the middle
+    - annualized
+    - i'll take it
+    - confirming the details
+    - get back to you
+    - i hope we can stay in touch
+    - vacation days
+    - job offer
+    - my current salary
+  checklist:
+    - "as cinco fases na ordem"
+    - "dois pivôs do 'não'"
+    - "revisão por escrito exigida"
+    - "'I'll take it' só depois do pacote fechar"
+    - "sem calques ('current salary', 'job offer', 'vacation days', 'pretension')"
+
+passCriteria:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3

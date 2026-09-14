@@ -1107,3 +1107,41 @@ describe("M30 assessment variants", () => {
     expect(checkExercise(q, "I'm part of the on-call team — the same rotation than before.").correct).toBe(false);
   });
 });
+
+describe("M31 assessment variants", () => {
+  const m31 = bundle.moduleAssessments["M31"]!;
+  it("requires 'current salary' and 'job offer' on A02", () => {
+    const q = m31.items.find((q) => q.id === "M31-A02")!;
+    expect(checkExercise(q, "My current salary is $120k, but I got a job offer yesterday.").correct).toBe(true);
+    expect(checkExercise(q, "My actual salary is $120k, but I got a job offer yesterday.").correct).toBe(false);
+    expect(checkExercise(q, "My current salary is $120k, but I got a job proposal yesterday.").correct).toBe(false);
+  });
+  it("requires 'vacation days' and '13th-month bonus' on A03", () => {
+    const q = m31.items.find((q) => q.id === "M31-A03")!;
+    expect(checkExercise(q, "They don't offer more vacation days or a 13th-month bonus.").correct).toBe(true);
+    expect(checkExercise(q, "They don't offer more vacations or a 13th-month bonus.").correct).toBe(false);
+    expect(checkExercise(q, "They don't offer more vacation days or a thirteenth salary.").correct).toBe(false);
+  });
+  it("requires 'expectations' and 'earn' on A04", () => {
+    const q = m31.items.find((q) => q.id === "M31-A04")!;
+    expect(checkExercise(q, "My salary expectations are around $160k — I'd earn more than I do now.").correct).toBe(true);
+    expect(checkExercise(q, "My salary pretension is $160k — I'd earn more than I do now.").correct).toBe(false);
+    expect(checkExercise(q, "My salary expectations are around $160k — I'd win more than I do now.").correct).toBe(false);
+  });
+  it("requires 'interested' and 'notice' on A05", () => {
+    const q = m31.items.find((q) => q.id === "M31-A05")!;
+    expect(checkExercise(q, "I'm interested in the role, but I need to give two weeks' notice.").correct).toBe(true);
+    expect(checkExercise(q, "I have interest in the role, but I need to give two weeks' notice.").correct).toBe(false);
+    expect(checkExercise(q, "I'm interested in the role, but I need to give two weeks advice.").correct).toBe(false);
+  });
+  it("requires 'discussed the' and 'in my view' on A06", () => {
+    const q = m31.items.find((q) => q.id === "M31-A06")!;
+    expect(checkExercise(q, "We discussed the package — in my view the equity is small.").correct).toBe(true);
+    expect(checkExercise(q, "We discussed about the package — in my view the equity is small.").correct).toBe(false);
+    expect(checkExercise(q, "We discussed the package — in my vision the equity is small.").correct).toBe(false);
+  });
+  it("accepts the alternative 'targeting' and 'make' on A04", () => {
+    const q = m31.items.find((q) => q.id === "M31-A04")!;
+    expect(checkExercise(q, "I'm targeting $160k — I'd make more than I do now.").correct).toBe(true);
+  });
+});
