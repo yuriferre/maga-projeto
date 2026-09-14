@@ -1077,3 +1077,46 @@ describe("padrões BR — M24 (apresentações e demos)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.want-that");
   });
 });
+
+describe("padrões BR — M25 (RFCs e design reviews)", () => {
+  it("flags 'commented in the PR' but not noun usage", () => {
+    expect(tagsOf("I commented in the PR yesterday.")).toContain("br.comment-in");
+    expect(tagsOf("She comments in the thread.")).toContain("br.comment-in");
+    const clean = [
+      "I commented on the PR yesterday.",
+      "The comments in the code are outdated.",
+      "There are three comments in the doc.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.comment-in");
+  });
+  it("flags 'do a suggestion' but not 'make a suggestion'", () => {
+    expect(tagsOf("Can I do a suggestion here?")).toContain("br.do-suggestion");
+    expect(tagsOf("He did a suggestion on the RFC.")).toContain("br.do-suggestion");
+    const clean = [
+      "Can I make a suggestion here?",
+      "She made a suggestion on the RFC.",
+      "Do a survey first.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.do-suggestion");
+  });
+  it("flags 'suggest to change' but not 'suggested to him'", () => {
+    expect(tagsOf("I suggest to change the default.")).toContain("br.suggest-to");
+    expect(tagsOf("She suggested to split the service.")).toContain("br.suggest-to");
+    const clean = [
+      "I suggest changing the default.",
+      "I suggest that we change the default.",
+      "She suggested to him that we wait.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.suggest-to");
+  });
+  it("flags 'in the other hand' but not 'in my other hand'", () => {
+    expect(tagsOf("In the other hand, the rewrite is risky.")).toContain("br.in-other-hand");
+    expect(tagsOf("In other hand, caching helps.")).toContain("br.in-other-hand");
+    const clean = [
+      "On the other hand, the rewrite is risky.",
+      "I held the cable in my other hand.",
+      "On the other side of the diagram.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-other-hand");
+  });
+});

@@ -184,3 +184,8 @@ tags:
   - { id: br.the-graphic,      group: br, label: "the graphic → graph/chart" }
   - { id: br.want-that,        group: br, label: "want that you → want you to" }
 
+  - { id: vocab.rfc,           group: vocab, label: "RFCs e design reviews" }
+  - { id: br.comment-in,       group: br, label: "comment in → comment on" }
+  - { id: br.do-suggestion,    group: br, label: "do a suggestion → make" }
+  - { id: br.suggest-to,       group: br, label: "suggest to do → suggest doing" }
+  - { id: br.in-other-hand,    group: br, label: "in the other hand → on" }
