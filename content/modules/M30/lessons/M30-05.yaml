@@ -1,0 +1,320 @@
+id: M30-05
+module: M30
+order: 5
+title: "Perguntas de DevOps/Cloud em formato entrevista: IaC, CI/CD, K8s, IAM"
+objective: >-
+  Ao final, você sabe responder às perguntas
+  clássicas de DevOps/Cloud — IaC vs clique,
+  pipelines, K8s, IAM — com definição em uma
+  frase, o porquê e um exemplo seu.
+durationMin: 30
+competencies: [SPK, LIS, CNF]
+tags: [vocab.sysdesign, vocab.k8s, vocab.cloud, comp.speaking]
+prerequisites: [M30-04]
+
+context:
+  scenario: |
+    A parte "factual" da entrevista técnica:
+    perguntas diretas sobre DevOps e Cloud. A
+    resposta forte tem três camadas —
+    **definição** em uma frase, o porquê, e um
+    exemplo seu.
+
+    Os quatro temas que sempre chegam:
+
+    - **IaC**: "why Terraform over clicking in
+      the console?" → definição + o porquê
+      (revisão, repetição, drift) + o seu caso.
+    - **CI/CD**: "walk me through your
+      pipeline" → stages em ordem + o que
+      bloqueia um deploy + o seu caso.
+    - **Kubernetes**: "when would you NOT use
+      Kubernetes?" → a resposta de senior é a
+      que sabe quando não.
+    - **IAM**: "how do you think about
+      permissions?" → least privilege, roles
+      vs policies, o erro clássico do asterisco-curinga.
+
+    A moldura de resposta: "in one sentence…
+    the reason it matters is… for example, in my
+    last project…" — definição → porquê →
+    prova.
+
+    O erro do brasileiro: a resposta de
+    documentação — a definição decorada sem o
+    porquê e sem o exemplo vivido.
+  roles: [Yuri (platform engineer), Dana (staff engineer, interviewer)]
+
+vocabulary:
+  - term: "in one sentence"
+    meaning: 'em uma frase — a definição comprimida primeiro'
+    example: "In one sentence: IaC is infrastructure you can diff, review and roll back."
+    translation: "Em uma frase: IaC é infraestrutura que você pode diffar, revisar e reverter."
+    note: "A definição em uma frase antes do detalhe."
+  - term: "the reason it matters is…"
+    meaning: 'a razão pela qual importa é… — o porquê'
+    example: "The reason it matters: reviewable, repeatable, and you can see drift."
+    translation: "A razão pela qual importa: revisável, repetível, e você vê o drift."
+    note: "A definição sem o porquê é documentação decorada."
+  - term: "for example, in my last project…"
+    meaning: 'por exemplo, no meu último projeto… — a prova vivida'
+    example: "For example, in my last project we caught a drift of 40 manual changes."
+    translation: "Por exemplo, no meu último projeto pegamos um drift de 40 mudanças manuais."
+    note: "O exemplo seu fecha a resposta."
+  - term: "reviewable, repeatable, auditable"
+    meaning: 'revisável, repetível, auditável — a tríade do IaC'
+    example: "IaC makes infra reviewable, repeatable and auditable — like code."
+    translation: "IaC torna a infra revisável, repetível e auditável — como código."
+    note: "As três palavras que resumem o porquê."
+  - term: "configuration drift"
+    meaning: 'deriva de configuração — o problema que o IaC pega'
+    example: "Without IaC you get configuration drift — nobody knows what's real."
+    translation: "Sem IaC você tem drift de configuração — ninguém sabe o que é real."
+    note: "O drift é o vilão que o IaC combate."
+  - term: "the pipeline stages"
+    meaning: 'os estágios do pipeline — build, test, scan, deploy'
+    example: "Our stages: build, test, security scan, staging, then prod behind approval."
+    translation: "Nossos estágios: build, teste, scan de segurança, staging, depois prod com aprovação."
+    note: "Nomeie os estágios em ordem."
+  - term: "what blocks a deploy"
+    meaning: 'o que bloqueia um deploy — os gates do pipeline'
+    example: "A failing test or a critical CVE blocks the deploy — no exceptions."
+    translation: "Um teste falhando ou uma CVE crítica bloqueia o deploy — sem exceções."
+    note: "O gate é o que torna o pipeline um pipeline."
+  - term: "when would you NOT use Kubernetes?"
+    meaning: 'quando você NÃO usaria Kubernetes? — a pergunta-armadilha'
+    example: "When would I not use K8s? For a small team with simple workloads — it's overhead."
+    translation: "Quando eu não usaria K8s? Para time pequeno com cargas simples — é overhead."
+    note: "A resposta de senior sabe quando não."
+  - term: "least privilege"
+    meaning: 'menor privilégio — o princípio do IAM'
+    example: "IAM is least privilege: start from nothing, grant what the workload needs."
+    translation: "IAM é menor privilégio: comece do zero, conceda o que a carga precisa."
+    note: "O princípio em uma frase."
+  - term: "roles vs policies"
+    meaning: 'roles vs policies — a distinção do IAM'
+    example: "Roles are who you can be; policies are what you can do."
+    translation: "Roles são quem você pode ser; policies são o que você pode fazer."
+    note: "A distinção em uma frase memorável."
+  - term: "the classic mistake is wildcard everything"
+    meaning: 'o erro clássico é coringa em tudo — o anti-padrão do IAM'
+    example: "The classic mistake: wildcard everything — `*:*` until it hurts."
+    translation: "O erro clássico: coringa em tudo — `*:*` até doer."
+    note: "Nomear o anti-padrão mostra experiência real."
+  - term: "it depends — here's the trade-off"
+    meaning: 'depende — aqui está o trade-off — a resposta honesta'
+    example: "K8s vs ECS? It depends — here's the trade-off: control vs ops overhead."
+    translation: "K8s vs ECS? Depende — aqui está o trade-off: controle vs overhead operacional."
+    note: "'Depende' com o trade-off nomeado é resposta de senior."
+
+grammar:
+  title: "a gramática da resposta factual"
+  explanation: |
+    A resposta factual forte tem três camadas,
+    cada uma com moldura:
+
+    - **Definição**: "**in one sentence**…" — uma
+      frase, sem documentação.
+    - **O porquê**: "**the reason it matters
+      is**…" — reviewable, repeatable, auditable.
+    - **A prova**: "**for example, in my last
+      project**…" — o caso vivido.
+
+    E as duas respostas de senior:
+
+    - "**When would you NOT use X?**" → saiba
+      quando não — "for a small team, it's
+      overhead".
+    - "**It depends — here's the trade-off**" —
+      'depende' com o trade-off nomeado nunca é
+      evasão.
+  examples:
+    - { en: "In one sentence: IaC is infrastructure you can diff and roll back.", pt: "Em uma frase: IaC é infra que você diffa e reverte." }
+    - { en: "The reason it matters: reviewable, repeatable, auditable.", pt: "A razão: revisável, repetível, auditável." }
+    - { en: "For example, in my last project we caught a drift of 40 manual changes.", pt: "Por exemplo, no último projeto pegamos drift de 40 mudanças manuais." }
+    - { en: "A failing test or a critical CVE blocks the deploy — no exceptions.", pt: "Teste falhando ou CVE crítica bloqueia o deploy — sem exceções." }
+    - { en: "When would I not use K8s? Small team, simple workloads — it's overhead.", pt: "Quando não usaria K8s? Time pequeno, cargas simples — é overhead." }
+    - { en: "Roles are who you can be; policies are what you can do.", pt: "Roles são quem você pode ser; policies são o que pode fazer." }
+
+examples:
+  - en: "In one sentence: IaC is infrastructure you can diff, review and roll back."
+    pt: "Em uma frase: IaC é infra que você diffa, revisa e reverte."
+    context: "A definição comprimida."
+  - en: "The reason it matters: reviewable, repeatable, auditable — like code."
+    pt: "A razão: revisável, repetível, auditável — como código."
+    context: "O porquê em três palavras."
+  - en: "For example, in my last project we caught a drift of 40 manual changes."
+    pt: "Por exemplo, pegamos um drift de 40 mudanças manuais."
+    context: "A prova vivida."
+  - en: "Our stages: build, test, security scan, staging, then prod behind approval."
+    pt: "Estágios: build, teste, scan, staging, prod com aprovação."
+    context: "O pipeline em ordem."
+  - en: "When would I not use Kubernetes? Small team, simple workloads — it's overhead."
+    pt: "Quando não K8s? Time pequeno, cargas simples — é overhead."
+    context: "A resposta que sabe quando não."
+  - en: "IAM is least privilege: start from nothing, grant what the workload needs."
+    pt: "IAM é menor privilégio: comece do zero, conceda o necessário."
+    context: "O princípio em uma frase."
+  - en: "The classic mistake: wildcard everything — `*:*` until it hurts."
+    pt: "O erro clássico: coringa em tudo — `*:*` até doer."
+    context: "O anti-padrão nomeado."
+  - en: "K8s vs ECS? It depends — here's the trade-off: control vs ops overhead."
+    pt: "K8s vs ECS? Depende — o trade-off: controle vs overhead."
+    context: "'Depende' com o trade-off nomeado."
+
+variations:
+  - idea: '"a resposta factual"'
+    items:
+      - { register: "Forte", text: "In one sentence… the reason it matters… for example, in my last project…", adequate: true }
+      - { register: "Forte", text: "It depends — here's the trade-off: control vs overhead.", adequate: true }
+      - { register: "Fraco", text: "(a definição decorada da documentação)", adequate: false, note: "Sem o porquê e sem o exemplo, é resposta de quem leu, não de quem fez." }
+      - { register: "Fraco", text: "Kubernetes is always the answer.", adequate: false, note: "Quem sempre diz sim não sabe quando não." }
+  - idea: '"a pergunta-armadilha"'
+    items:
+      - { register: "Forte", text: "When would I not use K8s? Small team, simple workloads — it's overhead.", adequate: true }
+      - { register: "Forte", text: "The classic mistake is wildcard everything — I start from zero.", adequate: true }
+      - { register: "Fraco", text: "I'd always use it — it's the industry standard.", adequate: false, note: "A armadilha mede julgamento, não entusiasmo." }
+      - { register: "Fraco", text: "I grant admin access so nothing breaks.", adequate: false, note: "Wildcard por conveniência é o erro que a pergunta procura." }
+
+brErrors:
+  - { wrong: "Let me make a test in the pipeline.", right: "Let me run a test in the pipeline.", why: "run a test", tag: br.make-a-test }
+  - { wrong: "I would mount an architecture in AWS.", right: "I would build an architecture in AWS.", why: "build/design", tag: br.mount-solution }
+  - { wrong: "The cluster is on air now.", right: "The cluster is up now.", why: "is up", tag: br.on-air }
+  - { wrong: "The pod falls every deploy.", right: "The pod goes down every deploy.", why: "goes down", tag: br.service-falls }
+  - { wrong: "I have a doubt about IAM.", right: "I have a question about IAM.", why: "a question", tag: br.doubt }
+  - { wrong: "It depends of the workload.", right: "It depends on the workload.", why: "depends on", tag: br.depend-of }
+  - { wrong: "We discussed about the pipeline.", right: "We discussed the pipeline.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision Terraform wins.", right: "In my view Terraform wins.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "The same pipeline than before.", right: "The same pipeline as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "I work with K8s since 2020.", right: "I've worked with K8s since 2020.", why: "I've worked", tag: br.work-since }
+
+dialogue:
+  title: "Quatro perguntas factuais, três camadas cada"
+  lines:
+    - { speaker: Dana, text: "Quick round — why Terraform over clicking in the console?" }
+    - { speaker: Yuri, text: "In one sentence: infrastructure you can diff, review and roll back. The reason it matters — reviewable, repeatable, auditable. For example, in my last project we caught a drift of 40 manual console changes in one plan." }
+    - { speaker: Dana, text: "Walk me through your pipeline." }
+    - { speaker: Yuri, text: "Stages in order: build, test, security scan, staging, then prod behind approval. What blocks a deploy: a failing test or a critical CVE — no exceptions, not even for the CTO." }
+    - { speaker: Dana, text: "When would you NOT use Kubernetes?" }
+    - { speaker: Yuri, text: "Honestly? For a small team with simple workloads — it's overhead. It depends on the workload, but here's the trade-off: control vs ops burden." }
+    - { speaker: Dana, text: "And IAM — how do you think about permissions?" }
+    - { speaker: Yuri, text: "Least privilege: start from nothing, grant what the workload needs. Roles are who you can be; policies are what you can do. The classic mistake is wildcard everything — `*:*` until it hurts." }
+    - { speaker: Dana, text: "Definition, reason, example — you answered like someone who's done it, not read it." }
+    - { speaker: Yuri, text: "The drift of 40 changes — that's the part you can't get from the docs." }
+  notes:
+    - "quatro temas, sempre a mesma estrutura: definição em uma frase → o porquê → o exemplo vivido."
+    - "a resposta de senior em K8s é a que sabe quando não — 'it's overhead'."
+    - "IAM: 'least privilege' + 'roles are who you can be' + o anti-padrão nomeado."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "The factual round has four usual topics: IaC — 'why Terraform over the console'; CI/CD — 'walk me through your pipeline'; Kubernetes — 'when would you NOT use it'; IAM — 'how do you think about permissions'. Each strong answer has three layers: 'in one sentence', 'the reason it matters', 'for example, in my last project'." }
+    - { speaker: Yuri, text: "For IaC the trio is reviewable, repeatable, auditable — and the villain is configuration drift. For pipelines, name the stages in order and what blocks a deploy. For IAM: least privilege, roles vs policies, and name the classic mistake — wildcard everything." }
+    - { speaker: Dana, text: "And the trap questions — 'when would you NOT use Kubernetes' — measure judgment, not enthusiasm. 'It depends' with a named trade-off is never evasion." }
+  questions:
+    - { id: M30-05-l1, type: multiple_choice, prompt: "A resposta factual forte tem…", options: ["definição → porquê → exemplo vivido", "só a definição", "só o exemplo", "documentação decorada"], answer: 0, explanation: "Três camadas — quem fez, não quem leu.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-05-l2, type: fill_blank, prompt: "Roles are who you can be; policies are what you can ___.", accepted: ["do"], explanation: "A distinção do IAM em uma frase.", tags: [vocab.cloud] }
+    - { id: M30-05-l3, type: error_correction, prompt: "The pod falls every deploy.", accepted: ["The pod goes down every deploy.", "The pod goes down every deploy", "The pod crashes every deploy."], explanation: "'Goes down/crashes'.", tags: [br.service-falls] }
+    - { id: M30-05-l4, type: multiple_choice, prompt: "'When would you NOT use Kubernetes?' mede…", options: ["conhecimento", "entusiasmo", "velocidade", "julgamento — a resposta de senior sabe quando não"], answer: 3, explanation: "A armadilha procura julgamento.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-05-l5, type: multiple_choice, prompt: "O vilão que o IaC combate é…", options: ["o custo", "o configuration drift — ninguém sabe o que é real", "a lentidão", "a complexidade"], answer: 1, explanation: "Drift é o problema que o IaC pega.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-05-l6, type: multiple_choice, prompt: "O princípio do IAM é…", options: ["máximo acesso", "least privilege — do zero, conceda só o necessário", "confiança primeiro", "wildcard para não quebrar"], answer: 1, explanation: "Menor privilégio.", tags: [comp.listening, vocab.cloud] }
+
+writing:
+  prompt: |
+    **Cenário:** a preparação pediu por escrito as
+    suas respostas factuais — definição, porquê e
+    exemplo — para os quatro temas clássicos.
+
+    **Tarefa:** escreva 100–130 palavras: mini-
+    respostas de uma linha por tema — IaC (a tríade
+    + o drift), CI/CD (os estágios + o gate),
+    Kubernetes (quando NÃO usar), IAM (least
+    privilege + o anti-padrão).
+  constraints:
+    - { label: "IaC", pattern: "\\breviewable|repeatable|auditable|drift|diff|terraform|iac\\b" }
+    - { label: "CI/CD", pattern: "\\bpipeline|stage|build|test|scan|deploy|blocks\\b" }
+    - { label: "K8s", pattern: "\\bkubernetes|k8s|overhead|cluster|pod\\b" }
+    - { label: "IAM", pattern: "\\bleast privilege|roles|policies|wildcard|permissions\\b" }
+  rubric:
+    - "Os quatro temas cobertos"
+    - "Definição + porquê + exemplo em cada"
+    - "O 'quando não' no K8s"
+    - "Sem calques ('build', 'goes down', 'a question')"
+  model: >-
+    My four factual answers. IaC, in one sentence:
+    infrastructure you can diff, review, roll back
+    — reviewable, repeatable, auditable; my proof:
+    we caught a drift of 40 manual console changes
+    in one plan. CI/CD: build, test, security scan,
+    staging, prod behind approval — a failing test
+    or a critical CVE blocks the deploy, no
+    exceptions. Kubernetes: when would I not use
+    it? A small team with simple workloads — it's
+    overhead; control vs ops burden is the real
+    trade-off. IAM: least privilege — start from
+    nothing, grant what the workload needs; roles
+    are who you can be, policies what you can do;
+    the classic mistake is wildcard everything.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.sysdesign]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a rodada factual — responda as quatro perguntas em sequência ('why Terraform?', 'walk me through your pipeline', 'when would you NOT use K8s?', 'how do you think about permissions?'), cada uma com definição → porquê → exemplo."
+    maxSeconds: 90
+    targetPhrases:
+      - in one sentence
+      - the reason it matters
+      - for example, in my last project
+      - reviewable, repeatable, auditable
+      - configuration drift
+      - the pipeline stages
+      - what blocks a deploy
+      - when would you not use kubernetes
+      - it's overhead
+      - least privilege
+      - roles are who you can be
+      - policies are what you can do
+      - the classic mistake
+      - wildcard everything
+      - it depends — here's the trade-off
+      - walk me through
+    checklist:
+      - "os quatro temas cobertos"
+      - "definição → porquê → exemplo em cada"
+      - "o 'quando não' no K8s"
+      - "sem calques ('build', 'goes down', 'up', 'a question')"
+
+quiz:
+  - { id: M30-05-q1, type: multiple_choice, prompt: "A estrutura da resposta factual é…", options: ["o exemplo primeiro", "só a definição", "a história inteira", "definição em uma frase → porquê → exemplo vivido"], answer: 3, explanation: "Três camadas, nessa ordem.", tags: [vocab.sysdesign] }
+  - { id: M30-05-q2, type: error_correction, prompt: "I would mount an architecture in AWS.", accepted: ["I would build an architecture in AWS.", "I would build an architecture in AWS", "I'd design an architecture in AWS."], explanation: "'Build/design'.", tags: [br.mount-solution] }
+  - { id: M30-05-q3, type: multiple_choice, prompt: "A tríade do IaC é…", options: ["rápido, barato, bonito", "grande, médio, pequeno", "reviewable, repeatable, auditable", "build, test, deploy"], answer: 2, explanation: "O porquê em três palavras.", tags: [vocab.sysdesign] }
+  - { id: M30-05-q4, type: fill_blank, prompt: "Without IaC you get configuration ___ — nobody knows what's real.", accepted: ["drift"], explanation: "O drift é o vilão.", tags: [vocab.sysdesign] }
+  - { id: M30-05-q5, type: multiple_choice, prompt: "A resposta de senior para 'quando NÃO usar K8s' é…", options: ["sempre usar — é o padrão", "nunca usar", "para time pequeno com carga simples — é overhead", "'não sei'"], answer: 2, explanation: "Saber quando não é julgamento.", tags: [vocab.sysdesign] }
+  - { id: M30-05-q6, type: error_correction, prompt: "The cluster is on air now.", accepted: ["The cluster is up now.", "The cluster is up now", "The cluster is online now."], explanation: "'Up/online'.", tags: [br.on-air] }
+  - { id: M30-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["are", "roles", "you", "who", "be", "can"], answer: "roles are who you can be", explanation: "A distinção do IAM.", tags: [vocab.cloud] }
+  - { id: M30-05-q8, type: multiple_choice, prompt: "O erro clássico do IAM é…", options: ["least privilege", "wildcard everything — `*:*` até doer", "usar roles", "muitas policies"], answer: 1, explanation: "Nomear o anti-padrão mostra experiência.", tags: [vocab.cloud] }
+
+srsCards:
+  - { front: "in one sentence", back: "A definição comprimida primeiro.", tag: vocab.sysdesign }
+  - { front: "the reason it matters is…", back: "O porquê — sem ele, é documentação.", tag: vocab.sysdesign }
+  - { front: "for example, in my last project…", back: "A prova vivida fecha a resposta.", tag: vocab.sysdesign }
+  - { front: "reviewable, repeatable, auditable", back: "A tríade do IaC.", tag: vocab.sysdesign }
+  - { front: "configuration drift", back: "O vilão que o IaC pega.", tag: vocab.sysdesign }
+  - { front: "the pipeline stages", back: "build → test → scan → staging → prod — em ordem.", tag: vocab.sysdesign }
+  - { front: "what blocks a deploy", back: "O gate que torna o pipeline um pipeline.", tag: vocab.sysdesign }
+  - { front: "when would you NOT use Kubernetes?", back: "A armadilha — a resposta sabe quando não.", tag: vocab.k8s }
+  - { front: "least privilege", back: "Do zero, conceda só o necessário.", tag: vocab.cloud }
+  - { front: "roles vs policies", back: "Quem você pode ser vs o que você pode fazer.", tag: vocab.cloud }
+  - { front: "the classic mistake is wildcard everything", back: "O anti-padrão nomeado.", tag: vocab.cloud }
+  - { front: "it depends — here's the trade-off", back: "'Depende' com trade-off nomeado nunca é evasão.", tag: vocab.sysdesign }
+
+review:
+  preferTags: [vocab.sysdesign, vocab.k8s, vocab.cloud, br.mount-solution]
+  notes: "Revisão prioriza a estrutura de três camadas e os quatro temas."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
