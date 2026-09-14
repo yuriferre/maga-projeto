@@ -1,0 +1,306 @@
+id: M24-04
+module: M24
+order: 4
+title: "Q&A sem suar: 'good question', reformular e admitir que não sabe"
+objective: >-
+  Ao final, você conduz uma sessão de perguntas com
+  controle: ganha tempo com classe, reformula a pergunta
+  confusa, e admite o que não sabe sem perder autoridade.
+durationMin: 40
+competencies: [SPK, PRO, CNF]
+tags: [vocab.presentation, gram.signposting, comp.speaking, comp.confidence, comp.listening]
+prerequisites: [M24-03]
+
+context:
+  scenario: |
+    A demo rodou, a plateia engajou — e agora vêm as
+    perguntas. O Q&A é onde apresentação boa vira ótima ou
+    desanda. O arsenal tem quatro peças:
+
+    - **Comprar tempo**: "*good question — let me think
+      about that*" é legítimo; encher de "well… um…" não é.
+    - **Reformular antes de responder**: "*so you're
+      asking whether the canary works for the database*"
+      — confirma o entendimento e dá segundos de graça.
+    - **Admitir sem desmoronar**: "*I don't know — and I
+      don't want to guess; let me check and get back to
+      you*" — honestidade com plano é autoridade.
+    - **Devolver e redirecionar**: "*that's a Beth
+      question*", "*can we take that offline?*" — nem toda
+      pergunta é sua, e nem toda é para agora.
+
+    A pergunta hostil ou fora de escopo não é ameaça:
+    agradeça, enquadre, e ofereça o canal. O Q&A bom é o
+    que termina com a plateia mais confiante, não com você
+    mais suado.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead), Ana (eng manager)]
+
+vocabulary:
+  - term: "good question — let me think about that"
+    meaning: 'boa pergunta — deixe-me pensar — compra tempo com classe'
+    example: "Good question — let me think about that for a second."
+    translation: "Boa pergunta — deixe-me pensar nisso por um segundo."
+    note: "Três segundos de silêncio pensado > trinta de 'um, well, like'."
+  - term: "so you're asking whether…"
+    meaning: 'então você está perguntando se… — reformula antes de responder'
+    example: "So you're asking whether the canary works for the database too."
+    translation: "Então você está perguntando se o canary funciona para o banco também."
+    note: "Reformular confirma entendimento e compra segundos de graça."
+  - term: "I don't know — and I don't want to guess"
+    meaning: 'não sei — e não quero chutar — honestidade com postura'
+    example: "I don't know — and I don't want to guess. Let me check and get back to you."
+    translation: "Não sei — e não quero chutar. Deixe-me conferir e retorno para você."
+    note: "O plano depois do 'não sei' é o que preserva a autoridade."
+  - term: "let me get back to you on that"
+    meaning: 'deixe-me retornar sobre isso — o follow-up com promessa'
+    example: "I don't have the exact number — let me get back to you on that by Friday."
+    translation: "Não tenho o número exato — deixe-me retornar sobre isso até sexta."
+    note: "O prazo no 'get back' é o que separa promessa de fuga."
+  - term: "that's a great point"
+    meaning: 'excelente ponto — valida sem concordar'
+    example: "That's a great point — we haven't tested it under load yet."
+    translation: "Excelente ponto — ainda não testamos isso sob carga."
+    note: "Validar a pergunta ≠ validar a premissa — você pode discordar depois."
+  - term: "that's a Beth question"
+    meaning: 'essa é uma pergunta para a Beth — redireciona ao dono'
+    example: "The IAM part — that's a Beth question. Beth, want to take it?"
+    translation: "A parte de IAM — essa é uma pergunta para a Beth. Beth, quer pegar?"
+    note: "Redirecionar ao especialista é força, não fraqueza — ofereça a ponte."
+  - term: "can we take that offline?"
+    meaning: 'podemos levar isso para depois? — fora de escopo com elegância'
+    example: "That's a deep dive — can we take that offline? I'll grab you after."
+    translation: "Isso é um mergulho fundo — podemos levar para depois? Te pego depois."
+    note: "Protege o tempo de todos sem desprezar a pergunta."
+  - term: "does that answer your question?"
+    meaning: 'isso responde sua pergunta? — fecha o loop com o perguntante'
+    example: "…so the canary only watches HTTP for now. Does that answer your question?"
+    translation: "…então o canary só observa HTTP por ora. Isso responde sua pergunta?"
+    note: "Pergunte de volta — evita a resposta certa para a pergunta errada."
+  - term: "if I understood correctly"
+    meaning: 'se entendi direito — a checagem antes da resposta'
+    example: "If I understood correctly, you're asking about the rollback trigger."
+    translation: "Se entendi direito, você está perguntando sobre o gatilho do rollback."
+    note: "A pergunta confusa vira clara quando você a devolve."
+  - term: "fair question"
+    meaning: 'pergunta justa — a que dói mas merece resposta'
+    example: "Fair question — the honest answer is we don't know the cost yet."
+    translation: "Pergunta justa — a resposta honesta é que ainda não sabemos o custo."
+    note: "Para a pergunta que aponta a fraqueza — reconhecer desarma."
+  - term: "I'll take the first one"
+    meaning: 'eu pego a primeira — controla a ordem das perguntas'
+    example: "Two hands up — I'll take the first one, then you."
+    translation: "Duas mãos — eu pego a primeira, depois você."
+    note: "O palestrante controla a fila, não a plateia."
+  - term: "let me rephrase"
+    meaning: 'deixe-me reformular — quando a resposta não aterrissou'
+    example: "That landed wrong — let me rephrase: the risk is in the migration window."
+    translation: "Isso saiu errado — deixe-me reformular: o risco está na janela de migração."
+    note: "Reformular a própria resposta é tão válido quanto a pergunta."
+
+grammar:
+  title: "a gramática do Q&A"
+  explanation: |
+    O Q&A tem três estruturas gramaticais de trabalho:
+
+    - **"Whether" embutido para reformular**: "*so you're
+      asking whether the canary works*" — a pergunta vira
+      oração indireta e você confirma antes de responder.
+    - **"If I understood correctly" + reformulação**:
+      checagem explícita que protege de responder à
+      pergunta errada.
+    - **Futuro para o follow-up**: "*I'll get back to you
+      on that*" — a promessa em "will" + prazo é o que
+      transforma "não sei" em plano.
+
+    E os calques do Q&A ao vivo:
+
+    - "**make a question**" → "**ask a question**".
+    - "**I have doubt**" → "**I have a doubt / I'm not
+      sure**".
+    - "**I am agree with you**" → "**I agree with you**".
+    - "**in the same slide**" → "**on the same slide**".
+  examples:
+    - { en: "So you're asking whether the canary works for databases too.", pt: "Então você está perguntando se o canary funciona para bancos também." }
+    - { en: "If I understood correctly, you're asking about the rollback trigger.", pt: "Se entendi direito, você está perguntando sobre o gatilho do rollback." }
+    - { en: "I don't know — and I don't want to guess. I'll get back to you by Friday.", pt: "Não sei — e não quero chutar. Retorno até sexta." }
+    - { en: "That's a great point — we haven't tested it under load yet.", pt: "Excelente ponto — ainda não testamos isso sob carga." }
+    - { en: "That's a deep dive — can we take that offline?", pt: "Isso é um mergulho fundo — podemos levar para depois?" }
+    - { en: "Does that answer your question, or did I miss the point?", pt: "Isso responde sua pergunta, ou perdi o ponto?" }
+
+examples:
+  - en: "Good question — let me think about that for a second."
+    pt: "Boa pergunta — deixe-me pensar nisso por um segundo."
+    context: "O tempo comprado com classe."
+  - en: "So you're asking whether this works for Postgres too — short answer: not yet."
+    pt: "Então você está perguntando se isso funciona para Postgres também — resposta curta: ainda não."
+    context: "Reformula + resposta curta e honesta."
+  - en: "I don't have the exact number — let me get back to you on that by Friday."
+    pt: "Não tenho o número exato — retorno sobre isso até sexta."
+    context: "O 'não sei' com prazo."
+  - en: "That's a Beth question — Beth, want to take the IAM part?"
+    pt: "Essa é uma pergunta para a Beth — Beth, quer pegar a parte de IAM?"
+    context: "Redirecionar ao dono com a ponte pronta."
+  - en: "Fair question — the honest answer is we haven't measured it yet."
+    pt: "Pergunta justa — a resposta honesta é que ainda não medimos."
+    context: "A pergunta incômoda, respondida de frente."
+  - en: "That's a deep dive — can we take that offline? I'll grab you right after."
+    pt: "Isso é um mergulho fundo — podemos levar para depois? Te pego logo depois."
+    context: "Fora de escopo com o convite preservado."
+  - en: "That landed wrong — let me rephrase: the risk is in the migration window, not the tool."
+    pt: "Isso saiu errado — deixe-me reformular: o risco está na janela de migração, não na ferramenta."
+    context: "Reformular a própria resposta."
+  - en: "Does that answer your question, or did I miss the point?"
+    pt: "Isso responde sua pergunta, ou perdi o ponto?"
+    context: "O loop fechado com o perguntante."
+
+variations:
+  - idea: '"o não sei"'
+    items:
+      - { register: "Boa", text: "I don't know — and I don't want to guess. Let me check and get back to you.", adequate: true }
+      - { register: "Boa", text: "Fair question — the honest answer is we haven't measured it yet.", adequate: true }
+      - { register: "Inadequada", text: "I have doubt — maybe yes, maybe no, it's complicated.", adequate: false, note: "Calque + vago: 'I'm not sure' + o plano ('let me check')." }
+      - { register: "Inadequada", text: "Well… um… that's… hmm… it depends on many things, you know?", adequate: false, note: "Encher de muleta perde a sala — 'good question, let me think' + silêncio vale mais." }
+  - idea: '"a pergunta fora de escopo"'
+    items:
+      - { register: "Boa", text: "That's a deep dive — can we take that offline? I'll grab you after.", adequate: true }
+      - { register: "Boa", text: "That's a Beth question — Beth, want to take it?", adequate: true }
+      - { register: "Inadequada", text: "That question is off topic — next, please.", adequate: false, note: "Cortar despreza o perguntante — enquadre e ofereça o canal." }
+      - { register: "Inadequada", text: "I am agree with you, but let's move on.", adequate: false, note: "Calque: 'I agree with you' — e valide antes de seguir." }
+
+brErrors:
+  - { wrong: "Can I make a question about the demo?", right: "Can I ask a question about the demo?", why: "ask a question", tag: br.make-question }
+  - { wrong: "I have doubt about that number.", right: "I have a doubt about that number.", why: "a doubt / I'm not sure", tag: br.doubt }
+  - { wrong: "I am agree with you on the rollback.", right: "I agree with you on the rollback.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "As I said in the same slide…", right: "As I said on the same slide…", why: "on the slide", tag: br.in-the-screen }
+  - { wrong: "The graphic shows what you asked.", right: "The graph shows what you asked.", why: "the graph", tag: br.the-graphic }
+  - { wrong: "I want that you see the point.", right: "I want you to see the point.", why: "want you to see", tag: br.want-that }
+  - { wrong: "The same answer than before.", right: "The same answer as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about it in Q&A.", right: "We discussed it in Q&A.", why: "discussed it", tag: br.discuss-about }
+  - { wrong: "You must to rephrase the question.", right: "You must rephrase the question.", why: "must rephrase", tag: br.modal-to }
+  - { wrong: "This is polemic, take it offline.", right: "This is controversial, take it offline.", why: "controversial", tag: br.polemic }
+
+dialogue:
+  title: "Q&A after the canary demo"
+  lines:
+    - { speaker: Ana, text: "We have ten minutes — questions?" }
+    - { speaker: Carlos, text: "Does the canary work for the database migrations too?" }
+    - { speaker: Yuri, text: "So you're asking whether the canary covers database changes — short answer: not yet. It watches HTTP for now. Does that answer your question?" }
+    - { speaker: Carlos, text: "Yes — and what's the cost of extending it?" }
+    - { speaker: Yuri, text: "Fair question — the honest answer is we haven't measured it yet. Let me get back to you on that by Friday." }
+    - { speaker: Beth, text: "And the IAM side of the rollout?" }
+    - { speaker: Yuri, text: "That's a Beth question — Beth, want to take it?" }
+    - { speaker: Beth, text: "Sure — the short version is scoped tokens per step. Happy to go deep offline." }
+    - { speaker: Ana, text: "One more — the monitoring overhead? That's a deep dive, maybe." }
+    - { speaker: Yuri, text: "It is — can we take that offline? I'll grab you right after, and I'll put the numbers in the doc." }
+    - { speaker: Ana, text: "Clean Q&A — every question got either an answer, an owner, or a follow-up." }
+  notes:
+    - "reformula antes de responder ('so you're asking whether') e fecha o loop ('does that answer your question?')."
+    - "três destinos possíveis: resposta agora, dono certo ('that's a Beth question'), ou follow-up com prazo."
+    - "'fair question' + resposta honesta para a pergunta que aponta a fraqueza."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Q&A has four moves: buy time with 'good question — let me think', rephrase with 'so you're asking whether', admit with a plan — 'I don't want to guess, let me get back to you by Friday' — and redirect, 'that's a Beth question' or 'can we take that offline'." }
+    - { speaker: Yuri, text: "Every question gets one of three destinations: an answer now, the right owner, or a follow-up with a deadline. And close the loop — 'does that answer your question?' — so you don't answer the wrong question beautifully." }
+    - { speaker: Carlos, text: "And the calques under pressure: 'make a question' is 'ask a question', 'I have doubt' is 'I'm not sure' or 'a doubt', 'I am agree' is 'I agree' — the stumbles are predictable, so they're fixable." }
+  questions:
+    - { id: M24-04-l1, type: multiple_choice, prompt: "As quatro jogadas do Q&A são…", options: ["comprar tempo, reformular, admitir com plano, redirecionar", "responder tudo na hora", "evitar perguntas difíceis", "delegar todas para o time"], answer: 0, explanation: "Tempo + reformula + honestidade com plano + redirecionar.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-04-l2, type: fill_blank, prompt: "So you're ___ whether the canary works for databases.", accepted: ["asking"], explanation: "'You're asking whether' — a reformulação.", tags: [vocab.presentation] }
+    - { id: M24-04-l3, type: error_correction, prompt: "Can I make a question about the rollback?", accepted: ["Can I ask a question about the rollback?", "Can I ask a question about the rollback"], explanation: "'ask a question'.", tags: [br.make-question] }
+    - { id: M24-04-l4, type: multiple_choice, prompt: "O que preserva a autoridade no 'I don't know'?", options: ["a resposta rápida", "o plano — 'let me get back to you by Friday'", "o tom firme", "a piada"], answer: 1, explanation: "Honestidade + follow-up com prazo.", tags: [comp.listening, comp.confidence] }
+    - { id: M24-04-l5, type: multiple_choice, prompt: "Pergunta fora de escopo e profunda. Você…", options: ["corta: 'off topic, next'", "responde tudo agora", "'deep dive — can we take that offline?' + o convite", "ignora e segue"], answer: 2, explanation: "Enquadra, oferece o canal, preserva o perguntante.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-04-l6, type: multiple_choice, prompt: "'Does that answer your question?' evita…", options: ["resposta longa", "pergunta repetida", "a resposta certa para a pergunta errada", "o follow-up"], answer: 2, explanation: "Fecha o loop com o perguntante.", tags: [comp.listening, vocab.presentation] }
+
+writing:
+  prompt: |
+    **Cenário:** o Q&A da apresentação gerou três perguntas
+    que ficaram para follow-up. O Carlos pediu o registro.
+
+    **Tarefa:** escreva 70–100 palavras registrando o Q&A:
+    a pergunta reformulada que você respondeu, a que foi
+    admitida com plano e prazo, e a redirecionada ao dono
+    certo ou levada offline — cada uma com o destino claro.
+  constraints:
+    - { label: "A reformulação", pattern: "\\basking whether|if i understood|rephras" }
+    - { label: "A admissão com plano", pattern: "\\b(didn't|don't|do not) (know|want to guess)|get back to \\w+|check\\b" }
+    - { label: "O redirecionamento", pattern: "\\boffline|a (beth|\\w+) question|deep dive\\b" }
+    - { label: "O loop fechado", pattern: "\\banswer your question|follow.?up|by (friday|\\w+day)\\b" }
+  rubric:
+    - "Pergunta reformulada antes de respondida"
+    - "Admissão com plano e prazo"
+    - "Destino claro para cada pergunta"
+    - "Sem calques ('ask a question', 'I agree', 'on the slide')"
+  model: >-
+    Q&A log — the canary talk. Carlos asked whether the
+    canary covers database migrations — I rephrased it
+    back ("so you're asking whether…") and answered: not
+    yet, HTTP only. Does that answer your question — yes.
+    The cost of extending it: fair question, and I didn't
+    want to guess — I'll get back to him by Friday with
+    numbers. The IAM part was a Beth question; she took it
+    live and offered the deep dive offline. The monitoring
+    overhead we took offline — I'll put it in the doc.
+    Every question got an answer, an owner, or a deadline.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.presentation]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos respondendo a um Q&A imaginário da sua apresentação: reformule uma pergunta, admita uma que não sabe (com plano e prazo) e redirecione uma ao dono certo ou para offline."
+    maxSeconds: 60
+    targetPhrases:
+      - good question
+      - let me think about that
+      - so you're asking whether
+      - if I understood correctly
+      - I don't know
+      - I don't want to guess
+      - let me get back to you
+      - that's a great point
+      - fair question
+      - that's a Beth question
+      - can we take that offline
+      - does that answer your question
+      - let me rephrase
+      - I'll take the first one
+      - ask a question
+      - on the slide
+    checklist:
+      - "compra tempo com 'good question', sem muletas"
+      - "reformula a pergunta antes de responder"
+      - "admite o que não sabe com plano e prazo"
+      - "fecha o loop — 'does that answer your question?'"
+
+quiz:
+  - { id: M24-04-q1, type: multiple_choice, prompt: "O papel de 'so you're asking whether…' é…", options: ["ganhar tempo apenas", "corrigir o perguntante", "confirmar o entendimento + comprar segundos", "mudar de assunto"], answer: 2, explanation: "Reformular confirma e compra tempo de graça.", tags: [vocab.presentation] }
+  - { id: M24-04-q2, type: error_correction, prompt: "I have doubt about that metric.", accepted: ["I have a doubt about that metric.", "I'm not sure about that metric.", "I have a doubt about that metric"], explanation: "'a doubt' ou 'I'm not sure'.", tags: [br.doubt] }
+  - { id: M24-04-q3, type: multiple_choice, prompt: "'That's a Beth question' é…", options: ["fuga da pergunta", "redirecionamento ao dono — força, não fraqueza", "humor interno", "resposta incompleta"], answer: 1, explanation: "A ponte para o especialista é controle de palco.", tags: [vocab.presentation, comp.confidence] }
+  - { id: M24-04-q4, type: fill_blank, prompt: "Can we take that ___? I'll grab you right after.", accepted: ["offline"], explanation: "'Take it offline' — fora de escopo com o convite.", tags: [vocab.presentation] }
+  - { id: M24-04-q5, type: multiple_choice, prompt: "A pergunta aponta uma fraqueza real do projeto. A abertura certa é…", options: ["'that won't happen'", "'let me think about that' + mudar de assunto", "'we'll see'", "'fair question — the honest answer is…'"], answer: 3, explanation: "Reconhecer a pergunta justa desarma e responde de frente.", tags: [vocab.presentation, comp.confidence] }
+  - { id: M24-04-q6, type: error_correction, prompt: "I am agree with you on the canary scope.", accepted: ["I agree with you on the canary scope.", "I agree with you on the canary scope"], explanation: "'I agree'.", tags: [br.i-am-agree] }
+  - { id: M24-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["that", "answer", "your", "does", "question"], answer: "does that answer your question", explanation: "O loop fechado com o perguntante.", tags: [vocab.presentation] }
+  - { id: M24-04-q8, type: multiple_choice, prompt: "Duas mãos levantadas de uma vez. Você…", options: ["'I'll take the first one, then you' — controla a fila", "responde as duas juntas", "escolhe a mais fácil", "pede para repetir"], answer: 0, explanation: "O palestrante controla a ordem, não a plateia.", tags: [vocab.presentation] }
+
+srsCards:
+  - { front: "good question — let me think", back: "Compra tempo com classe — silêncio pensado > muletas.", tag: vocab.presentation }
+  - { front: "so you're asking whether…", back: "Reformula — confirma o entendimento + segundos de graça.", tag: vocab.presentation }
+  - { front: "I don't want to guess", back: "O 'não sei' com postura — seguido do plano.", tag: vocab.presentation }
+  - { front: "get back to you on that", back: "O follow-up — com prazo é promessa, sem é fuga.", tag: vocab.presentation }
+  - { front: "that's a great point", back: "Valida a pergunta — sem concordar com a premissa.", tag: vocab.presentation }
+  - { front: "that's a Beth question", back: "Redireciona ao dono com a ponte pronta.", tag: vocab.presentation }
+  - { front: "can we take that offline?", back: "Fora de escopo com o convite preservado.", tag: vocab.presentation }
+  - { front: "does that answer your question?", back: "Fecha o loop — evita responder à pergunta errada.", tag: vocab.presentation }
+  - { front: "fair question", back: "A que aponta a fraqueza — reconhecer desarma.", tag: vocab.presentation }
+  - { front: "if I understood correctly", back: "A checagem antes da resposta.", tag: vocab.presentation }
+  - { front: "let me rephrase", back: "Reformular a própria resposta é válido também.", tag: vocab.presentation }
+  - { front: "ask a question", back: "'Fazer uma pergunta' — nunca 'make a question'.", tag: br.make-question }
+
+review:
+  preferTags: [vocab.presentation, br.make-question, br.i-am-agree]
+  notes: "Revisão prioriza as quatro jogadas do Q&A, o 'não sei' com plano, o redirecionamento ao dono e os calques de pergunta."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
