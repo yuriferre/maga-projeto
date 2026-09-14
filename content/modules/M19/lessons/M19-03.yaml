@@ -1,0 +1,301 @@
+id: M19-03
+module: M19
+order: 3
+title: "Riscos e compliance: 'this violates', 'we're required to'"
+objective: >-
+  Ao final, você discute risco e conformidade em inglês: "this
+  violates the policy", "we're required to encrypt at rest",
+  "the audit needs evidence", "that's a compensating control".
+durationMin: 35
+competencies: [VOC, WRI]
+tags: [vocab.security, comp.vocabulary, comp.writing]
+prerequisites: [M19-02]
+
+context:
+  scenario: |
+    A auditoria trimestral chegou com um finding: os logs guardam
+    dados de cartão sem criptografia. A reunião de resposta não é
+    técnica — é de **risco e obrigação**.
+
+    O vocabulário de compliance é formal e fechado:
+
+    - "**this violates** the policy / the standard / PCI" —
+      a violação nomeada, sem suavizar.
+    - "**we're required to** encrypt at rest" — a obrigação
+      externa, não a preferência.
+    - **audit** — a revisão formal; **auditor** quem audita;
+      "**the audit needs evidence**" — prova, não promessa.
+    - **evidence** — a prova objetiva: logs, tickets, configs.
+      "Show me the evidence" é a frase da auditoria.
+    - **compensating control** — o controle alternativo quando o
+      exigido não cabe: "we can't encrypt the field, so we
+      tokenize — that's the compensating control".
+    - **residual risk** — o risco que sobra depois do controle:
+      "the residual risk is acceptable".
+    - **scope** — o que a auditoria cobre: "the DB is in scope;
+      the docs wiki is out of scope".
+
+    A frase que organiza: "**we're required to X; the compensating
+    control is Y; the residual risk is Z**" — obrigação,
+    alternativa, sobra.
+  roles: [Yuri (platform engineer), Priya (tech lead), Rafa (security), Dana (product)]
+
+vocabulary:
+  - term: "this violates"
+    meaning: 'isso viola — a quebra nomeada, sem suavizar'
+    example: "Storing card data in plain text violates PCI."
+    translation: "Guardar dados de cartão em texto claro viola o PCI."
+    note: "'Violates' é factual — não é acusação pessoal."
+  - term: "we're required to"
+    meaning: 'somos obrigados a — a exigência externa'
+    example: "We're required to encrypt card data at rest."
+    translation: "Somos obrigados a criptografar dados de cartão em repouso."
+    note: "Obrigação ≠ preferência — 'required to' vem da regulação."
+  - term: "audit"
+    meaning: 'a auditoria — a revisão formal com evidência'
+    example: "The quarterly audit flagged the logging gap."
+    translation: "A auditoria trimestral sinalizou a lacuna nos logs."
+    note: "Audit revisa evidência — 'the audit needs proof, not promises'."
+  - term: "evidence"
+    meaning: 'a evidência — a prova objetiva do controle'
+    example: "The auditor needs evidence — tickets, configs, logs."
+    translation: "O auditor precisa de evidência — tickets, configs, logs."
+    note: "Evidência é documento — 'we did it' sem prova não conta."
+  - term: "compensating control"
+    meaning: 'o controle compensatório — a alternativa aceita quando o exigido não cabe'
+    example: "We can't encrypt the field, so we tokenize — that's the compensating control."
+    translation: "Não dá para criptografar o campo, então tokenizamos — esse é o controle compensatório."
+    note: "Quando o controle exigido não cabe, o compensatório precisa ser equivalente."
+  - term: "residual risk"
+    meaning: 'o risco residual — o que sobra depois do controle'
+    example: "After tokenization, the residual risk is acceptable."
+    translation: "Depois da tokenização, o risco residual é aceitável."
+    note: "Risco zero não existe — a pergunta é 'quanto sobra'."
+  - term: "in scope"
+    meaning: 'dentro do escopo — coberto pela auditoria'
+    example: "The payment DB is in scope; the docs wiki is out of scope."
+    translation: "O banco de pagamentos está no escopo; a wiki está fora."
+    note: "Escopo define o que o auditor olha — 'in scope' × 'out of scope'."
+  - term: "finding"
+    meaning: 'o achado — o item que a auditoria ou o pentest levanta'
+    example: "The audit raised three findings — one critical."
+    translation: "A auditoria levantou três achados — um crítico."
+    note: "Finding = o item formal que pede resposta."
+  - term: "remediation"
+    meaning: 'a remediação — a correção do finding'
+    example: "Remediation for the logging gap is due in 30 days."
+    translation: "A remediação da lacuna de logs vence em 30 dias."
+    note: "Finding pede remediation — ou uma aceitação formal de risco."
+  - term: "risk acceptance"
+    meaning: 'a aceitação de risco — decidir conviver com ele, documentado'
+    example: "Risk acceptance needs a sign-off from the security lead."
+    translation: "Aceitação de risco precisa de aprovação do líder de segurança."
+    note: "Aceitar o risco é uma decisão registrada — não é ignorar."
+  - term: "compliant"
+    meaning: 'em conformidade — atendendo à exigência'
+    example: "We're compliant with PCI after the tokenization shipped."
+    translation: "Estamos em conformidade com o PCI depois que a tokenização saiu."
+    note: "'Compliant with', 'in compliance with' — sempre 'with'."
+  - term: "due in 30 days"
+    meaning: 'vence em 30 dias — o prazo formal do finding'
+    example: "The remediation is due in 30 days — the clock started at the audit."
+    translation: "A remediação vence em 30 dias — o relógio começou na auditoria."
+    note: "Findings têm prazo — 'due by Oct 15' ou 'due in 30 days'."
+
+grammar:
+  title: "violates, required to, compensating: o inglês da obrigação"
+  explanation: |
+    Três construções fechadas da linguagem de compliance:
+
+    - "**this violates** + a norma": "this violates the policy /
+      PCI / the standard" — sujeito é o fato, não a pessoa.
+    - "**we're required to** + verbo": "we're required to encrypt
+      at rest" — a obrigação vem de fora. "Exigidos a" também
+      aparece como "**the standard requires us to**…".
+    - "**in compliance with**" / "**compliant with**" — a
+      preposição é sempre **with**, nunca "to" ou "of".
+
+    E o raciocínio de três passos para um controle que não cabe:
+    "**we're required to** encrypt the field — **the compensating
+    control is** tokenization — **the residual risk is**
+    acceptable".
+  examples:
+    - { en: "Storing card data in plain text violates PCI.", pt: "Guardar dados de cartão em texto claro viola o PCI." }
+    - { en: "We're required to encrypt at rest — the standard requires it.", pt: "Somos obrigados a criptografar em repouso — o padrão exige." }
+    - { en: "We're in compliance with the policy — never 'to'.", pt: "Estamos em conformidade com a política — nunca 'to'." }
+    - { en: "The compensating control is tokenization — equivalent protection.", pt: "O controle compensatório é a tokenização — proteção equivalente." }
+    - { en: "The residual risk after the fix is acceptable — and documented.", pt: "O risco residual depois da correção é aceitável — e documentado." }
+    - { en: "The finding is critical — never 'is critic'.", pt: "O achado é crítico — nunca 'is critic'." }
+
+examples:
+  - en: "This violates the data retention policy — logs keep card numbers."
+    pt: "Isso viola a política de retenção — os logs guardam números de cartão."
+    context: "A violação nomeada."
+  - en: "We're required to encrypt at rest — it's not optional."
+    pt: "Somos obrigados a criptografar em repouso — não é opcional."
+    context: "A obrigação externa."
+  - en: "The auditor needs evidence — show the ticket, not the promise."
+    pt: "O auditor precisa de evidência — mostre o ticket, não a promessa."
+    context: "Prova, não intenção."
+  - en: "We can't encrypt that field — the compensating control is tokenization."
+    pt: "Não dá para criptografar aquele campo — o controle compensatório é a tokenização."
+    context: "A alternativa aceita."
+  - en: "The residual risk is low — documented and signed off."
+    pt: "O risco residual é baixo — documentado e aprovado."
+    context: "A sobra aceita."
+  - en: "The payment DB is in scope; the wiki is out of scope."
+    pt: "O banco de pagamentos está no escopo; a wiki está fora."
+    context: "O que a auditoria cobre."
+  - en: "Remediation is due in 30 days — the clock is running."
+    pt: "A remediação vence em 30 dias — o relógio está correndo."
+    context: "O prazo do finding."
+  - en: "Risk acceptance is a decision — it gets a sign-off, not a shrug."
+    pt: "Aceitar risco é uma decisão — leva aprovação, não um dar de ombros."
+    context: "Aceitação formal, não omissão."
+
+variations:
+  - idea: '"a obrigação nomeada"'
+    items:
+      - { register: "Boa", text: "This violates the retention policy — card numbers in logs.", adequate: true }
+      - { register: "Boa", text: "We're required to encrypt at rest — PCI requires it.", adequate: true }
+      - { register: "Inadequada", text: "This is maybe kind of against the policy?", adequate: false, note: "Compliance não é 'talvez' — 'this violates X' é factual." }
+      - { register: "Inadequada", text: "We're in compliance to PCI.", adequate: false, note: "'In compliance with' — a preposição é 'with'." }
+  - idea: '"o controle que não cabe"'
+    items:
+      - { register: "Boa", text: "The compensating control is tokenization — equivalent protection.", adequate: true }
+      - { register: "Boa", text: "Residual risk is documented — acceptance signed off by security.", adequate: true }
+      - { register: "Inadequada", text: "We can't do it, so we won't — that's fine.", adequate: false, note: "Sem controle compensatório e sem aceitação formal, é omissão — não decisão." }
+      - { register: "Inadequada", text: "The audit doesn't need proof, trust us.", adequate: false, note: "Auditoria vive de evidência — ticket e config, não promessa." }
+
+brErrors:
+  - { wrong: "We're in compliance to the standard.", right: "We're in compliance with the standard.", why: "with", tag: br.in-compliance-to }
+  - { wrong: "The change is in compliance of the policy.", right: "The change is in compliance with the policy.", why: "with", tag: br.in-compliance-to }
+  - { wrong: "The finding is critic for the audit.", right: "The finding is critical for the audit.", why: "critical", tag: br.is-critic }
+  - { wrong: "We must to encrypt the field.", right: "We must encrypt the field.", why: "must encrypt", tag: br.modal-to }
+  - { wrong: "You should to document the risk.", right: "You should document the risk.", why: "should document", tag: br.modal-to }
+  - { wrong: "The pentest explored the weakness.", right: "The pentest exploited the weakness.", why: "exploited", tag: br.explored-vuln }
+  - { wrong: "The audit was wrote last month.", right: "The audit was written last month.", why: "was written", tag: br.was-past }
+  - { wrong: "The policy not allow plain text.", right: "The policy doesn't allow plain text.", why: "doesn't allow", tag: br.it-not-works }
+  - { wrong: "The remediation is due until Friday.", right: "The remediation is due by Friday.", why: "by Friday", tag: br.until-by }
+  - { wrong: "The evidence depend of the ticket.", right: "The evidence depends on the ticket.", why: "depends on", tag: br.depend-of }
+
+dialogue:
+  title: "A reunião de resposta à auditoria"
+  lines:
+    - { speaker: Rafa, text: "The audit finding: our logs store card data in plain text. That violates PCI — and we're required to encrypt at rest." }
+    - { speaker: Yuri, text: "Encrypting the field isn't feasible — the analytics pipeline reads it. The compensating control is tokenization." }
+    - { speaker: Rafa, text: "Tokenization is equivalent — I'll accept it as the control. What's the residual risk?" }
+    - { speaker: Yuri, text: "Low — tokens are useless outside the vault. Documented in the risk register." }
+    - { speaker: Dana, text: "What's in scope for the fix?" }
+    - { speaker: Yuri, text: "The payment logs are in scope; the analytics warehouse is out — it never sees raw card data." }
+    - { speaker: Rafa, text: "Evidence for the auditor?" }
+    - { speaker: Yuri, text: "The ticket, the config diff, and a sample log line — redacted. Remediation is due in 30 days; we'll land it in two." }
+    - { speaker: Rafa, text: "Clean. Required control, compensating control, residual risk — that's the shape the auditor wants." }
+  notes:
+    - "a estrutura da resposta: required → compensating → residual → scope → evidence → prazo."
+    - "'the shape the auditor wants' — a sequência é a linguagem da auditoria."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Compliance has a closed vocabulary. 'This violates the policy' names the break — factual, not personal. 'We're required to encrypt at rest' is an external obligation — it comes from the standard, not from preference. And it's always 'in compliance with' — never 'to' or 'of'." }
+    - { speaker: Marcos, text: "When the required control doesn't fit, you don't skip it — you build a compensating control. 'We can't encrypt the field, so we tokenize — that's the compensating control.' What remains is the residual risk, and it gets documented, not shrugged off. Risk acceptance is a decision with a sign-off." }
+    - { speaker: Yuri, text: "The auditor speaks evidence: tickets, config diffs, log samples — 'show me the evidence' is the whole job. And scope is the boundary: 'the payment DB is in scope, the wiki is out'. Every finding carries a deadline — 'remediation is due in 30 days'." }
+  questions:
+    - { id: M19-03-l1, type: multiple_choice, prompt: "'We're required to encrypt at rest' is…", options: ["a team preference", "an external obligation from the standard", "a suggestion", "a bug report"], answer: 1, explanation: "A obrigação vem da regulação.", tags: [comp.listening, vocab.security] }
+    - { id: M19-03-l2, type: multiple_choice, prompt: "A compensating control is…", options: ["a workaround nobody documents", "the alternative accepted when the required control doesn't fit", "a faster fix", "the auditor's tool"], answer: 1, explanation: "A alternativa equivalente e aceita.", tags: [comp.listening, vocab.security] }
+    - { id: M19-03-l3, type: fill_blank, prompt: "We're in compliance ___ the policy.", accepted: ["with"], explanation: '"In compliance with" — sempre "with".', tags: [br.in-compliance-to] }
+    - { id: M19-03-l4, type: error_correction, prompt: "The finding is critic for the audit.", accepted: ["The finding is critical for the audit.", "The finding is critical for the audit"], explanation: "critical.", tags: [br.is-critic] }
+    - { id: M19-03-l5, type: multiple_choice, prompt: "The risk that remains after the control is the…", options: ["residual risk — documented, maybe accepted", "zero risk", "attack surface", "blast radius"], answer: 0, explanation: "Residual = o que sobra depois do controle.", tags: [comp.listening, vocab.security] }
+    - { id: M19-03-l6, type: multiple_choice, prompt: "What does the auditor want?", options: ["evidence — tickets, configs, log samples", "a verbal promise", "a meeting", "the source code"], answer: 0, explanation: "Prova objetiva, não promessa.", tags: [comp.listening, vocab.security] }
+
+writing:
+  prompt: |
+    **Cenário:** a auditoria levantou um finding: logs com dados de
+    cartão sem criptografia. Escreva a resposta formal.
+
+    **Tarefa:** escreva 60–90 palavras cobrindo: a violação
+    nomeada, a obrigação ("we're required to…"), o controle
+    compensatório, o risco residual, o escopo e a evidência +
+    prazo da remediação.
+  constraints:
+    - { label: "A violação/obrigação", pattern: "\\b(violates|required to|requires us)\\b" }
+    - { label: "O controle compensatório", pattern: "\\bcompensating control\\b" }
+    - { label: "Risco residual", pattern: "\\bresidual risk\\b" }
+    - { label: "Evidência ou prazo", pattern: "\\b(evidence|due in|due by|scope)\\b" }
+  rubric:
+    - "'this violates' + a norma"
+    - "'we're required to' + a obrigação"
+    - "compensating control + residual risk"
+    - "evidência e prazo explícitos"
+  model: >-
+    The finding stands: our logs store card data in plain text,
+    which violates PCI — we're required to encrypt at rest.
+    Encrypting the field isn't feasible because the analytics
+    pipeline reads it, so the compensating control is
+    tokenization; the residual risk is low and documented in the
+    risk register. Scope: payment logs in, warehouse out — it
+    never sees raw card data. Evidence for the auditor: the
+    ticket, the config diff, and a redacted log sample.
+    Remediation is due in 30 days; we'll land it in two.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.security]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo ao finding da auditoria: a violação, o controle compensatório, o risco residual e o prazo."
+    maxSeconds: 45
+    targetPhrases:
+      - this violates
+      - we're required to
+      - in compliance with
+      - compensating control
+      - residual risk
+      - the audit needs evidence
+      - in scope
+      - out of scope
+      - the finding
+      - remediation
+      - risk acceptance
+      - due in 30 days
+      - sign-off
+      - the finding is critical
+      - we must encrypt
+      - documented
+    checklist:
+      - "'violates' + 'required to' distintos"
+      - "'in compliance with' — nunca 'to'"
+      - "compensating control nomeado"
+      - "o prazo da remediação no final"
+
+quiz:
+  - { id: M19-03-q1, type: multiple_choice, prompt: "A alternativa aceita quando o controle exigido não cabe é…", options: ["a workaround", "a compensating control", "a residual risk", "an audit"], answer: 1, explanation: "Compensating control — proteção equivalente.", tags: [vocab.security] }
+  - { id: M19-03-q2, type: error_correction, prompt: "We're in compliance to the standard.", accepted: ["We're in compliance with the standard.", "We're in compliance with the standard"], explanation: "with.", tags: [br.in-compliance-to] }
+  - { id: M19-03-q3, type: multiple_choice, prompt: "O risco que sobra depois do controle é o…", options: ["blast radius", "attack surface", "residual risk", "exposure"], answer: 2, explanation: "Residual — documentado ou aceito formalmente.", tags: [vocab.security] }
+  - { id: M19-03-q4, type: fill_blank, prompt: "We're ___ to encrypt card data at rest.", accepted: ["required"], explanation: "\"We're required to\" — a obrigação externa.", tags: [vocab.security] }
+  - { id: M19-03-q5, type: multiple_choice, prompt: "O que a auditoria pede para provar o controle?", options: ["uma promessa verbal", "evidência — tickets, configs, logs", "uma reunião", "o código-fonte inteiro"], answer: 1, explanation: "Evidência objetiva.", tags: [vocab.security] }
+  - { id: M19-03-q6, type: error_correction, prompt: "You should to document the risk acceptance.", accepted: ["You should document the risk acceptance.", "You should document the risk acceptance"], explanation: "'should document'.", tags: [br.modal-to] }
+  - { id: M19-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["control", "compensating", "the", "is", "tokenization"], answer: "the compensating control is tokenization", explanation: "A alternativa equivalente.", tags: [vocab.security] }
+  - { id: M19-03-q8, type: multiple_choice, prompt: "'Risk acceptance' é…", options: ["ignorar o risco", "esconder o finding", "aceitar o risco documentado, com aprovação", "corrigir o risco"], answer: 2, explanation: "Decisão registrada — não omissão.", tags: [vocab.security] }
+
+srsCards:
+  - { front: "this violates", back: "A quebra nomeada — 'this violates PCI'.", tag: vocab.security }
+  - { front: "we're required to", back: "A obrigação externa — 'required to encrypt'.", tag: vocab.security }
+  - { front: "audit", back: "A revisão formal — vive de evidência.", tag: vocab.security }
+  - { front: "evidence", back: "A prova objetiva — tickets, configs, logs.", tag: vocab.security }
+  - { front: "compensating control", back: "A alternativa aceita quando o exigido não cabe.", tag: vocab.security }
+  - { front: "residual risk", back: "O que sobra depois do controle — documentado.", tag: vocab.security }
+  - { front: "in scope", back: "Coberto pela auditoria — 'in scope' × 'out of scope'.", tag: vocab.security }
+  - { front: "finding", back: "O item formal que a auditoria levanta.", tag: vocab.security }
+  - { front: "remediation", back: "A correção do finding — com prazo.", tag: vocab.security }
+  - { front: "risk acceptance", back: "Conviver com o risco — decisão com sign-off.", tag: vocab.security }
+  - { front: "compliant", back: "Em conformidade — 'compliant with PCI'.", tag: vocab.security }
+
+review:
+  preferTags: [vocab.security, br.in-compliance-to, br.modal-to]
+  notes: "Revisão prioriza violates/required to, compensating control × residual risk e 'in compliance with'."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
