@@ -1013,8 +1013,9 @@ patterns:
     tag: br.thirteenth-salary
   # "new in the company" — "novo na empresa" é "new to the company/team".
   # "New in" sobra só para cidade/lançamento — "new in town", "new in this release" fora.
+  # Exige sujeito pessoal — "what's new in the company?" (novidades) fica fora.
   - id: new-in-company
-    pattern: "\\bnew\\s+in\\s+(the\\s+)?(company|team|role|job|position|org|organization)\\b"
+    pattern: "\\b(i'?m|i am|we'?re|we are|you'?re|you are|he'?s|he is|she'?s|she is|they'?re|they are|still)\\s+new\\s+in\\s+(the\\s+)?(company|team|role|job|position|org|organization)\\b"
     wrong: "I'm new in the company"
     right: "I'm new to the company / new here"
     why: '"Novo na empresa" é "new to" — "new in" é para cidade ou lançamento.'
@@ -1030,7 +1031,7 @@ patterns:
   # "I need a help" — "help" é incontável; sem artigo.
   # "A help desk" e "a big help" (substantivo contável "uma ajuda") ficam fora.
   - id: a-help
-    pattern: "\\b(need|needs|needed|want|wants|wanted|gimme|give me|ask for|asking for|looking for)\\s+a\\s+help\\b"
+    pattern: "\\b(need|needs|needed|want|wants|wanted|gimme|give me|ask for|asking for|looking for)\\s+a\\s+help\\b(?!\\s+desk)"
     wrong: "I need a help with the setup"
     right: "I need help with the setup"
     why: '"Help" é incontável — sem artigo ("a help desk" é outro substantivo).'
