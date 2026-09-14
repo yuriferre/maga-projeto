@@ -1,0 +1,344 @@
+id: M29-05
+module: M29
+order: 5
+title: "Simulação: entrevista comportamental completa em 30 minutos"
+objective: >-
+  Ao final, você atravessou uma entrevista
+  comportamental simulada inteira — abertura,
+  perguntas clássicas, as difíceis e o fecho — com
+  respostas estruturadas, sinais de senioridade e
+  nada decorado.
+durationMin: 45
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M29-04]
+
+context:
+  scenario: |
+    A entrevista completa. O Marcus vai te guiar por
+    uma behavioral de ~30 minutos, em quatro blocos —
+    e você responde cada um de verdade.
+
+    **Os quatro blocos:**
+
+    - **Bloco 1 — Abertura** (3 min): small talk
+      curto + "tell me about yourself" → seu pitch
+      de 2 minutos, sem decorar.
+    - **Bloco 2 — As clássicas** (12 min): "tell me
+      about a time you had a conflict", "…you
+      failed", "…you took ownership", "…ambiguity"
+      → esqueleto STAR + detalhes reais + âncoras.
+    - **Bloco 3 — As difíceis** (8 min): "biggest
+      weakness?", "the gap?", "why did you leave?"
+      → fato → contexto → mudança → frente, tom
+      matter-of-fact.
+    - **Bloco 4 — Fecho** (7 min): "what would you
+      do differently?" + suas perguntas + "any
+      concerns I can address?" → os sinais de
+      senioridade ligados.
+
+    **A rubrica do entrevistador (autoavaliação):**
+
+    - Respostas com estrutura, não script (âncoras
+      de 3–4 palavras)?
+    - Fato → contexto → mudança → frente nas
+      difíceis?
+    - Trade-offs nomeados, "in hindsight", I/we
+      equilibrado?
+    - Crédito ao time por nome?
+    - Perguntas fortes no fecho + "any concerns"?
+
+    Grave a simulação inteira. Depois ouça uma vez
+    contando os sinais — cada um presente é um
+    ponto. A meta: sair do script e ficar na
+    estrutura.
+  roles: [Yuri (platform engineer), Marcus (eng manager, interviewer)]
+
+vocabulary:
+  - term: "let's dive in"
+    meaning: 'vamos mergulhar — a abertura do bloco principal'
+    example: "Great — let's dive in. Tell me about a time you had a conflict."
+    translation: "Ótimo — vamos mergulhar. Me conte de uma vez em que teve um conflito."
+    note: "A transição do small talk para as perguntas."
+  - term: "I want to poke at that a bit"
+    meaning: 'quero cutucar isso um pouco — o follow-up investigativo'
+    example: "Interesting — I want to poke at that a bit. What was YOUR part?"
+    translation: "Interessante — quero cutucar isso um pouco. Qual foi a SUA parte?"
+    note: "O entrevistador testa se a história é sua de verdade."
+  - term: "fair enough"
+    meaning: 'justo — a aceitação da resposta'
+    example: "Fair enough — and what did you learn from it?"
+    translation: "Justo — e o que você aprendeu com isso?"
+    note: "A resposta foi aceita; vem a próxima camada."
+  - term: "walk me through your thinking"
+    meaning: 'me guie pelo seu raciocínio — pedido do processo mental'
+    example: "Walk me through your thinking — why that call?"
+    translation: "Me guie pelo seu raciocínio — por que essa decisão?"
+    note: "Pedem o COMO você pensou, não só o que fez."
+  - term: "any concerns I can address?"
+    meaning: 'alguma preocupação que eu possa endereçar? — a pergunta de fecho forte'
+    example: "Before we wrap — any concerns I can address for you?"
+    translation: "Antes de fechar — alguma preocupação minha que eu possa endereçar?"
+    note: "A pergunta que abre a porta para corrigir impressões."
+  - term: "that's a fair challenge"
+    meaning: 'é uma objeção justa — receber o follow-up sem defesa'
+    example: "That's a fair challenge — let me be more specific about my part."
+    translation: "É uma objeção justa — deixe-me ser mais específico sobre minha parte."
+    note: "Receber o questionamento como justo, não como ataque."
+  - term: "let me be more specific"
+    meaning: 'deixe-me ser mais específico — a resposta ao follow-up'
+    example: "Let me be more specific: I wrote the plan; Ana ran the drills."
+    translation: "Deixe-me ser mais específico: eu escrevi o plano; a Ana rodou os drills."
+    note: "Especificidade é a resposta ao 'poke'."
+  - term: "the honest answer is…"
+    meaning: 'a resposta honesta é… — a franqueza controlada'
+    example: "The honest answer is: I froze for a minute — then I ran the playbook."
+    translation: "A resposta honesta é: congelei por um minuto — depois rodei o playbook."
+    note: "Franqueza com recuperação lê melhor que fingimento."
+  - term: "what matters is what happened next"
+    meaning: 'o que importa é o que aconteceu depois — virar para a frente'
+    example: "I froze — what matters is what happened next: the playbook."
+    translation: "Congelei — o que importa é o que veio depois: o playbook."
+    note: "O erro admitido + a ação seguinte."
+  - term: "I'll be direct about it"
+    meaning: 'vou ser direto sobre isso — postura honesta no fecho'
+    example: "I'll be direct about it: the timeline was my miss."
+    translation: "Vou ser direto sobre isso: o prazo foi meu erro."
+    note: "Variação do 'upfront' — mesma função."
+  - term: "does that answer your question?"
+    meaning: 'isso responde sua pergunta? — o check de fechamento'
+    example: "Does that answer your question, or should I go deeper?"
+    translation: "Isso responde sua pergunta, ou devo aprofundar?"
+    note: "Confere se a resposta bastou — e oferece mais."
+  - term: "one more thing I'm proud of"
+    meaning: 'mais uma coisa de que me orgulho — adicionar força no final'
+    example: "One more thing I'm proud of: we never had a page after the fix."
+    translation: "Mais uma coisa de que me orgulho: nunca tivemos um page depois da correção."
+    note: "O fecho com um fato forte extra."
+
+grammar:
+  title: "a gramática do follow-up"
+  explanation: |
+    A entrevista real tem follow-ups — a
+    gramática de recebê-los:
+
+    - "**That's a fair challenge** — let me be
+      more specific." — receber o questionamento
+      como justo.
+    - "**The honest answer is**…" — franqueza
+      controlada (o erro admitido).
+    - "**What matters is what happened next**" —
+      admitir e virar para a frente.
+    - "**Does that answer your question, or
+      should I go deeper?**" — o check de
+      fechamento com oferta.
+
+    E no fecho:
+
+    - "**Any concerns I can address?**" — abre a
+      porta para corrigir impressões.
+    - "**One more thing I'm proud of**…" — o fato
+      forte final.
+  examples:
+    - { en: "That's a fair challenge — let me be more specific about my part.", pt: "Objeção justa — deixe-me ser mais específico sobre minha parte." }
+    - { en: "The honest answer is: I froze for a minute — then ran the playbook.", pt: "A resposta honesta: congelei um minuto — depois rodei o playbook." }
+    - { en: "What matters is what happened next — the fix held for a year.", pt: "O que importa é o que veio depois — a correção segurou por um ano." }
+    - { en: "Does that answer your question, or should I go deeper?", pt: "Isso responde, ou devo aprofundar?" }
+    - { en: "Any concerns I can address before we wrap?", pt: "Alguma preocupação que eu possa endereçar antes de fechar?" }
+    - { en: "One more thing I'm proud of: zero pages after the fix.", pt: "Mais uma coisa de que me orgulho: zero páginas depois da correção." }
+
+examples:
+  - en: "Tell me about a conflict — sure. The short version: we disagreed on the rollback."
+    pt: "Conte um conflito — claro. Versão curta: discordamos sobre o rollback."
+    context: "A resposta com âncora, não script."
+  - en: "That's a fair challenge — let me be more specific about what I owned."
+    pt: "Objeção justa — deixe-me especificar o que eu assumi."
+    context: "O follow-up recebido como justo."
+  - en: "The honest answer is: I froze for a minute — then I ran the playbook."
+    pt: "A resposta honesta: congelei um minuto — depois rodei o playbook."
+    context: "A falha admitida com a recuperação."
+  - en: "What matters is what happened next — the fix held for a year."
+    pt: "O que importa é o que veio depois — a correção segurou um ano."
+    context: "Admitir e virar para a frente."
+  - en: "Does that answer your question, or should I go deeper into the metrics?"
+    pt: "Isso responde, ou aprofundo nas métricas?"
+    context: "O check de fechamento."
+  - en: "Before we wrap — any concerns I can address for you?"
+    pt: "Antes de fechar — alguma preocupação que eu possa endereçar?"
+    context: "A pergunta de fecho forte."
+  - en: "One more thing I'm proud of: we never had a page after that fix."
+    pt: "Mais uma de que me orgulho: nunca tivemos page depois daquela correção."
+    context: "O fato forte final."
+  - en: "Fair enough — and honestly, I'd run it the same way again, minus the freeze mistake."
+    pt: "Justo — e honestamente, eu faria igual de novo, menos o erro do freeze."
+    context: "Reflexão com a correção nomeada."
+
+variations:
+  - idea: '"receber o follow-up"'
+    items:
+      - { register: "Forte", text: "That's a fair challenge — let me be more specific about my part.", adequate: true }
+      - { register: "Forte", text: "Does that answer it, or should I go deeper?", adequate: true }
+      - { register: "Fraco", text: "(justificar por dois minutos)", adequate: false, note: "O follow-up recebido como ataque vira defesa." }
+      - { register: "Fraco", text: "I already answered that.", adequate: false, note: "O 'já respondi' lê como irritação." }
+  - idea: '"o fecho"'
+    items:
+      - { register: "Forte", text: "Any concerns I can address before we wrap?", adequate: true }
+      - { register: "Forte", text: "One more thing I'm proud of: zero pages after the fix.", adequate: true }
+      - { register: "Fraco", text: "No questions — I'm good.", adequate: false, note: "Sem perguntas nem 'concerns' = fecho perdido." }
+      - { register: "Fraco", text: "So... did I get the job?", adequate: false, note: "A pergunta direta demais quebra o fecho." }
+
+brErrors:
+  - { wrong: "I make part of the platform team.", right: "I'm part of the platform team.", why: "I'm part of", tag: br.make-part-of }
+  - { wrong: "In that epoch we had no playbook.", right: "At that time we had no playbook.", why: "at that time", tag: br.in-that-epoch }
+  - { wrong: "My defect is freezing under pressure.", right: "My weakness is freezing under pressure.", why: "weakness", tag: br.my-defect }
+  - { wrong: "It's already 6 years that I do this.", right: "It's been six years doing this.", why: "it's been X", tag: br.its-already-years }
+  - { wrong: "I have interest in the platform role.", right: "I'm interested in the platform role.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I was promoted for staff.", right: "I was promoted to staff.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "We discussed about the freeze.", right: "We discussed the freeze.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "I work here since the gap.", right: "I've been here since the gap.", why: "I've been", tag: br.work-since }
+  - { wrong: "The same freeze than last year.", right: "The same freeze as last year.", why: "the same as", tag: br.same-than }
+  - { wrong: "I formed in computer science.", right: "I have a degree in computer science.", why: "a degree", tag: br.formed-in }
+
+dialogue:
+  title: "A entrevista completa (trechos dos quatro blocos)"
+  lines:
+    - { speaker: Marcus, text: "Hey Yuri — thanks for making the time. Good week so far?" }
+    - { speaker: Yuri, text: "Productive — we shipped a migration this morning, so I'm riding that. You?" }
+    - { speaker: Marcus, text: "Ha, good timing then. Let's dive in — tell me about yourself in a couple of minutes." }
+    - { speaker: Yuri, text: "Short version: platform engineer, five years, mostly Kubernetes and incidents. Lately I've been the person who runs the big migrations — including one that finished this morning." }
+    - { speaker: Marcus, text: "Tell me about a time you had a conflict with a colleague." }
+    - { speaker: Yuri, text: "During that migration — a teammate wanted rollback-on-error; I wanted forward-fix. The call I made: we argued it out in front of the data, and the data said forward-fix had a working path. We traded speed for safety either way." }
+    - { speaker: Marcus, text: "I want to poke at that a bit — what was YOUR part in the resolution?" }
+    - { speaker: Yuri, text: "That's a fair challenge. Let me be specific: I built the comparison — cost, risk, rollback path — and I conceded the point where he was right about the freeze window." }
+    - { speaker: Marcus, text: "Fair enough. Now the harder one — biggest weakness?" }
+    - { speaker: Yuri, text: "I freeze for a second under sudden pressure — the honest answer is it cost us five minutes on an incident once. What matters is what happened next: I now run drills monthly, and it's something I've been working on." }
+    - { speaker: Marcus, text: "And the gap in 2022?" }
+    - { speaker: Yuri, text: "I'll be direct about it: a 30% layoff. I used the gap to get CKA-certified — honestly, I learned more that year than in a quiet one." }
+    - { speaker: Marcus, text: "Last one — what would you do differently in your career so far?" }
+    - { speaker: Yuri, text: "In hindsight, I should have pushed back on the rewrite I agreed to — I'd challenge that call now. What I'd keep: always defining success up front." }
+    - { speaker: Marcus, text: "Strong. Your turn — questions for me?" }
+    - { speaker: Yuri, text: "Two: what does success look like at six months, and what made the last person in this role struggle? And before we wrap — any concerns I can address?" }
+    - { speaker: Marcus, text: "None — that was about as clean a behavioral as I've run." }
+  notes:
+    - "os quatro blocos em sequência: abertura → clássica → difíceis → fecho."
+    - "o follow-up 'poke at that' recebido com 'fair challenge' + especificidade."
+    - "o fecho com duas perguntas fortes + 'any concerns I can address'."
+
+listening:
+  lines:
+    - { speaker: Marcus, text: "The real interview has follow-ups — 'I want to poke at that a bit' tests whether the story is really yours. Receive it with 'that's a fair challenge — let me be more specific', never with two minutes of justification." }
+    - { speaker: Yuri, text: "When the honest answer involves a mistake: 'the honest answer is — I froze for a minute', then 'what matters is what happened next'. Admit it, turn forward. And close with 'does that answer your question, or should I go deeper?'." }
+    - { speaker: Marcus, text: "At the end: two strong questions — 'what does success look like at six months', 'what made the last person struggle' — then 'any concerns I can address?'. That last one opens the door to fix impressions before you leave." }
+  questions:
+    - { id: M29-05-l1, type: multiple_choice, prompt: "'I want to poke at that' testa…", options: ["se a história é sua de verdade", "sua paciência", "seu vocabulário", "sua velocidade"], answer: 0, explanation: "O follow-up investiga a autoria.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-05-l2, type: fill_blank, prompt: "That's a fair ___ — let me be more specific.", accepted: ["challenge"], explanation: "'Fair challenge' — receber o questionamento.", tags: [vocab.interview] }
+    - { id: M29-05-l3, type: error_correction, prompt: "My defect is freezing under pressure.", accepted: ["My weakness is freezing under pressure.", "My weakness is freezing under pressure", "My biggest weakness is freezing under pressure."], explanation: "'Weakness'.", tags: [br.my-defect] }
+    - { id: M29-05-l4, type: multiple_choice, prompt: "O fecho forte tem…", options: ["'did I get the job?'", "'no questions — I'm good'", "duas perguntas + 'any concerns I can address?'", "silêncio"], answer: 2, explanation: "Perguntas + a porta para corrigir impressões.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-05-l5, type: multiple_choice, prompt: "'What matters is what happened next' faz…", options: ["esconde o erro", "dramatiza", "admite o erro e vira para a ação seguinte", "muda de assunto"], answer: 2, explanation: "Falha admitida + recuperação.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-05-l6, type: multiple_choice, prompt: "'Does that answer your question?' é…", options: ["insegurança", "o check de fechamento que oferece profundidade", "enrolação", "uma pergunta retórica"], answer: 1, explanation: "Confere se bastou — e oferece mais.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** depois da simulação, o coach pediu
+    por escrito a sua autoavaliação honesta da
+    entrevista — o que funcionou e o que faltou.
+
+    **Tarefa:** escreva 100–130 palavras: a
+    autoavaliação pela rubrica — 1) onde a
+    estrutura segurou (qual bloco, qual âncora),
+    2) onde você decorou ou desviou, 3) qual sinal
+    de senioridade apareceu e qual faltou, 4) o
+    que você treina antes da próxima.
+  constraints:
+    - { label: "O que funcionou", pattern: "\\bworked|held|strong|clean|landed|structure\\b" }
+    - { label: "Onde faltou", pattern: "\\bmissed|weak|froze|rushed|skipped|memorized\\b" }
+    - { label: "O sinal", pattern: "\\btrade-off|hindsight|constraint|credit|success look|owned\\b" }
+    - { label: "O treino", pattern: "\\bpractice|drill|work on|next time|before the next\\b" }
+  rubric:
+    - "Autoavaliação honesta — acertos e faltas"
+    - "Sinais de senioridade avaliados um a um"
+    - "Plano de treino concreto"
+    - "Sem calques ('weakness', 'it's been', 'part of')"
+  model: >-
+    Self-review against the rubric. What held: the
+    structure — the conflict story stayed on its
+    anchors even with the follow-up, and "that's a
+    fair challenge" bought me a clean second. Where
+    I slipped: I rushed the weakness answer — the
+    honest freeze confession came out defensive
+    once before I corrected. Signals: the trade-off
+    and the constraint showed up naturally;
+    "in hindsight" landed; I forgot "credit where
+    it's due" — Ana didn't get named once. Next:
+    drill the weakness answer until it's
+    matter-of-fact, script two stronger closing
+    questions, and put one credit line in every
+    story before the next real interview.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave até 2 minutos: a entrevista comprimida — seu pitch, UMA clássica com follow-up ('that's a fair challenge — let me be specific'), UMA difícil na estrutura fato→contexto→mudança→frente, e o fecho com 'any concerns I can address'. Depois ouça contando os sinais."
+    maxSeconds: 120
+    targetPhrases:
+      - tell me about yourself
+      - tell me about a time
+      - that's a fair challenge
+      - let me be more specific
+      - the honest answer is
+      - what matters is what happened next
+      - i was let go
+      - i used the gap to
+      - it's something i've been working on
+      - in hindsight
+      - we traded
+      - the constraint was
+      - credit where it's due
+      - i designed, we built
+      - does that answer your question
+      - any concerns i can address
+      - one more thing i'm proud of
+      - i'd rather be upfront about it
+      - looking for a better fit
+      - what i'd do differently
+    checklist:
+      - "quatro blocos atravessados"
+      - "follow-up recebido com 'fair challenge'"
+      - "estrutura nas difíceis, sem defesa"
+      - "fecho com perguntas + 'any concerns'"
+      - "sem calques ('weakness', 'part of', 'it's been', 'at that time')"
+
+quiz:
+  - { id: M29-05-q1, type: multiple_choice, prompt: "O follow-up 'poke at that' se recebe com…", options: ["'that's a fair challenge — let me be specific'", "dois minutos de justificativa", "'I already answered'", "silêncio"], answer: 0, explanation: "Como justo + especificidade.", tags: [vocab.interview] }
+  - { id: M29-05-q2, type: error_correction, prompt: "I make part of the platform team.", accepted: ["I'm part of the platform team.", "I'm part of the platform team", "I am part of the platform team."], explanation: "'I'm part of'.", tags: [br.make-part-of] }
+  - { id: M29-05-q3, type: multiple_choice, prompt: "'What matters is what happened next' faz o quê?", options: ["esconde o erro", "dramatiza", "admite a falha e vira para a ação seguinte", "culpa o time"], answer: 2, explanation: "Falha + recuperação.", tags: [vocab.interview] }
+  - { id: M29-05-q4, type: fill_blank, prompt: "Before we wrap — any ___ I can address for you?", accepted: ["concerns"], explanation: "'Any concerns I can address'.", tags: [vocab.interview] }
+  - { id: M29-05-q5, type: multiple_choice, prompt: "O fecho forte tem…", options: ["'did I get the job?'", "'no questions'", "duas perguntas fortes + 'any concerns I can address?'", "agradecimento e silêncio"], answer: 2, explanation: "Perguntas + a porta aberta.", tags: [vocab.interview] }
+  - { id: M29-05-q6, type: error_correction, prompt: "In that epoch we had no playbook.", accepted: ["At that time we had no playbook.", "At that time we had no playbook", "Back then we had no playbook."], explanation: "'At that time'.", tags: [br.in-that-epoch] }
+  - { id: M29-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["matters", "what", "is", "happened", "what", "next"], answer: "what matters is what happened next", explanation: "Admitir e virar para a frente.", tags: [vocab.interview] }
+  - { id: M29-05-q8, type: multiple_choice, prompt: "A rubrica da simulação mede…", options: ["velocidade", "sotaque", "decoração", "estrutura sem script + sinais de senioridade + fecho"], answer: 3, explanation: "Estrutura, sinais, fecho — os três eixos.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "let's dive in", back: "A transição do small talk para as perguntas.", tag: vocab.interview }
+  - { front: "I want to poke at that a bit", back: "O follow-up que testa a autoria da história.", tag: vocab.interview }
+  - { front: "fair enough", back: "A resposta aceita — vem a próxima camada.", tag: vocab.interview }
+  - { front: "walk me through your thinking", back: "Pedem o COMO você pensou.", tag: vocab.interview }
+  - { front: "any concerns I can address?", back: "A pergunta de fecho que abre a porta.", tag: vocab.interview }
+  - { front: "that's a fair challenge", back: "Receber o questionamento como justo.", tag: vocab.interview }
+  - { front: "let me be more specific", back: "A resposta ao 'poke' — especificidade.", tag: vocab.interview }
+  - { front: "the honest answer is…", back: "A franqueza controlada — o erro admitido.", tag: vocab.interview }
+  - { front: "what matters is what happened next", back: "Admitir e virar para a frente.", tag: vocab.interview }
+  - { front: "I'll be direct about it", back: "Postura honesta — variação do 'upfront'.", tag: vocab.interview }
+  - { front: "does that answer your question?", back: "O check de fechamento com oferta.", tag: vocab.interview }
+  - { front: "one more thing I'm proud of", back: "O fato forte final.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.make-part-of, br.my-defect]
+  notes: "Revisão prioriza o recebimento de follow-ups e o fecho."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
