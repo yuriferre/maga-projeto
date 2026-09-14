@@ -851,3 +851,35 @@ patterns:
     right: "He's very funny today / in a good mood"
     why: '"Humor" é substantivo — a pessoa engraçada é "funny", bem-humorada é "in a good mood".'
     tag: br.he-is-humor
+  # "I formed in CS" — "me formei em" é "I have a degree in / I studied".
+  # Exige sujeito-pessoa — "cracks formed in the wall" fica fora.
+  - id: formed-in
+    pattern: "\\b(i|we|he|she|they)\\s+(formed|graduated)\\s+in\\b"
+    wrong: "I formed in Computer Science in 2015"
+    right: "I have a degree in Computer Science / I graduated from USP in 2015"
+    why: '"Formei-me em X" vira "I have a degree in X" ou "I studied X"; "graduated" leva "from" + instituição.'
+    tag: br.formed-in
+  # "promoted for senior" — promoção leva "to" + cargo. Lista restrita de
+  # cargos — "promoted for her work" (razão) fica fora.
+  - id: promoted-for
+    pattern: "\\bpromoted\\s+for\\s+(a\\s+|an\\s+|the\\s+)?(senior|junior|mid|staff|lead|principal|manager|director|head|vp|architect|tech lead)\\b"
+    wrong: "I was promoted for senior engineer"
+    right: "I was promoted to senior engineer"
+    why: 'Promoção para um cargo leva "to" — "promoted to senior". ("Promoted for her work" é outra coisa.)'
+    tag: br.promoted-for
+  # "responsible by the pipeline" — responsabilidade leva "for".
+  # Lookahead protege "responsible by design" (inglês legítimo).
+  - id: responsible-by
+    pattern: "\\bresponsible\\s+by\\s+(?!design\\b|default\\b)"
+    wrong: "I was responsible by the pipeline"
+    right: "I was responsible for the pipeline"
+    why: 'Responsável "por" algo é "responsible for". ("Responsible by design" é legítimo.)'
+    tag: br.responsible-by
+  # "I work here since 2020" — since + ano exige present perfect.
+  # O since-present só cobre o contínuo; aqui o simples.
+  - id: work-since
+    pattern: "\\b(i|we|they|he|she)\\s+(work|works|live|lives|am|is|are)\\s+[^.!?]{0,30}\\bsince\\s+(19|20)\\d{2}\\b"
+    wrong: "I work here since 2020"
+    right: "I've worked here since 2020 / I've been here since 2020"
+    why: "Since + ano com estado atual leva present perfect — \"I've worked/been here since 2020\"."
+    tag: br.work-since

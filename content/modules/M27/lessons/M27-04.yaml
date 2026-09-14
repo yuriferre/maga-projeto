@@ -1,0 +1,314 @@
+id: M27-04
+module: M27
+order: 4
+title: "STAR para histórias técnicas: incidente, migração, custo, conflito"
+objective: >-
+  Ao final, você conta uma história técnica em STAR —
+  Situation, Task, Action, Result — com o número no
+  Result e a reflexão no final, sem que a Action
+  engula a história.
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M27-03]
+
+context:
+  scenario: |
+    "Tell me about a time you handled an incident."
+    A resposta tem esqueleto — e o esqueleto tem nome:
+
+    - **S — Situation**: o contexto em duas frases.
+      "*Friday, 4pm — checkout 500ing for every
+      customer.*"
+    - **T — Task**: a sua responsabilidade, não a do
+      time. "*I was the on-call — my job was to stop
+      the bleeding.*"
+    - **A — Action**: os três passos que VOCÊ fez —
+      não "we", "I". "*I rolled back the deploy, then
+      added the missing index.*"
+    - **R — Result**: o número + a lição. "*Back in
+      twelve minutes — and we added the load test to
+      the pipeline.*"
+
+    As regras: **Situation em 15 segundos** (contexto
+    demais afoga), **Task é seu** (não do time),
+    **Action no "I"** (três passos, não dez), e
+    **Result com número + "what I'd do differently"**
+    (a reflexão é o sinal de senior).
+
+    O erro do brasileiro: a história sem Result — ou
+    o "we" que esconde o que você fez.
+  roles: [Yuri (platform engineer), Ana (eng manager, interviewer)]
+
+vocabulary:
+  - term: "tell me about a time when…"
+    meaning: 'conte-me sobre uma vez em que… — a pergunta STAR'
+    example: "Tell me about a time when you handled a production incident."
+    translation: "Conte-me sobre uma vez em que você lidou com um incidente de produção."
+    note: "A fórmula abre a pergunta comportamental — responda em STAR."
+  - term: "the situation was…"
+    meaning: 'a situação era… — o S, contexto em duas frases'
+    example: "The situation was ugly: checkout was 500ing for every customer on a Friday."
+    translation: "A situação era feia: o checkout dava 500 para todo cliente numa sexta."
+    note: "Duas frases — contexto demais afoga a história."
+  - term: "my job was to…"
+    meaning: 'meu papel era… — o T, a SUA responsabilidade'
+    example: "I was the on-call — my job was to stop the bleeding."
+    translation: "Eu era o plantonista — meu papel era estancar o sangramento."
+    note: "O Task é seu, não do time — a diferença que o entrevistador procura."
+  - term: "the first thing I did was…"
+    meaning: 'a primeira coisa que fiz foi… — a A começa no "I"'
+    example: "The first thing I did was roll back — stop the bleeding before the diagnosis."
+    translation: "A primeira coisa que fiz foi o rollback — estancar antes de diagnosticar."
+    note: "Três passos no 'I' — não dez, e nunca 'we'."
+  - term: "that bought us time to…"
+    meaning: 'isso nos comprou tempo para… — a A em sequência'
+    example: "The rollback bought us time to find the missing index."
+    translation: "O rollback nos comprou tempo para achar o índice faltando."
+    note: "A ação que cria espaço para a próxima."
+  - term: "the result was…"
+    meaning: 'o resultado foi… — o R com o número'
+    example: "The result: back in twelve minutes, zero repeat incidents."
+    translation: "O resultado: de volta em doze minutos, zero incidentes repetidos."
+    note: "O R tem número — e a lição."
+  - term: "what I'd do differently"
+    meaning: 'o que eu faria diferente — a reflexão que fecha'
+    example: "What I'd do differently: test the rollback path before the incident."
+    translation: "O que eu faria diferente: testar o caminho de rollback antes do incidente."
+    note: "A reflexão é o sinal de senior — nunca pule."
+  - term: "looking back"
+    meaning: 'olhando para trás — o marcador da reflexão'
+    example: "Looking back, the real fix was the load test, not the rollback."
+    translation: "Olhando para trás, a correção de verdade foi o teste de carga, não o rollback."
+    note: "O marcador que separa o fato do aprendizado."
+  - term: "in hindsight"
+    meaning: 'em retrospectiva — a outra forma da reflexão'
+    example: "In hindsight, I should have paged the DBA sooner."
+    translation: "Em retrospectiva, eu devia ter chamado o DBA mais cedo."
+    note: "'In hindsight' + should have — o aprendizado nomeado."
+  - term: "the real lesson was…"
+    meaning: 'a lição de verdade foi… — o R além do número'
+    example: "The real lesson was that our monitoring was watching the wrong thing."
+    translation: "A lição de verdade foi que nosso monitoramento olhava a coisa errada."
+    note: "O Result tem duas partes: o número e a lição."
+  - term: "it taught me to…"
+    meaning: 'isso me ensinou a… — a lição que virou hábito'
+    example: "It taught me to always test the rollback path first."
+    translation: "Me ensinou a sempre testar o caminho de rollback primeiro."
+    note: "A história que muda o seu comportamento é a que fica."
+  - term: "happy to go deeper"
+    meaning: 'posso aprofundar — o fecho que oferece o follow-up'
+    example: "That's the shape of it — happy to go deeper on any step."
+    translation: "Esse é o esqueleto — posso aprofundar qualquer passo."
+    note: "O fecho curto — o entrevistador dirige o follow-up."
+
+grammar:
+  title: "a gramática do STAR"
+  explanation: |
+    STAR tem quatro gramáticas, uma por letra:
+
+    - **S no passado contínuo ou simples**: "*checkout
+      was 500ing*", "*it was a Friday*" — cena.
+    - **T no "my job was to"**: a responsabilidade
+      sua, no infinitivo.
+    - **A no passado com "I"**: "*I rolled back*",
+      "*I added*", "*I paged*" — três passos.
+    - **R no passado + reflexão**: "*we were back in
+      twelve minutes*" + "*what I'd do differently*".
+
+    Os marcadores de travessia:
+
+    - "**Looking back** / **in hindsight**" — a
+      reflexão.
+    - "**The real lesson was**" — a lição além do
+      número.
+
+    E o calque do gênero:
+
+    - "**I work there since**" → "**I worked
+      there**" — a história é passado, não janela.
+  examples:
+    - { en: "S: Friday, 4pm — checkout was 500ing for every customer.", pt: "S: sexta, 16h — o checkout dava 500 para todo cliente." }
+    - { en: "T: I was the on-call — my job was to stop the bleeding.", pt: "T: eu era o plantonista — meu papel era estancar o sangramento." }
+    - { en: "A: I rolled back the deploy, then added the missing index.", pt: "A: fiz o rollback do deploy, depois adicionei o índice que faltava." }
+    - { en: "R: back in twelve minutes — and the load test joined the pipeline.", pt: "R: de volta em doze minutos — e o teste de carga entrou no pipeline." }
+    - { en: "Looking back, the real fix was the test, not the rollback.", pt: "Olhando para trás, a correção de verdade foi o teste, não o rollback." }
+    - { en: "In hindsight, I should have paged the DBA sooner.", pt: "Em retrospectiva, eu devia ter chamado o DBA mais cedo." }
+
+examples:
+  - en: "Situation: Friday, 4pm — checkout was 500ing for every customer."
+    pt: "Situação: sexta, 16h — o checkout dava 500 para todo cliente."
+    context: "O S em duas frases."
+  - en: "Task: I was the on-call — my job was to stop the bleeding, not to find the root cause."
+    pt: "Tarefa: eu era o plantonista — meu papel era estancar, não achar a causa raiz."
+    context: "O T é seu."
+  - en: "Action: I rolled back first, then found the missing index, then added it."
+    pt: "Ação: fiz o rollback primeiro, depois achei o índice, depois adicionei."
+    context: "Três passos no 'I'."
+  - en: "Result: back in twelve minutes — and we added the load test to the pipeline."
+    pt: "Resultado: de volta em doze minutos — e o teste de carga entrou no pipeline."
+    context: "O R com número + a mudança permanente."
+  - en: "What I'd do differently: test the rollback path before the incident, not during."
+    pt: "O que eu faria diferente: testar o rollback antes do incidente, não durante."
+    context: "A reflexão que fecha."
+  - en: "Looking back, the real lesson was that monitoring watched the wrong metric."
+    pt: "Olhando para trás, a lição de verdade foi que o monitoramento olhava a métrica errada."
+    context: "A lição além do número."
+  - en: "In hindsight, I should have paged the DBA sooner — pride cost us five minutes."
+    pt: "Em retrospectiva, devia ter chamado o DBA antes — o orgulho nos custou cinco minutos."
+    context: "A honestidade que sinaliza senioridade."
+  - en: "That's the shape of it — happy to go deeper on any step."
+    pt: "Esse é o esqueleto — posso aprofundar qualquer passo."
+    context: "O fecho que devolve a direção."
+
+variations:
+  - idea: '"o T — seu ou do time?"'
+    items:
+      - { register: "Forte", text: "I was the on-call — my job was to stop the bleeding.", adequate: true }
+      - { register: "Forte", text: "I owned the rollback decision — the team executed it.", adequate: true }
+      - { register: "Fraco", text: "We had to fix it — the team was responsible.", adequate: false, note: "O T é SEU — 'we' no Task esconde você." }
+      - { register: "Fraco", text: "The situation was complicated — let me start from the architecture…", adequate: false, note: "S em duas frases — contexto demais afoga." }
+  - idea: '"o R — com número e reflexão"'
+    items:
+      - { register: "Forte", text: "Back in twelve minutes — and what I'd do differently is test the rollback path first.", adequate: true }
+      - { register: "Forte", text: "Zero repeat incidents — the real lesson was the monitoring gap.", adequate: true }
+      - { register: "Fraco", text: "It worked — the incident ended.", adequate: false, note: "Sem número e sem lição, o R morre." }
+      - { register: "Fraco", text: "…and that's the story. (stops)", adequate: false, note: "A reflexão é o sinal de senior — nunca pule." }
+
+brErrors:
+  - { wrong: "I work there since the incident.", right: "I've worked there since the incident.", why: "I've worked — janela", tag: br.work-since }
+  - { wrong: "I was responsible by the on-call.", right: "I was responsible for the on-call.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "I formed in 2016, then the incident.", right: "I graduated in 2016, then the incident.", why: "graduated / a degree", tag: br.formed-in }
+  - { wrong: "I was promoted for senior after it.", right: "I was promoted to senior after it.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "In my vision, we should have paged sooner.", right: "In my view, we should have paged sooner.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "We discussed about the root cause.", right: "We discussed the root cause.", why: "discussed the root cause", tag: br.discuss-about }
+  - { wrong: "The same mistake than before.", right: "The same mistake as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "I have doubt about the timeline.", right: "I have a question about the timeline.", why: "a question", tag: br.doubt }
+  - { wrong: "It doesn't worth the rollback.", right: "It wasn't worth the rollback.", why: "wasn't worth", tag: br.worths }
+  - { wrong: "We spend too much with incidents.", right: "We spend too much on incidents.", why: "spend on", tag: br.spend-with }
+
+dialogue:
+  title: "Tell me about a time you handled an incident"
+  lines:
+    - { speaker: Ana, text: "Tell me about a time you handled a production incident." }
+    - { speaker: Yuri, text: "Sure. Situation: Friday, 4pm — checkout was 500ing for every customer, and I was the on-call." }
+    - { speaker: Ana, text: "Go on." }
+    - { speaker: Yuri, text: "Task: my job was to stop the bleeding — not to find the root cause in the first five minutes." }
+    - { speaker: Yuri, text: "Action: I rolled back the deploy first — that bought us time. Then I found the missing index the schema change needed, added it, and watched the p99 come down." }
+    - { speaker: Ana, text: "And the result?" }
+    - { speaker: Yuri, text: "Back in twelve minutes. Zero repeat incidents after — and we added the load test to the pipeline so it can't happen the same way twice." }
+    - { speaker: Ana, text: "Anything you'd do differently?" }
+    - { speaker: Yuri, text: "In hindsight, I should have paged the DBA sooner — pride cost us five minutes. That's the shape of it — happy to go deeper on any step." }
+  notes:
+    - "S em duas frases, T seu ('my job was'), A no 'I' em três passos, R com número + a mudança permanente."
+    - "'in hindsight' + 'should have' — a reflexão que sinaliza senior."
+    - "o fecho 'happy to go deeper' devolve a direção ao entrevistador."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "STAR is a skeleton: Situation in two sentences, Task that's yours — 'my job was to' — Action in the first person, three steps not ten, and a Result with a number. The signal of seniority is the last beat: 'what I'd do differently', 'looking back', 'in hindsight'." }
+    - { speaker: Yuri, text: "The Brazilian mistakes: a Situation that eats two minutes, a Task in 'we' that hides you, an Action list with twelve steps, and a Result with no number and no lesson. And the tenses — the story is past, but the window of experience is 'I've worked here since'." }
+    - { speaker: Ana, text: "Four story types cover almost everything: an incident, a migration, a cost cut, a conflict. Have one of each ready — the same skeleton, different facts." }
+  questions:
+    - { id: M27-04-l1, type: multiple_choice, prompt: "A ordem do STAR é…", options: ["Situation → Task → Action → Result", "resultado primeiro", "ação → contexto → lição", "tanto faz"], answer: 0, explanation: "O esqueleto fixo — S curto, T seu, A no 'I', R com número.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-04-l2, type: fill_blank, prompt: "In ___, I should have paged the DBA sooner.", accepted: ["hindsight"], explanation: "'In hindsight' — a reflexão.", tags: [vocab.interview] }
+    - { id: M27-04-l3, type: error_correction, prompt: "I work there since the incident.", accepted: ["I've worked there since the incident.", "I've been there since the incident.", "I've worked there since the incident"], explanation: "A janela em present perfect.", tags: [br.work-since] }
+    - { id: M27-04-l4, type: multiple_choice, prompt: "O Task do STAR é…", options: ["do time", "do gerente", "opcional", "seu — 'my job was to', não 'we had to'"], answer: 3, explanation: "O T é seu — a diferença que o entrevistador procura.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-04-l5, type: multiple_choice, prompt: "O Result que fica na memória tem…", options: ["o número + a lição — 'what I'd do differently'", "o adjetivo", "a sorte", "o aplauso"], answer: 0, explanation: "Número + reflexão — os dois.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-04-l6, type: multiple_choice, prompt: "Os quatro tipos de história técnica são…", options: ["sucesso, sucesso, sucesso, sucesso", "incidente, migração, custo, conflito", "só vitórias", "só fracassos"], answer: 1, explanation: "Um de cada — mesmo esqueleto, fatos diferentes.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** o formulário da vaga pede um exemplo
+    escrito de "a time you solved a hard problem".
+
+    **Tarefa:** escreva 90–120 palavras em STAR puro:
+    Situation em duas frases, Task seu, Action em três
+    passos no "I", Result com número + a lição
+    ("looking back" ou "in hindsight").
+  constraints:
+    - { label: "Situation", pattern: "\\bthe situation|it was|friday|at 4|checkout|incident\\b" }
+    - { label: "Task seu", pattern: "\\bmy job was|i was the|i owned|responsible for\\b" }
+    - { label: "Action no I", pattern: "\\bi rolled|i added|i paged|i found|i built|i wrote\\b" }
+    - { label: "Result + reflexão", pattern: "\\bback in|zero|looking back|in hindsight|the real lesson|do differently\\b" }
+  rubric:
+    - "S em duas frases, T seu"
+    - "A em três passos no 'I'"
+    - "R com número + reflexão"
+    - "Sem calques ('I've worked since', 'in my view')"
+  model: >-
+    Situation: Friday, 4pm — checkout was 500ing for
+    every customer, and I was the on-call. Task: my
+    job was to stop the bleeding. Action: I rolled
+    back the deploy first — that bought us time — then
+    found the missing index the schema change needed
+    and added it. Result: back in twelve minutes, zero
+    repeat incidents, and the load test joined the
+    pipeline. Looking back, the real lesson was the
+    monitoring gap — we watched the wrong metric. And
+    in hindsight I should have paged the DBA sooner;
+    pride cost us five minutes. That's the shape of
+    it.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: uma história STAR sua de verdade — incidente, migração, custo ou conflito. Situation em duas frases, Task seu, Action em três passos no 'I', Result com número + 'what I'd do differently'."
+    maxSeconds: 90
+    targetPhrases:
+      - tell me about a time
+      - the situation was
+      - my job was to
+      - i was the on-call
+      - the first thing i did
+      - i rolled back
+      - that bought us time
+      - the result was
+      - back in twelve minutes
+      - looking back
+      - in hindsight
+      - the real lesson was
+      - what i'd do differently
+      - it taught me to
+      - happy to go deeper
+      - i was responsible for
+    checklist:
+      - "S curto, T seu, A no 'I', R com número"
+      - "a reflexão — 'in hindsight'/'what I'd do differently'"
+      - "um dos quatro tipos (incidente/migração/custo/conflito)"
+      - "sem 'we' no Task"
+
+quiz:
+  - { id: M27-04-q1, type: multiple_choice, prompt: "STAR significa…", options: ["Start, Tell, Act, Review", "Story, Time, Action, Reward", "Situation, Task, Action, Result", "Situation, Team, Action, Result"], answer: 2, explanation: "O esqueleto — Task seu, não do time.", tags: [vocab.interview] }
+  - { id: M27-04-q2, type: error_correction, prompt: "In my vision, we should have paged sooner.", accepted: ["In my view, we should have paged sooner.", "In my view, we should have paged sooner"], explanation: "'In my view'.", tags: [br.in-my-vision] }
+  - { id: M27-04-q3, type: multiple_choice, prompt: "O sinal de senioridade no STAR é…", options: ["a velocidade", "o drama", "o tamanho do time", "a reflexão — 'what I'd do differently'"], answer: 3, explanation: "O R além do número.", tags: [vocab.interview] }
+  - { id: M27-04-q4, type: fill_blank, prompt: "The real ___ was that monitoring watched the wrong metric.", accepted: ["lesson"], explanation: "'The real lesson was' — o R além do número.", tags: [vocab.interview] }
+  - { id: M27-04-q5, type: multiple_choice, prompt: "A Action do STAR é no…", options: ["'we'", "'I' — três passos, não dez", "passado contínuo", "condicional"], answer: 1, explanation: "O que VOCÊ fez — três passos.", tags: [vocab.interview] }
+  - { id: M27-04-q6, type: error_correction, prompt: "I was responsible by the on-call that Friday.", accepted: ["I was responsible for the on-call that Friday.", "I was responsible for the on-call that Friday"], explanation: "'Responsible for'.", tags: [br.responsible-by] }
+  - { id: M27-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["back", "looking", "was", "the", "real", "lesson"], answer: "looking back the real lesson was", explanation: "O marcador da reflexão.", tags: [vocab.interview] }
+  - { id: M27-04-q8, type: multiple_choice, prompt: "O fecho da história STAR é…", options: ["'the end'", "'and we won'", "'that's the shape of it — happy to go deeper'", "silêncio"], answer: 2, explanation: "Devolve a direção ao entrevistador.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "tell me about a time when…", back: "A pergunta STAR — responda no esqueleto.", tag: vocab.interview }
+  - { front: "the situation was…", back: "O S — contexto em duas frases.", tag: vocab.interview }
+  - { front: "my job was to…", back: "O T — a SUA responsabilidade, não a do time.", tag: vocab.interview }
+  - { front: "the first thing I did was…", back: "A A começa no 'I' — três passos.", tag: vocab.interview }
+  - { front: "that bought us time to…", back: "A ação que cria espaço para a próxima.", tag: vocab.interview }
+  - { front: "the result was…", back: "O R com número — e a lição.", tag: vocab.interview }
+  - { front: "what I'd do differently", back: "A reflexão — o sinal de senior.", tag: vocab.interview }
+  - { front: "looking back / in hindsight", back: "Os marcadores da reflexão.", tag: vocab.interview }
+  - { front: "the real lesson was…", back: "A lição além do número.", tag: vocab.interview }
+  - { front: "it taught me to…", back: "A lição que virou hábito.", tag: vocab.interview }
+  - { front: "happy to go deeper", back: "O fecho — o entrevistador dirige o follow-up.", tag: vocab.interview }
+  - { front: "os quatro tipos", back: "Incidente, migração, custo, conflito — um de cada pronto.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.work-since, br.responsible-by]
+  notes: "Revisão prioriza o esqueleto STAR, o T no 'I' e a reflexão do R."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

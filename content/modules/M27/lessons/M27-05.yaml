@@ -1,0 +1,319 @@
+id: M27-05
+module: M27
+order: 5
+title: "Prática: cinco histórias STAR suas, gravadas e corrigidas"
+objective: >-
+  Ao final, você sai com um banco de cinco histórias
+  STAR — incidente, migração, custo, conflito e
+  liderança — gravadas, corrigidas e prontas para a
+  entrevista.
+durationMin: 40
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M27-04]
+
+context:
+  scenario: |
+    A entrevista real não é uma pergunta — são cinco.
+    Quem improvisa em cada uma repete a mesma história;
+    quem tem o **banco** escolhe a que serve.
+
+    O banco tem cinco:
+
+    - **Incidente** — "a time you handled a crisis"
+    - **Migração** — "a time you led a change"
+    - **Custo** — "a time you saved money"
+    - **Conflito** — "a time you disagreed"
+    - **Liderança** — "a time you went beyond your role"
+
+    O método: **grave todas as cinco em uma sessão**,
+    ouça, e **corrija cada uma por um critério só** —
+    a primeira passada é o esqueleto, a segunda é o
+    "I" no Action, a terceira é o número no Result,
+    a quarta é a reflexão.
+
+    As regras do banco: cada história tem **uma linha
+    de cola** (a frase que abre a Situation), **um
+    número** no Result e **uma lição** — e nenhuma dura
+    mais de **dois minutos**.
+
+    O erro do brasileiro: a história que existe "na
+    cabeça" — e que na primeira gravação tem quatro
+    minutos e zero números.
+  roles: [Yuri (platform engineer), Ana (eng manager, interviewer)]
+
+vocabulary:
+  - term: "my story bank"
+    meaning: 'meu banco de histórias — o arsenal STAR pronto'
+    example: "I keep five stories in my bank — incident, migration, cost, conflict, leadership."
+    translation: "Guardo cinco histórias no banco — incidente, migração, custo, conflito, liderança."
+    note: "O arsenal — a pergunta escolhe a história, não o improviso."
+  - term: "a time I went beyond my role"
+    meaning: 'uma vez em que fui além do papel — a história de liderança'
+    example: "This is a story about a time I went beyond my role — I built the on-call playbook."
+    translation: "Uma história sobre uma vez em que fui além do papel — construí o playbook de plantão."
+    note: "A quinta história — a que mostra a promoção antes do título."
+  - term: "the short version"
+    meaning: 'a versão curta — a história comprimida para o tempo'
+    example: "The short version: migration done, zero downtime, thirty seconds."
+    translation: "A versão curta: migração feita, zero downtime, trinta segundos."
+    note: "Cada história tem dois tamanhos — 30 s e 2 min."
+  - term: "want the short version or the deep dive?"
+    meaning: 'quer a versão curta ou o mergulho? — a oferta de escala'
+    example: "Want the short version or the deep dive on the migration?"
+    translation: "Quer a versão curta ou o mergulho na migração?"
+    note: "A pergunta que dá ao entrevistador o controle do tempo."
+  - term: "let me give you an example"
+    meaning: 'deixe-me dar um exemplo — a travessia para a história'
+    example: "Let me give you an example from when I was at the fintech."
+    translation: "Deixe-me dar um exemplo de quando eu estava na fintech."
+    note: "A travessia — a resposta genérica vira história concreta."
+  - term: "two versions of the same story"
+    meaning: 'duas versões da mesma história — curta e profunda'
+    example: "I keep two versions of the incident story — thirty seconds and two minutes."
+    translation: "Mantenho duas versões da história do incidente — 30 s e 2 min."
+    note: "O banco guarda ambas — a pergunta manda no tamanho."
+  - term: "recorded and corrected"
+    meaning: 'gravada e corrigida — o ciclo da prática'
+    example: "Every story in the bank was recorded and corrected at least twice."
+    translation: "Cada história do banco foi gravada e corrigida pelo menos duas vezes."
+    note: "A prática é a gravação — a memória mente, o áudio não."
+  - term: "it maps to…"
+    meaning: 'mapeia para… — a história que serve a várias perguntas'
+    example: "The migration story maps to 'leading change' and 'handling ambiguity'."
+    translation: "A história da migração mapeia para 'liderar mudança' e 'lidar com ambiguidade'."
+    note: "Uma história boa serve a três perguntas."
+  - term: "the one-minute version"
+    meaning: 'a versão de um minuto — o tamanho médio'
+    example: "The one-minute version skips the rollback detail."
+    translation: "A versão de um minuto pula o detalhe do rollback."
+    note: "Três tamanhos: 30 s, 1 min, 2 min."
+  - term: "I can talk about…"
+    meaning: 'posso falar sobre… — a oferta de escolha ao entrevistador'
+    example: "I can talk about the incident or the migration — which is more useful?"
+    translation: "Posso falar do incidente ou da migração — qual é mais útil?"
+    note: "Oferecer a escolha sinaliza um banco, não uma história só."
+  - term: "that's the headline"
+    meaning: 'essa é a manchete — a história resumida em uma frase'
+    example: "That's the headline — happy to expand on any part."
+    translation: "Essa é a manchete — posso expandir qualquer parte."
+    note: "A manchete primeiro — o detalhe se pedirem."
+  - term: "fresh in my mind"
+    meaning: 'fresco na memória — a história mais recente'
+    example: "The incident story is fresh in my mind — it was last quarter."
+    translation: "A história do incidente está fresca — foi no último trimestre."
+    note: "As histórias recentes vencem as antigas — atualize o banco."
+
+grammar:
+  title: "o banco de histórias e as travessias"
+  explanation: |
+    O banco muda a pergunta. Em vez de improvisar:
+
+    - "**Let me give you an example**" — a travessia
+      da pergunta genérica para a história.
+    - "**Want the short version or the deep dive?**"
+      — a oferta de escala.
+    - "**I can talk about X or Y — which is more
+      useful?**" — a oferta de escolha.
+    - "**That's the headline**" — a história resumida,
+      com o detalhe sob demanda.
+
+    E o mapeamento:
+
+    - "**It maps to** 'leading change'" — uma
+      história serve a três perguntas.
+
+    A disciplina é a gravação: "**recorded and
+    corrected**" — a memória mente, o áudio não.
+    Corrija um critério por passada: esqueleto, "I"
+    no Action, número no Result, reflexão.
+  examples:
+    - { en: "Let me give you an example — the checkout incident last quarter.", pt: "Deixe-me dar um exemplo — o incidente do checkout no último trimestre." }
+    - { en: "Want the short version or the deep dive on the migration?", pt: "Quer a versão curta ou o mergulho na migração?" }
+    - { en: "I can talk about the incident or the cost cut — which is more useful?", pt: "Posso falar do incidente ou do corte de custo — qual é mais útil?" }
+    - { en: "That's the headline — happy to expand on any part.", pt: "Essa é a manchete — posso expandir qualquer parte." }
+    - { en: "The migration story maps to 'leading change' and 'ambiguity'.", pt: "A história da migração mapeia para 'liderar mudança' e 'ambiguidade'." }
+    - { en: "Every story was recorded and corrected twice.", pt: "Cada história foi gravada e corrigida duas vezes." }
+
+examples:
+  - en: "The bank: incident, migration, cost, conflict, leadership — one of each."
+    pt: "O banco: incidente, migração, custo, conflito, liderança — um de cada."
+    context: "As cinco histórias."
+  - en: "Each story has a cue line — the sentence that opens the Situation."
+    pt: "Cada história tem uma linha de cola — a frase que abre a Situation."
+    context: "A cola que dispara a história."
+  - en: "Record all five in one session — then correct one criterion per pass."
+    pt: "Grave as cinco numa sessão — depois corrija um critério por passada."
+    context: "O método da prática."
+  - en: "The migration story maps to 'leading change' and 'handling ambiguity'."
+    pt: "A história da migração mapeia para 'liderar mudança' e 'lidar com ambiguidade'."
+    context: "Uma história, três perguntas."
+  - en: "Want the short version or the deep dive on the incident?"
+    pt: "Quer a versão curta ou o mergulho no incidente?"
+    context: "A oferta de escala."
+  - en: "I can talk about the incident or the migration — which is more useful?"
+    pt: "Posso falar do incidente ou da migração — qual é mais útil?"
+    context: "A oferta de escolha."
+  - en: "That's the headline — happy to expand on any part."
+    pt: "Essa é a manchete — posso expandir qualquer parte."
+    context: "A manchete primeiro."
+  - en: "No story runs past two minutes — the deep dive is for follow-ups."
+    pt: "Nenhuma história passa de dois minutos — o mergulho é para follow-ups."
+    context: "O limite do banco."
+
+variations:
+  - idea: '"a travessia para a história"'
+    items:
+      - { register: "Forte", text: "Let me give you an example — the checkout incident.", adequate: true }
+      - { register: "Forte", text: "I can talk about the incident or the migration — which is more useful?", adequate: true }
+      - { register: "Fraco", text: "Hmm, let me think… (silêncio de dez segundos)", adequate: false, note: "A travessia é instantânea — o banco já tem a resposta." }
+      - { register: "Fraco", text: "It depends… well, lots of things happened…", adequate: false, note: "A resposta genérica sem história é a que morre." }
+  - idea: '"a oferta de escala"'
+    items:
+      - { register: "Forte", text: "Want the short version or the deep dive?", adequate: true }
+      - { register: "Forte", text: "That's the headline — happy to expand.", adequate: true }
+      - { register: "Fraco", text: "(conta quatro minutos sem perguntar)", adequate: false, note: "O tempo é do entrevistador — ofereça a escala." }
+      - { register: "Fraco", text: "…and then, on Tuesday, the other thing happened…", adequate: false, note: "O banco tem dois minutos — o resto é follow-up." }
+
+brErrors:
+  - { wrong: "I have five stories in my mind.", right: "I have five stories ready.", why: "prontas / no banco", tag: br.have-years }
+  - { wrong: "I work there since the migration.", right: "I've worked there since the migration.", why: "I've worked", tag: br.work-since }
+  - { wrong: "I was responsible by the cost cut.", right: "I was responsible for the cost cut.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "I formed in 2016 — the stories start there.", right: "I graduated in 2016 — the stories start there.", why: "graduated", tag: br.formed-in }
+  - { wrong: "I was promoted for senior mid-story.", right: "I was promoted to senior mid-story.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "In my vision, five stories is enough.", right: "In my view, five stories is enough.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "We discussed about the five stories.", right: "We discussed the five stories.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "The same story than last time.", right: "The same story as last time.", why: "the same as", tag: br.same-than }
+  - { wrong: "I have doubt about which story.", right: "I have a question about which story.", why: "a question", tag: br.doubt }
+  - { wrong: "The story doesn't worth telling.", right: "The story wasn't worth telling.", why: "wasn't worth", tag: br.worths }
+
+dialogue:
+  title: "A entrevista com follow-ups — o banco em ação"
+  lines:
+    - { speaker: Ana, text: "Tell me about a time you led a change." }
+    - { speaker: Yuri, text: "Let me give you an example — the migration to multi-AZ last year. Want the short version or the deep dive?" }
+    - { speaker: Ana, text: "Short version." }
+    - { speaker: Yuri, text: "Situation: single AZ, one region failover away from a bad night. Task: I owned the migration plan. Action: I built the replica, ran the failover drill twice, then flipped the DNS. Result: zero downtime, and the failover test now runs every quarter. That's the headline." }
+    - { speaker: Ana, text: "And a time you disagreed with someone?" }
+    - { speaker: Yuri, text: "I can talk about the monolith debate with Beth or the paging fight with Carlos — which is more useful?" }
+    - { speaker: Ana, text: "The paging one." }
+    - { speaker: Yuri, text: "Situation: Carlos wanted paging on every SLO burn. Task: I owned the alerting design. Action: I proposed the two-window burn rate, showed the math, and he pushed back — so we ran both in parallel for a week. Result: his version paged forty times, mine twice — he agreed. Looking back, I should have offered the parallel run sooner." }
+    - { speaker: Ana, text: "Impressive — you have a story for everything." }
+    - { speaker: Yuri, text: "Five in the bank, actually — incident, migration, cost, conflict, and leadership. Recorded and corrected until each one fits in two minutes." }
+  notes:
+    - "o banco em ação: 'let me give you an example', a oferta de escala, a oferta de escolha."
+    - "cada história: S curto, T seu ('I owned'), A no 'I', R com número + reflexão."
+    - "o fecho do banco — 'five in the bank' — sinaliza preparação, não improviso."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "A story bank is five STARs — incident, migration, cost, conflict, leadership — recorded and corrected. The method: record all five in one session, then fix one criterion per pass — skeleton first, then the 'I' in the Action, then the number in the Result, then the reflection. Each story has a cue line, a number, a lesson, and a two-minute ceiling." }
+    - { speaker: Yuri, text: "The crossings: 'let me give you an example' turns a generic question into a story. 'Want the short version or the deep dive?' offers scale. 'I can talk about X or Y — which is more useful?' offers choice. And a good story maps to three questions — the migration covers 'leading change' and 'ambiguity'." }
+    - { speaker: Ana, text: "The mistake: the story that lives 'in your head' — four minutes long, zero numbers. The recording doesn't lie. Correct it until it fits." }
+  questions:
+    - { id: M27-05-l1, type: multiple_choice, prompt: "O banco de histórias tem…", options: ["cinco — incidente, migração, custo, conflito, liderança", "uma história", "vinte", "só vitórias"], answer: 0, explanation: "Cinco tipos — um de cada.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-05-l2, type: fill_blank, prompt: "Let me give you an ___ — the checkout incident.", accepted: ["example"], explanation: "'Give you an example' — a travessia.", tags: [vocab.interview] }
+    - { id: M27-05-l3, type: error_correction, prompt: "I work there since the migration.", accepted: ["I've worked there since the migration.", "I've been there since the migration.", "I've worked there since the migration"], explanation: "A janela em present perfect.", tags: [br.work-since] }
+    - { id: M27-05-l4, type: multiple_choice, prompt: "A oferta de escala é…", options: ["'the end'", "'next question'", "'read my resume'", "'want the short version or the deep dive?'"], answer: 3, explanation: "O entrevistador escolhe o tamanho.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-05-l5, type: multiple_choice, prompt: "O método da prática é…", options: ["pensar nas histórias", "escrever uma vez", "gravar as cinco, corrigir um critério por passada", "decorar"], answer: 2, explanation: "A gravação não mente — um critério por passada.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-05-l6, type: multiple_choice, prompt: "O teto de cada história é…", options: ["dez minutos", "dois minutos — o mergulho é follow-up", "cinco", "sem teto"], answer: 1, explanation: "Dois minutos — o detalhe vem se pedirem.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** a preparação para a entrevista final
+    pede o seu banco de histórias por escrito.
+
+    **Tarefa:** escreva 100–130 palavras: o índice do
+    seu banco — as cinco histórias, cada uma com a
+    linha de cola ("the checkout incident"), o número
+    do Result e a lição — mais o plano de gravação
+    ("recorded and corrected").
+  constraints:
+    - { label: "O índice de cinco", pattern: "\\bincident|migration|cost|conflict|leadership\\b" }
+    - { label: "Linhas de cola", pattern: "\\bthe \\w+ (incident|migration|debate|fight|cut|story)\\b" }
+    - { label: "Números", pattern: "\\b\\d+\\b" }
+    - { label: "O plano", pattern: "\\brecord|correct|practice|rehears|bank\\b" }
+  rubric:
+    - "Cinco histórias, um tipo de cada"
+    - "Cada uma com cola + número + lição"
+    - "O plano de gravação declarado"
+    - "Sem calques ('I've worked since', 'responsible for')"
+  model: >-
+    My story bank — five STARs, two minutes each.
+    Incident: the checkout 500 on a Friday — back in
+    twelve minutes, lesson: test the rollback path.
+    Migration: multi-AZ, zero downtime — lesson: run
+    the failover drill before you need it. Cost: the
+    NAT gateway, $22k a year — lesson: the bill is a
+    metric too. Conflict: the paging debate with
+    Carlos — lesson: run both versions in parallel.
+    Leadership: the on-call playbook — lesson: go
+    beyond the role before the title. The plan: record
+    all five this week, correct one criterion per
+    pass — skeleton, the "I" in the Action, the number
+    in the Result, the reflection.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 120 segundos: duas histórias do seu banco em miniatura — uma de incidente e uma à sua escolha. Cada uma: linha de cola, S curto, T seu, A no 'I', R com número + lição. Abra com 'let me give you an example' e feche com 'that's the headline'."
+    maxSeconds: 120
+    targetPhrases:
+      - let me give you an example
+      - the situation was
+      - my job was to
+      - i owned the
+      - i was responsible for
+      - the first thing i did
+      - the result was
+      - back in twelve minutes
+      - looking back
+      - in hindsight
+      - the real lesson was
+      - what i'd do differently
+      - that's the headline
+      - want the short version
+      - i can talk about
+      - recorded and corrected
+      - happy to go deeper
+      - story bank
+    checklist:
+      - "duas histórias do banco, tipos diferentes"
+      - "a travessia 'let me give you an example'"
+      - "cada R com número + lição"
+      - "o fecho 'that's the headline'"
+
+quiz:
+  - { id: M27-05-q1, type: multiple_choice, prompt: "O banco de histórias cobre…", options: ["uma pergunta", "só incidentes", "tudo", "as cinco perguntas comportamentais — uma história de cada tipo"], answer: 3, explanation: "Cinco tipos — a pergunta escolhe a história.", tags: [vocab.interview] }
+  - { id: M27-05-q2, type: error_correction, prompt: "In my vision, five stories is enough.", accepted: ["In my view, five stories is enough.", "In my view, five stories is enough"], explanation: "'In my view'.", tags: [br.in-my-vision] }
+  - { id: M27-05-q3, type: multiple_choice, prompt: "A travessia da pergunta para a história é…", options: ["silêncio", "'I don't know'", "'let me give you an example'", "'next'"], answer: 2, explanation: "A resposta genérica vira história concreta.", tags: [vocab.interview] }
+  - { id: M27-05-q4, type: fill_blank, prompt: "I can talk about the incident or the migration — which is more ___?", accepted: ["useful"], explanation: "'More useful' — a oferta de escolha.", tags: [vocab.interview] }
+  - { id: M27-05-q5, type: multiple_choice, prompt: "A história que serve a três perguntas…", options: ["é a maior", "é a mais dramática", "é a mais recente", "'maps to' — mapeia para 'leading change' e 'ambiguity'"], answer: 3, explanation: "Uma boa história mapeia para várias perguntas.", tags: [vocab.interview] }
+  - { id: M27-05-q6, type: error_correction, prompt: "I was responsible by the cost cut story.", accepted: ["I was responsible for the cost cut story.", "I was responsible for the cost cut story"], explanation: "'Responsible for'.", tags: [br.responsible-by] }
+  - { id: M27-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["me", "an", "let", "give", "you", "example"], answer: "let me give you an example", explanation: "A travessia para a história.", tags: [vocab.interview] }
+  - { id: M27-05-q8, type: multiple_choice, prompt: "A correção da gravação é…", options: ["tudo de uma vez", "só a pronúncia", "um critério por passada — esqueleto, 'I', número, reflexão", "nunca"], answer: 2, explanation: "Um critério por passada — a gravação não mente.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "my story bank", back: "As cinco STARs — incidente, migração, custo, conflito, liderança.", tag: vocab.interview }
+  - { front: "a time I went beyond my role", back: "A história de liderança — a promoção antes do título.", tag: vocab.interview }
+  - { front: "the short version", back: "A história comprimida — 30 s.", tag: vocab.interview }
+  - { front: "want the short version or the deep dive?", back: "A oferta de escala — o tempo é do entrevistador.", tag: vocab.interview }
+  - { front: "let me give you an example", back: "A travessia — a pergunta genérica vira história.", tag: vocab.interview }
+  - { front: "two versions of the same story", back: "30 s e 2 min — o banco guarda ambas.", tag: vocab.interview }
+  - { front: "recorded and corrected", back: "O ciclo da prática — um critério por passada.", tag: vocab.interview }
+  - { front: "it maps to…", back: "Uma história serve a três perguntas.", tag: vocab.interview }
+  - { front: "the one-minute version", back: "O tamanho médio — 30 s, 1 min, 2 min.", tag: vocab.interview }
+  - { front: "I can talk about…", back: "A oferta de escolha — sinaliza um banco.", tag: vocab.interview }
+  - { front: "that's the headline", back: "A manchete — o detalhe sob demanda.", tag: vocab.interview }
+  - { front: "fresh in my mind", back: "As histórias recentes vencem — atualize o banco.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.work-since, br.responsible-by]
+  notes: "Revisão prioriza o banco, as travessias e as ofertas de escala/escolha."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

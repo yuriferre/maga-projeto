@@ -1,0 +1,307 @@
+id: M27-03
+module: M27
+order: 3
+title: "Quantificando impacto: 'reduced deploy time from 40 min to 6'"
+objective: >-
+  Ao final, você transforma cada feito em um número —
+  antes/depois ("from X to Y"), percentual ("cut costs
+  by 38%"), escala ("a team of four", "200 services") —
+  e sabe o que fazer quando não existe um número limpo.
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M27-02]
+
+context:
+  scenario: |
+    O entrevistador ouviu cem "I improved the pipeline"
+    hoje. O que ele lembra é o número:
+
+    - **Antes/depois**: "*reduced deploy time from 40
+      minutes to 6*" — a dupla que conta sozinha.
+    - **Percentual**: "*cut cloud spend by 38%*" —
+      "by" para a variação, "to" para o destino.
+    - **Escala**: "*a team of four*", "*200 services*",
+      "*99.9% of the month*" — o tamanho do problema.
+    - **Frequência**: "*from weekly deploys to fifteen
+      a day*" — o ritmo também é número.
+
+    Quando não há número limpo:
+
+    - **A ordem de grandeza**: "*roughly*", "*about*",
+      "*on the order of*" — honesto e ainda útil.
+    - **O proxy**: "*the on-call load dropped from
+      nine pages a week to two*".
+    - **O antes qualificado**: "*the manual deploy
+      became a button*" — quando o número é zero→um.
+
+    O erro do brasileiro: o feito sem número
+    ("I improved things") — ou o número inventado,
+    que desmonta na primeira pergunta de follow-up.
+  roles: [Yuri (platform engineer), Ana (eng manager, interviewer)]
+
+vocabulary:
+  - term: "reduced X from A to B"
+    meaning: 'reduzi X de A para B — a dupla antes/depois'
+    example: "Reduced deploy time from 40 minutes to 6."
+    translation: "Reduzi o tempo de deploy de 40 minutos para 6."
+    note: "'From… to…' — a dupla que conta a história sozinha."
+  - term: "cut X by 38%"
+    meaning: 'cortei X em 38% — a variação percentual'
+    example: "Cut cloud spend by 38% in one quarter."
+    translation: "Cortei o gasto de nuvem em 38% em um trimestre."
+    note: "'By' = a variação; 'to' = o destino. 'Cut spend to $80k' ≠ 'by 38%'."
+  - term: "down from X to Y"
+    meaning: 'de X para Y — a queda narrada'
+    example: "Pages went down from nine a week to two."
+    translation: "As páginas caíram de nove por semana para duas."
+    note: "A mesma dupla com o verbo do movimento."
+  - term: "a team of four"
+    meaning: 'um time de quatro — a escala em gente'
+    example: "I led a team of four — 200 services under the pipeline."
+    translation: "Liderei um time de quatro — 200 serviços no pipeline."
+    note: "Pessoas + coisas — a escala vem em pares."
+  - term: "99.9% uptime"
+    meaning: '99,9% de disponibilidade — o número do SLO'
+    example: "We held 99.9% uptime through the migration."
+    translation: "Mantivemos 99,9% de disponibilidade durante a migração."
+    note: "Número do domínio conta — SLO, p99, MTTR."
+  - term: "roughly / about / on the order of"
+    meaning: 'aproximadamente / na ordem de — a estimativa honesta'
+    example: "Roughly 30% of the spend was idle — about $40k a month."
+    translation: "Aproximadamente 30% do gasto era ocioso — uns $40k por mês."
+    note: "A ordem de grandeza honesta vale mais que o número inventado."
+  - term: "went from X to Y"
+    meaning: 'foi de X para Y — a mudança de estado'
+    example: "We went from weekly deploys to fifteen a day."
+    translation: "Fomos de deploys semanais para quinze por dia."
+    note: "A frequência também é número."
+  - term: "saved the team X hours a week"
+    meaning: 'economizei X horas por semana para o time — o número de tempo'
+    example: "The self-serve deploy saved the team ten hours a week."
+    translation: "O deploy self-serve economizou dez horas por semana para o time."
+    note: "Tempo economizado é o número mais fácil de estimar."
+  - term: "dropped to zero"
+    meaning: 'caiu a zero — o número dramático'
+    example: "Repeat incidents dropped to zero after the fix."
+    translation: "Incidentes repetidos caíram a zero depois da correção."
+    note: "Zero é um número — e dos mais fortes."
+  - term: "twice as fast / half the size"
+    meaning: 'duas vezes mais rápido / metade do tamanho — o multiplicador'
+    example: "The new pipeline is twice as fast at half the cost."
+    translation: "O pipeline novo é duas vezes mais rápido a metade do custo."
+    note: "O multiplicador lê melhor que o decimal."
+  - term: "worth about $X a year"
+    meaning: 'vale uns $X por ano — o número de dinheiro estimado'
+    example: "The idle fleet was worth about $40k a year."
+    translation: "A frota ociosa valia uns $40k por ano."
+    note: "'Worth' + 'about' — a estimativa de dinheiro honesta."
+  - term: "across three time zones"
+    meaning: 'em três fusos — a escala geográfica'
+    example: "Led the rollout across three time zones and four teams."
+    translation: "Liderei o rollout em três fusos e quatro times."
+    note: "Geografia e gente também são escala."
+
+grammar:
+  title: "a gramática do número"
+  explanation: |
+    O número tem três gramáticas:
+
+    - **"From A to B"**: "*from 40 minutes to 6*",
+      "*from nine pages a week to two*" — a dupla.
+    - **"By X%" para variação, "to Y" para destino**:
+      "*cut spend by 38%*" ≠ "*cut spend to $80k*".
+    - **O qualificador honesto**: "*roughly*",
+      "*about*", "*on the order of*" — antes do número
+      estimado, nunca depois.
+    - **O multiplicador**: "*twice as fast*",
+      "*half the size*", "*ten times cheaper*".
+
+    E o calque do domínio:
+
+    - "**an economy of $40k**" → "**a saving of
+      $40k**" (M20).
+    - "**I have 10 years**" → "**I have 10 years of
+      experience**" — "of experience" ou nada.
+  examples:
+    - { en: "Reduced deploy time from 40 minutes to 6 — that's the headline.", pt: "Reduzi o deploy de 40 minutos para 6 — essa é a manchete." }
+    - { en: "Cut cloud spend by 38% in one quarter — roughly $40k a month.", pt: "Cortei o gasto de nuvem em 38% num trimestre — uns $40k por mês." }
+    - { en: "Pages went down from nine a week to two after the alert cleanup.", pt: "As páginas caíram de nove por semana para duas depois da limpeza de alertas." }
+    - { en: "We went from weekly deploys to fifteen a day.", pt: "Fomos de deploys semanais para quinze por dia." }
+    - { en: "The new pipeline is twice as fast at half the cost.", pt: "O pipeline novo é o dobro da velocidade a metade do custo." }
+    - { en: "Repeat incidents dropped to zero — none in eight months.", pt: "Incidentes repetidos caíram a zero — nenhum em oito meses." }
+
+examples:
+  - en: "Reduced deploy time from 40 minutes to 6 — engineers stopped being afraid of it."
+    pt: "Reduzi o deploy de 40 minutos para 6 — os engenheiros deixaram de ter medo dele."
+    context: "A dupla + a consequência humana."
+  - en: "Cut cloud spend by 38% — about $40k a month, roughly half a head."
+    pt: "Cortei o gasto de nuvem em 38% — uns $40k por mês, quase meia contratação."
+    context: "O percentual traduzido em dinheiro."
+  - en: "Pages went down from nine a week to two — the rotation became livable."
+    pt: "As páginas caíram de nove por semana para duas — o rodízio ficou habitável."
+    context: "O proxy que conta a qualidade de vida."
+  - en: "Went from weekly deploys to fifteen a day — same pipeline, no heroics."
+    pt: "De deploys semanais a quinze por dia — mesmo pipeline, sem heroísmo."
+    context: "A frequência como número."
+  - en: "We held 99.9% uptime through the whole migration."
+    pt: "Mantivemos 99,9% de uptime durante toda a migração."
+    context: "O número do domínio."
+  - en: "Roughly a third of the fleet was idle — I didn't invent the number, I measured it."
+    pt: "Quase um terço da frota estava ociosa — não inventei o número, medi."
+    context: "A estimativa honesta."
+  - en: "The self-serve flow saved the team ten hours a week — that's a quarter of a person."
+    pt: "O fluxo self-serve economizou dez horas por semana do time — um quarto de pessoa."
+    context: "Tempo economizado traduzido."
+  - en: "Repeat incidents dropped to zero — the post-mortem items actually landed."
+    pt: "Incidentes repetidos caíram a zero — os itens do post-mortem de fato pousaram."
+    context: "Zero como número."
+
+variations:
+  - idea: '"com número × sem número"'
+    items:
+      - { register: "Forte", text: "Reduced deploy time from 40 minutes to 6.", adequate: true }
+      - { register: "Forte", text: "Cut cloud spend by 38% — roughly $40k a month.", adequate: true }
+      - { register: "Fraco", text: "I improved the pipeline a lot.", adequate: false, note: "'A lot' não é número — o entrevistador não lembra." }
+      - { register: "Fraco", text: "I made things much faster.", adequate: false, note: "'Much faster' é adjetivo — 'twice as fast' é número." }
+  - idea: '"estimativa honesta × invenção"'
+    items:
+      - { register: "Forte", text: "Roughly a third of the fleet was idle.", adequate: true }
+      - { register: "Forte", text: "Pages dropped from nine a week to about two.", adequate: true }
+      - { register: "Fraco", text: "Exactly 37.4% faster — (invented, can't defend it)", adequate: false, note: "Precisão inventada desmonta no follow-up — 'roughly' honesto é melhor." }
+      - { register: "Fraco", text: "It was like, a million percent better.", adequate: false, note: "O exagero de conversa não cabe — o número real nem precisa ser grande." }
+
+brErrors:
+  - { wrong: "I have 10 years — of experience.", right: "I have 10 years of experience.", why: "of experience", tag: br.have-years }
+  - { wrong: "It gives an economy of $40k a month.", right: "It's a saving of $40k a month.", why: "a saving of", tag: br.an-economy }
+  - { wrong: "We spend too much with compute.", right: "We spend too much on compute.", why: "spend on", tag: br.spend-with }
+  - { wrong: "The price was expensive.", right: "The price was high.", why: "high", tag: br.price-expensive }
+  - { wrong: "I was responsible by the cost work.", right: "I was responsible for the cost work.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "In the other hand, spend went down.", right: "On the other hand, spend went down.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "The same result than last quarter.", right: "The same result as last quarter.", why: "the same as", tag: br.same-than }
+  - { wrong: "I have doubt about the number.", right: "I have a question about the number.", why: "a question", tag: br.doubt }
+  - { wrong: "We discussed about the metric.", right: "We discussed the metric.", why: "discussed the metric", tag: br.discuss-about }
+  - { wrong: "It doesn't worth the migration.", right: "It isn't worth the migration.", why: "isn't worth", tag: br.worths }
+
+dialogue:
+  title: "Give me a number"
+  lines:
+    - { speaker: Ana, text: "You said you improved the pipeline — give me a number." }
+    - { speaker: Yuri, text: "Deploy time went from 40 minutes to 6. That's the headline." }
+    - { speaker: Ana, text: "And the cost work?" }
+    - { speaker: Yuri, text: "Cut cloud spend by 38% in one quarter — roughly $40k a month, about half a head." }
+    - { speaker: Ana, text: "How sure are you about that 38%?" }
+    - { speaker: Yuri, text: "It's measured — the showback report ran for three months. The 'roughly' is the monthly wobble." }
+    - { speaker: Ana, text: "And on-call — did it actually get better?" }
+    - { speaker: Yuri, text: "Pages went down from nine a week to two. Repeat incidents dropped to zero — the post-mortem items actually landed." }
+    - { speaker: Ana, text: "Team size?" }
+    - { speaker: Yuri, text: "A team of four, 200 services on the pipeline — and we went from weekly deploys to fifteen a day." }
+  notes:
+    - "cada resposta com número: from/to, by %, down from/to, dropped to zero, a team of + a escala."
+    - "'roughly'/'about' antes da estimativa — a honestidade visível."
+    - "o proxy: páginas por semana conta o que 'melhorou' não conta."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "A number is what makes a claim memorable. 'Reduced deploy time from forty minutes to six' — from and to, the pair that tells the story alone. 'Cut spend by thirty-eight percent' — 'by' for the change, 'to' for the destination. And scale: a team of four, two hundred services." }
+    - { speaker: Yuri, text: "When there's no clean number, use the honest estimate — 'roughly a third', 'about $40k a month', 'on the order of'. Or the proxy: 'pages went from nine a week to two'. What you never do is invent precision — 'exactly 37.4%' falls apart in the follow-up. And watch the calques: it's 'a saving of', not 'an economy of'." }
+    - { speaker: Ana, text: "And the strongest number is sometimes zero — 'repeat incidents dropped to zero'. Or the multiplier — 'twice as fast at half the cost'. Numbers don't have to be big; they have to be real." }
+  questions:
+    - { id: M27-03-l1, type: multiple_choice, prompt: "A dupla que conta a história sozinha é…", options: ["'from 40 minutes to 6' — antes/depois", "'very fast'", "'really improved'", "'super quick'"], answer: 0, explanation: "From X to Y — o número em par.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-03-l2, type: fill_blank, prompt: "Cut cloud spend ___ 38% — not 'to' 38%.", accepted: ["by"], explanation: "'By' = a variação; 'to' = o destino.", tags: [vocab.interview] }
+    - { id: M27-03-l3, type: error_correction, prompt: "It gives an economy of $40k a month.", accepted: ["It's a saving of $40k a month.", "It's a saving of $40k a month"], explanation: "'A saving of'.", tags: [br.an-economy] }
+    - { id: M27-03-l4, type: multiple_choice, prompt: "Sem número limpo, a saída honesta é…", options: ["inventar um", "mudar de assunto", "'it was big'", "'roughly a third' / 'about $40k' — a ordem de grandeza declarada"], answer: 3, explanation: "A estimativa declarada vale mais que a invenção.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-03-l5, type: multiple_choice, prompt: "O proxy de impacto é…", options: ["o sentimento", "'pages went from nine a week to two' — o número indireto que conta", "o elogio do chefe", "o emoji"], answer: 1, explanation: "Quando o número direto não existe, o proxy conta.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-03-l6, type: multiple_choice, prompt: "'Twice as fast at half the cost' é…", options: ["exagero", "o multiplicador — lê melhor que o decimal", "errado", "informal demais"], answer: 1, explanation: "O multiplicador é número também.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** o CV pede três bullets de impacto no
+    papel mais recente.
+
+    **Tarefa:** escreva 60–90 palavras em três bullets:
+    cada um com verbo forte + número (um from/to, um
+    by %, um de escala ou proxy) — e um qualificador
+    honesto onde o número é estimado.
+  constraints:
+    - { label: "Antes/depois", pattern: "\\bfrom \\d|from \\w+ to|down from|went from\\b" }
+    - { label: "Variação", pattern: "\\bby \\d+%|cut.*by|reduced.*by|to zero\\b" }
+    - { label: "Escala/proxy", pattern: "\\bteam of|\\d+ services|hours a week|a third|half\\b" }
+    - { label: "Estimativa honesta", pattern: "\\broughly|about|on the order|around\\b" }
+  rubric:
+    - "Três bullets, três números"
+    - "by % × to destino corretos"
+    - "Um 'roughly/about' onde o número é estimado"
+    - "Sem calques ('a saving of', 'spend on')"
+  model: >-
+    - Reduced deploy time from 40 minutes to 6 —
+      engineers stopped being afraid of it, and we
+      went from weekly deploys to fifteen a day.
+    - Cut cloud spend by 38% in one quarter —
+      roughly $40k a month, about half a head.
+    - Led a team of four across 200 services;
+      pages dropped from nine a week to about two,
+      and repeat incidents went to zero.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos de 'give me a number': três feitos seus, cada um com um número — um antes/depois, um percentual, uma escala ou proxy — e a estimativa honesta onde não houver número limpo."
+    maxSeconds: 60
+    targetPhrases:
+      - reduced from
+      - from 40 minutes to 6
+      - cut by 38%
+      - down from
+      - went from
+      - a team of four
+      - roughly
+      - about $40k
+      - on the order of
+      - dropped to zero
+      - twice as fast
+      - half the cost
+      - hours a week
+      - across three time zones
+      - a saving of
+      - 99.9%
+    checklist:
+      - "três feitos, três números"
+      - "'by' para variação, 'to' para destino"
+      - "um 'roughly/about' na estimativa"
+      - "sem 'a lot'/'much better'"
+
+quiz:
+  - { id: M27-03-q1, type: multiple_choice, prompt: "'Cut spend by 38%' × 'cut spend to 38%':", options: ["'by' é a variação; 'to' é o destino — muda tudo", "sinônimos", "'to' é variação", "tanto faz"], answer: 0, explanation: "By = menos 38%; to = ficou em 38%.", tags: [vocab.interview] }
+  - { id: M27-03-q2, type: error_correction, prompt: "We spend too much with compute last quarter.", accepted: ["We spent too much on compute last quarter.", "We spend too much on compute last quarter."], explanation: "'Spend on'.", tags: [br.spend-with] }
+  - { id: M27-03-q3, type: multiple_choice, prompt: "O número mais forte às vezes é…", options: ["o maior", "o percentual", "zero — 'repeat incidents dropped to zero'", "o decimal"], answer: 2, explanation: "Zero conta — e é difícil de contestar.", tags: [vocab.interview] }
+  - { id: M27-03-q4, type: fill_blank, prompt: "Pages went ___ from nine a week to two.", accepted: ["down"], explanation: "'Down from X to Y'.", tags: [vocab.interview] }
+  - { id: M27-03-q5, type: multiple_choice, prompt: "Número estimado pede…", options: ["precisão inventada", "silêncio", "o emoji", "o qualificador antes — 'roughly', 'about', 'on the order of'"], answer: 3, explanation: "A honestidade visível sobrevive ao follow-up.", tags: [vocab.interview] }
+  - { id: M27-03-q6, type: error_correction, prompt: "I have 10 years — of experience.", accepted: ["I have 10 years of experience.", "I have ten years of experience.", "I have 10 years of experience"], explanation: "'Of experience' — ou nada.", tags: [br.have-years] }
+  - { id: M27-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["to", "from", "40", "6", "minutes"], answer: "from 40 minutes to 6", explanation: "A dupla antes/depois.", tags: [vocab.interview] }
+  - { id: M27-03-q8, type: multiple_choice, prompt: "'I improved things a lot' falha porque…", options: ["é longo", "é errado", "'a lot' não é número — não fica na memória", "é formal"], answer: 2, explanation: "O adjetivo não conta — o número conta.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "reduced X from A to B", back: "A dupla antes/depois — conta sozinha.", tag: vocab.interview }
+  - { front: "cut X by 38%", back: "'By' = variação; 'to' = destino.", tag: vocab.interview }
+  - { front: "down from X to Y", back: "A queda narrada.", tag: vocab.interview }
+  - { front: "a team of four / 200 services", back: "A escala em pares — gente + coisas.", tag: vocab.interview }
+  - { front: "roughly / about / on the order of", back: "A estimativa honesta — antes do número.", tag: vocab.interview }
+  - { front: "went from X to Y", back: "A frequência também é número.", tag: vocab.interview }
+  - { front: "dropped to zero", back: "Zero é um número — dos mais fortes.", tag: vocab.interview }
+  - { front: "twice as fast / half the cost", back: "O multiplicador lê melhor que o decimal.", tag: vocab.interview }
+  - { front: "saved the team X hours a week", back: "Tempo economizado — fácil de estimar.", tag: vocab.interview }
+  - { front: "worth about $X a year", back: "O dinheiro estimado com 'about'.", tag: vocab.interview }
+  - { front: "a saving of $40k", back: "Nunca 'an economy of' — o falso amigo.", tag: br.an-economy }
+  - { front: "99.9% uptime / p99", back: "O número do domínio conta.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.an-economy, br.have-years]
+  notes: "Revisão prioriza a dupla from/to, by×to, a escala e a estimativa honesta."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

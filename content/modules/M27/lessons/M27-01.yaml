@@ -1,0 +1,311 @@
+id: M27-01
+module: M27
+order: 1
+title: "Elevator pitch: 30 s, 60 s, 2 min — mesmas ideias, três tamanhos"
+objective: >-
+  Ao final, você conta quem você é em três tamanhos —
+  30 s para o corredor, 60 s para o screening, 2 min
+  para a entrevista — sempre a mesma espinha: papel +
+  domínio + prova + o que você quer.
+durationMin: 35
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M10-05, M24-05]
+
+context:
+  scenario: |
+    "So — tell me about yourself." A pergunta que abre
+    toda entrevista — e que o brasileiro responde com o
+    currículo inteiro. A resposta tem três tamanhos da
+    mesma espinha:
+
+    - **A espinha**: quem você é (papel + domínio) →
+      a prova (um número) → o que você quer agora.
+      "*I'm a platform engineer — I've spent the last
+      five years keeping deploys boring; right now I'm
+      looking at staff-level platform work.*"
+    - **30 s**: a espinha nua — três frases.
+    - **60 s**: espinha + uma história de uma linha.
+    - **2 min**: espinha + uma mini-história + a ponte
+      para a vaga.
+
+    As regras: **presente para quem você é**, **passado
+    para o que você fez**, **números para a prova**.
+    E nunca "I'm a passionate…" — paixão se prova, não
+    se declara.
+
+    O erro do brasileiro é começar do começo ("in 2014
+    I graduated…") — cronologia é currículo; pitch é
+    destaque.
+  roles: [Yuri (platform engineer), Ana (eng manager, interviewer)]
+
+vocabulary:
+  - term: "tell me about yourself"
+    meaning: 'fale de você — a abertura que não é pergunta de vida'
+    example: "Tell me about yourself. — I'm a platform engineer; five years keeping deploys boring."
+    translation: "Fale de você. — Sou engenheiro de plataforma; cinco anos mantendo deploys entediantes."
+    note: "Quer o pitch, não a biografia — 60 s, no máximo 2 min."
+  - term: "I'm a platform engineer"
+    meaning: 'sou engenheiro de plataforma — papel no presente'
+    example: "I'm a platform engineer — I build the paved path teams deploy on."
+    translation: "Sou engenheiro de plataforma — construo o caminho pavimentado onde os times fazem deploy."
+    note: "Papel no presente simples — quem você é, não onde trabalha."
+  - term: "I specialize in X"
+    meaning: 'especializo-me em X — o domínio afiado'
+    example: "I specialize in CI/CD and cloud cost work."
+    translation: "Especializo-me em CI/CD e trabalho de custo de nuvem."
+    note: "O domínio é o que separa você do próximo candidato."
+  - term: "for the past five years"
+    meaning: 'nos últimos cinco anos — a janela de experiência'
+    example: "For the past five years I've been running production on-call."
+    translation: "Nos últimos cinco anos tenho rodado plantão de produção."
+    note: "Present perfect + 'for the past' — a janela que importa."
+  - term: "most recently"
+    meaning: 'mais recentemente — o papel atual na linha do tempo'
+    example: "Most recently I've been leading the platform team at a fintech."
+    translation: "Mais recentemente venho liderando o time de plataforma numa fintech."
+    note: "O marcador que pula a cronologia — do passado ao agora."
+  - term: "I care about X"
+    meaning: 'eu me importo com X — a motivação em uma linha'
+    example: "I care about boring deploys and honest post-mortems."
+    translation: "Eu me importo com deploys entediantes e post-mortems honestos."
+    note: "Mais forte que 'passionate' — declara o critério, não a emoção."
+  - term: "what I'm looking for"
+    meaning: 'o que eu procuro — a ponte para a vaga'
+    example: "What I'm looking for is staff-level platform work."
+    translation: "O que eu procuro é trabalho de plataforma em nível staff."
+    note: "Fecha o pitch mirando a vaga — sempre."
+  - term: "that's the short version"
+    meaning: 'essa é a versão curta — o fecho que devolve a palavra'
+    example: "That's the short version — happy to go deeper on any piece."
+    translation: "Essa é a versão curta — posso aprofundar qualquer parte."
+    note: "O fecho que oferece profundidade sem monopolizar."
+  - term: "keeping deploys boring"
+    meaning: 'mantendo deploys entediantes — a prova com personalidade'
+    example: "Five years keeping deploys boring — 40-min builds down to 6."
+    translation: "Cinco anos mantendo deploys entediantes — builds de 40 min a 6."
+    note: "Uma imagem concreta vale dez adjetivos."
+  - term: "my background is in X"
+    meaning: 'minha formação/trajetória é em X — a origem em uma linha'
+    example: "My background is in ops — I came up through on-call."
+    translation: "Minha trajetória é em ops — subi pelo plantão."
+    note: "A origem em uma linha — não em cinco minutos."
+  - term: "I came up through X"
+    meaning: 'subi por X — a trajetória que mostra calo'
+    example: "I came up through support — I know what a bad deploy feels like."
+    translation: "Subi pelo suporte — sei como é um deploy ruim."
+    note: "Mostra o caminho sem listar cada emprego."
+  - term: "before that"
+    meaning: 'antes disso — o marcador que vai para trás'
+    example: "Before that I was an SRE at a logistics company."
+    translation: "Antes disso eu era SRE numa empresa de logística."
+    note: "Dois passos para trás, no máximo — depois vira currículo."
+
+grammar:
+  title: "a gramática do tempo do pitch"
+  explanation: |
+    O pitch tem três tempos disciplinados:
+
+    - **Presente para quem você é**: "*I'm a platform
+      engineer*", "*I specialize in*", "*I care about*".
+    - **Present perfect para a janela**: "*for the past
+      five years I've been running*", "*I've spent the
+      last three years*" — experiência até agora.
+    - **Passado simples para o feito**: "*I led*",
+      "*I reduced*", "*I owned*" — o que acabou.
+    - **"What I'm looking for"** — o futuro da vaga.
+
+    E os calques do gênero:
+
+    - "**I work here since 2020**" → "**I've worked
+      here since 2020**".
+    - "**I formed in CS**" → "**I have a degree in
+      CS**".
+    - "**promoted for senior**" → "**promoted to
+      senior**".
+    - "**responsible by the pipeline**" → "**
+      responsible for**".
+  examples:
+    - { en: "I'm a platform engineer — I specialize in CI/CD and cloud cost.", pt: "Sou engenheiro de plataforma — especializo-me em CI/CD e custo de nuvem." }
+    - { en: "For the past five years I've been running production on-call.", pt: "Nos últimos cinco anos venho rodando plantão de produção." }
+    - { en: "Most recently I led the platform team at a fintech.", pt: "Mais recentemente liderei o time de plataforma numa fintech." }
+    - { en: "I've worked here since 2020 — before that I was an SRE.", pt: "Trabalho aqui desde 2020 — antes disso eu era SRE." }
+    - { en: "What I'm looking for is staff-level platform work.", pt: "O que eu procuro é trabalho de plataforma nível staff." }
+    - { en: "That's the short version — happy to go deeper on any piece.", pt: "Essa é a versão curta — posso aprofundar qualquer parte." }
+
+examples:
+  - en: "I'm a platform engineer — five years keeping deploys boring. Right now I'm looking at staff-level work."
+    pt: "Sou engenheiro de plataforma — cinco anos mantendo deploys entediantes. Agora procuro trabalho de nível staff."
+    context: "O pitch de 30 segundos — espinha nua."
+  - en: "I'm a platform engineer specializing in CI/CD. For the past five years I've run production on-call — most recently I led the platform team at a fintech. What I'm looking for is staff-level work."
+    pt: "Sou engenheiro de plataforma especializado em CI/CD. Nos últimos cinco anos rodei plantão de produção — mais recentemente liderei o time de plataforma numa fintech. O que procuro é trabalho nível staff."
+    context: "O pitch de 60 segundos — espinha + contexto."
+  - en: "I came up through support, so I know what a bad deploy feels like. That's the short version."
+    pt: "Subi pelo suporte, então sei como é um deploy ruim. Essa é a versão curta."
+    context: "A trajetória em uma linha + o fecho."
+  - en: "I've been here since 2020 — before that, three years at a logistics company."
+    pt: "Estou aqui desde 2020 — antes disso, três anos numa empresa de logística."
+    context: "A janela no present perfect."
+  - en: "I have a degree in Computer Science — but the real school was on-call."
+    pt: "Tenho graduação em Ciência da Computação — mas a escola de verdade foi o plantão."
+    context: "A formação em uma linha."
+  - en: "I was promoted to staff last year — the jump I wanted."
+    pt: "Fui promovido a staff ano passado — o salto que eu queria."
+    context: "A promoção com 'to'."
+  - en: "I care about honest post-mortems and boring deploys — that's what I'm looking for here too."
+    pt: "Me importo com post-mortems honestos e deploys entediantes — é o que procuro aqui também."
+    context: "A motivação virando ponte para a vaga."
+  - en: "I was responsible for the whole release pipeline — owned it end to end."
+    pt: "Eu era responsável pelo pipeline de release inteiro — dono de ponta a ponta."
+    context: "A responsabilidade com 'for'."
+
+variations:
+  - idea: '"a abertura do pitch"'
+    items:
+      - { register: "Boa", text: "I'm a platform engineer — five years keeping deploys boring.", adequate: true }
+      - { register: "Boa", text: "Most recently I led the platform team at a fintech.", adequate: true }
+      - { register: "Inadequada", text: "Well, in 2014 I graduated in CS, then in 2016 I joined a startup, then in 2018…", adequate: false, note: "Cronologia é currículo — o pitch começa no destaque." }
+      - { register: "Inadequada", text: "I'm a passionate engineer who loves technology.", adequate: false, note: "'Passionate' declara emoção — a prova é o número." }
+  - idea: '"o tamanho certo"'
+    items:
+      - { register: "Boa", text: "30s: papel + prova + o que procuro — três frases.", adequate: true }
+      - { register: "Boa", text: "2min: a espinha + uma mini-história + a ponte para a vaga.", adequate: true }
+      - { register: "Inadequada", text: "5 minutos contando cada emprego desde o estágio.", adequate: false, note: "Depois de dois minutos vira monólogo — 'that's the short version' devolve a palavra." }
+      - { register: "Inadequada", text: "I'm a platform engineer. (silence)", adequate: false, note: "Curto demais também falha — a espinha precisa das três peças." }
+
+brErrors:
+  - { wrong: "I work here since 2020.", right: "I've worked here since 2020.", why: "I've worked — since + ano leva perfect", tag: br.work-since }
+  - { wrong: "I formed in Computer Science.", right: "I have a degree in Computer Science.", why: "a degree in", tag: br.formed-in }
+  - { wrong: "I was promoted for senior engineer.", right: "I was promoted to senior engineer.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "I was responsible by the pipeline.", right: "I was responsible for the pipeline.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "I'm working here since 2020.", right: "I've been working here since 2020.", why: "I've been working", tag: br.since-present }
+  - { wrong: "I have 10 years of experience — and I have 35 years.", right: "I have 10 years of experience — and I'm 35.", why: "I'm 35", tag: br.have-years }
+  - { wrong: "I pretend to move abroad next year.", right: "I plan to move abroad next year.", why: "plan to", tag: br.pretend }
+  - { wrong: "In my vision, platform work is the future.", right: "In my view, platform work is the future.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "I discussed about it with my manager.", right: "I discussed it with my manager.", why: "discussed it", tag: br.discuss-about }
+  - { wrong: "The same role than before.", right: "The same role as before.", why: "the same as", tag: br.same-than }
+
+dialogue:
+  title: "Tell me about yourself"
+  lines:
+    - { speaker: Ana, text: "So — tell me about yourself." }
+    - { speaker: Yuri, text: "I'm a platform engineer — I specialize in CI/CD and cloud cost work. For the past five years I've been running production on-call; most recently I led the platform team at a fintech." }
+    - { speaker: Ana, text: "And before that?" }
+    - { speaker: Yuri, text: "I came up through support — I know what a bad deploy feels like. I have a degree in CS, but the real school was on-call." }
+    - { speaker: Ana, text: "What are you looking for now?" }
+    - { speaker: Yuri, text: "Staff-level platform work — bigger surface, same boring deploys. I've been at my current place since 2020; time for the next step." }
+    - { speaker: Ana, text: "Why this role?" }
+    - { speaker: Yuri, text: "You run regulated production at scale — that's exactly where honest post-mortems matter. And I care about that." }
+    - { speaker: Ana, text: "Fair. Anything else?" }
+    - { speaker: Yuri, text: "That's the short version — happy to go deeper on any piece." }
+  notes:
+    - "a espinha: papel → domínio → janela ('for the past five years') → prova → o que procura."
+    - "a trajetória em uma linha ('came up through support') — não a cronologia."
+    - "o fecho 'that's the short version' devolve a palavra — e 'I've been here since 2020' no perfect."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "'Tell me about yourself' wants the pitch, not the biography. The spine: who you are — role plus domain — one proof, one number, and what you're looking for now. Thirty seconds for the hallway, sixty for the screening, two minutes max for the interview — same spine, three sizes." }
+    - { speaker: Yuri, text: "The tenses are disciplined: present for who you are, present perfect for the window — 'for the past five years I've been', 'I've worked here since 2020' — and simple past for the wins. Never 'I work here since 2020'; never 'I formed in CS' — it's 'I have a degree in'. And close with 'that's the short version' — it hands the floor back." }
+    - { speaker: Ana, text: "And the trap: starting at the beginning. 'In 2014 I graduated…' is a resume read out loud. The pitch starts at the highlight — 'keeping deploys boring for five years' says more than a decade of chronology." }
+  questions:
+    - { id: M27-01-l1, type: multiple_choice, prompt: "A espinha do pitch é…", options: ["papel + domínio → prova (um número) → o que você quer", "a cronologia completa", "a biografia resumida", "a lista de tecnologias"], answer: 0, explanation: "Três peças — sempre na mesma ordem.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-01-l2, type: fill_blank, prompt: "For the ___ five years I've been running production on-call.", accepted: ["past"], explanation: "'For the past five years' — a janela.", tags: [vocab.interview] }
+    - { id: M27-01-l3, type: error_correction, prompt: "I work here since 2020.", accepted: ["I've worked here since 2020.", "I've been here since 2020.", "I've been working here since 2020."], explanation: "Since + ano leva present perfect.", tags: [br.work-since] }
+    - { id: M27-01-l4, type: multiple_choice, prompt: "O fecho que devolve a palavra é…", options: ["'and that's my life'", "'anyway'", "'the end'", "'that's the short version — happy to go deeper'"], answer: 3, explanation: "Oferece profundidade sem monopolizar.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-01-l5, type: multiple_choice, prompt: "O erro clássico do brasileiro no pitch é…", options: ["falar baixo", "começar do começo — 'in 2014 I graduated' é currículo, não pitch", "usar números", "sorrir demais"], answer: 1, explanation: "O pitch começa no destaque, não na cronologia.", tags: [comp.listening, vocab.interview] }
+    - { id: M27-01-l6, type: multiple_choice, prompt: "Os três tamanhos do pitch são…", options: ["10s / 30s / 1min", "30s / 60s / 2min — mesma espinha", "1min / 5min / 10min", "depende do humor"], answer: 1, explanation: "Mesmas ideias, três tamanhos.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana pediu o "about me" por escrito
+    para compartilhar com o time antes da entrevista.
+
+    **Tarefa:** escreva 70–100 palavras: a espinha
+    completa (papel + domínio → a janela com um número →
+    a trajetória em uma linha → o que você procura) +
+    o fecho que oferece profundidade.
+  constraints:
+    - { label: "Papel + domínio", pattern: "\\bi'm a|i am a|i specialize|platform engineer|sre\\b" }
+    - { label: "A janela", pattern: "\\bfor the past|since \\d{4}|most recently|five years\\b" }
+    - { label: "A trajetória", pattern: "\\bcame up through|background|before that|degree in\\b" }
+    - { label: "O que procura + fecho", pattern: "\\blooking for|short version|deeper\\b" }
+  rubric:
+    - "A espinha na ordem — não a cronologia"
+    - "Um número ou prova concreta"
+    - "Tempos disciplinados (presente/perfect/passado)"
+    - "Sem calques ('I've worked since', 'a degree in')"
+  model: >-
+    I'm a platform engineer — I specialize in CI/CD
+    and cloud cost work. For the past five years I've
+    been running production on-call; most recently I
+    led the platform team at a fintech, where we cut
+    deploy time from 40 minutes to 6. I came up through
+    support, so I know what a bad deploy feels like.
+    I have a degree in CS, but on-call was the real
+    school. What I'm looking for is staff-level
+    platform work — bigger surface, same boring
+    deploys. That's the short version; happy to go
+    deeper on any piece.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave a versão de 60 segundos do seu pitch: papel + domínio, a janela com um número, a trajetória em uma linha, o que você procura — e o fecho 'that's the short version'."
+    maxSeconds: 60
+    targetPhrases:
+      - i'm a platform engineer
+      - i specialize in
+      - for the past five years
+      - most recently
+      - i came up through
+      - my background is
+      - i have a degree in
+      - i've worked here since
+      - i was promoted to
+      - i was responsible for
+      - i care about
+      - what i'm looking for
+      - that's the short version
+      - keeping deploys boring
+      - before that
+    checklist:
+      - "a espinha: papel → prova → o que procura"
+      - "60 segundos — nem 20, nem 3 min"
+      - "'since 2020' no present perfect"
+      - "fecho 'that's the short version'"
+
+quiz:
+  - { id: M27-01-q1, type: multiple_choice, prompt: "'Tell me about yourself' pede…", options: ["o pitch — a espinha em 60 s a 2 min", "a biografia", "o currículo lido", "os hobbies"], answer: 0, explanation: "Pitch, não currículo.", tags: [vocab.interview] }
+  - { id: M27-01-q2, type: error_correction, prompt: "I formed in Computer Science in 2015.", accepted: ["I have a degree in Computer Science.", "I graduated from college in 2015.", "I have a degree in Computer Science"], explanation: "'A degree in' ou 'graduated from'.", tags: [br.formed-in] }
+  - { id: M27-01-q3, type: multiple_choice, prompt: "O tempo da janela de experiência é…", options: ["'I work here since 2020'", "'I worked here since 2020'", "'I've worked here since 2020'", "'I am working here since 2020'"], answer: 2, explanation: "Present perfect + since.", tags: [br.work-since] }
+  - { id: M27-01-q4, type: fill_blank, prompt: "What I'm ___ for is staff-level platform work.", accepted: ["looking"], explanation: "'What I'm looking for' — a ponte para a vaga.", tags: [vocab.interview] }
+  - { id: M27-01-q5, type: multiple_choice, prompt: "'I came up through support' comunica…", options: ["um emprego antigo", "que desisti", "um problema", "a trajetória com calo — sem listar cada passo"], answer: 3, explanation: "O caminho em uma linha.", tags: [vocab.interview] }
+  - { id: M27-01-q6, type: error_correction, prompt: "I was promoted for senior engineer last year.", accepted: ["I was promoted to senior engineer last year.", "I was promoted to senior engineer last year"], explanation: "'Promoted to'.", tags: [br.promoted-for] }
+  - { id: M27-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["short", "the", "version", "that's"], answer: "that's the short version", explanation: "O fecho que devolve a palavra.", tags: [vocab.interview] }
+  - { id: M27-01-q8, type: multiple_choice, prompt: "'Passionate engineer who loves technology' falha porque…", options: ["é informal", "é longo demais", "declara emoção sem prova — o número prova, o adjetivo não", "é correto na verdade"], answer: 2, explanation: "Paixão se prova — com 'keeping deploys boring' e o número.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "tell me about yourself", back: "O pitch — espinha em 60 s a 2 min, não a biografia.", tag: vocab.interview }
+  - { front: "I specialize in X", back: "O domínio afiado que separa você do próximo.", tag: vocab.interview }
+  - { front: "for the past five years", back: "A janela — present perfect.", tag: vocab.interview }
+  - { front: "most recently", back: "O papel atual — pula a cronologia.", tag: vocab.interview }
+  - { front: "I care about X", back: "A motivação — mais forte que 'passionate'.", tag: vocab.interview }
+  - { front: "what I'm looking for", back: "A ponte para a vaga — fecha o pitch.", tag: vocab.interview }
+  - { front: "that's the short version", back: "O fecho que devolve a palavra.", tag: vocab.interview }
+  - { front: "I came up through X", back: "A trajetória em uma linha.", tag: vocab.interview }
+  - { front: "my background is in X", back: "A origem em uma linha.", tag: vocab.interview }
+  - { front: "before that", back: "Dois passos para trás, no máximo.", tag: vocab.interview }
+  - { front: "I've worked here since 2020", back: "Since + ano = present perfect.", tag: br.work-since }
+  - { front: "promoted to senior", back: "Promoção leva 'to' — nunca 'for'.", tag: br.promoted-for }
+
+review:
+  preferTags: [vocab.interview, br.work-since, br.formed-in]
+  notes: "Revisão prioriza a espinha de três peças, os três tamanhos e os tempos disciplinados."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
