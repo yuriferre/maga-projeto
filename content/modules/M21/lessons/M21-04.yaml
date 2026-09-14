@@ -1,0 +1,307 @@
+id: M21-04
+module: M21
+order: 4
+title: "Admitir limites: 'we don't know yet' sem perder a sala"
+objective: >-
+  Ao final, você declara incerteza com credibilidade:
+  distingue o que é sabido, o que é assumido e o que precisa
+  de validação — "we don't know yet", "I'd want to validate
+  that before committing", "I might be wrong about…".
+durationMin: 40
+competencies: [SPK, CNF]
+tags: [vocab.decisions, gram.argument-connectors, comp.speaking, comp.confidence, gram.hedging]
+prerequisites: [M21-03]
+
+context:
+  scenario: |
+    Segunda review do ADR-003 — e agora as perguntas saíram
+    do escopo do documento: "**how does the queue behave at
+    10x traffic?**" e "**what's the latency ceiling?**".
+    Chutar aqui é o erro caro: um número inventado vira
+    compromisso.
+
+    A incerteza declarada tem três categorias, e cada uma
+    tem sua frase:
+
+    - **sabido** — o que você afirma inteiro: "at current
+      load, p99 is 40ms".
+    - **assumido** — a premissa declarada como premissa:
+      "we're assuming traffic stays under 2x — if it
+      doesn't, this changes".
+    - **desconhecido** — o que precisa de validação:
+      "we don't know yet how it behaves at 10x — I'll
+      load-test it this week".
+
+    A fórmula da credibilidade: "**I'd want to validate
+    that before committing**" e "**I might be wrong about
+    X — here's how we check**". Incerteza com plano
+    fortalece; chute com convicção derruba.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "we don't know yet"
+    meaning: 'ainda não sabemos — o desconhecido declarado'
+    example: "We don't know yet how it behaves at 10x — that's a load test away."
+    translation: "Ainda não sabemos como se comporta a 10x — falta um teste de carga."
+    note: "'Yet' carrega o plano — não sabemos, e já está marcado para saber."
+  - term: "an assumption"
+    meaning: 'uma premissa — o que se assume sem prova ainda'
+    example: "That's an assumption — traffic stays under 2x."
+    translation: "Isso é uma premissa — o tráfego fica abaixo de 2x."
+    note: "Nomeie a premissa: 'the assumption here is…' — se cair, a decisão muda."
+  - term: "to validate"
+    meaning: 'validar — transformar premissa em fato com teste'
+    example: "I'd want to validate the latency ceiling before committing."
+    translation: "Eu queria validar o teto de latência antes de me comprometer."
+    note: "'Validate before committing' — a frase que separa chute de decisão."
+  - term: "to commit"
+    meaning: 'comprometer-se — fechar o número ou o prazo'
+    example: "I won't commit to a number before the load test."
+    translation: "Não vou me comprometer com um número antes do teste de carga."
+    note: "'Commit to X' — o que você não faz com premissa não validada."
+  - term: "I might be wrong"
+    meaning: 'posso estar errado — a revisão embutida na afirmação'
+    example: "I might be wrong about the ceiling — the test will tell."
+    translation: "Posso estar errado sobre o teto — o teste vai dizer."
+    note: "Declarar a falibilidade com plano de checagem = credibilidade."
+  - term: "an open question"
+    meaning: 'uma questão aberta — o que o ADR não responde ainda'
+    example: "Broker capacity is an open question — it goes in the ADR."
+    translation: "A capacidade do broker é questão aberta — vai para o ADR."
+    note: "Open questions entram no ADR como seção — honestidade documentada."
+  - term: "ballpark"
+    meaning: 'ordem de grandeza — a estimativa grosseira e rotulada'
+    example: "Ballpark, tens of milliseconds — don't quote me on it yet."
+    translation: "Na ordem de grandeza, dezenas de milissegundos — não me cita ainda."
+    note: "'Ballpark' rotula o chute honesto — sempre seguido do plano de validação."
+  - term: "to hedge"
+    meaning: 'proteger a afirmação — hedge com condição explícita'
+    example: "I'll hedge it: at current load, p99 is 40ms — 10x is unmeasured."
+    translation: "Vou condicionar: na carga atual, p99 é 40ms — 10x não foi medido."
+    note: "Hedge bom declara a condição; hedge ruim só enrola."
+  - term: "don't quote me"
+    meaning: 'não me cita — a estimativa não é compromisso'
+    example: "Ballpark is fine, but don't quote me until the test runs."
+    translation: "Ordem de grandeza ok, mas não me cita até o teste rodar."
+    note: "A proteção verbal da estimativa — 'not a commitment'."
+  - term: "to revisit"
+    meaning: 'revisitar — reabrir a decisão com dados novos'
+    example: "We'll revisit the decision if the load test changes the numbers."
+    translation: "Vamos revisitar a decisão se o teste de carga mudar os números."
+    note: "Decisão revisável ≠ fraca — é a que respeita evidência nova."
+  - term: "a spike test"
+    meaning: 'o teste de pico — validar o comportamento sob carga'
+    example: "A spike test at 10x will answer the Beth question."
+    translation: "Um teste de pico a 10x responde a pergunta da Beth."
+    note: "O plano concreto que acompanha o 'we don't know yet'."
+  - term: "pending"
+    meaning: 'pendente — o que aguarda o dado'
+    example: "The latency ceiling is pending the load test results."
+    translation: "O teto de latência está pendente dos resultados do teste."
+    note: "'Pending X' — o status formal do desconhecido com dono."
+
+grammar:
+  title: "hedging com plano — modal + condição + próximo passo"
+  explanation: |
+    Incerteza crível tem três ingredientes: o modal certo,
+    a condição explícita e o próximo passo datado.
+
+    - **Modal de incerteza**: "*might*", "*could*",
+      "*should hold*": "the design **should** scale to 5x" —
+      diferente de "scales to 5x" (fato) e "will scale"
+      (promessa).
+    - **Condição explícita**: "*assuming traffic stays
+      under 2x*", "*as long as the p99 holds*",
+      "*unless the test says otherwise*" — a premissa
+      fica visível.
+    - **Próximo passo**: "*I'll load-test it this week*",
+      "*we'll know after the spike test*" — o 'yet' do
+      "we don't know yet" mora aqui.
+
+    O calque da vez: "**I am agree**" continua sendo
+    "**I agree**" — e "we chose it **instead** the safe
+    option" pede "**instead of**". Na comparação,
+    "**the same risk than**" → "**the same as**".
+  examples:
+    - { en: "We don't know yet how it behaves at 10x — the spike test runs Thursday.", pt: "Ainda não sabemos como se comporta a 10x — o teste de pico roda quinta." }
+    - { en: "I'd want to validate the latency ceiling before committing to the SLO.", pt: "Eu queria validar o teto de latência antes de me comprometer com o SLO." }
+    - { en: "I might be wrong about the ordering — the consumer test will tell.", pt: "Posso estar errado sobre a ordem — o teste do consumer vai dizer." }
+    - { en: "The design should hold to 5x, assuming the pattern stays read-heavy.", pt: "O design deve aguentar até 5x, assumindo que o padrão continue de leitura." }
+    - { en: "Ballpark: tens of milliseconds — don't quote me until the test runs.", pt: "Ordem de grandeza: dezenas de milissegundos — não me cita até o teste rodar." }
+    - { en: "We'll revisit if the numbers change — the ADR gets a successor.", pt: "Vamos revisitar se os números mudarem — o ADR ganha um sucessor." }
+
+examples:
+  - en: "At current load, p99 is 40ms — that's measured, not assumed."
+    pt: "Na carga atual, p99 é 40ms — isso é medido, não assumido."
+    context: "O sabido, com a fonte."
+  - en: "We're assuming traffic stays under 2x — if it doesn't, this changes."
+    pt: "Estamos assumindo tráfego abaixo de 2x — se não ficar, isso muda."
+    context: "O assumido, declarado."
+  - en: "We don't know yet how it behaves at 10x — I'll load-test it this week."
+    pt: "Ainda não sabemos como se comporta a 10x — vou testar nesta semana."
+    context: "O desconhecido, com plano."
+  - en: "I'd want to validate that before committing to a number."
+    pt: "Eu queria validar isso antes de me comprometer com um número."
+    context: "O freio do compromisso."
+  - en: "I might be wrong about the ceiling — here's how we check."
+    pt: "Posso estar errado sobre o teto — aqui está como checamos."
+    context: "A falibilidade com plano."
+  - en: "Broker capacity is an open question — it goes in the ADR as pending."
+    pt: "Capacidade do broker é questão aberta — vai pro ADR como pendente."
+    context: "A honestidade documentada."
+  - en: "Ballpark, tens of milliseconds — but that's a guess until Thursday's test."
+    pt: "Na ordem, dezenas de milissegundos — mas é chute até o teste de quinta."
+    context: "O chute rotulado."
+  - en: "We'll revisit the choice if the load test moves the numbers."
+    pt: "Revisitamos a escolha se o teste de carga mover os números."
+    context: "A decisão que respeita evidência."
+
+variations:
+  - idea: '"o que é sabido, assumido e desconhecido"'
+    items:
+      - { register: "Boa", text: "Measured: p99 is 40ms today. Assumed: traffic under 2x. Unknown: 10x behavior — spike test Thursday.", adequate: true }
+      - { register: "Boa", text: "I'd want to validate the ceiling before committing to the SLO.", adequate: true }
+      - { register: "Inadequada", text: "It scales to 10x, probably fine.", adequate: false, note: "Chute com convicção vira compromisso — *we don't know yet; I'll test it*." }
+      - { register: "Inadequada", text: "I am agree that we don't know.", adequate: false, note: "*I agree* — sem 'am'." }
+  - idea: '"a premissa declarada"'
+    items:
+      - { register: "Boa", text: "The design should hold, assuming the pattern stays read-heavy.", adequate: true }
+      - { register: "Boa", text: "Ballpark, tens of milliseconds — don't quote me until the test.", adequate: true }
+      - { register: "Inadequada", text: "The latency is fine.", adequate: false, note: "Afirmação sem fonte — *measured, assumed ou unknown*: declare qual." }
+      - { register: "Inadequada", text: "We have the same risk than before.", adequate: false, note: "*The same as* — 'than' é só de comparativo." }
+
+brErrors:
+  - { wrong: "I am agree that we need a test.", right: "I agree that we need a test.", why: "I agree", tag: br.am-agree }
+  - { wrong: "We have the same risk than before.", right: "We have the same risk as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "We chose it instead the safe option.", right: "We chose it instead of the safe option.", why: "instead of", tag: br.instead-of }
+  - { wrong: "We discussed about the assumptions.", right: "We discussed the assumptions.", why: "discussed the assumptions", tag: br.discuss-about }
+  - { wrong: "I have doubt about the ceiling.", right: "I have a doubt about the ceiling.", why: "a doubt", tag: br.doubt }
+  - { wrong: "It depends of the load test.", right: "It depends on the load test.", why: "depends on", tag: br.depend-of }
+  - { wrong: "Actually we never tested at 10x.", right: "To be honest, we never tested at 10x.", why: "to be honest", tag: br.actually }
+  - { wrong: "The test worths running.", right: "The test is worth running.", why: "is worth running", tag: br.worths }
+  - { wrong: "Can you explain me the assumption?", right: "Can you explain the assumption to me?", why: "explain the assumption", tag: br.explain-me }
+  - { wrong: "I think it make sense to validate first.", right: "I think it makes sense to validate first.", why: "it makes sense", tag: br.it-makes-sense }
+
+dialogue:
+  title: "Perguntas fora do escopo"
+  lines:
+    - { speaker: Beth, text: "How does the queue behave at 10x traffic?" }
+    - { speaker: Yuri, text: "Honest answer: we don't know yet. At current load p99 is 40ms — that's measured. 10x is a spike test, and it's scheduled for Thursday." }
+    - { speaker: Beth, text: "And the latency ceiling?" }
+    - { speaker: Yuri, text: "Ballpark, tens of milliseconds — but don't quote me until the test runs. I'd want to validate it before committing to any SLO." }
+    - { speaker: Carlos, text: "So the ADR assumes the ceiling holds?" }
+    - { speaker: Yuri, text: "The assumption is traffic stays under 2x — it's written in the doc. If the test breaks it, we revisit the choice." }
+    - { speaker: Beth, text: "I might be wrong here, but the consumer could also be the bottleneck." }
+    - { speaker: Yuri, text: "Fair — that's an open question too. I'll add it to the ADR as pending, next to capacity." }
+    - { speaker: Carlos, text: "Good. The ADR now says what's known, what's assumed and what's pending — that's the honest version." }
+  notes:
+    - "cada incerteza sai com plano: spike test, 'pending', 'revisit if…'."
+    - "a Beth modela 'I might be wrong' — e o Yuri a recebe sem punir."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "Uncertainty has three categories, each with its phrase. Known — 'at current load, p99 is 40ms', with the source. Assumed — 'we're assuming traffic stays under 2x', declared as an assumption. Unknown — 'we don't know yet', always with the plan that closes it." }
+    - { speaker: Yuri, text: "The credibility formula: 'I'd want to validate that before committing' and 'I might be wrong about X — here's how we check'. A guess gets labeled — 'ballpark, tens of milliseconds, don't quote me'. And open questions go in the ADR as pending." }
+    - { speaker: Carlos, text: "The expensive mistake is guessing with conviction — an invented number becomes a commitment. The cheap move is naming the category: measured, assumed or unknown. And the calques stay out — 'I agree', 'the same as', 'instead of'." }
+  questions:
+    - { id: M21-04-l1, type: multiple_choice, prompt: "As três categorias de incerteza são…", options: ["certo, errado, duvidoso", "conhecido, assumido, desconhecido", "rápido, lento, médio", "proposto, aceito, rejeitado"], answer: 1, explanation: "Known / assumed / unknown — cada uma com sua frase.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-04-l2, type: multiple_choice, prompt: "'We don't know yet' só funciona quando vem com…", options: ["um pedido de desculpas", "um prazo longo", "o plano que fecha a incerteza", "outra pergunta"], answer: 2, explanation: "O 'yet' carrega o plano — spike test Thursday.", tags: [comp.listening, gram.hedging] }
+    - { id: M21-04-l3, type: fill_blank, prompt: "I'd want to ___ the ceiling before committing to the SLO.", accepted: ["validate"], explanation: "'Validate before committing'.", tags: [vocab.decisions] }
+    - { id: M21-04-l4, type: error_correction, prompt: "We have the same risk than before.", accepted: ["We have the same risk as before.", "We have the same risk as before"], explanation: "'the same as'.", tags: [br.same-than] }
+    - { id: M21-04-l5, type: multiple_choice, prompt: "'Ballpark, tens of milliseconds — don't quote me' é…", options: ["um número compromissado", "um chute rotulado — estimativa, não promessa", "uma medição exata", "uma desculpa"], answer: 1, explanation: "Ballpark + 'don't quote me' = estimativa honesta.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-04-l6, type: multiple_choice, prompt: "'I might be wrong about X — here's how we check' funciona porque…", options: ["mostra dúvida e fraqueza", "adverte o revisor", "declara a falibilidade com plano de checagem", "evita a pergunta"], answer: 2, explanation: "Falibilidade + verificação = credibilidade.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** a Beth pediu por escrito, no canal do ADR,
+    o estado do conhecimento: "what's known, what's assumed,
+    what's still open?"
+
+    **Tarefa:** escreva 70–100 palavras separando as três
+    categorias: o que está medido (p99 a carga atual), a
+    premissa declarada (tráfego < 2x) e as questões abertas
+    (comportamento a 10x, o consumer como gargalo) — cada
+    uma com o plano que a fecha (spike test quinta, ADR
+    pending).
+  constraints:
+    - { label: "O medido", pattern: "\\bmeasured|current load|p99\\b" }
+    - { label: "A premissa", pattern: "\\bassum\\w+|assumption\\b" }
+    - { label: "O desconhecido", pattern: "\\bdon't know|open question|pending\\b" }
+    - { label: "O plano", pattern: "\\btest|validate|revisit\\w*\\b" }
+  rubric:
+    - "Três categorias separadas e rotuladas"
+    - "Cada incerteza com plano datado"
+    - "Premissa declarada como premissa"
+    - "Sem calques ('I agree', 'the same as')"
+  model: >-
+    Known and measured: at current load, p99 is 40ms.
+    Assumed, and declared: traffic stays under 2x — if it
+    doesn't, the decision changes and we revisit. Still
+    open: behavior at 10x and whether the consumer becomes
+    the bottleneck. Both go in the ADR as open questions —
+    pending the spike test running Thursday. I'd want to
+    validate the latency ceiling before committing to any
+    SLO; I might be wrong about it, and the test will tell.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.decisions, gram.hedging]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo 'how does it behave at 10x?': o que está medido, o que é assumido, o que é desconhecido — e o plano que fecha cada um."
+    maxSeconds: 45
+    targetPhrases:
+      - we don't know yet
+      - I'd want to validate
+      - before committing
+      - I might be wrong
+      - we're assuming
+      - an open question
+      - ballpark
+      - don't quote me
+      - pending
+      - spike test
+      - we'll revisit
+      - measured
+      - I agree
+      - the same as
+      - at current load
+      - the test will tell
+    checklist:
+      - "sabido, assumido e desconhecido separados"
+      - "cada incerteza com plano"
+      - "'I might be wrong' com 'here's how we check'"
+      - "'I agree', 'the same as' — sem calques"
+
+quiz:
+  - { id: M21-04-q1, type: multiple_choice, prompt: "'We don't know yet' precisa vir com…", options: ["desculpas", "o plano que fecha a incerteza", "um número estimado", "silêncio"], answer: 1, explanation: "O 'yet' carrega o plano — 'spike test Thursday'.", tags: [vocab.decisions] }
+  - { id: M21-04-q2, type: error_correction, prompt: "I am agree that we need a load test.", accepted: ["I agree that we need a load test.", "I agree that we need a load test"], explanation: "'I agree'.", tags: [br.am-agree] }
+  - { id: M21-04-q3, type: multiple_choice, prompt: "Premissa declarada é…", options: ["um fato medido", "'we're assuming X — if it breaks, this changes'", "uma desculpa", "um risco aceito"], answer: 1, explanation: "Assumed — declarada com a condição que a derruba.", tags: [vocab.decisions] }
+  - { id: M21-04-q4, type: fill_blank, prompt: "Capacity is an ___ question — it goes in the ADR as pending.", accepted: ["open"], explanation: "'Open question' — honestidade documentada.", tags: [vocab.decisions] }
+  - { id: M21-04-q5, type: multiple_choice, prompt: "Chutar um número com convicção na review…", options: ["mostra senioridade", "economiza tempo", "vira compromisso — o erro caro", "impressiona os revisores"], answer: 2, explanation: "Número inventado vira SLO depois.", tags: [vocab.decisions, comp.confidence] }
+  - { id: M21-04-q6, type: error_correction, prompt: "We chose it instead the safe option.", accepted: ["We chose it instead of the safe option.", "We chose it instead of the safe option"], explanation: "'instead of'.", tags: [br.instead-of] }
+  - { id: M21-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["validate", "to", "want", "that", "I'd"], answer: "I'd want to validate that", explanation: "O freio do compromisso.", tags: [vocab.decisions] }
+  - { id: M21-04-q8, type: multiple_choice, prompt: "'The design should hold to 5x' usa 'should' para…", options: ["marcar expectativa — nem fato, nem promessa", "dar ordem", "pedir permissão", "negar o fato"], answer: 0, explanation: "'Should' = expectativa modal — entre 'is' e 'will'.", tags: [gram.hedging] }
+
+srsCards:
+  - { front: "we don't know yet", back: "O desconhecido com plano — 'spike test Thursday'.", tag: vocab.decisions }
+  - { front: "an assumption", back: "Premissa declarada — 'we're assuming traffic < 2x'.", tag: vocab.decisions }
+  - { front: "to validate", back: "Premissa → fato — 'validate before committing'.", tag: vocab.decisions }
+  - { front: "to commit", back: "Fechar número/prazo — 'won't commit before the test'.", tag: vocab.decisions }
+  - { front: "I might be wrong", back: "Falibilidade + checagem — 'here's how we check'.", tag: vocab.decisions }
+  - { front: "an open question", back: "O que o ADR não responde — 'pending the test'.", tag: vocab.decisions }
+  - { front: "ballpark", back: "Ordem de grandeza rotulada — 'don't quote me'.", tag: vocab.decisions }
+  - { front: "to hedge", back: "Afirmação com condição — 'at current load, p99 is 40ms'.", tag: vocab.decisions }
+  - { front: "don't quote me", back: "Estimativa, não compromisso.", tag: vocab.decisions }
+  - { front: "to revisit", back: "Reabrir com dados novos — 'revisit if numbers change'.", tag: vocab.decisions }
+  - { front: "a spike test", back: "Validar sob pico — 'answers the 10x question'.", tag: vocab.decisions }
+  - { front: "pending", back: "Aguardando o dado — 'pending the load test'.", tag: vocab.decisions }
+
+review:
+  preferTags: [vocab.decisions, gram.hedging, br.instead-of]
+  notes: "Revisão prioriza as três categorias de incerteza (known/assumed/unknown), a fórmula 'validate before committing' e os calques de argumentação."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
