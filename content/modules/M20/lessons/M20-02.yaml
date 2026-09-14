@@ -1,0 +1,295 @@
+id: M20-02
+module: M20
+order: 2
+title: "Falando de números: percentuais e ordens de grandeza"
+objective: >-
+  Ao final, você fala de custo com números naturais: percentuais,
+  frações ("roughly a third"), ordens de grandeza e variações no
+  tempo ("a 40% increase month over month").
+durationMin: 30
+competencies: [VOC, SPK]
+tags: [vocab.finops, gram.numbers-percentages, comp.vocabulary, comp.speaking]
+prerequisites: [M20-01]
+
+context:
+  scenario: |
+    A Ana olha a planilha e pergunta: "**how much of this is
+    actually waste?**" A resposta certa não é "a lot" — é um
+    número com a forma certa: "roughly a third", "a 40% increase
+    month over month", "in the order of $12k a month".
+
+    O kit de números para falar de custo:
+
+    - **Percentual direto** — "compute is 60% of the bill";
+      "utilization is at 35%". Preposição: "**at** 35%", nunca
+      "in 35%".
+    - **Frações naturais** — "half the bill", "a third of
+      spend", "two thirds of traffic". Evite "the half of".
+    - **Aproximações** — "roughly / about / around / close to /
+      just over / just under". "Roughly a third is waste."
+    - **Variação** — "up 18%", "down 12%", "a 40% increase",
+      "a 20% drop". "Costs rose **by** 40%", nunca "in 40%".
+    - **No tempo** — "month over month" (MoM), "quarter over
+      quarter" (QoQ), "year over year" (YoY), "per month".
+    - **Ordens de grandeza** — "in the order of $12k", "an order
+      of magnitude cheaper", "double / triple / 10x".
+    - **Totais** — "$12k a month", "per year", "that's $144k
+      annually". O número anualizado assusta mais que o mensal.
+  roles: [Yuri (platform engineer), Ana (product manager)]
+
+vocabulary:
+  - term: "roughly / about / around"
+    meaning: 'aproximadamente — o hedge honesto do número redondo'
+    example: "Roughly a third of the bill is idle capacity."
+    translation: "Aproximadamente um terço da fatura é capacidade ociosa."
+    note: "'Roughly' é o favorito técnico; 'about' e 'around' valem igual."
+  - term: "a third / two thirds"
+    meaning: 'um terço / dois terços — frações naturais'
+    example: "A third of the instances are oversized."
+    translation: "Um terço das instâncias está superdimensionado."
+    note: "'Half the bill', 'a third of spend' — sem 'the' antes de half."
+  - term: "up / down by"
+    meaning: 'subiu/caiu DE tanto — a preposição da variação'
+    example: "The bill is up 18% month over month."
+    translation: "A fatura subiu 18% mês a mês."
+    note: "Variação leva 'by' ou nada — 'up 18%'. Nunca 'up in 18%'."
+  - term: "a 40% increase"
+    meaning: 'um aumento de 40% — o substantivo da variação'
+    example: "We saw a 40% increase in egress month over month."
+    translation: "Vimos um aumento de 40% no egress mês a mês."
+    note: "'a 40% increase/drop/spike' — o número vira adjetivo."
+  - term: "month over month"
+    meaning: 'mês contra mês — a comparação de custo padrão'
+    example: "Spend is flat month over month — the increase was a one-off."
+    translation: "O gasto está estável mês a mês — o aumento foi pontual."
+    note: "Abrevia MoM; também quarter over quarter, year over year."
+  - term: "in the order of"
+    meaning: 'na ordem de — a ordem de grandeza do valor'
+    example: "The waste is in the order of $12k a month."
+    translation: "O desperdício é na ordem de $12 mil por mês."
+    note: "Para números imprecisos mas da magnitude certa."
+  - term: "an order of magnitude"
+    meaning: 'uma ordem de grandeza — ~10x'
+    example: "Spot is an order of magnitude cheaper for batch."
+    translation: "Spot é uma ordem de grandeza mais barato para batch."
+    note: "≈10x. 'Two orders of magnitude' ≈100x."
+  - term: "double / triple"
+    meaning: 'o dobro / o triplo — como verbo e como número'
+    example: "Egress doubled after we moved the logs."
+    translation: "O egress dobrou depois que movemos os logs."
+    note: "'Costs doubled' — nunca 'the costs are double than'."
+  - term: "per month / a month / annually"
+    meaning: 'por mês / por ano — a cadência do número'
+    example: "$12k a month — that's $144k annually."
+    translation: "$12 mil por mês — isso é $144 mil por ano."
+    note: "Anualizar muda a escala da conversa: $800/mês vira $9.6k/ano."
+  - term: "just over / just under"
+    meaning: 'pouco acima / pouco abaixo — a borda do número'
+    example: "We're just under budget — $200 to spare."
+    translation: "Estamos logo abaixo do orçamento — $200 de folga."
+    note: "Também 'slightly over', 'well under' para distâncias."
+  - term: "flat"
+    meaning: 'estável — sem variação relevante'
+    example: "Compute spend is flat; egress is what grew."
+    translation: "O gasto de compute está estável; o que cresceu foi egress."
+    note: "Mesmo vocabulário de tendência do M18 — flat, spiked, dropped."
+  - term: "one-off"
+    meaning: 'pontual — aconteceu uma vez, não é tendência'
+    example: "The spike was a one-off — the load test, not real growth."
+    translation: "O pico foi pontual — o teste de carga, não crescimento real."
+    note: "Separar one-off de tendência é metade da conversa de custo."
+
+grammar:
+  title: "at 35%, up 18%, half the bill — as preposições do número"
+  explanation: |
+    Os números têm preposições fixas e o português erra as três:
+
+    - **Nível**: "utilization is **at** 35%" — nunca "in 35%".
+      "At" para o ponto na escala.
+    - **Variação**: "costs rose **by** 40%" ou simplesmente
+      "up 40%" — nunca "rose in 40%" nem "increased in 40%".
+    - **Fração**: "**half** the bill", "half of the bill" —
+      nunca "the half of the bill". O "the" só entra em
+      "the first/second half of the year".
+
+    E o par price/rate: "**the price is high**" — nunca
+    "expensive". "Expensive" descreve o item; o número em si é
+    high/low.
+  examples:
+    - { en: "Utilization is at 35% — never 'in 35%'.", pt: "A utilização está em 35% — nunca 'in 35%'." }
+    - { en: "Costs rose by 40% — or simply 'up 40%'.", pt: "Os custos subiram 40% — ou só 'up 40%'." }
+    - { en: "Half the bill is compute — never 'the half of'.", pt: "Metade da fatura é compute — nunca 'the half of'." }
+    - { en: "We saw a 40% increase month over month.", pt: "Vimos um aumento de 40% mês a mês." }
+    - { en: "Roughly a third of spend is idle capacity.", pt: "Aproximadamente um terço do gasto é capacidade ociosa." }
+    - { en: "The waste is in the order of $12k a month.", pt: "O desperdício é na ordem de $12 mil por mês." }
+
+examples:
+  - en: "Roughly a third of the bill is idle capacity."
+    pt: "Aproximadamente um terço da fatura é capacidade ociosa."
+    context: "A fração com hedge."
+  - en: "The bill is up 18% month over month."
+    pt: "A fatura subiu 18% mês a mês."
+    context: "A variação no tempo."
+  - en: "We saw a 40% increase in egress after the SIEM migration."
+    pt: "Vimos um aumento de 40% no egress após a migração do SIEM."
+    context: "O substantivo da variação."
+  - en: "Utilization is at 35% — we're paying for air."
+    pt: "A utilização está em 35% — estamos pagando por ar."
+    context: "O nível com 'at'."
+  - en: "The waste is in the order of $12k a month."
+    pt: "O desperdício é na ordem de $12 mil por mês."
+    context: "A ordem de grandeza."
+  - en: "Spot is an order of magnitude cheaper for batch."
+    pt: "Spot é uma ordem de grandeza mais barato para batch."
+    context: "O ≈10x."
+  - en: "$800 a month is $9.6k annually — it adds up."
+    pt: "$800 por mês é $9,6 mil por ano — acumula."
+    context: "O número anualizado."
+  - en: "The spike was a one-off — the load test, not real growth."
+    pt: "O pico foi pontual — o teste de carga, não crescimento real."
+    context: "One-off ≠ tendência."
+
+variations:
+  - idea: '"o número certo do jeito certo"'
+    items:
+      - { register: "Boa", text: "Roughly a third of spend is waste.", adequate: true }
+      - { register: "Boa", text: "The bill is up 18% month over month.", adequate: true }
+      - { register: "Inadequada", text: "Utilization is in 35%.", adequate: false, note: "Nível leva *at* — 'at 35%'." }
+      - { register: "Inadequada", text: "Costs increased in 40%.", adequate: false, note: "Variação leva *by* — 'rose by 40%' ou 'up 40%'." }
+  - idea: '"fração e grandeza"'
+    items:
+      - { register: "Boa", text: "Half the bill is compute.", adequate: true }
+      - { register: "Boa", text: "The waste is in the order of $12k a month.", adequate: true }
+      - { register: "Inadequada", text: "The half of the bill is compute.", adequate: false, note: "*Half the bill* — sem 'the' antes de half." }
+      - { register: "Inadequada", text: "The price is expensive.", adequate: false, note: "Preço é *high* — 'expensive' descreve o item." }
+
+brErrors:
+  - { wrong: "Compute is the half of the bill.", right: "Compute is half the bill.", why: "half the bill", tag: br.the-half }
+  - { wrong: "Utilization is in 35%.", right: "Utilization is at 35%.", why: "at 35%", tag: br.in-percent }
+  - { wrong: "The cost is in 18% higher.", right: "The cost is 18% higher.", why: "18% higher, sem 'in'", tag: br.in-percent }
+  - { wrong: "The price of the instance is expensive.", right: "The price of the instance is high.", why: "the price is high", tag: br.price-expensive }
+  - { wrong: "We spend $12k a month with compute.", right: "We spend $12k a month on compute.", why: "spend on", tag: br.spend-with }
+  - { wrong: "That's an economy of about 40%.", right: "That's a saving of about 40%.", why: "a saving of", tag: br.an-economy }
+  - { wrong: "The cost raised month over month.", right: "The cost rose month over month.", why: "rose / went up", tag: br.metric-raised }
+  - { wrong: "We have a utilization of 35%.", right: "Utilization is 35%.", why: "utilization is", tag: br.have-a-latency }
+  - { wrong: "The bill overpassed the budget.", right: "The bill exceeded the budget.", why: "exceeded", tag: br.overpassed }
+  - { wrong: "The team not see the waste.", right: "The team doesn't see the waste.", why: "doesn't see", tag: br.it-not-works }
+
+dialogue:
+  title: "Quanto disso é desperdício?"
+  lines:
+    - { speaker: Ana, text: "How much of this bill is actually waste?" }
+    - { speaker: Yuri, text: "Roughly a third. Compute is 60% of the total, and utilization there is at 35% — that gap is the waste." }
+    - { speaker: Ana, text: "So the half of compute is… how much in dollars?" }
+    - { speaker: Yuri, text: "Half the bill — and in dollars the waste is in the order of $12k a month. That's $144k annually." }
+    - { speaker: Ana, text: "And the increase — is it a trend or a one-off?" }
+    - { speaker: Yuri, text: "Mostly a trend: egress saw a 40% increase month over month since we moved the logs. The spike last Tuesday was a one-off — the load test." }
+    - { speaker: Ana, text: "What would the savings plan change?" }
+    - { speaker: Yuri, text: "The baseline is just over half of compute — reserving that cuts it by about 40%. We're just under budget this month; next month we won't be." }
+    - { speaker: Ana, text: "Put the numbers in one slide — monthly and annualized." }
+  notes:
+    - "'in the order of $12k' e '$144k annually' — a mesma quantia em duas escalas."
+    - "'just under budget' / 'just over half' — as bordas do número."
+
+listening:
+  lines:
+    - { speaker: Yuri, text: "Numbers have fixed prepositions. Level takes 'at' — 'utilization is at thirty-five percent', never 'in'. Change takes 'by' or nothing — 'costs rose by forty percent' or just 'up eighteen percent', never 'increased in'. And fractions: 'half the bill', 'a third of spend' — never 'the half of the bill'." }
+    - { speaker: Ana, text: "And when the number isn't exact? You hedge — 'roughly a third', 'about half', 'just under budget'. For magnitude there's 'in the order of' — 'the waste is in the order of twelve K a month' — and 'an order of magnitude' for roughly ten times. 'Spot is an order of magnitude cheaper for batch.'" }
+    - { speaker: Yuri, text: "Over time it's 'month over month', 'quarter over quarter', 'year over year'. And the trick that lands: annualize — 'eight hundred a month' sounds small; 'that's nine point six K annually' doesn't. Separate one-offs from trends — the load test spike was a one-off; the egress growth is a trend." }
+  questions:
+    - { id: M20-02-l1, type: multiple_choice, prompt: "'Utilization is ___ 35%.'", options: ["in", "on", "at", "of"], answer: 2, explanation: "Nível leva 'at'.", tags: [comp.listening, gram.numbers-percentages] }
+    - { id: M20-02-l2, type: multiple_choice, prompt: "'Costs rose ___ 40%.'", options: ["in", "by", "of", "at"], answer: 1, explanation: "Variação leva 'by' (ou nada).", tags: [comp.listening, gram.numbers-percentages] }
+    - { id: M20-02-l3, type: fill_blank, prompt: "___ a third of the bill is idle capacity.", accepted: ["roughly", "about", "around"], explanation: "O hedge honesto.", tags: [gram.numbers-percentages] }
+    - { id: M20-02-l4, type: error_correction, prompt: "The half of the bill is compute.", accepted: ["Half the bill is compute.", "Half of the bill is compute.", "Half the bill is compute", "Half of the bill is compute"], explanation: "half the/of the bill.", tags: [br.the-half] }
+    - { id: M20-02-l5, type: multiple_choice, prompt: "'In the order of $12k' means…", options: ["exactly $12k", "the magnitude is ~$12k — not exact", "$12k per year", "twelve orders"], answer: 1, explanation: "Ordem de grandeza — magnitude certa, número impreciso.", tags: [comp.listening, gram.numbers-percentages] }
+    - { id: M20-02-l6, type: multiple_choice, prompt: "A one-off spike is…", options: ["a growing trend", "month over month", "happened once — not a trend", "a 10x change"], answer: 2, explanation: "Pontual, não tendência.", tags: [comp.listening, vocab.finops] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana pediu "the numbers in one slide" — a
+    versão escrita do resumo de custo.
+
+    **Tarefa:** escreva 50–80 palavras com: a fração de
+    desperdício (com hedge), a variação de egress (com "by" ou
+    "up" + período), a ordem de grandeza do waste em dólares e
+    o número anualizado. Marque o que é tendência e o que foi
+    one-off.
+  constraints:
+    - { label: "A fração com hedge", pattern: "\\b(roughly|about|around|a third|half|two thirds)\\b" }
+    - { label: "A variação", pattern: "\\b(up|down|rose|increase|drop)\\w*.{0,15}\\d+\\s*%" }
+    - { label: "O período", pattern: "\\bmonth over month|per month|a month|annually\\b" }
+    - { label: "A grandeza", pattern: "\\border of|\\$\\d" }
+  rubric:
+    - "Preposições certas: at/by, sem 'in'"
+    - "Fração natural: 'half the', 'a third of'"
+    - "Tendência × one-off separados"
+    - "Número mensal E anualizado"
+  model: >-
+    Roughly a third of the bill is waste — mostly idle compute.
+    Egress is up 40% month over month since we moved the logs;
+    last Tuesday's spike was a one-off, the load test. The waste
+    is in the order of $12k a month — that's $144k annually.
+    Trend: egress and oversized nodes. One-off: the load test.
+  minWords: 50
+  maxWords: 80
+  tags: [comp.writing, gram.numbers-percentages]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo 'how much of the bill is waste?' — com a fração, a variação de egress, a ordem de grandeza e o número anualizado."
+    maxSeconds: 45
+    targetPhrases:
+      - roughly a third
+      - half the bill
+      - up 18%
+      - a 40% increase
+      - month over month
+      - at 35%
+      - in the order of
+      - an order of magnitude
+      - annually
+      - just under budget
+      - a one-off
+      - flat
+      - doubled
+      - per month
+      - a saving of
+      - we spend
+    checklist:
+      - "'at 35%', nunca 'in'"
+      - "'up 18%' ou 'rose by', nunca 'increased in'"
+      - "'half the', nunca 'the half of'"
+      - "tendência × one-off separados"
+
+quiz:
+  - { id: M20-02-q1, type: multiple_choice, prompt: "'Utilization is ___ 35%.'", options: ["at", "in", "on", "of"], answer: 0, explanation: "Nível leva 'at'.", tags: [gram.numbers-percentages] }
+  - { id: M20-02-q2, type: error_correction, prompt: "Costs increased in 40% this quarter.", accepted: ["Costs rose by 40% this quarter.", "Costs increased by 40% this quarter.", "Costs went up 40% this quarter."], explanation: "'by 40%' ou 'up 40%'.", tags: [gram.numbers-percentages] }
+  - { id: M20-02-q3, type: multiple_choice, prompt: "'Roughly a third' é…", options: ["exatamente 33%", "aproximadamente um terço", "três terços", "um terço exato"], answer: 1, explanation: "O hedge do número redondo.", tags: [gram.numbers-percentages] }
+  - { id: M20-02-q4, type: fill_blank, prompt: "The bill is up 18% month ___ month.", accepted: ["over"], explanation: "'Month over month' — MoM.", tags: [gram.numbers-percentages] }
+  - { id: M20-02-q5, type: multiple_choice, prompt: "'An order of magnitude cheaper' significa…", options: ["10% mais barato", "o dobro", "≈10x mais barato", "um pouco mais barato"], answer: 2, explanation: "Uma ordem de grandeza ≈10x.", tags: [gram.numbers-percentages] }
+  - { id: M20-02-q6, type: error_correction, prompt: "We spend $12k a month with compute.", accepted: ["We spend $12k a month on compute.", "We spend $12k a month on compute"], explanation: "'spend on'.", tags: [br.spend-with] }
+  - { id: M20-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["third", "a", "roughly", "of", "spend", "is", "waste"], answer: "roughly a third of spend is waste", explanation: "O hedge + a fração.", tags: [gram.numbers-percentages] }
+  - { id: M20-02-q8, type: multiple_choice, prompt: "'The spike was a one-off' significa…", options: ["aconteceu uma vez — não é tendência", "acontece todo mês", "é o maior pico", "é um erro de medição"], answer: 0, explanation: "Pontual ≠ tendência.", tags: [vocab.finops] }
+
+srsCards:
+  - { front: "roughly / about / around", back: "Aproximadamente — 'roughly a third is waste'.", tag: gram.numbers-percentages }
+  - { front: "a third / two thirds", back: "Um terço / dois terços — sem 'the' antes de half.", tag: gram.numbers-percentages }
+  - { front: "up / down by", back: "Subiu/caiu DE — 'up 18%', 'rose by 40%'.", tag: gram.numbers-percentages }
+  - { front: "a 40% increase", back: "O substantivo da variação — 'a 40% increase in egress'.", tag: gram.numbers-percentages }
+  - { front: "month over month", back: "Mês contra mês — MoM. Também QoQ, YoY.", tag: gram.numbers-percentages }
+  - { front: "in the order of", back: "Ordem de grandeza do valor — 'in the order of $12k'.", tag: gram.numbers-percentages }
+  - { front: "an order of magnitude", back: "≈10x — 'spot is an order of magnitude cheaper'.", tag: gram.numbers-percentages }
+  - { front: "double / triple", back: "Dobrar/triplicar — 'egress doubled'.", tag: gram.numbers-percentages }
+  - { front: "per month / annually", back: "Por mês/ano — '$800 a month is $9.6k annually'.", tag: gram.numbers-percentages }
+  - { front: "just over / just under", back: "Borda do número — 'just under budget'.", tag: gram.numbers-percentages }
+  - { front: "flat", back: "Estável — 'compute spend is flat'.", tag: gram.numbers-percentages }
+  - { front: "one-off", back: "Pontual — 'the spike was a one-off'.", tag: vocab.finops }
+
+review:
+  preferTags: [gram.numbers-percentages, br.the-half, br.in-percent]
+  notes: "Revisão prioriza as preposições do número (at/by), frações naturais e os calques (the half of, in 35%, spend with)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
