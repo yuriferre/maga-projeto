@@ -1011,3 +1011,35 @@ patterns:
     right: "In Brazil we have a 13th-month bonus / year-end bonus"
     why: '"Décimo terceiro" não existe como conceito fora do BR — "13th-month bonus" ou "year-end bonus".'
     tag: br.thirteenth-salary
+  # "new in the company" — "novo na empresa" é "new to the company/team".
+  # "New in" sobra só para cidade/lançamento — "new in town", "new in this release" fora.
+  - id: new-in-company
+    pattern: "\\bnew\\s+in\\s+(the\\s+)?(company|team|role|job|position|org|organization)\\b"
+    wrong: "I'm new in the company"
+    right: "I'm new to the company / new here"
+    why: '"Novo na empresa" é "new to" — "new in" é para cidade ou lançamento.'
+    tag: br.new-in-company
+  # "in my first day" — dia específico leva "on": "on my first day".
+  # Só o singular — "in the first days/weeks" (período) fora.
+  - id: in-first-day
+    pattern: "\\bin\\s+(my|the|your|his|her|our|their)\\s+first\\s+day\\b"
+    wrong: "In my first day I met the team"
+    right: "On my first day I met the team"
+    why: 'Dia específico leva "on" — "in" é para semana/mês/período.'
+    tag: br.in-first-day
+  # "I need a help" — "help" é incontável; sem artigo.
+  # "A help desk" e "a big help" (substantivo contável "uma ajuda") ficam fora.
+  - id: a-help
+    pattern: "\\b(need|needs|needed|want|wants|wanted|gimme|give me|ask for|asking for|looking for)\\s+a\\s+help\\b"
+    wrong: "I need a help with the setup"
+    right: "I need help with the setup"
+    why: '"Help" é incontável — sem artigo ("a help desk" é outro substantivo).'
+    tag: br.a-help
+  # "the responsible for X" — "o responsável por" é "the owner of / who owns".
+  # "Held responsible for" (culpado por) e "the responsible person" ficam fora.
+  - id: the-responsible
+    pattern: "\\bthe\\s+responsible\\s+for\\b"
+    wrong: "Who is the responsible for this repo?"
+    right: "Who owns this repo? / who is the owner of this repo?"
+    why: '"O responsável por" é "the owner of" — "responsible" é adjetivo, não cargo.'
+    tag: br.the-responsible

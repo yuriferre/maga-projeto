@@ -1408,3 +1408,46 @@ describe("padrões BR — M31 (ofertas e negociação)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.thirteenth-salary");
   });
 });
+
+describe("padrões BR — M32 (onboarding internacional)", () => {
+  it("flags 'new in the company' but not 'new in town'", () => {
+    expect(tagsOf("I'm new in the company.")).toContain("br.new-in-company");
+    expect(tagsOf("She is new in the role.")).toContain("br.new-in-company");
+    const clean = [
+      "I'm new to the company.",
+      "I'm new in town — just moved here.",
+      "The feature is new in this release.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.new-in-company");
+  });
+  it("flags 'in my first day' but not 'in the first days'", () => {
+    expect(tagsOf("In my first day I met the team.")).toContain("br.in-first-day");
+    expect(tagsOf("I broke prod in my first day.")).toContain("br.in-first-day");
+    const clean = [
+      "On my first day I met the team.",
+      "In the first days of the project we planned.",
+      "I saw it in the first-day checklist.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-first-day");
+  });
+  it("flags 'I need a help' but not 'a help desk'", () => {
+    expect(tagsOf("I need a help with the setup.")).toContain("br.a-help");
+    expect(tagsOf("Can you give me a help here?")).toContain("br.a-help");
+    const clean = [
+      "I need help with the setup.",
+      "The help desk is on floor two.",
+      "It was a big help — thanks.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.a-help");
+  });
+  it("flags 'the responsible for' but not 'held responsible'", () => {
+    expect(tagsOf("Who is the responsible for this repo?")).toContain("br.the-responsible");
+    expect(tagsOf("The responsible for the docs is Ana.")).toContain("br.the-responsible");
+    const clean = [
+      "Who owns this repo?",
+      "She was held responsible for the outage.",
+      "The responsible person already left.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.the-responsible");
+  });
+});

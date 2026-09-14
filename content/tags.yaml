@@ -192,6 +192,7 @@ tags:
   - { id: br.suggest-to,       group: br, label: "suggest to do → suggest doing" }
   - { id: br.in-other-hand,    group: br, label: "in the other hand → on" }
   - { id: vocab.smalltalk,     group: vocab, label: "Small talk, idioms e humor" }
+  - { id: vocab.onboarding,    group: vocab, label: "Onboarding e primeiras semanas" }
   - { id: br.i-am-boring,      group: br, label: "I'm boring → bored" }
   - { id: br.too-much-people,  group: br, label: "too much people → many" }
   - { id: br.how-long-time,    group: br, label: "how long time → how long" }
@@ -218,3 +219,7 @@ tags:
   - { id: br.job-proposal,     group: br, label: "job proposal → job offer" }
   - { id: br.more-vacations,   group: br, label: "more vacations → vacation days" }
   - { id: br.thirteenth-salary, group: br, label: "thirteenth salary → 13th-month bonus" }
+  - { id: br.new-in-company,   group: br, label: "new in the company → new to" }
+  - { id: br.in-first-day,     group: br, label: "in my first day → on my first day" }
+  - { id: br.a-help,           group: br, label: "I need a help → I need help" }
+  - { id: br.the-responsible,  group: br, label: "the responsible for → the owner of" }
