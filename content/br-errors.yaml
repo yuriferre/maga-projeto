@@ -804,3 +804,34 @@ patterns:
     right: "On the other hand, the rewrite is risky"
     why: '"Por outro lado" é "on the other hand" — "in" é para mão física ("in my other hand").'
     tag: br.in-other-hand
+  # "I'm boring" — "estou entediado" é "I'm bored". O -ing descreve a coisa
+  # que causa; quem sente leva -ed. Exige sujeito-pessoa — "the meeting is boring" fora.
+  - id: i-am-boring
+    pattern: "\\b(i am|i'm|we are|we're|they are|they're|he is|he's|she is|she's)\\s+(boring|tiring|annoying|confusing|depressing|embarrassing)\\b"
+    wrong: "I'm boring in meetings"
+    right: "I'm bored in meetings"
+    why: 'Quem sente leva -ed ("bored"); -ing é para a coisa que causa ("the meeting is boring").'
+    tag: br.i-am-boring
+  # "too much people" — people/meetings/things são contáveis: "too many".
+  # Lista restrita de contáveis — "too much work" fica fora.
+  - id: too-much-people
+    pattern: "\\b(too|very|so)\\s+much\\s+(people|meetings|emails|messages|comments|things|options|questions|alerts|deploys)\\b"
+    wrong: "Too much people joined the call"
+    right: "Too many people joined the call"
+    why: 'Contáveis levam "many" — too many people. "Much" é para incontáveis (work, traffic).'
+    tag: br.too-much-people
+  # "how long time" — "há quanto tempo" é só "how long".
+  - id: how-long-time
+    pattern: "\\bhow\\s+long\\s+time\\b"
+    wrong: "How long time have you been here?"
+    right: "How long have you been here?"
+    why: '"How long" já carrega o "tempo" — sem "time" depois.'
+    tag: br.how-long-time
+  # "take a coffee" — "tomar um café" é "grab/have a coffee".
+  # Lookahead protege "take a coffee break".
+  - id: take-a-coffee
+    pattern: "\\btake\\s+a\\s+coffee\\b(?!\\s+break)"
+    wrong: "Want to take a coffee later?"
+    right: "Want to grab a coffee later? / have a coffee"
+    why: 'Café se "grabs" ou se "has" — "take a coffee" é calque. ("A coffee break" é outra coisa.)'
+    tag: br.take-a-coffee

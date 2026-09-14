@@ -189,3 +189,8 @@ tags:
   - { id: br.do-suggestion,    group: br, label: "do a suggestion → make" }
   - { id: br.suggest-to,       group: br, label: "suggest to do → suggest doing" }
   - { id: br.in-other-hand,    group: br, label: "in the other hand → on" }
+  - { id: vocab.smalltalk,     group: vocab, label: "Small talk, idioms e humor" }
+  - { id: br.i-am-boring,      group: br, label: "I'm boring → bored" }
+  - { id: br.too-much-people,  group: br, label: "too much people → many" }
+  - { id: br.how-long-time,    group: br, label: "how long time → how long" }
+  - { id: br.take-a-coffee,    group: br, label: "take a coffee → grab/have" }
