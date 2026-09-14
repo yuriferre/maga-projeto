@@ -1,0 +1,337 @@
+id: M32-02
+module: M32
+order: 2
+title: "Construindo relação: 1:1s de conhecimento, coffee chat"
+objective: >-
+  Ao final, você sabe construir a rede interna
+  das primeiras semanas — os 1:1s de
+  conhecimento com agenda leve e o coffee chat
+  que não é sobre trabalho.
+durationMin: 30
+competencies: [SPK, WRI, CNF]
+tags: [vocab.onboarding, comp.speaking, comp.confidence]
+prerequisites: [M32-01]
+
+context:
+  scenario: |
+    A segunda camada do onboarding: a rede. Em
+    empresa remota e internacional, ninguém te
+    conhece por acaso — você constrói a rede
+    com dois instrumentos:
+
+    **Os 1:1s de conhecimento** — 20–30 min
+    com cada pessoa-chave (o manager, o tech
+    lead, o SRE do serviço vizinho, a PM).
+    Agenda leve, duas perguntas:
+
+    - "*what should I know that isn't written
+      down?*" — o contexto que não está em
+      doc nenhum.
+    - "*what's the unwritten rule here?*" —
+      a regra não escrita do time.
+
+    **O coffee chat** — 15 min, remoto, sem
+    agenda de trabalho. O convite:
+
+    > "*hey — I'm Yuri, new on the platform
+    > team. Want to grab a virtual coffee
+    > sometime this week? 15 min, no agenda —
+    > just getting to know people.*"
+
+    O que o coffee chat cobre: de onde a
+    pessoa é, há quanto tempo está, o que ela
+    achou mais estranho no começo — e o que
+    ela recomendaria a quem está chegando.
+
+    As regras da rede:
+
+    - **Uma pessoa por dia** — cinco coffee
+      chats na primeira semana, não zero nem
+      vinte.
+    - **Pergunta + escuta** — a meta é a
+      pessoa falar; você coleta mapa e contexto.
+    - **Anote os nomes** — "Ana owns deploys,
+      Priya owns access" vira o seu mapa
+      interno.
+
+    O erro do brasileiro: pular o coffee chat
+    por parecer "perda de tempo" — a rede é o
+    trabalho na primeira semana.
+  roles: [Yuri (new Senior Platform Engineer), Priya (SRE lead)]
+
+vocabulary:
+  - term: "1:1 (one-on-one)"
+    meaning: 'reunião individual — o instrumento de conhecimento'
+    example: "I set up 1:1s with the tech lead and the PM this week."
+    translation: "Marquei 1:1s com o tech lead e a PM esta semana."
+    note: "20–30 min, agenda leve — conhecer, não reportar."
+  - term: "getting-to-know-you 1:1"
+    meaning: '1:1 de conhecimento — sem pauta de projeto'
+    example: "This is a getting-to-know-you 1:1 — no project agenda."
+    translation: "É um 1:1 de conhecimento — sem pauta de projeto."
+    note: "Nomeie o formato para ninguém esperar status."
+  - term: "what should I know that isn't written down?"
+    meaning: 'o que eu deveria saber que não está escrito? — a pergunta de ouro'
+    example: "What should I know that isn't written down anywhere?"
+    translation: "O que eu deveria saber que não está escrito em lugar nenhum?"
+    note: "O contexto que só existe na cabeça das pessoas."
+  - term: "the unwritten rule"
+    meaning: 'a regra não escrita — a norma do time que ninguém documenta'
+    example: "What's the unwritten rule here — e.g., never deploy on Fridays?"
+    translation: "Qual é a regra não escrita aqui — tipo, nunca deployar sexta?"
+    note: "Todo time tem três; pergunte cedo."
+  - term: "virtual coffee / coffee chat"
+    meaning: 'café virtual — 15 min sem agenda'
+    example: "Want to grab a virtual coffee this week? 15 min, no agenda."
+    translation: "Quer um café virtual esta semana? 15 min, sem pauta."
+    note: "'No agenda' desarma o convite."
+  - term: "no agenda — just getting to know people"
+    meaning: 'sem pauta — só conhecendo as pessoas — o convite desarmado'
+    example: "No agenda — just getting to know people on my first week."
+    translation: "Sem pauta — só conhecendo o pessoal na primeira semana."
+    note: "O motivo declarado torna o convite leve."
+  - term: "how long have you been here?"
+    meaning: 'há quanto tempo você está aqui? — a abertura do coffee chat'
+    example: "How long have you been here — and what surprised you at first?"
+    translation: "Há quanto tempo você está aqui — e o que te surpreendeu no começo?"
+    note: "A pergunta que abre a história da pessoa."
+  - term: "what would you tell someone starting out?"
+    meaning: 'o que você diria a quem está começando? — o conselho coletado'
+    example: "What would you tell someone starting out on this team?"
+    translation: "O que você diria para quem está começando neste time?"
+    note: "Cada pessoa dá uma peça do mapa."
+  - term: "who else should I meet?"
+    meaning: 'quem mais eu deveria conhecer? — a rede que se expande'
+    example: "Who else should I meet while I'm still in the 'new' window?"
+    translation: "Quem mais eu deveria conhecer enquanto ainda estou na janela de novato?"
+    note: "Cada coffee chat gera o próximo."
+  - term: "map of who owns what"
+    meaning: 'mapa de quem é dono de quê — o resultado da rede'
+    example: "By week two I had a map of who owns what."
+    translation: "Na semana dois eu já tinha o mapa de quem é dono de quê."
+    note: "O entregável invisível do onboarding."
+  - term: "keep notes on people"
+    meaning: 'anotar sobre as pessoas — nome, papel, o que tocam'
+    example: "I keep notes: Ana owns deploys, Priya owns access, Sam is the historian."
+    translation: "Eu anoto: Ana cuida de deploys, Priya de acesso, Sam é o historiador."
+    note: "O mapa não fica na memória — fica escrito."
+  - term: "same page / get on the same page"
+    meaning: 'na mesma página — o alinhamento que o 1:1 cria'
+    example: "The 1:1 got us on the same page about what 'done' means here."
+    translation: "O 1:1 nos alinhou sobre o que 'pronto' significa aqui."
+    note: "O objetivo real dos primeiros 1:1s."
+
+grammar:
+  title: "a gramática do convite e do 1:1"
+  explanation: |
+    O convite de coffee chat tem moldura fixa:
+
+    - "**want to grab a virtual coffee**
+      sometime this week? 15 min, **no
+      agenda** — just getting to know people."
+    - Ou o pedido: "**could I grab 20 minutes**
+      of your time this week?"
+
+    As perguntas do 1:1 de conhecimento:
+
+    - "**what should I know that isn't
+      written down?**"
+    - "**what's the unwritten rule** here?"
+    - "**who else should I meet**?"
+    - "**what would you tell someone**
+      starting out?"
+
+    E a anotação: "[name] **owns** [X]" — o
+    verbo da posse interna.
+  examples:
+    - { en: "Want to grab a virtual coffee this week? 15 min, no agenda.", pt: "Quer um café virtual esta semana? 15 min, sem pauta." }
+    - { en: "Could I grab 20 minutes of your time this week?", pt: "Poderia tomar 20 minutos do seu tempo esta semana?" }
+    - { en: "What should I know that isn't written down?", pt: "O que eu deveria saber que não está escrito?" }
+    - { en: "What's the unwritten rule here?", pt: "Qual é a regra não escrita aqui?" }
+    - { en: "Who else should I meet while I'm still new?", pt: "Quem mais eu deveria conhecer enquanto sou novo?" }
+    - { en: "Priya owns access; Ana owns deploys.", pt: "Priya cuida de acesso; Ana cuida de deploys." }
+
+examples:
+  - en: "I set up getting-to-know-you 1:1s with the tech lead and the PM."
+    pt: "Marquei 1:1s de conhecimento com o tech lead e a PM."
+    context: "O instrumento."
+  - en: "What should I know that isn't written down anywhere?"
+    pt: "O que eu deveria saber que não está escrito em lugar nenhum?"
+    context: "A pergunta de ouro."
+  - en: "What's the unwritten rule here — like, never deploy on Fridays?"
+    pt: "Qual a regra não escrita — tipo, nunca deployar sexta?"
+    context: "A norma escondida."
+  - en: "Want to grab a virtual coffee this week? 15 min, no agenda — just getting to know people."
+    pt: "Quer um café virtual? 15 min, sem pauta — só conhecendo o pessoal."
+    context: "O convite desarmado."
+  - en: "How long have you been here — and what surprised you at first?"
+    pt: "Há quanto tempo está aqui — e o que te surpreendeu no começo?"
+    context: "A abertura do coffee chat."
+  - en: "What would you tell someone starting out on this team?"
+    pt: "O que você diria a quem está começando no time?"
+    context: "O conselho coletado."
+  - en: "Who else should I meet while I'm still in the 'new' window?"
+    pt: "Quem mais eu deveria conhecer na janela de novato?"
+    context: "A rede que se expande."
+  - en: "I keep notes: Ana owns deploys, Priya owns access, Sam is the historian."
+    pt: "Eu anoto: Ana cuida de deploys, Priya de acesso, Sam é o historiador."
+    context: "O mapa escrito."
+
+variations:
+  - idea: '"o convite"'
+    items:
+      - { register: "Forte", text: "Want to grab a virtual coffee this week? 15 min, no agenda.", adequate: true }
+      - { register: "Forte", text: "Could I grab 20 minutes of your time this week?", adequate: true }
+      - { register: "Fraco", text: "We need to schedule a formal introductory meeting.", adequate: false, note: "Formal demais — o coffee chat é leve por design." }
+      - { register: "Fraco", text: "Sorry to bother you, could we maybe possibly chat sometime?", adequate: false, note: "Pedido triplamente diminuído — 'no agenda' desarma melhor." }
+  - idea: '"o 1:1 de conhecimento"'
+    items:
+      - { register: "Forte", text: "What should I know that isn't written down?", adequate: true }
+      - { register: "Forte", text: "Who else should I meet while I'm still new?", adequate: true }
+      - { register: "Fraco", text: "Let me tell you everything about my experience.", adequate: false, note: "O 1:1 de conhecimento é para ouvir — você coleta o mapa." }
+      - { register: "Fraco", text: "No questions — I'll read the docs.", adequate: false, note: "O contexto que vale não está em doc nenhum." }
+
+brErrors:
+  - { wrong: "I'm new in the team.", right: "I'm new to the team.", why: "new to", tag: br.new-in-company }
+  - { wrong: "In my first day I met Priya.", right: "On my first day I met Priya.", why: "on my first day", tag: br.in-first-day }
+  - { wrong: "I need a help scheduling the 1:1s.", right: "I need help scheduling the 1:1s.", why: "help sem artigo", tag: br.a-help }
+  - { wrong: "Who is the responsible for the wiki?", right: "Who owns the wiki?", why: "who owns", tag: br.the-responsible }
+  - { wrong: "I have a doubt about the process.", right: "I have a question about the process.", why: "a question", tag: br.doubt }
+  - { wrong: "I pretend to meet everyone this week.", right: "I plan to meet everyone this week.", why: "plan to", tag: br.pretend }
+  - { wrong: "Can you explain me the on-call?", right: "Can you explain the on-call to me?", why: "explain to me", tag: br.explain-me }
+  - { wrong: "Let me make a question about the team.", right: "Let me ask a question about the team.", why: "ask a question", tag: br.make-question }
+  - { wrong: "Let's take a coffee together.", right: "Let's grab a coffee together.", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "I assist the team meetings.", right: "I attend the team meetings.", why: "attend", tag: br.assist }
+
+dialogue:
+  title: "A semana dos 1:1s e do coffee chat"
+  lines:
+    - { speaker: Yuri, text: "Hey Priya — I'm Yuri, new on the platform team. Want to grab a virtual coffee this week? 15 min, no agenda — just getting to know people." }
+    - { speaker: Priya, text: "Sure — Thursday works. Bring questions if you have them." }
+    - { speaker: Yuri, text: "(Thursday) So — how long have you been here, and what surprised you at first?" }
+    - { speaker: Priya, text: "Three years. What surprised me: how much lives in people's heads — the docs cover maybe half." }
+    - { speaker: Yuri, text: "Perfect segue — what should I know that isn't written down?" }
+    - { speaker: Priya, text: "The deploy pipeline has a manual step nobody documented — the smoke test on the canary. And the unwritten rule: never merge during the on-call handoff." }
+    - { speaker: Yuri, text: "Noted — manual smoke test, no merge during handoff. What would you tell someone starting out on this team?" }
+    - { speaker: Priya, text: "Meet the SREs early — we hold the map. Speaking of: who else should you meet? I'd say Ana — she owns deploys — and Sam, our historian." }
+    - { speaker: Yuri, text: "Ana owns deploys, Sam's the historian — I'm keeping notes. Same question to you: who owns the wiki?" }
+    - { speaker: Priya, text: "Nominally everyone, actually me. Add pages when you find gaps — that's how you pay the coffee chats forward." }
+    - { speaker: Yuri, text: "Deal. This was the most useful 15 minutes of my week — I'll set up the same with Ana." }
+  notes:
+    - "o convite desarmado: '15 min, no agenda — just getting to know people'."
+    - "as duas perguntas de ouro: 'isn't written down' + 'unwritten rule'."
+    - "'who else should I meet' — cada chat gera o próximo; o mapa fica escrito."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "The second layer of onboarding is the network — nobody meets you by accident in a remote company. Two instruments: getting-to-know-you 1:1s with a light agenda, and the coffee chat — fifteen minutes, no work agenda." }
+    - { speaker: Yuri, text: "The two golden questions: 'what should I know that isn't written down?' and 'what's the unwritten rule here?' Plus 'who else should I meet?' — every chat generates the next one." }
+    - { speaker: Priya, text: "One person a day, not zero, not twenty. The deliverable is the map of who owns what — and it stays written, not in memory. The Brazilian mistake: skipping the coffee chat as wasted time — the network IS the work in week one." }
+  questions:
+    - { id: M32-02-l1, type: multiple_choice, prompt: "O convite de coffee chat funciona porque…", options: ["'15 min, no agenda' — desarmado e com motivo declarado", "é formal", "é longo", "tem pauta"], answer: 0, explanation: "'No agenda' desarma o convite.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-02-l2, type: fill_blank, prompt: "What should I know that isn't written ___?", accepted: ["down"], explanation: "A pergunta de ouro do 1:1.", tags: [vocab.onboarding] }
+    - { id: M32-02-l3, type: error_correction, prompt: "Let's take a coffee together.", accepted: ["Let's grab a coffee together.", "Let's grab a coffee together", "Let's have a coffee together."], explanation: "'Grab/have a coffee'.", tags: [br.take-a-coffee] }
+    - { id: M32-02-l4, type: multiple_choice, prompt: "O entregável invisível dos 1:1s é…", options: ["status do projeto", "o mapa de quem é dono de quê — escrito, não na memória", "amizade", "relatório"], answer: 1, explanation: "Ana owns deploys, Priya owns access.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-02-l5, type: multiple_choice, prompt: "O ritmo da rede na primeira semana é…", options: ["zero — foco no trabalho", "todos de uma vez", "uma pessoa por dia — cinco chats", "ninguém"], answer: 2, explanation: "Um por dia — não zero, não vinte.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-02-l6, type: multiple_choice, prompt: "'Who else should I meet?' faz a rede…", options: ["encolher", "parar", "ficar formal", "se expandir — cada chat gera o próximo"], answer: 3, explanation: "A pergunta que multiplica a rede.", tags: [comp.listening, vocab.onboarding] }
+
+writing:
+  prompt: |
+    **Cenário:** semana um. O coach pediu por
+    escrito os dois convites e a lista de
+    perguntas que você leva aos 1:1s.
+
+    **Tarefa:** escreva 90–120 palavras: (1) o
+    convite de coffee chat para a Priya — leve,
+    com "no agenda"; (2) o convite do 1:1 de
+    conhecimento para o tech lead; (3) as três
+    perguntas que você leva ("isn't written
+    down", "unwritten rule", "who else").
+  constraints:
+    - { label: "O convite leve", pattern: "\\bgrab a (virtual )?coffee|15 ?min|no agenda|getting to know|grab \\d+ minutes\\b" }
+    - { label: "As perguntas de ouro", pattern: "\\bwritten down|unwritten rule|who else|starting out\\b" }
+    - { label: "O contexto de novato", pattern: "\\bnew (here|to|on)|first week|ramping up\\b" }
+    - { label: "O mapa", pattern: "\\bowns|meet|notes|map|1:1|one.on.one\\b" }
+  rubric:
+    - "Convite desarmado com motivo declarado"
+    - "As três perguntas de ouro presentes"
+    - "Tom leve — sem diminuir o pedido"
+    - "Sem calques ('new to', 'on my first day', 'grab a coffee')"
+  model: >-
+    The coffee-chat invite to Priya: "Hey Priya —
+    I'm Yuri, new on the platform team. Want to
+    grab a virtual coffee this week? 15 min, no
+    agenda — just getting to know people." The
+    1:1 invite to the tech lead: "Could I grab 20
+    minutes this week for a getting-to-know-you
+    1:1? No project agenda." The three questions
+    I'm carrying into every meeting: what should
+    I know that isn't written down? What's the
+    unwritten rule here? And who else should I
+    meet while I'm still in the 'new' window?
+    One person a day — and the map of who owns
+    what goes in my notes, not my memory.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.onboarding]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a rede da primeira semana — o convite de coffee chat em voz alta ('want to grab a virtual coffee? 15 min, no agenda'), o 1:1 de conhecimento ('what should I know that isn't written down?', 'the unwritten rule', 'who else should I meet?'), e o mapa que você constrói ('Ana owns deploys, Priya owns access')."
+    maxSeconds: 90
+    targetPhrases:
+      - grab a virtual coffee
+      - no agenda
+      - getting to know people
+      - getting-to-know-you
+      - what should i know that isn't written down
+      - the unwritten rule
+      - who else should i meet
+      - how long have you been here
+      - what would you tell someone starting out
+      - owns deploys
+      - owns access
+      - keep notes
+      - on the same page
+      - grab 20 minutes
+      - map of who owns what
+      - coffee chat
+    checklist:
+      - "o convite desarmado com 'no agenda'"
+      - "as três perguntas de ouro"
+      - "o mapa de posse nomeado"
+      - "tom leve e curioso"
+      - "sem calques ('new to', 'grab a coffee', 'the owner')"
+
+quiz:
+  - { id: M32-02-q1, type: multiple_choice, prompt: "O convite de coffee chat que funciona é…", options: ["'we need a formal introductory meeting'", "'I demand a 1:1'", "'maybe someday we could talk'", "'want to grab a virtual coffee? 15 min, no agenda'"], answer: 3, explanation: "Leve, curto, com motivo declarado.", tags: [vocab.onboarding] }
+  - { id: M32-02-q2, type: error_correction, prompt: "Who is the responsible for the wiki?", accepted: ["Who owns the wiki?", "Who owns the wiki", "Who is the owner of the wiki?"], explanation: "'Who owns' — 'responsible' não é cargo.", tags: [br.the-responsible] }
+  - { id: M32-02-q3, type: multiple_choice, prompt: "A pergunta de ouro do 1:1 de conhecimento é…", options: ["'what's my salary band?'", "'when is lunch?'", "'what should I know that isn't written down?'", "'who is the boss?'"], answer: 2, explanation: "O contexto que não está em doc.", tags: [vocab.onboarding] }
+  - { id: M32-02-q4, type: fill_blank, prompt: "What's the ___ rule here — like, never deploy on Fridays?", accepted: ["unwritten"], explanation: "A norma que ninguém documenta.", tags: [vocab.onboarding] }
+  - { id: M32-02-q5, type: multiple_choice, prompt: "O erro do brasileiro na construção da rede é…", options: ["pular o coffee chat por parecer perda de tempo — a rede é o trabalho", "conhecer gente demais", "fazer perguntas", "anotar nomes"], answer: 0, explanation: "A rede é o trabalho na primeira semana.", tags: [vocab.onboarding] }
+  - { id: M32-02-q6, type: error_correction, prompt: "I pretend to meet everyone this week.", accepted: ["I plan to meet everyone this week.", "I plan to meet everyone this week", "I intend to meet everyone this week."], explanation: "'Plan to' — 'pretend' é fingir.", tags: [br.pretend] }
+  - { id: M32-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["else", "who", "should", "i", "meet"], answer: "who else should i meet", explanation: "A pergunta que expande a rede.", tags: [vocab.onboarding] }
+  - { id: M32-02-q8, type: multiple_choice, prompt: "O mapa de quem é dono de quê fica…", options: ["na memória", "escrito — 'Ana owns deploys, Priya owns access'", "na wiki", "com o manager"], answer: 1, explanation: "Escrito — a memória trai.", tags: [vocab.onboarding] }
+
+srsCards:
+  - { front: "1:1 (one-on-one)", back: "O instrumento de conhecimento — 20–30 min.", tag: vocab.onboarding }
+  - { front: "getting-to-know-you 1:1", back: "Sem pauta de projeto — nomeie o formato.", tag: vocab.onboarding }
+  - { front: "what should I know that isn't written down?", back: "A pergunta de ouro.", tag: vocab.onboarding }
+  - { front: "the unwritten rule", back: "A norma que ninguém documenta.", tag: vocab.onboarding }
+  - { front: "virtual coffee / coffee chat", back: "15 min, sem agenda — a rede leve.", tag: vocab.onboarding }
+  - { front: "no agenda — just getting to know people", back: "O convite desarmado.", tag: vocab.onboarding }
+  - { front: "how long have you been here?", back: "A abertura do coffee chat.", tag: vocab.onboarding }
+  - { front: "what would you tell someone starting out?", back: "O conselho coletado.", tag: vocab.onboarding }
+  - { front: "who else should I meet?", back: "A rede que se expande.", tag: vocab.onboarding }
+  - { front: "map of who owns what", back: "O entregável invisível — escrito.", tag: vocab.onboarding }
+  - { front: "keep notes on people", back: "Nome + papel + o que tocam.", tag: vocab.onboarding }
+  - { front: "get on the same page", back: "O alinhamento que o 1:1 cria.", tag: vocab.onboarding }
+
+review:
+  preferTags: [vocab.onboarding, br.take-a-coffee, br.the-responsible, br.pretend]
+  notes: "Revisão prioriza o convite desarmado e as perguntas de ouro."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
