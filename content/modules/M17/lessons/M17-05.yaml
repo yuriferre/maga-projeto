@@ -1,0 +1,302 @@
+id: M17-05
+module: M17
+order: 5
+title: "Prática: o post-mortem completo a partir da timeline crua"
+objective: >-
+  Ao final, você escreve um post-mortem blameless inteiro a partir
+  de uma timeline crua: resumo, timeline, análise de causa e
+  action items — o documento pronto para circular.
+durationMin: 45
+competencies: [WRI, REA]
+tags: [vocab.postmortem, gram.passive-blameless, gram.timeline, comp.writing, comp.reading]
+prerequisites: [M17-04]
+
+context:
+  scenario: |
+    A prova real: aqui está a timeline crua do incidente de sexta
+    e você escreve o post-mortem inteiro.
+
+    **Os fatos crus:**
+    - 17:38 UTC — deploy `checkout-api v2.4.1` subiu
+    - 17:40 — primeiros 502s no checkout (web)
+    - 17:42 — alerta disparou; plantonista acionado
+    - 17:48 — confirmado: valor de config `max_conn=5` (era 200)
+    - 17:52 — rollback para revisão 88
+    - 18:05 — taxa de erro zerou; all-clear
+    - Lacunas: config não validada · limiar de alerta em 50% ·
+      pool sem alerta de saturação
+
+    A estrutura do documento: **resumo → timeline → root cause e
+    fatores → action items.** Uma página, blameless, com timestamps
+    em UTC — e cada item com dono e prazo.
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "executive summary"
+    meaning: 'o resumo executivo — duas frases que contam tudo'
+    example: "Summary: a bad config value took checkout down for 27 minutes on Friday."
+    translation: "Resumo: um valor de config ruim derrubou o checkout por 27 minutos na sexta."
+    note: "Quem lê só o resumo entende o que houve."
+  - term: "impact"
+    meaning: 'o impacto — quem sofreu, quanto, por quanto tempo'
+    example: "Impact: 60% of web checkouts failed for 27 minutes; mobile unaffected."
+    translation: "Impacto: 60% dos checkouts web falharam por 27 minutos; mobile intacto."
+    note: "Número + escopo + janela — o trio do impacto."
+  - term: "what went well"
+    meaning: 'o que foi bem — a seção que protege o que funcionou'
+    example: "What went well: the alert fired in four minutes, the rollback was clean."
+    translation: "O que foi bem: o alerta disparou em quatro minutos, o rollback foi limpo."
+    note: "Post-mortem bom também registra o que funcionou."
+  - term: "what went poorly"
+    meaning: 'o que foi mal — as lacunas sem drama'
+    example: "What went poorly: detection depended on a threshold set too high."
+    translation: "O que foi mal: a detecção dependia de um limiar alto demais."
+    note: "Fatos, não adjetivos — 'poorly' com mecanismo."
+  - term: "lessons learned"
+    meaning: 'lições aprendidas — o que muda na próxima vez'
+    example: "Lesson: config changes need the same validation as code changes."
+    translation: "Lição: mudanças de config precisam da mesma validação que código."
+    note: "A lição aponta para um action item."
+  - term: "affected"
+    meaning: 'afetado — quem ou o que sofreu o impacto'
+    example: "Affected: web checkout only — EU and mobile were clean."
+    translation: "Afetado: só o checkout web — EU e mobile intactos."
+    note: "O escopo do dano, com o que NÃO foi afetado."
+  - term: "timeline of events"
+    meaning: 'a linha de eventos — a seção de timestamps'
+    example: "The timeline of events spans 17:38 to 18:05 UTC."
+    translation: "A linha de eventos vai de 17:38 a 18:05 UTC."
+    note: "O coração do post-mortem — do M17-02."
+  - term: "detection gap"
+    meaning: 'a lacuna de detecção — o tempo entre quebrar e saber'
+    example: "The detection gap was four minutes — acceptable, but the threshold was luck."
+    translation: "A lacuna de detecção foi de quatro minutos — aceitável, mas o limiar foi sorte."
+    note: "O gap entra na análise como fator."
+  - term: "remediation"
+    meaning: 'a remediação — o conjunto do que se fará'
+    example: "Remediation: three action items, two of them P0."
+    translation: "Remediação: três itens de ação, dois P0."
+    note: "O nome formal da seção de itens."
+  - term: "customer-facing"
+    meaning: 'voltado ao cliente — o impacto que o usuário viu'
+    example: "Customer-facing impact: failed checkouts, retry loop, support tickets."
+    translation: "Impacto no cliente: checkouts falhados, loop de retry, tickets de suporte."
+    note: "O impacto interno é separado do customer-facing."
+  - term: "no data loss"
+    meaning: 'sem perda de dados — a frase que acalma'
+    example: "No data loss — orders failed cleanly and could be retried."
+    translation: "Sem perda de dados — os pedidos falharam limpo e puderam ser refeitos."
+    note: "Diga quando for verdade — e explique por quê."
+  - term: "sign-off"
+    meaning: 'o aval final — quem aprovou o documento'
+    example: "Sign-off: Priya reviewed it Monday — the doc is final."
+    translation: "Aval: a Priya revisou segunda — o documento está final."
+    note: "O post-mortem fecha com revisão declarada."
+
+grammar:
+  title: "O documento inteiro: resumo → timeline → análise → itens"
+  explanation: |
+    A estrutura que toda a empresa lê:
+
+    1. **Executive summary** — duas frases: o quê, quanto, quando.
+       "A bad config value took checkout down for 27 minutes on
+       Friday; a rollback resolved it."
+    2. **Impact** — número + escopo + janela: "60% of web
+       checkouts failed; mobile unaffected; **no data loss**."
+    3. **Timeline** — timestamps UTC, verbos no passado, "at
+       this point" para o que se sabia.
+    4. **Analysis** — trigger × root cause × contributing
+       factors, "a chain of three gaps".
+    5. **Action items** — verbo + dono + prazo + prioridade.
+    6. **What went well / lessons** — o que funcionou e o que
+       muda.
+
+    Blameless em tudo: sujeito-artefato, passiva sem agente,
+    papel no lugar de nome — e **on Friday**, **Friday's
+    incident**, nunca "in Friday" ou "of Friday".
+  examples:
+    - { en: "Summary: a bad config value took web checkout down for 27 minutes on Friday.", pt: "Resumo: um valor de config ruim derrubou o checkout web por 27 minutos na sexta." }
+    - { en: "Impact: 60% of web checkouts failed; mobile was unaffected; no data loss.", pt: "Impacto: 60% dos checkouts web falharam; mobile não foi afetado; sem perda de dados." }
+    - { en: "The deploy was the trigger — the underlying cause was missing config validation.", pt: "O deploy foi o gatilho — a causa subjacente foi a validação de config ausente." }
+    - { en: "What went well: the alert fired in four minutes and the rollback was clean.", pt: "O que foi bem: o alerta disparou em quatro minutos e o rollback foi limpo." }
+    - { en: "Lesson: config changes need the same validation as code changes.", pt: "Lição: mudanças de config precisam da mesma validação que código." }
+    - { en: "Remediation: three action items, two P0 — all with owners and deadlines.", pt: "Remediação: três itens de ação, dois P0 — todos com donos e prazos." }
+
+examples:
+  - en: "A bad config value took web checkout down for 27 minutes; a rollback resolved it."
+    pt: "Um valor de config ruim derrubou o checkout web por 27 minutos; um rollback resolveu."
+    context: "O resumo em uma frase."
+  - en: "Customer-facing impact: failed checkouts and a retry loop — no data loss."
+    pt: "Impacto no cliente: checkouts falhados e loop de retry — sem perda de dados."
+    context: "O impacto com a frase que acalma."
+  - en: "The detection gap was four minutes — the alert worked, the threshold was luck."
+    pt: "A lacuna de detecção foi de quatro minutos — o alerta funcionou, o limiar foi sorte."
+    context: "O gap analisado honestamente."
+  - en: "It was a chain of three gaps — validation, threshold, missing pool alert."
+    pt: "Foi uma cadeia de três lacunas — validação, limiar, alerta de pool ausente."
+    context: "A análise em cadeia."
+  - en: "What went well: clean rollback, fast page, honest bridge."
+    pt: "O que foi bem: rollback limpo, page rápido, bridge honesta."
+    context: "A seção que protege o que funcionou."
+  - en: "Remediation: alert on saturation (P0), config validation (P1), threshold fix (P0)."
+    pt: "Remediação: alerta de saturação (P0), validação de config (P1), correção do limiar (P0)."
+    context: "Os itens priorizados."
+  - en: "Sign-off: reviewed Monday — the document is final."
+    pt: "Aval: revisado segunda — o documento está final."
+    context: "O fechamento declarado."
+  - en: "Every lesson points at an action item — that's the contract."
+    pt: "Cada lição aponta para um item de ação — esse é o contrato."
+    context: "Lição sem item é observação."
+
+variations:
+  - idea: '"o resumo executivo"'
+    items:
+      - { register: "Boa", text: "Summary: a bad config value took web checkout down for 27 minutes on Friday; a rollback resolved it.", adequate: true }
+      - { register: "Boa", text: "Impact: 60% of web checkouts failed; mobile unaffected; no data loss.", adequate: true }
+      - { register: "Inadequada", text: "Summary: stuff broke Friday, we fixed it, lessons learned.", adequate: false, note: "O resumo tem o quê + quanto + quando — número e janela." }
+      - { register: "Inadequada", text: "Impact: Marcos's deploy hurt customers.", adequate: false, note: "Nome no resumo quebra o blameless — 'the change' e números." }
+  - idea: '"as seções"'
+    items:
+      - { register: "Boa", text: "What went well: the alert fired in four minutes.", adequate: true }
+      - { register: "Boa", text: "Remediation: three items, two P0, all owned.", adequate: true }
+      - { register: "Inadequada", text: "What went poorly: everything was a mess.", adequate: false, note: "Fatos, não drama — 'detection depended on a high threshold'." }
+      - { register: "Inadequada", text: "Lessons: we should be more careful.", adequate: false, note: "Lição aponta para item — 'config needs code-level validation'." }
+
+brErrors:
+  - { wrong: "The post-mortem of Friday was long.", right: "Friday's post-mortem was long.", why: "Friday's", tag: br.of-weekday }
+  - { wrong: "The review is in Monday.", right: "The review is on Monday.", why: "on Monday", tag: br.in-weekday }
+  - { wrong: "The doc was wrote by the scribe.", right: "The doc was written by the scribe.", why: "was written", tag: br.was-past }
+  - { wrong: "The missing alert contributed for the gap.", right: "The missing alert contributed to the gap.", why: "contributed to", tag: br.contributed-for }
+  - { wrong: "The item is due until Monday.", right: "The item is due by Monday.", why: "by Monday", tag: br.until-by }
+  - { wrong: "In this moment we sign off the doc.", right: "Right now we're signing off the doc.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The summary not mention the impact.", right: "The summary doesn't mention the impact.", why: "doesn't mention", tag: br.it-not-works }
+  - { wrong: "The doc show the chain.", right: "The doc shows the chain.", why: "shows", tag: br.third-person-s }
+  - { wrong: "I have a doubt about the impact.", right: "I have a question about the impact.", why: "question", tag: br.doubt }
+  - { wrong: "We discussed about the remediation.", right: "We discussed the remediation.", why: "discussed", tag: br.discuss-about }
+
+dialogue:
+  title: "Revisando o post-mortem inteiro"
+  lines:
+    - { speaker: Priya, text: "Read me the executive summary." }
+    - { speaker: Yuri, text: "A bad config value took web checkout down for twenty-seven minutes on Friday; a rollback resolved it." }
+    - { speaker: Priya, text: "Impact?" }
+    - { speaker: Yuri, text: "Sixty percent of web checkouts failed — mobile unaffected, no data loss." }
+    - { speaker: Priya, text: "The analysis — trigger versus cause?" }
+    - { speaker: Yuri, text: "The deploy was the trigger; the underlying cause was missing config validation. Three contributing factors, all mapped to items." }
+    - { speaker: Priya, text: "And what went well?" }
+    - { speaker: Yuri, text: "The alert fired in four minutes, the rollback was clean, the bridge stayed disciplined." }
+    - { speaker: Priya, text: "Remediation?" }
+    - { speaker: Yuri, text: "Three items, two P0 — saturation alert by Oct 15, threshold fix by Friday, config validation end of sprint." }
+    - { speaker: Priya, text: "Sign-off granted — that's a post-mortem people will actually read." }
+  notes:
+    - "a revisão seção a seção — a ordem do documento vira a ordem da conversa."
+    - "'a post-mortem people will actually read' — o elogio final do formato."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "The full document has six parts. Executive summary — two sentences with what, how much, when. Impact — number, scope, window, and 'no data loss' when it's true. Timeline — UTC, past tense, what was known when. Analysis — trigger, root cause, contributing factors, the chain. Action items — verb, owner, deadline, priority. And what went well plus lessons learned." }
+    - { speaker: Marcos, text: "The blameless grammar holds through the whole doc: artifact as subject, passive without agent, role instead of name. 'Friday's incident', 'on Monday', 'was written', 'contributed to' — the small correctness that makes the document credible." }
+    - { speaker: Yuri, text: "The contract of the post-mortem: every lesson points at an action item, and every item has an owner who drives it to done. What went well protects the parts that worked — you don't fix what isn't broken." }
+  questions:
+    - { id: M17-05-l1, type: multiple_choice, prompt: "The executive summary contains…", options: ["the full timeline", "the blame discussion", "what, how much, when — in two sentences", "the action items"], answer: 2, explanation: "Duas frases: o quê, quanto, quando.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-05-l2, type: multiple_choice, prompt: "'What went well' exists to…", options: ["pad the document", "protect what worked — don't fix what isn't broken", "praise individuals", "soften the blame"], answer: 1, explanation: "Protege o que funcionou.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-05-l3, type: fill_blank, prompt: "No data ___ — orders failed cleanly.", accepted: ["loss"], explanation: '"no data loss" — a frase que acalma.', tags: [vocab.postmortem] }
+    - { id: M17-05-l4, type: error_correction, prompt: "The meeting is in Monday.", accepted: ["The meeting is on Monday.", "The meeting is on Monday"], explanation: "on Monday.", tags: [br.in-weekday] }
+    - { id: M17-05-l5, type: multiple_choice, prompt: "The post-mortem contract is…", options: ["every item has a paragraph", "every lesson points at an action item with an owner", "every name is removed twice", "the scribe signs it"], answer: 1, explanation: "Lição → item → dono → done.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-05-l6, type: multiple_choice, prompt: "The document order is…", options: ["items first, summary last", "analysis → blame → timeline", "random — whatever is ready", "summary → impact → timeline → analysis → items"], answer: 3, explanation: "Resumo abre, itens fecham.", tags: [comp.listening, vocab.postmortem] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** com a timeline crua do contexto
+    (deploy 17:38, alerta 17:42, rollback 17:52, all-clear 18:05),
+    escreva o post-mortem completo.
+
+    **Tarefa:** escreva 100–140 palavras com as seções na ordem:
+    resumo executivo, impacto, timeline (timestamps UTC), análise
+    (trigger × causa × fatores) e action items — blameless, sem
+    nomes de pessoas.
+  constraints:
+    - { label: "Resumo + impacto", pattern: "\\b(summary|impact|%|minutes|unaffected|no data loss)\\b" }
+    - { label: "Timeline", pattern: "\\b\\d{2}:\\d{2}\\b" }
+    - { label: "Análise", pattern: "\\b(trigger|root cause|underlying|contributing|exacerbated|unnoticed|chain|gap)\\b" }
+    - { label: "Action items", pattern: "\\b(owner|by|p0|p1|action item|add|enforce|lower)\\b" }
+  rubric:
+    - "Seções na ordem do documento"
+    - "Blameless: sem nomes"
+    - "Timeline com timestamps"
+    - "Itens com dono e prazo"
+  model: >-
+    Summary: a bad config value took web checkout down for 27
+    minutes on Friday; a rollback resolved it. Impact: 60% of web
+    checkouts failed; mobile was unaffected; no data loss.
+    Timeline (UTC): 17:38 deploy shipped, 17:42 alerts fired and
+    the on-call was paged, 17:52 rolled back to revision 88, 18:05
+    recovered. The deploy was the trigger — the underlying cause
+    was missing config validation; a chain of three gaps: no
+    validation, a high alert threshold, no pool-saturation alert.
+    Action items: add the saturation alert — owner: on-call — by
+    Oct 15 — P0; enforce config validation — owner: Marcos — end
+    of sprint — P1; lower the threshold — owner: Yuri — by Friday
+    — P0.
+  minWords: 100
+  maxWords: 140
+  tags: [comp.writing, vocab.postmortem]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos apresentando o post-mortem para o time: o resumo, o impacto, a análise em cadeia e os três action items com donos e prazos."
+    maxSeconds: 60
+    targetPhrases:
+      - executive summary
+      - impact
+      - no data loss
+      - the trigger
+      - underlying cause
+      - contributing factor
+      - a chain of
+      - went unnoticed
+      - action item
+      - owner
+      - p0
+      - by friday
+      - what went well
+      - lessons learned
+      - on friday
+      - prevention
+    checklist:
+      - "Resumo em duas frases"
+      - "Análise trigger × causa × fatores"
+      - "Itens com dono e prazo"
+      - "'On Friday', 'was written', 'contributed to'"
+
+quiz:
+  - { id: M17-05-q1, type: multiple_choice, prompt: "The post-mortem opens with…", options: ["the action items", "the timeline", "the executive summary — what, how much, when", "the blame section"], answer: 2, explanation: "O resumo executivo abre.", tags: [vocab.postmortem] }
+  - { id: M17-05-q2, type: error_correction, prompt: "The incident of Friday was resolved quickly.", accepted: ["Friday's incident was resolved quickly.", "Friday's incident was resolved quickly", "The incident on Friday was resolved quickly."], explanation: "Friday's incident.", tags: [br.of-weekday] }
+  - { id: M17-05-q3, type: multiple_choice, prompt: "The impact section names…", options: ["who caused it", "number + scope + window — plus 'no data loss' when true", "the fix", "the apology"], answer: 1, explanation: "Número, escopo, janela.", tags: [vocab.postmortem] }
+  - { id: M17-05-q4, type: fill_blank, prompt: "Remediation: three action items — all with owners and ___.", accepted: ["deadlines"], explanation: "Dono + prazo — o item executável.", tags: [vocab.postmortem] }
+  - { id: M17-05-q5, type: error_correction, prompt: "The doc was wrote by the scribe.", accepted: ["The doc was written by the scribe.", "The doc was written by the scribe"], explanation: "was written.", tags: [br.was-past] }
+  - { id: M17-05-q6, type: translate, prompt: "Sem perda de dados — os pedidos falharam limpo.", accepted: ["No data loss — the orders failed cleanly.", "No data loss — orders failed cleanly."], explanation: '"no data loss" + "failed cleanly".', tags: [vocab.postmortem] }
+  - { id: M17-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["item", "every", "points", "lesson", "at", "an", "action"], answer: "every lesson points at an action item", explanation: "O contrato do post-mortem.", tags: [vocab.postmortem] }
+  - { id: M17-05-q8, type: multiple_choice, prompt: "'Sign-off' on the document means…", options: ["someone reviewed it — the doc is final", "the doc is deleted", "the meeting ended", "the blame is assigned"], answer: 0, explanation: "O aval que fecha o documento.", tags: [vocab.postmortem] }
+
+srsCards:
+  - { front: "executive summary", back: "Duas frases: o quê, quanto, quando.", tag: vocab.postmortem }
+  - { front: "impact", back: "Número + escopo + janela.", tag: vocab.postmortem }
+  - { front: "what went well", back: "Protege o que funcionou.", tag: vocab.postmortem }
+  - { front: "what went poorly", back: "As lacunas — fatos, não drama.", tag: vocab.postmortem }
+  - { front: "lessons learned", back: "Cada lição aponta para um item.", tag: vocab.postmortem }
+  - { front: "affected", back: "O escopo — com o que NÃO foi afetado.", tag: vocab.postmortem }
+  - { front: "detection gap", back: "O tempo entre quebrar e saber.", tag: vocab.postmortem }
+  - { front: "remediation", back: "O conjunto do que se fará.", tag: vocab.postmortem }
+  - { front: "customer-facing", back: "O impacto que o usuário viu.", tag: vocab.postmortem }
+  - { front: "no data loss", back: "A frase que acalma — quando verdade.", tag: vocab.postmortem }
+  - { front: "sign-off", back: "O aval que fecha o documento.", tag: vocab.postmortem }
+
+review:
+  preferTags: [vocab.postmortem, br.of-weekday, br.was-past]
+  notes: "Revisão prioriza a estrutura do documento e os calques de dia e particípio."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
