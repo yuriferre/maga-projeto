@@ -1,0 +1,119 @@
+# Avaliação do Nível 5 (Career): 30 itens cobrindo todas as tags de M27–M32 + escrita (follow-up pós-entrevista) + fala (a entrevista simulada completa: screening + comportamental + técnica).
+id: L5
+title: "Avaliação do Nível 5: Carreira internacional"
+intro: |
+  Trinta itens mistos cobrindo os seis módulos, uma escrita (o follow-up pós-entrevista) e uma gravação de até cinco minutos — a entrevista simulada completa: screening, comportamental e técnica. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, follow-up ≥ 3/5, entrevista ≥ 4/5. Pode refazer; vale a última.
+items:
+  - { id: L5-A01, type: error_correction, prompt: "I formed in engineering in 2015 — last year I was promoted for staff.", accepted: ["I have a degree in engineering — last year I was promoted to staff.", "I have a degree in engineering — last year I was promoted to staff", "I graduated in engineering in 2015 — last year I was promoted to staff."], explanation: 'Dois calques: "a degree in" + "promoted to".', tags: [br.formed-in, br.promoted-for] }
+  - { id: L5-A02, type: error_correction, prompt: "I was responsible by the pipeline — I work here since 2020.", accepted: ["I was responsible for the pipeline — I've worked here since 2020.", "I was responsible for the pipeline — I've worked here since 2020", "I owned the pipeline — I've been here since 2020."], explanation: 'Dois calques: "responsible for" + "I''ve worked since".', tags: [br.responsible-by, br.work-since] }
+  - { id: L5-A03, type: error_correction, prompt: "I have 30 years and it's already 5 years that I work in tech.", accepted: ["I'm 30 and it's been 5 years working in tech.", "I'm 30 and it's been 5 years working in tech", "I'm 30 years old and I've worked in tech for 5 years."], explanation: 'Dois calques: "I''m 30" + "it''s been 5 years".', tags: [br.have-years, br.its-already-years] }
+  - { id: L5-A04, type: error_correction, prompt: "In that epoch I made an interview at the startup.", accepted: ["Back then I had an interview at the startup.", "Back then I had an interview at the startup", "At that time I did an interview at the startup."], explanation: 'Dois calques: "back then/at that time" + "had an interview".', tags: [br.in-that-epoch, br.make-interview] }
+  - { id: L5-A05, type: error_correction, prompt: "My defect is perfectionism — in my vision that answer is honest.", accepted: ["My weakness is perfectionism — in my view that answer is honest.", "My weakness is perfectionism — in my view that answer is honest"], explanation: 'Dois calques: "weakness" + "in my view".', tags: [br.my-defect, br.in-my-vision] }
+  - { id: L5-A06, type: error_correction, prompt: "I make part of the on-call rotation — I have a doubt about the scope.", accepted: ["I'm part of the on-call rotation — I have a question about the scope.", "I'm part of the on-call rotation — I have a question about the scope", "I'm on the on-call rotation — I'm not sure about the scope."], explanation: 'Dois calques: "part of" + "a question".', tags: [br.make-part-of, br.doubt] }
+  - { id: L5-A07, type: error_correction, prompt: "In the other hand, we get the same result than before.", accepted: ["On the other hand, we get the same result as before.", "On the other hand, we get the same result as before"], explanation: 'Dois calques: "on the other hand" + "the same as".', tags: [br.in-other-hand, br.same-than] }
+  - { id: L5-A08, type: error_correction, prompt: "I suggest to change the default — can you explain me the trade-off?", accepted: ["I suggest changing the default — can you explain the trade-off to me?", "I suggest changing the default — can you explain the trade-off to me", "I suggest that we change the default — can you walk me through the trade-off?"], explanation: 'Dois calques: "suggest changing" + "explain to me".', tags: [br.suggest-to, br.explain-me] }
+  - { id: L5-A09, type: error_correction, prompt: "It depends of the traffic — we discussed about it yesterday.", accepted: ["It depends on the traffic — we discussed it yesterday.", "It depends on the traffic — we discussed it yesterday"], explanation: 'Dois calques: "depends on" + "discussed it".', tags: [br.depend-of, br.discuss-about] }
+  - { id: L5-A10, type: error_correction, prompt: "It worths to mount a solution with a queue.", accepted: ["It's worth building a solution with a queue.", "It's worth building a solution with a queue", "It's worth it to design a solution with a queue."], explanation: 'Dois calques: "it''s worth" + "build/design".', tags: [br.worths, br.mount-solution] }
+  - { id: L5-A11, type: error_correction, prompt: "Let me make a test — the server falls under load.", accepted: ["Let me run a test — the server goes down under load.", "Let me run a test — the server goes down under load", "Let me test it — the server crashes under load."], explanation: 'Dois calques: "run a test" + "goes down".', tags: [br.make-a-test, br.service-falls] }
+  - { id: L5-A12, type: error_correction, prompt: "The site is on air again — can I make a question about the fix?", accepted: ["The site is up again — can I ask a question about the fix?", "The site is up again — can I ask a question about the fix", "The site is back online — can I ask a question about the fix?"], explanation: 'Dois calques: "is up" + "ask a question".', tags: [br.on-air, br.make-question] }
+  - { id: L5-A13, type: error_correction, prompt: "We spend too much with the vendor — the price is expensive.", accepted: ["We spend too much on the vendor — the price is high.", "We spend too much on the vendor — the price is high"], explanation: 'Dois calques: "spend on" + "the price is high".', tags: [br.spend-with, br.price-expensive] }
+  - { id: L5-A14, type: error_correction, prompt: "Right-sizing brings an economy — I pretend to show it Friday.", accepted: ["Right-sizing brings a saving — I plan to show it Friday.", "Right-sizing brings a saving — I plan to show it Friday", "Right-sizing saves money — I intend to show it Friday."], explanation: 'Dois calques: "a saving" + "plan/intend".', tags: [br.an-economy, br.pretend] }
+  - { id: L5-A15, type: error_correction, prompt: "My salary pretension is high — I want to win more there.", accepted: ["My salary expectations are high — I want to earn more there.", "My salary expectations are high — I want to earn more there", "I'm targeting a high band — I want to make more there."], explanation: 'Dois calques: "expectations" + "earn".', tags: [br.pretension, br.win-money] }
+  - { id: L5-A16, type: error_correction, prompt: "My actual salary is $140k — the job proposal arrived Tuesday.", accepted: ["My current salary is $140k — the job offer arrived Tuesday.", "My current salary is $140k — the job offer arrived Tuesday", "My current salary is $140k — the offer arrived Tuesday."], explanation: 'Dois calques: "current" + "job offer".', tags: [br.actual-current, br.job-proposal] }
+  - { id: L5-A17, type: error_correction, prompt: "I want more vacations and the thirteenth salary in the package.", accepted: ["I want more vacation days and the 13th-month bonus in the package.", "I want more vacation days and the 13th-month bonus in the package", "I want more PTO and a year-end bonus in the package."], explanation: 'Dois calques: "vacation days/PTO" + "13th-month bonus".', tags: [br.more-vacations, br.thirteenth-salary] }
+  - { id: L5-A18, type: error_correction, prompt: "I have interest in the role — I can give two weeks advice.", accepted: ["I'm interested in the role — I can give two weeks' notice.", "I'm interested in the role — I can give two weeks' notice", "I'm excited about the role — I can give two weeks' notice."], explanation: 'Dois calques: "interested" + "notice".', tags: [br.have-interest, br.advice-notice] }
+  - { id: L5-A19, type: error_correction, prompt: "I'm new in the company — in my first day I shadowed a deploy.", accepted: ["I'm new to the company — on my first day I shadowed a deploy.", "I'm new to the company — on my first day I shadowed a deploy", "I'm new here — on my first day I shadowed a deploy."], explanation: 'Dois calques: "new to" + "on my first day".', tags: [br.new-in-company, br.in-first-day] }
+  - { id: L5-A20, type: error_correction, prompt: "I need a help — who is the responsible for the runbooks?", accepted: ["I need help — who owns the runbooks?", "I need help — who owns the runbooks", "I need some help — who is the owner of the runbooks?"], explanation: 'Dois calques: "help" sem artigo + "who owns".', tags: [br.a-help, br.the-responsible] }
+  - { id: L5-A21, type: error_correction, prompt: "Let's take a coffee — I assist the team standup daily.", accepted: ["Let's grab a coffee — I attend the team standup daily.", "Let's grab a coffee — I attend the team standup daily", "Let's have a coffee — I attend the team standup daily."], explanation: 'Dois calques: "grab/have a coffee" + "attend".', tags: [br.take-a-coffee, br.assist] }
+  - { id: L5-A22, type: error_correction, prompt: "I'm working on this migration since yesterday.", accepted: ["I've been working on this migration since yesterday.", "I've been working on this migration since yesterday"], explanation: 'Present perfect contínuo — "I''ve been working".', tags: [br.since-present] }
+  - { id: L5-A23, type: multiple_choice, prompt: "A STAR answer lands when the Action part is…", options: ["three steps in 'I', not 'we' — your fingerprints on the fix", "the team's achievement", "two sentences of context", "the lesson only"], answer: 0, explanation: "Ação no 'I' — o que VOCÊ fez.", tags: [vocab.interview] }
+  - { id: L5-A24, type: multiple_choice, prompt: "Narrating a system design interview runs…", options: ["boxes first, requirements later", "clarify → recap → interface → boxes → hot path → trade-offs", "trade-offs first", "silence, then the diagram"], answer: 1, explanation: "A ordem narrada — cada camada assenta a próxima.", tags: [vocab.sysdesign, vocab.architecture] }
+  - { id: L5-A25, type: multiple_choice, prompt: "In 'the site is slow', the senior move is…", options: ["restart the server", "blame the last deploy", "'slow how — for whom, since when, what changed?' then eliminate candidates", "check every log at once"], answer: 2, explanation: "Definir o sintoma, depois eliminar nomeando.", tags: [vocab.troubleshoot, vocab.incident] }
+  - { id: L5-A26, type: match, prompt: "Ligue cada peça da oferta ao que ela significa.", pairs: [{ left: "total compensation", right: "base + bonus + equity, annualized — the real comparison" }, { left: "vesting with a cliff", right: "the schedule — nothing before the one-year mark" }, { left: "sign-on bonus", right: "the up-front cash that closes the year-one gap" }, { left: "unlimited PTO", right: "ask how much people actually take" }], explanation: "Cada peça do pacote tem sua pergunta.", tags: [vocab.compensation] }
+  - { id: L5-A27, type: multiple_choice, prompt: "Hearing 'the base is at the top of the band', the move is…", options: ["end the call", "accept on the spot", "push the same number harder", "pivot — sign-on, equity, or a six-month review in writing"], answer: 3, explanation: "O 'não' numa peça abre as outras.", tags: [vocab.compensation] }
+  - { id: L5-A28, type: multiple_choice, prompt: "The senior answer to 'when would you not use Kubernetes?' is…", options: ["never — always use it", "for a small team with simple workloads — it's overhead", "only on AWS", "when the budget is low"], answer: 0, explanation: "Saber quando NÃO usar é o sinal de senioridade.", tags: [vocab.k8s, vocab.cloud] }
+  - { id: L5-A29, type: fill_blank, prompt: "Before running a deploy myself, I want to ___ one with Ana.", accepted: ["shadow"], explanation: "Assistir antes de fazer — a postura da semana um.", tags: [vocab.onboarding] }
+  - { id: L5-A30, type: reorder, prompt: "Rearranje as palavras na ordem do pedido suave de negociação.", tokens: ["was", "i", "hoping", "for", "a", "higher", "base"], answer: "i was hoping for a higher base", explanation: "'I was hoping for' — o pedido que mantém a porta aberta.", tags: [vocab.interview, vocab.compensation] }
+
+writing:
+  prompt: |
+    **Cenário final do nível:** você saiu da entrevista
+    completa na CloudScale — screening, comportamental,
+    técnica. O coach pediu o follow-up por escrito e a
+    autoavaliação.
+
+    **Tarefa:** escreva 110–140 palavras: 1) o e-mail de
+    follow-up — agradecimento, o momento que reforça seu
+    fit ("the story behind the canary fix"), a pergunta
+    sobre próximos passos; 2) a autoavaliação — onde o
+    processo segurou (esclarecer antes de responder,
+    STAR no "I", pivô na negociação) e o que treinar.
+  constraints:
+    - { label: "O follow-up", pattern: "\\bthank|follow.up|enjoyed|appreciated|great talking\\b" }
+    - { label: "O fit reforçado", pattern: "\\bfit|excited|role|team|the story|canary|deploy\\b" }
+    - { label: "Próximos passos", pattern: "\\bnext steps|timeline|hear back|by (monday|tuesday|wednesday|thursday|friday)|eod\\b" }
+    - { label: "A autoavaliação", pattern: "\\bwent well|clarif|star|pivot|improve|hindsight|drill\\b" }
+  rubric:
+    - "Follow-up: agradecimento + fit + próximos passos"
+    - "Autoavaliação honesta pela rubrica"
+    - "Um ponto de treino concreto"
+    - "Sem os calques do nível ('current salary', 'job offer', 'new to')"
+  model: >-
+    The follow-up email: "Hi Rachel — thank you for the
+    loop today; I enjoyed every round. The technical
+    deep-dive sealed it for me — walking through the
+    canary story with Sam confirmed this team runs the
+    kind of engineering I want to join. Excited about
+    the role. What are the next steps and the timeline
+    on your side? I'm around all week." The self-review:
+    the process held — I clarified before answering,
+    kept the STAR actions in 'I', and pivoted the base
+    'no' into sign-on plus a written six-month review.
+    To train: my failure story ran ninety seconds
+    long — next time, sixty seconds with the number
+    up front and the lesson named at the end.
+  minWords: 110
+  maxWords: 140
+  tags: [comp.writing, vocab.interview, vocab.compensation]
+
+speaking:
+  prompt: "Grave até 5 minutos em três tempos: 1) o screening — pitch de 60 s, expectativa de faixa, notice como data; 2) o comportamental — duas histórias STAR (conflito + falha) com número no Result; 3) a técnica — esclarecer requisitos, narrar o design com trade-off nomeado, e o troubleshooting por eliminação."
+  maxSeconds: 300
+  targetPhrases:
+    - joining as
+    - i spent the last
+    - i led
+    - i owned
+    - reduced from
+    - situation was
+    - my task was
+    - the action i took
+    - the result was
+    - what i'd do differently
+    - i'm targeting the range
+    - what's the band
+    - two weeks' notice
+    - i was hoping for
+    - is there flexibility on
+    - before i answer, let me clarify
+    - we traded
+    - the bottleneck moves to
+    - that rules out
+    - the single point of failure
+    - i'm new to
+    - who owns
+    - isn't written down
+    - shadow a deploy
+    - mind if i add
+    - pay it forward
+    - stay in touch
+  checklist:
+    - "três blocos da entrevista na ordem"
+    - "STAR com ação no 'I' e número no Result"
+    - "esclarecimento antes do design + eliminação nomeada"
+    - "negociação com pedido com razão e pivô"
+    - "sem os calques do nível ('current salary', 'job offer', 'new to', 'on my first day')"
+
+pass: { itemsMin: 0.75, writingMin: 3, speakingMin: 4 }
