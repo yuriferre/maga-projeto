@@ -1,0 +1,327 @@
+id: M28-04
+module: M28
+order: 4
+title: "Simulação: screening call completo em 20 minutos"
+objective: >-
+  Ao final, você atravessou um screening call
+  simulado inteiro — abertura, trajetória, logística,
+  expectativas e suas perguntas — e avaliou a si
+  mesmo com a rubrica do recrutador.
+durationMin: 40
+competencies: [SPK, LIS]
+tags: [vocab.interview, comp.speaking, comp.listening]
+prerequisites: [M28-03]
+
+context:
+  scenario: |
+    Hora de juntar tudo. A Rachel vai te guiar por um
+    screening call completo de ~20 minutos, em cinco
+    fases — e você responde cada uma de verdade.
+
+    **As cinco fases:**
+
+    - **Fase 1 — Abertura** (2 min): small talk
+      rápido + "tell me about yourself" → seu pitch
+      de 2 minutos.
+    - **Fase 2 — Trajetória** (5 min): "walk me
+      through your resume" + "why this role?" →
+      cronológico + o problema deles.
+    - **Fase 3 — Logística** (5 min): notice,
+      remoto/realocação, sponsorship → sim/não +
+      um fato.
+    - **Fase 4 — Expectativas** (3 min): "salary
+      expectations?" → faixa + devolução do band.
+    - **Fase 5 — Suas perguntas** (5 min): 3–4
+      perguntas fortes + "what's the timeline?"
+
+    **A rubrica do recrutador** (autoavaliação):
+
+    - Respondeu tudo em ≤2 min por resposta?
+    - Logística direta (sim/não + fato)?
+    - Deu faixa salarial, não número único?
+    - Fez ≥2 perguntas sobre o problema deles?
+    - Saiu sabendo o próximo passo e o timeline?
+
+    Grave a sessão. Depois ouça procurando os
+    calques: "I have interest", "pretension",
+    "advice", "I work here since".
+  roles: [Yuri (platform engineer), Rachel (recruiter)]
+
+vocabulary:
+  - term: "thanks for making the time"
+    meaning: 'obrigado por arranjar tempo — a abertura cordial'
+    example: "Hi Yuri — thanks for making the time today."
+    translation: "Oi Yuri — obrigado por arranjar tempo hoje."
+    note: "Devolva com 'thanks for reaching out' — cordialidade de 5 segundos."
+  - term: "we've got about 20 minutes"
+    meaning: 'temos uns 20 minutos — o recrutador marca o ritmo'
+    example: "We've got about 20 minutes — I'll keep it moving."
+    translation: "Temos uns 20 minutos — vou manter o ritmo."
+    note: "Sinal: respostas de 2 min, não de dez."
+  - term: "a few logistics questions"
+    meaning: 'algumas perguntas de logística — a fase 3 começando'
+    example: "Great — now a few logistics questions."
+    translation: "Ótimo — agora algumas perguntas de logística."
+    note: "Reconheça a transição — é a parte sim/não + fato."
+  - term: "does that work for you?"
+    meaning: 'isso funciona para você? — checagem de encaixe'
+    example: "The team is in Dublin with a 4-hour overlap — does that work for you?"
+    translation: "O time fica em Dublin com 4h de overlap — isso funciona para você?"
+    note: "Responda direto — e pode fazer a pergunta de volta."
+  - term: "I'll keep this moving"
+    meaning: 'vou manter o ritmo — o recrutador controla o tempo'
+    example: "I'll keep this moving so we cover everything."
+    translation: "Vou manter o ritmo para cobrirmos tudo."
+    note: "Sinal para você também ser econômico."
+  - term: "that's helpful context"
+    meaning: 'contexto útil — o recrutador anota'
+    example: "That's helpful context — the manager will want to know."
+    translation: "Contexto útil — o gerente vai querer saber."
+    note: "Sinal positivo: sua resposta virou material repassável."
+  - term: "let me give you a quick picture of the team"
+    meaning: 'deixe-me dar um panorama do time — o recrutador vende a vaga'
+    example: "Before your questions — let me give you a quick picture of the team."
+    translation: "Antes das suas perguntas — deixe-me dar um panorama do time."
+    note: "Eles também vendem — ouça os detalhes para suas perguntas."
+  - term: "we're at time"
+    meaning: 'estamos no limite — o fecho formal'
+    example: "We're at time — any final questions before I pass you along?"
+    translation: "Estamos no limite — alguma pergunta final antes de eu te encaminhar?"
+    note: "Última chance de perguntar — use."
+  - term: "expect to hear back by…"
+    meaning: 'espere retorno até… — o timeline confirmado'
+    example: "You should expect to hear back by Friday — I'll send a follow-up email."
+    translation: "Você deve receber retorno até sexta — enviarei um e-mail de follow-up."
+    note: "Se não disserem, pergunte — nunca saia sem timeline."
+  - term: "sounds good on my end"
+    meaning: 'por mim tudo certo — o fecho positivo'
+    example: "That all sounds good on my end — excited to move forward."
+    translation: "Por mim tudo certo — animado para seguir adiante."
+    note: "Seu fecho entusiasmado mas econômico."
+  - term: "looking forward to the next steps"
+    meaning: 'ansioso pelos próximos passos — fecho de interesse'
+    example: "Thanks Rachel — looking forward to the next steps."
+    translation: "Obrigado Rachel — ansioso pelos próximos passos."
+    note: "Fecha com energia sem bajular."
+  - term: "I'll send a follow-up email"
+    meaning: 'enviarei um e-mail de acompanhamento — o recap por escrito'
+    example: "I'll send a follow-up email with the next steps and the hiring manager's name."
+    translation: "Enviarei um e-mail com os próximos passos e o nome do hiring manager."
+    note: "Confirme recebimento — e use para o seu follow-up."
+
+grammar:
+  title: "a gramática da simulação"
+  explanation: |
+    A simulação junta as três aulas — os frames que
+    você vai usar ao vivo:
+
+    - **Abertura**: "*Thanks for reaching out* —
+      happy to be here." + pitch de 2 min.
+    - **Trajetória**: "*I've been at X since Y*"
+      (present perfect) + "*I joined as… and was
+      promoted to…*" (simple past).
+    - **Logística**: "*I'd need X — or I can Y*",
+      "*My notice is X — I could start in Y*".
+    - **Expectativas**: "*I'm targeting the X–Y
+      range, depending on the package. What's the
+      band?*"
+    - **Perguntas**: "*What does success look
+      like…?*" → "*…when should I expect to hear
+      back?*"
+    - **Fecho**: "*That covers everything I had —
+      looking forward to the next steps.*"
+  examples:
+    - { en: "Thanks for reaching out — happy to be here.", pt: "Obrigado pelo contato — feliz de estar aqui." }
+    - { en: "I've been at the fintech since 2021 — platform team.", pt: "Estou na fintech desde 2021 — time de plataforma." }
+    - { en: "My notice is two weeks — I could start in early March.", pt: "Meu aviso é de duas semanas — poderia começar no início de março." }
+    - { en: "I'm targeting the $140–160k range — what's the band on your end?", pt: "Miro a faixa de $140–160k — qual a faixa do lado de vocês?" }
+    - { en: "That covers everything I had — looking forward to the next steps.", pt: "Isso cobre tudo que eu tinha — ansioso pelos próximos passos." }
+    - { en: "That's helpful context — it maps to what I did at the fintech.", pt: "Contexto útil — conecta com o que fiz na fintech." }
+
+examples:
+  - en: "Thanks for reaching out — happy to be here."
+    pt: "Obrigado pelo contato — feliz de estar aqui."
+    context: "A abertura cordial."
+  - en: "I'm a platform engineer — eight years, led a multi-AZ migration last year."
+    pt: "Sou engenheiro de plataforma — oito anos, liderei uma migração multi-AZ no ano passado."
+    context: "O pitch em uma frase."
+  - en: "Two weeks' notice — I could start in early March."
+    pt: "Aviso de duas semanas — poderia começar no início de março."
+    context: "Logística: sim/não + fato."
+  - en: "I'm targeting the $140–160k range — what's the band on your end?"
+    pt: "Miro $140–160k — qual a faixa do lado de vocês?"
+    context: "Faixa + devolução."
+  - en: "Yes, I'd need sponsorship for the US — remote from Brazil needs none."
+    pt: "Sim, precisaria de patrocínio para os EUA — remoto do Brasil não precisa."
+    context: "Visto direto, positivo primeiro."
+  - en: "What does success look like in the first 90 days?"
+    pt: "Como é o sucesso nos primeiros 90 dias?"
+    context: "A pergunta de senior."
+  - en: "That covers everything I had — when should I expect to hear back?"
+    pt: "Isso cobre tudo — quando devo esperar retorno?"
+    context: "Fecho + timeline."
+  - en: "Thanks Rachel — looking forward to the next steps."
+    pt: "Obrigado Rachel — ansioso pelos próximos passos."
+    context: "O fecho com energia."
+
+variations:
+  - idea: '"o ritmo de cada fase"'
+    items:
+      - { register: "Forte", text: "(2 min) pitch → (5 min) trajetória → (5 min) logística → (3 min) expectativas → (5 min) perguntas", adequate: true }
+      - { register: "Forte", text: "Respostas ≤2 min — o recrutador repassa três frases.", adequate: true }
+      - { register: "Fraco", text: "(10 min na trajetória, sem tempo para perguntas)", adequate: false, note: "Estourar o tempo na fase 2 mata a fase 5 — e as perguntas são o sinal de senior." }
+      - { register: "Fraco", text: "Pular o 'what's the timeline?' para sair logo", adequate: false, note: "Sair sem timeline = sair no escuro." }
+  - idea: '"a autoavaliação"'
+    items:
+      - { register: "Forte", text: "Ouvi a gravação e marquei cada fase contra a rubrica.", adequate: true }
+      - { register: "Forte", text: "Contei os calques: 'I have interest', 'pretension', 'advice'.", adequate: true }
+      - { register: "Fraco", text: "Achei que foi bem, não preciso ouvir.", adequate: false, note: "A memória mente — o áudio não." }
+      - { register: "Fraco", text: "Vou refazer tudo do zero porque errei uma palavra.", adequate: false, note: "Um critério por passada — não tudo de novo." }
+
+brErrors:
+  - { wrong: "I have interest in the company.", right: "I'm interested in the company.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "My pretension is remote work.", right: "My preference is remote work.", why: "preference / expectation", tag: br.pretension }
+  - { wrong: "I made an interview last Tuesday.", right: "I had an interview last Tuesday.", why: "had an interview", tag: br.make-interview }
+  - { wrong: "I give two weeks advice tomorrow.", right: "I give two weeks' notice tomorrow.", why: "two weeks' notice", tag: br.advice-notice }
+  - { wrong: "I work here since five years.", right: "I've worked here for five years.", why: "I've worked for", tag: br.work-since }
+  - { wrong: "I was promoted for senior in March.", right: "I was promoted to senior in March.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "I formed in 2016.", right: "I graduated in 2016.", why: "graduated", tag: br.formed-in }
+  - { wrong: "I was responsible by the migration.", right: "I was responsible for the migration.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "The same process than before.", right: "The same process as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "In my vision the band is fair.", right: "In my view the band is fair.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "O screening completo — as cinco fases"
+  lines:
+    - { speaker: Rachel, text: "Hi Yuri — thanks for making the time! We've got about 20 minutes, so I'll keep this moving. Tell me about yourself." }
+    - { speaker: Yuri, text: "Thanks for reaching out. I'm a platform engineer — eight years, mostly SRE and CI. I've been at the fintech since 2021; last year I led the multi-AZ migration and cut deploy time from forty minutes to six." }
+    - { speaker: Rachel, text: "Impressive. Walk me through your resume quickly — and why this role?" }
+    - { speaker: Yuri, text: "I joined as a mid-level engineer, was promoted to senior, and moved toward platform work. This role caught my eye because the posting mentions deploy reliability — it's a problem I know well." }
+    - { speaker: Rachel, text: "That's helpful context. A few logistics questions — what's your notice period?" }
+    - { speaker: Yuri, text: "Two weeks — I could start in early March." }
+    - { speaker: Rachel, text: "The team is based in Dublin with a 4-hour overlap — does that work for you? And would you need sponsorship?" }
+    - { speaker: Yuri, text: "Remote from Brazil works — I'm used to that overlap already. For US relocation I'd need sponsorship, but remote needs none." }
+    - { speaker: Rachel, text: "Got it. And your salary expectations?" }
+    - { speaker: Yuri, text: "I'm targeting the $140–160k range, depending on the package. What's the band on your end?" }
+    - { speaker: Rachel, text: "That's within band. We're at time — do you have questions for me?" }
+    - { speaker: Yuri, text: "Two. What does success look like in the first 90 days — and is this a new role or a backfill?" }
+    - { speaker: Rachel, text: "New role, team is growing. Success is owning the CI reliability roadmap." }
+    - { speaker: Yuri, text: "That maps well to what I did at the fintech. When should I expect to hear back?" }
+    - { speaker: Rachel, text: "By Friday — I'll send a follow-up email. I'll pass your profile along to the hiring manager." }
+    - { speaker: Yuri, text: "Sounds good on my end — looking forward to the next steps. Thanks, Rachel!" }
+  notes:
+    - "as cinco fases em sequência: abertura → trajetória → logística → expectativas → perguntas."
+    - "cada resposta ≤2 min; logística sim/não + fato; faixa + devolução do band."
+    - "o fecho: perguntas fortes → timeline → 'looking forward to the next steps'."
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "A full screening runs five phases: a two-minute opening, five minutes of trajectory, five of logistics, three of expectations, and five for your questions. I'm watching the clock the whole time — 'I'll keep this moving' is my line, and your answers should stay under two minutes each." }
+    - { speaker: Yuri, text: "My checklist: pitch in three beats, logistics as yes/no plus one fact, a salary range not a number, two-plus questions about their problem, and never leave without 'when should I expect to hear back?'. Then I grade the recording against the rubric and hunt for calques — 'I have interest', 'pretension', 'advice', 'I work here since'." }
+    - { speaker: Rachel, text: "The closes that stick: 'that covers everything I had — looking forward to the next steps'. Enthusiastic but economical. I'll pass along a profile, not a transcript." }
+  questions:
+    - { id: M28-04-l1, type: multiple_choice, prompt: "As cinco fases do screening são…", options: ["abertura → trajetória → logística → expectativas → suas perguntas", "só logística", "técnica → oferta", "small talk só"], answer: 0, explanation: "O roteiro completo em 20 minutos.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-04-l2, type: fill_blank, prompt: "I'll send a ___ email with the next steps.", accepted: ["follow-up"], explanation: "'Follow-up email' — o recap por escrito.", tags: [vocab.interview] }
+    - { id: M28-04-l3, type: error_correction, prompt: "I have interest in the company.", accepted: ["I'm interested in the company.", "I'm interested in the company", "I'm very interested in the company."], explanation: "'I'm interested'.", tags: [br.have-interest] }
+    - { id: M28-04-l4, type: multiple_choice, prompt: "'I'll keep this moving' do recrutador significa…", options: ["ele está entediado", "a call acabou", "você foi reprovado", "ele controla o tempo — respostas curtas"], answer: 3, explanation: "Sinal para economia nas respostas.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-04-l5, type: multiple_choice, prompt: "Nunca saia do screening sem saber…", options: ["o salário final", "o endereço", "'when should I expect to hear back' — o timeline", "o CEO"], answer: 2, explanation: "Timeline de retorno — sempre.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-04-l6, type: multiple_choice, prompt: "Na autoavaliação da gravação você procura…", options: ["só a pronúncia", "a rubrica por fase + os calques ('I have interest', 'pretension', 'advice')", "nada", "o volume"], answer: 1, explanation: "Rubrica do recrutador + caça aos calques.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** o screening acabou. A boa prática é
+    mandar o follow-up em até 24h enquanto ainda é
+    fresco.
+
+    **Tarefa:** escreva 80–110 palavras: o e-mail de
+    follow-up para a Rachel — agradecimento curto, um
+    callback a algo específico da conversa ("the CI
+    reliability roadmap"), a confirmação do interesse
+    ("I'm excited about…"), e a pergunta de confirmação
+    do próximo passo/timeline.
+  constraints:
+    - { label: "Agradecimento", pattern: "\\bthanks|thank you|appreciated|great talking\\b" }
+    - { label: "O callback específico", pattern: "\\broadmap|reliability|platform|series b|team|role|conversation\\b" }
+    - { label: "O interesse", pattern: "\\bexcited|interested|looking forward|strong fit|enthusiastic\\b" }
+    - { label: "O próximo passo", pattern: "\\bnext steps|hear back|friday|timeline|hiring manager|follow.?up\\b" }
+  rubric:
+    - "Curto — follow-up não é ensaio"
+    - "Um callback específico da conversa"
+    - "Confirma interesse + próximo passo"
+    - "Sem calques ('I'm interested', 'looking forward')"
+  model: >-
+    Hi Rachel — thanks for the screening today, great
+    talking with you. The CI reliability roadmap
+    sounds like exactly the kind of problem I've been
+    solving — the migration story we discussed maps
+    well to it. I'm excited about the role and the
+    team's growth after the Series B. You mentioned
+    the next step is a call with the hiring manager —
+    should I still expect to hear back by Friday?
+    Happy to send anything that helps. Looking forward
+    to the next steps!
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave até 120 segundos: o screening inteiro em miniatura. Cinco fases em sequência: abertura + pitch (30s), trajetória/'why this role' (30s), logística — notice + remoto + visto (30s), expectativas — faixa + devolução do band (15s), e suas 2 perguntas + fecho (15s). Use o relógio: cada fase tem teto."
+    maxSeconds: 120
+    targetPhrases:
+      - thanks for reaching out
+      - i'm a platform engineer
+      - i've been here since
+      - i led the
+      - reduced deploy time from
+      - why this role
+      - it's a problem i know
+      - my notice is
+      - i could start in
+      - i'd need sponsorship
+      - remote is my strong preference
+      - i'm targeting the
+      - what's the band
+      - what does success look like
+      - is this a new role or a backfill
+      - when should i expect to hear back
+      - that covers everything
+      - looking forward to the next steps
+    checklist:
+      - "cinco fases cobertas, cada uma no teto"
+      - "logística sim/não + fato"
+      - "faixa salarial + devolução do band"
+      - "≥2 perguntas fortes + timeline no fecho"
+
+quiz:
+  - { id: M28-04-q1, type: multiple_choice, prompt: "O screening completo tem quantas fases?", options: ["cinco — abertura, trajetória, logística, expectativas, perguntas", "duas", "dez", "uma"], answer: 0, explanation: "Cinco fases em ~20 minutos.", tags: [vocab.interview] }
+  - { id: M28-04-q2, type: error_correction, prompt: "I made an interview with Rachel yesterday.", accepted: ["I had an interview with Rachel yesterday.", "I had an interview with Rachel yesterday", "I did an interview with Rachel yesterday."], explanation: "'Had an interview'.", tags: [br.make-interview] }
+  - { id: M28-04-q3, type: multiple_choice, prompt: "'That's helpful context' do recrutador é…", options: ["sarcasmo", "um pedido de silêncio", "sinal positivo — sua resposta virou material repassável", "uma objeção"], answer: 2, explanation: "Ele anota para o hiring manager.", tags: [vocab.interview] }
+  - { id: M28-04-q4, type: fill_blank, prompt: "We're at ___ — any final questions?", accepted: ["time"], explanation: "'We're at time' — o fecho formal.", tags: [vocab.interview] }
+  - { id: M28-04-q5, type: multiple_choice, prompt: "A autoavaliação da simulação usa…", options: ["a intuição", "a memória", "a opinião de amigos", "a gravação + a rubrica do recrutador por fase"], answer: 3, explanation: "O áudio não mente.", tags: [vocab.interview] }
+  - { id: M28-04-q6, type: error_correction, prompt: "I work here since five years.", accepted: ["I've worked here for five years.", "I've worked here for five years", "I've been here for five years."], explanation: "'For five years' + present perfect.", tags: [br.work-since] }
+  - { id: M28-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["should", "expect", "when", "i", "back", "to", "hear"], answer: "when should i expect to hear back", explanation: "A pergunta de timeline.", tags: [vocab.interview] }
+  - { id: M28-04-q8, type: multiple_choice, prompt: "O fecho ideal do screening é…", options: ["'bye'", "'do I get the job?'", "silêncio", "'that covers everything — looking forward to the next steps'"], answer: 3, explanation: "Entusiasmado mas econômico.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "thanks for making the time", back: "A abertura cordial — devolva com 'thanks for reaching out'.", tag: vocab.interview }
+  - { front: "we've got about 20 minutes", back: "O recrutador marca o ritmo — respostas de 2 min.", tag: vocab.interview }
+  - { front: "a few logistics questions", back: "A fase 3 começando — sim/não + um fato.", tag: vocab.interview }
+  - { front: "does that work for you?", back: "Checagem de encaixe — responda e pergunte de volta.", tag: vocab.interview }
+  - { front: "I'll keep this moving", back: "O recrutador controla o tempo — seja econômico.", tag: vocab.interview }
+  - { front: "that's helpful context", back: "Sinal positivo — sua resposta virou material repassável.", tag: vocab.interview }
+  - { front: "let me give you a quick picture of the team", back: "Eles também vendem — ouça para suas perguntas.", tag: vocab.interview }
+  - { front: "we're at time", back: "O fecho formal — última chance de perguntar.", tag: vocab.interview }
+  - { front: "expect to hear back by…", back: "O timeline confirmado — pergunte se não disserem.", tag: vocab.interview }
+  - { front: "sounds good on my end", back: "Seu fecho entusiasmado e econômico.", tag: vocab.interview }
+  - { front: "looking forward to the next steps", back: "Fecha com energia sem bajular.", tag: vocab.interview }
+  - { front: "I'll send a follow-up email", back: "O recap por escrito — base do seu follow-up.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.have-interest, br.advice-notice]
+  notes: "Revisão prioriza as cinco fases, os marcadores do recrutador e os calques."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
