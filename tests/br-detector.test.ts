@@ -1417,6 +1417,8 @@ describe("padrões BR — M32 (onboarding internacional)", () => {
       "I'm new to the company.",
       "I'm new in town — just moved here.",
       "The feature is new in this release.",
+      "What's new in the company this quarter?",
+      "Anything new in the team since January?",
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.new-in-company");
   });
@@ -1437,6 +1439,8 @@ describe("padrões BR — M32 (onboarding internacional)", () => {
       "I need help with the setup.",
       "The help desk is on floor two.",
       "It was a big help — thanks.",
+      "I need a help desk account.",
+      "We are looking for a help desk technician.",
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.a-help");
   });
