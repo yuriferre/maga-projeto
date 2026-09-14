@@ -1,0 +1,106 @@
+# Avaliação do módulo M26: 15 itens cobrindo as quatro aulas + escrita (mensagem async com small talk) + fala.
+id: M26
+title: "Avaliação do módulo M26: colaboração multicultural e small talk"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M26-A01, type: multiple_choice, prompt: "Someone opens a call with 'how's it going?'. The right reply is…", options: ["a summary of your week", "three seconds plus the return — 'good, you?'", "a report on the migration", "nothing — it's rhetorical"], answer: 1, explanation: "É saudação, não pauta — responde curto e devolve.", tags: [vocab.smalltalk] }
+  - { id: M26-A02, type: error_correction, prompt: "I'm boring on Friday calls, and too much people join anyway.", accepted: ["I'm bored on Friday calls, and too many people join anyway.", "I'm bored on Friday calls, and too many people join anyway", "I get bored on Friday calls, and too many people join anyway."], explanation: 'Dois calques: "bored" + "too many people".', tags: [br.i-am-boring, br.too-much-people] }
+  - { id: M26-A03, type: fill_blank, prompt: "Any ___ for the holidays? — Mostly family, maybe a trip.", accepted: ["plans"], explanation: "'Any plans' — a pergunta de pré-feriado.", tags: [vocab.smalltalk] }
+  - { id: M26-A04, type: error_correction, prompt: "How long time have you been remote? Want to take a coffee and compare?", accepted: ["How long have you been remote? Want to grab a coffee and compare?", "How long have you been remote? Want to grab a coffee and compare", "How long have you been remote? Want to have a coffee and compare?"], explanation: 'Dois calques: "how long" + "grab a coffee".', tags: [br.how-long-time, br.take-a-coffee] }
+  - { id: M26-A05, type: multiple_choice, prompt: "A message that survives a time-zone crossing carries…", options: ["'got a minute?'", "context + the ask + the real urgency, anchored to their clock", "an emoji", "'urgent!!!'"], answer: 1, explanation: "A mensagem viaja sozinha — o fuso dela, não o seu.", tags: [topic.async] }
+  - { id: M26-A06, type: error_correction, prompt: "I'm kidding you — he is very humor in the thread.", accepted: ["I'm kidding — he's very funny in the thread.", "I'm kidding — he's very funny in the thread", "I'm just kidding — he is very funny in the thread."], explanation: 'Dois calques: "kidding" sem objeto + "funny".', tags: [br.kidding-you, br.he-is-humor] }
+  - { id: M26-A07, type: multiple_choice, prompt: "'Another 5pm deploy — genius move' right after a failure is…", options: ["genuine praise", "confusion", "irony — the praise is out of proportion to the fact", "a question"], answer: 2, explanation: "Contexto + exagero invertido = ironia.", tags: [vocab.smalltalk] }
+  - { id: M26-A08, type: error_correction, prompt: "We discussed about it — the same plan than Carlos proposed.", accepted: ["We discussed it — the same plan as Carlos proposed.", "We discussed it — the same plan as Carlos proposed", "We discussed it — the same plan Carlos proposed."], explanation: 'Dois calques: "discussed it" + "the same as".', tags: [br.discuss-about, br.same-than] }
+  - { id: M26-A09, type: match, prompt: "Associe o idioma ao significado real.", pairs: [{ left: "bandwidth", right: "human capacity — time, not network" }, { left: "push back", right: "disagree or resist — the counterpoint" }, { left: "low-hanging fruit", right: "the easy win you take first" }, { left: "on the back burner", right: "consciously deprioritized" }], explanation: "Os idiomas que valem — e o que significam de verdade.", tags: [vocab.smalltalk] }
+  - { id: M26-A10, type: error_correction, prompt: "According to me the plan is fine — I am agree with Beth.", accepted: ["In my view the plan is fine — I agree with Beth.", "In my view the plan is fine — I agree with Beth", "To me the plan is fine — I agree with Beth."], explanation: 'Dois calques: "in my view" + "I agree".', tags: [br.according-to-me, br.i-am-agree] }
+  - { id: M26-A11, type: error_correction, prompt: "Please revert back the flag — in my vision it's safer.", accepted: ["Please revert the flag — in my view it's safer.", "Please revert the flag — in my view it's safer"], explanation: 'Dois calques: "revert" sem "back" + "in my view".', tags: [br.revert-back, br.in-my-vision] }
+  - { id: M26-A12, type: error_correction, prompt: "I want that you join the call — I have doubt about the agenda.", accepted: ["I want you to join the call — I have a doubt about the agenda.", "I want you to join the call — I have a doubt about the agenda", "I'd like you to join the call — I have a question about the agenda."], explanation: 'Dois calques: "want you to" + "a doubt".', tags: [br.want-that, br.doubt] }
+  - { id: M26-A13, type: error_correction, prompt: "She suggest to sync Thursday — I commented in the thread already.", accepted: ["She suggests syncing Thursday — I commented on the thread already.", "She suggests syncing Thursday — I commented on the thread already", "She suggested syncing Thursday — I commented on the thread already."], explanation: 'Dois calques: "suggests syncing" + "commented on".', tags: [br.suggest-to, br.comment-in] }
+  - { id: M26-A14, type: multiple_choice, prompt: "Three places to never try your own jokes:", options: ["a live incident, a feedback talk, your first month", "#random, lunch, Friday", "morning, noon, night", "chat, email, calls"], answer: 0, explanation: "O momento errado custa mais que o silêncio.", tags: [vocab.smalltalk] }
+  - { id: M26-A15, type: error_correction, prompt: "In the other hand, async keeps the meetings short.", accepted: ["On the other hand, async keeps the meetings short.", "On the other hand, async keeps the meetings short"], explanation: '"On the other hand".', tags: [br.in-other-hand] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** sexta-feira, fuso
+    cruzado — a Beth postou "how was everyone's week?"
+    no #random, e você deve a ela uma revisão antes do
+    fim do seu dia.
+
+    **Tarefa:** escreva 90–120 palavras em duas partes.
+    Parte 1 (#random): a resposta curta à semana, a
+    devolução, um toque de humor autodepreciativo sobre
+    o deploy quebrado, o fecho de sexta. Parte 2
+    (thread da revisão): a mensagem async completa —
+    contexto, o pedido, o prazo no fuso dela, e o que
+    fica para a overlap de segunda.
+  constraints:
+    - { label: "O small talk", pattern: "\\bquiet week|can't complain|how about you|have a good|same to you\\b" }
+    - { label: "O humor seguro", pattern: "\\bfamously reliable|see:|on me|kidding|fair\\b" }
+    - { label: "A mensagem async", pattern: "\\bno rush|whenever you get to it|in the thread|EOD my time|your morning|overlap\\b" }
+    - { label: "O que fica para depois", pattern: "\\bcircle back|take.*offline|let's sync|Monday|hand.*off\\b" }
+  rubric:
+    - "Duas partes distintas — canal social × thread de trabalho"
+    - "Small talk curto com devolução"
+    - "Humor autodepreciativo, não sobre ninguém"
+    - "Async com fuso ancorado e urgência real"
+  model: >-
+    #random: Week was long but good — can't complain.
+    How about you, Beth? That 5pm deploy was on me —
+    my deploys are famously reliable, see: Thursday.
+    Have a good one, everyone. — Review thread: async
+    note for your morning, no rush. Context is all in
+    the thread: the rollback section and the quota
+    numbers need your eyes before EOD my time — I'm +8
+    ahead, so that's your Friday morning. If the
+    pricing question drags, let's take it offline and
+    circle back in Monday's overlap. I'll hand off the
+    summary before I log off — whenever you get to it.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.smalltalk, topic.async]
+
+speaking:
+  prompt: "Grave 60–90 segundos cobrindo as duas cenas do módulo: 1) a abertura de call — saudação, resposta curta com devolução, pergunta de fim de semana, transição 'anyway — should we get started'; 2) o recado async — contexto, o pedido, o prazo no fuso do outro, e o que vocês levam para o sync."
+  maxSeconds: 90
+  targetPhrases:
+    - how's it going
+    - pretty good
+    - you?
+    - how about you
+    - any plans
+    - anyway — should we get started
+    - have a good one
+    - same to you
+    - grab a coffee
+    - no rush
+    - whenever you get to it
+    - circle back
+    - take it offline
+    - let's sync
+    - EOD my time
+    - your morning
+    - overlapping hours
+    - ha — fair
+    - fair point
+    - read the room
+    - low-hanging fruit
+    - bandwidth
+    - loop in
+    - push back
+    - ballpark
+    - I'm bored
+    - how long
+    - too many people
+  checklist:
+    - "saudação respondida curta + devolvida"
+    - "transição 'anyway' sem corte seco"
+    - "async: contexto + pedido + fuso do outro"
+    - "sem calques ('bored', 'how long', 'grab a coffee', 'too many')"
+
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3

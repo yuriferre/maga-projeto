@@ -908,3 +908,43 @@ describe("M25 assessment variants", () => {
     expect(checkExercise(q, "I agree with Beth — she gave me a feedback yesterday.").correct).toBe(false);
   });
 });
+
+describe("M26 assessment variants", () => {
+  const m26 = bundle.moduleAssessments["M26"]!;
+  it("requires 'bored' and 'too many people' on A02", () => {
+    const q = m26.items.find((q) => q.id === "M26-A02")!;
+    expect(checkExercise(q, "I'm bored on Friday calls, and too many people join anyway.").correct).toBe(true);
+    expect(checkExercise(q, "I'm boring on Friday calls, and too many people join anyway.").correct).toBe(false);
+    expect(checkExercise(q, "I'm bored on Friday calls, and too much people join anyway.").correct).toBe(false);
+  });
+  it("requires 'how long' and 'grab a coffee' on A04", () => {
+    const q = m26.items.find((q) => q.id === "M26-A04")!;
+    expect(checkExercise(q, "How long have you been remote? Want to grab a coffee and compare?").correct).toBe(true);
+    expect(checkExercise(q, "How long time have you been remote? Want to grab a coffee and compare?").correct).toBe(false);
+    expect(checkExercise(q, "How long have you been remote? Want to take a coffee and compare?").correct).toBe(false);
+  });
+  it("requires bare 'kidding' and 'funny' on A06", () => {
+    const q = m26.items.find((q) => q.id === "M26-A06")!;
+    expect(checkExercise(q, "I'm kidding — he's very funny in the thread.").correct).toBe(true);
+    expect(checkExercise(q, "I'm kidding you — he's very funny in the thread.").correct).toBe(false);
+    expect(checkExercise(q, "I'm kidding — he is very humor in the thread.").correct).toBe(false);
+  });
+  it("requires 'discussed it' and 'the same as' on A08", () => {
+    const q = m26.items.find((q) => q.id === "M26-A08")!;
+    expect(checkExercise(q, "We discussed it — the same plan as Carlos proposed.").correct).toBe(true);
+    expect(checkExercise(q, "We discussed about it — the same plan as Carlos proposed.").correct).toBe(false);
+    expect(checkExercise(q, "We discussed it — the same plan than Carlos proposed.").correct).toBe(false);
+  });
+  it("requires 'revert' and 'in my view' on A11", () => {
+    const q = m26.items.find((q) => q.id === "M26-A11")!;
+    expect(checkExercise(q, "Please revert the flag — in my view it's safer.").correct).toBe(true);
+    expect(checkExercise(q, "Please revert back the flag — in my view it's safer.").correct).toBe(false);
+    expect(checkExercise(q, "Please revert the flag — in my vision it's safer.").correct).toBe(false);
+  });
+  it("requires 'want you to' and 'a doubt'/'question' on A12", () => {
+    const q = m26.items.find((q) => q.id === "M26-A12")!;
+    expect(checkExercise(q, "I want you to join the call — I have a doubt about the agenda.").correct).toBe(true);
+    expect(checkExercise(q, "I want that you join the call — I have a doubt about the agenda.").correct).toBe(false);
+    expect(checkExercise(q, "I want you to join the call — I have doubt about the agenda.").correct).toBe(false);
+  });
+});
