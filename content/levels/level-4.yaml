@@ -1,0 +1,118 @@
+# Avaliação do Nível 4 (E5): 30 itens cobrindo todas as tags de M21–M26 + escrita (RFC) + fala (apresentação gravada + debate).
+id: L4
+title: "Avaliação do Nível 4: Influenciar e decidir"
+intro: |
+  Trinta itens mistos cobrindo os seis módulos, uma escrita (RFC curta) e uma gravação de até cinco minutos (apresentação do projeto + defesa sob pushback). Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, RFC ≥ 4/5, apresentação ≥ 3,5/5. Pode refazer; vale a última.
+items:
+  - { id: L4-A01, type: multiple_choice, prompt: "A decision record lands when it has…", options: ["context → options → decision → rationale → consequences, with the rejected options respected", "just the final decision", "a long discussion log", "the manager's opinion only"], answer: 0, explanation: "A estrutura em cinco batidas — inclusive os descartados.", tags: [vocab.decisions, gram.argument-connectors] }
+  - { id: L4-A02, type: error_correction, prompt: "We discussed about the design — the same trade-off than the last review.", accepted: ["We discussed the design — the same trade-off as the last review.", "We discussed the design — the same trade-off as the last review"], explanation: 'Dois calques: "discussed the design" + "the same as".', tags: [br.discuss-about, br.same-than] }
+  - { id: L4-A03, type: error_correction, prompt: "I am agree — we chose a cache instead a queue.", accepted: ["I agree — we chose a cache instead of a queue.", "I agree — we chose a cache instead of a queue"], explanation: 'Dois calques: "I agree" + "instead of".', tags: [br.i-am-agree, br.instead-of] }
+  - { id: L4-A04, type: multiple_choice, prompt: "The hedged claim that invites correction is…", options: ["'the design is wrong, period'", "'my read is the cache assumes warm data — is that fair?'", "'everyone knows this fails'", "'trust me on this'"], answer: 1, explanation: "Leitura declarada + pergunta — hedge que abre espaço.", tags: [gram.hedging, vocab.disagreement] }
+  - { id: L4-A05, type: error_correction, prompt: "I want that you review the ADR — I have a doubt about the scope.", accepted: ["I want you to review the ADR — I have a question about the scope.", "I want you to review the ADR — I have a question about the scope", "I want you to review the ADR — I'm not sure about the scope."], explanation: 'Dois calques: "want you to" + "a question".', tags: [br.want-that, br.doubt] }
+  - { id: L4-A06, type: error_correction, prompt: "I suggest to change the default — I commented in the PR already.", accepted: ["I suggest changing the default — I commented on the PR already.", "I suggest changing the default — I commented on the PR already", "I suggest that we change the default — I commented on the PR already."], explanation: 'Dois calques: "suggest changing" + "commented on".', tags: [br.suggest-to, br.comment-in] }
+  - { id: L4-A07, type: multiple_choice, prompt: "'The exposure here is a stale cache under burst — likelihood medium, impact high' does…", options: ["likelihood times impact, with the worst case named", "vague worrying", "blame first", "a guess"], answer: 0, explanation: "A matriz nomeada — e o pior caso delimitado.", tags: [vocab.risk, gram.probability-modals] }
+  - { id: L4-A08, type: error_correction, prompt: "In the other hand, it make sense to wait a sprint.", accepted: ["On the other hand, it makes sense to wait a sprint.", "On the other hand, it makes sense to wait a sprint"], explanation: 'Dois calques: "on the other hand" + "it makes sense".', tags: [br.in-other-hand, br.it-makes-sense] }
+  - { id: L4-A09, type: error_correction, prompt: "We are in risk — there's a risk to lose the replica.", accepted: ["We are at risk — there's a risk of losing the replica.", "We are at risk — there's a risk of losing the replica"], explanation: 'Dois calques: "at risk" + "risk of losing".', tags: [br.in-risk, br.risk-to] }
+  - { id: L4-A10, type: error_correction, prompt: "The discount compensates the risk — the change is danger for the data.", accepted: ["The discount offsets the risk — the change is dangerous for the data.", "The discount offsets the risk — the change is dangerous for the data"], explanation: 'Dois calques: "offsets" + "dangerous".', tags: [br.compensate-risk, br.is-danger] }
+  - { id: L4-A11, type: fill_blank, prompt: "___ the lag grow past 30s, we roll back — the trigger is measurable.", accepted: ["Should"], explanation: "Condicional real invertida — 'should X happen'.", tags: [gram.conditionals-real] }
+  - { id: L4-A12, type: error_correction, prompt: "We must to fix it — the fallback not works under load.", accepted: ["We must fix it — the fallback doesn't work under load.", "We must fix it — the fallback doesn't work under load"], explanation: 'Dois calques: "must fix" + "doesn''t work".', tags: [br.modal-to, br.it-not-works] }
+  - { id: L4-A13, type: error_correction, prompt: "You agree, no? I didn't see nothing wrong with the plan.", accepted: ["You agree, right? I didn't see anything wrong with the plan.", "You agree, right? I didn't see anything wrong with the plan", "You agree, don't you? I didn't see anything wrong with the plan."], explanation: 'Dois calques: "right?" + "anything".', tags: [br.no-tag, br.double-negative] }
+  - { id: L4-A14, type: error_correction, prompt: "In my vision the design is polemic — the team will push back.", accepted: ["In my view the design is controversial — the team will push back.", "In my view the design is controversial — the team will push back"], explanation: 'Dois calques: "in my view" + "controversial".', tags: [br.in-my-vision, br.polemic] }
+  - { id: L4-A15, type: multiple_choice, prompt: "'Can we agree that the migration is the priority? — then what would it take to ship it?' builds consensus by…", options: ["forcing a vote", "agreeing on the fact first, then asking the condition", "ignoring dissent", "escalating"], answer: 1, explanation: "Consenso em peças: o fato, depois a condição.", tags: [vocab.disagreement, gram.softeners] }
+  - { id: L4-A16, type: error_correction, prompt: "Can I make a question about what's in the screen?", accepted: ["Can I ask a question about what's on the screen?", "Can I ask a question about what's on the screen"], explanation: 'Dois calques: "ask a question" + "on the screen".', tags: [br.make-question, br.in-the-screen] }
+  - { id: L4-A17, type: error_correction, prompt: "The graphic shows the spike — explain me the dip at 14:00.", accepted: ["The graph shows the spike — explain the dip at 14:00.", "The graph shows the spike — walk me through the dip at 14:00.", "The chart shows the spike — explain the dip at 14:00."], explanation: 'Dois calques: "the graph/chart" + "explain/walk me through".', tags: [br.the-graphic, br.explain-me] }
+  - { id: L4-A18, type: error_correction, prompt: "According to me we wait — I pretend to finish the RFC Friday.", accepted: ["In my view we wait — I plan to finish the RFC Friday.", "To me we wait — I intend to finish the RFC Friday.", "In my view we wait — I plan to finish the RFC Friday"], explanation: 'Dois calques: "in my view" + "plan/intend".', tags: [br.according-to-me, br.pretend] }
+  - { id: L4-A19, type: error_correction, prompt: "Please revert back the flag — actually it's still failing.", accepted: ["Please revert the flag — right now it's still failing.", "Please revert the flag — right now it's still failing", "Please revert the flag — it's still failing."], explanation: 'Dois calques: "revert" sem "back" + "right now/currently".', tags: [br.revert-back, br.actually] }
+  - { id: L4-A20, type: error_correction, prompt: "It worths the refactor — she gave me a feedback yesterday.", accepted: ["It's worth the refactor — she gave me feedback yesterday.", "It's worth the refactor — she gave me feedback yesterday", "It's worth the refactor — she gave me some feedback yesterday."], explanation: 'Dois calques: "it''s worth" + "feedback" sem artigo.', tags: [br.worths, br.uncountable] }
+  - { id: L4-A21, type: error_correction, prompt: "I'm boring in long calls — too much people talk at once.", accepted: ["I'm bored in long calls — too many people talk at once.", "I'm bored in long calls — too many people talk at once"], explanation: 'Dois calques: "bored" + "too many".', tags: [br.i-am-boring, br.too-much-people] }
+  - { id: L4-A22, type: error_correction, prompt: "How long time is the sync? Let's take a coffee before it.", accepted: ["How long is the sync? Let's grab a coffee before it.", "How long is the sync? Let's grab a coffee before it", "How long is the sync? Let's have a coffee before it."], explanation: 'Dois calques: "how long" + "grab a coffee".', tags: [br.how-long-time, br.take-a-coffee] }
+  - { id: L4-A23, type: error_correction, prompt: "I'm kidding you — he is very humor in the retro.", accepted: ["I'm kidding — he's very funny in the retro.", "I'm kidding — he's very funny in the retro", "I'm just kidding — he's very funny in the retro."], explanation: 'Dois calques: "kidding" sem objeto + "funny".', tags: [br.kidding-you, br.he-is-humor] }
+  - { id: L4-A24, type: error_correction, prompt: "It depends of the load — can I do a suggestion here?", accepted: ["It depends on the load — can I make a suggestion here?", "It depends on the load — can I make a suggestion here"], explanation: 'Dois calques: "depends on" + "make a suggestion".', tags: [br.depend-of, br.do-suggestion] }
+  - { id: L4-A25, type: multiple_choice, prompt: "The indirect question that opens a review comment is…", options: ["'why did you do this?'", "'this is wrong'", "'could you walk me through why the queue was rejected?'", "'fix this'"], answer: 2, explanation: "A pergunta indireta pede a razão sem acusar.", tags: [gram.indirect-questions, vocab.rfc] }
+  - { id: L4-A26, type: multiple_choice, prompt: "'Moving on to the failure modes — that brings me to the demo' is…", options: ["small talk", "filler", "off-topic", "signposting — the map spoken aloud"], answer: 3, explanation: "Signposting: a trilha dita em voz alta.", tags: [vocab.presentation, gram.signposting] }
+  - { id: L4-A27, type: multiple_choice, prompt: "'Let's circle back' without a date is…", options: ["a commitment", "a sync", "a euphemism for 'never' — it needs a date", "polite"], answer: 2, explanation: "Circle back com data é adiamento; sem data é esquecimento.", tags: [vocab.smalltalk] }
+  - { id: L4-A28, type: multiple_choice, prompt: "The RFC's 'non-goals' section exists to…", options: ["fill space", "hide limitations", "pad the doc", "list what the proposal refuses to fix — scope, declared"], answer: 3, explanation: "Non-goals blindam a discussão contra o escopo infinito.", tags: [vocab.rfc] }
+  - { id: L4-A29, type: match, prompt: "Ligue cada termo ao que ele significa neste nível.", pairs: [{ left: "the ask", right: "what the RFC wants from the reader" }, { left: "guardrail", right: "the measurable limit that triggers plan B" }, { left: "money shot", right: "the demo moment that sells it" }, { left: "buy-in", right: "the organizational yes you still need" }], explanation: "Um termo de cada módulo do nível.", tags: [vocab.rfc, vocab.risk, vocab.presentation, vocab.decisions] }
+  - { id: L4-A30, type: multiple_choice, prompt: "'Disagree and commit' ends a debate by…", options: ["winning it", "recording the dissent and shipping the decision anyway", "postponing forever", "escalating"], answer: 1, explanation: "O dissenso registrado, a decisão embarcada.", tags: [vocab.disagreement] }
+
+writing:
+  prompt: |
+    **Cenário final do nível:** a liderança pediu a RFC da
+    migração de cache — a que você defendeu o trimestre
+    inteiro.
+
+    **Tarefa:** escreva 110–140 palavras: o resumo com a
+    proposta e o porquê em três frases, o pedido com prazo
+    ("the ask"), uma alternativa considerada com a razão da
+    morte, uma open question honesta, e o risco principal
+    com a mitigação no condicional real.
+  constraints:
+    - { label: "A proposta", pattern: "\\bi('m| am) propos|we propose|the proposal|the ask\\b" }
+    - { label: "O pedido com prazo", pattern: "\\breview closes|decision by|by (Friday|Monday|EOD)|comments by\\b" }
+    - { label: "A alternativa morta", pattern: "\\brejected|considered|we almost|too (big|risky|slow)\\b" }
+    - { label: "Risco + mitigação", pattern: "\\bshould |risk of|if the|we roll back|fallback\\b" }
+  rubric:
+    - "Resumo em três frases: proposta + porquê + pedido"
+    - "Alternativa considerada com a razão da morte"
+    - "Open question honesta — o que você não sabe"
+    - "Sem os calques do nível ('I agree', 'on the other hand', 'at risk')"
+  model: >-
+    RFC: shared cache for the checkout service. I'm
+    proposing a Redis sidecar per node — it removes the
+    400ms p99 the profile showed and keeps each team's
+    data isolated from everyone else's traffic. The ask:
+    comments by Friday EOD, decision by Monday's review.
+    Alternatives considered: a shared cluster was
+    rejected — too big a blast radius for a v1, and we
+    almost went with it for the wrong reason (it looked
+    simpler). Open question: how the failover behaves
+    under burst — the spike test runs this week and
+    could change my mind. Main risk: stale reads on
+    deploy; should the lag grow past 30 seconds, we
+    roll back to the local cache automatically. This
+    is the reversible step worth taking now.
+  minWords: 110
+  maxWords: 140
+  tags: [comp.writing, vocab.rfc, vocab.decisions]
+
+speaking:
+  prompt: "Grave até 5 minutos em dois tempos: 1) a apresentação do seu projeto — signposting ('moving on to', 'that brings me to'), o diagrama narrado, o money shot; 2) o debate — dois pushbacks respondidos com 'that's a fair concern', o dado, e o fecho 'disagree and commit' se precisar."
+  maxSeconds: 300
+  targetPhrases:
+    - moving on to
+    - that brings me to
+    - as you can see on the screen
+    - the money shot
+    - fair question
+    - let me get back to you
+    - that's a fair concern
+    - i hear you, and
+    - where we differ is
+    - what would it take
+    - disagree and commit
+    - we're trading
+    - worst case
+    - the exposure here is
+    - should the
+    - we roll back
+    - low-hanging fruit
+    - bandwidth
+    - push back
+    - circle back
+    - the ask
+    - open question
+    - we chose
+    - instead of
+    - on the other hand
+    - i might be wrong
+    - ballpark
+  checklist:
+    - "estrutura: context → options → decision → rationale"
+    - "signposting audível na apresentação"
+    - "pushback respondido: validar → responder → propor"
+    - "risco com mitigação no condicional real"
+    - "sem calques ('I agree', 'in my view', 'at risk')"
+
+pass: { itemsMin: 0.75, writingMin: 4, speakingMin: 3.5 }
