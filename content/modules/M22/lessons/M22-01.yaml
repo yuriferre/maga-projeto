@@ -1,0 +1,307 @@
+id: M22-01
+module: M22
+order: 1
+title: "Linguagem de risco: likelihood × impact — 'the exposure here is…'"
+objective: >-
+  Ao final, você descreve um risco em duas dimensões —
+  probabilidade e impacto — com os modais certos: "there's
+  a chance that", "worst case", "the exposure here is…".
+durationMin: 40
+competencies: [SPK, WRI]
+tags: [vocab.risk, gram.probability-modals, comp.speaking, comp.writing]
+prerequisites: [M21-05]
+
+context:
+  scenario: |
+    A migração do banco de dados para o cluster novo está na
+    mesa — e o Carlos abriu a reunião de riscos com a
+    pergunta que organiza tudo: "**what could go wrong, how
+    likely, and how bad?**"
+
+    Risco se descreve em duas dimensões, e cada uma tem seu
+    léxico:
+
+    - **likelihood** — quão provável: "*there's a real
+      chance that*", "*it's likely/unlikely that*",
+      "*it could happen*".
+    - **impact** — quão ruim se acontecer: "*worst case, we
+      lose an hour of writes*", "*the blast radius is one
+      region*", "*the exposure here is data loss*".
+
+    E a soma dos dois é a matriz: "*low likelihood, high
+    impact*" pede plano B; "*high likelihood, low impact*"
+    pede aceitar ou monitorar. Quem apresenta risco sem as
+    duas dimensões vira alarme — quem apresenta as duas
+    vira análise.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "likelihood"
+    meaning: 'a probabilidade — quão provável é o risco'
+    example: "The likelihood of data loss is low — replicas are synchronous."
+    translation: "A probabilidade de perda de dados é baixa — as réplicas são síncronas."
+    note: "Likelihood é o substantivo; 'likely/unlikely' os adjetivos."
+  - term: "impact"
+    meaning: 'o impacto — quão ruim se o risco se concretizar'
+    example: "The impact is bounded — one hour of writes, one region."
+    translation: "O impacto é limitado — uma hora de escritas, uma região."
+    note: "Sempre dimensione: 'high impact' vazio não ajuda a decidir."
+  - term: "there's a chance that"
+    meaning: 'há uma chance de que — a probabilidade declarada'
+    example: "There's a real chance that the cutover runs over the window."
+    translation: "Há uma chance real de a virada passar da janela."
+    note: "Mais honesto que 'it might' — declara a chance sem inventar número."
+  - term: "worst case"
+    meaning: 'o pior caso — o cenário limite, delimitado'
+    example: "Worst case, we roll back and lose an hour of writes."
+    translation: "No pior caso, revertemos e perdemos uma hora de escritas."
+    note: "Worst case bom vem delimitado — 'an hour', 'one region', não 'tudo'."
+  - term: "exposure"
+    meaning: 'a exposição — o que está em jogo se der errado'
+    example: "The exposure here is uncommitted writes during the cutover."
+    translation: "A exposição aqui são escritas não confirmadas durante a virada."
+    note: "'The exposure is X' — nomeia o que se perde."
+  - term: "blast radius"
+    meaning: 'o raio da explosão — quanto do sistema o risco alcança'
+    example: "The blast radius is one region — the other two stay up."
+    translation: "O raio da explosão é uma região — as outras duas ficam de pé."
+    note: "Reuso do vocabulário de incidente — agora no preventivo."
+  - term: "unlikely"
+    meaning: 'improvável — likelihood baixa'
+    example: "A full outage is unlikely — the old cluster stays warm."
+    translation: "Uma parada total é improvável — o cluster antigo fica quente."
+    note: "'Unlikely that X happens' — o par de 'likely'."
+  - term: "residual risk"
+    meaning: 'o risco residual — o que sobra depois da mitigação'
+    example: "After the rehearsed rollback, the residual risk is acceptable."
+    translation: "Depois do rollback ensaiado, o risco residual é aceitável."
+    note: "Risco zero não existe — existe residual declarado."
+  - term: "a real chance"
+    meaning: 'uma chance real — likelihood que merece plano'
+    example: "There's a real chance the window is too tight — we rehearse first."
+    translation: "Há uma chance real de a janela ser apertada — ensaiamos antes."
+    note: "'A real chance' ≠ 'a chance': o 'real' pede mitigação."
+  - term: "acceptable risk"
+    meaning: 'risco aceitável — o que se assume de olhos abertos'
+    example: "Losing test data is an acceptable risk — production isn't."
+    translation: "Perder dados de teste é risco aceitável — produção não é."
+    note: "Aceitável se declara com critério — quem aceita, e por quê."
+  - term: "to materialize"
+    meaning: 'se concretizar — o risco que vira evento'
+    example: "If the risk materializes, we roll back within ten minutes."
+    translation: "Se o risco se concretizar, revertemos em dez minutos."
+    note: "'If the risk materializes, we…' — a frase que liga risco a plano."
+  - term: "bounded"
+    meaning: 'delimitado — o impacto com borda conhecida'
+    example: "The blast radius is bounded — one service, one region."
+    translation: "O raio da explosão é delimitado — um serviço, uma região."
+    note: "Bounded é a palavra que acalma: o pior caso tem borda."
+
+grammar:
+  title: "os modais da probabilidade"
+  explanation: |
+    A escala de probabilidade em inglês tem degraus — e
+    cada modal marca um:
+
+    - **Quase certo**: "*will*", "*it's very likely that*":
+      "the cutover **will** hit the rate limit".
+    - **Provável**: "*should*", "*likely*": "the rehearsal
+      **should** surface the gaps".
+    - **Possível**: "*could*", "*might*", "*may*": "the
+      failover **could** take longer than the window".
+    - **Improvável**: "*unlikely*", "*shouldn't*":
+      "a full outage is **unlikely**".
+    - **A condição**: "*if the risk materializes*",
+      "*assuming the window holds*".
+
+    E os calques de risco:
+
+    - "**we are in risk**" → "**we're at risk**" — "em
+      risco" é "at".
+    - "**the risk to fail**" → "**the risk of failing**"
+      — "risco de" é "of + -ing".
+    - "**compensates the risk**" → "**offsets the risk**"
+      — risco se "offset", não se "compensa".
+    - "**the change is danger**" → "**is dangerous**" —
+      perigoso é adjetivo.
+  examples:
+    - { en: "The cutover will hit the rate limit — that's the likely failure.", pt: "A virada vai bater no rate limit — essa é a falha provável." }
+    - { en: "The failover could take longer than the window — that's the exposure.", pt: "O failover pode demorar mais que a janela — essa é a exposição." }
+    - { en: "A full outage is unlikely — the old cluster stays warm for a week.", pt: "Uma parada total é improvável — o cluster antigo fica quente por uma semana." }
+    - { en: "We're at risk of losing uncommitted writes during the cutover.", pt: "Estamos em risco de perder escritas não confirmadas na virada." }
+    - { en: "If the risk materializes, we roll back within ten minutes.", pt: "Se o risco se concretizar, revertemos em dez minutos." }
+    - { en: "The discount offsets the risk of the new vendor.", pt: "O desconto compensa o risco do fornecedor novo." }
+
+examples:
+  - en: "There's a real chance the cutover runs over the maintenance window."
+    pt: "Há uma chance real de a virada passar da janela de manutenção."
+    context: "A probabilidade declarada."
+  - en: "Worst case, we roll back and lose an hour of writes."
+    pt: "No pior caso, revertemos e perdemos uma hora de escritas."
+    context: "O cenário limite delimitado."
+  - en: "The exposure here is uncommitted writes — bounded to the cutover window."
+    pt: "A exposição aqui são escritas não confirmadas — limitada à janela da virada."
+    context: "O que está em jogo."
+  - en: "The blast radius is one region — the other two never see it."
+    pt: "O raio da explosão é uma região — as outras duas nem veem."
+    context: "Quanto o risco alcança."
+  - en: "Likelihood low, impact high — that's the quadrant that needs a plan B."
+    pt: "Probabilidade baixa, impacto alto — esse é o quadrante que pede plano B."
+    context: "A matriz em uma linha."
+  - en: "The residual risk after the rehearsal is acceptable."
+    pt: "O risco residual depois do ensaio é aceitável."
+    context: "O que sobra da mitigação."
+  - en: "The change is dangerous only if the rollback isn't rehearsed."
+    pt: "A mudança é perigosa só se o rollback não for ensaiado."
+    context: "O risco condicionado."
+  - en: "If that materializes mid-cutover, we abort and re-run next window."
+    pt: "Se isso se concretizar no meio da virada, abortamos e rodamos na próxima janela."
+    context: "Risco ligado ao plano."
+
+variations:
+  - idea: '"o risco em duas dimensões"'
+    items:
+      - { register: "Boa", text: "There's a real chance the window is too tight — worst case, we lose an hour of writes.", adequate: true }
+      - { register: "Boa", text: "Low likelihood, high impact — the blast radius is one region.", adequate: true }
+      - { register: "Inadequada", text: "It's risky.", adequate: false, note: "Sem likelihood nem impacto dimensionado é alarme — dê as duas dimensões." }
+      - { register: "Inadequada", text: "We are in risk of data loss.", adequate: false, note: "*At risk of* — 'em risco' é 'at'." }
+  - idea: '"a exposição nomeada"'
+    items:
+      - { register: "Boa", text: "The exposure is uncommitted writes — bounded to the cutover window.", adequate: true }
+      - { register: "Boa", text: "Worst case, the report lands an hour late — acceptable.", adequate: true }
+      - { register: "Inadequada", text: "The risk to fail is high.", adequate: false, note: "*Risk of failing* — 'risco de' é 'of + -ing'." }
+      - { register: "Inadequada", text: "The migration is danger for the writes.", adequate: false, note: "*Dangerous* — 'perigoso' é adjetivo." }
+
+brErrors:
+  - { wrong: "We are in risk of losing writes.", right: "We are at risk of losing writes.", why: "at risk of", tag: br.in-risk }
+  - { wrong: "There's a risk to lose data.", right: "There's a risk of losing data.", why: "risk of losing", tag: br.risk-to }
+  - { wrong: "The possibility to fail is real.", right: "The possibility of failing is real.", why: "possibility of failing", tag: br.risk-to }
+  - { wrong: "The discount compensates the risk.", right: "The discount offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
+  - { wrong: "The cutover is danger for writes.", right: "The cutover is dangerous for writes.", why: "is dangerous", tag: br.is-danger }
+  - { wrong: "I am agree the risk is low.", right: "I agree the risk is low.", why: "I agree", tag: br.am-agree }
+  - { wrong: "The same risk than last migration.", right: "The same risk as last migration.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the exposure.", right: "We discussed the exposure.", why: "discussed the exposure", tag: br.discuss-about }
+  - { wrong: "We must to rehearse the rollback.", right: "We must rehearse the rollback.", why: "must rehearse", tag: br.modal-to }
+  - { wrong: "I have doubt about the window.", right: "I have a doubt about the window.", why: "a doubt", tag: br.doubt }
+
+dialogue:
+  title: "What could go wrong?"
+  lines:
+    - { speaker: Carlos, text: "Migration's Friday. What could go wrong, how likely, how bad?" }
+    - { speaker: Yuri, text: "Three risks on the matrix. First: the cutover could run over the window — there's a real chance. Impact is bounded: we abort and re-run." }
+    - { speaker: Beth, text: "And data loss?" }
+    - { speaker: Yuri, text: "The exposure is uncommitted writes during the cutover — worst case, an hour. Likelihood is low: replicas are synchronous and we freeze writes for the last ten minutes." }
+    - { speaker: Carlos, text: "Full outage?" }
+    - { speaker: Yuri, text: "Unlikely — the old cluster stays warm for a week, so the blast radius is one region at most." }
+    - { speaker: Beth, text: "What's left after mitigation?" }
+    - { speaker: Yuri, text: "After the rehearsed rollback, the residual risk is acceptable — low likelihood, bounded impact." }
+    - { speaker: Carlos, text: "Good — the analysis has two dimensions. Put it in the doc." }
+  notes:
+    - "cada risco sai com likelihood + impact delimitado — nunca 'it's risky' sozinho."
+    - "'the exposure is uncommitted writes' — nomear o que se perde é a frase-chave."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "A risk has two dimensions, and each has its vocabulary. Likelihood — 'there's a real chance that', 'it's likely or unlikely that', 'it could happen'. Impact — 'worst case, we lose an hour', 'the blast radius is one region', 'the exposure here is uncommitted writes'." }
+    - { speaker: Yuri, text: "The modals mark the scale: 'will' for near-certain, 'should' for probable, 'could' and 'might' for possible, 'unlikely' for improbable. And the matrix does the deciding — 'low likelihood, high impact' needs a plan B; 'high likelihood, low impact' you accept or monitor." }
+    - { speaker: Beth, text: "Four calques to keep out of the risk doc: 'we are in risk' is 'at risk'; 'the risk to fail' is 'the risk of failing'; 'compensates the risk' is 'offsets'; and 'the change is danger' is 'dangerous'." }
+  questions:
+    - { id: M22-01-l1, type: multiple_choice, prompt: "As duas dimensões do risco são…", options: ["custo e prazo", "probabilidade e impacto", "causa e efeito", "time e budget"], answer: 1, explanation: "Likelihood × impact — a matriz.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-01-l2, type: multiple_choice, prompt: "'Could' na escala de probabilidade marca…", options: ["quase certo", "provável", "possível", "impossível"], answer: 2, explanation: "Could/might = possível — will = quase certo.", tags: [comp.listening, gram.probability-modals] }
+    - { id: M22-01-l3, type: fill_blank, prompt: "The ___ here is uncommitted writes during the cutover.", accepted: ["exposure"], explanation: "'The exposure is X' — o que está em jogo.", tags: [vocab.risk] }
+    - { id: M22-01-l4, type: error_correction, prompt: "We are in risk of losing an hour of writes.", accepted: ["We are at risk of losing an hour of writes.", "We are at risk of losing an hour of writes"], explanation: "'at risk of'.", tags: [br.in-risk] }
+    - { id: M22-01-l5, type: multiple_choice, prompt: "'Low likelihood, high impact' pede…", options: ["aceitar e seguir", "plano B", "ignorar", "cancelar o projeto"], answer: 1, explanation: "O quadrante que precisa de mitigação.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-01-l6, type: multiple_choice, prompt: "Um 'worst case' bom vem…", options: ["vago — 'seria ruim'", "com a causa raiz", "delimitado — 'an hour', 'one region'", "com culpado"], answer: 2, explanation: "O pior caso delimitado ajuda a decidir.", tags: [comp.listening, vocab.risk] }
+
+writing:
+  prompt: |
+    **Cenário:** a reunião de riscos da migração terminou e o
+    Carlos pediu a matriz por escrito no doc da migração.
+
+    **Tarefa:** escreva 70–100 palavras com os três riscos da
+    migração — para cada um, likelihood (com modal) e impact
+    delimitado (worst case + blast radius/exposure). Feche
+    com o risco residual.
+  constraints:
+    - { label: "A probabilidade", pattern: "\\bchance|likely|could|might|unlikely\\b" }
+    - { label: "O impacto delimitado", pattern: "\\bworst case|blast radius|exposure|bounded\\b" }
+    - { label: "O risco residual", pattern: "\\bresidual|acceptable\\b" }
+    - { label: "Os três riscos", pattern: "\\b(over the window|data loss|outage|writes)\\b" }
+  rubric:
+    - "Cada risco com likelihood + impact"
+    - "Impacto delimitado (hora, região, serviço)"
+    - "Modais na escala certa (could ≠ will)"
+    - "Sem calques ('at risk', 'risk of', 'offsets', 'dangerous')"
+  model: >-
+    Three risks on the migration matrix. First, the cutover
+    could run over the window — a real chance; impact is
+    bounded: we abort and re-run. Second, the exposure is
+    uncommitted writes — worst case, an hour; likelihood is
+    low, since replicas are synchronous and writes freeze
+    for the last ten minutes. Third, a full outage is
+    unlikely — the old cluster stays warm, so the blast
+    radius is one region. After the rehearsed rollback, the
+    residual risk is acceptable.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.risk, gram.probability-modals]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando os riscos da migração: cada um com likelihood (modal) e impact delimitado, fechando no risco residual."
+    maxSeconds: 45
+    targetPhrases:
+      - there's a real chance
+      - it's likely
+      - unlikely
+      - could happen
+      - worst case
+      - the exposure here is
+      - blast radius
+      - bounded
+      - residual risk
+      - acceptable risk
+      - at risk of
+      - risk of failing
+      - offsets the risk
+      - dangerous
+      - if that happens
+      - low likelihood
+    checklist:
+      - "likelihood + impact por risco"
+      - "worst case delimitado, não 'tudo'"
+      - "'at risk', 'risk of', 'offsets' — sem calques"
+      - "fecha no residual risk"
+
+quiz:
+  - { id: M22-01-q1, type: multiple_choice, prompt: "Risco se descreve em…", options: ["causa e culpado", "likelihood e impact", "custo e prazo", "severidade e urgência"], answer: 1, explanation: "As duas dimensões da matriz.", tags: [vocab.risk] }
+  - { id: M22-01-q2, type: error_correction, prompt: "There's a risk to lose the uncommitted writes.", accepted: ["There's a risk of losing the uncommitted writes.", "There's a risk of losing the uncommitted writes"], explanation: "'risk of losing'.", tags: [br.risk-to] }
+  - { id: M22-01-q3, type: multiple_choice, prompt: "'The blast radius is one region' delimita…", options: ["a probabilidade", "o prazo", "o impacto — quanto o risco alcança", "o time"], answer: 2, explanation: "Blast radius = a borda do impacto.", tags: [vocab.risk] }
+  - { id: M22-01-q4, type: fill_blank, prompt: "After the rehearsed rollback, the ___ risk is acceptable.", accepted: ["residual"], explanation: "Residual — o que sobra da mitigação.", tags: [vocab.risk] }
+  - { id: M22-01-q5, type: multiple_choice, prompt: "'The failover could take longer' — 'could' aqui é…", options: ["capacidade", "possibilidade — degrau médio da escala", "permissão", "certeza"], answer: 1, explanation: "Will > should > could/might > unlikely.", tags: [gram.probability-modals] }
+  - { id: M22-01-q6, type: error_correction, prompt: "The migration is danger for the writes.", accepted: ["The migration is dangerous for the writes.", "The migration is dangerous for the writes"], explanation: "'dangerous'.", tags: [br.is-danger] }
+  - { id: M22-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["case", "worst", "hour", "an", "lose", "we"], answer: "worst case we lose an hour", explanation: "O pior caso delimitado.", tags: [vocab.risk] }
+  - { id: M22-01-q8, type: multiple_choice, prompt: "Apresentar risco como 'it's risky' sem dimensões vira…", options: ["análise", "decisão", "mitigação", "alarme — sem likelihood nem impact não ajuda a decidir"], answer: 3, explanation: "Risco sem dimensão não decide nada.", tags: [vocab.risk, comp.confidence] }
+
+srsCards:
+  - { front: "likelihood", back: "Probabilidade — 'low likelihood, high impact'.", tag: vocab.risk }
+  - { front: "impact", back: "Quão ruim se acontecer — 'bounded to one region'.", tag: vocab.risk }
+  - { front: "there's a chance that", back: "A probabilidade declarada — 'a real chance the window is tight'.", tag: vocab.risk }
+  - { front: "worst case", back: "O pior caso delimitado — 'lose an hour of writes'.", tag: vocab.risk }
+  - { front: "exposure", back: "O que está em jogo — 'the exposure is uncommitted writes'.", tag: vocab.risk }
+  - { front: "blast radius", back: "Quanto o risco alcança — 'one region'.", tag: vocab.risk }
+  - { front: "unlikely", back: "Improvável — 'a full outage is unlikely'.", tag: vocab.risk }
+  - { front: "residual risk", back: "O que sobra da mitigação — 'residual risk is acceptable'.", tag: vocab.risk }
+  - { front: "a real chance", back: "Likelihood que pede plano — 'a real chance, so we rehearse'.", tag: vocab.risk }
+  - { front: "acceptable risk", back: "Assumido com critério — 'test data, not production'.", tag: vocab.risk }
+  - { front: "to materialize", back: "Risco que vira evento — 'if it materializes, we roll back'.", tag: vocab.risk }
+  - { front: "bounded", back: "Impacto com borda — 'bounded to the window'.", tag: vocab.risk }
+
+review:
+  preferTags: [vocab.risk, gram.probability-modals, br.in-risk]
+  notes: "Revisão prioriza a matriz likelihood × impact, a escala de modais e os quatro calques de risco (at risk, risk of, offsets, dangerous)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
