@@ -840,3 +840,37 @@ describe("M23 assessment variants", () => {
     expect(checkExercise(q, "He doesn't know anything about the audit trail, no?").correct).toBe(false);
   });
 });
+
+describe("M24 assessment variants", () => {
+  const m24 = bundle.moduleAssessments["M24"]!;
+  it("requires 'on the screen' and 'the graph' on A02", () => {
+    const q = m24.items.find((q) => q.id === "M24-A02")!;
+    expect(checkExercise(q, "As you see on the screen, the graph shows the disk filling up.").correct).toBe(true);
+    expect(checkExercise(q, "As you see in the screen, the graph shows the disk filling up.").correct).toBe(false);
+    expect(checkExercise(q, "As you see on the screen, the graphic shows the disk filling up.").correct).toBe(false);
+  });
+  it("requires 'want you to see' on A05", () => {
+    const q = m24.items.find((q) => q.id === "M24-A05")!;
+    expect(checkExercise(q, "I want you to see where the disk filled up.").correct).toBe(true);
+    expect(checkExercise(q, "I want that you see where the disk filled up.").correct).toBe(false);
+  });
+  it("requires 'ask a question' and 'I agree' on A07", () => {
+    const q = m24.items.find((q) => q.id === "M24-A07")!;
+    expect(checkExercise(q, "Does anyone want to ask a question? I agree it was fast.").correct).toBe(true);
+    expect(checkExercise(q, "Does anyone want to make a question? I agree it was fast.").correct).toBe(false);
+    expect(checkExercise(q, "Does anyone want to ask a question? I am agree it was fast.").correct).toBe(false);
+  });
+  it("requires 'a doubt'/'not sure' and 'the same as' on A11", () => {
+    const q = m24.items.find((q) => q.id === "M24-A11")!;
+    expect(checkExercise(q, "I have a doubt the same setup as staging works.").correct).toBe(true);
+    expect(checkExercise(q, "I'm not sure the same setup as staging works.").correct).toBe(true);
+    expect(checkExercise(q, "I have doubt the same setup as staging works.").correct).toBe(false);
+    expect(checkExercise(q, "I have a doubt the same setup than staging works.").correct).toBe(false);
+  });
+  it("requires 'discussed it' and 'instead of' on A14", () => {
+    const q = m24.items.find((q) => q.id === "M24-A14")!;
+    expect(checkExercise(q, "We discussed it instead of the recording.").correct).toBe(true);
+    expect(checkExercise(q, "We discussed about it instead of the recording.").correct).toBe(false);
+    expect(checkExercise(q, "We discussed it instead the recording.").correct).toBe(false);
+  });
+});

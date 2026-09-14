@@ -1,0 +1,86 @@
+# Avaliação do módulo M24: 15 itens cobrindo as cinco aulas + escrita (roteiro da talk) + fala (a apresentação de 5 min).
+id: M24
+title: "Avaliação do módulo M24: Apresentações e demos"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M24-A01, type: multiple_choice, prompt: "The five-minute talk opens with…", options: ["the full history", "the demo right away", "a three-part map — problem, how it works, what it saved", "thank-yous"], answer: 2, explanation: "O mapa anunciado antes de começar — 'I'll walk you through it in three parts'.", tags: [vocab.presentation, gram.signposting] }
+  - { id: M24-A02, type: error_correction, prompt: "As you see in the screen, the graphic shows the disk filling up.", accepted: ["As you see on the screen, the graph shows the disk filling up.", "As you see on the screen, the graph shows the disk filling up"], explanation: 'Dois calques: "on the screen" + "the graph".', tags: [br.in-the-screen, br.the-graphic] }
+  - { id: M24-A03, type: fill_blank, prompt: "While this runs, ___ the error rate on the right.", accepted: ["watch"], explanation: "O tempo morto coberto — 'while this runs, watch…'.", tags: [gram.signposting, vocab.presentation] }
+  - { id: M24-A04, type: multiple_choice, prompt: "The live demo hangs. The right sequence is…", options: ["apologize on loop", "'demo gods' + the recording + move on — the narration is the product", "skip to Q&A", "restart the whole talk"], answer: 1, explanation: "Humor leve + backup + seguir o show.", tags: [vocab.presentation] }
+  - { id: M24-A05, type: error_correction, prompt: "I want that you see where the disk filled up.", accepted: ["I want you to see where the disk filled up.", "I want you to see where the disk filled up"], explanation: '"want you to see" — nunca "want that you".', tags: [br.want-that] }
+  - { id: M24-A06, type: multiple_choice, prompt: "'What you just saw is the canary catching it' — why the caption?", options: ["the audience was distracted", "it's a habit", "the slide was unclear", "a demo without a caption is just a blinking terminal"], answer: 3, explanation: "A plateia não conclui sozinha — legende sempre.", tags: [vocab.presentation] }
+  - { id: M24-A07, type: error_correction, prompt: "Does anyone want to make a question? I am agree it was fast.", accepted: ["Does anyone want to ask a question? I agree it was fast.", "Does anyone want to ask a question? I agree it was fast"], explanation: 'Dois calques: "ask a question" + "I agree".', tags: [br.make-question, br.i-am-agree] }
+  - { id: M24-A08, type: match, prompt: "Associe a frase ao papel no palco.", pairs: [{ left: "while this runs", right: "covers the dead time" }, { left: "the money shot", right: "the demo's climax, announced" }, { left: "that's a Beth question", right: "redirects to the owner" }, { left: "I'll leave you with", right: "the closing takeaway" }], explanation: "As peças do ciclo demo → legenda → Q&A → fecho.", tags: [vocab.presentation] }
+  - { id: M24-A09, type: multiple_choice, prompt: "'So you're asking whether it covers logs' — the rephrase buys…", options: ["confirmation of understanding plus free seconds", "time to change the subject", "a longer answer", "a way to skip the question"], answer: 0, explanation: "Reformular confirma e compra tempo de graça.", tags: [vocab.presentation] }
+  - { id: M24-A10, type: translate, prompt: "Deixo vocês com isto: levou um fim de semana para construir.", accepted: ["I'll leave you with this: it took a weekend to build.", "I'll leave you with this — it took a weekend to build.", "I'll leave you with this: it took a weekend to build"], explanation: "\"I'll leave you with\" — o takeaway final.", tags: [vocab.presentation] }
+  - { id: M24-A11, type: error_correction, prompt: "I have doubt the same setup than staging works.", accepted: ["I have a doubt the same setup as staging works.", "I'm not sure the same setup as staging works.", "I have a doubt the same setup as staging works"], explanation: 'Dois calques: "a doubt" + "the same as".', tags: [br.doubt, br.same-than] }
+  - { id: M24-A12, type: fill_blank, prompt: "That's a deep ___ — can we take it offline?", accepted: ["dive"], explanation: "'a deep dive' — a pergunta funda que vai para offline.", tags: [vocab.presentation] }
+  - { id: M24-A13, type: multiple_choice, prompt: "Which phrase announces the transition out of the demo?", options: ["'anyway, moving on'", "'what you just saw is… — that brings me to the numbers'", "'ok, next slide'", "'let's keep going'"], answer: 1, explanation: "Legenda + 'that brings me to' — o signposting fecha a seção e abre a próxima.", tags: [gram.signposting, vocab.presentation] }
+  - { id: M24-A14, type: error_correction, prompt: "We discussed about it instead the recording.", accepted: ["We discussed it instead of the recording.", "We discussed it instead of the recording"], explanation: 'Dois calques: "discussed it" + "instead of".', tags: [br.discuss-about, br.instead-of] }
+  - { id: M24-A15, type: multiple_choice, prompt: "Ending five minutes on the dot is…", options: ["part of the grade — the clock is a competency", "optional", "a sign of a weak talk", "impossible"], answer: 0, explanation: "Cinco minutos honestos > dez com enrolação.", tags: [vocab.presentation] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** você vai apresentar um
+    projeto seu no tech talk de sexta — cinco minutos. A
+    Ana pediu o roteiro falado para o runbook.
+
+    **Tarefa:** escreva 90–120 palavras com o roteiro: a
+    abertura com o mapa, a narração do diagrama ou da demo
+    (tempo morto coberto, legenda), o número e o takeaway,
+    e o plano do Q&A — reformulação, admissão com prazo,
+    redirecionamento.
+  constraints:
+    - { label: "O mapa", pattern: "\\bwalk you through|three parts|i'll (start|cover)\\b" }
+    - { label: "A narração", pattern: "\\bwhile this runs|watch the|what you just saw|top left|on the (right|screen)\\b" }
+    - { label: "O resultado", pattern: "\\bnumber on it|leave you with|before and after|takeaway|as expected\\b" }
+    - { label: "O Q&A", pattern: "\\basking whether|get back to|offline|answer your question|questions\\b" }
+  rubric:
+    - "Mapa anunciado + signposting contínuo"
+    - "Demo/diagrama narrado com legenda"
+    - "Número concreto + takeaway + fecho no tempo"
+    - "Sem calques ('on the screen', 'want you to', 'the graph', 'ask a question', 'I agree')"
+  model: >-
+    Talk script — the disk-cleaner, five minutes. Open with
+    the map: "I'll walk you through it in three parts —
+    problem, how it works, what it saved". Narrate the
+    diagram: "top left, the nodes; on the right, the disk
+    filling up". Demo: "I'm going to run it on staging —
+    while this runs, watch the freed space". Caption: "what
+    you just saw is two gigabytes in forty seconds". Put a
+    number on it — forty incidents became zero — then "I'll
+    leave you with: a weekend of work". Q&A plan: rephrase,
+    admit with a deadline, take the deep dive offline.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.presentation, gram.signposting]
+
+speaking:
+  prompt: "Grave a simulação completa: cinco minutos apresentando um projeto seu — mapa de três partes, diagrama narrado, demo com legenda, número + takeaway, e um Q&A simulado com uma pergunta reformulada e uma admitida com plano e prazo."
+  maxSeconds: 300
+  targetPhrases:
+    - I'll walk you through
+    - in three parts
+    - moving on to
+    - that brings me to
+    - while this runs
+    - watch the
+    - what you just saw
+    - to put a number on it
+    - I'll leave you with
+    - happy to take questions
+    - so you're asking whether
+    - let me get back to you
+    - we're at time
+    - on the screen
+    - the graph shows
+    - ask a question
+  checklist:
+    - "mapa de três partes + signposting contínuo"
+    - "narração visual com posição e legenda"
+    - "número concreto + takeaway + fecho no tempo"
+    - "Q&A: reformula, admite com prazo, redireciona"
+  tags: [comp.speaking, comp.confidence, vocab.presentation]
