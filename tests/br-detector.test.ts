@@ -1186,3 +1186,48 @@ describe("padrões BR — M26 (humor)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.he-is-humor");
   });
 });
+
+describe("padrões BR — M27 (carreira)", () => {
+  it("flags 'I formed in CS' but not 'cracks formed in'", () => {
+    expect(tagsOf("I formed in Computer Science in 2015.")).toContain("br.formed-in");
+    expect(tagsOf("I graduated in Computer Engineering.")).toContain("br.formed-in");
+    const clean = [
+      "I have a degree in Computer Science.",
+      "I graduated from USP in 2015.",
+      "Cracks formed in the wall.",
+      "A habit formed in the team.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.formed-in");
+  });
+  it("flags 'promoted for senior' but not 'promoted for the work'", () => {
+    expect(tagsOf("I was promoted for senior engineer.")).toContain("br.promoted-for");
+    expect(tagsOf("She got promoted for staff last year.")).toContain("br.promoted-for");
+    const clean = [
+      "I was promoted to senior engineer.",
+      "She was promoted for her work on the migration.",
+      "He was promoted twice.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.promoted-for");
+  });
+  it("flags 'responsible by' but not 'responsible by design'", () => {
+    expect(tagsOf("I was responsible by the pipeline.")).toContain("br.responsible-by");
+    expect(tagsOf("She's responsible by the on-call rotation.")).toContain("br.responsible-by");
+    const clean = [
+      "I was responsible for the pipeline.",
+      "The service is resilient and responsible by design.",
+      "Responsible by default.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.responsible-by");
+  });
+  it("flags 'I work here since 2020' but not the perfect forms", () => {
+    expect(tagsOf("I work here since 2020.")).toContain("br.work-since");
+    expect(tagsOf("I live in São Paulo since 2018.")).toContain("br.work-since");
+    const clean = [
+      "I've worked here since 2020.",
+      "I've been here since 2020.",
+      "I started in 2020.",
+      "I worked there until 2020.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.work-since");
+  });
+});
