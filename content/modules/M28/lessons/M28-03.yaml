@@ -1,0 +1,319 @@
+id: M28-03
+module: M28
+order: 3
+title: "Perguntas para fazer ao recrutador que mostram senioridade"
+objective: >-
+  Ao final, você tem um repertório de perguntas para o
+  fim do screening — sobre o papel, o time, o processo
+  e o negócio — que sinalizam senioridade em vez de
+  desespero.
+durationMin: 30
+competencies: [SPK, LIS]
+tags: [vocab.interview, comp.speaking, comp.listening]
+prerequisites: [M28-02]
+
+context:
+  scenario: |
+    "Do you have any questions for me?" — a pior
+    resposta é "no, I'm good". O screening também é
+    a SUA chance de filtrar a empresa, e as perguntas
+    certas fazem o recrutador repassar "this candidate
+    is senior" junto com seu perfil.
+
+    Perguntas fracas perguntam sobre VOCÊ ("what's
+    the salary? — já coberto, "what are the
+    benefits?"). Perguntas fortes perguntam sobre o
+    PROBLEMA deles:
+
+    - **Sobre o papel**: "What does success look
+      like in the first 90 days?" — mostra que você
+      pensa em entrega.
+    - **Sobre o time**: "How is the team structured
+      — who owns the platform roadmap?" — mostra
+      que você entende dinâmica de engenharia.
+    - **Sobre o processo**: "What does the rest of
+      the process look like?" — organizado, não
+      ansioso.
+    - **Sobre o negócio**: "What made you open this
+      role — growth or backfill?" — você avalia
+      a empresa também.
+
+    As regras: **duas perguntas no mínimo**,
+    **nunca pergunte o que está no job posting**, e
+    a melhor pergunta mostra que você já pensou no
+    problema deles — "Is the deploy-time issue in
+    the posting a known pain point for the team?"
+
+    O erro do brasileiro: perguntar "is it remote?"
+    (estava na vaga) ou não perguntar nada — os dois
+    leem como desinteresse.
+  roles: [Yuri (platform engineer), Rachel (recruiter)]
+
+vocabulary:
+  - term: "what does success look like in…?"
+    meaning: 'como é o sucesso em…? — pergunta sobre expectativa de entrega'
+    example: "What does success look like in the first 90 days for this role?"
+    translation: "Como é o sucesso nos primeiros 90 dias para essa vaga?"
+    note: "A pergunta clássica de senior — foca em entrega, não em benefícios."
+  - term: "how is the team structured?"
+    meaning: 'como o time é estruturado? — pergunta sobre organização'
+    example: "How is the team structured — is there a dedicated platform group?"
+    translation: "Como o time é estruturado — existe um grupo dedicado de plataforma?"
+    note: "Mostra que você pensa em onde vai se encaixar."
+  - term: "what does the rest of the process look like?"
+    meaning: 'como é o restante do processo? — pergunta sobre o funil'
+    example: "What does the rest of the interview process look like?"
+    translation: "Como é o restante do processo de entrevista?"
+    note: "Organizado, não ansioso — planeje sua agenda de entrevistas."
+  - term: "is this a new role or a backfill?"
+    meaning: 'é uma vaga nova ou reposição? — pergunta sobre o contexto da vaga'
+    example: "Is this a new role or a backfill — what made you open it now?"
+    translation: "É uma vaga nova ou reposição — o que fez abrirem ela agora?"
+    note: "Revela se o time está crescendo ou sangrando gente."
+  - term: "what's the biggest challenge the team is facing?"
+    meaning: 'qual o maior desafio do time? — pergunta sobre o problema real'
+    example: "What's the biggest technical challenge the team is facing right now?"
+    translation: "Qual o maior desafio técnico que o time enfrenta agora?"
+    note: "Você quer saber no que está se metendo."
+  - term: "how would you describe the engineering culture?"
+    meaning: 'como você descreveria a cultura de engenharia?'
+    example: "How would you describe the engineering culture — more ship-fast or more careful?"
+    translation: "Como você descreveria a cultura de engenharia — mais ship-fast ou mais cuidadosa?"
+    note: "Pergunta aberta — o recrutador fala, você avalia."
+  - term: "what's the on-call situation like?"
+    meaning: 'como é o esquema de plantão? — pergunta de DevOps/SRE'
+    example: "What's the on-call rotation like for this team?"
+    translation: "Como é o rodízio de plantão nesse time?"
+    note: "Pergunta de SRE que todo candidato senior devia fazer."
+  - term: "who would I be working with most closely?"
+    meaning: 'com quem eu trabalharia mais de perto?'
+    example: "Who would I be working with most closely day to day?"
+    translation: "Com quem eu trabalharia mais de perto no dia a dia?"
+    note: "Você avalia as pessoas, não só o papel."
+  - term: "what's the timeline for next steps?"
+    meaning: 'qual o prazo para os próximos passos?'
+    example: "What's the timeline for next steps — when should I expect to hear back?"
+    translation: "Qual o prazo para os próximos passos — quando devo esperar retorno?"
+    note: "Fecha a call com expectativa concreta — nunca saia sem isso."
+  - term: "I read that the company…"
+    meaning: 'li que a empresa… — mostra que você pesquisou'
+    example: "I read that the company just raised a Series B — how is that changing the team?"
+    translation: "Li que a empresa acabou de levantar uma Série B — como isso está mudando o time?"
+    note: "Pesquisa prévia sinaliza interesse real."
+  - term: "based on what you've seen…"
+    meaning: 'com base no que você viu… — pede avaliação do seu fit'
+    example: "Based on what you've seen, is there anything that would give you pause about my fit?"
+    translation: "Com base no que você viu, tem algo que geraria dúvida sobre meu encaixe?"
+    note: "Pergunta ousada de senior — endereça objeções cedo."
+  - term: "that covers everything, thanks"
+    meaning: 'isso cobre tudo, obrigado — fecho quando já perguntou'
+    example: "That covers everything I had — thanks for the context, Rachel."
+    translation: "Isso cobre tudo que eu tinha — obrigado pelo contexto, Rachel."
+    note: "Fecho limpo depois das suas perguntas."
+
+grammar:
+  title: "a gramática das perguntas ao recrutador"
+  explanation: |
+    Perguntas fortes usam frames específicos:
+
+    - "**What does X look like** in/for Y?" — a forma
+      mais útil: success, the process, the team.
+    - "**How is the team structured** — is there a
+      dedicated X?" — pergunta + hipótese (mostra que
+      você já pensou).
+    - "**Is this X or Y** — what made you open it
+      now?" — dicotomia + follow-up.
+    - "**Based on what you've seen**, is there
+      anything that…" — pede avaliação direta.
+    - "**I read that** the company…" — pesquisa
+      prévia como evidência de interesse.
+
+    E a regra de ouro: a pergunta nunca é sobre
+    benefícios para você — é sobre o problema
+    deles, o time deles, o processo deles.
+  examples:
+    - { en: "What does success look like in the first 90 days?", pt: "Como é o sucesso nos primeiros 90 dias?" }
+    - { en: "How is the team structured — is there a dedicated platform group?", pt: "Como o time é estruturado — existe um grupo dedicado de plataforma?" }
+    - { en: "Is this a new role or a backfill — what made you open it now?", pt: "É vaga nova ou reposição — o que fez abrirem agora?" }
+    - { en: "What does the rest of the interview process look like?", pt: "Como é o restante do processo de entrevista?" }
+    - { en: "Based on what you've seen, is there anything that would give you pause?", pt: "Com base no que viu, há algo que geraria hesitação?" }
+    - { en: "What's the timeline for next steps?", pt: "Qual o prazo para os próximos passos?" }
+
+examples:
+  - en: "What does success look like in the first 90 days for this role?"
+    pt: "Como é o sucesso nos primeiros 90 dias para essa vaga?"
+    context: "A pergunta de senior por excelência."
+  - en: "Is this a new role or a backfill — what made you open it now?"
+    pt: "É vaga nova ou reposição — o que fez abrirem agora?"
+    context: "Revela crescimento ou sangria."
+  - en: "What's the biggest technical challenge the team is facing right now?"
+    pt: "Qual o maior desafio técnico que o time enfrenta agora?"
+    context: "Você quer saber no que está se metendo."
+  - en: "How is the team structured — is there a dedicated platform group?"
+    pt: "Como o time é estruturado — existe um grupo dedicado de plataforma?"
+    context: "Pergunta + hipótese."
+  - en: "What's the on-call rotation like for this team?"
+    pt: "Como é o rodízio de plantão nesse time?"
+    context: "A pergunta que todo SRE senior faz."
+  - en: "What does the rest of the interview process look like?"
+    pt: "Como é o restante do processo de entrevista?"
+    context: "Organizado, não ansioso."
+  - en: "Based on what you've seen, is there anything that would give you pause about my fit?"
+    pt: "Com base no que viu, há algo que geraria dúvida sobre meu encaixe?"
+    context: "Endereça objeções cedo."
+  - en: "What's the timeline for next steps — when should I expect to hear back?"
+    pt: "Qual o prazo para os próximos passos — quando devo esperar retorno?"
+    context: "Nunca saia da call sem isso."
+
+variations:
+  - idea: '"perguntas fortes × fracas"'
+    items:
+      - { register: "Forte", text: "What does success look like in the first 90 days?", adequate: true }
+      - { register: "Forte", text: "Is this a new role or a backfill?", adequate: true }
+      - { register: "Fraco", text: "What are the benefits?", adequate: false, note: "Legítimo, mas não sinaliza senioridade — guarde para a oferta." }
+      - { register: "Fraco", text: "Is it remote?", adequate: false, note: "Estava no job posting — pergunta que denuncia que você não leu." }
+  - idea: '"o fecho da call"'
+    items:
+      - { register: "Forte", text: "What's the timeline for next steps — when should I expect to hear back?", adequate: true }
+      - { register: "Forte", text: "That covers everything I had — thanks for the context.", adequate: true }
+      - { register: "Fraco", text: "No, I'm good. (nenhuma pergunta)", adequate: false, note: "Zero perguntas lê como desinteresse — sempre tenha duas." }
+      - { register: "Fraco", text: "So… do I get the job?", adequate: false, note: "Pressão cedo demais — o screening não decide a oferta." }
+
+brErrors:
+  - { wrong: "I have interest in the role.", right: "I'm interested in the role.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "My pretension is to ask about the team.", right: "My goal is to ask about the team.", why: "goal / intention", tag: br.pretension }
+  - { wrong: "I made an interview prep yesterday.", right: "I did interview prep yesterday.", why: "did prep", tag: br.make-interview }
+  - { wrong: "I have one month advice.", right: "I have one month's notice.", why: "one month's notice", tag: br.advice-notice }
+  - { wrong: "I work here since 2021.", right: "I've been here since 2021.", why: "I've been", tag: br.work-since }
+  - { wrong: "I formed in CS.", right: "I have a degree in CS.", why: "a degree", tag: br.formed-in }
+  - { wrong: "I was promoted for senior.", right: "I was promoted to senior.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "I was responsible by the roadmap.", right: "I was responsible for the roadmap.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "I have doubt about the process.", right: "I have a question about the process.", why: "a question", tag: br.doubt }
+  - { wrong: "In my vision the team is big.", right: "In my view the team is big.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "Do you have any questions for me?"
+  lines:
+    - { speaker: Rachel, text: "We're almost at time — do you have any questions for me?" }
+    - { speaker: Yuri, text: "A few. First — what does success look like in the first 90 days for this role?" }
+    - { speaker: Rachel, text: "Great question. The team wants someone to own the CI reliability roadmap — getting deploy failures under control." }
+    - { speaker: Yuri, text: "That connects to my next question — is this a new role or a backfill? What made you open it now?" }
+    - { speaker: Rachel, text: "It's a new role — the platform team is growing after the Series B." }
+    - { speaker: Yuri, text: "Got it. And how is the team structured — is there a dedicated platform group, or is it embedded in product teams?" }
+    - { speaker: Rachel, text: "Dedicated platform team of six, reporting to the VP of Engineering." }
+    - { speaker: Yuri, text: "Makes sense. Last one — what does the rest of the process look like, and when should I expect to hear back?" }
+    - { speaker: Rachel, text: "Two more rounds — hiring manager, then a technical panel. You should hear back by Friday." }
+    - { speaker: Yuri, text: "Perfect — that covers everything I had. Thanks for the context, Rachel!" }
+  notes:
+    - "quatro perguntas fortes: sucesso em 90 dias, new role × backfill, estrutura do time, próximos passos + timeline."
+    - "perguntas com hipótese embutida ('is there a dedicated platform group?') mostram que você já pensou."
+    - "o fecho: 'that covers everything I had' — limpo, sem ansiedade."
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "When I ask 'do you have any questions for me?', weak candidates ask about benefits or say 'no, I'm good'. Strong candidates ask about the problem: 'what does success look like in the first 90 days?', 'is this a new role or a backfill?', 'what's the biggest challenge the team is facing?'. They interview us back." }
+    - { speaker: Yuri, text: "The rules: at least two questions, never ask what's in the job posting, and the best questions carry a hypothesis — 'is there a dedicated platform group?' shows you already thought about their org. And never leave without 'what's the timeline for next steps?'" }
+    - { speaker: Rachel, text: "A bold one I like: 'based on what you've seen, is there anything that would give you pause about my fit?' — it addresses objections early and reads as confidence." }
+  questions:
+    - { id: M28-03-l1, type: multiple_choice, prompt: "A pergunta que mais sinaliza senioridade é…", options: ["'what does success look like in the first 90 days?'", "'what's the salary?'", "'is it remote?'", "'what are the benefits?'"], answer: 0, explanation: "Foca em entrega, não em benefício.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-03-l2, type: fill_blank, prompt: "Is this a new role or a ___? — what made you open it now?", accepted: ["backfill"], explanation: "'Backfill' — reposição de quem saiu.", tags: [vocab.interview] }
+    - { id: M28-03-l3, type: error_correction, prompt: "I have interest in the role.", accepted: ["I'm interested in the role.", "I'm interested in the role", "I'm very interested in the role."], explanation: "'I'm interested'.", tags: [br.have-interest] }
+    - { id: M28-03-l4, type: multiple_choice, prompt: "Antes de sair da call, sempre pergunte…", options: ["o salário", "o endereço", "o clima", "'what's the timeline for next steps?'"], answer: 3, explanation: "Expectativa concreta de retorno.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-03-l5, type: multiple_choice, prompt: "'Based on what you've seen, is there anything that would give you pause?' é…", options: ["insegurança", "rude", "ousadia de senior — endereça objeções cedo", "desnecessário"], answer: 2, explanation: "Pede avaliação direta — confiança.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-03-l6, type: multiple_choice, prompt: "Perguntar 'is it remote?' quando está na vaga…", options: ["é esperto", "denuncia que você não leu o job posting", "é obrigatório", "é educado"], answer: 1, explanation: "Nunca pergunte o que está escrito.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** o screening é amanhã. Você está
+    montando sua folha de perguntas para levar à call.
+
+    **Tarefa:** escreva 60–90 palavras: a sua lista
+    de perguntas para o recrutador — pelo menos uma
+    sobre o papel ("what does success look like"),
+    uma sobre o time, uma sobre o processo/timeline,
+    e uma ousada ("is there anything that would give
+    you pause?"). Formato de lista com hífens.
+  constraints:
+    - { label: "Pergunta sobre o papel", pattern: "\\bwhat does success|success look like|first 90 days|biggest challenge\\b" }
+    - { label: "Pergunta sobre o time", pattern: "\\bteam structured|who would i|on-call|dedicated|culture\\b" }
+    - { label: "Pergunta sobre processo", pattern: "\\bnext steps|timeline|hear back|process look like\\b" }
+    - { label: "A ousada", pattern: "\\bgive you pause|give.*pause|backfill|new role\\b" }
+  rubric:
+    - "Perguntas sobre o problema deles, não seus benefícios"
+    - "Cobre papel, time e processo"
+    - "Uma pergunta ousada incluída"
+    - "Sem calques ('I'm interested', 'a question')"
+  model: >-
+    My recruiter questions for the screening:
+    - What does success look like in the first 90
+    days for this role? - Is this a new role or a
+    backfill — what made you open it now? - How is
+    the team structured — is there a dedicated
+    platform group? - What's the on-call rotation
+    like for this team? - What does the rest of the
+    process look like, and when should I expect to
+    hear back? - Is there anything that would give
+    you pause about my fit?
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: o fecho do screening — 'do you have any questions for me?'. Faça 3–4 perguntas em sequência, com as transições ('first —', 'that connects to my next question —', 'last one —'). Termine com 'that covers everything I had — thanks'."
+    maxSeconds: 90
+    targetPhrases:
+      - do you have any questions for me
+      - what does success look like
+      - first 90 days
+      - is this a new role or a backfill
+      - how is the team structured
+      - what's the biggest challenge
+      - what's the on-call rotation
+      - who would i be working with
+      - what does the rest of the process look like
+      - what's the timeline for next steps
+      - when should i expect to hear back
+      - based on what you've seen
+      - give you pause
+      - that covers everything
+      - i read that the company
+      - how would you describe the culture
+    checklist:
+      - "3–4 perguntas sobre o problema deles"
+      - "transições naturais entre perguntas"
+      - "termina com timeline + fecho limpo"
+      - "sem calques ('I'm interested', 'a question')"
+
+quiz:
+  - { id: M28-03-q1, type: multiple_choice, prompt: "Perguntas fortes ao recrutador são sobre…", options: ["o problema deles — papel, time, processo, negócio", "seus benefícios", "o salário", "as férias"], answer: 0, explanation: "Você avalia a empresa — isso é senioridade.", tags: [vocab.interview] }
+  - { id: M28-03-q2, type: error_correction, prompt: "I need to give one month advice.", accepted: ["I need to give one month's notice.", "I need to give one month's notice", "I need to give one month notice."], explanation: "'Notice', nunca 'advice'.", tags: [br.advice-notice] }
+  - { id: M28-03-q3, type: multiple_choice, prompt: "'Is this a new role or a backfill?' revela…", options: ["o salário", "o escritório", "se o time cresce ou sangra gente", "o tech stack"], answer: 2, explanation: "Contexto da vaga — crescimento × reposição.", tags: [vocab.interview] }
+  - { id: M28-03-q4, type: fill_blank, prompt: "What does the ___ of the interview process look like?", accepted: ["rest"], explanation: "'The rest of the process'.", tags: [vocab.interview] }
+  - { id: M28-03-q5, type: multiple_choice, prompt: "A pior resposta a 'do you have any questions?' é…", options: ["duas perguntas sobre o papel", "uma pergunta sobre o time", "'what's the timeline?'", "'no, I'm good' — lê como desinteresse"], answer: 3, explanation: "Sempre tenha pelo menos duas.", tags: [vocab.interview] }
+  - { id: M28-03-q6, type: error_correction, prompt: "I have doubt about the interview process.", accepted: ["I have a question about the interview process.", "I have a question about the interview process", "I'm not sure about the interview process."], explanation: "'A question'.", tags: [br.doubt] }
+  - { id: M28-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["does", "success", "what", "look", "like"], answer: "what does success look like", explanation: "A pergunta de senior.", tags: [vocab.interview] }
+  - { id: M28-03-q8, type: multiple_choice, prompt: "Perguntar com hipótese ('is there a dedicated platform group?') mostra…", options: ["arrogância", "despreparo", "que você já pensou na organização deles", "ansiedade"], answer: 2, explanation: "Pergunta + hipótese = preparo.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "what does success look like in…?", back: "A pergunta de senior — foca em entrega.", tag: vocab.interview }
+  - { front: "how is the team structured?", back: "Pergunta sobre organização — onde você se encaixa.", tag: vocab.interview }
+  - { front: "what does the rest of the process look like?", back: "Organizado, não ansioso — planeje a agenda.", tag: vocab.interview }
+  - { front: "is this a new role or a backfill?", back: "Revela crescimento × reposição.", tag: vocab.interview }
+  - { front: "what's the biggest challenge the team is facing?", back: "Você quer saber no que está se metendo.", tag: vocab.interview }
+  - { front: "how would you describe the engineering culture?", back: "Pergunta aberta — o recrutador fala, você avalia.", tag: vocab.interview }
+  - { front: "what's the on-call situation like?", back: "A pergunta que todo SRE senior faz.", tag: vocab.interview }
+  - { front: "who would I be working with most closely?", back: "Avalie as pessoas, não só o papel.", tag: vocab.interview }
+  - { front: "what's the timeline for next steps?", back: "Nunca saia da call sem isso.", tag: vocab.interview }
+  - { front: "I read that the company…", back: "Pesquisa prévia = interesse real.", tag: vocab.interview }
+  - { front: "based on what you've seen… give you pause?", back: "Endereça objeções cedo — ousadia de senior.", tag: vocab.interview }
+  - { front: "that covers everything, thanks", back: "Fecho limpo depois das perguntas.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.have-interest, br.advice-notice]
+  notes: "Revisão prioriza as perguntas fortes e os calques de screening."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
