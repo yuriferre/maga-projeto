@@ -1,0 +1,328 @@
+id: M23-04
+module: M23
+order: 4
+title: "Consenso: 'can we agree that…', 'what would it take to…'"
+objective: >-
+  Ao final, você converte debate travado em consenso —
+  nomeando o chão comum, testando condições ("what would it
+  take"), estacionando o resto e fechando com "disagree and
+  commit".
+durationMin: 40
+competencies: [SPK, CNF, LIS]
+tags: [vocab.disagreement, gram.hedging, gram.conditionals-real, comp.speaking, comp.confidence]
+prerequisites: [M23-03]
+
+context:
+  scenario: |
+    O debate do billing travou — Beth insiste na reescrita,
+    você no schema, e a reunião gira em círculo. O Carlos
+    entra com a ferramenta que destrava: **o consenso se
+    constrói em peças, não em uma frase**.
+
+    As peças:
+
+    - **Chão comum**: "*can we agree that the schema needs
+      fixing?*" — ancora o que ninguém contesta.
+    - **A condição**: "*what would it take for you to sign
+      off?*" — transforma oposição em requisito.
+    - **Estacionar**: "*let's park the rewrite and fix the
+      schema first*" — tira da mesa o que impede o acordo.
+    - **O inventário**: "*where does that leave us?*" —
+      soma o que já é consenso.
+    - **O fecho**: "*disagree and commit*" — consenso não é
+      unanimidade; é todos remando na decisão tomada.
+
+    A regra de ouro: consenso ≠ unanimidade. Quem discorda e
+    se compromete é mais valioso que quem concorda em silêncio
+    e sabota depois.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "can we agree that…?"
+    meaning: 'podemos concordar que…? — ancora o chão comum'
+    example: "Can we agree that the schema needs fixing before anything else?"
+    translation: "Podemos concordar que o schema precisa de conserto antes de qualquer coisa?"
+    note: "Comece pelo ponto que ninguém contesta — o consenso cresce a partir dele."
+  - term: "what would it take to…?"
+    meaning: 'o que seria preciso para…? — a oposição vira requisito'
+    example: "What would it take for you to sign off on the rewrite?"
+    translation: "O que seria preciso para você aprovar a reescrita?"
+    note: "Transforma 'não' em condição — o outro passa a nomear o preço do sim."
+  - term: "let's park that and…"
+    meaning: 'vamos estacionar isso e… — remove o que trava o acordo'
+    example: "Let's park the rewrite debate and fix the schema first."
+    translation: "Vamos estacionar o debate da reescrita e consertar o schema primeiro."
+    note: "Park = fora da mesa agora, não enterrado — pode voltar depois."
+  - term: "where does that leave us?"
+    meaning: 'onde isso nos deixa? — o inventário do que já é consenso'
+    example: "Where does that leave us? Schema fix agreed, rewrite parked."
+    translation: "Onde isso nos deixa? Conserto do schema acordado, reescrita estacionada."
+    note: "Soma o acordo parcial — debates giram quando ninguém inventaria."
+  - term: "common ground"
+    meaning: 'o chão comum — o que todos já aceitam'
+    example: "The common ground is real: nobody defends the current schema."
+    translation: "O chão comum é real: ninguém defende o schema atual."
+    note: "Nomeie-o em voz alta — o debate parece menor do que era."
+  - term: "disagree and commit"
+    meaning: 'discorde e se comprometa — rema na decisão mesmo sem votar nela'
+    example: "I still think ten weeks — but I'll disagree and commit to six."
+    translation: "Ainda acho dez semanas — mas vou discordar e me comprometer com seis."
+    note: "Consenso ≠ unanimidade: o compromisso é com a decisão, não com a opinião."
+  - term: "I can live with that"
+    meaning: 'posso viver com isso — o aceite pragmático'
+    example: "Schema first, rewrite revisited in Q3 — I can live with that."
+    translation: "Schema primeiro, reescrita revisitada no Q3 — posso viver com isso."
+    note: "O degrau realista: não é 'adoro', é 'funciona'."
+  - term: "are we aligned?"
+    meaning: 'estamos alinhados? — o teste explícito do consenso'
+    example: "Are we aligned — schema first, spike on the rewrite?"
+    translation: "Estamos alinhados — schema primeiro, spike na reescrita?"
+    note: "Nunca assuma alinhamento — teste-o em voz alta."
+  - term: "let's take a straw poll"
+    meaning: 'vamos fazer uma votação informal — mede a sala sem comprometer'
+    example: "Let's take a straw poll — who prefers schema first?"
+    translation: "Vamos fazer uma votação informal — quem prefere schema primeiro?"
+    note: "Straw poll mede a sala; não é a decisão final."
+  - term: "timebox the debate"
+    meaning: 'marcar tempo no debate — debate sem borda não fecha'
+    example: "Let's timebox this — ten minutes, then we decide."
+    translation: "Vamos marcar tempo nisso — dez minutos, depois decidimos."
+    note: "O relógio transforma debate infinito em decisão."
+  - term: "objection withdrawn"
+    meaning: 'objeção retirada — soltar o ponto formalmente'
+    example: "Spike test convinced me — objection withdrawn."
+    translation: "O spike test me convenceu — objeção retirada."
+    note: "Retirar a objeção explicitamente libera a decisão."
+  - term: "second that"
+    meaning: 'apoio isso — o apoio formal a uma proposta'
+    example: "Schema first — I'll second that."
+    translation: "Schema primeiro — apoio isso."
+    note: "Uma proposta com 'second' tem força de moção."
+  - term: "the blocker"
+    meaning: 'o bloqueador — a única condição que trava o acordo'
+    example: "The audit trail is the blocker — everything else is negotiable."
+    translation: "A trilha de auditoria é o bloqueador — todo o resto é negociável."
+    note: "Encontre O bloqueador — geralmente é um só."
+  - term: "sign off on"
+    meaning: 'aprovar formalmente — o aceite registrado'
+    example: "Carlos signed off on schema-first once the spike was scheduled."
+    translation: "O Carlos aprovou schema-primeiro quando o spike foi agendado."
+    note: "'Sign off on X' — a aprovação que vira compromisso."
+
+grammar:
+  title: "as perguntas que constroem consenso"
+  explanation: |
+    O consenso se constrói com perguntas e condicionais:
+
+    - **Ancorar**: "*can we agree that X?*" — a pergunta
+      que só aceita "sim" honesto.
+    - **Condicionar**: "*what would it take to/for…?*",
+      "*if we fix the schema first, does the rewrite make
+      sense?*" — o condicional real que testa o acordo
+      hipotético.
+    - **Estacionar**: "*let's park X and do Y*",
+      "*can we set X aside for now?*" — imperativo leve
+      que tira o obstáculo da mesa.
+    - **Inventariar**: "*where does that leave us?*",
+      "*so we agree on X, and differ on Y*" — a soma
+      explícita do progresso.
+    - **Fechar**: "*are we aligned?*",
+      "*I'll disagree and commit*" — o teste e o
+      compromisso.
+
+    E os calques do consenso:
+
+    - "**we are all agree**" → "**we all agree**" —
+      agree sem 'be'.
+    - "**the same position than**" → "**the same as**".
+    - "**instead the debate, let's…**" → "**instead
+      OF the debate**".
+    - "**you agree with the plan, no?**" → "**, right?**".
+  examples:
+    - { en: "Can we agree that the schema needs fixing regardless?", pt: "Podemos concordar que o schema precisa de conserto de qualquer jeito?" }
+    - { en: "What would it take for you to sign off — a spike test?", pt: "O que seria preciso para você aprovar — um spike test?" }
+    - { en: "Let's park the rewrite and fix the schema first.", pt: "Vamos estacionar a reescrita e consertar o schema primeiro." }
+    - { en: "Where does that leave us? Schema agreed, timeline open, rewrite parked.", pt: "Onde isso nos deixa? Schema acordado, prazo aberto, reescrita estacionada." }
+    - { en: "If the spike lands in a week, does the six-week plan hold?", pt: "Se o spike cair numa semana, o plano de seis se sustenta?" }
+    - { en: "I still think ten weeks — but I'll disagree and commit.", pt: "Ainda acho dez semanas — mas vou discordar e me comprometer." }
+
+examples:
+  - en: "Can we agree that nobody is defending the current schema?"
+    pt: "Podemos concordar que ninguém está defendendo o schema atual?"
+    context: "O chão comum nomeado."
+  - en: "What would it take for you to sign off on a rewrite?"
+    pt: "O que seria preciso para você aprovar uma reescrita?"
+    context: "A oposição virando requisito."
+  - en: "Let's park the rewrite debate — it's blocking the schema agreement."
+    pt: "Vamos estacionar o debate da reescrita — está travando o acordo do schema."
+    context: "O obstáculo fora da mesa."
+  - en: "Where does that leave us? Schema fix agreed; rewrite parked until the spike."
+    pt: "Onde isso nos deixa? Conserto do schema acordado; reescrita estacionada até o spike."
+    context: "O inventário do progresso."
+  - en: "Let's timebox this — ten minutes, then Carlos decides."
+    pt: "Vamos marcar tempo nisso — dez minutos, depois o Carlos decide."
+    context: "O debate com borda."
+  - en: "I can live with schema-first if the rewrite gets a real revisit in Q3."
+    pt: "Posso viver com schema-primeiro se a reescrita ganhar uma revisão de verdade no Q3."
+    context: "O aceite pragmático."
+  - en: "Spike convinced me — objection withdrawn, we go with six weeks."
+    pt: "O spike me convenceu — objeção retirada, vamos com seis semanas."
+    context: "A retirada formal."
+  - en: "I disagree with six weeks — and I'll disagree and commit."
+    pt: "Eu discordo das seis semanas — e vou discordar e me comprometer."
+    context: "O fecho do debatedor maduro."
+
+variations:
+  - idea: '"construindo o consenso em peças"'
+    items:
+      - { register: "Boa", text: "Can we agree that the schema needs fixing — whatever we decide on the rewrite?", adequate: true }
+      - { register: "Boa", text: "Where does that leave us? Schema agreed, timeline open.", adequate: true }
+      - { register: "Inadequada", text: "So does everyone agree with me?", adequate: false, note: "Consenso forçado — comece pelo chão comum, não pela sua conclusão." }
+      - { register: "Inadequada", text: "Let's just vote and move on.", adequate: false, note: "Votar sem inventariar o acordo parcial desperdiça o progresso feito." }
+  - idea: '"consenso sem unanimidade"'
+    items:
+      - { register: "Boa", text: "I disagree with six weeks — and I'll disagree and commit.", adequate: true }
+      - { register: "Boa", text: "Schema first, rewrite revisited in Q3 — I can live with that.", adequate: true }
+      - { register: "Inadequada", text: "Fine, do whatever — but I'm documenting that I was against it.", adequate: false, note: "Ameaça de papelada não é commit — é sabotagem com recibo." }
+      - { register: "Inadequada", text: "We are all agree, no?", adequate: false, note: "Dois calques: *we all agree* + tag question *right?*." }
+
+brErrors:
+  - { wrong: "We are all agree on the schema.", right: "We all agree on the schema.", why: "all agree", tag: br.i-am-agree }
+  - { wrong: "Can we agree on the plan, no?", right: "Can we agree on the plan — right?", why: "tag question", tag: br.no-tag }
+  - { wrong: "The blocker is polemic.", right: "The blocker is controversial.", why: "controversial", tag: br.polemic }
+  - { wrong: "In my vision, we are aligned.", right: "In my view, we are aligned.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "Nobody said nothing about the audit trail.", right: "Nobody said anything about the audit trail.", why: "anything", tag: br.double-negative }
+  - { wrong: "The same position than Beth.", right: "The same position as Beth.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the consensus.", right: "We discussed the consensus.", why: "discussed the consensus", tag: br.discuss-about }
+  - { wrong: "Instead the rewrite, we fix the schema.", right: "Instead of the rewrite, we fix the schema.", why: "instead of", tag: br.instead-of }
+  - { wrong: "I have doubt about the alignment.", right: "I have a doubt about the alignment.", why: "a doubt", tag: br.doubt }
+  - { wrong: "We must to sign off today.", right: "We must sign off today.", why: "must sign off", tag: br.modal-to }
+
+dialogue:
+  title: "Where does that leave us?"
+  lines:
+    - { speaker: Carlos, text: "We've circled for twenty minutes. Let me build this in pieces." }
+    - { speaker: Carlos, text: "Can we agree that nobody is defending the current schema?" }
+    - { speaker: Beth, text: "Agreed." }
+    - { speaker: Yuri, text: "Agreed — that's common ground." }
+    - { speaker: Carlos, text: "So we agree on the what and differ on the how. Yuri — what would it take for you to sign off on a rewrite?" }
+    - { speaker: Yuri, text: "A spike on the schema piece. If it lands in a week, the six-week plan holds. If it takes three, we plan ten." }
+    - { speaker: Carlos, text: "Beth — same question backwards. What would it take to do schema first?" }
+    - { speaker: Beth, text: "A real revisit of the rewrite in Q3 — not buried, scheduled." }
+    - { speaker: Carlos, text: "Let's park the rewrite debate, then: schema fix now, spike this week, rewrite revisit scheduled for Q3. Where does that leave us?" }
+    - { speaker: Yuri, text: "Schema agreed, spike scheduled, rewrite parked with a date. I can live with that." }
+    - { speaker: Beth, text: "I still think six weeks was doable — but the spike answers it either way. I'll disagree and commit." }
+    - { speaker: Carlos, text: "Are we aligned? Schema first, spike this week, revisit in Q3." }
+    - { speaker: Beth, text: "Aligned — I'll second that." }
+    - { speaker: Yuri, text: "Aligned. Objection withdrawn if the spike lands." }
+  notes:
+    - "o consenso veio em peças: chão comum → condição de cada lado → estacionar o bloqueador → inventário → teste explícito."
+    - "'disagree and commit' da Beth — ela manteve a opinião e assumiu o compromisso. Consenso ≠ unanimidade."
+    - "'objection withdrawn if the spike lands' — a retirada condicionada: compromisso com critério, não rendição."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "Consensus gets built in pieces. Anchor the common ground — 'can we agree that the schema needs fixing?'. Turn opposition into requirements — 'what would it take for you to sign off?'. Park what's blocking — 'let's park the rewrite'. Inventory the progress — 'where does that leave us?'. And close — 'are we aligned?'" }
+    - { speaker: Yuri, text: "And the golden rule: consensus isn't unanimity. 'Disagree and commit' means you keep your opinion and still row with the decision. The person who disagrees and commits beats the one who silently agrees and sabotages later." }
+    - { speaker: Beth, text: "Watch the calques even in agreement: 'we are all agree' is 'we all agree'; 'the same position than' is 'as'; 'instead the debate' is 'instead of'; and 'you agree, no?' is 'right?'." }
+  questions:
+    - { id: M23-04-l1, type: multiple_choice, prompt: "O primeiro passo do consenso é…", options: ["votar", "anclar o chão comum — 'can we agree that…?'", "estacionar o debate", "fechar com commit"], answer: 1, explanation: "Comece pelo que ninguém contesta.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-04-l2, type: multiple_choice, prompt: "'What would it take for you to sign off?' transforma…", options: ["oposição em requisito nomeado", "consenso em voto", "pergunta em ordem", "acordo em ameaça"], answer: 0, explanation: "O 'não' vira condição — o outro nomeia o preço do sim.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-04-l3, type: fill_blank, prompt: "I disagree with six weeks — and I'll disagree and ___.", accepted: ["commit"], explanation: "Compromisso com a decisão, não com a opinião.", tags: [vocab.disagreement] }
+    - { id: M23-04-l4, type: error_correction, prompt: "We are all agree the schema needs fixing.", accepted: ["We all agree the schema needs fixing.", "We all agree the schema needs fixing"], explanation: "'we all agree' — agree sem 'be'.", tags: [br.i-am-agree] }
+    - { id: M23-04-l5, type: multiple_choice, prompt: "'Let's park that' significa…", options: ["enterrar o assunto para sempre", "votar no assunto", "delegar o assunto", "fora da mesa agora — pode voltar depois"], answer: 3, explanation: "Estacionar ≠ enterrar — tira o obstáculo, não mata o tema.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-04-l6, type: multiple_choice, prompt: "Consenso maduro é…", options: ["todo mundo concordando", "unanimidade forçada", "alinhamento testado + quem discorda se compromete", "silêncio da minoria"], answer: 2, explanation: "Disagree and commit > concordar em silêncio.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** a reunião travada virou acordo — e o Carlos
+    pediu que você registrasse o consenso no doc da decisão.
+
+    **Tarefa:** escreva 70–100 palavras documentando o
+    consenso: o chão comum, a condição de cada lado, o que foi
+    estacionado (com data de revisão), o inventário final e
+    quem discordou-e-comprometeu.
+  constraints:
+    - { label: "O chão comum", pattern: "\\bagree(d)? that|common ground|nobody (is )?defending\\b" }
+    - { label: "A condição", pattern: "\\bwould it take|if the spike|condition|sign off\\b" }
+    - { label: "O estacionado", pattern: "\\bparked|revisit|Q3|scheduled\\b" }
+    - { label: "O fecho", pattern: "\\baligned|commit|withdrawn|live with\\b" }
+  rubric:
+    - "Chão comum nomeado explicitamente"
+    - "Condições dos dois lados registradas"
+    - "Estacionado com data de revisão"
+    - "Sem calques ('we all agree', 'same as', 'instead of', 'right?')"
+  model: >-
+    Consensus record, billing debate. Common ground: nobody
+    is defending the current schema — agreed by all. The
+    conditions: Yuri signs off on a rewrite if a spike on
+    the schema piece lands within a week; Beth accepts
+    schema-first if the rewrite gets a scheduled revisit.
+    Parked: the rewrite debate, with a real Q3 date — not
+    buried. Inventory: schema fix agreed, spike this week,
+    rewrite parked. Beth disagrees with the ten-week
+    estimate — and disagrees and commits. Aligned: schema
+    first, spike Thursday, revisit Q3.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.disagreement, gram.conditionals-real]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos conduzindo o consenso: ancora o chão comum, pergunta a condição de cada lado, estaciona o bloqueador e fecha com o teste de alinhamento."
+    maxSeconds: 60
+    targetPhrases:
+      - can we agree that
+      - what would it take
+      - let's park that
+      - where does that leave us
+      - common ground
+      - disagree and commit
+      - I can live with that
+      - are we aligned
+      - straw poll
+      - timebox
+      - objection withdrawn
+      - second that
+      - the blocker
+      - sign off on
+      - we all agree
+      - right?
+    checklist:
+      - "chão comum antes da divergência"
+      - "condição nomeada por cada lado"
+      - "estacionado com data, não enterrado"
+      - "fecha com 'are we aligned?' — teste explícito"
+
+quiz:
+  - { id: M23-04-q1, type: multiple_choice, prompt: "A sequência do consenso é…", options: ["votar → fechar", "chão comum → condições → estacionar → inventário → teste", "discordar → calar → decidir", "estacionar → esquecer"], answer: 1, explanation: "Consenso se constrói em peças.", tags: [vocab.disagreement] }
+  - { id: M23-04-q2, type: error_correction, prompt: "Can we agree on the timeline, no?", accepted: ["Can we agree on the timeline — right?", "Can we agree on the timeline, right?", "Can we agree on the timeline, right"], explanation: "Tag question — 'right?'.", tags: [br.no-tag] }
+  - { id: M23-04-q3, type: multiple_choice, prompt: "'Disagree and commit' significa…", options: ["discordar e boicotar", "concordar por educação", "manter a opinião e remar na decisão tomada", "calar a opinião"], answer: 2, explanation: "O compromisso é com a decisão, não com a opinião.", tags: [vocab.disagreement, comp.confidence] }
+  - { id: M23-04-q4, type: fill_blank, prompt: "What would it ___ for you to sign off on the rewrite?", accepted: ["take"], explanation: "A oposição virando requisito.", tags: [vocab.disagreement] }
+  - { id: M23-04-q5, type: multiple_choice, prompt: "Por que estacionar com data de revisão?", options: ["para enterrar o tema", "parked com data ≠ buried — o tema volta sem travar o agora", "para agradar a minoria", "para adiar a decisão"], answer: 1, explanation: "Estacionado com data volta; enterrado, não.", tags: [vocab.disagreement] }
+  - { id: M23-04-q6, type: error_correction, prompt: "Instead the rewrite, we fix the schema first.", accepted: ["Instead of the rewrite, we fix the schema first.", "Instead of the rewrite, we fix the schema first"], explanation: "'instead of'.", tags: [br.instead-of] }
+  - { id: M23-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["leave", "does", "us", "that", "where"], answer: "where does that leave us", explanation: "O inventário do progresso.", tags: [vocab.disagreement] }
+  - { id: M23-04-q8, type: multiple_choice, prompt: "'I can live with that' expressa…", options: ["aceite pragmático — funciona, sem adorar", "entusiasmo", "discordância disfarçada", "desistência"], answer: 0, explanation: "O degrau realista entre 'adoro' e 'não'.", tags: [vocab.disagreement] }
+
+srsCards:
+  - { front: "can we agree that…?", back: "Ancora o chão comum — o ponto que ninguém contesta.", tag: vocab.disagreement }
+  - { front: "what would it take to…?", back: "A oposição vira requisito — 'to sign off on the rewrite'.", tag: vocab.disagreement }
+  - { front: "let's park that and…", back: "Fora da mesa agora, com data de volta — não enterrado.", tag: vocab.disagreement }
+  - { front: "where does that leave us?", back: "O inventário — 'schema agreed, rewrite parked'.", tag: vocab.disagreement }
+  - { front: "common ground", back: "O que todos já aceitam — nomeie-o em voz alta.", tag: vocab.disagreement }
+  - { front: "disagree and commit", back: "Opinião mantida, decisão honrada — consenso ≠ unanimidade.", tag: vocab.disagreement }
+  - { front: "I can live with that", back: "O aceite pragmático — funciona, sem adorar.", tag: vocab.disagreement }
+  - { front: "are we aligned?", back: "O teste explícito — nunca assuma alinhamento.", tag: vocab.disagreement }
+  - { front: "straw poll", back: "Votação informal — mede a sala sem comprometer.", tag: vocab.disagreement }
+  - { front: "objection withdrawn", back: "A retirada formal — 'spike convinced me'.", tag: vocab.disagreement }
+  - { front: "the blocker", back: "A única condição que trava — 'the audit trail is the blocker'.", tag: vocab.disagreement }
+  - { front: "we all agree", back: "Agree sem 'be' — nunca 'we are all agree'.", tag: br.i-am-agree }
+
+review:
+  preferTags: [vocab.disagreement, gram.conditionals-real, br.i-am-agree]
+  notes: "Revisão prioriza a sequência do consenso (chão comum → condições → park → inventário → aligned), 'disagree and commit' e os calques."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
