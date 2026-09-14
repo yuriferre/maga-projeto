@@ -1,0 +1,7 @@
+id: M32
+assessment:
+  description: "15 itens objetivos cobrindo as quatro aulas + escrita (mensagem de intro + autoavaliação da primeira semana) + fala (cenários de onboarding comprimidos)."
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
