@@ -1,0 +1,293 @@
+id: M19-04
+module: M19
+order: 4
+title: "Respondendo a findings: remediar, aceitar ou adiar"
+objective: >-
+  Ao final, você responde a um finding com a decisão certa:
+  remediar agora, aceitar o risco formalmente ou negociar o
+  prazo — "we'll track it under SEC-1234".
+durationMin: 35
+competencies: [WRI, VOC]
+tags: [vocab.security, comp.writing, comp.vocabulary]
+prerequisites: [M19-03]
+
+context:
+  scenario: |
+    O finding do pentest está na sua fila: "weak session timeout —
+    sessions live for 30 days". A pergunta da Priya: "**how are
+    we responding to this one?**" — e "vamos ver" não é resposta.
+
+    Todo finding termina em uma de três decisões, e cada uma tem
+    sua língua:
+
+    - **remediate** — corrigir agora: "we'll fix it — the patch
+      lands Thursday". A resposta quando o risco é real e o
+      conserto é barato.
+    - **accept the risk** — conviver com ele, *documentado*:
+      "we're accepting the risk — sign-off from the security
+      lead". Não é ignorar; é uma decisão registrada.
+    - **defer / negotiate the deadline** — adiar com justificativa:
+      "we can't land it this sprint — the fix touches the auth
+      rewrite". Adiar sem motivo é enrolar; adiar com motivo e
+      prazo novo é negociar.
+
+    E o rastreio que fecha o ciclo: "**we'll track it under
+    SEC-1234**" — o finding vira um ticket com dono, prazo e
+    estado. Finding sem ticket é finding esquecido.
+  roles: [Yuri (platform engineer), Priya (tech lead), Rafa (security)]
+
+vocabulary:
+  - term: "remediate"
+    meaning: 'remediar — corrigir o finding de fato'
+    example: "We'll remediate the session timeout — the fix lands Thursday."
+    translation: "Vamos remediar o timeout de sessão — a correção sai quinta."
+    note: "Remediate = resolver de verdade, não mitigar."
+  - term: "accept the risk"
+    meaning: 'aceitar o risco — conviver documentado, com aprovação'
+    example: "We're accepting the risk on the legacy endpoint — it ships in Q4 anyway."
+    translation: "Estamos aceitando o risco no endpoint legado — ele sai no Q4 mesmo."
+    note: "Aceitação formal: motivo + dono + sign-off."
+  - term: "defer"
+    meaning: 'adiar — empurrar a remediação com justificativa'
+    example: "We're deferring the fix — it depends on the auth rewrite."
+    translation: "Estamos adiando a correção — ela depende da reescrita de auth."
+    note: "Defer com motivo e data nova; sem isso é enrolação."
+  - term: "we'll track it under"
+    meaning: 'vamos rastrear sob — o ticket que segura o finding'
+    example: "We'll track it under SEC-1234 — owner: me, due Friday."
+    translation: "Vamos rastrear sob o SEC-1234 — dono: eu, vence sexta."
+    note: "O finding vira ticket: número + dono + prazo."
+  - term: "severity"
+    meaning: 'a severidade — quão grave o finding é'
+    example: "It's a medium severity — not critical, not noise."
+    translation: "É severidade média — nem crítico, nem ruído."
+    note: "Severity guia o prazo: critical = agora, low = backlog."
+  - term: "false positive"
+    meaning: 'o falso positivo — o finding que não é real'
+    example: "We checked — it's a false positive, the port isn't exposed."
+    translation: "Checamos — é falso positivo, a porta não está exposta."
+    note: "Dispute com prova: 'false positive — here's the config'."
+  - term: "mitigate"
+    meaning: 'mitigar — reduzir o risco sem eliminar a causa'
+    example: "We can't patch this week — we'll mitigate with a WAF rule."
+    translation: "Não dá para patchar esta semana — mitigamos com uma regra de WAF."
+    note: "Mitigate ≠ remediate: mitigar segura até a correção."
+  - term: "due date"
+    meaning: 'a data de vencimento — o prazo do finding'
+    example: "The due date is Oct 15 — set by the severity."
+    translation: "A data de vencimento é 15 de outubro — definida pela severidade."
+    note: "O prazo vem da severidade — 'due in 30 days' para medium."
+  - term: "owner"
+    meaning: 'o dono — quem responde pelo finding'
+    example: "The owner is on-call this week — me after Friday."
+    translation: "O dono é o plantão esta semana — eu depois de sexta."
+    note: "Finding sem dono é finding sem remediação."
+  - term: "wontfix"
+    meaning: 'não vamos corrigir — a resposta documentada de recusa'
+    example: "Marked as wontfix — the component is deprecated in Q4."
+    translation: "Marcado como wontfix — o componente é descontinuado no Q4."
+    note: "Wontfix com motivo é legítimo; sem motivo é omissão."
+  - term: "the fix touches"
+    meaning: 'a correção toca — a dependência que justifica o adiamento'
+    example: "The fix touches the auth rewrite — it can't land mid-sprint."
+    translation: "A correção toca a reescrita de auth — não dá para sair no meio do sprint."
+    note: "A justificativa real de 'defer': dependência, não preguiça."
+  - term: "SLA for findings"
+    meaning: 'o SLA dos findings — o prazo por severidade'
+    example: "Critical findings have a 7-day SLA; medium gets 30."
+    translation: "Findings críticos têm SLA de 7 dias; médios, 30."
+    note: "O SLA transforma 'em breve' em data."
+
+grammar:
+  title: "as três decisões: remediate × accept × defer"
+  explanation: |
+    A resposta a um finding é uma decisão, e cada uma tem formato:
+
+    - **remediate**: "we'll **fix** it — the patch lands Thursday"
+      — ação + data.
+    - **accept**: "we're **accepting the risk** — the component
+      retires in Q4; sign-off from the security lead" — motivo +
+      aprovação.
+    - **defer**: "we're **deferring** — the fix **touches** the
+      auth rewrite; **new due date**: Nov 1" — motivo + data nova.
+
+    Todas terminam no rastreio: "**we'll track it under
+    SEC-1234**". E a disputa legítima: "**false positive** —
+    here's the config" — prova, não opinião.
+  examples:
+    - { en: "We'll remediate it — the patch lands Thursday.", pt: "Vamos remediar — o patch sai quinta." }
+    - { en: "We're accepting the risk — the component retires in Q4.", pt: "Estamos aceitando o risco — o componente aposenta no Q4." }
+    - { en: "We're deferring — the fix touches the auth rewrite; new due date Nov 1.", pt: "Estamos adiando — a correção toca a reescrita de auth; prazo novo 1º de novembro." }
+    - { en: "We'll track it under SEC-1234 — owner: me, due Friday.", pt: "Vamos rastrear sob o SEC-1234 — dono: eu, vence sexta." }
+    - { en: "It's a false positive — the port isn't exposed; here's the config.", pt: "É falso positivo — a porta não está exposta; aqui está a config." }
+    - { en: "We must fix this — never 'must to fix'.", pt: "Devemos corrigir isso — nunca 'must to fix'." }
+
+examples:
+  - en: "Medium severity — due in 30 days, we'll remediate it next sprint."
+    pt: "Severidade média — vence em 30 dias, remediaremos no próximo sprint."
+    context: "Remediar com prazo."
+  - en: "We're accepting the risk — sign-off from the security lead is attached."
+    pt: "Estamos aceitando o risco — a aprovação do líder de segurança está anexada."
+    context: "Aceitar documentado."
+  - en: "We're deferring — the fix touches the auth rewrite; new due date Nov 1."
+    pt: "Estamos adiando — a correção toca a reescrita de auth; prazo novo 1º de novembro."
+    context: "Adiar com motivo."
+  - en: "It's a false positive — the port isn't exposed; here's the config."
+    pt: "É falso positivo — a porta não está exposta; aqui está a config."
+    context: "Disputar com prova."
+  - en: "We'll track it under SEC-1234 — owner: Yuri, due Oct 15."
+    pt: "Vamos rastrear sob o SEC-1234 — dono: Yuri, vence 15 de outubro."
+    context: "O rastreio."
+  - en: "We can't remediate this week — mitigating with a WAF rule until then."
+    pt: "Não dá para remediar esta semana — mitigando com regra de WAF até lá."
+    context: "Mitigar ≠ remediar."
+  - en: "Wontfix — the component is deprecated in Q4; risk accepted."
+    pt: "Wontfix — o componente é descontinuado no Q4; risco aceito."
+    context: "Recusa documentada."
+  - en: "Critical has a 7-day SLA — this one is due Friday."
+    pt: "Crítico tem SLA de 7 dias — este vence sexta."
+    context: "O prazo pela severidade."
+
+variations:
+  - idea: '"a decisão certa"'
+    items:
+      - { register: "Boa", text: "We'll remediate — patch lands Thursday, tracked under SEC-1234.", adequate: true }
+      - { register: "Boa", text: "Deferring — the fix touches the auth rewrite; new due date Nov 1.", adequate: true }
+      - { register: "Inadequada", text: "We'll get to it eventually.", adequate: false, note: "'Eventualmente' não é prazo — finding pede decisão + data + ticket." }
+      - { register: "Inadequada", text: "Not fixing it. Too busy.", adequate: false, note: "Recusar é legítimo, mas documentado: 'wontfix — component deprecated, risk accepted'." }
+  - idea: '"mitigar × remediar"'
+    items:
+      - { register: "Boa", text: "Mitigating with a WAF rule — the real fix lands next sprint.", adequate: true }
+      - { register: "Boa", text: "Remediated — the patch shipped; closing the ticket.", adequate: true }
+      - { register: "Inadequada", text: "We mitigated it — it's resolved forever.", adequate: false, note: "Mitigar segura até a correção — a causa continua viva." }
+      - { register: "Inadequada", text: "It's a false positive, trust me.", adequate: false, note: "Disputa pede prova: 'false positive — here's the config'." }
+
+brErrors:
+  - { wrong: "We must to patch it by Friday.", right: "We must patch it by Friday.", why: "must patch", tag: br.modal-to }
+  - { wrong: "We should to accept the risk.", right: "We should accept the risk.", why: "should accept", tag: br.modal-to }
+  - { wrong: "The finding is critic — SLA is 7 days.", right: "The finding is critical — SLA is 7 days.", why: "critical", tag: br.is-critic }
+  - { wrong: "The fix is in compliance to the SLA.", right: "The fix is in compliance with the SLA.", why: "with", tag: br.in-compliance-to }
+  - { wrong: "They explored the weak timeout.", right: "They exploited the weak timeout.", why: "exploited", tag: br.explored-vuln }
+  - { wrong: "The ticket was wrote by security.", right: "The ticket was written by security.", why: "was written", tag: br.was-past }
+  - { wrong: "The fix not land this sprint.", right: "The fix won't land this sprint.", why: "won't land", tag: br.it-not-works }
+  - { wrong: "The remediation is due until Friday.", right: "The remediation is due by Friday.", why: "by Friday", tag: br.until-by }
+  - { wrong: "The SLA depend of the severity.", right: "The SLA depends on the severity.", why: "depends on", tag: br.depend-of }
+  - { wrong: "The finding of Tuesday is medium.", right: "Tuesday's finding is medium.", why: "Tuesday's finding", tag: br.of-weekday }
+
+dialogue:
+  title: "Respondendo ao finding do pentest"
+  lines:
+    - { speaker: Priya, text: "The pentest finding: weak session timeout — sessions live for 30 days. How are we responding?" }
+    - { speaker: Yuri, text: "Severity is medium — the SLA gives us 30 days. Three options on the table." }
+    - { speaker: Priya, text: "Walk me through them." }
+    - { speaker: Yuri, text: "Remediate — the fix is small, lands Thursday. Or accept the risk — but sessions on shared devices are real. Or defer — the fix touches the auth rewrite." }
+    - { speaker: Priya, text: "Which one?" }
+    - { speaker: Yuri, text: "Remediate. It's a two-line change — deferring buys us nothing. We'll track it under SEC-1234, owner me, due Thursday." }
+    - { speaker: Priya, text: "And if we couldn't land it?" }
+    - { speaker: Yuri, text: "Then we mitigate — a WAF rule shortens the window until the real fix ships. Mitigation isn't remediation." }
+    - { speaker: Priya, text: "Agreed. Decision, ticket, date — that's a finding answered." }
+  notes:
+    - "as três decisões apresentadas como opções, depois a escolha justificada."
+    - "'mitigation isn't remediation' — a distinção que a reunião precisa ouvir."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "Every finding ends in one of three decisions. Remediate — fix it now, with a date: 'the patch lands Thursday'. Accept the risk — live with it, documented: 'we're accepting the risk, sign-off from security'. Or defer — push it with a reason and a new date: 'we're deferring, the fix touches the auth rewrite'." }
+    - { speaker: Marcos, text: "Whichever you pick, the finding becomes a ticket: 'we'll track it under SEC-1234 — owner, due date'. A finding without a ticket is a forgotten finding. And if the finding is wrong, dispute it with proof — 'it's a false positive, here's the config'." }
+    - { speaker: Yuri, text: "One more distinction: mitigate isn't remediate. Mitigation reduces the risk until the real fix ships — 'a WAF rule holds it until Thursday'. And severity sets the deadline — critical findings carry a 7-day SLA; medium gets 30." }
+  questions:
+    - { id: M19-04-l1, type: multiple_choice, prompt: "The three ways to close a finding are…", options: ["fix, hide, forget", "remediate, accept the risk, defer with a reason", "escalate, ignore, close", "patch, restart, monitor"], answer: 1, explanation: "Remediar, aceitar documentado ou adiar com motivo.", tags: [comp.listening, vocab.security] }
+    - { id: M19-04-l2, type: multiple_choice, prompt: "'We'll track it under SEC-1234' means…", options: ["the finding becomes a ticket with owner and date", "it's in the audit", "we filed a complaint", "the SLA started"], answer: 0, explanation: "Finding vira ticket — sem ticket, esquecido.", tags: [comp.listening, vocab.security] }
+    - { id: M19-04-l3, type: fill_blank, prompt: "It's a ___ positive — the port isn't exposed; here's the config.", accepted: ["false"], explanation: '"False positive" — disputa com prova.', tags: [vocab.security] }
+    - { id: M19-04-l4, type: error_correction, prompt: "We must to patch it by Friday.", accepted: ["We must patch it by Friday.", "We must patch it by Friday"], explanation: "must patch.", tags: [br.modal-to] }
+    - { id: M19-04-l5, type: multiple_choice, prompt: "Mitigate × remediate: the difference is…", options: ["they're synonyms", "mitigate reduces the risk until the real fix ships", "mitigate is faster", "remediate is temporary"], answer: 1, explanation: "Mitigar segura; remediar resolve.", tags: [comp.listening, vocab.security] }
+    - { id: M19-04-l6, type: multiple_choice, prompt: "What sets the finding's deadline?", options: ["the sprint length", "the security lead's mood", "the severity — critical gets a 7-day SLA", "the audit date"], answer: 2, explanation: "A severidade define o SLA.", tags: [comp.listening, vocab.security] }
+
+writing:
+  prompt: |
+    **Cenário:** o finding "weak session timeout" está na sua fila.
+    Responda formalmente no ticket do pentest.
+
+    **Tarefa:** escreva 50–80 palavras com a decisão (remediate /
+    accept / defer), a justificativa, o rastreio ("we'll track it
+    under…") e — se for defer — a mitigação até a correção.
+  constraints:
+    - { label: "A decisão", pattern: "\\b(remediate|accepting|defer|wontfix|false positive)\\w*" }
+    - { label: "A justificativa", pattern: "\\b(because|since|severity|touches|deprecated|sprint)\\b" }
+    - { label: "O rastreio", pattern: "\\btrack(ed|ing)?\\s+it\\s+under\\b" }
+    - { label: "Prazo ou dono", pattern: "\\b(due|owner|lands|sla)\\b" }
+  rubric:
+    - "A decisão explícita (remediate/accept/defer)"
+    - "Justificativa real, não 'we'll see'"
+    - "'track it under' + dono + prazo"
+    - "sem calques (must patch, critical, 'compliance with')"
+  model: >-
+    Decision: remediate. The session timeout is medium severity —
+    real on shared devices — and the fix is a two-line change that
+    lands Thursday, well inside the 30-day SLA. Deferring buys us
+    nothing since the auth rewrite isn't blocked by it. We'll
+    track it under SEC-1234 — owner: me, due Thursday. If the
+    patch slips, we mitigate with a shorter cookie expiry until it
+    ships; mitigation isn't the remediation.
+  minWords: 50
+  maxWords: 80
+  tags: [comp.writing, vocab.security]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos respondendo ao finding na reunião: a decisão, a justificativa, o ticket e o prazo."
+    maxSeconds: 45
+    targetPhrases:
+      - remediate
+      - accept the risk
+      - deferring
+      - we'll track it under
+      - false positive
+      - mitigate
+      - severity
+      - the due date
+      - owner
+      - wontfix
+      - the fix touches
+      - SLA
+      - the patch lands
+      - sign-off
+      - the ticket
+      - we must patch
+    checklist:
+      - "A decisão nomeada primeiro"
+      - "Justificativa com motivo real"
+      - "'track it under' + dono + data"
+      - "mitigate × remediate distintos"
+
+quiz:
+  - { id: M19-04-q1, type: multiple_choice, prompt: "O finding é real e o conserto é barato. A resposta é…", options: ["remediate — corrigir agora, com data", "accept the risk", "defer até o próximo ano", "marcar wontfix"], answer: 0, explanation: "Remediar — ação + data.", tags: [vocab.security] }
+  - { id: M19-04-q2, type: error_correction, prompt: "We should to accept the risk formally.", accepted: ["We should accept the risk formally.", "We should accept the risk formally"], explanation: "'should accept'.", tags: [br.modal-to] }
+  - { id: M19-04-q3, type: multiple_choice, prompt: "Conviver com o risco, documentado e com aprovação, é…", options: ["ignorar o finding", "risk acceptance — motivo + sign-off", "um false positive", "mitigar"], answer: 1, explanation: "Aceitar é decisão registrada.", tags: [vocab.security] }
+  - { id: M19-04-q4, type: fill_blank, prompt: "We'll track it ___ SEC-1234 — owner: me, due Friday.", accepted: ["under"], explanation: '"Track it under" + número do ticket.', tags: [vocab.security] }
+  - { id: M19-04-q5, type: multiple_choice, prompt: "'The fix touches the auth rewrite' justifica…", options: ["remediar hoje", "aceitar o risco", "um wontfix", "defer — adiar com dependência real"], answer: 3, explanation: "A dependência real é o motivo do adiamento.", tags: [vocab.security] }
+  - { id: M19-04-q6, type: error_correction, prompt: "The remediation is due until Friday.", accepted: ["The remediation is due by Friday.", "The remediation is due by Friday"], explanation: "by Friday.", tags: [br.until-by] }
+  - { id: M19-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["isn't", "mitigation", "remediation", "the"], answer: "mitigation isn't the remediation", explanation: "Mitigar segura; remediar resolve.", tags: [vocab.security] }
+  - { id: M19-04-q8, type: multiple_choice, prompt: "Um finding que não é real se responde com…", options: ["silêncio", "aceitação de risco", "wontfix sem motivo", "'false positive' + a prova — 'here's the config'"], answer: 3, explanation: "Disputa com evidência.", tags: [vocab.security] }
+
+srsCards:
+  - { front: "remediate", back: "Corrigir de fato — 'the patch lands Thursday'.", tag: vocab.security }
+  - { front: "accept the risk", back: "Conviver documentado — motivo + sign-off.", tag: vocab.security }
+  - { front: "defer", back: "Adiar com justificativa e data nova.", tag: vocab.security }
+  - { front: "we'll track it under", back: "O finding vira ticket — número + dono + prazo.", tag: vocab.security }
+  - { front: "severity", back: "Quão grave — guia o SLA (critical = 7d).", tag: vocab.security }
+  - { front: "false positive", back: "O finding errado — disputa com prova.", tag: vocab.security }
+  - { front: "mitigate", back: "Reduzir até a correção — 'a WAF rule holds it'.", tag: vocab.security }
+  - { front: "due date", back: "O prazo do finding — 'due in 30 days'.", tag: vocab.security }
+  - { front: "owner", back: "Quem responde — sem dono, sem remediação.", tag: vocab.security }
+  - { front: "wontfix", back: "Recusa documentada — 'deprecated in Q4'.", tag: vocab.security }
+  - { front: "SLA for findings", back: "O prazo por severidade — critical 7d, medium 30d.", tag: vocab.security }
+
+review:
+  preferTags: [vocab.security, br.modal-to, br.until-by]
+  notes: "Revisão prioriza as três decisões, 'track it under', mitigate × remediate e os calques de modal/prazo."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
