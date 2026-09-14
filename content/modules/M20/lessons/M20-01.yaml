@@ -1,0 +1,300 @@
+id: M20-01
+module: M20
+order: 1
+title: "Vocabulário de FinOps: do cost driver ao showback"
+objective: >-
+  Ao final, você nomeia os conceitos centrais de custo de cloud
+  sem traduzir do português: cost driver, right-sizing, reserved
+  e savings plan, spot, egress, idle resources, showback.
+durationMin: 35
+competencies: [VOC]
+tags: [vocab.finops, comp.vocabulary, comp.reading]
+prerequisites: [M14-05]
+
+context:
+  scenario: |
+    A fatura de cloud chegou 18% maior e a Ana — gerente de
+    produto — encaminhou com uma linha só: "**can someone
+    explain this?**" Para responder você precisa do vocabulário
+    exato de FinOps, não de "the price is expensive".
+
+    O léxico essencial de custo:
+
+    - **cost driver** — o que empurra a fatura: "compute is the
+      main cost driver this month". Não é "cost reason".
+    - **right-sizing** — ajustar o tamanho à carga real:
+      "the node group needs right-sizing — it runs at 12% CPU".
+    - **reserved instances / savings plans** — compromisso de
+      1–3 anos por desconto: "reserved capacity cuts the base
+      cost by 40%".
+    - **spot** — capacidade ociosa com desconto e risco de
+      interrupção: "batch jobs run on spot — 70% cheaper".
+    - **egress** — dados saindo do provedor: "egress is half the
+      bill — we stream logs to an external SIEM".
+    - **idle resources** — pagos e parados: "three idle databases
+      from the migration — $800 a month doing nothing".
+    - **showback** — mostrar a cada time o que ele gasta:
+      "showback per team — no chargeback yet, just visibility".
+    - **on-demand** — preço cheio, sem compromisso: o contraste
+      com reserved e spot.
+  roles: [Yuri (platform engineer), Ana (product manager), Marcos (backend)]
+
+vocabulary:
+  - term: "cost driver"
+    meaning: 'o fator que empurra o custo — o que explica a fatura'
+    example: "Compute is the main cost driver this month — 60% of the bill."
+    translation: "Compute é o principal cost driver do mês — 60% da fatura."
+    note: "Responde 'why did the bill go up?' — o driver, não 'o motivo do custo'."
+  - term: "right-sizing"
+    meaning: 'dimensionar certo — ajustar o recurso à carga real'
+    example: "The node group needs right-sizing — it idles at 12% CPU."
+    translation: "O node group precisa de right-sizing — fica a 12% de CPU."
+    note: "Nem maior nem menor: o tamanho que a carga pede."
+  - term: "reserved instance"
+    meaning: 'instância reservada — compromisso de 1–3 anos por desconto'
+    example: "Reserved capacity cuts the baseline cost by about 40%."
+    translation: "Capacidade reservada corta o custo de base em uns 40%."
+    note: "Você paga pelo compromisso — use para a carga que sempre existe."
+  - term: "savings plan"
+    meaning: 'plano de economia — compromisso de gasto/hora por desconto'
+    example: "A compute savings plan covers EC2, Fargate and Lambda."
+    translation: "Um savings plan de compute cobre EC2, Fargate e Lambda."
+    note: "Mais flexível que reserved: compromisso de $/hora, não de instância."
+  - term: "spot"
+    meaning: 'capacidade spot — ociosa do provedor, barata, interrompível'
+    example: "Batch jobs run on spot — 70% cheaper, but they can be interrupted."
+    translation: "Jobs de batch rodam em spot — 70% mais barato, mas podem ser interrompidos."
+    note: "Spot é para carga que tolera recomeçar — nunca para a API crítica."
+  - term: "egress"
+    meaning: 'saída de dados — o custo de tirar dados do provedor'
+    example: "Egress is half the bill — we stream logs to an external SIEM."
+    translation: "Egress é metade da fatura — mandamos logs para um SIEM externo."
+    note: "Entrar é grátis; sair cobra. O driver silencioso de arquitetura multi-cloud."
+  - term: "idle resources"
+    meaning: 'recursos ociosos — ligados, pagos e sem uso'
+    example: "Three idle databases from the migration cost $800 a month."
+    translation: "Três bancos ociosos da migração custam $800 por mês."
+    note: "O saving mais barato que existe: desligar o que ninguém usa."
+  - term: "showback"
+    meaning: 'mostrar o custo por time — visibilidade sem cobrança'
+    example: "Showback per team starts this quarter — no chargeback yet."
+    translation: "O showback por time começa neste trimestre — sem chargeback ainda."
+    note: "Showback mostra; chargeback cobra do orçamento do time."
+  - term: "on-demand"
+    meaning: 'sob demanda — preço cheio, sem compromisso'
+    example: "Everything runs on-demand today — that's the expensive part."
+    translation: "Hoje tudo roda on-demand — essa é a parte cara."
+    note: "O baseline de preço: reserved e spot existem para fugir dele."
+  - term: "utilization"
+    meaning: 'a utilização — quanto do recurso pago está em uso'
+    example: "Cluster utilization is 35% — we're paying for air."
+    translation: "A utilização do cluster é 35% — estamos pagando por ar."
+    note: "Utilization baixa + bill alta = right-sizing pendente."
+  - term: "the bill"
+    meaning: 'a fatura — o valor mensal do provedor'
+    example: "The bill came in 18% higher this month."
+    translation: "A fatura veio 18% maior este mês."
+    note: "'The bill', nunca 'the account' — account é a conta de login."
+  - term: "waste"
+    meaning: 'desperdício — gasto que não entrega nada'
+    example: "Idle dev environments at night are pure waste."
+    translation: "Ambientes de dev ligados à noite são puro desperdício."
+    note: "FinOps caça waste primeiro — saving sem trade-off."
+
+grammar:
+  title: "preço é high ou low — e 'economia' vira saving"
+  explanation: |
+    Três calques que entregam o sotaque na hora:
+
+    - "**The price is expensive**" — preço não é "expensive":
+      é "**high**" (ou "low"). "Expensive"/"cheap" descrevem o
+      item: "the instance is cheap", "the price is high".
+    - "**An economy of $40k**" — "economia" no sentido de valor
+      poupado é "**a saving of**": "right-sizing brings a saving
+      of $40k a year". "Economy" é a economia do país.
+    - "**We spend money with AWS**" — "gastar com" é "**spend
+      on**": "we spend too much on the vendor". "With" fica para
+      pessoas: "spend time with the team".
+
+    E "a metade": "**half the bill**" ou "half of the bill" —
+    nunca "the half of the bill" (o "the" só aparece em
+    "the first/second half of").
+  examples:
+    - { en: "The price is high — never 'expensive'.", pt: "O preço é alto — nunca 'expensive'." }
+    - { en: "Right-sizing brings a saving of $40k a year.", pt: "O right-sizing traz uma economia de $40k por ano." }
+    - { en: "We spend too much on on-demand capacity.", pt: "Gastamos demais com capacidade on-demand." }
+    - { en: "Egress is half the bill.", pt: "Egress é metade da fatura." }
+    - { en: "The instance is cheap — the price is low.", pt: "A instância é barata — o preço é baixo." }
+    - { en: "I spend time with the team; we spend money on compute.", pt: "Passo tempo com o time; gastamos dinheiro com compute." }
+
+examples:
+  - en: "Compute is the main cost driver — 60% of the bill."
+    pt: "Compute é o principal cost driver — 60% da fatura."
+    context: "O que empurra a fatura."
+  - en: "The node group needs right-sizing — it idles at 12% CPU."
+    pt: "O node group precisa de right-sizing — fica a 12% de CPU."
+    context: "O ajuste de tamanho."
+  - en: "Reserved capacity cuts the baseline cost by about 40%."
+    pt: "Capacidade reservada corta o custo de base em uns 40%."
+    context: "O compromisso com desconto."
+  - en: "Batch jobs run on spot — 70% cheaper, but interruptible."
+    pt: "Jobs de batch rodam em spot — 70% mais barato, mas interrompível."
+    context: "O desconto com risco."
+  - en: "Egress is half the bill — logs go to an external SIEM."
+    pt: "Egress é metade da fatura — os logs vão para um SIEM externo."
+    context: "O driver silencioso."
+  - en: "Three idle databases from the migration cost $800 a month."
+    pt: "Três bancos ociosos da migração custam $800 por mês."
+    context: "O desperdício parado."
+  - en: "Showback per team starts this quarter — visibility first."
+    pt: "O showback por time começa neste trimestre — visibilidade primeiro."
+    context: "Mostrar antes de cobrar."
+  - en: "Cluster utilization is 35% — we're paying for air."
+    pt: "A utilização do cluster é 35% — estamos pagando por ar."
+    context: "A métrica que expõe o waste."
+
+variations:
+  - idea: '"a palavra exata"'
+    items:
+      - { register: "Boa", text: "Egress is the hidden cost driver — half the bill.", adequate: true }
+      - { register: "Boa", text: "We'd cut costs with right-sizing and spot for batch.", adequate: true }
+      - { register: "Inadequada", text: "The price of egress is expensive.", adequate: false, note: "Preço é *high* — 'expensive' descreve o item." }
+      - { register: "Inadequada", text: "Right-sizing brings an economy of $40k.", adequate: false, note: "'Economia' no sentido de poupar é *a saving of*." }
+  - idea: '"gastar e dividir"'
+    items:
+      - { register: "Boa", text: "We spend most of the budget on compute.", adequate: true }
+      - { register: "Boa", text: "Showback gives each team visibility before chargeback.", adequate: true }
+      - { register: "Inadequada", text: "We spend too much with the vendor.", adequate: false, note: "'Gastar com' é *spend on* — 'with' é para pessoas." }
+      - { register: "Inadequada", text: "Compute is the half of the bill.", adequate: false, note: "*Half the bill* — sem 'the' antes de half." }
+
+brErrors:
+  - { wrong: "The price is expensive for that tier.", right: "The price is high for that tier.", why: "the price is high", tag: br.price-expensive }
+  - { wrong: "The costs look cheap this month.", right: "The costs look low this month.", why: "costs look low", tag: br.price-expensive }
+  - { wrong: "Right-sizing brings an economy of $40k.", right: "Right-sizing brings a saving of $40k.", why: "a saving of", tag: br.an-economy }
+  - { wrong: "We spend too much with the vendor.", right: "We spend too much on the vendor.", why: "spend on", tag: br.spend-with }
+  - { wrong: "The team spends $12k a month with AWS.", right: "The team spends $12k a month on AWS.", why: "spends on", tag: br.spend-with }
+  - { wrong: "Compute is the half of the bill.", right: "Compute is half the bill.", why: "half the bill", tag: br.the-half }
+  - { wrong: "We have a latency of 200ms on p99.", right: "The p99 latency is 200ms.", why: "the latency is", tag: br.have-a-latency }
+  - { wrong: "The cost overpassed the budget.", right: "The cost exceeded the budget.", why: "exceeded", tag: br.overpassed }
+  - { wrong: "We must to cut costs this quarter.", right: "We must cut costs this quarter.", why: "must cut", tag: br.modal-to }
+  - { wrong: "The bill raised last month.", right: "The bill went up last month.", why: "went up", tag: br.metric-raised }
+
+dialogue:
+  title: "A fatura veio 18% maior"
+  lines:
+    - { speaker: Ana, text: "The cloud bill came in 18% higher. Can someone explain this?" }
+    - { speaker: Yuri, text: "Looking at the cost drivers: compute is 60% of the bill, and egress jumped — we started streaming logs to the external SIEM." }
+    - { speaker: Marcos, text: "Plus the three idle databases from the migration — $800 a month doing nothing." }
+    - { speaker: Ana, text: "So where's the waste and what's the fix?" }
+    - { speaker: Yuri, text: "The node group runs at 12% CPU — it needs right-sizing. And everything is on-demand; reserved capacity on the baseline would cut it by about 40%." }
+    - { speaker: Marcos, text: "Batch jobs could move to spot — 70% cheaper, and they tolerate interruption." }
+    - { speaker: Ana, text: "Can I see which team spends what?" }
+    - { speaker: Yuri, text: "That's the next step — showback per team this quarter. Visibility first; chargeback later if we need it." }
+    - { speaker: Ana, text: "Good — kill the idle databases, right-size the nodes, and bring me the savings plan numbers Friday." }
+  notes:
+    - "a conversa percorre: bill → cost drivers → idle → right-sizing → on-demand → reserved → spot → showback."
+    - "'we're paying for air' — utilization baixa dita sem jargão."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "Quick vocabulary pass. A cost driver is what pushes the bill — 'compute is the main cost driver'. Right-sizing is matching the resource to the real load — 'the node group needs right-sizing'. And on-demand is the full price you pay with no commitment — the baseline that reserved and spot exist to beat." }
+    - { speaker: Yuri, text: "Reserved instances and savings plans trade a one-to-three-year commitment for a discount — use them for the load that always exists. Spot is the provider's idle capacity — up to seventy percent cheaper, but it can be interrupted, so it's for batch, not for the critical API. Egress is data leaving the provider — free coming in, billed going out." }
+    - { speaker: Marcos, text: "Idle resources are the ones running, paid, and unused — the cheapest saving there is. Utilization tells you how much of what you pay for is actually working — thirty-five percent means you're paying for air. And showback is showing each team its spend — visibility first, chargeback later." }
+  questions:
+    - { id: M20-01-l1, type: multiple_choice, prompt: "The main thing pushing the bill is the…", options: ["cost driver", "showback", "egress window", "savings plan"], answer: 0, explanation: "O driver é o que empurra a fatura.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-01-l2, type: multiple_choice, prompt: "Spot capacity is cheap but…", options: ["slow", "interruptible — for batch, not the critical API", "only for databases", "free"], answer: 1, explanation: "Desconto com risco de interrupção.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-01-l3, type: fill_blank, prompt: "The node group needs ___-sizing — it idles at 12% CPU.", accepted: ["right"], explanation: "'Right-sizing' — o tamanho que a carga pede.", tags: [vocab.finops] }
+    - { id: M20-01-l4, type: error_correction, prompt: "The price of on-demand is expensive.", accepted: ["The price of on-demand is high.", "The price of on-demand is high"], explanation: "high.", tags: [br.price-expensive] }
+    - { id: M20-01-l5, type: multiple_choice, prompt: "Showback means…", options: ["charging each team's budget", "showing each team its spend — visibility first", "hiding the bill", "a refund"], answer: 1, explanation: "Showback mostra; chargeback cobra.", tags: [comp.listening, vocab.finops] }
+    - { id: M20-01-l6, type: multiple_choice, prompt: "Egress is…", options: ["data coming in — free", "idle capacity", "a discount", "data leaving the provider — billed"], answer: 3, explanation: "Entrar é grátis; sair cobra.", tags: [comp.listening, vocab.finops] }
+
+writing:
+  prompt: |
+    **Cenário:** a fatura veio 18% maior e a Ana pediu a
+    explicação por escrito no canal.
+
+    **Tarefa:** escreva 60–90 palavras cobrindo: o cost driver
+    principal, o driver escondido (egress), os recursos ociosos
+    e duas alavancas de redução (right-sizing + uma de
+    reserved/spot). Feche com o próximo passo (showback).
+  constraints:
+    - { label: "O driver principal", pattern: "\\bcost driver|driver\\b" }
+    - { label: "O driver escondido", pattern: "\\begress\\b" }
+    - { label: "O desperdício", pattern: "\\bidle|waste\\w*" }
+    - { label: "As alavancas", pattern: "\\b(right-sizing|reserved|savings plan|spot|on-demand)\\w*" }
+  rubric:
+    - "Cost driver e egress distintos"
+    - "Idle resources com número"
+    - "Duas alavancas nomeadas corretamente"
+    - "Sem calques ('price is high', 'a saving of', 'spend on')"
+  model: >-
+    The bill is up 18% and the main cost driver is compute —
+    about 60% of the total. The hidden driver is egress: we
+    started streaming logs to the external SIEM. On waste, the
+    three idle databases from the migration cost $800 a month —
+    kill them. Two levers: right-size the node group, which
+    idles at 12% CPU, and move the baseline to reserved capacity
+    — about 40% off on-demand. Next step is showback per team.
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.finops]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos explicando a fatura 18% maior: o driver principal, o driver escondido, o desperdício e as alavancas de redução."
+    maxSeconds: 45
+    targetPhrases:
+      - cost driver
+      - the bill went up
+      - right-sizing
+      - reserved capacity
+      - savings plan
+      - spot instances
+      - egress
+      - idle resources
+      - showback
+      - on-demand
+      - utilization
+      - the price is high
+      - a saving of
+      - we spend too much on
+      - half the bill
+      - cheaper
+    checklist:
+      - "cost driver, não 'cost reason'"
+      - "egress explicado sem jargão"
+      - "as alavancas com percentuais"
+      - "'spend on', 'a saving of', 'the price is high'"
+
+quiz:
+  - { id: M20-01-q1, type: multiple_choice, prompt: "O que empurra a fatura é o…", options: ["cost driver", "showback", "chargeback", "savings plan"], answer: 0, explanation: "O driver explica o 'por quê subiu'.", tags: [vocab.finops] }
+  - { id: M20-01-q2, type: error_correction, prompt: "We spend too much with the vendor.", accepted: ["We spend too much on the vendor.", "We spend too much on the vendor"], explanation: "'spend on'.", tags: [br.spend-with] }
+  - { id: M20-01-q3, type: multiple_choice, prompt: "'The node group needs right-sizing' significa…", options: ["aumentar os nós", "ajustar o tamanho à carga real", "ligar mais réplicas", "trocar de provedor"], answer: 1, explanation: "O tamanho que a carga pede — nem mais, nem menos.", tags: [vocab.finops] }
+  - { id: M20-01-q4, type: fill_blank, prompt: "Data leaving the provider is billed — that's ___.", accepted: ["egress"], explanation: "Sair cobra; entrar é grátis.", tags: [vocab.finops] }
+  - { id: M20-01-q5, type: multiple_choice, prompt: "Bancos parados da migração custando $800/mês são…", options: ["reserved capacity", "a savings plan", "idle resources — pure waste", "egress"], answer: 2, explanation: "Ligados, pagos e sem uso.", tags: [vocab.finops] }
+  - { id: M20-01-q6, type: error_correction, prompt: "Right-sizing brings an economy of $40k a year.", accepted: ["Right-sizing brings a saving of $40k a year.", "Right-sizing brings a saving of $40k a year"], explanation: "'a saving of'.", tags: [br.an-economy] }
+  - { id: M20-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["cuts", "capacity", "reserved", "the", "cost", "baseline"], answer: "reserved capacity cuts the baseline cost", explanation: "O compromisso corta a base.", tags: [vocab.finops] }
+  - { id: M20-01-q8, type: multiple_choice, prompt: "Compromisso de 1–3 anos por desconto na carga que sempre existe é…", options: ["spot", "egress", "showback", "reserved / savings plan"], answer: 3, explanation: "O compromisso com desconto — spot é o interrompível.", tags: [vocab.finops] }
+
+srsCards:
+  - { front: "cost driver", back: "O que empurra a fatura — 'compute is the main cost driver'.", tag: vocab.finops }
+  - { front: "right-sizing", back: "Ajustar o tamanho à carga real — 'idles at 12% CPU'.", tag: vocab.finops }
+  - { front: "reserved instance", back: "Compromisso 1–3 anos por desconto na carga fixa.", tag: vocab.finops }
+  - { front: "savings plan", back: "Compromisso de $/hora — cobre EC2, Fargate, Lambda.", tag: vocab.finops }
+  - { front: "spot", back: "Capacidade ociosa barata e interrompível — para batch.", tag: vocab.finops }
+  - { front: "egress", back: "Dados saindo do provedor — entrar é grátis, sair cobra.", tag: vocab.finops }
+  - { front: "idle resources", back: "Ligados, pagos e sem uso — o saving mais barato.", tag: vocab.finops }
+  - { front: "showback", back: "Mostrar o gasto por time — chargeback cobra.", tag: vocab.finops }
+  - { front: "on-demand", back: "Preço cheio sem compromisso — o baseline de custo.", tag: vocab.finops }
+  - { front: "utilization", back: "Quanto do recurso pago está em uso — '35% = paying for air'.", tag: vocab.finops }
+  - { front: "the bill", back: "A fatura mensal — 'the bill came in 18% higher'.", tag: vocab.finops }
+  - { front: "waste", back: "Gasto que não entrega nada — dev ligado à noite.", tag: vocab.finops }
+
+review:
+  preferTags: [vocab.finops, br.price-expensive, br.spend-with]
+  notes: "Revisão prioriza o vocabulário de custo (driver, right-sizing, reserved, spot, egress, idle, showback) e os calques de preço e gasto."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
