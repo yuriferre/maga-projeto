@@ -1145,3 +1145,37 @@ describe("M31 assessment variants", () => {
     expect(checkExercise(q, "I'm targeting $160k — I'd make more than I do now.").correct).toBe(true);
   });
 });
+
+describe("M32 assessment variants", () => {
+  const m32 = bundle.moduleAssessments["M32"]!;
+  it("requires 'new to' and 'on my first day' on A02", () => {
+    const q = m32.items.find((q) => q.id === "M32-A02")!;
+    expect(checkExercise(q, "I'm new to the company — on my first day I met the team.").correct).toBe(true);
+    expect(checkExercise(q, "I'm new in the company — on my first day I met the team.").correct).toBe(false);
+    expect(checkExercise(q, "I'm new to the company — in my first day I met the team.").correct).toBe(false);
+  });
+  it("requires 'help' without article and 'who owns' on A03", () => {
+    const q = m32.items.find((q) => q.id === "M32-A03")!;
+    expect(checkExercise(q, "I need help — who owns the wiki?").correct).toBe(true);
+    expect(checkExercise(q, "I need a help — who owns the wiki?").correct).toBe(false);
+    expect(checkExercise(q, "I need help — who is the responsible for the wiki?").correct).toBe(false);
+  });
+  it("requires 'a question' and 'plan to' on A04", () => {
+    const q = m32.items.find((q) => q.id === "M32-A04")!;
+    expect(checkExercise(q, "I have a question about the setup — I plan to finish today.").correct).toBe(true);
+    expect(checkExercise(q, "I have a doubt about the setup — I plan to finish today.").correct).toBe(false);
+    expect(checkExercise(q, "I have a question about the setup — I pretend to finish today.").correct).toBe(false);
+  });
+  it("requires 'explain to me' and 'ask a question' on A05", () => {
+    const q = m32.items.find((q) => q.id === "M32-A05")!;
+    expect(checkExercise(q, "Can you explain the pipeline to me? Let me ask a question first.").correct).toBe(true);
+    expect(checkExercise(q, "Can you explain me the pipeline? Let me ask a question first.").correct).toBe(false);
+    expect(checkExercise(q, "Can you explain the pipeline to me? Let me make a question first.").correct).toBe(false);
+  });
+  it("requires 'grab/have a coffee' and 'attend' on A06", () => {
+    const q = m32.items.find((q) => q.id === "M32-A06")!;
+    expect(checkExercise(q, "Let's grab a coffee — I attend the standup every day.").correct).toBe(true);
+    expect(checkExercise(q, "Let's take a coffee — I attend the standup every day.").correct).toBe(false);
+    expect(checkExercise(q, "Let's grab a coffee — I assist the standup every day.").correct).toBe(false);
+  });
+});

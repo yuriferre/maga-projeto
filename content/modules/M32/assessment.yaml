@@ -1,0 +1,101 @@
+# Avaliação do módulo M32: 15 itens cobrindo as quatro aulas + escrita (recap da semana + autoavaliação) + fala (primeira semana comprimida).
+id: M32
+title: "Avaliação do módulo M32: onboarding em empresa internacional"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M32-A01, type: multiple_choice, prompt: "Week one runs best as…", options: ["intro Monday, network midweek, contribution Friday", "code all week, meet nobody", "only meetings, no work", "read docs in silence"], answer: 0, explanation: "Os três movimentos, um por dia-chave.", tags: [vocab.onboarding] }
+  - { id: M32-A02, type: error_correction, prompt: "I'm new in the company — in my first day I met the team.", accepted: ["I'm new to the company — on my first day I met the team.", "I'm new to the company — on my first day I met the team"], explanation: 'Dois calques: "new to" + "on my first day".', tags: [br.new-in-company, br.in-first-day] }
+  - { id: M32-A03, type: error_correction, prompt: "I need a help — who is the responsible for the wiki?", accepted: ["I need help — who owns the wiki?", "I need help — who owns the wiki", "I need some help — who is the owner of the wiki?"], explanation: 'Dois calques: "help" sem artigo + "who owns".', tags: [br.a-help, br.the-responsible] }
+  - { id: M32-A04, type: error_correction, prompt: "I have a doubt about the setup — I pretend to finish today.", accepted: ["I have a question about the setup — I plan to finish today.", "I have a question about the setup — I plan to finish today", "I have a question about the setup — I intend to finish today."], explanation: 'Dois calques: "a question" + "plan to".', tags: [br.doubt, br.pretend] }
+  - { id: M32-A05, type: error_correction, prompt: "Can you explain me the pipeline? Let me make a question first.", accepted: ["Can you explain the pipeline to me? Let me ask a question first.", "Can you explain the pipeline to me? Let me ask a question first"], explanation: 'Dois calques: "explain to me" + "ask a question".', tags: [br.explain-me, br.make-question] }
+  - { id: M32-A06, type: error_correction, prompt: "Let's take a coffee — I assist the standup every day.", accepted: ["Let's grab a coffee — I attend the standup every day.", "Let's grab a coffee — I attend the standup every day", "Let's have a coffee — I attend the standup every day."], explanation: 'Dois calques: "grab/have a coffee" + "attend".', tags: [br.take-a-coffee, br.assist] }
+  - { id: M32-A07, type: multiple_choice, prompt: "The golden question of a getting-to-know-you 1:1 is…", options: ["'when is my first raise?'", "'who reports to whom?'", "'what should I know that isn't written down?'", "'why is the code like this?'"], answer: 2, explanation: "O contexto que não está em doc nenhum.", tags: [vocab.onboarding] }
+  - { id: M32-A08, type: fill_blank, prompt: "Every chat expands the network: 'who ___ should I meet?'", accepted: ["else"], explanation: "A pergunta que multiplica a rede.", tags: [vocab.onboarding] }
+  - { id: M32-A09, type: match, prompt: "Associe o dia-chave ao movimento da primeira semana.", pairs: [{ left: "Monday", right: "thirty-second intro + channel message + first question" }, { left: "midweek", right: "coffee chats, golden questions, the who-owns-what map" }, { left: "Friday", right: "the doc gap becomes a contribution — the quick win" }, { left: "the new-person window", right: "about four weeks of free questions" }], explanation: "Cada dia-chave tem seu movimento.", tags: [vocab.onboarding] }
+  - { id: M32-A10, type: multiple_choice, prompt: "Asking for context like a senior starts with…", options: ["the question itself", "three hours of silent searching", "the declared search — 'I checked the wiki and the repo'", "an apology"], answer: 2, explanation: "Pesquisa primeiro — ~15 min, depois a pergunta.", tags: [vocab.onboarding] }
+  - { id: M32-A11, type: fill_blank, prompt: "I found the gap and wrote it up — to pay it ___.", accepted: ["forward"], explanation: "A lacuna preenchida serve ao próximo novato.", tags: [vocab.onboarding] }
+  - { id: M32-A12, type: multiple_choice, prompt: "A week-one 'quick win' is…", options: ["the big refactor", "a whole wiki rewrite", "nothing — week one is only for meetings", "something small, visible and done — like the doc fix"], answer: 3, explanation: "Pequeno, visível, fechado.", tags: [vocab.onboarding] }
+  - { id: M32-A13, type: reorder, prompt: "Rearranje as palavras na ordem do pedido para assistir antes de fazer.", tokens: ["to", "i", "want", "shadow", "a", "deploy", "first"], answer: "i want to shadow a deploy first", explanation: "Assistir um deploy antes de rodar um.", tags: [vocab.onboarding] }
+  - { id: M32-A14, type: multiple_choice, prompt: "'Read the room' in a meeting means…", options: ["keep asking until done", "two questions — the rest goes to the 1:1", "leave early", "take notes only"], answer: 1, explanation: "Duas perguntas na reunião, o resto no 1:1.", tags: [vocab.onboarding] }
+  - { id: M32-A15, type: multiple_choice, prompt: "The week closes with…", options: ["silence until Monday", "a formal report", "a complaint list", "a one-paragraph recap — learned, met, shipped"], answer: 3, explanation: "Visibilidade leve para o manager.", tags: [vocab.onboarding] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** sexta-feira da
+    primeira semana na CloudScale. A Dana pediu
+    o recap por escrito — e o coach quer a
+    autoavaliação pela rubrica dos cenários.
+
+    **Tarefa:** escreva 100–130 palavras: 1) o
+    recap para a Dana — o que aprendeu, quem
+    conheceu, o que entregou, o plano da semana
+    dois; 2) a autoavaliação — onde a postura de
+    novato segurou e o que ajustar na semana
+    seguinte.
+  constraints:
+    - { label: "O recap", pattern: "\\blearned|met|shipped|recap|week one\\b" }
+    - { label: "A rede construída", pattern: "\\bcoffee|1:1|one.on.one|owns|map|intro\\b" }
+    - { label: "A contribuição", pattern: "\\bdoc|wrote|quick win|contribution|added\\b" }
+    - { label: "A autoavaliação", pattern: "\\bnext week|went well|improve|hindsight|posture|adjust\\b" }
+  rubric:
+    - "Recap com aprendido + rede + entrega + plano"
+    - "Autoavaliação nomeia a postura e um ajuste"
+    - "A contribuição concreta"
+    - "Sem calques ('new to', 'on my first day', 'who owns')"
+  model: >-
+    The Friday recap: "Dana — week one recap.
+    What I learned: the deploy flow, the canary
+    story, the unwritten no-merge rule. Who I
+    met: twelve people — the team plus Ana, Sam
+    and Priya's SREs; the who-owns-what map is
+    written. What I shipped: the 'why this step
+    exists' section in the runbook — my quick
+    win. Week two: shadow a deploy with Ana,
+    then run one myself, still inside the
+    new-person window." The self-review: the
+    posture held — questions asked, none
+    diminished. One adjustment: I asked three
+    questions in a single standup — next week,
+    two and read the room.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.onboarding]
+
+speaking:
+  prompt: "Grave até 120 segundos: a primeira semana comprimida — segunda (a intro de 30 s + a primeira pergunta sem medo), quarta (o coffee chat com as três perguntas de ouro + o mapa de posse), sexta (a pesquisa declarada + 'mind if I add that to the doc?' + o recap)."
+  maxSeconds: 120
+  targetPhrases:
+    - joining as
+    - i spent the last
+    - new here
+    - still ramping up
+    - quick question
+    - how do people usually
+    - grab a virtual coffee
+    - no agenda
+    - what should i know that isn't written down
+    - the unwritten rule
+    - who else should i meet
+    - i checked the wiki
+    - seems stale
+    - who owns
+    - mind if i add that to the doc
+    - i'll write it up
+    - shadow a deploy
+    - quick win
+    - pay it forward
+    - what i learned, who i met
+  checklist:
+    - "os três dias-chave na ordem"
+    - "as três perguntas de ouro na quarta"
+    - "a lacuna virando contribuição na sexta"
+    - "o recap com aprendido + rede + entrega"
+    - "sem calques ('new to', 'on my first day', 'a help', 'the responsible')"
+
+passCriteria:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
