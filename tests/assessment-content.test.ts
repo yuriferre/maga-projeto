@@ -766,3 +766,43 @@ describe("M21 assessment variants", () => {
     expect(checkExercise(q, "We chose the safe option instead of the fast one, and I am agree it was right.").correct).toBe(false);
   });
 });
+
+describe("M22 assessment variants", () => {
+  const m22 = bundle.moduleAssessments["M22"]!;
+  it("requires 'at risk' and 'risk of losing' on A02", () => {
+    const q = m22.items.find((q) => q.id === "M22-A02")!;
+    expect(checkExercise(q, "We are at risk, since there's a risk of losing writes.").correct).toBe(true);
+    expect(checkExercise(q, "We are in risk, since there's a risk of losing writes.").correct).toBe(false);
+    expect(checkExercise(q, "We are at risk, since there's a risk to lose writes.").correct).toBe(false);
+  });
+  it("requires 'offsets' and 'dangerous' on A05", () => {
+    const q = m22.items.find((q) => q.id === "M22-A05")!;
+    expect(checkExercise(q, "The discount offsets the risk, and the plan is dangerous.").correct).toBe(true);
+    expect(checkExercise(q, "The discount compensates the risk, and the plan is dangerous.").correct).toBe(false);
+    expect(checkExercise(q, "The discount offsets the risk, and the plan is danger.").correct).toBe(false);
+  });
+  it("requires 'I agree' and 'instead of' on A08", () => {
+    const q = m22.items.find((q) => q.id === "M22-A08")!;
+    expect(checkExercise(q, "I agree — we chose Friday instead of Monday.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree — we chose Friday instead of Monday.").correct).toBe(false);
+    expect(checkExercise(q, "I agree — we chose Friday instead Monday.").correct).toBe(false);
+  });
+  it("requires 'the same as' and 'discussed it' on A10", () => {
+    const q = m22.items.find((q) => q.id === "M22-A10")!;
+    expect(checkExercise(q, "The same residual risk as before — we discussed it.").correct).toBe(true);
+    expect(checkExercise(q, "The same residual risk than before — we discussed it.").correct).toBe(false);
+    expect(checkExercise(q, "The same residual risk as before — we discussed about it.").correct).toBe(false);
+  });
+  it("requires 'dangerous' and 'possibility of losing' on A13", () => {
+    const q = m22.items.find((q) => q.id === "M22-A13")!;
+    expect(checkExercise(q, "The migration is dangerous — there's a possibility of losing the window.").correct).toBe(true);
+    expect(checkExercise(q, "The migration is danger — there's a possibility of losing the window.").correct).toBe(false);
+    expect(checkExercise(q, "The migration is dangerous — there's a possibility to lose the window.").correct).toBe(false);
+  });
+  it("requires 'at risk' and 'the same as' on A15", () => {
+    const q = m22.items.find((q) => q.id === "M22-A15")!;
+    expect(checkExercise(q, "We are at risk — the same exposure as last week.").correct).toBe(true);
+    expect(checkExercise(q, "We are in risk — the same exposure as last week.").correct).toBe(false);
+    expect(checkExercise(q, "We are at risk — the same exposure than last week.").correct).toBe(false);
+  });
+});

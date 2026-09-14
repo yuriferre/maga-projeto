@@ -1,0 +1,87 @@
+# Avaliação do módulo M22: 15 itens cobrindo as cinco aulas + escrita (análise de risco) + fala.
+id: M22
+title: "Avaliação do módulo M22: Riscos e trade-offs"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M22-A01, type: multiple_choice, prompt: "A risk presented as 'it's risky' without dimensions becomes…", options: ["an alarm — likelihood and impact are what make it analysis", "a decision", "a mitigation", "a plan B"], answer: 0, explanation: "Risco sem dimensão não ajuda a decidir.", tags: [vocab.risk] }
+  - { id: M22-A02, type: error_correction, prompt: "We are in risk, since there's a risk to lose writes.", accepted: ["We are at risk, since there's a risk of losing writes.", "We are at risk, since there's a risk of losing writes"], explanation: 'Dois calques: "at risk" + "risk of losing".', tags: [br.in-risk, br.risk-to] }
+  - { id: M22-A03, type: fill_blank, prompt: "We're trading consistency ___ availability — on balance, it wins.", accepted: ["for"], explanation: '"trading X for Y" — os dois lados na mesma frase.', tags: [vocab.risk, gram.argument-connectors] }
+  - { id: M22-A04, type: multiple_choice, prompt: "'Could' on the probability scale marks…", options: ["near-certain", "probable", "possible", "impossible"], answer: 2, explanation: "Will > should > could/might > unlikely.", tags: [gram.probability-modals] }
+  - { id: M22-A05, type: error_correction, prompt: "The discount compensates the risk, and the plan is danger.", accepted: ["The discount offsets the risk, and the plan is dangerous.", "The discount offsets the risk, and the plan is dangerous"], explanation: 'Dois calques: "offsets" + "dangerous".', tags: [br.compensate-risk, br.is-danger] }
+  - { id: M22-A06, type: multiple_choice, prompt: "A good trigger for plan B is…", options: ["vague — 'if things get bad'", "measurable and decided in advance — 'if lag > 5 min'", "secret", "decided during the incident"], answer: 1, explanation: "Gatilho decidido na calma, com número.", tags: [vocab.risk, gram.conditionals-real] }
+  - { id: M22-A07, type: fill_blank, prompt: "Should the lag ___ past five minutes, we abort.", accepted: ["cross", "grow", "go"], explanation: '"Should + sujeito + verbo" — o "if" formal invertido.', tags: [gram.conditionals-real] }
+  - { id: M22-A08, type: error_correction, prompt: "I am agree — we chose Friday instead Monday.", accepted: ["I agree — we chose Friday instead of Monday.", "I agree — we chose Friday instead of Monday"], explanation: 'Dois calques: "I agree" + "instead of".', tags: [br.am-agree, br.instead-of] }
+  - { id: M22-A09, type: multiple_choice, prompt: "Presenting for a decision opens with…", options: ["a long context", "all the risks", "the alternatives", "the recommendation — one sentence, no hedge"], answer: 3, explanation: "Posição primeiro — o hedge mora no risco.", tags: [vocab.risk] }
+  - { id: M22-A10, type: error_correction, prompt: "The same residual risk than before — we discussed about it.", accepted: ["The same residual risk as before — we discussed it.", "The same residual risk as before — we discussed it"], explanation: 'Dois calques: "the same as" + "discussed it".', tags: [br.same-than, br.discuss-about] }
+  - { id: M22-A11, type: translate, prompt: "No pior caso, revertemos e perdemos uma hora de escritas.", accepted: ["Worst case, we roll back and lose an hour of writes.", "Worst case, we roll back and lose an hour of writes"], explanation: '"worst case" + "roll back" + delimitado.', tags: [vocab.risk] }
+  - { id: M22-A12, type: match, prompt: "Associe o termo ao que ele carrega.", pairs: [{ left: "fallback", right: "the safe state we return to" }, { left: "watch item", right: "flagged, between accepted and mitigated" }, { left: "walk-away condition", right: "when the recommendation dies" }, { left: "two-way door", right: "a reversible decision" }], explanation: "O vocabulário central de risco.", tags: [vocab.risk] }
+  - { id: M22-A13, type: error_correction, prompt: "The migration is danger — there's a possibility to lose the window.", accepted: ["The migration is dangerous — there's a possibility of losing the window.", "The migration is dangerous — there's a possibility of losing the window"], explanation: 'Dois calques: "dangerous" + "possibility of losing".', tags: [br.is-danger, br.risk-to] }
+  - { id: M22-A14, type: multiple_choice, prompt: "The asymmetry argument is…", options: ["open downside, limited upside", "bounded downside, real upside", "no downside", "no upside"], answer: 1, explanation: "O argumento mais forte do trade-off.", tags: [vocab.risk, gram.argument-connectors] }
+  - { id: M22-A15, type: error_correction, prompt: "We are in risk — the same exposure than last week.", accepted: ["We are at risk — the same exposure as last week.", "We are at risk — the same exposure as last week"], explanation: 'Dois calques: "at risk" + "the same as".', tags: [br.in-risk, br.same-than] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** a Ana pediu a análise de
+    risco escrita da migração — "the one that answers for
+    you when I'm not in the room".
+
+    **Tarefa:** escreva 90–120 palavras: o risk register com
+    os riscos (likelihood + impact delimitado + mitigação +
+    dono/gatilho), o que fica aceito ou em observação, a
+    premissa registrada e a linha de decisão — recomendação,
+    walk-away condition e ask.
+  constraints:
+    - { label: "Likelihood e impact", pattern: "\\blikelihood|likely|unlikely|severity|bounded|impact\\b" }
+    - { label: "Mitigação com gatilho", pattern: "\\btrigger|owner|abort|roll back|fallback\\b" }
+    - { label: "Aceite/observado", pattern: "\\baccept\\w*|watch item|flagged\\b" }
+    - { label: "A decisão", pattern: "\\brecommend\\w*|walk-away|sign-off|green-light\\w*\\b" }
+  rubric:
+    - "Cada risco com likelihood + impact + plano"
+    - "Aceito e observado distintos, com critério"
+    - "Recomendação + walk-away + ask com dono e prazo"
+    - "Sem calques ('at risk', 'risk of', 'offsets', 'dangerous', 'the same as')"
+  model: >-
+    Risk register. Cutover overrun — likely; impact bounded:
+    abort and re-run next window, Carlos owns the call,
+    trigger is lag over five minutes. Data loss — low
+    likelihood, high severity: writes freeze for the last
+    ten minutes; the fallback is the warm old cluster.
+    Cosmetic lag — accepted: mitigation costs more than the
+    exposure. Consumer bottleneck — watch item, flagged.
+    Assumption log: traffic under 2x, pending Thursday's
+    test — if it breaks, we revisit the trade. My
+    recommendation is to migrate Friday; the walk-away
+    condition is a failed dry run. The ask: Ana's
+    green-light on the window by Thursday.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.risk, gram.probability-modals]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando a análise de risco da migração: a matriz com dimensões, uma mitigação com gatilho e dono, o aceito declarado e a recomendação com walk-away e ask."
+  maxSeconds: 60
+  targetPhrases:
+    - there's a real chance
+    - unlikely
+    - worst case
+    - the exposure is
+    - blast radius
+    - residual risk
+    - to reduce that risk
+    - if that happens
+    - the fallback is
+    - the trigger is
+    - we accept
+    - my recommendation is
+    - walk-away condition
+    - sign-off
+    - at risk
+    - the same as
+  checklist:
+    - "likelihood + impact por risco"
+    - "gatilho mensurável com dono"
+    - "recomendação sem hedge + walk-away + ask"
+    - "sem calques ('at risk', 'risk of', 'the same as')"
