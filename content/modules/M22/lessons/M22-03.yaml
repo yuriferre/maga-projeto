@@ -172,7 +172,7 @@ brErrors:
   - { wrong: "The fallback plan is danger.", right: "The fallback plan is dangerous.", why: "is dangerous", tag: br.is-danger }
   - { wrong: "The rehearsed rollback compensates the risk.", right: "The rehearsed rollback offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
   - { wrong: "We must to rehearse twice.", right: "We must rehearse twice.", why: "must rehearse", tag: br.modal-to }
-  - { wrong: "I am agree the trigger is right.", right: "I agree the trigger is right.", why: "I agree", tag: br.am-agree }
+  - { wrong: "I am agree the trigger is right.", right: "I agree the trigger is right.", why: "I agree", tag: br.i-am-agree }
   - { wrong: "The same trigger than last time.", right: "The same trigger as last time.", why: "the same as", tag: br.same-than }
   - { wrong: "We chose abort instead re-running.", right: "We chose abort instead of re-running.", why: "instead of", tag: br.instead-of }
   - { wrong: "It depends of the window.", right: "It depends on the window.", why: "depends on", tag: br.depend-of }

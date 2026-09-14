@@ -660,7 +660,7 @@ patterns:
     wrong: "I am agree with the decision"
     right: "I agree with the decision"
     why: '"Agree" é verbo — "I agree", nunca "I am agree".'
-    tag: br.am-agree
+    tag: br.i-am-agree
   # "chose X instead Y" — falta o "of": "instead of Y".
   # Exige determinante ou maiúscula depois — "instead, we…" e "stayed instead" ficam fora.
   - id: instead-of-missing
@@ -708,3 +708,35 @@ patterns:
     right: "The change is dangerous for the data"
     why: '"Perigoso" é "dangerous" — "danger" é o substantivo.'
     tag: br.is-danger
+  # "this is polemic" — "polêmico" é "controversial" (falso amigo).
+  # "He wrote a polemic against X" (substantivo) fica fora.
+  - id: polemic-adjective
+    pattern: "\\b(is|'s|seems|sounds|looks|too|very|quite|so|really|pretty|more|most|less|least|highly|still|gets?|got|became|remains?|remained)\\s+polemic(al)?\\b|\\bpolemic(al)?\\s+(topic|issue|question|decision|change|subject|point|debate|design|choice|move|one)\\b"
+    wrong: "This design is polemic in the team"
+    right: "This design is controversial in the team"
+    why: '"Polemico" e "controversial" — "polemic" e um substantivo raro (invectiva).'
+    tag: br.polemic
+  # "you agree, no?" — o "ne?" vira tag question ("right?", "don't you?").
+  - id: no-tag
+    pattern: ",\\s*no\\s*\\?"
+    wrong: "You agree, no?"
+    right: "You agree, right? / don't you?"
+    why: '"Ne?" em ingles e a tag question: "right?", "don''t you?".'
+    tag: br.no-tag
+  # "in my vision" — "na minha visao" (opiniao) e "in my view".
+  # "in my vision of the future" (imagem mental) fica fora.
+  - id: in-my-vision
+    pattern: "\\bin my vision\\b(?!\\s+of\\b)"
+    wrong: "In my vision, the monolith wins"
+    right: "In my view, the monolith wins"
+    why: '"Na minha visao" (opiniao) e "in my view" / "the way I see it".'
+    tag: br.in-my-vision
+  # "I didn't see nothing" — dupla negacao: "didn't see anything".
+  # "he saw nothing" (sem auxiliar negativo) fica fora.
+  - id: double-negative
+    pattern: "\\b(don't|doesn't|didn't|can't|cannot|won't|wouldn't|couldn't|shouldn't|isn't|aren't|wasn't|weren't|haven't|hasn't|hadn't|ain't)\\s+(\\w+\\s+){0,2}(nothing|nobody|nowhere|no one)\\b"
+    wrong: "I didn't see nothing wrong with the plan"
+    right: "I didn't see anything wrong with the plan"
+    why: 'Ingles nao dobra a negacao: "didn''t ... anything".'
+    tag: br.double-negative
+

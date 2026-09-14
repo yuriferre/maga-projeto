@@ -913,14 +913,14 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
 
 describe("padrões BR — M21 (decisões e argumentação)", () => {
   it("flags 'I am agree' but not 'I agree'", () => {
-    expect(tagsOf("I am agree with the decision.")).toContain("br.am-agree");
-    expect(tagsOf("We're agree on the approach.")).toContain("br.am-agree");
+    expect(tagsOf("I am agree with the decision.")).toContain("br.i-am-agree");
+    expect(tagsOf("We're agree on the approach.")).toContain("br.i-am-agree");
     const clean = [
       "I agree with the decision.",
       "We agreed on the approach.",
       "I strongly agree.",
     ];
-    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.am-agree");
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.i-am-agree");
   });
   it("flags 'discussed about' but not 'a discussion about'", () => {
     expect(tagsOf("We discussed about the trade-offs.")).toContain("br.discuss-about");
@@ -991,5 +991,47 @@ describe("padrões BR — M22 (riscos e trade-offs)", () => {
       "It's a danger zone.",
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.is-danger");
+  });
+});
+
+describe("padrões BR — M23 (discordando profissionalmente)", () => {
+  it("flags 'this is polemic' but not 'a polemic against X'", () => {
+    expect(tagsOf("This design is polemic in the team.")).toContain("br.polemic");
+    expect(tagsOf("That's a polemic decision.")).toContain("br.polemic");
+    const clean = [
+      "This design is controversial in the team.",
+      "He wrote a polemic against microservices.",
+      "The topic is divisive.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.polemic");
+  });
+  it("flags ', no?' but not legit question endings", () => {
+    expect(tagsOf("You agree, no?")).toContain("br.no-tag");
+    expect(tagsOf("The migration is risky, no?")).toContain("br.no-tag");
+    const clean = [
+      "You agree, right?",
+      "No, I don't.",
+      "Wait here, okay?",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.no-tag");
+  });
+  it("flags 'in my vision' but not 'in my view' / eyesight", () => {
+    expect(tagsOf("In my vision, the monolith wins.")).toContain("br.in-my-vision");
+    const clean = [
+      "In my view, the monolith wins.",
+      "The way I see it, the monolith wins.",
+      "He lost vision in one eye.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-my-vision");
+  });
+  it("flags 'didn't see nothing' but not 'saw nothing' / 'didn't see anything'", () => {
+    expect(tagsOf("I didn't see nothing wrong with the plan.")).toContain("br.double-negative");
+    expect(tagsOf("He doesn't know nothing about the outage.")).toContain("br.double-negative");
+    const clean = [
+      "I didn't see anything wrong with the plan.",
+      "He saw nothing wrong with the plan.",
+      "I know nothing about the outage.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.double-negative");
   });
 });

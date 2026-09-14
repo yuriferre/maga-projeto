@@ -171,7 +171,7 @@ variations:
       - { register: "Inadequada", text: "We have the same risk than before.", adequate: false, note: "*The same as* — 'than' é só de comparativo." }
 
 brErrors:
-  - { wrong: "I am agree that we need a test.", right: "I agree that we need a test.", why: "I agree", tag: br.am-agree }
+  - { wrong: "I am agree that we need a test.", right: "I agree that we need a test.", why: "I agree", tag: br.i-am-agree }
   - { wrong: "We have the same risk than before.", right: "We have the same risk as before.", why: "the same as", tag: br.same-than }
   - { wrong: "We chose it instead the safe option.", right: "We chose it instead of the safe option.", why: "instead of", tag: br.instead-of }
   - { wrong: "We discussed about the assumptions.", right: "We discussed the assumptions.", why: "discussed the assumptions", tag: br.discuss-about }
@@ -275,7 +275,7 @@ speaking:
 
 quiz:
   - { id: M21-04-q1, type: multiple_choice, prompt: "'We don't know yet' precisa vir com…", options: ["desculpas", "o plano que fecha a incerteza", "um número estimado", "silêncio"], answer: 1, explanation: "O 'yet' carrega o plano — 'spike test Thursday'.", tags: [vocab.decisions] }
-  - { id: M21-04-q2, type: error_correction, prompt: "I am agree that we need a load test.", accepted: ["I agree that we need a load test.", "I agree that we need a load test"], explanation: "'I agree'.", tags: [br.am-agree] }
+  - { id: M21-04-q2, type: error_correction, prompt: "I am agree that we need a load test.", accepted: ["I agree that we need a load test.", "I agree that we need a load test"], explanation: "'I agree'.", tags: [br.i-am-agree] }
   - { id: M21-04-q3, type: multiple_choice, prompt: "Premissa declarada é…", options: ["um fato medido", "'we're assuming X — if it breaks, this changes'", "uma desculpa", "um risco aceito"], answer: 1, explanation: "Assumed — declarada com a condição que a derruba.", tags: [vocab.decisions] }
   - { id: M21-04-q4, type: fill_blank, prompt: "Capacity is an ___ question — it goes in the ADR as pending.", accepted: ["open"], explanation: "'Open question' — honestidade documentada.", tags: [vocab.decisions] }
   - { id: M21-04-q5, type: multiple_choice, prompt: "Chutar um número com convicção na review…", options: ["mostra senioridade", "economiza tempo", "vira compromisso — o erro caro", "impressiona os revisores"], answer: 2, explanation: "Número inventado vira SLO depois.", tags: [vocab.decisions, comp.confidence] }

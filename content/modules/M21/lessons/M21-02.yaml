@@ -171,7 +171,7 @@ variations:
       - { register: "Inadequada", text: "This ADR is deprecated, deleted.", adequate: false, note: "ADR não se apaga: *superseded by ADR-XXX*." }
 
 brErrors:
-  - { wrong: "I am agree with the ADR — ship it.", right: "I agree with the ADR — ship it.", why: "I agree", tag: br.am-agree }
+  - { wrong: "I am agree with the ADR — ship it.", right: "I agree with the ADR — ship it.", why: "I agree", tag: br.i-am-agree }
   - { wrong: "We chose the queue instead the rewrite.", right: "We chose the queue instead of the rewrite.", why: "instead of", tag: br.instead-of }
   - { wrong: "The queue gives the same guarantees than a rewrite.", right: "The queue gives the same guarantees as a rewrite.", why: "the same as", tag: br.same-than }
   - { wrong: "We discussed about the ADR in the review.", right: "We discussed the ADR in the review.", why: "discussed the ADR", tag: br.discuss-about }
@@ -278,7 +278,7 @@ speaking:
 
 quiz:
   - { id: M21-02-q1, type: multiple_choice, prompt: "A frase que carrega o ADR é…", options: ["we think X is good", "we chose X over Y because Z", "X is better than Y", "maybe we could use X"], answer: 1, explanation: "Escolha + rejeitada + motivo.", tags: [gram.argument-connectors] }
-  - { id: M21-02-q2, type: error_correction, prompt: "I am agree with the ADR.", accepted: ["I agree with the ADR.", "I agree with the ADR"], explanation: "'I agree' — sem 'am'.", tags: [br.am-agree] }
+  - { id: M21-02-q2, type: error_correction, prompt: "I am agree with the ADR.", accepted: ["I agree with the ADR.", "I agree with the ADR"], explanation: "'I agree' — sem 'am'.", tags: [br.i-am-agree] }
   - { id: M21-02-q3, type: multiple_choice, prompt: "Um ADR que perdeu a validade é marcado como…", options: ["deleted", "wrong", "superseded — com o sucessor apontado", "draft"], answer: 2, explanation: "Superseded — o histórico não se apaga.", tags: [vocab.decisions] }
   - { id: M21-02-q4, type: fill_blank, prompt: "RabbitMQ was considered but ___ — nobody has run it.", accepted: ["rejected"], explanation: "'Considered but rejected' — com o motivo.", tags: [vocab.decisions] }
   - { id: M21-02-q5, type: multiple_choice, prompt: "'The forces' num ADR são…", options: ["o time de segurança", "as pressões que pesam na decisão", "os bugs abertos", "os custos de cloud"], answer: 1, explanation: "Deadline, tamanho do time, stack existente.", tags: [vocab.decisions] }

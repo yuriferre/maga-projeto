@@ -172,7 +172,7 @@ variations:
 brErrors:
   - { wrong: "There's a risk to lose the window.", right: "There's a risk of losing the window.", why: "risk of losing", tag: br.risk-to }
   - { wrong: "We are in risk if we defer.", right: "We are at risk if we defer.", why: "at risk", tag: br.in-risk }
-  - { wrong: "I am agree we should migrate Friday.", right: "I agree we should migrate Friday.", why: "I agree", tag: br.am-agree }
+  - { wrong: "I am agree we should migrate Friday.", right: "I agree we should migrate Friday.", why: "I agree", tag: br.i-am-agree }
   - { wrong: "The fee compensates the risk.", right: "The fee offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
   - { wrong: "Deferring is danger for the backlog.", right: "Deferring is dangerous for the backlog.", why: "is dangerous", tag: br.is-danger }
   - { wrong: "We discussed about the options.", right: "We discussed the options.", why: "discussed the options", tag: br.discuss-about }
@@ -275,7 +275,7 @@ speaking:
 
 quiz:
   - { id: M22-04-q1, type: multiple_choice, prompt: "A ordem da apresentação para decisão é…", options: ["contexto → análise → talvez uma recomendação", "recomendação → alternativas → residual → ask", "ask → contexto → riscos", "riscos → alternativas → decisão"], answer: 1, explanation: "Posição primeiro — quem decide tem dez minutos.", tags: [vocab.risk] }
-  - { id: M22-04-q2, type: error_correction, prompt: "I am agree we should migrate Friday.", accepted: ["I agree we should migrate Friday.", "I agree we should migrate Friday"], explanation: "'I agree'.", tags: [br.am-agree] }
+  - { id: M22-04-q2, type: error_correction, prompt: "I am agree we should migrate Friday.", accepted: ["I agree we should migrate Friday.", "I agree we should migrate Friday"], explanation: "'I agree'.", tags: [br.i-am-agree] }
   - { id: M22-04-q3, type: multiple_choice, prompt: "Nomear o 'default option' expõe que…", options: ["não decidir também é uma decisão — com custo", "a reunião é inútil", "o default é sempre certo", "as opções acabaram"], answer: 0, explanation: "'Doing nothing keeps the outages' — o custo do não decidir.", tags: [vocab.risk] }
   - { id: M22-04-q4, type: fill_blank, prompt: "The ___ factor was reversibility — it's a two-way door.", accepted: ["deciding"], explanation: "'The deciding factor' — o que pendeu a balança.", tags: [vocab.risk] }
   - { id: M22-04-q5, type: multiple_choice, prompt: "'Maybe we could possibly migrate' falha porque…", options: ["é informal", "hedge na posição mina a recomendação — hedge é para o risco", "é longo demais", "usa modal errado"], answer: 1, explanation: "A posição vai sem hedge; a incerteza fica no risco.", tags: [gram.probability-modals] }

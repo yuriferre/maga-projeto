@@ -172,8 +172,8 @@ variations:
       - { register: "Inadequada", text: "The queue gives the same decoupling than a rewrite.", adequate: false, note: "*The same as* — 'than' é só de comparativo." }
 
 brErrors:
-  - { wrong: "I am agree with the queue.", right: "I agree with the queue.", why: "I agree", tag: br.am-agree }
-  - { wrong: "We're agree that Kafka is right.", right: "We agree that Kafka is right.", why: "we agree", tag: br.am-agree }
+  - { wrong: "I am agree with the queue.", right: "I agree with the queue.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "We're agree that Kafka is right.", right: "We agree that Kafka is right.", why: "we agree", tag: br.i-am-agree }
   - { wrong: "We chose Kafka instead RabbitMQ.", right: "We chose Kafka instead of RabbitMQ.", why: "instead of", tag: br.instead-of }
   - { wrong: "We get the same decoupling than a rewrite.", right: "We get the same decoupling as a rewrite.", why: "the same as", tag: br.same-than }
   - { wrong: "We discussed about the options yesterday.", right: "We discussed the options yesterday.", why: "discussed the options", tag: br.discuss-about }
@@ -208,7 +208,7 @@ listening:
     - { id: M21-01-l1, type: multiple_choice, prompt: "A apresentação de decisão começa com…", options: ["a escolha", "o contexto — problema e constraints", "o trade-off", "o pedido de aprovação"], answer: 1, explanation: "Contexto primeiro — a decisão vem depois.", tags: [comp.listening, vocab.decisions] }
     - { id: M21-01-l2, type: multiple_choice, prompt: "'The trade-off is eventual consistency' é a batida de…", options: ["consequências", "contexto", "opções", "decisão"], answer: 0, explanation: "O custo assumido fecha a estrutura.", tags: [comp.listening, gram.argument-connectors] }
     - { id: M21-01-l3, type: fill_blank, prompt: "We're going ___ a queue — Kafka, specifically.", accepted: ["with"], explanation: "'We're going with X' — a fala da decisão.", tags: [vocab.decisions] }
-    - { id: M21-01-l4, type: error_correction, prompt: "I am agree with the queue.", accepted: ["I agree with the queue.", "I agree with the queue"], explanation: "'I agree' — sem 'am'.", tags: [br.am-agree] }
+    - { id: M21-01-l4, type: error_correction, prompt: "I am agree with the queue.", accepted: ["I agree with the queue.", "I agree with the queue"], explanation: "'I agree' — sem 'am'.", tags: [br.i-am-agree] }
     - { id: M21-01-l5, type: multiple_choice, prompt: "'A rewrite is off the table' significa…", options: ["é a opção escolhida", "está em teste", "está descartado de antemão", "falta documentar"], answer: 2, explanation: "Off the table — fora de cogitação.", tags: [comp.listening, vocab.decisions] }
     - { id: M21-01-l6, type: multiple_choice, prompt: "A rationale liga…", options: ["o trade-off ao prazo", "as opções entre si", "a escolha à constraint", "o contexto ao revisor"], answer: 2, explanation: "O porquê conecta decisão e restrição.", tags: [comp.listening, gram.argument-connectors] }
 
@@ -299,7 +299,7 @@ srsCards:
   - { front: "walk through", back: "Guiar pelo raciocínio — 'walk me through the decision'.", tag: vocab.decisions }
 
 review:
-  preferTags: [vocab.decisions, gram.argument-connectors, br.am-agree]
+  preferTags: [vocab.decisions, gram.argument-connectors, br.i-am-agree]
   notes: "Revisão prioriza a estrutura em cinco batidas, os conectores de cada batida e os três calques de argumentação."
 
 completion:

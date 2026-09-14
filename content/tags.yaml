@@ -69,10 +69,10 @@ tags:
   - { id: br.need-that-you,      group: br, label: "need that you" }
   - { id: br.did-past,           group: br, label: "did/don't + verbo no passado" }
   - { id: br.said-me,            group: br, label: "said me (tell + pessoa)" }
+  - { id: br.i-am-agree,         group: br, label: "I am agree" }
   - { id: br.ask-to,             group: br, label: "ask to him/her" }
   - { id: br.on-next,            group: br, label: "on/in next week" }
   - { id: br.send-to-me,         group: br, label: "send to me the X" }
-  - { id: br.i-am-agree,         group: br, label: "I am agree" }
   - { id: br.for-to,             group: br, label: "for to (para → to)" }
   - { id: br.irregular-past,     group: br, label: "passado irregular com -ed (readed)" }
   - { id: br.more-er,            group: br, label: "more + adjetivo -er (more easy)" }
@@ -164,7 +164,6 @@ tags:
   - { id: br.the-half,        group: br, label: "the half of the bill (half)" }
   - { id: gram.argument-connectors, group: gram, label: "Conectores de argumentação" }
   - { id: vocab.decisions,          group: vocab, label: "Decisões, ADRs e design review" }
-  - { id: br.am-agree,   group: br, label: "I am agree (I agree)" }
   - { id: br.instead-of, group: br, label: "instead RabbitMQ (instead of)" }
   - { id: br.same-than,  group: br, label: "the same X than (as)" }
   - { id: gram.probability-modals, group: gram, label: "Modais de probabilidade" }
@@ -173,3 +172,9 @@ tags:
   - { id: br.risk-to,         group: br, label: "risk to fail (of failing)" }
   - { id: br.compensate-risk, group: br, label: "compensates the risk (offsets)" }
   - { id: br.is-danger,       group: br, label: "is danger (dangerous)" }
+  - { id: br.polemic,           group: br, label: "polemic → controversial" }
+  - { id: br.no-tag,            group: br, label: "', no?' → tag question" }
+  - { id: br.in-my-vision,      group: br, label: "in my vision → in my view" }
+  - { id: br.double-negative,   group: br, label: "didn't see nothing → anything" }
+  - { id: vocab.disagreement,   group: vocab, label: "Discordância, debate e consenso" }
+

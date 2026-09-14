@@ -175,7 +175,7 @@ brErrors:
   - { wrong: "There's a risk to lose writes.", right: "There's a risk of losing writes.", why: "risk of losing", tag: br.risk-to }
   - { wrong: "The rehearsal compensates the risk.", right: "The rehearsal offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
   - { wrong: "The migration is danger without a rollback.", right: "The migration is dangerous without a rollback.", why: "is dangerous", tag: br.is-danger }
-  - { wrong: "I am agree with the register.", right: "I agree with the register.", why: "I agree", tag: br.am-agree }
+  - { wrong: "I am agree with the register.", right: "I agree with the register.", why: "I agree", tag: br.i-am-agree }
   - { wrong: "The same risks than the last migration.", right: "The same risks as the last migration.", why: "the same as", tag: br.same-than }
   - { wrong: "We discussed about the register.", right: "We discussed the register.", why: "discussed the register", tag: br.discuss-about }
   - { wrong: "We chose Friday instead Monday.", right: "We chose Friday instead of Monday.", why: "instead of", tag: br.instead-of }

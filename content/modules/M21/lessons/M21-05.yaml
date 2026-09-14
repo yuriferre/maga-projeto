@@ -175,8 +175,8 @@ variations:
       - { register: "Inadequada", text: "We discussed about the same risk than last week.", adequate: false, note: "*Discussed* sem 'about' + *the same as* — dois calques juntos." }
 
 brErrors:
-  - { wrong: "I am agree with the reviewers.", right: "I agree with the reviewers.", why: "I agree", tag: br.am-agree }
-  - { wrong: "We're agree on the plan.", right: "We agree on the plan.", why: "we agree", tag: br.am-agree }
+  - { wrong: "I am agree with the reviewers.", right: "I agree with the reviewers.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "We're agree on the plan.", right: "We agree on the plan.", why: "we agree", tag: br.i-am-agree }
   - { wrong: "We chose Kafka instead the managed queue.", right: "We chose Kafka instead of the managed queue.", why: "instead of", tag: br.instead-of }
   - { wrong: "The queue has the same cost than the rewrite.", right: "The queue has the same cost as the rewrite.", why: "the same as", tag: br.same-than }
   - { wrong: "We discussed about the decision.", right: "We discussed the decision.", why: "discussed the decision", tag: br.discuss-about }

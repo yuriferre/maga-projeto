@@ -172,8 +172,8 @@ variations:
       - { register: "Inadequada", text: "The queue has the same cost than RabbitMQ.", adequate: false, note: "*The same as* — 'than' é só de comparativo." }
 
 brErrors:
-  - { wrong: "I am agree with your concern.", right: "I agree with your concern.", why: "I agree", tag: br.am-agree }
-  - { wrong: "We're agree that ops costs money.", right: "We agree that ops costs money.", why: "we agree", tag: br.am-agree }
+  - { wrong: "I am agree with your concern.", right: "I agree with your concern.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "We're agree that ops costs money.", right: "We agree that ops costs money.", why: "we agree", tag: br.i-am-agree }
   - { wrong: "The queue costs the same than RabbitMQ.", right: "The queue costs the same as RabbitMQ.", why: "the same as", tag: br.same-than }
   - { wrong: "We chose it instead the managed one.", right: "We chose it instead of the managed one.", why: "instead of", tag: br.instead-of }
   - { wrong: "We discussed about your concern.", right: "We discussed your concern.", why: "discussed your concern", tag: br.discuss-about }
@@ -208,7 +208,7 @@ listening:
     - { id: M21-03-l1, type: multiple_choice, prompt: "As três batidas do pushback são…", options: ["negar → defender → fechar", "validar → responder → propor", "ouvir → concordar → mudar", "escalar → adiar → esquecer"], answer: 1, explanation: "Validar, responder, propor — nessa ordem.", tags: [comp.listening, gram.argument-connectors] }
     - { id: M21-03-l2, type: multiple_choice, prompt: "Depois de validar a preocupação, a resposta abre com…", options: ["'but', que apaga a validação", "'however' ou 'and', que mantêm os dois lados", "silêncio", "outra pergunta"], answer: 1, explanation: "'But' apaga o que veio antes.", tags: [comp.listening, gram.argument-connectors] }
     - { id: M21-03-l3, type: fill_blank, prompt: "I'll ___ the ops cost — Kafka is real work.", accepted: ["concede"], explanation: "'Concede' — dar o ponto que é verdadeiro.", tags: [vocab.decisions] }
-    - { id: M21-03-l4, type: error_correction, prompt: "I am agree with your concern.", accepted: ["I agree with your concern.", "I agree with your concern"], explanation: "'I agree'.", tags: [br.am-agree] }
+    - { id: M21-03-l4, type: error_correction, prompt: "I am agree with your concern.", accepted: ["I agree with your concern.", "I agree with your concern"], explanation: "'I agree'.", tags: [br.i-am-agree] }
     - { id: M21-03-l5, type: multiple_choice, prompt: "'Let's take it offline' significa…", options: ["cancelar a decisão", "encerrar a reunião", "tratar a objeção depois, com dados", "mudar de canal"], answer: 2, explanation: "Quando a resposta precisa de dado que não está na sala.", tags: [comp.listening, vocab.decisions] }
     - { id: M21-03-l6, type: multiple_choice, prompt: "Conceder o ponto verdadeiro…", options: ["enfraquece a defesa", "é sinal de fraqueza", "empata a discussão", "fortalece o resto da defesa"], answer: 3, explanation: "Conceder o real protege o argumento principal.", tags: [comp.listening, comp.confidence] }
 

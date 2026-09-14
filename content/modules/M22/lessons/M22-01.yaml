@@ -178,7 +178,7 @@ brErrors:
   - { wrong: "The possibility to fail is real.", right: "The possibility of failing is real.", why: "possibility of failing", tag: br.risk-to }
   - { wrong: "The discount compensates the risk.", right: "The discount offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
   - { wrong: "The cutover is danger for writes.", right: "The cutover is dangerous for writes.", why: "is dangerous", tag: br.is-danger }
-  - { wrong: "I am agree the risk is low.", right: "I agree the risk is low.", why: "I agree", tag: br.am-agree }
+  - { wrong: "I am agree the risk is low.", right: "I agree the risk is low.", why: "I agree", tag: br.i-am-agree }
   - { wrong: "The same risk than last migration.", right: "The same risk as last migration.", why: "the same as", tag: br.same-than }
   - { wrong: "We discussed about the exposure.", right: "We discussed the exposure.", why: "discussed the exposure", tag: br.discuss-about }
   - { wrong: "We must to rehearse the rollback.", right: "We must rehearse the rollback.", why: "must rehearse", tag: br.modal-to }

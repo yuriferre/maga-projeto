@@ -174,7 +174,7 @@ brErrors:
   - { wrong: "There's a possibility to lose receipts.", right: "There's a possibility of losing receipts.", why: "possibility of losing", tag: br.risk-to }
   - { wrong: "The downside is danger for users.", right: "The downside is dangerous for users.", why: "is dangerous", tag: br.is-danger }
   - { wrong: "The same downside than the rewrite.", right: "The same downside as the rewrite.", why: "the same as", tag: br.same-than }
-  - { wrong: "I am agree it's a fair trade.", right: "I agree it's a fair trade.", why: "I agree", tag: br.am-agree }
+  - { wrong: "I am agree it's a fair trade.", right: "I agree it's a fair trade.", why: "I agree", tag: br.i-am-agree }
   - { wrong: "We chose availability instead consistency.", right: "We chose availability instead of consistency.", why: "instead of", tag: br.instead-of }
   - { wrong: "We discussed about the trade-offs.", right: "We discussed the trade-offs.", why: "discussed the trade-offs", tag: br.discuss-about }
   - { wrong: "Actually the upside is bigger.", right: "In fact, the upside is bigger.", why: "in fact", tag: br.actually }
