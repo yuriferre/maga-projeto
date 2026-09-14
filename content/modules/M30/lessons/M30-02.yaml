@@ -1,0 +1,326 @@
+id: M30-02
+module: M30
+order: 2
+title: "Esclarecendo requisitos antes de responder: escala, restrições"
+objective: >-
+  Ao final, você sabe abrir uma pergunta de design
+  ou troubleshooting com perguntas de
+  esclarecimento — escala, restrições, usuários,
+  o que conta como sucesso — antes de propor
+  qualquer coisa.
+durationMin: 30
+competencies: [SPK, LIS, CNF]
+tags: [vocab.sysdesign, comp.speaking, comp.listening]
+prerequisites: [M30-01]
+
+context:
+  scenario: |
+    A pergunta de design vem aberta de propósito:
+    "design a rate limiter". Quem começa a desenhar
+    na hora falhou na primeira etapa — **seniors
+    esclarecem antes de responder**.
+
+    As quatro famílias de esclarecimento:
+
+    - **Escala**: "*what scale are we talking —
+      requests per second? users?*"
+    - **Restrições**: "*any constraints I should
+      know — latency budget, existing infra?*"
+    - **Escopo**: "*are we designing the whole
+      thing or one component?*"
+    - **Sucesso**: "*what does success look like —
+      what are we optimizing for?*"
+
+    E a moldura que organiza: "*before I answer,
+    let me clarify a few things*" — anuncia que
+    as perguntas vêm primeiro, não por insegurança
+    mas por método.
+
+    Duas regras:
+
+    - **3–5 perguntas**, não vinte — esclarecer
+      demais também é sinal ruim.
+    - **Assuma e declare**: se a resposta não vem,
+      "*I'll assume X — tell me if that's off*".
+
+    O erro do brasileiro: achar que perguntar
+    demonstra fraqueza. É o contrário — pular
+    direto para a solução é o que lê como junior.
+  roles: [Yuri (platform engineer), Dana (staff engineer, interviewer)]
+
+vocabulary:
+  - term: "before I answer, let me clarify a few things"
+    meaning: 'antes de responder, deixe-me esclarecer algumas coisas — a moldura'
+    example: "Before I answer, let me clarify a few things — scale, constraints, scope."
+    translation: "Antes de responder, deixe-me esclarecer algumas coisas — escala, restrições, escopo."
+    note: "Anuncia o método — não é enrolação."
+  - term: "what scale are we talking?"
+    meaning: 'de que escala estamos falando? — a pergunta de volume'
+    example: "What scale are we talking — requests per second? Daily users?"
+    translation: "De que escala estamos falando — requisições por segundo? Usuários diários?"
+    note: "Escala primeiro — ela muda todo o design."
+  - term: "any constraints I should know about?"
+    meaning: 'alguma restrição que eu deva saber? — a pergunta de limites'
+    example: "Any constraints I should know about — latency budget, existing infra?"
+    translation: "Alguma restrição que eu deva saber — orçamento de latência, infra existente?"
+    note: "Restrições nomeadas definem o formato da resposta."
+  - term: "are we designing the whole thing or one component?"
+    meaning: 'vamos desenhar tudo ou um componente? — a pergunta de escopo'
+    example: "Are we designing the whole system or just the rate-limiting layer?"
+    translation: "Vamos desenhar o sistema inteiro ou só a camada de rate limit?"
+    note: "Escopo delimitado evita resposta infinita."
+  - term: "what are we optimizing for?"
+    meaning: 'o que estamos otimizando? — a pergunta de prioridade'
+    example: "What are we optimizing for — latency, cost, or reliability?"
+    translation: "O que estamos otimizando — latência, custo ou confiabilidade?"
+    note: "Toda decisão de design depende da resposta."
+  - term: "what does success look like here?"
+    meaning: 'como é o sucesso aqui? — a métrica antes do design'
+    example: "What does success look like here — p99 under 200ms?"
+    translation: "Como é o sucesso aqui — p99 abaixo de 200ms?"
+    note: "Do M29 — 'pronto' definido antes de começar."
+  - term: "who are the users?"
+    meaning: 'quem são os usuários? — a pergunta de público'
+    example: "Who are the users — internal devs or external traffic?"
+    translation: "Quem são os usuários — devs internos ou tráfego externo?"
+    note: "Usuário interno × externo muda tudo."
+  - term: "read-heavy or write-heavy?"
+    meaning: 'mais leitura ou mais escrita? — a pergunta de perfil de carga'
+    example: "Is this read-heavy or write-heavy? That decides the storage."
+    translation: "Isso é mais leitura ou mais escrita? Isso decide o storage."
+    note: "O perfil de carga decide a arquitetura."
+  - term: "I'll assume X — tell me if that's off"
+    meaning: 'vou assumir X — me diga se estiver errado — a suposição declarada'
+    example: "I'll assume we're on AWS — tell me if that's off."
+    translation: "Vou assumir que estamos na AWS — me diga se estiver errado."
+    note: "Quando a resposta não vem, assuma e declare."
+  - term: "can I ask a few questions first?"
+    meaning: 'posso fazer algumas perguntas antes? — a abertura educada'
+    example: "Interesting — can I ask a few questions first?"
+    translation: "Interessante — posso fazer algumas perguntas antes?"
+    note: "A porta de entrada do esclarecimento."
+  - term: "that changes the design"
+    meaning: 'isso muda o design — conectar a resposta à decisão'
+    example: "Global users — that changes the design; we'd need multi-region."
+    translation: "Usuários globais — isso muda o design; precisaríamos de multi-região."
+    note: "Mostre que a pergunta teve propósito."
+  - term: "good — that bounds the problem"
+    meaning: 'bom — isso delimita o problema — a resposta que fecha o escopo'
+    example: "100 RPS, not 100k — good, that bounds the problem a lot."
+    translation: "100 RPS, não 100k — bom, isso delimita bastante o problema."
+    note: "Cada resposta estreita o espaço de soluções."
+
+grammar:
+  title: "a gramática das perguntas de esclarecimento"
+  explanation: |
+    As perguntas certas têm molduras:
+
+    - **A moldura**: "**before I answer, let me
+      clarify a few things**" / "**can I ask a few
+      questions first?**".
+    - **Escala**: "**what scale are we talking** —
+      X or Y?" — ofereça as unidades.
+    - **Restrições**: "**any constraints I should
+      know about?**" / "**what are we optimizing
+      for?**".
+    - **Escopo**: "**are we designing the whole
+      thing or one component?**".
+    - **Suposição declarada**: "**I'll assume X —
+      tell me if that's off**".
+
+    E o fecho que mostra propósito: "**that
+    changes the design**" / "**that bounds the
+    problem**" — conecte cada resposta à decisão.
+  examples:
+    - { en: "Before I answer, let me clarify a few things — scale, constraints, scope.", pt: "Antes de responder, deixe-me esclarecer — escala, restrições, escopo." }
+    - { en: "What scale are we talking — requests per second? Daily users?", pt: "De que escala falamos — RPS? Usuários diários?" }
+    - { en: "Any constraints I should know about — latency budget, existing infra?", pt: "Alguma restrição — orçamento de latência, infra existente?" }
+    - { en: "Are we designing the whole thing or just the rate-limiting layer?", pt: "Desenhamos tudo ou só a camada de rate limit?" }
+    - { en: "I'll assume we're on AWS — tell me if that's off.", pt: "Vou assumir AWS — me diga se estiver errado." }
+    - { en: "Global users — that changes the design; we'd need multi-region.", pt: "Usuários globais — isso muda o design; multi-região." }
+
+examples:
+  - en: "Before I answer, let me clarify a few things — scale, constraints, scope."
+    pt: "Antes de responder, deixe-me esclarecer — escala, restrições, escopo."
+    context: "A moldura que anuncia o método."
+  - en: "What scale are we talking — requests per second? Daily active users?"
+    pt: "De que escala falamos — RPS? Usuários ativos diários?"
+    context: "A pergunta de volume com unidades."
+  - en: "Any constraints I should know about — latency budget, existing infra?"
+    pt: "Alguma restrição que eu deva saber — latência, infra existente?"
+    context: "Os limites nomeados."
+  - en: "Are we designing the whole system or just the rate-limiting layer?"
+    pt: "Desenhamos o sistema todo ou só a camada de rate limit?"
+    context: "O escopo delimitado."
+  - en: "What are we optimizing for — latency, cost, or reliability?"
+    pt: "O que otimizamos — latência, custo ou confiabilidade?"
+    context: "A prioridade que decide o design."
+  - en: "Is this read-heavy or write-heavy? That decides the storage."
+    pt: "Mais leitura ou mais escrita? Isso decide o storage."
+    context: "O perfil de carga."
+  - en: "I'll assume single region to start — tell me if that's off."
+    pt: "Vou assumir região única — me diga se estiver errado."
+    context: "A suposição declarada."
+  - en: "Internal users only — good, that bounds the problem a lot."
+    pt: "Só usuários internos — bom, isso delimita bastante."
+    context: "A resposta que fecha o escopo."
+
+variations:
+  - idea: '"abrir a pergunta de design"'
+    items:
+      - { register: "Forte", text: "Before I answer — can I ask a few questions about scale and constraints?", adequate: true }
+      - { register: "Forte", text: "What scale are we talking, and what are we optimizing for?", adequate: true }
+      - { register: "Fraco", text: "(começar a desenhar imediatamente)", adequate: false, note: "Pular o esclarecimento é o sinal de junior." }
+      - { register: "Fraco", text: "I need twenty requirements first.", adequate: false, note: "3–5 perguntas — esclarecer demais também é ruim." }
+  - idea: '"quando a resposta não vem"'
+    items:
+      - { register: "Forte", text: "I'll assume 1k RPS — tell me if that's off.", adequate: true }
+      - { register: "Forte", text: "If scale isn't a concern, I'll design for simplicity.", adequate: true }
+      - { register: "Fraco", text: "(parar até o entrevistador responder)", adequate: false, note: "Sem resposta? Assuma e declare — não trave." }
+      - { register: "Fraco", text: "You didn't give me enough information.", adequate: false, note: "Culpar a pergunta lê como rigidez." }
+
+brErrors:
+  - { wrong: "Let me make a test of the scale.", right: "Let me run a test of the scale.", why: "run a test", tag: br.make-a-test }
+  - { wrong: "I would mount a solution for 1k users.", right: "I would design a solution for 1k users.", why: "design/build", tag: br.mount-solution }
+  - { wrong: "Is the API on air for them?", right: "Is the API up for them?", why: "is up", tag: br.on-air }
+  - { wrong: "The service falls under load.", right: "The service goes down under load.", why: "goes down", tag: br.service-falls }
+  - { wrong: "I have a doubt about the scope.", right: "I have a question about the scope.", why: "a question", tag: br.doubt }
+  - { wrong: "It depends of the scale.", right: "It depends on the scale.", why: "depends on", tag: br.depend-of }
+  - { wrong: "We discussed about the constraints.", right: "We discussed the constraints.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision scale matters most.", right: "In my view scale matters most.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "The same constraints than before.", right: "The same constraints as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "I work with this scale since 2022.", right: "I've worked with this scale since 2022.", why: "I've worked", tag: br.work-since }
+
+dialogue:
+  title: "A pergunta aberta, esclarecida primeiro"
+  lines:
+    - { speaker: Dana, text: "Design a rate limiter for our API." }
+    - { speaker: Yuri, text: "Interesting — before I answer, can I ask a few questions? What scale are we talking — requests per second?" }
+    - { speaker: Dana, text: "Around 10k RPS at peak." }
+    - { speaker: Yuri, text: "Okay — that bounds it. Any constraints I should know — existing infra, latency budget?" }
+    - { speaker: Dana, text: "It sits behind our gateway; keep added latency under 5ms." }
+    - { speaker: Yuri, text: "5ms — that changes the design; an in-memory check, not a DB call. Are we designing the whole thing or just the limiting layer?" }
+    - { speaker: Dana, text: "Just the layer. And the users?" }
+    - { speaker: Yuri, text: "Wait — that was my next one: internal devs or external traffic? And what are we optimizing for — fairness or cost?" }
+    - { speaker: Dana, text: "External. Fairness first, cost second. Anything else?" }
+    - { speaker: Yuri, text: "One more: what does success look like — zero good requests dropped? I'll assume Redis is available — tell me if that's off." }
+    - { speaker: Dana, text: "It's available. Notice you asked five questions, not twenty — and each one shaped the answer." }
+    - { speaker: Yuri, text: "That's the point — three to five, each with a purpose." }
+  notes:
+    - "cinco perguntas, cada uma com propósito: escala → constraints → escopo → usuários/otimização → sucesso."
+    - "'that changes the design' e 'that bounds it' — conectar a resposta à decisão."
+    - "'I'll assume Redis — tell me if that's off' — a suposição declarada."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "When you get an open question — 'design a rate limiter' — clarifying first isn't weakness, it's the method. Four families: scale — 'what scale are we talking'; constraints — 'any constraints I should know'; scope — 'the whole thing or one component'; success — 'what are we optimizing for'." }
+    - { speaker: Yuri, text: "Frame it with 'before I answer, let me clarify a few things'. Three to five questions, not twenty — over-clarifying is its own bad signal. And when an answer doesn't come: 'I'll assume X — tell me if that's off'." }
+    - { speaker: Dana, text: "And connect each answer to the design — 'that changes the design', 'that bounds the problem'. Otherwise the questions look like a checklist, not thinking." }
+  questions:
+    - { id: M30-02-l1, type: multiple_choice, prompt: "Esclarecer antes de responder é…", options: ["o método — quem desenha na hora falha na etapa 1", "enrolação", "insegurança", "opcional"], answer: 0, explanation: "Seniors esclarecem primeiro.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-02-l2, type: fill_blank, prompt: "What ___ are we talking — requests per second? Users?", accepted: ["scale"], explanation: "'What scale are we talking'.", tags: [vocab.sysdesign] }
+    - { id: M30-02-l3, type: error_correction, prompt: "It depends of the scale.", accepted: ["It depends on the scale.", "It depends on the scale"], explanation: "'Depends on'.", tags: [br.depend-of] }
+    - { id: M30-02-l4, type: multiple_choice, prompt: "Quantas perguntas de esclarecimento?", options: ["uma", "vinte — cubra tudo", "dez", "3–5, cada uma com propósito"], answer: 3, explanation: "Esclarecer demais também é sinal ruim.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-02-l5, type: multiple_choice, prompt: "Quando a resposta não vem, o certo é…", options: ["parar e esperar", "reclamar da falta de info", "assumir e declarar — 'I'll assume X, tell me if that's off'", "mudar de assunto"], answer: 2, explanation: "A suposição declarada destrava.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-02-l6, type: multiple_choice, prompt: "'That changes the design' mostra…", options: ["que a pergunta teve propósito — conecta resposta à decisão", "dúvida", "mudança de assunto", "que você desiste fácil"], answer: 0, explanation: "Sem isso, as perguntas parecem checklist.", tags: [comp.listening, vocab.sysdesign] }
+
+writing:
+  prompt: |
+    **Cenário:** a preparação pediu por escrito o
+    seu roteiro de esclarecimento — as perguntas
+    que você faz antes de desenhar qualquer coisa.
+
+    **Tarefa:** escreva 90–120 palavras: o roteiro
+    para "design a rate limiter" — a moldura de
+    abertura, as 4–5 perguntas (escala, restrições,
+    escopo, usuários, sucesso) e o que você faz
+    quando uma resposta não vem.
+  constraints:
+    - { label: "A moldura", pattern: "\\bbefore i answer|let me clarify|a few questions|clarify\\b" }
+    - { label: "Escala", pattern: "\\bscale|rps|requests per second|users|traffic\\b" }
+    - { label: "Restrições/escopo", pattern: "\\bconstraint|latency|scope|whole|component|optimizing\\b" }
+    - { label: "A suposição", pattern: "\\bassume|tell me if|that's off|default\\b" }
+  rubric:
+    - "4–5 perguntas com propósito"
+    - "Moldura de abertura presente"
+    - "Suposição declarada quando necessário"
+    - "Sem calques ('depends on', 'a question', 'run a test')"
+  model: >-
+    My clarification script for "design a rate
+    limiter". The frame: "before I answer, let me
+    clarify a few things" — then five questions,
+    each with a job. Scale: "what scale are we
+    talking — RPS at peak?" Constraints: "any
+    latency budget or infra I should know?" Scope:
+    "the whole system or just the limiting layer?"
+    Users and goal: "external traffic? Optimizing
+    for fairness or cost?" Success: "what does it
+    look like — zero good requests dropped?" If an
+    answer doesn't come: "I'll assume Redis is
+    available — tell me if that's off." Each answer
+    gets a "that changes the design" — questions
+    with purpose, not a checklist.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.sysdesign]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: alguém disse 'design a rate limiter'. NÃO desenhe — faça o esclarecimento completo: a moldura, 4–5 perguntas com unidades, uma suposição declarada, e 'that changes the design' depois de cada resposta imaginada."
+    maxSeconds: 90
+    targetPhrases:
+      - before i answer
+      - let me clarify a few things
+      - can i ask a few questions first
+      - what scale are we talking
+      - requests per second
+      - any constraints i should know
+      - latency budget
+      - the whole thing or one component
+      - what are we optimizing for
+      - who are the users
+      - read-heavy or write-heavy
+      - i'll assume
+      - tell me if that's off
+      - that changes the design
+      - that bounds the problem
+      - what does success look like
+    checklist:
+      - "a moldura de abertura"
+      - "4–5 perguntas com propósito"
+      - "uma suposição declarada"
+      - "'that changes the design' conectando resposta → decisão"
+      - "sem calques ('depends on', 'a question', 'is up')"
+
+quiz:
+  - { id: M30-02-q1, type: multiple_choice, prompt: "A primeira resposta a 'design X' é…", options: ["começar a desenhar", "pedir um minuto em silêncio", "esclarecer — escala, restrições, escopo, sucesso", "dar a resposta padrão"], answer: 2, explanation: "Seniors esclarecem antes de responder.", tags: [vocab.sysdesign] }
+  - { id: M30-02-q2, type: error_correction, prompt: "The service falls under heavy load.", accepted: ["The service goes down under heavy load.", "The service goes down under heavy load", "The service crashes under heavy load."], explanation: "'Goes down/crashes'.", tags: [br.service-falls] }
+  - { id: M30-02-q3, type: multiple_choice, prompt: "O número certo de perguntas de esclarecimento é…", options: ["o máximo possível", "nenhuma — parece fraco", "3–5, cada uma com propósito", "exatamente dez"], answer: 2, explanation: "Nem zero nem vinte.", tags: [vocab.sysdesign] }
+  - { id: M30-02-q4, type: fill_blank, prompt: "I'll assume Redis is available — tell me if that's ___.", accepted: ["off"], explanation: "'Tell me if that's off' — a suposição declarada.", tags: [vocab.sysdesign] }
+  - { id: M30-02-q5, type: multiple_choice, prompt: "'What are we optimizing for?' pergunta sobre…", options: ["o orçamento", "a prioridade — latência, custo ou confiabilidade", "o prazo", "o time"], answer: 1, explanation: "Toda decisão de design depende disso.", tags: [vocab.sysdesign] }
+  - { id: M30-02-q6, type: error_correction, prompt: "Is the API on air for external users?", accepted: ["Is the API up for external users?", "Is the API up for external users", "Is the API online for external users?"], explanation: "'Up/online'.", tags: [br.on-air] }
+  - { id: M30-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["i", "before", "answer", "me", "let", "clarify", "things", "a", "few"], answer: "before i answer let me clarify a few things", explanation: "A moldura que anuncia o método.", tags: [vocab.sysdesign] }
+  - { id: M30-02-q8, type: multiple_choice, prompt: "Perguntar antes de responder sinaliza…", options: ["fraqueza", "método — junior é quem pula direto para a solução", "falta de preparo", "enrolação"], answer: 1, explanation: "O instinto de desenhar na hora é o sinal de junior.", tags: [vocab.sysdesign] }
+
+srsCards:
+  - { front: "before I answer, let me clarify a few things", back: "A moldura que anuncia o método.", tag: vocab.sysdesign }
+  - { front: "what scale are we talking?", back: "A pergunta de volume — RPS, usuários.", tag: vocab.sysdesign }
+  - { front: "any constraints I should know about?", back: "Os limites nomeados — latência, infra.", tag: vocab.sysdesign }
+  - { front: "are we designing the whole thing or one component?", back: "O escopo delimitado.", tag: vocab.sysdesign }
+  - { front: "what are we optimizing for?", back: "A prioridade — latência, custo, confiabilidade.", tag: vocab.sysdesign }
+  - { front: "what does success look like here?", back: "'Pronto' definido antes de começar.", tag: vocab.sysdesign }
+  - { front: "who are the users?", back: "Interno × externo muda tudo.", tag: vocab.sysdesign }
+  - { front: "read-heavy or write-heavy?", back: "O perfil de carga decide o storage.", tag: vocab.sysdesign }
+  - { front: "I'll assume X — tell me if that's off", back: "A suposição declarada quando a resposta não vem.", tag: vocab.sysdesign }
+  - { front: "can I ask a few questions first?", back: "A abertura educada do esclarecimento.", tag: vocab.sysdesign }
+  - { front: "that changes the design", back: "Conectar a resposta à decisão.", tag: vocab.sysdesign }
+  - { front: "good — that bounds the problem", back: "A resposta que fecha o escopo.", tag: vocab.sysdesign }
+
+review:
+  preferTags: [vocab.sysdesign, br.depend-of, br.service-falls]
+  notes: "Revisão prioriza as quatro famílias de esclarecimento e a suposição declarada."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
