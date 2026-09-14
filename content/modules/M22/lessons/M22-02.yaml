@@ -1,0 +1,307 @@
+id: M22-02
+module: M22
+order: 2
+title: "Trade-offs: 'we're trading X for Y' — e o que vem junto"
+objective: >-
+  Ao final, você apresenta trade-offs como troca explícita —
+  o que se ganha, o que se perde e o saldo: "we're trading
+  X for Y", "the downside is…", "on balance…".
+durationMin: 40
+competencies: [SPK, WRI]
+tags: [vocab.risk, gram.probability-modals, comp.speaking, comp.writing]
+prerequisites: [M22-01]
+
+context:
+  scenario: |
+    O risco está mapeado — agora a Beth quer o coração da
+    análise: "**what are we trading, and is it worth it?**"
+    Toda decisão é uma troca, e a troca bem apresentada tem
+    três peças:
+
+    - **a troca nomeada** — "*we're trading consistency for
+      availability*" — os dois lados na mesma frase;
+    - **o downside assumido** — "*the downside is slower
+      receipts*" — o que se perde, dito antes de ser
+      perguntado;
+    - **o saldo** — "*on balance, availability wins — the
+      receipt is a notification anyway*" — o veredito que
+      fecha a análise.
+
+    As fórmulas do ganha-perde: "**we get X at the cost of
+    Y**", "**X comes at the expense of Y**", "**it's a fair
+    trade**", "**the upside outweighs the downside**". E o
+    contraste honesto: "**we gain X, but we give up Y**" —
+    nunca "**we win and nothing is lost**". Quem apresenta
+    só o ganho parece vendedor; quem apresenta a troca
+    inteira parece engenheiro.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "we're trading X for Y"
+    meaning: 'estamos trocando X por Y — a troca nomeada'
+    example: "We're trading strong consistency for availability."
+    translation: "Estamos trocando consistência forte por disponibilidade."
+    note: "A frase central do trade-off: dois lados, uma frase."
+  - term: "the downside"
+    meaning: 'o lado que se perde — assumido, não escondido'
+    example: "The downside is slower receipts — up to a few seconds."
+    translation: "O lado ruim são recibos mais lentos — até alguns segundos."
+    note: "Downside dito antes da pergunta tira a munição do revisor."
+  - term: "on balance"
+    meaning: 'no saldo — o veredito depois de pesar os lados'
+    example: "On balance, availability wins — the receipt is a notification."
+    translation: "No saldo, a disponibilidade vence — o recibo é só notificação."
+    note: "'On balance' fecha a análise — o peso final dos dois lados."
+  - term: "at the cost of"
+    meaning: 'ao custo de — o que o ganho cobra'
+    example: "We get decoupling at the cost of running Kafka."
+    translation: "Ganhamos desacoplamento ao custo de operar Kafka."
+    note: "Alternativa: 'at the expense of' — mesma ideia, mais formal."
+  - term: "the upside"
+    meaning: 'o lado que se ganha — o par do downside'
+    example: "The upside is resilience — the API survives a payment outage."
+    translation: "O lado bom é resiliência — a API sobrevive a uma queda de pagamentos."
+    note: "Upside primeiro, downside logo depois — a ordem honesta."
+  - term: "outweigh"
+    meaning: 'pesar mais — quando um lado vence o outro'
+    example: "The upside outweighs the downside here — spikes kill us today."
+    translation: "O lado bom pesa mais que o ruim aqui — os picos nos derrubam hoje."
+    note: "'X outweighs Y' — o verbo que resolve a balança."
+  - term: "a fair trade"
+    meaning: 'uma troca justa — quando os dois lados fazem sentido'
+    example: "Eventual consistency for decoupling is a fair trade here."
+    translation: "Consistência eventual por desacoplamento é troca justa aqui."
+    note: "'Fair trade' — não perfeita, justa: os dois lados foram pagos."
+  - term: "we give up"
+    meaning: 'abrimos mão — o que se entrega na troca'
+    example: "We gain resilience, but we give up instant receipts."
+    translation: "Ganhamos resiliência, mas abrimos mão de recibos instantâneos."
+    note: "'Give up' nomeia a perda sem eufemismo — efeito de credibilidade."
+  - term: "asymmetry"
+    meaning: 'a assimetria — quando o custo e o ganho não são iguais'
+    example: "The asymmetry favors the queue: bounded downside, unbounded upside."
+    translation: "A assimetria favorece a fila: downside limitado, upside sem teto."
+    note: "O argumento mais forte: downside delimitado, upside aberto."
+  - term: "reversibility"
+    meaning: 'a reversibilidade — quanto custa desfazer a troca'
+    example: "The trade is cheap because of reversibility — we can roll back."
+    translation: "A troca é barata pela reversibilidade — dá para reverter."
+    note: "Reversível muda o cálculo: downside reversível pesa menos."
+  - term: "a dealbreaker"
+    meaning: 'o impeditivo — o downside que mata a opção'
+    example: "Losing committed writes is a dealbreaker — the queue can't cause it."
+    translation: "Perder escritas confirmadas é impeditivo — a fila não pode causar."
+    note: "Nomeie o dealbreaker — o downside que nenhum upside paga."
+  - term: "net gain"
+    meaning: 'o ganho líquido — o que sobra depois da troca'
+    example: "Net gain: resilience and decoupling, minus slower receipts."
+    translation: "Ganho líquido: resiliência e desacoplamento, menos recibos lentos."
+    note: "'Net' — depois de pagar o downside, o que fica."
+
+grammar:
+  title: "a gramática da troca — 'at the cost of', 'in exchange for', 'on balance'"
+  explanation: |
+    Trade-off em inglês é uma troca com dois lados — e a
+    gramática carrega os dois na mesma construção:
+
+    - **Trocar**: "*we're trading X for Y*", "*we get X at
+      the cost of Y*", "*X comes at the expense of Y*",
+      "*in exchange for Y, we get X*".
+    - **O saldo**: "*on balance*", "*all things
+      considered*", "*the upside outweighs the downside*".
+    - **A condição do saldo**: "*as long as the receipt
+      stays a notification*", "*provided the blast radius
+      stays bounded*".
+
+    O modal de probabilidade continua aqui: "*the downside
+    could matter if…*" — trade-off + likelihood é a
+    análise completa.
+
+    Calques no balanço: "**compensates the risk**" →
+    "**offsets**"; "**the same downside than**" → "**as**";
+    "**we are in risk**" → "**at risk**".
+  examples:
+    - { en: "We're trading strong consistency for availability — on balance, it's fair.", pt: "Estamos trocando consistência forte por disponibilidade — no saldo, é justo." }
+    - { en: "We get decoupling at the cost of Kafka ops.", pt: "Ganhamos desacoplamento ao custo de operar Kafka." }
+    - { en: "The upside outweighs the downside — spikes are the real failure mode.", pt: "O upside pesa mais que o downside — picos são o modo de falha real." }
+    - { en: "We gain resilience, but we give up instant receipts.", pt: "Ganhamos resiliência, mas abrimos mão de recibos instantâneos." }
+    - { en: "In exchange for slower receipts, the API survives a payment outage.", pt: "Em troca de recibos mais lentos, a API sobrevive a uma queda de pagamentos." }
+    - { en: "The trade stays fair as long as the blast radius stays bounded.", pt: "A troca continua justa enquanto o blast radius ficar delimitado." }
+
+examples:
+  - en: "We're trading consistency for availability — the receipt is a notification anyway."
+    pt: "Trocamos consistência por disponibilidade — o recibo é notificação mesmo."
+    context: "A troca nomeada."
+  - en: "The downside is slower receipts — a few seconds, not minutes."
+    pt: "O downside são recibos mais lentos — segundos, não minutos."
+    context: "A perda dimensionada."
+  - en: "On balance, the queue wins — the upside outweighs the ops cost."
+    pt: "No saldo, a fila vence — o upside supera o custo de ops."
+    context: "O veredito."
+  - en: "The asymmetry favors us: bounded downside, real upside."
+    pt: "A assimetria nos favorece: downside limitado, upside real."
+    context: "O argumento da assimetria."
+  - en: "Losing committed writes would be a dealbreaker — the design can't cause it."
+    pt: "Perder escritas confirmadas seria impeditivo — o design não pode causar."
+    context: "O downside que nenhum upside paga."
+  - en: "It's a fair trade because it's reversible — roll back in a day."
+    pt: "É troca justa porque é reversível — rollback em um dia."
+    context: "Reversibilidade no cálculo."
+  - en: "In exchange for one more system to run, we stop failing on spikes."
+    pt: "Em troca de mais um sistema para rodar, paramos de cair nos picos."
+    context: "A troca em linguagem de negócio."
+  - en: "The downside could matter if receipts became the record — they don't."
+    pt: "O downside poderia importar se recibos fossem o registro — não são."
+    context: "Trade-off + likelihood."
+
+variations:
+  - idea: '"a troca com os dois lados"'
+    items:
+      - { register: "Boa", text: "We're trading consistency for availability — on balance, the receipt is a notification anyway.", adequate: true }
+      - { register: "Boa", text: "We gain resilience at the cost of Kafka ops — and it's reversible.", adequate: true }
+      - { register: "Inadequada", text: "The queue is just better.", adequate: false, note: "Só o ganho é vendedor — nomeie a troca: *we're trading X for Y*." }
+      - { register: "Inadequada", text: "The discount compensates the downside.", adequate: false, note: "*Offsets* — risco/downside se compensa com 'offset'." }
+  - idea: '"o downside assumido"'
+    items:
+      - { register: "Boa", text: "The downside is slower receipts — seconds, not minutes — and it's bounded.", adequate: true }
+      - { register: "Boa", text: "Losing committed writes is a dealbreaker; this design can't cause it.", adequate: true }
+      - { register: "Inadequada", text: "We are in risk of slower receipts.", adequate: false, note: "*At risk of* — 'em risco' é 'at'." }
+      - { register: "Inadequada", text: "The same downside than before.", adequate: false, note: "*The same as* — 'than' é só de comparativo." }
+
+brErrors:
+  - { wrong: "The discount compensates the risk.", right: "The discount offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
+  - { wrong: "We are in risk of slower receipts.", right: "We are at risk of slower receipts.", why: "at risk of", tag: br.in-risk }
+  - { wrong: "There's a possibility to lose receipts.", right: "There's a possibility of losing receipts.", why: "possibility of losing", tag: br.risk-to }
+  - { wrong: "The downside is danger for users.", right: "The downside is dangerous for users.", why: "is dangerous", tag: br.is-danger }
+  - { wrong: "The same downside than the rewrite.", right: "The same downside as the rewrite.", why: "the same as", tag: br.same-than }
+  - { wrong: "I am agree it's a fair trade.", right: "I agree it's a fair trade.", why: "I agree", tag: br.am-agree }
+  - { wrong: "We chose availability instead consistency.", right: "We chose availability instead of consistency.", why: "instead of", tag: br.instead-of }
+  - { wrong: "We discussed about the trade-offs.", right: "We discussed the trade-offs.", why: "discussed the trade-offs", tag: br.discuss-about }
+  - { wrong: "Actually the upside is bigger.", right: "In fact, the upside is bigger.", why: "in fact", tag: br.actually }
+  - { wrong: "The trade worths it.", right: "The trade is worth it.", why: "is worth it", tag: br.worths }
+
+dialogue:
+  title: "What are we trading?"
+  lines:
+    - { speaker: Beth, text: "So what are we trading, and is it worth it?" }
+    - { speaker: Yuri, text: "We're trading strong consistency for availability. The downside is slower receipts — a few seconds during a payment outage." }
+    - { speaker: Beth, text: "And why does the upside win?" }
+    - { speaker: Yuri, text: "Because spikes are the real failure mode — checkout dies today when payments is slow. With the queue, the API stays up. The upside outweighs the downside." }
+    - { speaker: Carlos, text: "Any downside that's a dealbreaker?" }
+    - { speaker: Yuri, text: "Losing committed writes would be — and this design can't cause it. The exposure is only uncommitted writes, bounded to the window." }
+    - { speaker: Beth, text: "What if receipts matter more than you think?" }
+    - { speaker: Yuri, text: "Then the trade breaks — it stays fair as long as the receipt is a notification. And it's reversible: if we're wrong, we roll back in a day." }
+    - { speaker: Carlos, text: "Net result?" }
+    - { speaker: Yuri, text: "Net gain: resilience and decoupling, minus slower receipts. On balance — a fair trade, and a cheap one to undo." }
+    - { speaker: Beth, text: "That's a trade I can sign. Document the asymmetry." }
+  notes:
+    - "troca nomeada → downside dimensionado → upside justificado → dealbreaker descartado → saldo."
+    - "'it stays fair as long as…' — a condição que protege o veredito."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "A trade-off has three pieces. Name the swap — 'we're trading consistency for availability'. Own the downside — 'the downside is slower receipts', said before anyone asks. And give the verdict — 'on balance, availability wins'." }
+    - { speaker: Yuri, text: "The strongest argument is asymmetry — 'bounded downside, real upside'. Name the dealbreaker too — 'losing committed writes would kill it; this design can't cause it'. And keep the condition visible — 'the trade stays fair as long as receipts stay notifications'." }
+    - { speaker: Carlos, text: "Whoever presents only the gain sounds like a vendor; the engineer presents the whole swap. And the calques: 'offsets the risk', never 'compensates'; 'at risk', never 'in risk'; 'the same as', never 'than'." }
+  questions:
+    - { id: M22-02-l1, type: multiple_choice, prompt: "As três peças do trade-off são…", options: ["problema, solução, prazo", "a troca nomeada, o downside assumido, o saldo", "custo, benefício, desculpa", "risco, plano, aprovação"], answer: 1, explanation: "Swap → downside → on balance.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-02-l2, type: multiple_choice, prompt: "O argumento da assimetria é…", options: ["downside aberto, upside limitado", "downside delimitado, upside real", "sem downside", "sem upside"], answer: 1, explanation: "Bounded downside + real upside — o mais forte.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-02-l3, type: fill_blank, prompt: "We get decoupling at the ___ of running Kafka.", accepted: ["cost", "expense"], explanation: "'At the cost of' / 'at the expense of'.", tags: [vocab.risk] }
+    - { id: M22-02-l4, type: error_correction, prompt: "The discount compensates the risk.", accepted: ["The discount offsets the risk.", "The discount offsets the risk"], explanation: "'offsets the risk'.", tags: [br.compensate-risk] }
+    - { id: M22-02-l5, type: multiple_choice, prompt: "Um 'dealbreaker' é…", options: ["o downside leve", "o upside principal", "a condição do saldo", "o downside que nenhum upside paga"], answer: 3, explanation: "O impeditivo — nomeie-o para descartá-lo.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-02-l6, type: multiple_choice, prompt: "Apresentar só o ganho faz você parecer…", options: ["engenheiro", "vendedor — a troca inteira é a análise", "cético", "gestor"], answer: 1, explanation: "Trade-off completo = credibilidade.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** a Beth pediu a seção de trade-offs do doc de
+    migração: "name the swap, own the downside, give the
+    verdict".
+
+    **Tarefa:** escreva 70–100 palavras apresentando o
+    trade-off da fila: a troca nomeada ("we're trading X for
+    Y"), o downside dimensionado, o dealbreaker descartado, a
+    condição que mantém o saldo justo e o veredito ("on
+    balance…").
+  constraints:
+    - { label: "A troca", pattern: "\\btrading|cost of|expense of|exchange for\\b" }
+    - { label: "O downside", pattern: "\\bdownside|give up\\b" }
+    - { label: "O saldo", pattern: "\\bon balance|outweigh|net\\b" }
+    - { label: "A condição", pattern: "\\bas long as|provided|reversible|roll back\\b" }
+  rubric:
+    - "Troca com os dois lados na mesma frase"
+    - "Downside dimensionado, não vago"
+    - "Veredito com critério ('on balance')"
+    - "Sem calques ('offsets', 'at risk', 'the same as')"
+  model: >-
+    We're trading strong consistency for availability. The
+    downside is slower receipts — a few seconds during a
+    payment outage, bounded to the window. The dealbreaker
+    would be losing committed writes, and this design can't
+    cause it — the exposure is uncommitted writes only. The
+    trade stays fair as long as the receipt remains a
+    notification, and it's reversible: we roll back in a day
+    if we're wrong. On balance, the upside outweighs the
+    downside — spikes are the real failure mode today.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.risk]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando o trade-off da fila: a troca nomeada, o downside assumido, o dealbreaker descartado e o veredito com a condição."
+    maxSeconds: 45
+    targetPhrases:
+      - we're trading
+      - the downside is
+      - on balance
+      - at the cost of
+      - the upside
+      - outweighs
+      - a fair trade
+      - we give up
+      - asymmetry
+      - dealbreaker
+      - reversible
+      - net gain
+      - offsets the risk
+      - at risk of
+      - the same as
+      - in exchange for
+    checklist:
+      - "a troca com os dois lados"
+      - "o downside antes da pergunta"
+      - "o veredito com 'on balance'"
+      - "'offsets', 'at risk', 'the same as'"
+
+quiz:
+  - { id: M22-02-q1, type: multiple_choice, prompt: "'We're trading consistency for availability' é…", options: ["a troca nomeada — os dois lados numa frase", "uma promessa", "uma desculpa", "um risco"], answer: 0, explanation: "A frase central do trade-off.", tags: [vocab.risk] }
+  - { id: M22-02-q2, type: error_correction, prompt: "We are in risk of slower receipts.", accepted: ["We are at risk of slower receipts.", "We are at risk of slower receipts"], explanation: "'at risk of'.", tags: [br.in-risk] }
+  - { id: M22-02-q3, type: multiple_choice, prompt: "'On balance' introduz…", options: ["o contexto", "a objeção", "o veredito depois de pesar os lados", "o pedido"], answer: 2, explanation: "O saldo — o peso final dos dois lados.", tags: [gram.argument-connectors, vocab.risk] }
+  - { id: M22-02-q4, type: fill_blank, prompt: "Losing committed writes would be a ___ — this design can't cause it.", accepted: ["dealbreaker"], explanation: "O impeditivo — nomeado para ser descartado.", tags: [vocab.risk] }
+  - { id: M22-02-q5, type: multiple_choice, prompt: "Por que a reversibilidade muda o cálculo?", options: ["elimina o downside", "aumenta o upside", "dispensa a análise", "downside reversível pesa menos na balança"], answer: 3, explanation: "Desfazer barato reduz o custo da troca.", tags: [vocab.risk] }
+  - { id: M22-02-q6, type: error_correction, prompt: "The queue has the same downside than the rewrite.", accepted: ["The queue has the same downside as the rewrite.", "The queue has the same downside as the rewrite"], explanation: "'the same as'.", tags: [br.same-than] }
+  - { id: M22-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["balance", "on", "wins", "availability"], answer: "on balance availability wins", explanation: "O veredito.", tags: [vocab.risk] }
+  - { id: M22-02-q8, type: multiple_choice, prompt: "'The trade stays fair as long as…' serve para…", options: ["encerrar a reunião", "deixar visível a condição que mantém o saldo", "evitar a decisão", "prometer o upside"], answer: 1, explanation: "A condição do veredito — honestidade estrutural.", tags: [gram.argument-connectors, vocab.risk] }
+
+srsCards:
+  - { front: "we're trading X for Y", back: "A troca nomeada — 'trading consistency for availability'.", tag: vocab.risk }
+  - { front: "the downside", back: "O lado que se perde — 'slower receipts, bounded'.", tag: vocab.risk }
+  - { front: "on balance", back: "O veredito — 'on balance, availability wins'.", tag: vocab.risk }
+  - { front: "at the cost of", back: "O que o ganho cobra — 'decoupling at the cost of Kafka ops'.", tag: vocab.risk }
+  - { front: "the upside", back: "O lado que se ganha — 'resilience: the API stays up'.", tag: vocab.risk }
+  - { front: "outweigh", back: "Pesar mais — 'the upside outweighs the downside'.", tag: vocab.risk }
+  - { front: "a fair trade", back: "Os dois lados pagos — 'consistency for availability is fair'.", tag: vocab.risk }
+  - { front: "we give up", back: "A perda sem eufemismo — 'we give up instant receipts'.", tag: vocab.risk }
+  - { front: "asymmetry", back: "Downside limitado + upside real — o argumento forte.", tag: vocab.risk }
+  - { front: "reversibility", back: "Custo de desfazer — 'roll back in a day'.", tag: vocab.risk }
+  - { front: "dealbreaker", back: "O downside que mata a opção — nomeado e descartado.", tag: vocab.risk }
+  - { front: "net gain", back: "O que sobra da troca — 'resilience minus slower receipts'.", tag: vocab.risk }
+
+review:
+  preferTags: [vocab.risk, gram.probability-modals, br.compensate-risk]
+  notes: "Revisão prioriza a troca nomeada, o downside dimensionado, o veredito com 'on balance' e os calques (offsets, at risk, the same as)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
