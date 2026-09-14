@@ -1,0 +1,310 @@
+id: M21-02
+module: M21
+order: 2
+title: "ADRs: a decisão por escrito — status, contexto, decisão, consequências"
+objective: >-
+  Ao final, você escreve um ADR enxuto — título numerado,
+  status, contexto, decisão e consequências — e o discute na
+  review com "we chose X over Y because…".
+durationMin: 40
+competencies: [WRI, SPK, CNF]
+tags: [vocab.decisions, gram.argument-connectors, comp.writing, comp.reading]
+prerequisites: [M21-01]
+
+context:
+  scenario: |
+    O design review aprovou a fila — e o Carlos fechou com:
+    "**document it as an ADR.**" O ADR (Architecture Decision
+    Record) é a decisão congelada por escrito: curto, datado
+    e honesto sobre o que foi rejeitado. A anatomia:
+
+    - **título numerado** — "ADR-003: use a queue between
+      checkout and payments".
+    - **status** — proposed, accepted, deprecated, superseded:
+      "status: accepted, 2026-09-14".
+    - **context** — o problema e as forces: "sync calls,
+      weekend spikes, Q3 deadline".
+    - **decision** — uma frase no ativo: "we will add a Kafka
+      topic between the services".
+    - **consequences** — bom e ruim: "decoupling and
+      backpressure; cost: eventual consistency and Kafka ops".
+
+    Na discussão, a fórmula que carrega o ADR é "**we chose
+    X over Y because…**" — escolha, rejeitada e motivo na
+    mesma frase. E quando o ADR envelhece: "this ADR was
+    superseded by ADR-011" — nunca apague, substitua.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "ADR"
+    meaning: 'architecture decision record — a decisão registrada'
+    example: "ADR-003 documents the queue between checkout and payments."
+    translation: "O ADR-003 documenta a fila entre checkout e pagamentos."
+    note: "Um arquivo curto por decisão — vive no repo, não na cabeça."
+  - term: "status"
+    meaning: 'o estado do ADR — proposed, accepted, deprecated, superseded'
+    example: "The ADR status moved from proposed to accepted."
+    translation: "O status do ADR saiu de proposed para accepted."
+    note: "ADR não morre — muda de status. 'Superseded' aponta o sucessor."
+  - term: "to supersede"
+    meaning: 'substituir — o ADR novo que anula o antigo'
+    example: "ADR-011 superseded the original queue decision."
+    translation: "O ADR-011 substituiu a decisão original da fila."
+    note: "Nunca 'deprecated' sozinho: superseded diz o que veio no lugar."
+  - term: "proposed"
+    meaning: 'proposto — o ADR em discussão, ainda não aceito'
+    example: "The ADR is still proposed — Beth hasn't signed off."
+    translation: "O ADR ainda está proposto — a Beth não aprovou."
+    note: "Proposed → accepted após a review. Nada é 'decidido' antes."
+  - term: "we chose X over Y"
+    meaning: 'escolhemos X em vez de Y — escolha + rejeitada + motivo'
+    example: "We chose Kafka over RabbitMQ because of the team's experience."
+    translation: "Escolhemos Kafka em vez de RabbitMQ pela experiência do time."
+    note: "A frase central do ADR: 'chose … over … because …'."
+  - term: "forces"
+    meaning: 'as forças — as pressões que empurram a decisão'
+    example: "The forces: the deadline, the team's size, and the existing Kafka."
+    translation: "As forças: o prazo, o tamanho do time e o Kafka já existente."
+    note: "Vocabulário de ADR: 'context and forces' — o que pesa na escolha."
+  - term: "accepted"
+    meaning: 'aceito — o ADR aprovado, valendo'
+    example: "Once accepted, the ADR is the reference for the decision."
+    translation: "Uma vez aceito, o ADR é a referência da decisão."
+    note: "Accepted ≠ eterno: um ADR futuro pode supersede-lo."
+  - term: "sign off"
+    meaning: 'aprovar formalmente — o ok de quem decide'
+    example: "Beth signed off on the ADR after the review."
+    translation: "A Beth aprovou o ADR depois da review."
+    note: "'Sign off on X' — a aprovação que move proposed → accepted."
+  - term: "out of scope"
+    meaning: 'fora do escopo — o que o ADR não decide'
+    example: "Broker sizing is out of scope for this ADR."
+    translation: "O dimensionamento do broker está fora do escopo deste ADR."
+    note: "ADRs curtos declaram o que não cobrem — protege a discussão."
+  - term: "the rejected option"
+    meaning: 'a opção rejeitada — documentada com o motivo'
+    example: "The rejected option — a rewrite — was too slow for the deadline."
+    translation: "A opção rejeitada — o rewrite — era lenta demais para o prazo."
+    note: "ADR honesto lista os rejeitados: 'considered but rejected'."
+  - term: "backpressure"
+    meaning: 'a contrapressão — quando a fila protege o consumidor'
+    example: "The queue adds backpressure — spikes stop hitting the API."
+    translation: "A fila adiciona backpressure — os picos param de bater na API."
+    note: "Benefício técnico que virou consequência positiva no ADR."
+  - term: "living document"
+    meaning: 'documento vivo — atualizado quando a decisão muda'
+    example: "The ADR is a living document — it gains a successor, not an edit."
+    translation: "O ADR é um documento vivo — ganha sucessor, não edição."
+    note: "O histórico fica: quem chega em 6 meses lê a linha do tempo."
+
+grammar:
+  title: "'we chose X over Y because…' e a voz do ADR"
+  explanation: |
+    A fórmula de ouro da decisão registrada:
+
+    - "**we chose X over Y because Z**" — escolha, rejeitada
+      e motivo numa frase só: "*we chose the queue over a
+      rewrite because it ships this quarter*".
+    - Variações: "*we went with X over Y*", "*we picked X
+      instead of Y*", "*X won over Y on cost*".
+    - No ADR escrito, a decisão vai no **ativo e no futuro
+      próximo**: "*we will add a Kafka topic*". Contexto no
+      presente, consequências com "*this means…*" ou
+      "*as a result, …*".
+    - Rejeitados com respeito: "*we considered Y but
+      rejected it — it missed the deadline constraint*".
+      Nunca "*Y is bad*" — "*Y didn't fit*".
+
+    E os três calques que minam a credibilidade do ADR:
+
+    - "**I am agree** with the ADR" → "**I agree**".
+    - "chose the queue **instead the rewrite**" →
+      "**instead of**".
+    - "**the same guarantees than** a rewrite" →
+      "**the same as**".
+  examples:
+    - { en: "We chose Kafka over RabbitMQ because the team already runs it.", pt: "Escolhemos Kafka em vez de RabbitMQ porque o time já o opera." }
+    - { en: "We considered a rewrite but rejected it — it missed the deadline.", pt: "Consideramos um rewrite mas o rejeitamos — não cabia no prazo." }
+    - { en: "We will add a Kafka topic between checkout and payments.", pt: "Vamos adicionar um tópico Kafka entre checkout e pagamentos." }
+    - { en: "This ADR was superseded by ADR-011 — the managed queue won.", pt: "Este ADR foi substituído pelo ADR-011 — a fila gerenciada venceu." }
+    - { en: "As a result, the receipt is eventually consistent.", pt: "Como resultado, o recibo é eventualmente consistente." }
+    - { en: "Broker sizing is out of scope for this ADR.", pt: "O dimensionamento do broker está fora do escopo deste ADR." }
+
+examples:
+  - en: "ADR-003: use a queue between checkout and payments."
+    pt: "ADR-003: usar fila entre checkout e pagamentos."
+    context: "O título numerado."
+  - en: "Status: accepted — signed off after the design review."
+    pt: "Status: aceito — aprovado depois do design review."
+    context: "O estado do ADR."
+  - en: "The forces: weekend spikes, the Q3 deadline, a team of four."
+    pt: "As forças: picos de fim de semana, o prazo do Q3, um time de quatro."
+    context: "O que pesa na decisão."
+  - en: "We chose the queue over a rewrite because it ships this quarter."
+    pt: "Escolhemos a fila em vez do rewrite porque entrega neste trimestre."
+    context: "A fórmula escolha + rejeitada + motivo."
+  - en: "We considered RabbitMQ but rejected it — nobody on the team has run it."
+    pt: "Consideramos RabbitMQ mas rejeitamos — ninguém no time já o operou."
+    context: "O rejeitado documentado."
+  - en: "As a result, the receipt is eventually consistent — the trade-off we accepted."
+    pt: "Como resultado, o recibo é eventualmente consistente — o trade-off aceito."
+    context: "A consequência no ADR."
+  - en: "This decision is out of scope for the migration plan."
+    pt: "Essa decisão está fora do escopo do plano de migração."
+    context: "A fronteira declarada."
+  - en: "ADR-011 superseded ADR-003 when the managed queue launched."
+    pt: "O ADR-011 substituiu o ADR-003 quando a fila gerenciada lançou."
+    context: "O sucessor apontado."
+
+variations:
+  - idea: '"a fórmula do ADR"'
+    items:
+      - { register: "Boa", text: "We chose the queue over a rewrite because it ships this quarter.", adequate: true }
+      - { register: "Boa", text: "We considered sync retries but rejected them — they hide the coupling.", adequate: true }
+      - { register: "Inadequada", text: "The rewrite is bad, so we picked the queue.", adequate: false, note: "Rejeitado com respeito: *rejected it — it missed the deadline*." }
+      - { register: "Inadequada", text: "We chose the queue instead the rewrite.", adequate: false, note: "*Instead of* — sempre com 'of'." }
+  - idea: '"o status do documento"'
+    items:
+      - { register: "Boa", text: "The ADR is proposed — pending Beth's sign-off.", adequate: true }
+      - { register: "Boa", text: "ADR-011 superseded this one — see the link.", adequate: true }
+      - { register: "Inadequada", text: "I am agree — let's mark it accepted.", adequate: false, note: "*I agree* — agree é verbo, sem 'am'." }
+      - { register: "Inadequada", text: "This ADR is deprecated, deleted.", adequate: false, note: "ADR não se apaga: *superseded by ADR-XXX*." }
+
+brErrors:
+  - { wrong: "I am agree with the ADR — ship it.", right: "I agree with the ADR — ship it.", why: "I agree", tag: br.am-agree }
+  - { wrong: "We chose the queue instead the rewrite.", right: "We chose the queue instead of the rewrite.", why: "instead of", tag: br.instead-of }
+  - { wrong: "The queue gives the same guarantees than a rewrite.", right: "The queue gives the same guarantees as a rewrite.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the ADR in the review.", right: "We discussed the ADR in the review.", why: "discussed the ADR", tag: br.discuss-about }
+  - { wrong: "We pretend to deprecate ADR-002.", right: "We intend to deprecate ADR-002.", why: "intend to", tag: br.pretend }
+  - { wrong: "It depends of the sign-off.", right: "It depends on the sign-off.", why: "depends on", tag: br.depend-of }
+  - { wrong: "The ADR worths writing.", right: "The ADR is worth writing.", why: "is worth writing", tag: br.worths }
+  - { wrong: "Can you explain me the decision?", right: "Can you explain the decision to me?", why: "explain the decision", tag: br.explain-me }
+  - { wrong: "The ADR must to list the forces.", right: "The ADR must list the forces.", why: "must list", tag: br.modal-to }
+  - { wrong: "I think it make sense to supersede it.", right: "I think it makes sense to supersede it.", why: "it makes sense", tag: br.it-makes-sense }
+
+dialogue:
+  title: "Document it as an ADR"
+  lines:
+    - { speaker: Carlos, text: "Document the queue as an ADR — short, dated, honest about the losers." }
+    - { speaker: Yuri, text: "Draft's up: 'ADR-003 — use a queue between checkout and payments'. Status proposed." }
+    - { speaker: Beth, text: "Walk me through the decision line." }
+    - { speaker: Yuri, text: "'We chose a queue over a rewrite because it ships this quarter and decouples the services.'" }
+    - { speaker: Beth, text: "And RabbitMQ? Someone will ask." }
+    - { speaker: Yuri, text: "Listed as considered but rejected — nobody on the team has run it. Same for sync retries: they hide the coupling instead of removing it." }
+    - { speaker: Carlos, text: "Consequences?" }
+    - { speaker: Yuri, text: "'As a result, the receipt is eventually consistent, and we take on Kafka ops.' Broker sizing is out of scope." }
+    - { speaker: Beth, text: "I am— I mean, I agree. Signed off — mark it accepted." }
+    - { speaker: Carlos, text: "And when the managed queue launches, write ADR-011 to supersede it — never delete the trail." }
+  notes:
+    - "a fórmula 'we chose X over Y because…' aparece duas vezes — decora a estrutura."
+    - "a Beth quase cai no 'I am agree' — e se corrige."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "An ADR has five parts. A numbered title — 'ADR-003: use a queue'. A status — proposed, accepted, deprecated or superseded. The context and forces — what pushes the decision. The decision in one active sentence — 'we will add a Kafka topic'. And the consequences — the good and the bad." }
+    - { speaker: Yuri, text: "The sentence that carries it is 'we chose X over Y because Z'. The rejected options stay in the document with their reasons — 'considered but rejected'. And an ADR never gets deleted: when the decision changes, a new ADR supersedes it." }
+    - { speaker: Beth, text: "Three calques to keep out of the record: 'I am agree' is just 'I agree' — agree is a verb. 'Chose the queue instead the rewrite' needs 'of' — 'instead of'. And 'the same guarantees than' takes 'as' — 'the same as'." }
+  questions:
+    - { id: M21-02-l1, type: multiple_choice, prompt: "As cinco partes do ADR são…", options: ["título, status, contexto, decisão, consequências", "título, autor, código, teste, deploy", "problema, solução, bug, fix, release", "status, prazo, custo, risco, time"], answer: 0, explanation: "Numbered title → status → context → decision → consequences.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-02-l2, type: multiple_choice, prompt: "Um ADR que envelheceu é…", options: ["deletado do repo", "reescrevido no lugar", "superseded por um ADR novo", "arquivado sem referência"], answer: 2, explanation: "Superseded aponta o sucessor — o histórico fica.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-02-l3, type: fill_blank, prompt: "We chose the queue ___ a rewrite because it ships this quarter.", accepted: ["over"], explanation: "'We chose X over Y because…'.", tags: [gram.argument-connectors] }
+    - { id: M21-02-l4, type: error_correction, prompt: "We chose the queue instead the rewrite.", accepted: ["We chose the queue instead of the rewrite.", "We chose the queue instead of the rewrite"], explanation: "'instead of'.", tags: [br.instead-of] }
+    - { id: M21-02-l5, type: multiple_choice, prompt: "A decisão no ADR vai em…", options: ["passado passivo", "uma frase ativa — 'we will add…'", "condicional longa", "lista de bullets"], answer: 1, explanation: "Ativo e direto: 'we will add a Kafka topic'.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-02-l6, type: multiple_choice, prompt: "Opções rejeitadas no ADR ficam…", options: ["fora do documento", "só na ata da reunião", "em outro ADR", "documentadas com o motivo"], answer: 3, explanation: "'Considered but rejected' — com a razão.", tags: [comp.listening, vocab.decisions] }
+
+writing:
+  prompt: |
+    **Cenário:** o design review aprovou a fila. Agora o
+    Carlos quer o ADR curto no repo.
+
+    **Tarefa:** escreva o corpo do ADR-003 em 80–110 palavras:
+    uma linha de contexto com as forces, a decisão em frase
+    ativa ("we will…"), a fórmula "we chose X over Y
+    because…" com pelo menos um rejeitado nomeado, e as
+    consequências (boa + ruim). Feche declarando o que está
+    out of scope.
+  constraints:
+    - { label: "Contexto e forces", pattern: "\\bforce|constraint|context\\w*\\b" }
+    - { label: "A decisão ativa", pattern: "\\bwe will\\b" }
+    - { label: "A fórmula", pattern: "\\bchose|went with|picked\\b" }
+    - { label: "O rejeitado", pattern: "\\brejected|over\\b" }
+    - { label: "O escopo", pattern: "\\bout of scope\\b" }
+  rubric:
+    - "Decisão em frase ativa ('we will…')"
+    - "'We chose X over Y because…' completa"
+    - "Rejeitado nomeado com motivo"
+    - "Consequência boa e ruim; out of scope declarado"
+  model: >-
+    Context and forces: checkout calls the payment API
+    synchronously, weekend traffic doubles, and the Q3
+    deadline rules out long projects. Decision: we will add a
+    Kafka topic between the services. We chose a queue over a
+    full rewrite because it ships this quarter and gives the
+    same decoupling at a third of the effort; RabbitMQ was
+    considered but rejected — nobody has run it.
+    Consequences: backpressure on spikes, but the receipt is
+    eventually consistent and we take on Kafka ops. Broker
+    sizing is out of scope.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.decisions, gram.argument-connectors]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando o ADR-003 verbalmente: o contexto, a fórmula 'we chose X over Y because…', o rejeitado com motivo e as consequências."
+    maxSeconds: 45
+    targetPhrases:
+      - we chose
+      - over
+      - because
+      - we will add
+      - considered but rejected
+      - instead of
+      - the same as
+      - I agree
+      - status
+      - superseded
+      - out of scope
+      - the forces
+      - accepted
+      - signed off
+      - consequences
+      - a rewrite
+    checklist:
+      - "'we chose X over Y because…' completa"
+      - "rejeitado com respeito, não 'bad'"
+      - "'I agree', 'instead of', 'the same as'"
+      - "o que está out of scope declarado"
+
+quiz:
+  - { id: M21-02-q1, type: multiple_choice, prompt: "A frase que carrega o ADR é…", options: ["we think X is good", "we chose X over Y because Z", "X is better than Y", "maybe we could use X"], answer: 1, explanation: "Escolha + rejeitada + motivo.", tags: [gram.argument-connectors] }
+  - { id: M21-02-q2, type: error_correction, prompt: "I am agree with the ADR.", accepted: ["I agree with the ADR.", "I agree with the ADR"], explanation: "'I agree' — sem 'am'.", tags: [br.am-agree] }
+  - { id: M21-02-q3, type: multiple_choice, prompt: "Um ADR que perdeu a validade é marcado como…", options: ["deleted", "wrong", "superseded — com o sucessor apontado", "draft"], answer: 2, explanation: "Superseded — o histórico não se apaga.", tags: [vocab.decisions] }
+  - { id: M21-02-q4, type: fill_blank, prompt: "RabbitMQ was considered but ___ — nobody has run it.", accepted: ["rejected"], explanation: "'Considered but rejected' — com o motivo.", tags: [vocab.decisions] }
+  - { id: M21-02-q5, type: multiple_choice, prompt: "'The forces' num ADR são…", options: ["o time de segurança", "as pressões que pesam na decisão", "os bugs abertos", "os custos de cloud"], answer: 1, explanation: "Deadline, tamanho do time, stack existente.", tags: [vocab.decisions] }
+  - { id: M21-02-q6, type: error_correction, prompt: "The queue gives the same guarantees than a rewrite.", accepted: ["The queue gives the same guarantees as a rewrite.", "The queue gives the same guarantees as a rewrite"], explanation: "'the same as'.", tags: [br.same-than] }
+  - { id: M21-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["topic", "a", "add", "will", "kafka", "we"], answer: "we will add a kafka topic", explanation: "A decisão em frase ativa.", tags: [vocab.decisions] }
+  - { id: M21-02-q8, type: multiple_choice, prompt: "A decisão no corpo do ADR vai em…", options: ["frase ativa — 'we will add…'", "passado — 'it was decided'", "pergunta — 'should we…?'", "condicional — 'we would…'"], answer: 0, explanation: "Ativo e direto — 'we will'.", tags: [gram.argument-connectors, vocab.decisions] }
+
+srsCards:
+  - { front: "ADR", back: "Architecture decision record — a decisão registrada no repo.", tag: vocab.decisions }
+  - { front: "status", back: "proposed → accepted; deprecated, superseded — o estado do ADR.", tag: vocab.decisions }
+  - { front: "to supersede", back: "Substituir — 'ADR-011 superseded ADR-003'.", tag: vocab.decisions }
+  - { front: "proposed", back: "Em discussão — 'still proposed, pending sign-off'.", tag: vocab.decisions }
+  - { front: "we chose X over Y", back: "Escolha + rejeitada + 'because' — a frase do ADR.", tag: vocab.decisions }
+  - { front: "forces", back: "O que pesa na decisão — deadline, time, stack.", tag: vocab.decisions }
+  - { front: "accepted", back: "Aprovado e valendo — a referência da decisão.", tag: vocab.decisions }
+  - { front: "sign off", back: "Aprovar formalmente — 'Beth signed off on the ADR'.", tag: vocab.decisions }
+  - { front: "out of scope", back: "O que o ADR não decide — 'sizing is out of scope'.", tag: vocab.decisions }
+  - { front: "the rejected option", back: "Documentada com motivo — 'considered but rejected'.", tag: vocab.decisions }
+  - { front: "backpressure", back: "A fila protege o consumidor — 'spikes stop hitting the API'.", tag: vocab.decisions }
+  - { front: "living document", back: "Ganha sucessor, não edição — a linha do tempo fica.", tag: vocab.decisions }
+
+review:
+  preferTags: [vocab.decisions, gram.argument-connectors, br.instead-of]
+  notes: "Revisão prioriza a fórmula 'we chose X over Y because…', o ciclo de status do ADR e os calques de argumentação na escrita."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
