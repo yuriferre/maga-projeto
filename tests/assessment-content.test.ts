@@ -1027,3 +1027,43 @@ describe("M28 assessment variants", () => {
     expect(checkExercise(q, "I'm interested in the role and my pretension is remote work.").correct).toBe(false);
   });
 });
+
+describe("M29 assessment variants", () => {
+  const m29 = bundle.moduleAssessments["M29"]!;
+  it("requires 'part of' and present perfect on A02", () => {
+    const q = m29.items.find((q) => q.id === "M29-A02")!;
+    expect(checkExercise(q, "I'm part of the SRE team — I've been there since 2021.").correct).toBe(true);
+    expect(checkExercise(q, "I make part of the SRE team — I've been there since 2021.").correct).toBe(false);
+    expect(checkExercise(q, "I'm part of the SRE team — I work there since 2021.").correct).toBe(false);
+  });
+  it("requires 'weakness' and 'at that time' on A03", () => {
+    const q = m29.items.find((q) => q.id === "M29-A03")!;
+    expect(checkExercise(q, "My weakness is impatience — at that time we had no process.").correct).toBe(true);
+    expect(checkExercise(q, "My defect is impatience — at that time we had no process.").correct).toBe(false);
+    expect(checkExercise(q, "My weakness is impatience — in that epoch we had no process.").correct).toBe(false);
+  });
+  it("requires 'it's been X' and 'discussed my' on A04", () => {
+    const q = m29.items.find((q) => q.id === "M29-A04")!;
+    expect(checkExercise(q, "It's been four years here — we discussed my promotion.").correct).toBe(true);
+    expect(checkExercise(q, "It's already 4 years that I'm here — we discussed my promotion.").correct).toBe(false);
+    expect(checkExercise(q, "It's been four years here — we discussed about my promotion.").correct).toBe(false);
+  });
+  it("requires 'interested' and 'goal/looking for' on A06", () => {
+    const q = m29.items.find((q) => q.id === "M29-A06")!;
+    expect(checkExercise(q, "I'm interested in this team and my goal is ownership.").correct).toBe(true);
+    expect(checkExercise(q, "I have interest in this team and my goal is ownership.").correct).toBe(false);
+    expect(checkExercise(q, "I'm interested in this team and my pretension is ownership.").correct).toBe(false);
+  });
+  it("requires 'degree/graduated' and 'promoted to' on A07", () => {
+    const q = m29.items.find((q) => q.id === "M29-A07")!;
+    expect(checkExercise(q, "I have a degree in engineering and was promoted to staff engineer.").correct).toBe(true);
+    expect(checkExercise(q, "I formed in engineering and was promoted to staff engineer.").correct).toBe(false);
+    expect(checkExercise(q, "I have a degree in engineering and was promoted for staff engineer.").correct).toBe(false);
+  });
+  it("requires 'the same as' and 'a question' on A09", () => {
+    const q = m29.items.find((q) => q.id === "M29-A09")!;
+    expect(checkExercise(q, "We get the same latency as before — I have a question about the fix.").correct).toBe(true);
+    expect(checkExercise(q, "We get the same latency than before — I have a question about the fix.").correct).toBe(false);
+    expect(checkExercise(q, "We get the same latency as before — I have doubt about the fix.").correct).toBe(false);
+  });
+});

@@ -1,0 +1,102 @@
+# Avaliação do módulo M29: 15 itens cobrindo as cinco aulas + escrita (autoavaliação da simulação) + fala (entrevista comprimida).
+id: M29
+title: "Avaliação do módulo M29: entrevistas comportamentais"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M29-A01, type: multiple_choice, prompt: "The best behavioral answers run on…", options: ["the STAR skeleton plus real details and anchor words", "a fully memorized script", "pure improvisation", "technical jargon"], answer: 0, explanation: "Estrutura, não script — âncoras de 3–4 palavras.", tags: [vocab.interview] }
+  - { id: M29-A02, type: error_correction, prompt: "I make part of the SRE team — I work there since 2021.", accepted: ["I'm part of the SRE team — I've been there since 2021.", "I'm part of the SRE team — I've been there since 2021", "I'm part of the SRE team — I've worked there since 2021."], explanation: 'Dois calques: "part of" + present perfect.', tags: [br.make-part-of, br.work-since] }
+  - { id: M29-A03, type: error_correction, prompt: "My defect is impatience — in that epoch we had no process.", accepted: ["My weakness is impatience — at that time we had no process.", "My weakness is impatience — at that time we had no process", "My weakness is impatience — back then we had no process."], explanation: 'Dois calques: "weakness" + "at that time".', tags: [br.my-defect, br.in-that-epoch] }
+  - { id: M29-A04, type: error_correction, prompt: "It's already 4 years that I'm here — we discussed about my promotion.", accepted: ["It's been four years here — we discussed my promotion.", "It's been four years here — we discussed my promotion", "I've been here four years — we discussed my promotion."], explanation: 'Dois calques: "it''s been X" + "discussed my".', tags: [br.its-already-years, br.discuss-about] }
+  - { id: M29-A05, type: multiple_choice, prompt: "When the interviewer says 'I want to poke at that a bit', respond with…", options: ["two minutes of justification", "'I already answered that'", "silence", "'that's a fair challenge — let me be more specific'"], answer: 3, explanation: "Receber o follow-up como justo + especificidade.", tags: [vocab.interview] }
+  - { id: M29-A06, type: error_correction, prompt: "I have interest in this team and my pretension is ownership.", accepted: ["I'm interested in this team and my goal is ownership.", "I'm interested in this team and my goal is ownership", "I'm interested in this team and I'm looking for ownership."], explanation: 'Dois calques: "I''m interested" + "goal/looking for".', tags: [br.have-interest, br.pretension] }
+  - { id: M29-A07, type: error_correction, prompt: "I formed in engineering and was promoted for staff engineer.", accepted: ["I have a degree in engineering and was promoted to staff engineer.", "I have a degree in engineering and was promoted to staff engineer", "I graduated in engineering and was promoted to staff engineer."], explanation: 'Dois calques: "a degree/graduated" + "promoted to".', tags: [br.formed-in, br.promoted-for] }
+  - { id: M29-A08, type: fill_blank, prompt: "Credit where it's ___ — Priya wrote the rollback path.", accepted: ["due"], explanation: "'Credit where it's due' — crédito por nome.", tags: [vocab.interview] }
+  - { id: M29-A09, type: error_correction, prompt: "We get the same latency than before — I have doubt about the fix.", accepted: ["We get the same latency as before — I have a question about the fix.", "We get the same latency as before — I have a question about the fix", "We get the same latency as before — I'm not sure about the fix."], explanation: 'Dois calques: "the same as" + "a question".', tags: [br.same-than, br.doubt] }
+  - { id: M29-A10, type: error_correction, prompt: "I was responsible by the migration — in my vision it went well.", accepted: ["I was responsible for the migration — in my view it went well.", "I was responsible for the migration — in my view it went well"], explanation: 'Dois calques: "responsible for" + "in my view".', tags: [br.responsible-by, br.in-my-vision] }
+  - { id: M29-A11, type: multiple_choice, prompt: "The hardest-question structure — fact, context, change, forward — fits…", options: ["only the weakness question", "weakness, gaps, exits and layoffs alike", "only salary talk", "small talk"], answer: 3, explanation: "A mesma moldura para todas as difíceis.", tags: [vocab.interview] }
+  - { id: M29-A12, type: match, prompt: "Associe o sinal de senioridade ao que ele prova.", pairs: [{ left: "we traded speed for safety", right: "you see the cost, not just the gain" }, { left: "in hindsight, I should have paged sooner", right: "reflection offered before being asked" }, { left: "I designed, we built", right: "credit balanced — I for decisions, we for execution" }, { left: "success looked like p99 under 300ms", right: "you defined done before starting" }], explanation: "Cada marcador prova um traço de quem decide.", tags: [vocab.interview] }
+  - { id: M29-A13, type: fill_blank, prompt: "Is there anything about my ___ you'd like me to expand on?", accepted: ["background", "experience", "answers"], explanation: "A pergunta que oferece profundidade no fecho.", tags: [vocab.interview] }
+  - { id: M29-A14, type: error_correction, prompt: "I was let go and needed two weeks advice for the new offer.", accepted: ["I was let go and needed two weeks' notice for the new offer.", "I was let go and needed two weeks' notice for the new offer"], explanation: '"Notice" — advice é conselho.', tags: [br.advice-notice] }
+  - { id: M29-A15, type: multiple_choice, prompt: "A story where everything went right and everyone agreed reads as…", options: ["strong", "junior — deciders know nothing works like that", "confident", "well-prepared"], answer: 1, explanation: "O anti-sinal — sem custo nem reflexão.", tags: [vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** o coach pediu por
+    escrito a autoavaliação da sua entrevista
+    comportamental simulada — a versão honesta,
+    pela rubrica.
+
+    **Tarefa:** escreva 100–130 palavras: 1) onde a
+    estrutura segurou (qual resposta, qual âncora),
+    2) onde você decorou, desviou ou se defendeu,
+    3) quais sinais de senioridade apareceram e
+    qual faltou, 4) o plano de treino antes da
+    próxima entrevista real.
+  constraints:
+    - { label: "O que segurou", pattern: "\\bheld|worked|landed|clean|structure|anchor\\b" }
+    - { label: "Onde faltou", pattern: "\\bmissed|froze|rushed|defensive|memorized|skipped\\b" }
+    - { label: "Os sinais", pattern: "\\btrade-off|hindsight|constraint|credit|i designed|owned\\b" }
+    - { label: "O treino", pattern: "\\bdrill|practice|work on|next time|before the next\\b" }
+  rubric:
+    - "Autoavaliação honesta — acertos e faltas"
+    - "Sinais avaliados um a um"
+    - "Plano de treino concreto"
+    - "Sem calques ('weakness', 'part of', 'it's been', 'at that time')"
+  model: >-
+    Honest self-review, rubric in hand. What held:
+    the structure — the conflict story stayed on
+    its anchors through the follow-up, and the hard
+    answers ran fact-context-change-forward without
+    wobbling. Where I slipped: I rushed the layoff
+    answer once and it came out defensive before I
+    corrected. Signals: the trade-off and the
+    constraint landed naturally; "in hindsight"
+    worked; I forgot the credit line — Priya never
+    got named. The plan: drill the weakness answer
+    until it's matter-of-fact, script two stronger
+    closing questions, and rehearse "any concerns I
+    can address" so it doesn't sound read aloud.
+    That's the honest work before the real one
+    lands.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  prompt: "Grave até 120 segundos: a entrevista comportamental comprimida — pitch de abertura, UMA clássica com follow-up ('that's a fair challenge — let me be specific'), UMA difícil em fato→contexto→mudança→frente (fraqueza ou gap), e o fecho com duas perguntas + 'any concerns I can address'."
+  maxSeconds: 120
+  targetPhrases:
+    - tell me about yourself
+    - i'm a platform engineer
+    - tell me about a time
+    - the call i made
+    - we traded
+    - the constraint was
+    - i designed, we built
+    - that's a fair challenge
+    - let me be more specific
+    - the honest answer is
+    - it's something i've been working on
+    - i was let go
+    - i used the gap to
+    - in hindsight
+    - credit where it's due
+    - what i'd do differently
+    - does that answer your question
+    - any concerns i can address
+    - looking for a better fit
+    - what matters is what happened next
+  checklist:
+    - "quatro blocos atravessados"
+    - "follow-up recebido com 'fair challenge'"
+    - "difícil em fato→contexto→mudança→frente, sem defesa"
+    - "fecho com perguntas + 'any concerns'"
+    - "sem calques ('weakness', 'part of', 'it's been', 'at that time')"
+
+passCriteria:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3
