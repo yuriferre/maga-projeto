@@ -1,0 +1,306 @@
+id: M22-03
+module: M22
+order: 3
+title: "Mitigações e plano B: 'to reduce that risk…', 'if that happens, we…'"
+objective: >-
+  Ao final, cada risco que você apresenta vem com a
+  mitigação e o plano B: "to reduce that risk, we…",
+  "if that happens, we roll back", "the fallback is…".
+durationMin: 40
+competencies: [SPK, WRI]
+tags: [vocab.risk, gram.probability-modals, comp.speaking, comp.writing, gram.conditionals-real]
+prerequisites: [M22-02]
+
+context:
+  scenario: |
+    A matriz de riscos da migração está no doc — e o Carlos
+    aponta o que falta: "**risks without mitigations are
+    just worries. What's the plan when it goes wrong?**"
+
+    A mitigação tem gramática própria — três construções:
+
+    - **a ação preventiva** — "*to reduce that risk, we
+      rehearse the rollback twice*";
+    - **o plano B** — o condicional real: "*if the cutover
+      overruns, we abort and re-run*";
+    - **o fallback** — o estado seguro para onde se volta:
+      "*the fallback is the old cluster — it stays warm
+      for a week*".
+
+    E a disciplina: **cada risco ganha um dono e um
+    gatilho** — "*if p99 crosses 200ms for five minutes,
+    Carlos calls the abort*". Mitigação sem gatilho é
+    desejo; com gatilho, é plano. O risco que não dá para
+    mitigar se declara — "*that one we accept*".
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "mitigation"
+    meaning: 'a mitigação — a ação que reduz likelihood ou impact'
+    example: "The mitigation is a rehearsed rollback — tested twice."
+    translation: "A mitigação é um rollback ensaiado — testado duas vezes."
+    note: "Mitigação reduz, não elimina — o que sobra é residual risk."
+  - term: "to reduce that risk"
+    meaning: 'para reduzir esse risco — a preventiva declarada'
+    example: "To reduce that risk, we freeze writes in the last ten minutes."
+    translation: "Para reduzir esse risco, congelamos escritas nos últimos dez minutos."
+    note: "'To reduce X, we Y' — a construção da preventiva."
+  - term: "plan B"
+    meaning: 'o plano B — o que se faz quando o plano falha'
+    example: "Plan B is abort and re-run next window — decided in advance."
+    translation: "O plano B é abortar e rodar na próxima janela — decidido antes."
+    note: "Plano B se decide na calma — improvisar na pressão não é plano."
+  - term: "fallback"
+    meaning: 'o fallback — o estado seguro para onde se volta'
+    example: "The fallback is the old cluster — it stays warm for a week."
+    translation: "O fallback é o cluster antigo — fica quente por uma semana."
+    note: "Fallback ≠ plan B: fallback é o lugar, plan B é a ação."
+  - term: "rollback"
+    meaning: 'a reversão — voltar ao estado anterior'
+    example: "The rollback is scripted — one command, ten minutes."
+    translation: "O rollback é roteirizado — um comando, dez minutos."
+    note: "Rollback ensaiado é mitigação; não ensaiado é esperança."
+  - term: "trigger"
+    meaning: 'o gatilho — a condição que dispara o plano'
+    example: "The trigger is p99 over 200ms for five minutes — then we abort."
+    translation: "O gatilho é p99 acima de 200ms por cinco minutos — aí abortamos."
+    note: "Gatilho bom é mensurável e decidido antes — 'if X for Y minutes'."
+  - term: "to accept the risk"
+    meaning: 'aceitar o risco — assumi-lo de olhos abertos'
+    example: "The cosmetic risk we accept — no mitigation worth the effort."
+    translation: "O risco cosmético aceitamos — nenhuma mitigação vale o esforço."
+    note: "Aceitar também é decisão — mas se declara, não se esquece."
+  - term: "contingency"
+    meaning: 'a contingência — o plano para o cenário que acontecer'
+    example: "The contingency for an overrun is a second window Sunday."
+    translation: "A contingência para estouro é uma segunda janela no domingo."
+    note: "Contingency = o plano do 'e se'; mais formal que plan B."
+  - term: "guardrail"
+    meaning: 'a proteção — o limite automático que contém o dano'
+    example: "A rate-limit guardrail caps the damage if the consumer loops."
+    translation: "Uma proteção de rate-limit contém o dano se o consumer entrar em loop."
+    note: "Guardrail age sozinho — mitigação que não depende de ninguém acordado."
+  - term: "dry run"
+    meaning: 'o ensaio — a execução de teste antes da real'
+    example: "Thursday's dry run validates the rollback and the timings."
+    translation: "O ensaio de quinta valida o rollback e os tempos."
+    note: "Dry run = o ensaio geral — onde o plano encontra a realidade."
+  - term: "to rehearse"
+    meaning: 'ensaiar — praticar o plano antes de precisar'
+    example: "We rehearse the abort twice — Thursday and Friday morning."
+    translation: "Ensaiamos o abort duas vezes — quinta e sexta de manhã."
+    note: "'Rehearse the rollback' — mitigação que se pratica."
+  - term: "abort"
+    meaning: 'abortar — parar a operação e voltar ao seguro'
+    example: "If the lag grows past five minutes, we abort — no debate mid-cutover."
+    translation: "Se o lag passar de cinco minutos, abortamos — sem debate no meio."
+    note: "O critério de abort é decidido antes — nunca improvisado."
+
+grammar:
+  title: "condicional real — o 'if that happens, we…' do plano B"
+  explanation: |
+    Plano B usa o **condicional real** — if + presente,
+    resultado no will ou imperativo:
+
+    - "*If the cutover overruns, we abort.*"
+    - "*If p99 crosses 200ms for five minutes, Carlos
+      calls it.*"
+    - "**Should** the lag grow, **we pause** the writers." —
+      o 'should' invertido, mais formal que 'if'.
+
+    A preventiva usa infinitivo de propósito: "**to reduce
+    that risk**, we freeze writes", "**to bound the blast
+    radius**, we migrate one region first".
+
+    E a aceitação: "*that risk we accept — no mitigation
+    is worth the effort*".
+
+    Calques: "**we are in risk**" → "**at risk**"; "**the
+    risk to overrun**" → "**of overrunning**"; "**the plan
+    is danger**" → "**dangerous**".
+  examples:
+    - { en: "To reduce that risk, we rehearse the rollback twice.", pt: "Para reduzir esse risco, ensaiamos o rollback duas vezes." }
+    - { en: "If the cutover overruns, we abort and re-run next window.", pt: "Se a virada estourar, abortamos e rodamos na próxima janela." }
+    - { en: "Should the lag grow past five minutes, we pause the writers.", pt: "Caso o lag passe de cinco minutos, pausamos os writers." }
+    - { en: "The trigger is measurable: p99 over 200ms for five minutes.", pt: "O gatilho é mensurável: p99 acima de 200ms por cinco minutos." }
+    - { en: "The fallback is the old cluster — warm for a week.", pt: "O fallback é o cluster antigo — quente por uma semana." }
+    - { en: "The cosmetic risk we accept — no mitigation is worth the effort.", pt: "O risco cosmético aceitamos — nenhuma mitigação vale o esforço." }
+
+examples:
+  - en: "To reduce the overrun risk, we migrate one region first."
+    pt: "Para reduzir o risco de estouro, migramos uma região primeiro."
+    context: "A preventiva."
+  - en: "If that happens, we abort — the trigger is p99 over 200ms."
+    pt: "Se isso acontecer, abortamos — o gatilho é p99 acima de 200ms."
+    context: "O plano B com gatilho."
+  - en: "The fallback is the old cluster — it stays warm for a week."
+    pt: "O fallback é o cluster antigo — fica quente por uma semana."
+    context: "O estado seguro."
+  - en: "A rate-limit guardrail caps the damage if the consumer loops."
+    pt: "Um guardrail de rate-limit contém o dano se o consumer entrar em loop."
+    context: "A proteção automática."
+  - en: "Thursday's dry run validates the rollback and the timings."
+    pt: "O ensaio de quinta valida o rollback e os tempos."
+    context: "O ensaio geral."
+  - en: "Every risk gets an owner and a trigger — Carlos calls the abort."
+    pt: "Cada risco ganha dono e gatilho — o Carlos chama o abort."
+    context: "A disciplina do plano."
+  - en: "That risk we accept — mitigating it would cost more than the exposure."
+    pt: "Esse risco aceitamos — mitigá-lo custaria mais que a exposição."
+    context: "A aceitação declarada."
+  - en: "Should the test move the numbers, we revisit the whole trade."
+    pt: "Caso o teste mova os números, revisitamos a troca inteira."
+    context: "O 'should' invertido."
+
+variations:
+  - idea: '"o risco com mitigação e gatilho"'
+    items:
+      - { register: "Boa", text: "To reduce that risk, writes freeze for ten minutes — if lag crosses five minutes, we abort.", adequate: true }
+      - { register: "Boa", text: "The fallback is the old cluster, warm for a week — Carlos owns the abort call.", adequate: true }
+      - { register: "Inadequada", text: "If it fails we'll think of something.", adequate: false, note: "Plano B se decide na calma — *if X, we Y* com gatilho mensurável." }
+      - { register: "Inadequada", text: "We are in risk if the rollback fails.", adequate: false, note: "*At risk* — 'em risco' é 'at'." }
+  - idea: '"aceitar ou mitigar — os dois são decisão"'
+    items:
+      - { register: "Boa", text: "The cosmetic risk we accept — mitigation costs more than the exposure.", adequate: true }
+      - { register: "Boa", text: "Should the lag grow, we pause the writers — the guardrail caps the rest.", adequate: true }
+      - { register: "Inadequada", text: "There's a risk to overrun the window.", adequate: false, note: "*Risk of overrunning* — 'risco de' é 'of + -ing'." }
+      - { register: "Inadequada", text: "The fallback plan is danger.", adequate: false, note: "*Dangerous* — 'perigoso' é adjetivo." }
+
+brErrors:
+  - { wrong: "There's a risk to overrun the window.", right: "There's a risk of overrunning the window.", why: "risk of overrunning", tag: br.risk-to }
+  - { wrong: "We are in risk if the rollback fails.", right: "We are at risk if the rollback fails.", why: "at risk", tag: br.in-risk }
+  - { wrong: "The fallback plan is danger.", right: "The fallback plan is dangerous.", why: "is dangerous", tag: br.is-danger }
+  - { wrong: "The rehearsed rollback compensates the risk.", right: "The rehearsed rollback offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
+  - { wrong: "We must to rehearse twice.", right: "We must rehearse twice.", why: "must rehearse", tag: br.modal-to }
+  - { wrong: "I am agree the trigger is right.", right: "I agree the trigger is right.", why: "I agree", tag: br.am-agree }
+  - { wrong: "The same trigger than last time.", right: "The same trigger as last time.", why: "the same as", tag: br.same-than }
+  - { wrong: "We chose abort instead re-running.", right: "We chose abort instead of re-running.", why: "instead of", tag: br.instead-of }
+  - { wrong: "It depends of the window.", right: "It depends on the window.", why: "depends on", tag: br.depend-of }
+  - { wrong: "I have doubt about the trigger.", right: "I have a doubt about the trigger.", why: "a doubt", tag: br.doubt }
+
+dialogue:
+  title: "Risks without mitigations are just worries"
+  lines:
+    - { speaker: Carlos, text: "The matrix is good — but risks without mitigations are just worries. What's the plan?" }
+    - { speaker: Yuri, text: "Risk one, the overrun: to reduce it, we migrate one region first. If the cutover still overruns, we abort and re-run next window." }
+    - { speaker: Beth, text: "Who calls the abort, and when?" }
+    - { speaker: Yuri, text: "Carlos does — the trigger is p99 over 200ms or replication lag past five minutes. Decided now, not mid-cutover." }
+    - { speaker: Carlos, text: "And the data-loss exposure?" }
+    - { speaker: Yuri, text: "Writes freeze for the last ten minutes, and the fallback is the old cluster — it stays warm for a week. Should anything fail, we're back in ten." }
+    - { speaker: Beth, text: "What are you not mitigating?" }
+    - { speaker: Yuri, text: "The cosmetic risk — stale dashboards for a day. We accept it: mitigation would cost more than the exposure." }
+    - { speaker: Carlos, text: "And the proof the plan works?" }
+    - { speaker: Yuri, text: "Thursday's dry run — we rehearse the rollback and the abort, and the timings get measured, not assumed." }
+    - { speaker: Carlos, text: "Now it's a plan, not a worry. Document the triggers." }
+  notes:
+    - "cada risco sai com preventiva + plano B + gatilho + dono."
+    - "'that risk we accept' — aceitar é decisão declarada, não esquecimento."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "Every risk gets three things: a preventive — 'to reduce that risk, we freeze writes'; a plan B — the real conditional, 'if the cutover overruns, we abort'; and a fallback — 'the old cluster stays warm for a week'." }
+    - { speaker: Yuri, text: "And each plan gets an owner and a trigger — measurable, decided in advance: 'if p99 crosses 200ms for five minutes, Carlos calls the abort'. The formal version inverts with 'should': 'should the lag grow, we pause the writers'." }
+    - { speaker: Beth, text: "What can't be mitigated gets accepted out loud — 'that risk we accept'. A guardrail acts alone; a mitigation needs someone awake. And the dry run is where the plan meets reality — Thursday, twice." }
+  questions:
+    - { id: M22-03-l1, type: multiple_choice, prompt: "Cada risco ganha…", options: ["um culpado e um prazo", "um ticket e uma reunião", "preventiva, plano B e fallback", "um alerta e um log"], answer: 2, explanation: "Preventiva + plano B + fallback — o trio.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-03-l2, type: multiple_choice, prompt: "Um gatilho bom é…", options: ["vago — 'se der ruim'", "secreto", "automático sempre", "mensurável e decidido antes — 'if p99 > 200ms for 5 min'"], answer: 3, explanation: "Gatilho decidido na calma, com número.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-03-l3, type: fill_blank, prompt: "The ___ is the old cluster — it stays warm for a week.", accepted: ["fallback"], explanation: "O estado seguro para onde se volta.", tags: [vocab.risk] }
+    - { id: M22-03-l4, type: error_correction, prompt: "There's a risk to overrun the window.", accepted: ["There's a risk of overrunning the window.", "There's a risk of overrunning the window"], explanation: "'risk of overrunning'.", tags: [br.risk-to] }
+    - { id: M22-03-l5, type: multiple_choice, prompt: "Um risco aceito é…", options: ["uma decisão declarada — 'that risk we accept'", "um risco esquecido", "um risco mitigado", "um risco impossível"], answer: 0, explanation: "Aceitar com critério também é plano.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-03-l6, type: multiple_choice, prompt: "'Should the lag grow, we pause' é…", options: ["o 'should' de obrigação", "uma pergunta retórica", "um erro", "a versão formal e invertida do 'if'"], answer: 3, explanation: "'Should + sujeito' = 'if' formal.", tags: [comp.listening, gram.conditionals-real] }
+
+writing:
+  prompt: |
+    **Cenário:** o Carlos pediu a seção de mitigações no doc
+    da migração — "every risk gets a mitigation, a plan B
+    and a trigger".
+
+    **Tarefa:** escreva 80–110 palavras cobrindo os três
+    riscos da migração: para cada um, a preventiva ("to
+    reduce that risk…"), o plano B no condicional real com
+    gatilho mensurável e dono, e o fallback. Declare o risco
+    que fica aceito e o ensaio que valida o plano.
+  constraints:
+    - { label: "A preventiva", pattern: "\\bto reduce|to bound|to mitigate\\b" }
+    - { label: "O plano B", pattern: "\\bif .{0,60}(abort|roll back|pause|re-run)|should\\b" }
+    - { label: "O gatilho", pattern: "\\btrigger|owner|calls\\b" }
+    - { label: "O aceito", pattern: "\\baccept\\w*\\b" }
+  rubric:
+    - "Cada risco com preventiva + plano B + gatilho"
+    - "Gatilho mensurável com dono"
+    - "Risco aceito declarado com critério"
+    - "Sem calques ('at risk', 'risk of', 'dangerous')"
+  model: >-
+    Every risk gets a mitigation, a plan B and a trigger.
+    Overrun: to reduce it, we migrate one region first; if
+    the cutover still overruns, we abort and re-run — Carlos
+    owns the call, trigger is lag over five minutes. Data
+    loss: writes freeze for the last ten minutes, and the
+    fallback is the old cluster, warm for a week — should
+    anything fail, we're back in ten. The cosmetic risk —
+    stale dashboards — we accept: mitigation costs more
+    than the exposure. Thursday's dry run rehearses the
+    rollback and measures the timings.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.risk, gram.conditionals-real]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando as mitigações da migração: preventiva, plano B com gatilho e dono, fallback — e o risco que fica aceito."
+    maxSeconds: 45
+    targetPhrases:
+      - to reduce that risk
+      - if that happens
+      - we abort
+      - the fallback is
+      - the trigger is
+      - plan B
+      - guardrail
+      - dry run
+      - we rehearse
+      - we accept
+      - contingency
+      - at risk
+      - risk of
+      - should the lag grow
+      - owner
+      - roll back
+    checklist:
+      - "cada risco com mitigação + gatilho"
+      - "condicional real no plano B"
+      - "o aceito declarado com critério"
+      - "'at risk', 'risk of' — sem calques"
+
+quiz:
+  - { id: M22-03-q1, type: multiple_choice, prompt: "O trio que cada risco ganha é…", options: ["preventiva, plano B, fallback", "ticket, prazo, culpado", "alerta, log, dashboard", "reunião, voto, ata"], answer: 0, explanation: "Preventiva + plano B + fallback.", tags: [vocab.risk] }
+  - { id: M22-03-q2, type: error_correction, prompt: "We are in risk if the rollback fails.", accepted: ["We are at risk if the rollback fails.", "We are at risk if the rollback fails"], explanation: "'at risk'.", tags: [br.in-risk] }
+  - { id: M22-03-q3, type: multiple_choice, prompt: "'If the cutover overruns, we abort' usa…", options: ["condicional irreal", "futuro perfeito", "o condicional real — if + presente, ação direta", "passado"], answer: 2, explanation: "Plano B = if + presente → ação.", tags: [gram.conditionals-real] }
+  - { id: M22-03-q4, type: fill_blank, prompt: "Thursday's ___ run validates the rollback and the timings.", accepted: ["dry"], explanation: "'Dry run' — o ensaio geral.", tags: [vocab.risk] }
+  - { id: M22-03-q5, type: multiple_choice, prompt: "Um guardrail se diferencia da mitigação porque…", options: ["é mais barato", "é manual", "é documentado", "age sozinho — não depende de ninguém acordado"], answer: 3, explanation: "Proteção automática — contém o dano.", tags: [vocab.risk] }
+  - { id: M22-03-q6, type: error_correction, prompt: "The fallback plan is danger.", accepted: ["The fallback plan is dangerous.", "The fallback plan is dangerous"], explanation: "'dangerous'.", tags: [br.is-danger] }
+  - { id: M22-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["reduce", "to", "risk", "that", "freeze", "we", "writes"], answer: "to reduce that risk we freeze writes", explanation: "A preventiva.", tags: [vocab.risk] }
+  - { id: M22-03-q8, type: multiple_choice, prompt: "Decidir o gatilho durante o incidente é errado porque…", options: ["o número muda", "o dono muda", "a ferramenta muda", "o gatilho se decide na calma — improvisar na pressão não é plano"], answer: 3, explanation: "Gatilho sob pressão vira debate, não plano.", tags: [vocab.risk, comp.confidence] }
+
+srsCards:
+  - { front: "mitigation", back: "A ação que reduz risco — 'a rehearsed rollback'.", tag: vocab.risk }
+  - { front: "to reduce that risk", back: "A preventiva — 'to reduce it, we freeze writes'.", tag: vocab.risk }
+  - { front: "plan B", back: "Decidido na calma — 'abort and re-run next window'.", tag: vocab.risk }
+  - { front: "fallback", back: "O estado seguro — 'the old cluster stays warm'.", tag: vocab.risk }
+  - { front: "rollback", back: "Voltar ao anterior — 'one command, ten minutes'.", tag: vocab.risk }
+  - { front: "trigger", back: "O gatilho mensurável — 'p99 > 200ms for 5 min'.", tag: vocab.risk }
+  - { front: "accept the risk", back: "Assumir de olhos abertos — 'that risk we accept'.", tag: vocab.risk }
+  - { front: "contingency", back: "O plano do 'e se' — 'a second window Sunday'.", tag: vocab.risk }
+  - { front: "guardrail", back: "A proteção automática — 'caps the damage'.", tag: vocab.risk }
+  - { front: "dry run", back: "O ensaio geral — 'the plan meets reality Thursday'.", tag: vocab.risk }
+  - { front: "to rehearse", back: "Praticar antes de precisar — 'rehearse the abort twice'.", tag: vocab.risk }
+  - { front: "abort", back: "Parar e voltar ao seguro — 'no debate mid-cutover'.", tag: vocab.risk }
+
+review:
+  preferTags: [vocab.risk, gram.conditionals-real, br.risk-to]
+  notes: "Revisão prioriza o trio preventiva + plano B + fallback, o gatilho mensurável com dono e os calques de risco."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
