@@ -1,0 +1,315 @@
+id: M26-02
+module: M26
+order: 2
+title: "Cultura assíncrona e fusos: 'circle back', 'take it offline'"
+objective: >-
+  Ao final, você navega a cultura async de uma equipe
+  distribuída — declara janelas e fusos, usa 'circle
+  back', 'take it offline' e 'let's sync' sem estragar
+  o assíncrono, e escreve mensagens que o outro fuso
+  consegue responder sozinho.
+durationMin: 35
+competencies: [SPK, LIS, CNF]
+tags: [vocab.smalltalk, topic.async, comp.speaking, comp.listening]
+prerequisites: [M26-01]
+
+context:
+  scenario: |
+    O time está em três fusos — SP, Lisboa e San
+    Francisco. As regras da cultura async são as que
+    ninguém escreve:
+
+    - **Async primeiro**: se a pergunta cabe numa
+      mensagem, ela não vira reunião — "*quick async
+      question*".
+    - **A mensagem completa**: o outro fuso acorda para
+      um texto com contexto, opções e a pergunta — não
+      para "*oi, tem um minuto?*".
+    - **"Circle back"** = voltamos depois: "*let's
+      circle back on Thursday*" — adiar com prazo.
+    - **"Take it offline"** = isso não é dessa reunião:
+      "*let's take this offline*" — tira o assunto da
+      pauta sem matar.
+    - **"Let's sync"** = o único async que vira call:
+      quando três mensagens não resolveram, sincroniza.
+    - **O fuso no texto**: "*EOD my time*", "*your
+      morning*", "*I'm +3 from you*" — nunca "amanhã".
+
+    O erro do brasileiro: mandar "bom dia, tem um
+    minuto?" às 18h de SP — o americano lê às 14h,
+    responde, e encontra você dormindo. A mensagem que
+    carrega a pergunta inteira é a que atravessa o fuso.
+  roles: [Yuri (platform engineer, SP), Beth (staff engineer, SF), Carlos (SRE lead, Lisboa)]
+
+vocabulary:
+  - term: "quick async question"
+    meaning: 'pergunta assíncrona rápida — abre a mensagem sem pedir call'
+    example: "Quick async question: which cluster owns the alerts table?"
+    translation: "Pergunta async rápida: qual cluster é dono da tabela de alerts?"
+    note: "O prefixo que diz 'não precisa responder agora'."
+  - term: "let's circle back (to X)"
+    meaning: 'voltamos a X — adiar com prazo, não esquecer'
+    example: "Let's circle back to the pricing question on Thursday."
+    translation: "Vamos voltar à questão de preço na quinta."
+    note: "Circle back sem data é eufemismo de 'nunca'."
+  - term: "let's take this offline"
+    meaning: 'levamos isso para fora da reunião — sem matar o assunto'
+    example: "Good question — let's take this offline; it's a rabbit hole."
+    translation: "Boa pergunta — levamos isso para fora; é um rabbit hole."
+    note: "Tira o assunto da pauta — mas com promessa de continuar."
+  - term: "let's sync (on X)"
+    meaning: 'vamos sincronizar sobre X — quando async não resolveu'
+    example: "Three threads and no conclusion — let's sync tomorrow."
+    translation: "Três threads e nenhuma conclusão — vamos sincronizar amanhã."
+    note: "O único async que vira call: quando a mensagem falhou três vezes."
+  - term: "EOD my time"
+    meaning: 'fim do dia no meu fuso — o prazo que declara o fuso'
+    example: "I'll have the draft ready by EOD my time."
+    translation: "Deixo o rascunho pronto até o fim do meu dia."
+    note: "Sempre com 'my time' ou o fuso — 'EOD' sozinho é ambíguo."
+  - term: "your morning / your afternoon"
+    meaning: 'sua manhã / sua tarde — o tempo do outro, não o seu'
+    example: "This will be in your inbox by your morning."
+    translation: "Isso estará na sua caixa até a sua manhã."
+    note: "Empatia de fuso: fale o tempo de quem lê."
+  - term: "I'm +3 from you"
+    meaning: 'estou 3 horas à frente de você — a geometria do fuso'
+    example: "I'm +3 from you, so your 9am is my noon."
+    translation: "Estou +3 de você, então suas 9h são meu meio-dia."
+    note: "Declarar o delta é mais útil que o nome do fuso."
+  - term: "no rush — whenever you get to it"
+    meaning: 'sem pressa — quando chegar aí — libera o outro fuso'
+    example: "No rush — whenever you get to it; I'm off in an hour anyway."
+    translation: "Sem pressa — quando der; eu saio em uma hora mesmo."
+    note: "Declara que a resposta pode esperar o próximo dia do outro."
+  - term: "overlapping hours"
+    meaning: 'horas de sobreposição — as únicas em que call é possível'
+    example: "We have two overlapping hours — let's protect them."
+    translation: "Temos duas horas de sobreposição — vamos protegê-las."
+    note: "O recurso escasso do time distribuído."
+  - term: "hand off / handoff"
+    meaning: 'passar o bastão — o trabalho que continua no outro fuso'
+    example: "I'll hand off the incident to the Lisbon team at 6pm."
+    translation: "Passo o incidente para o time de Lisboa às 18h."
+    note: "Follow-the-sun: o trabalho nunca dorme, as pessoas sim."
+  - term: "context in the thread"
+    meaning: 'contexto na thread — a mensagem que se sustenta sozinha'
+    example: "I left all the context in the thread — links, logs, the ask."
+    translation: "Deixei todo o contexto na thread — links, logs, o pedido."
+    note: "A thread completa é a que o outro fuso responde sozinho."
+  - term: "not urgent — but flagging"
+    meaning: 'não urgente — mas sinalizando — a triagem honesta'
+    example: "Not urgent, but flagging: the quota alert fired twice today."
+    translation: "Não urgente, mas sinalizando: o alerta de quota disparou duas vezes hoje."
+    note: "Diga a urgência real — nem alarme, nem silêncio."
+
+grammar:
+  title: "a gramática do fuso no texto"
+  explanation: |
+    A gramática async declara o tempo:
+
+    - **"Let's" + verbo para as ferramentas**: "*let's
+      circle back*", "*let's take this offline*",
+      "*let's sync*" — a fórmula de proposta.
+    - **O tempo ancorado em fuso**: "*by EOD my time*",
+      "*in your morning*", "*I'm +3*" — nunca
+      "amanhã" ou "depois" sozinhos.
+    - **O condicional da resposta tardia**: "*when you
+      get to it*", "*if that's easier on your end*" —
+      libera o outro.
+    - **"Quick" + substantivo para a mensagem**:
+      "*quick question*", "*quick flag*" — o prefixo
+      que calibra expectativa.
+
+    E o calque do gênero:
+
+    - "**how long time**" → "**how long**" ("how long
+      until your morning?").
+    - "**take a coffee**" → "**grab a coffee**" —
+      mesmo no convite async.
+  examples:
+    - { en: "Let's circle back to the pricing question on Thursday.", pt: "Vamos voltar à questão de preço na quinta." }
+    - { en: "Good question — let's take this offline; it's a rabbit hole.", pt: "Boa pergunta — levamos para fora da reunião; é um rabbit hole." }
+    - { en: "This will be in your inbox by your morning — I'm +3 from you.", pt: "Isso estará na sua caixa até a sua manhã — estou +3 de você." }
+    - { en: "No rush — whenever you get to it. The context is all in the thread.", pt: "Sem pressa — quando der. O contexto está todo na thread." }
+    - { en: "Three threads and no conclusion — let's sync in our overlapping hour.", pt: "Três threads e nenhuma conclusão — vamos sincronizar na nossa hora de sobreposição." }
+    - { en: "I'll hand off the incident at 6pm my time — Lisbon picks it up.", pt: "Passo o incidente às 18h no meu horário — Lisboa pega o bastão." }
+
+examples:
+  - en: "Quick async question — which cluster owns the alerts table? Context in the thread."
+    pt: "Pergunta async rápida — qual cluster é dono da tabela de alerts? Contexto na thread."
+    context: "A mensagem que se sustenta sozinha."
+  - en: "Let's circle back to this Thursday — Beth is out until then anyway."
+    pt: "Vamos voltar a isso na quinta — a Beth está fora até lá mesmo."
+    context: "Adiar com prazo e razão."
+  - en: "Good question, but it's a rabbit hole — let's take it offline."
+    pt: "Boa pergunta, mas é um rabbit hole — levamos para fora da reunião."
+    context: "Tira da pauta sem matar."
+  - en: "I'll have the draft by EOD my time — that's your morning."
+    pt: "Deixo o rascunho até o fim do meu dia — que é a sua manhã."
+    context: "O prazo traduzido para o fuso do outro."
+  - en: "No rush — whenever you get to it. I'm off in an hour anyway."
+    pt: "Sem pressa — quando der. Eu saio em uma hora mesmo."
+    context: "Libera o outro fuso."
+  - en: "We have two overlapping hours — can we protect Thursday's for the sync?"
+    pt: "Temos duas horas de sobreposição — podemos proteger a de quinta para o sync?"
+    context: "O recurso escasso nomeado."
+  - en: "How long until your morning? I'll leave the handoff ready."
+    pt: "Quanto tempo até a sua manhã? Deixo o handoff pronto."
+    context: "O calque corrigido: 'how long', sem 'time'."
+  - en: "Not urgent — but flagging before my EOD: the quota alert fired twice."
+    pt: "Não urgente — mas sinalizando antes do meu fim de dia: o alerta de quota disparou duas vezes."
+    context: "A triagem honesta no fuso."
+
+variations:
+  - idea: '"a mensagem async"'
+    items:
+      - { register: "Boa", text: "Quick async question: which cluster owns the alerts table? Context in the thread — no rush.", adequate: true }
+      - { register: "Boa", text: "Draft will be ready by EOD my time — that's your morning. Flag if the scope changed.", adequate: true }
+      - { register: "Inadequada", text: "Hi, got a minute?", adequate: false, note: "A mensagem vazia atravessa o fuso sem nada — o outro responde 'yes' e você dormiu." }
+      - { register: "Inadequada", text: "Need this tomorrow, urgent!!!", adequate: false, note: "Sem fuso declarado, 'tomorrow' é de quem? E 'urgent' sem razão vira ruído." }
+  - idea: '"circle back × take it offline"'
+    items:
+      - { register: "Boa", text: "Let's circle back to the pricing question Thursday — Beth is out until then.", adequate: true }
+      - { register: "Boa", text: "Good question — let's take this offline; it's a rabbit hole for this meeting.", adequate: true }
+      - { register: "Inadequada", text: "Let's circle back. / …never mentions it again.", adequate: false, note: "Circle back sem data é eufemismo de 'nunca'." }
+      - { register: "Inadequada", text: "That's off-topic. Moving on.", adequate: false, note: "'Off-topic' mata o assunto — 'take it offline' o adia com dignidade." }
+
+brErrors:
+  - { wrong: "How long time until your morning?", right: "How long until your morning?", why: "how long", tag: br.how-long-time }
+  - { wrong: "Want to take a coffee during the sync?", right: "Want to grab a coffee during the sync?", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "Too much people in three time zones.", right: "Too many people in three time zones.", why: "too many people", tag: br.too-much-people }
+  - { wrong: "I'm boring waiting the reply.", right: "I'm bored waiting for the reply.", why: "bored + waiting for", tag: br.i-am-boring }
+  - { wrong: "In the other hand, async is cheaper.", right: "On the other hand, async is cheaper.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "We discussed about the handoff.", right: "We discussed the handoff.", why: "discussed the handoff", tag: br.discuss-about }
+  - { wrong: "I have doubt about the overlap.", right: "I have a doubt about the overlap.", why: "a doubt", tag: br.doubt }
+  - { wrong: "She suggest to sync Thursday.", right: "She suggests syncing Thursday.", why: "suggests syncing", tag: br.suggest-to }
+  - { wrong: "The same hour than yesterday.", right: "The same hour as yesterday.", why: "the same as", tag: br.same-than }
+  - { wrong: "I commented in the thread.", right: "I commented on the thread.", why: "commented on", tag: br.comment-in }
+
+dialogue:
+  title: "The thread that crossed the ocean"
+  lines:
+    - { speaker: Yuri, text: "Quick async question for Beth: which cluster owns the alerts table after the migration? Context in the thread — no rush, whenever you get to it." }
+    - { speaker: Carlos, text: "And flagging before my EOD: the quota alert fired twice today. Not urgent, but worth a look in your morning." }
+    - { speaker: Beth, text: "On it — I'm +8 from you, Carlos, so your EOD is my lunch. The alerts table moved to the new cluster; I updated the thread." }
+    - { speaker: Beth, text: "On the pricing question — good one, but it's a rabbit hole. Let's take it offline." }
+    - { speaker: Yuri, text: "Agreed. How long until we need a decision — next sprint?" }
+    - { speaker: Carlos, text: "Yes. Let's circle back Thursday — our one overlapping hour this week." }
+    - { speaker: Beth, text: "And if the thread stalls again, let's sync in that hour instead of a fourth round of messages." }
+    - { speaker: Yuri, text: "Deal. Draft will be in the thread by EOD my time — that's your morning, Beth." }
+    - { speaker: Carlos, text: "Perfect. Handing off — see you all Thursday." }
+  notes:
+    - "a mensagem completa atravessa o fuso: contexto + pergunta + urgência."
+    - "'circle back' com data, 'take it offline' para o rabbit hole, 'sync' quando a thread falha."
+    - "o tempo sempre ancorado: 'EOD my time', 'your morning', 'I'm +8 from you'."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "Async-first has one rule: if the question fits in a message, it's not a meeting. But the message must travel alone — context, the ask, and the real urgency. 'Got a minute?' across a time zone wastes a whole day. 'Circle back' needs a date, 'take it offline' needs a promise, and 'let's sync' is what you do when three threads failed." }
+    - { speaker: Beth, text: "And never say 'tomorrow' — say 'your morning', 'EOD my time', 'I'm plus eight from you'. The overlap is the scarce resource — two hours a day, protect them for the calls that actually need voices." }
+    - { speaker: Yuri, text: "The calques in this genre: 'how long', not 'how long time'. You 'grab a coffee' even in an async invite. And it's 'too many people across too many time zones' — countable." }
+  questions:
+    - { id: M26-02-l1, type: multiple_choice, prompt: "A regra do async-first é…", options: ["se cabe numa mensagem, não vira reunião — e a mensagem viaja sozinha", "tudo vira call", "responder em 5 minutos", "trabalhar no mesmo fuso"], answer: 0, explanation: "Async primeiro — mas com contexto completo.", tags: [comp.listening, topic.async] }
+    - { id: M26-02-l2, type: fill_blank, prompt: "Let's ___ back to this Thursday — Beth is out until then.", accepted: ["circle"], explanation: "'Circle back' = adiar com prazo.", tags: [vocab.smalltalk] }
+    - { id: M26-02-l3, type: error_correction, prompt: "How long time until your morning?", accepted: ["How long until your morning?", "How long until your morning"], explanation: "'How long'.", tags: [br.how-long-time] }
+    - { id: M26-02-l4, type: multiple_choice, prompt: "'Let's take this offline' significa…", options: ["o assunto morreu", "a internet caiu", "a reunião acabou", "o assunto sai da pauta mas continua — com promessa"], answer: 3, explanation: "Adia com dignidade — não mata.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-02-l5, type: multiple_choice, prompt: "O tempo async correto é…", options: ["'tomorrow'", "'later'", "'by EOD my time — your morning'", "'soon'"], answer: 2, explanation: "Sempre ancorado em fuso — o de quem lê.", tags: [comp.listening, topic.async] }
+    - { id: M26-02-l6, type: multiple_choice, prompt: "'Got a minute?' às 18h de SP falha porque…", options: ["falta emoji", "o outro fuso responde para alguém dormindo — a mensagem deve carregar a pergunta inteira", "é formal demais", "inglês errado"], answer: 1, explanation: "A mensagem vazia gasta um dia inteiro de fuso.", tags: [comp.listening, topic.async] }
+
+writing:
+  prompt: |
+    **Cenário:** você precisa da revisão da Beth (SF)
+    para o handoff de sexta — mas ela só acorda quando
+    você está saindo.
+
+    **Tarefa:** escreva 80–110 palavras: a mensagem
+    async completa (contexto + pergunta + urgência
+    real), o prazo ancorado no fuso dela, o que fica
+    "offline" para a overlap de quinta, e o convite de
+    café para o próximo sync.
+  constraints:
+    - { label: "Async-first", pattern: "\\basync|no rush|whenever you get to it|in the thread\\b" }
+    - { label: "O fuso ancorado", pattern: "\\bEOD my time|your morning|\\+3|\\+8|overlapping\\b" }
+    - { label: "Circle back/offline", pattern: "\\bcircle back|take.*offline|let's sync|hand.*off\\b" }
+    - { label: "Urgência real", pattern: "\\bnot urgent|flagging|blocking|urgent\\b" }
+  rubric:
+    - "Mensagem que viaja sozinha (contexto + ask)"
+    - "Prazo no fuso de quem lê"
+    - "O que sai da thread vai para a overlap"
+    - "Sem calques ('how long', 'grab a coffee')"
+  model: >-
+    Quick async note for your morning, Beth — context
+    in the thread. The handoff draft for Friday needs
+    your eyes on two sections: the rollback steps and
+    the quota numbers. Not urgent today, but flagging —
+    I'm +8 ahead, so my EOD Thursday is your morning.
+    If the comments get long, let's take the pricing
+    thread offline and circle back in our overlapping
+    hour. Otherwise the draft ships Friday EOD my time.
+    And next sync — want to grab a coffee in the first
+    ten minutes? It's been too many handoffs without a
+    real hello.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, topic.async, vocab.smalltalk]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos de um recado async para um colega em outro fuso: o contexto em uma frase, a pergunta, a urgência real, o prazo no fuso dele, e o que vocês levam para o sync de quinta."
+    maxSeconds: 60
+    targetPhrases:
+      - quick async question
+      - no rush
+      - whenever you get to it
+      - circle back
+      - take this offline
+      - let's sync
+      - EOD my time
+      - your morning
+      - I'm +3 from you
+      - overlapping hours
+      - hand off
+      - context in the thread
+      - not urgent — but flagging
+      - how long
+      - grab a coffee
+      - too many people
+    checklist:
+      - "contexto + pergunta + urgência na mensagem"
+      - "prazo ancorado no fuso do outro"
+      - "'circle back' com data / 'offline' com promessa"
+      - "sem calques ('how long', 'grab a coffee')"
+
+quiz:
+  - { id: M26-02-q1, type: multiple_choice, prompt: "'Circle back' bem-feito tem…", options: ["nada", "um emoji", "um anexo", "uma data"], answer: 3, explanation: "Sem data é eufemismo de 'nunca'.", tags: [vocab.smalltalk] }
+  - { id: M26-02-q2, type: error_correction, prompt: "Want to take a coffee during the sync?", accepted: ["Want to grab a coffee during the sync?", "Want to grab a coffee during the sync", "Want to have a coffee during the sync?"], explanation: "'Grab a coffee'.", tags: [br.take-a-coffee] }
+  - { id: M26-02-q3, type: multiple_choice, prompt: "A thread falhou três vezes. O próximo passo é…", options: ["uma quarta mensagem", "desistir", "'let's sync' — a hora de sobreposição existe para isso", "escalar ao gerente"], answer: 2, explanation: "Três threads sem conclusão = voz.", tags: [vocab.smalltalk, topic.async] }
+  - { id: M26-02-q4, type: fill_blank, prompt: "I'll have the draft by EOD ___ time — that's your morning.", accepted: ["my"], explanation: "'My time' — o fuso declarado.", tags: [topic.async] }
+  - { id: M26-02-q5, type: multiple_choice, prompt: "'Take it offline' × 'circle back':", options: ["'offline' sai da pauta e continua depois; 'circle back' adia com data", "sinônimos", "um é call, outro é e-mail", "nenhum"], answer: 0, explanation: "Dois mecanismos diferentes — os dois com promessa.", tags: [vocab.smalltalk] }
+  - { id: M26-02-q6, type: error_correction, prompt: "Too much people across three time zones.", accepted: ["Too many people across three time zones.", "Too many people across three time zones"], explanation: "'Too many people'.", tags: [br.too-much-people] }
+  - { id: M26-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["this", "take", "let's", "offline"], answer: "let's take this offline", explanation: "Tira o assunto da pauta — com promessa.", tags: [vocab.smalltalk] }
+  - { id: M26-02-q8, type: multiple_choice, prompt: "O recurso escasso do time distribuído é…", options: ["o café", "a hora de sobreposição — protegida para o que precisa de voz", "o Slack", "o fuso"], answer: 1, explanation: "Duas horas por dia — guarde-as para calls de verdade.", tags: [topic.async] }
+
+srsCards:
+  - { front: "quick async question", back: "O prefixo que diz 'não precisa responder agora'.", tag: vocab.smalltalk }
+  - { front: "let's circle back (to X)", back: "Adiar com data — sem data é 'nunca'.", tag: vocab.smalltalk }
+  - { front: "let's take this offline", back: "Sai da pauta, continua depois — com promessa.", tag: vocab.smalltalk }
+  - { front: "let's sync", back: "Quando três threads falharam — a hora da voz.", tag: vocab.smalltalk }
+  - { front: "EOD my time", back: "O prazo no seu fuso — declarado.", tag: topic.async }
+  - { front: "your morning", back: "O tempo de quem lê, não o seu.", tag: topic.async }
+  - { front: "I'm +3 from you", back: "O delta é mais útil que o nome do fuso.", tag: topic.async }
+  - { front: "no rush — whenever you get to it", back: "Libera o outro fuso.", tag: vocab.smalltalk }
+  - { front: "overlapping hours", back: "O recurso escasso — proteja para voz.", tag: topic.async }
+  - { front: "hand off / handoff", back: "O bastão do follow-the-sun.", tag: vocab.smalltalk }
+  - { front: "context in the thread", back: "A mensagem que viaja sozinha.", tag: topic.async }
+  - { front: "not urgent — but flagging", back: "A triagem honesta.", tag: vocab.smalltalk }
+
+review:
+  preferTags: [vocab.smalltalk, topic.async, br.how-long-time]
+  notes: "Revisão prioriza as ferramentas (circle back / offline / sync), o fuso ancorado e a mensagem que viaja sozinha."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
