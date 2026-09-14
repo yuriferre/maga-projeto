@@ -874,3 +874,37 @@ describe("M24 assessment variants", () => {
     expect(checkExercise(q, "We discussed it instead the recording.").correct).toBe(false);
   });
 });
+
+describe("M25 assessment variants", () => {
+  const m25 = bundle.moduleAssessments["M25"]!;
+  it("requires 'commented on' and 'made a suggestion' on A02", () => {
+    const q = m25.items.find((q) => q.id === "M25-A02")!;
+    expect(checkExercise(q, "I commented on the RFC, and I made a suggestion.").correct).toBe(true);
+    expect(checkExercise(q, "I commented in the RFC, and I made a suggestion.").correct).toBe(false);
+    expect(checkExercise(q, "I commented on the RFC, and I did a suggestion.").correct).toBe(false);
+  });
+  it("requires 'suggest splitting' and 'on the other hand' on A05", () => {
+    const q = m25.items.find((q) => q.id === "M25-A05")!;
+    expect(checkExercise(q, "I suggest splitting the migration; on the other hand, it could wait.").correct).toBe(true);
+    expect(checkExercise(q, "I suggest to split the migration; on the other hand, it could wait.").correct).toBe(false);
+    expect(checkExercise(q, "I suggest splitting the migration; in the other hand, it could wait.").correct).toBe(false);
+  });
+  it("requires 'want you to' and 'a doubt'/'not sure' on A07", () => {
+    const q = m25.items.find((q) => q.id === "M25-A07")!;
+    expect(checkExercise(q, "I want you to review the draft — I have a doubt about the scope.").correct).toBe(true);
+    expect(checkExercise(q, "I want that you review the draft — I have a doubt about the scope.").correct).toBe(false);
+    expect(checkExercise(q, "I want you to review the draft — I have doubt about the scope.").correct).toBe(false);
+  });
+  it("requires 'discussed it' and 'the same as' on A11", () => {
+    const q = m25.items.find((q) => q.id === "M25-A11")!;
+    expect(checkExercise(q, "We discussed it — the same concern as Ana raised.").correct).toBe(true);
+    expect(checkExercise(q, "We discussed about it — the same concern as Ana raised.").correct).toBe(false);
+    expect(checkExercise(q, "We discussed it — the same concern than Ana raised.").correct).toBe(false);
+  });
+  it("requires 'I agree' and bare 'feedback' on A14", () => {
+    const q = m25.items.find((q) => q.id === "M25-A14")!;
+    expect(checkExercise(q, "I agree with Beth — she gave me feedback yesterday.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree with Beth — she gave me feedback yesterday.").correct).toBe(false);
+    expect(checkExercise(q, "I agree with Beth — she gave me a feedback yesterday.").correct).toBe(false);
+  });
+});

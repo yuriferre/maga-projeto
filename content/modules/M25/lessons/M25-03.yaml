@@ -1,0 +1,317 @@
+id: M25-03
+module: M25
+order: 3
+title: "Comentando propostas: a pergunta, a objeção e a sugestão"
+objective: >-
+  Ao final, você comenta uma RFC ou PR com os três
+  registros certos — clarifying question, objection com
+  razão, suggestion com alternativa — e sabe qual usar
+  quando.
+durationMin: 40
+competencies: [WRI, REA]
+tags: [vocab.rfc, gram.indirect-questions, gram.hedging, comp.writing, comp.reading]
+prerequisites: [M25-02]
+
+context:
+  scenario: |
+    Revisão da RFC da Beth: você encontrou três coisas —
+    uma parte confusa, uma premissa errada e uma ideia
+    melhor. Cada uma tem um registro diferente:
+
+    - **A clarifying question**: "*am I reading this
+      right — the queue is shared with checkout?*" —
+      pergunta antes de objetar; metade das "objeções" é
+      mal-entendido.
+    - **A objeção com razão**: "*this won't hold under
+      load — the queue depth at peak is already X*" —
+      claim + evidência, não só discordância.
+    - **A sugestão com alternativa**: "*could we start
+      with billing-only scope?*" — aponta o caminho,
+      não só o problema.
+    - **O nit separado**: "*nit: 'recieve' →
+      'receive'*" — marcado como nit, nunca misturado
+      com a objeção.
+
+    A etiqueta do comentário: pergunte antes de objetar,
+    objetive com evidência, sugira com alternativa — e
+    marque o que é nit. O comentário bom é o que o autor
+    consegue agir em cima.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "am I reading this right"
+    meaning: 'estou lendo certo? — a pergunta que previne a objeção errada'
+    example: "Am I reading this right — the queue is shared with checkout?"
+    translation: "Estou lendo certo — a fila é compartilhada com o checkout?"
+    note: "Pergunte antes de objetar — metade das objeções é mal-entendido."
+  - term: "clarifying question"
+    meaning: 'pergunta de esclarecimento — o primeiro registro de comentário'
+    example: "One clarifying question: does the cache expire per-key or globally?"
+    translation: "Uma pergunta de esclarecimento: o cache expira por chave ou globalmente?"
+    note: "Marcar como clarifying separa dúvida de objeção."
+  - term: "this won't hold under load"
+    meaning: 'isso não aguenta carga — a objeção com claim'
+    example: "This won't hold under load — the queue depth at peak is already X."
+    translation: "Isso não aguenta sob carga — a profundidade da fila no pico já é X."
+    note: "Claim + evidência na mesma frase — a objeção sem dado é só opinião."
+  - term: "could we start with"
+    meaning: 'poderíamos começar com — a sugestão com caminho'
+    example: "Could we start with billing-only scope and expand later?"
+    translation: "Poderíamos começar só com o escopo de billing e expandir depois?"
+    note: "A sugestão aponta o caminho — não só o problema."
+  - term: "nit:"
+    meaning: 'detalhe menor — o prefixo que separa typo de objeção'
+    example: "Nit: 'recieve' → 'receive' in the summary."
+    translation: "Detalhe: 'recieve' → 'receive' no resumo."
+    note: "Marcado como nit, nunca misturado com a objeção de design."
+  - term: "blocking vs non-blocking"
+    meaning: 'bloqueante × não-bloqueante — o peso do comentário'
+    example: "This one is blocking; the rest are non-blocking suggestions."
+    translation: "Essa é bloqueante; o resto são sugestões não-bloqueantes."
+    note: "Declare o peso — o autor sabe o que precisa resolver antes do merge."
+  - term: "what happens when"
+    meaning: 'o que acontece quando — a pergunta de caso de borda'
+    example: "What happens when the cache is cold after a deploy?"
+    translation: "O que acontece quando o cache está frio depois de um deploy?"
+    note: "A pergunta de borda que testa a proposta sem atacar."
+  - term: "have you considered"
+    meaning: 'você considerou — a objeção embrulhada em pergunta'
+    example: "Have you considered the failover cost? It's not in the alternatives."
+    translation: "Você considerou o custo do failover? Não está nas alternativas."
+    note: "A objeção suave — mas ainda aponta a lacuna."
+  - term: "my read is"
+    meaning: 'minha leitura é — declara a interpretação antes de discordar'
+    example: "My read is the RFC assumes a warm cache — is that fair?"
+    translation: "Minha leitura é que a RFC assume cache quente — é isso mesmo?"
+    note: "Declarar sua leitura deixa o autor corrigir o mal-entendido."
+  - term: "one thing I'd push on"
+    meaning: 'uma coisa que eu questionaria — a objeção priorizada'
+    example: "Mostly solid — one thing I'd push on is the single point of failure."
+    translation: "No geral sólido — uma coisa que eu questionaria é o ponto único de falha."
+    note: "Reconhecer o que está bom antes de apontar o que não está."
+  - term: "as written"
+    meaning: 'como está escrito — objetando o texto, não a intenção'
+    example: "As written, the rollout has no rollback — is that intentional?"
+    translation: "Como está escrito, o rollout não tem rollback — é intencional?"
+    note: "'As written' ataca o texto e deixa a intenção respirar."
+  - term: "worth a comment thread"
+    meaning: 'vale um thread de comentário — o ponto que merece discussão'
+    example: "The failover cost is worth a comment thread — flagging it as blocking."
+    translation: "O custo do failover vale um thread de comentário — sinalizo como bloqueante."
+    note: "Nem toda linha de comentário pesa igual — declare."
+  - term: "if I'm honest"
+    meaning: 'sendo honesto — a reserva que abre a crítica difícil'
+    example: "If I'm honest, the motivation section doesn't convince me yet."
+    translation: "Sendo honesto, a seção de motivação ainda não me convence."
+    note: "A reserva honesta antes da crítica ao todo."
+
+grammar:
+  title: "a gramática do comentário de review"
+  explanation: |
+    O comentário de review usa três estruturas
+    gramaticais:
+
+    - **Pergunta indireta para clarificar**: "*am I
+      reading this right — the queue is shared?*",
+      "*does the cache expire per-key or globally?*" —
+      a dúvida sem acusação.
+    - **"Could we" para a sugestão**: "*could we start
+      with billing-only?*" — a alternativa em forma de
+      convite.
+    - **"As written" + pergunta para a objeção suave**:
+      "*as written, the rollout has no rollback — is
+      that intentional?*" — o texto, não a intenção.
+
+    E os calques do comentário:
+
+    - "**I commented in the PR**" → "**commented on**".
+    - "**do a suggestion**" → "**make a suggestion**".
+    - "**suggest to change**" → "**suggest changing**".
+    - "**I have doubt about X**" → "**I'm not sure
+      about X / a doubt**".
+  examples:
+    - { en: "Am I reading this right — the queue is shared with checkout?", pt: "Estou lendo certo — a fila é compartilhada com o checkout?" }
+    - { en: "Could we start with billing-only scope and expand later?", pt: "Poderíamos começar só com o escopo de billing e expandir depois?" }
+    - { en: "As written, the rollout has no rollback — is that intentional?", pt: "Como está escrito, o rollout não tem rollback — é intencional?" }
+    - { en: "This won't hold under load — the queue depth at peak is already X.", pt: "Isso não aguenta sob carga — a profundidade da fila no pico já é X." }
+    - { en: "Have you considered the failover cost? It's not in the alternatives.", pt: "Você considerou o custo do failover? Não está nas alternativas." }
+    - { en: "Nit: 'recieve' → 'receive' — and this one is non-blocking.", pt: "Detalhe: 'recieve' → 'receive' — e esse é não-bloqueante." }
+
+examples:
+  - en: "One clarifying question: does the cache expire per-key or globally?"
+    pt: "Uma pergunta de esclarecimento: o cache expira por chave ou globalmente?"
+    context: "A dúvida marcada como dúvida."
+  - en: "This won't hold under load — the queue depth at peak is already X."
+    pt: "Isso não aguenta sob carga — a profundidade da fila no pico já é X."
+    context: "Objeção com claim + evidência."
+  - en: "Could we start with billing-only scope? Smaller blast radius, same learning."
+    pt: "Poderíamos começar só com billing? Raio de dano menor, mesmo aprendizado."
+    context: "A sugestão com o caminho."
+  - en: "Nit: 'recieve' → 'receive' in the summary — non-blocking."
+    pt: "Detalhe: 'recieve' → 'receive' no resumo — não-bloqueante."
+    context: "O nit separado e marcado."
+  - en: "My read is the RFC assumes a warm cache — is that fair?"
+    pt: "Minha leitura é que a RFC assume cache quente — é isso mesmo?"
+    context: "Interpretação declarada antes da discordância."
+  - en: "As written, the rollout has no rollback — is that intentional?"
+    pt: "Como está escrito, o rollout não tem rollback — é intencional?"
+    context: "O texto, não a intenção."
+  - en: "Mostly solid — one thing I'd push on is the single point of failure. Blocking."
+    pt: "No geral sólido — uma coisa que eu questionaria é o ponto único de falha. Bloqueante."
+    context: "O que está bom + o que não está + o peso."
+  - en: "What happens when the cache is cold after a deploy?"
+    pt: "O que acontece quando o cache está frio depois de um deploy?"
+    context: "A pergunta de caso de borda."
+
+variations:
+  - idea: '"a objeção"'
+    items:
+      - { register: "Boa", text: "This won't hold under load — queue depth at peak is already X. Blocking.", adequate: true }
+      - { register: "Boa", text: "As written, the rollout has no rollback — is that intentional?", adequate: true }
+      - { register: "Inadequada", text: "This design is wrong. I would never do it this way.", adequate: false, note: "Claim sem evidência + ataque ao autor — objeção é texto + dado." }
+      - { register: "Inadequada", text: "I commented in the RFC that it's all wrong.", adequate: false, note: "Calque: 'commented on' — e 'all wrong' não é acionável." }
+  - idea: '"o nit"'
+    items:
+      - { register: "Boa", text: "Nit: 'recieve' → 'receive' — non-blocking.", adequate: true }
+      - { register: "Boa", text: "Minor: the diagram arrow points the wrong way.", adequate: true }
+      - { register: "Inadequada", text: "Blocking: you misspelled 'receive' in section two.", adequate: false, note: "Typo como bloqueante polui o review — marque como nit." }
+      - { register: "Inadequada", text: "Can I do a suggestion about the typo?", adequate: false, note: "Calque: 'make a suggestion'." }
+
+brErrors:
+  - { wrong: "I commented in the design section.", right: "I commented on the design section.", why: "commented on", tag: br.comment-in }
+  - { wrong: "Can I do a suggestion?", right: "Can I make a suggestion?", why: "make a suggestion", tag: br.do-suggestion }
+  - { wrong: "I suggest to narrow the scope.", right: "I suggest narrowing the scope.", why: "suggest narrowing", tag: br.suggest-to }
+  - { wrong: "In the other hand, the scope is right.", right: "On the other hand, the scope is right.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "I have doubt about the queue depth.", right: "I have a doubt about the queue depth.", why: "a doubt / I'm not sure", tag: br.doubt }
+  - { wrong: "The same objection than Carlos.", right: "The same objection as Carlos.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about it in the thread.", right: "We discussed it in the thread.", why: "discussed it", tag: br.discuss-about }
+  - { wrong: "I am agree with Beth's point.", right: "I agree with Beth's point.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "She gave me a feedback on the review.", right: "She gave me feedback on the review.", why: "feedback sem artigo", tag: br.uncountable }
+  - { wrong: "You must to mark the nits.", right: "You must mark the nits.", why: "must mark", tag: br.modal-to }
+
+dialogue:
+  title: "Reviewing Beth's billing RFC"
+  lines:
+    - { speaker: Beth, text: "My RFC is up — can you review the design section today?" }
+    - { speaker: Yuri, text: "Left four comments. First a clarifying one: am I reading this right — the queue is shared with checkout?" }
+    - { speaker: Beth, text: "It is — I should make that explicit." }
+    - { speaker: Yuri, text: "Then the objection: as written, the rollout has no rollback — is that intentional? Blocking, in my view." }
+    - { speaker: Beth, text: "Fair — I'll add the rollback path." }
+    - { speaker: Yuri, text: "A suggestion: could we start with billing-only scope? Smaller blast radius, same learning." }
+    - { speaker: Beth, text: "I like that — smaller and still answers the question." }
+    - { speaker: Yuri, text: "And one nit, non-blocking: 'recieve' in the summary. That's it — mostly solid work." }
+    - { speaker: Beth, text: "This is the review I wanted — one question, one objection with the reason, one suggestion with a path, and the nit where it belongs." }
+  notes:
+    - "quatro comentários, quatro registros: pergunta, objeção com razão, sugestão com caminho, nit marcado."
+    - "'as written' objetando o texto; 'is that intentional?' deixando a intenção respirar."
+    - "o peso declarado ('blocking', 'non-blocking') diz ao autor o que resolver primeiro."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "Three kinds of review comments: the clarifying question — 'am I reading this right' — that kills half the objections before they're written; the objection with a reason — 'this won't hold under load, here's the number'; and the suggestion with a path — 'could we start with billing-only scope'." }
+    - { speaker: Carlos, text: "Two etiquettes: mark the weight — 'blocking' versus 'non-blocking' — so the author knows what to fix first. And keep the nit separate — 'nit: recieve' — never let a typo sit next to a design objection as if they weighed the same." }
+    - { speaker: Yuri, text: "And object to the text, not the intention: 'as written, there's no rollback — is that intentional?' Watch the calques in writing: 'commented on', 'make a suggestion', 'suggest narrowing', 'a doubt'." }
+  questions:
+    - { id: M25-03-l1, type: multiple_choice, prompt: "Os três registros de comentário são…", options: ["clarifying question, objeção com razão, sugestão com caminho", "elogio, crítica, typo", "aprovação, rejeição, nit", "pergunta, resposta, debate"], answer: 0, explanation: "Pergunte antes de objetar, objetive com evidência, sugira com alternativa.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-03-l2, type: fill_blank, prompt: "Am I ___ this right — the queue is shared?", accepted: ["reading"], explanation: "'Am I reading this right' — a clarifying question.", tags: [vocab.rfc] }
+    - { id: M25-03-l3, type: error_correction, prompt: "I commented in the design section.", accepted: ["I commented on the design section.", "I commented on the design section"], explanation: "'commented on'.", tags: [br.comment-in] }
+    - { id: M25-03-l4, type: multiple_choice, prompt: "'As written, there's no rollback — is that intentional?' objetiva…", options: ["o autor", "a intenção", "o texto — deixando a intenção respirar", "o prazo"], answer: 2, explanation: "'As written' ataca o texto, não a intenção.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-03-l5, type: multiple_choice, prompt: "Por que marcar 'blocking' vs 'non-blocking'?", options: ["etiqueta corporativa", "ordena alfabeticamente", "é obrigatório", "o autor sabe o que resolver antes do merge"], answer: 3, explanation: "O peso declarado diz o que priorizar.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-03-l6, type: multiple_choice, prompt: "Um typo encontrado durante o review vira…", options: ["'nit:' marcado — nunca misturado com a objeção de design", "objeção bloqueante", "novo parágrafo", "call síncrona"], answer: 0, explanation: "O nit separado mantém o review limpo.", tags: [comp.reading, vocab.rfc] }
+
+writing:
+  prompt: |
+    **Cenário:** a Beth pediu o review da RFC dela até
+    hoje — você achou três coisas para comentar.
+
+    **Tarefa:** escreva 80–110 palavras com os comentários
+    do review: uma clarifying question, uma objeção com
+    razão e peso declarado, uma sugestão com caminho, e
+    um nit separado.
+  constraints:
+    - { label: "A clarifying question", pattern: "\\bam i reading|clarifying|does the|is the|my read\\b" }
+    - { label: "A objeção com razão", pattern: "\\bwon't (hold|work)|as written|blocking|doesn't|concern\\b" }
+    - { label: "A sugestão com caminho", pattern: "\\bcould we|suggestion|i suggest|what if\\b" }
+    - { label: "O nit separado", pattern: "\\bnit:|non-blocking|minor\\b" }
+  rubric:
+    - "Pergunta de esclarecimento antes da objeção"
+    - "Objeção com evidência e peso declarado"
+    - "Sugestão apontando o caminho"
+    - "Sem calques ('commented on', 'make a suggestion', 'suggest doing')"
+  model: >-
+    Review comments on the billing RFC. Clarifying
+    question first: am I reading this right — the queue
+    is shared with checkout? If so, that coupling is
+    worth noting. The objection: as written, the rollout
+    has no rollback — is that intentional? This won't
+    hold if the first deploy goes wrong; marking it
+    blocking. A suggestion: could we start with
+    billing-only scope? Smaller blast radius, same
+    learning, faster sign-off. And one nit,
+    non-blocking: "recieve" in the summary. Overall
+    solid — the motivation is well-argued and the
+    alternatives are honest.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.rfc, gram.indirect-questions]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos fazendo o review verbal de uma RFC: uma clarifying question, uma objeção com razão e peso declarado, uma sugestão com caminho e o nit separado."
+    maxSeconds: 60
+    targetPhrases:
+      - am I reading this right
+      - clarifying question
+      - this won't hold
+      - could we start with
+      - nit
+      - blocking
+      - non-blocking
+      - what happens when
+      - have you considered
+      - my read is
+      - as written
+      - one thing I'd push on
+      - worth a comment thread
+      - if I'm honest
+      - commented on
+      - make a suggestion
+      - I suggest narrowing
+    checklist:
+      - "pergunta antes de objetar"
+      - "objeção com razão + peso ('blocking')"
+      - "sugestão com o caminho ('could we')"
+      - "nit separado, sem calques"
+
+quiz:
+  - { id: M25-03-q1, type: multiple_choice, prompt: "A 'clarifying question' vem antes da objeção porque…", options: ["é mais educada", "metade das objeções é mal-entendido — pergunte primeiro", "é mais rápida", "o autor pede"], answer: 1, explanation: "Objeção a mal-entendido desperdiça o review.", tags: [vocab.rfc] }
+  - { id: M25-03-q2, type: error_correction, prompt: "I suggest to narrow the scope to billing.", accepted: ["I suggest narrowing the scope to billing.", "I suggest narrowing the scope to billing", "I suggest that we narrow the scope to billing"], explanation: "'suggest narrowing'.", tags: [br.suggest-to] }
+  - { id: M25-03-q3, type: multiple_choice, prompt: "A objeção forte carrega…", options: ["só o claim", "só o sentimento", "claim + evidência + peso declarado", "uma alternativa completa"], answer: 2, explanation: "'Won't hold — queue depth is X. Blocking.'", tags: [vocab.rfc] }
+  - { id: M25-03-q4, type: fill_blank, prompt: "Could we ___ with billing-only scope?", accepted: ["start"], explanation: "'Could we start with' — a sugestão com caminho.", tags: [vocab.rfc] }
+  - { id: M25-03-q5, type: multiple_choice, prompt: "'Nit:' antes de um typo serve para…", options: ["destacar o erro", "separar o detalhe da objeção — eles não pesam igual", "ser irônico", "encerrar o review"], answer: 1, explanation: "Typo como bloqueante polui o review.", tags: [vocab.rfc] }
+  - { id: M25-03-q6, type: error_correction, prompt: "I did a suggestion in the thread.", accepted: ["I made a suggestion in the thread.", "I left a suggestion in the thread.", "I made a suggestion in the thread"], explanation: "'make a suggestion'.", tags: [br.do-suggestion] }
+  - { id: M25-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["you", "have", "cost", "considered", "the", "failover"], answer: "have you considered the failover cost", explanation: "A objeção embrulhada em pergunta.", tags: [vocab.rfc, gram.indirect-questions] }
+  - { id: M25-03-q8, type: multiple_choice, prompt: "'My read is the RFC assumes a warm cache — is that fair?' é…", options: ["uma objeção", "um nit", "retórica", "a interpretação declarada antes de discordar — o autor corrige o mal-entendido"], answer: 3, explanation: "Declarar a leitura deixa o autor corrigir ou confirmar.", tags: [vocab.rfc] }
+
+srsCards:
+  - { front: "am I reading this right", back: "A pergunta que previne a objeção errada.", tag: vocab.rfc }
+  - { front: "clarifying question", back: "O primeiro registro — separa dúvida de objeção.", tag: vocab.rfc }
+  - { front: "this won't hold under load", back: "A objeção com claim + evidência na mesma frase.", tag: vocab.rfc }
+  - { front: "could we start with", back: "A sugestão com o caminho — não só o problema.", tag: vocab.rfc }
+  - { front: "nit:", back: "O detalhe marcado — nunca misturado com a objeção.", tag: vocab.rfc }
+  - { front: "blocking vs non-blocking", back: "O peso declarado diz o que resolver primeiro.", tag: vocab.rfc }
+  - { front: "what happens when", back: "A pergunta de borda que testa sem atacar.", tag: vocab.rfc }
+  - { front: "have you considered", back: "A objeção suave que ainda aponta a lacuna.", tag: vocab.rfc }
+  - { front: "my read is", back: "A interpretação declarada antes de discordar.", tag: vocab.rfc }
+  - { front: "as written", back: "Objetando o texto, não a intenção.", tag: vocab.rfc }
+  - { front: "one thing I'd push on", back: "A objeção priorizada depois do reconhecimento.", tag: vocab.rfc }
+  - { front: "make a suggestion", back: "'Fazer uma sugestão' — nunca 'do a suggestion'.", tag: br.do-suggestion }
+
+review:
+  preferTags: [vocab.rfc, br.comment-in, br.suggest-to, gram.indirect-questions]
+  notes: "Revisão prioriza os três registros do comentário, o peso declarado, o nit separado e os calques do review escrito."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

@@ -1,0 +1,317 @@
+id: M25-04
+module: M25
+order: 4
+title: "Convergindo: 'resolving this thread' e registrando a decisão"
+objective: >-
+  Ao final, você conduz a convergência de um review:
+  responde cada comentário com ação ou razão, marca o
+  que ficou resolvido, e registra a decisão para quem
+  ler o doc em seis meses.
+durationMin: 40
+competencies: [WRI, REA]
+tags: [vocab.rfc, gram.argument-connectors, comp.writing, comp.reading]
+prerequisites: [M25-03]
+
+context:
+  scenario: |
+    O review da sua RFC de cache voltou: onze comentários
+    de quatro pessoas. Agora o trabalho é convergir —
+    cada thread precisa de um destino:
+
+    - **Aceito + feito**: "*good catch — added the
+      rollback path; resolving this thread*".
+    - **Respondido + não aceito**: "*I hear you — keeping
+      the shared queue because the split doubles ops
+      work; resolving unless you object*".
+    - **Estacionado**: "*out of scope for this RFC, but
+      worth a follow-up — I'll open a tracking issue*".
+    - **A decisão registrada**: "*decision: we start
+      billing-only, revisit after the Q3 review*" —
+      escrito onde o futuro leitor acha.
+
+    A convergência boa não é responder rápido — é cada
+    thread com destino claro e a decisão final visível
+    sem ler os quarenta comentários. "Resolving this
+    thread" sem registro é decisão que evapora.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "resolving this thread"
+    meaning: 'resolvendo este thread — o fecho do comentário'
+    example: "Good catch — added the rollback path. Resolving this thread."
+    translation: "Boa — adicionei o caminho de rollback. Resolvendo este thread."
+    note: "Ação feita + thread fechado — o ciclo completo."
+  - term: "good catch"
+    meaning: 'boa — reconhecendo o comentário que achou o problema'
+    example: "Good catch — the failover cost was missing. Added it to alternatives."
+    translation: "Boa — o custo do failover estava faltando. Adicionei às alternativas."
+    note: "Reconhecer o achado antes de agir — o revisor volta a comentar."
+  - term: "resolving unless you object"
+    meaning: 'resolvendo a menos que você objete — o fecho com janela aberta'
+    example: "Keeping the shared queue for now — resolving unless you object."
+    translation: "Mantendo a fila compartilhada por ora — resolvendo a menos que você objete."
+    note: "O fecho educado que ainda aceita o contra-argumento."
+  - term: "addressed in v2"
+    meaning: 'endereçado na v2 — a mudança feita no documento'
+    example: "Addressed in v2 — the migration section now has the rollback path."
+    translation: "Endereçado na v2 — a seção de migração agora tem o caminho de rollback."
+    note: "Aponte onde a correção vive — o revisor verifica, não acredita."
+  - term: "I'll open a tracking issue"
+    meaning: 'vou abrir uma issue de rastreamento — o estacionado com destino'
+    example: "Out of scope here, but worth it — I'll open a tracking issue for the failover work."
+    translation: "Fora de escopo aqui, mas vale — abro uma issue de rastreamento para o failover."
+    note: "O estacionado com destino não é descarte — é backlog honesto."
+  - term: "decision:"
+    meaning: 'decisão: — o registro final no documento'
+    example: "Decision: we start billing-only, revisit the shared cache after Q3."
+    translation: "Decisão: começamos só com billing, revisitamos o cache compartilhado depois do T3."
+    note: "Escrito onde o leitor de seis meses acha — no topo, datado."
+  - term: "for the record"
+    meaning: 'para o registro — o comentário que documenta o porquê'
+    example: "For the record: we rejected Redis for ops overhead, not capability."
+    translation: "Para o registro: rejeitamos Redis pelo overhead operacional, não pela capacidade."
+    note: "O porquê escrito evita o mesmo debate em seis meses."
+  - term: "can we converge on"
+    meaning: 'podemos convergir em — a proposta de fechamento'
+    example: "Can we converge on billing-only for v1 and revisit the rest in Q3?"
+    translation: "Podemos convergir em só-billing para a v1 e revisitar o resto no T3?"
+    note: "A convergência proposta explicitamente, não assumida."
+  - term: "happy to revisit"
+    meaning: 'feliz em revisitar — o reaberto com condição'
+    example: "Happy to revisit the split once we have the load numbers."
+    translation: "Feliz em revisitar a separação quando tivermos os números de carga."
+    note: "O 'não por agora' com a condição de volta."
+  - term: "left a comment"
+    meaning: 'deixei um comentário — o ato de comentar'
+    example: "I left a comment on the migration section — flagging the cold-cache case."
+    translation: "Deixei um comentário na seção de migração — sinalizando o caso de cache frio."
+    note: "'Leave a comment' — o verbo certo para comentar."
+  - term: "the thread went stale"
+    meaning: 'o thread apodreceu — a discussão sem dono que morreu'
+    example: "That thread went stale — nobody owned the follow-up."
+    translation: "Aquele thread apodreceu — ninguém assumiu o follow-up."
+    note: "Comentário sem destino é conversa que evapora."
+  - term: "let's take it to the doc"
+    meaning: 'vamos levar para o doc — a discussão que vira registro'
+    example: "Good debate — let's take it to the doc so it's not lost in chat."
+    translation: "Bom debate — vamos levar para o doc para não se perder no chat."
+    note: "A decisão no chat morre no chat — leve para o documento."
+  - term: "sign-off"
+    meaning: 'aprovação formal — o aval do dono'
+    example: "Waiting on sign-off from platform — then we merge the RFC."
+    translation: "Aguardando o aval de plataforma — aí mergeamos a RFC."
+    note: "O fecho da convergência é o aval do decision owner."
+
+grammar:
+  title: "a gramática da convergência"
+  explanation: |
+    A convergência de review usa três estruturas:
+
+    - **Passado para a ação feita**: "*added the rollback
+      path*", "*addressed in v2*" — o feito em passado
+      simples.
+    - **Presente para a posição mantida**: "*keeping the
+      shared queue because the split doubles ops work*"
+      — a decisão defendida com razão.
+    - **Futuro/condicional para o estacionado**: "*I'll
+      open a tracking issue*", "*happy to revisit once
+      we have the numbers*" — o destino com condição.
+    - **E o registro**: "*decision: …*", "*for the
+      record: …*" — a meta-linguagem do fechamento.
+
+    E os calques da convergência:
+
+    - "**I commented in the thread**" → "**commented
+      on**" ou "**left a comment on**".
+    - "**in the other hand**" → "**on the other hand**".
+    - "**suggest to merge**" → "**suggest merging**".
+    - "**do a suggestion**" → "**make a suggestion**".
+  examples:
+    - { en: "Good catch — added the rollback path. Resolving this thread.", pt: "Boa — adicionei o caminho de rollback. Resolvendo este thread." }
+    - { en: "Keeping the shared queue because the split doubles ops work — resolving unless you object.", pt: "Mantendo a fila compartilhada porque a separação dobra o trabalho de ops — resolvendo a menos que você objete." }
+    - { en: "Out of scope here, but worth a follow-up — I'll open a tracking issue.", pt: "Fora de escopo aqui, mas vale um follow-up — abro uma issue de rastreamento." }
+    - { en: "Decision: we start billing-only, revisit the shared cache after the Q3 review.", pt: "Decisão: começamos só com billing, revisitamos o cache compartilhado depois da revisão do T3." }
+    - { en: "For the record: we rejected Redis for ops overhead, not capability.", pt: "Para o registro: rejeitamos Redis pelo overhead operacional, não pela capacidade." }
+    - { en: "Happy to revisit the split once we have the load numbers.", pt: "Feliz em revisitar a separação quando tivermos os números de carga." }
+
+examples:
+  - en: "Good catch — the failover cost was missing. Added it to alternatives; resolving this thread."
+    pt: "Boa — o custo do failover estava faltando. Adicionei às alternativas; resolvendo este thread."
+    context: "Aceito + feito + fechado."
+  - en: "I hear you — keeping the shared queue because the split doubles ops work. Resolving unless you object."
+    pt: "Te escuto — mantendo a fila compartilhada porque a separação dobra o trabalho de ops. Resolvendo a menos que você objete."
+    context: "Respondido + não aceito + janela aberta."
+  - en: "Out of scope for this RFC, but worth a follow-up — I'll open a tracking issue."
+    pt: "Fora de escopo nesta RFC, mas vale um follow-up — abro uma issue de rastreamento."
+    context: "O estacionado com destino."
+  - en: "Decision: we start billing-only, revisit the shared cache after the Q3 review."
+    pt: "Decisão: começamos só com billing, revisitamos o cache compartilhado depois da revisão do T3."
+    context: "O registro onde o futuro acha."
+  - en: "For the record: we rejected Redis for ops overhead, not capability."
+    pt: "Para o registro: rejeitamos Redis pelo overhead operacional, não pela capacidade."
+    context: "O porquê escrito contra o debate repetido."
+  - en: "Can we converge on billing-only for v1 and revisit the rest in Q3?"
+    pt: "Podemos convergir em só-billing para a v1 e revisitar o resto no T3?"
+    context: "A convergência proposta explicitamente."
+  - en: "That thread went stale — nobody owned the follow-up."
+    pt: "Aquele thread apodreceu — ninguém assumiu o follow-up."
+    context: "O comentário sem destino."
+  - en: "Waiting on sign-off from platform — then we merge the RFC."
+    pt: "Aguardando o aval de plataforma — aí mergeamos a RFC."
+    context: "O fecho é o aval do dono."
+
+variations:
+  - idea: '"o fecho do thread"'
+    items:
+      - { register: "Boa", text: "Good catch — added the rollback path. Resolving this thread.", adequate: true }
+      - { register: "Boa", text: "Keeping it — resolving unless you object by Friday.", adequate: true }
+      - { register: "Inadequada", text: "Fixed. [thread left open]", adequate: false, note: "Ação sem fecho — 'resolving this thread' é a outra metade." }
+      - { register: "Inadequada", text: "I commented in the thread that I disagree.", adequate: false, note: "Calque: 'commented on the thread' / 'left a comment'." }
+  - idea: '"o estacionado"'
+    items:
+      - { register: "Boa", text: "Out of scope here — I'll open a tracking issue for the failover work.", adequate: true }
+      - { register: "Boa", text: "Happy to revisit once we have the load numbers.", adequate: true }
+      - { register: "Inadequada", text: "Let's discuss it later.", adequate: false, note: "'Depois' sem destino é onde o follow-up morre — issue ou data." }
+      - { register: "Inadequada", text: "In the other hand, maybe next quarter.", adequate: false, note: "Calque: 'on the other hand'." }
+
+brErrors:
+  - { wrong: "I commented in the thread already.", right: "I commented on the thread already.", why: "commented on / left a comment", tag: br.comment-in }
+  - { wrong: "In the other hand, the scope holds.", right: "On the other hand, the scope holds.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "I suggest to merge the RFC.", right: "I suggest merging the RFC.", why: "suggest merging", tag: br.suggest-to }
+  - { wrong: "Can I do a suggestion on this thread?", right: "Can I make a suggestion on this thread?", why: "make a suggestion", tag: br.do-suggestion }
+  - { wrong: "I want that you resolve the thread.", right: "I want you to resolve the thread.", why: "want you to resolve", tag: br.want-that }
+  - { wrong: "We discussed about the decision.", right: "We discussed the decision.", why: "discussed the decision", tag: br.discuss-about }
+  - { wrong: "The same thread than yesterday.", right: "The same thread as yesterday.", why: "the same as", tag: br.same-than }
+  - { wrong: "I am agree with the outcome.", right: "I agree with the outcome.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "She gave me a feedback on it.", right: "She gave me feedback on it.", why: "feedback sem artigo", tag: br.uncountable }
+  - { wrong: "It not works as written.", right: "It doesn't work as written.", why: "doesn't work", tag: br.it-not-works }
+
+dialogue:
+  title: "Converging the cache RFC"
+  lines:
+    - { speaker: Beth, text: "Eleven comments on your RFC — want help triaging?" }
+    - { speaker: Yuri, text: "Already through them. Carlos's rollback point — good catch, added the path, resolving that thread." }
+    - { speaker: Beth, text: "And my shared-queue question?" }
+    - { speaker: Yuri, text: "Answered, not accepting: keeping it shared because the split doubles ops work — resolving unless you object." }
+    - { speaker: Beth, text: "Fair. And the failover cost Ana raised?" }
+    - { speaker: Yuri, text: "Out of scope for this RFC, but real — I'm opening a tracking issue so it doesn't die in the thread." }
+    - { speaker: Carlos, text: "Where does the decision live?" }
+    - { speaker: Yuri, text: "Top of the doc: 'decision: we start billing-only, revisit shared cache after Q3'. For the record — Redis was rejected for ops overhead, not capability." }
+    - { speaker: Beth, text: "And the parts nobody could settle?" }
+    - { speaker: Yuri, text: "Parked with a revisit condition — happy to revisit once we have the load numbers. Waiting on your sign-off now." }
+    - { speaker: Beth, text: "Every thread has a destination — that's a converged review. Signed off." }
+  notes:
+    - "cada comentário com destino: aceito+feito, respondido+não aceito, estacionado com issue."
+    - "a decisão no topo do doc + 'for the record' — o futuro leitor acha sem ler os threads."
+    - "'happy to revisit once…' — o não-por-agora com a condição de volta."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "Converging a review means every thread gets a destination. Accepted and done — 'good catch, added it, resolving this thread'. Answered but not accepted — 'keeping it, resolving unless you object'. Parked — 'out of scope, but I'll open a tracking issue'. A thread without a destination is a conversation that evaporates." }
+    - { speaker: Carlos, text: "And the decision goes where the future reader finds it — the top of the doc, dated: 'decision: we start billing-only'. Add 'for the record' with the reason the alternative died, or you'll re-litigate it in six months." }
+    - { speaker: Yuri, text: "The calques of the converging phase: 'commented on the thread' or 'left a comment', never 'in'; 'on the other hand'; 'suggest merging'; 'make a suggestion'." }
+  questions:
+    - { id: M25-04-l1, type: multiple_choice, prompt: "Os destinos de um thread de review são…", options: ["aceito+feito, respondido+não aceito, estacionado com destino", "responder ou ignorar", "resolver todos", "só bloqueantes"], answer: 0, explanation: "Cada thread com um destino — senão evapora.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-04-l2, type: fill_blank, prompt: "Good catch — added the rollback path. ___ this thread.", accepted: ["Resolving"], explanation: "'Resolving this thread' — ação feita + fecho.", tags: [vocab.rfc] }
+    - { id: M25-04-l3, type: error_correction, prompt: "I commented in the thread yesterday.", accepted: ["I commented on the thread yesterday.", "I left a comment on the thread yesterday.", "I commented on the thread yesterday"], explanation: "'commented on' ou 'left a comment on'.", tags: [br.comment-in] }
+    - { id: M25-04-l4, type: multiple_choice, prompt: "'Resolving unless you object' é…", options: ["fechar sem ouvir", "insegurança", "pedido de permissão", "o fecho com a janela aberta para o contra-argumento"], answer: 3, explanation: "Mantém a posição e ainda aceita o contra-argumento.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-04-l5, type: multiple_choice, prompt: "Onde a decisão da RFC deve morar?", options: ["no último comentário", "no chat", "no topo do doc, datada — onde o leitor de seis meses acha", "na reunião"], answer: 2, explanation: "Sem registro visível, a decisão evapora.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-04-l6, type: multiple_choice, prompt: "'For the record: rejected Redis for ops overhead' evita…", options: ["a migração", "o mesmo debate em seis meses", "o sign-off", "o tracking issue"], answer: 1, explanation: "O porquê escrito contra a re-litigação futura.", tags: [comp.reading, vocab.rfc] }
+
+writing:
+  prompt: |
+    **Cenário:** o review da sua RFC fechou — onze
+    comentários, três destinos diferentes. O Carlos pediu
+    o resumo de convergência no topo do documento.
+
+    **Tarefa:** escreva 80–110 palavras com o registro de
+    convergência: o que foi aceito e feito, o que foi
+    respondido e não aceito (com a razão), o que foi
+    estacionado (com o destino), e a decisão final
+    registrada com data.
+  constraints:
+    - { label: "O aceito + feito", pattern: "\\bgood catch|added|addressed|resolving\\b" }
+    - { label: "O não aceito com razão", pattern: "\\bkeeping|because|unless you object|not accepting\\b" }
+    - { label: "O estacionado", pattern: "\\btracking issue|out of scope|revisit|parked|follow.?up\\b" }
+    - { label: "A decisão registrada", pattern: "\\bdecision:|for the record|sign.?off\\b" }
+  rubric:
+    - "Cada comentário com destino claro"
+    - "Decisão no topo, datada"
+    - "'For the record' com o porquê do descarte"
+    - "Sem calques ('commented on', 'on the other hand', 'suggest merging')"
+  model: >-
+    Convergence log — cache RFC. Carlos's rollback point:
+    good catch — added the path, resolving that thread.
+    Beth's shared-queue question: keeping it — the split
+    doubles ops work — resolving unless she objects.
+    Ana's failover cost: out of scope here, but real —
+    I opened a tracking issue so it doesn't die in the
+    thread. Decision at the top, dated: we start
+    billing-only, revisit the shared cache after Q3.
+    For the record: Redis was rejected for ops
+    overhead, not capability. On the other hand, if
+    load numbers surprise us, happy to revisit.
+    Waiting on platform sign-off.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.rfc]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos resumindo a convergência de um review: o que foi aceito e feito, o que foi respondido e não aceito com a razão, o que foi estacionado com destino, e a decisão final."
+    maxSeconds: 60
+    targetPhrases:
+      - resolving this thread
+      - good catch
+      - resolving unless you object
+      - addressed in v2
+      - I'll open a tracking issue
+      - "decision:"
+      - for the record
+      - can we converge on
+      - happy to revisit
+      - left a comment
+      - the thread went stale
+      - let's take it to the doc
+      - sign-off
+      - commented on
+      - on the other hand
+      - I suggest merging
+    checklist:
+      - "aceito + feito + thread fechado"
+      - "respondido + não aceito com a razão"
+      - "estacionado com destino (issue/data)"
+      - "decisão registrada onde o futuro acha"
+
+quiz:
+  - { id: M25-04-q1, type: multiple_choice, prompt: "'Good catch — added it. Resolving this thread' é o destino…", options: ["do estacionado", "do aceito + feito", "do não aceito", "do nit"], answer: 1, explanation: "Ação feita + thread fechado.", tags: [vocab.rfc] }
+  - { id: M25-04-q2, type: error_correction, prompt: "I suggest to merge the RFC today.", accepted: ["I suggest merging the RFC today.", "I suggest merging the RFC today", "I suggest that we merge the RFC today"], explanation: "'suggest merging'.", tags: [br.suggest-to] }
+  - { id: M25-04-q3, type: multiple_choice, prompt: "'I'll open a tracking issue' transforma o estacionado em…", options: ["descarte", "nova RFC", "backlog honesto — o follow-up com dono", "bloqueio"], answer: 2, explanation: "Fora de escopo com destino não é descarte.", tags: [vocab.rfc] }
+  - { id: M25-04-q4, type: fill_blank, prompt: "___ the record: we rejected Redis for ops overhead, not capability.", accepted: ["For"], explanation: "'For the record' — o porquê escrito.", tags: [vocab.rfc] }
+  - { id: M25-04-q5, type: multiple_choice, prompt: "A decisão registrada no topo do doc existe porque…", options: ["é convenção", "o leitor de seis meses acha sem ler quarenta comentários", "o template exige", "parece formal"], answer: 1, explanation: "Decisão no chat morre no chat.", tags: [vocab.rfc] }
+  - { id: M25-04-q6, type: error_correction, prompt: "In the other hand, the scope holds.", accepted: ["On the other hand, the scope holds.", "On the other hand, the scope holds"], explanation: "'On the other hand'.", tags: [br.in-other-hand] }
+  - { id: M25-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["you", "resolving", "object", "unless"], answer: "resolving unless you object", explanation: "O fecho com a janela aberta.", tags: [vocab.rfc] }
+  - { id: M25-04-q8, type: multiple_choice, prompt: "O thread que 'went stale' morreu porque…", options: ["ninguém assumiu o follow-up — comentário sem destino evapora", "era polêmico", "era nit", "faltou tempo"], answer: 0, explanation: "Sem destino e sem dono, a conversa some.", tags: [vocab.rfc] }
+
+srsCards:
+  - { front: "resolving this thread", back: "Ação feita + fecho — o ciclo completo do comentário.", tag: vocab.rfc }
+  - { front: "good catch", back: "Reconhece o achado antes de agir — o revisor volta.", tag: vocab.rfc }
+  - { front: "resolving unless you object", back: "O fecho com a janela aberta para o contra-argumento.", tag: vocab.rfc }
+  - { front: "addressed in v2", back: "Aponte onde a correção vive — verificar, não acreditar.", tag: vocab.rfc }
+  - { front: "I'll open a tracking issue", back: "O estacionado com destino — backlog honesto.", tag: vocab.rfc }
+  - { front: "decision:", back: "O registro no topo, datado — onde o futuro acha.", tag: vocab.rfc }
+  - { front: "for the record", back: "O porquê do descarte escrito — contra a re-litigação.", tag: vocab.rfc }
+  - { front: "can we converge on", back: "A convergência proposta explicitamente.", tag: vocab.rfc }
+  - { front: "happy to revisit", back: "O 'não por agora' com a condição de volta.", tag: vocab.rfc }
+  - { front: "the thread went stale", back: "Comentário sem destino é conversa que evapora.", tag: vocab.rfc }
+  - { front: "sign-off", back: "O aval do dono — o fecho da convergência.", tag: vocab.rfc }
+  - { front: "left a comment on", back: "'Deixei um comentário' — nunca 'commented in'.", tag: br.comment-in }
+
+review:
+  preferTags: [vocab.rfc, br.comment-in, br.suggest-to, gram.argument-connectors]
+  notes: "Revisão prioriza os três destinos do thread, a decisão registrada no topo, o 'for the record' e os calques da convergência."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

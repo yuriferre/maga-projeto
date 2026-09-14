@@ -1,0 +1,320 @@
+id: M25-02
+module: M25
+order: 2
+title: "Escrevendo a proposta: uma RFC de uma página que as pessoas leem"
+objective: >-
+  Ao final, você escreve uma proposta técnica curta —
+  resumo de três frases, motivação com dados, design
+  suficiente para revisar, alternativas honestas e
+  questões abertas de verdade.
+durationMin: 45
+competencies: [WRI, REA]
+tags: [vocab.rfc, gram.hedging, gram.argument-connectors, comp.writing, comp.reading]
+prerequisites: [M25-01]
+
+context:
+  scenario: |
+    O Yuri vai propor o cache distribuído para o catálogo
+    — e escreve a RFC. A proposta boa tem uma página e
+    meia e se sustenta sozinha numa terça-feira de
+    madrugada:
+
+    - **Summary em três frases**: o quê, por quê agora,
+      o pedido — "*I'm proposing X because Y; review
+      closes Friday*".
+    - **Motivation com dados**: "*p99 on catalog reads is
+      800ms under load*" — dor mensurável, não opinião.
+    - **Design suficiente para revisar**: diagrama +
+      decisões chave; detalhe de implementação fica fora.
+    - **Alternatives considered honestas**: incluir a
+      opção que quase ganhou — "*we almost went with
+      Redis, but…*".
+    - **Open questions de verdade**: o que você *realmente*
+      não sabe — convida a revisão em vez de fingir
+      certeza.
+
+    A regra do tamanho: se não cabe em duas páginas, ou
+    falta foco ou a proposta é duas RFCs. E o tom: venda
+    interna é fatos + trade-offs nomeados, não adjetivos.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead), Ana (eng manager)]
+
+vocabulary:
+  - term: "I'm proposing… because…"
+    meaning: 'proponho… porque… — a abertura do resumo'
+    example: "I'm proposing a shared cache layer because catalog reads are the top p99 driver."
+    translation: "Proponho uma camada de cache compartilhada porque leituras do catálogo são o maior driver do p99."
+    note: "O quê + por quê em uma frase — o pedido fecha a segunda."
+  - term: "review closes Friday"
+    meaning: 'a revisão fecha sexta — o prazo da proposta'
+    example: "Review closes Friday EOD; decision owner is the platform team."
+    translation: "A revisão fecha sexta fim do dia; o dono da decisão é o time de plataforma."
+    note: "RFC sem prazo apodrece — abra com ele no resumo."
+  - term: "the data says"
+    meaning: 'os dados dizem — a motivação com números'
+    example: "The data says catalog reads drive eighty percent of p99 misses."
+    translation: "Os dados dizem que leituras do catálogo dirigem 80% dos misses de p99."
+    note: "Dor mensurável, não opinião — a motivação é o que convence."
+  - term: "we almost went with"
+    meaning: 'quase fomos com — a alternativa honesta'
+    example: "We almost went with Redis, but the ops overhead wasn't worth it at our scale."
+    translation: "Quase fomos com Redis, mas o overhead operacional não valia na nossa escala."
+    note: "A alternativa que quase ganhou mostra que você pensou."
+  - term: "rejected because"
+    meaning: 'rejeitada porque — o descarte com razão'
+    example: "Rejected because it doubles the write path — too big a change for Q3."
+    translation: "Rejeitada porque dobra o caminho de escrita — mudança grande demais para o T3."
+    note: "Cada alternativa com a razão da morte — sem razão é strawman."
+  - term: "out of scope — deliberately"
+    meaning: 'fora de escopo — deliberadamente, o descarte consciente'
+    example: "Cache invalidation for writes is out of scope — deliberately; it needs its own RFC."
+    translation: "Invalidação de cache em escritas está fora de escopo — deliberadamente; precisa da própria RFC."
+    note: "'Deliberately' separa decisão consciente de esquecimento."
+  - term: "I don't know yet — flagging it"
+    meaning: 'ainda não sei — sinalizando — a open question honesta'
+    example: "I don't know yet how the cache behaves on deploys — flagging it as an open question."
+    translation: "Ainda não sei como o cache se comporta em deploys — sinalizo como questão aberta."
+    note: "A open question de verdade convida revisão; a fingida desvia."
+  - term: "the blast radius of a wrong call"
+    meaning: 'o raio de dano de uma decisão errada — dimensiona o cuidado'
+    example: "The blast radius of a wrong call here is one service, not the platform."
+    translation: "O raio de dano de uma decisão errada aqui é um serviço, não a plataforma."
+    note: "O tamanho do risco calibra quanto processo a decisão merece."
+  - term: "one page, maybe two"
+    meaning: 'uma página, talvez duas — o teto de tamanho'
+    example: "Keep it to one page, maybe two — longer means it's two RFCs."
+    translation: "Mantenha em uma página, talvez duas — mais longo significa que são duas RFCs."
+    note: "O tamanho é sinal de foco — a proposta longa não foi pensada."
+  - term: "the ask"
+    meaning: 'o pedido — o que a RFC quer do leitor'
+    example: "The ask: review by Friday, sign-off from platform, no code yet."
+    translation: "O pedido: revisão até sexta, sign-off de plataforma, nada de código ainda."
+    note: "Termine o resumo com o pedido — revisão, aprovação, ou só visibilidade."
+  - term: "a sketch, not a spec"
+    meaning: 'um rascunho, não uma spec — o nível certo de detalhe'
+    example: "The design section is a sketch, not a spec — enough to review, not to implement."
+    translation: "A seção de design é um rascunho, não uma spec — suficiente para revisar, não para implementar."
+    note: "Detalhe de implementação na RFC vira debate errado."
+  - term: "what would change my mind"
+    meaning: 'o que mudaria minha opinião — a falsificabilidade da proposta'
+    example: "What would change my mind: evidence that the hit rate stays under fifty percent."
+    translation: "O que mudaria minha opinião: evidência de que a taxa de acerto fica abaixo de 50%."
+    note: "Declarar a condição de mudança é a marca da proposta forte."
+  - term: "this is reversible"
+    meaning: 'isso é reversível — a porta de dois sentidos no resumo'
+    example: "This is reversible — the cache sits behind a flag and the path is unchanged without it."
+    translation: "Isso é reversível — o cache fica atrás de uma flag e o caminho sem ele não muda."
+    note: "A reversibilidade no resumo desarma metade da objeção."
+
+grammar:
+  title: "a gramática da proposta escrita"
+  explanation: |
+    A RFC escrita junta o registro formal com os
+    conectores de argumentação:
+
+    - **Present simple para o design**: "*the cache sits
+      behind a flag*", "*reads hit the cache first*" — o
+      sistema proposto em presente.
+    - **"Because/so" para a motivação**: "*because reads
+      drive the p99*" — causa explícita, não implícita.
+    - **"Almost/but" para as alternativas**: "*we almost
+      went with Redis, but the ops overhead…*" — o
+      descarte honesto.
+    - **Condicional para a falsificabilidade**: "*if the
+      hit rate stays under fifty percent, this stops
+      being worth it*" — a condição de mudança.
+
+    E os calques da escrita:
+
+    - "**in the other hand**" → "**on the other hand**".
+    - "**I suggest to use**" → "**I suggest using**".
+    - "**do a suggestion**" → "**make a suggestion**".
+    - "**I commented in the doc**" → "**commented on**".
+  examples:
+    - { en: "The cache sits behind a flag; reads hit it first, then the database.", pt: "O cache fica atrás de uma flag; leituras batem nele primeiro, depois no banco." }
+    - { en: "I'm proposing this now because catalog reads drive eighty percent of p99 misses.", pt: "Proponho isso agora porque leituras do catálogo dirigem 80% dos misses de p99." }
+    - { en: "We almost went with Redis, but the ops overhead wasn't worth it at our scale.", pt: "Quase fomos com Redis, mas o overhead operacional não valia na nossa escala." }
+    - { en: "If the hit rate stays under fifty percent, this stops being worth it.", pt: "Se a taxa de acerto ficar abaixo de 50%, isso deixa de valer a pena." }
+    - { en: "On the other hand, doing nothing keeps the incident rate where it is.", pt: "Por outro lado, não fazer nada mantém a taxa de incidentes onde está." }
+    - { en: "I don't know yet how it behaves on deploys — flagging it as an open question.", pt: "Ainda não sei como se comporta em deploys — sinalizo como questão aberta." }
+
+examples:
+  - en: "I'm proposing a shared cache layer because catalog reads are the top p99 driver. Review closes Friday."
+    pt: "Proponho uma camada de cache compartilhada porque leituras do catálogo são o maior driver do p99. A revisão fecha sexta."
+    context: "O resumo em três frases."
+  - en: "The data says eighty percent of p99 misses come from catalog reads."
+    pt: "Os dados dizem que 80% dos misses de p99 vêm de leituras do catálogo."
+    context: "Motivação com número."
+  - en: "We almost went with Redis — rejected because the ops overhead wasn't worth it at our scale."
+    pt: "Quase fomos com Redis — rejeitado porque o overhead operacional não valia na nossa escala."
+    context: "A alternativa honesta com a razão da morte."
+  - en: "Cache invalidation on writes is out of scope — deliberately; it needs its own RFC."
+    pt: "Invalidação de cache em escritas está fora de escopo — deliberadamente; precisa da própria RFC."
+    context: "O descarte consciente."
+  - en: "I don't know yet how the cache behaves on deploys — flagging it as an open question."
+    pt: "Ainda não sei como o cache se comporta em deploys — sinalizo como questão aberta."
+    context: "A open question de verdade."
+  - en: "The design section is a sketch, not a spec — enough to review, not to implement."
+    pt: "A seção de design é um rascunho, não uma spec — suficiente para revisar, não para implementar."
+    context: "O nível de detalhe certo."
+  - en: "This is reversible — the cache sits behind a flag, so the wrong call costs one deploy."
+    pt: "Isso é reversível — o cache fica atrás de uma flag, então a decisão errada custa um deploy."
+    context: "A reversibilidade desarmando a objeção."
+  - en: "The ask: review by Friday, sign-off from platform, no code yet."
+    pt: "O pedido: revisão até sexta, sign-off de plataforma, nada de código ainda."
+    context: "O pedido que fecha o resumo."
+
+variations:
+  - idea: '"a motivação"'
+    items:
+      - { register: "Boa", text: "The data says eighty percent of p99 misses come from catalog reads.", adequate: true }
+      - { register: "Boa", text: "Motivation: three cache-miss incidents this quarter, each a customer-facing slowdown.", adequate: true }
+      - { register: "Inadequada", text: "Caching is a best practice and everyone does it.", adequate: false, note: "Opinião + apelo à manada — a motivação é dor mensurável." }
+      - { register: "Inadequada", text: "In the other hand, the current latency is fine for now.", adequate: false, note: "Calque: 'on the other hand'." }
+  - idea: '"as alternativas"'
+    items:
+      - { register: "Boa", text: "We almost went with Redis, but the ops overhead wasn't worth it.", adequate: true }
+      - { register: "Boa", text: "Rejected because it doubles the write path — too big a change for Q3.", adequate: true }
+      - { register: "Inadequada", text: "Alternatives: doing nothing (obviously wrong).", adequate: false, note: "Strawman — toda alternativa merece a razão real da morte." }
+      - { register: "Inadequada", text: "I suggest to use a queue instead.", adequate: false, note: "Calque: 'suggest using' ou 'suggest that we use'." }
+
+brErrors:
+  - { wrong: "In the other hand, the monolith wins.", right: "On the other hand, the monolith wins.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "I suggest to use a shared cache.", right: "I suggest using a shared cache.", why: "suggest using", tag: br.suggest-to }
+  - { wrong: "Can I do a suggestion here?", right: "Can I make a suggestion here?", why: "make a suggestion", tag: br.do-suggestion }
+  - { wrong: "I commented in the doc already.", right: "I commented on the doc already.", why: "commented on", tag: br.comment-in }
+  - { wrong: "I want that you review by Friday.", right: "I want you to review by Friday.", why: "want you to review", tag: br.want-that }
+  - { wrong: "She gave me a feedback on the draft.", right: "She gave me feedback on the draft.", why: "feedback sem artigo", tag: br.uncountable }
+  - { wrong: "The same proposal than last quarter.", right: "The same proposal as last quarter.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the design offline.", right: "We discussed the design offline.", why: "discussed the design", tag: br.discuss-about }
+  - { wrong: "I am agree with the approach.", right: "I agree with the approach.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "It not works under load.", right: "It doesn't work under load.", why: "doesn't work", tag: br.it-not-works }
+
+dialogue:
+  title: "Drafting the cache RFC"
+  lines:
+    - { speaker: Yuri, text: "Drafting the cache RFC — I'm proposing a shared layer because catalog reads drive eighty percent of p99 misses. Review closes Friday." }
+    - { speaker: Beth, text: "Good summary. What's out of scope?" }
+    - { speaker: Yuri, text: "Write-path invalidation — deliberately; it needs its own RFC. And the design section is a sketch, not a spec." }
+    - { speaker: Carlos, text: "Alternatives?" }
+    - { speaker: Yuri, text: "Three. Doing nothing — rejected, the incident rate stays. Redis — we almost went with it, but the ops overhead wasn't worth it at our scale. And CDN-level caching — rejected, our reads are authenticated." }
+    - { speaker: Beth, text: "Open questions?" }
+    - { speaker: Yuri, text: "One real one: I don't know yet how the cache behaves on deploys — flagging it. And I'm declaring what would change my mind: a hit rate under fifty percent makes this not worth it." }
+    - { speaker: Ana, text: "Is this reversible?" }
+    - { speaker: Yuri, text: "Yes — the cache sits behind a flag, so a wrong call costs one deploy. The blast radius is one service, not the platform." }
+    - { speaker: Ana, text: "One page, honest alternatives, a real open question — that's a reviewable proposal." }
+  notes:
+    - "resumo com proposta + motivação + pedido ('review closes Friday')."
+    - "alternativas com a razão da morte — inclusive a que quase ganhou."
+    - "a falsificabilidade declarada ('what would change my mind') é a marca da proposta forte."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "A one-page RFC: summary with the proposal, the 'why now' and the ask. Motivation with data — 'the data says reads drive the misses'. Design as a sketch, not a spec. Alternatives with real reasons for rejection — including the one that almost won. And open questions you actually don't know." }
+    - { speaker: Carlos, text: "Two things make a proposal strong: declared reversibility — 'the cache sits behind a flag' — and falsifiability — 'what would change my mind is a hit rate under fifty percent'. Both disarm the objection before the reviewer raises it." }
+    - { speaker: Yuri, text: "And keep the calques out of the draft: 'on the other hand', 'suggest using', 'make a suggestion', 'commented on'. A proposal full of calques reads as unpolished before anyone reaches the design." }
+  questions:
+    - { id: M25-02-l1, type: multiple_choice, prompt: "O resumo da RFC carrega…", options: ["a proposta + o porquê agora + o pedido", "o diagrama completo", "o histórico", "as referências"], answer: 0, explanation: "O quê, por quê agora, e o ask — três frases.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-02-l2, type: fill_blank, prompt: "We almost ___ with Redis, but the ops overhead wasn't worth it.", accepted: ["went"], explanation: "'We almost went with' — a alternativa honesta.", tags: [vocab.rfc] }
+    - { id: M25-02-l3, type: error_correction, prompt: "In the other hand, doing nothing keeps the incident rate.", accepted: ["On the other hand, doing nothing keeps the incident rate.", "On the other hand, doing nothing keeps the incident rate"], explanation: "'On the other hand'.", tags: [br.in-other-hand] }
+    - { id: M25-02-l4, type: multiple_choice, prompt: "'What would change my mind: hit rate under 50%' é…", options: ["indecisão", "fraqueza da proposta", "falsificabilidade declarada — a marca da proposta forte", "fora de escopo"], answer: 2, explanation: "Declarar a condição de mudança desarma a objeção.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-02-l5, type: multiple_choice, prompt: "A RFC de seis páginas provavelmente é…", options: ["mais completa", "duas RFCs ou falta de foco", "mais técnica", "melhor revisada"], answer: 1, explanation: "Uma página, talvez duas — o tamanho é sinal de foco.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-02-l6, type: multiple_choice, prompt: "O design na RFC deve ser…", options: ["a spec completa", "o código pronto", "um rascunho — suficiente para revisar, não para implementar", "só um diagrama"], answer: 2, explanation: "Detalhe de implementação vira o debate errado.", tags: [comp.reading, vocab.rfc] }
+
+writing:
+  prompt: |
+    **Cenário:** é a sua vez — você vai propor a mudança
+    que defendeu na apresentação (ou uma outra real do seu
+    trabalho).
+
+    **Tarefa:** escreva 90–120 palavras com o esqueleto da
+    sua RFC: o resumo (proposta + porquê agora + pedido),
+    a motivação com um número, uma alternativa quase
+    escolhida com a razão da rejeição, e uma open question
+    de verdade.
+  constraints:
+    - { label: "O resumo com pedido", pattern: "\\bi('m| am) propos|because|review closes|the ask\\b" }
+    - { label: "Motivação com dado", pattern: "\\bdata says|\\d+%|percent|p99|incidents|latency\\b" }
+    - { label: "Alternativa honesta", pattern: "\\balmost went|rejected|on the other hand|alternatives considered\\b" }
+    - { label: "Open question", pattern: "\\bopen question|don't know yet|flagging|would change my mind\\b" }
+  rubric:
+    - "Resumo com proposta + porquê + pedido"
+    - "Motivação com número, não opinião"
+    - "Alternativa com a razão real da morte"
+    - "Sem calques ('on the other hand', 'suggest using', 'make a suggestion', 'commented on')"
+  model: >-
+    RFC draft — shared cache for catalog reads. I'm
+    proposing a shared cache layer because catalog reads
+    drive eighty percent of our p99 misses; the data says
+    three customer-facing slowdowns this quarter trace to
+    it. The ask: review by Friday, sign-off from platform,
+    no code yet. Alternatives considered: we almost went
+    with Redis, but the ops overhead wasn't worth it at
+    our scale; doing nothing was rejected — the incident
+    rate stays. On the other hand, this adds one
+    dependency. Open question, flagging it honestly: I
+    don't know yet how the cache behaves on deploys.
+    What would change my mind: a hit rate under fifty
+    percent.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.rfc, gram.argument-connectors]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos apresentando verbalmente a sua RFC: a proposta e a motivação com número, uma alternativa descartada com a razão, uma open question honesta e o pedido com prazo."
+    maxSeconds: 60
+    targetPhrases:
+      - I'm proposing
+      - the data says
+      - review closes
+      - the ask
+      - we almost went with
+      - rejected because
+      - out of scope
+      - open question
+      - I don't know yet
+      - what would change my mind
+      - this is reversible
+      - a sketch, not a spec
+      - the blast radius
+      - one page, maybe two
+      - on the other hand
+      - I suggest using
+    checklist:
+      - "proposta + porquê agora + pedido em três frases"
+      - "motivação com número"
+      - "alternativa com a razão da morte"
+      - "open question de verdade, sem calques"
+
+quiz:
+  - { id: M25-02-q1, type: multiple_choice, prompt: "O resumo da RFC é…", options: ["três parágrafos de contexto", "um sumário do doc", "a proposta + o porquê agora + o pedido — três frases", "o diagrama"], answer: 2, explanation: "Se não cabe em três frases, a proposta não está madura.", tags: [vocab.rfc] }
+  - { id: M25-02-q2, type: error_correction, prompt: "I suggest to add a feature flag.", accepted: ["I suggest adding a feature flag.", "I suggest adding a feature flag", "I suggest that we add a feature flag"], explanation: "'suggest adding' ou 'suggest that we add'.", tags: [br.suggest-to] }
+  - { id: M25-02-q3, type: multiple_choice, prompt: "Incluir a alternativa que 'quase ganhou' mostra…", options: ["indecisão", "que você pensou — a honestidade do descarte", "fraqueza", "falta de foco"], answer: 1, explanation: "'We almost went with Redis, but…' — o processo visível.", tags: [vocab.rfc] }
+  - { id: M25-02-q4, type: fill_blank, prompt: "Rejected ___ it doubles the write path.", accepted: ["because"], explanation: "Cada alternativa com a razão da morte.", tags: [vocab.rfc] }
+  - { id: M25-02-q5, type: multiple_choice, prompt: "'This is reversible — sits behind a flag' no resumo…", options: ["é detalhe técnico demais", "enfraquece a proposta", "confunde o leitor", "desarma metade da objeção antes de ela vir"], answer: 3, explanation: "A reversibilidade declarada acalma o revisor.", tags: [vocab.rfc] }
+  - { id: M25-02-q6, type: error_correction, prompt: "Can I do a suggestion on the rollout section?", accepted: ["Can I make a suggestion on the rollout section?", "Can I make a suggestion on the rollout section"], explanation: "'make a suggestion'.", tags: [br.do-suggestion] }
+  - { id: M25-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["what", "mind", "would", "my", "change"], answer: "what would change my mind", explanation: "A falsificabilidade declarada.", tags: [vocab.rfc] }
+  - { id: M25-02-q8, type: multiple_choice, prompt: "A 'open question' que vale é…", options: ["retórica — você já sabe a resposta", "opcional", "só para RFCs grandes", "o que você realmente não sabe — convida a revisão"], answer: 3, explanation: "A open question fingida desvia; a de verdade convida ajuda.", tags: [vocab.rfc] }
+
+srsCards:
+  - { front: "I'm proposing… because…", back: "A abertura do resumo — o quê + por quê em uma frase.", tag: vocab.rfc }
+  - { front: "review closes Friday", back: "O prazo no resumo — RFC sem prazo apodrece.", tag: vocab.rfc }
+  - { front: "the data says", back: "Motivação com número, não opinião.", tag: vocab.rfc }
+  - { front: "we almost went with", back: "A alternativa que quase ganhou — a honestidade do descarte.", tag: vocab.rfc }
+  - { front: "rejected because", back: "Cada alternativa com a razão real da morte.", tag: vocab.rfc }
+  - { front: "out of scope — deliberately", back: "O descarte consciente, separado do esquecimento.", tag: vocab.rfc }
+  - { front: "I don't know yet — flagging it", back: "A open question de verdade convida a revisão.", tag: vocab.rfc }
+  - { front: "what would change my mind", back: "A falsificabilidade declarada — marca da proposta forte.", tag: vocab.rfc }
+  - { front: "this is reversible", back: "A reversibilidade no resumo desarma a objeção.", tag: vocab.rfc }
+  - { front: "the ask", back: "O pedido que fecha o resumo — revisão, sign-off, visibilidade.", tag: vocab.rfc }
+  - { front: "a sketch, not a spec", back: "Design suficiente para revisar, não para implementar.", tag: vocab.rfc }
+  - { front: "on the other hand", back: "'Por outro lado' — nunca 'in the other hand'.", tag: br.in-other-hand }
+
+review:
+  preferTags: [vocab.rfc, br.in-other-hand, br.do-suggestion]
+  notes: "Revisão prioriza o resumo de três frases, a alternativa honesta, a falsificabilidade e os calques da escrita."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

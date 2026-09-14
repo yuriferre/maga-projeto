@@ -1,0 +1,318 @@
+id: M25-05
+module: M25
+order: 5
+title: "PRÁTICA: escreva uma RFC curta e revise a de um colega"
+objective: >-
+  Ao final, você executa o ciclo completo: escreve a
+  RFC curta do seu projeto e revisa a RFC fornecida do
+  Carlos — com pergunta, objeção, sugestão e nit.
+durationMin: 50
+competencies: [WRI, REA]
+tags: [vocab.rfc, gram.hedging, gram.argument-connectors, comp.writing, comp.reading]
+prerequisites: [M25-04]
+
+context:
+  scenario: |
+    Dois trabalhos em uma sessão — a mesa de review real:
+
+    **Parte 1 — a RFC do Carlos (para revisar).** Ele
+    propõe trocar o polling de status por webhooks.
+    Resumo ok, motivação com número ("300k requests/dia
+    viram ~300"), design com diagrama — mas não diz
+    nada sobre **retry** nem **o que acontece quando o
+    endpoint do cliente está fora**. Alternatives
+    consideradas lista só "long polling" — descartado
+    sem razão. Open questions: vazia.
+
+    **Parte 2 — a sua RFC curta.** Pegue a proposta que
+    você apresentou no M24 (ou uma real) e escreva o
+    esqueleto: resumo de três frases, motivação com
+    número, uma alternativa com a razão da morte, uma
+    open question honesta, o pedido com prazo.
+
+    O critério: a revisão que o Carlos recebe tem
+    pergunta + objeção + sugestão + nit; a sua RFC se
+    sustenta numa terça de madrugada sem você do lado
+    para explicar.
+  roles: [Yuri (platform engineer), Carlos (SRE lead), Beth (staff engineer)]
+
+vocabulary:
+  - term: "the parts that hold"
+    meaning: 'as partes que se sustentam — o que já está bom'
+    example: "The parts that hold: the motivation is real and the numbers check out."
+    translation: "As partes que se sustentam: a motivação é real e os números fecham."
+    note: "Comece o review reconhecendo o que funciona."
+  - term: "two things missing"
+    meaning: 'duas coisas faltando — a lacuna nomeada na revisão'
+    example: "Two things missing: the retry story and the dead-letter path."
+    translation: "Duas coisas faltando: a história do retry e o caminho do dead-letter."
+    note: "A ausência nomeada em uma frase é o comentário mais útil."
+  - term: "the retry story"
+    meaning: 'a história do retry — o que acontece na falha'
+    example: "The retry story is missing — what happens when the endpoint is down?"
+    translation: "A história do retry está faltando — o que acontece quando o endpoint está fora?"
+    note: "Em webhooks/filas, o retry é onde o design morre ou vive."
+  - term: "happy path vs failure path"
+    meaning: 'caminho feliz × caminho da falha — a cobertura do design'
+    example: "The RFC covers the happy path; the failure path is one line."
+    translation: "A RFC cobre o caminho feliz; o caminho da falha é uma linha."
+    note: "Design que só cobre o happy path não foi revisado — foi lido."
+  - term: "worth shipping a spike first"
+    meaning: 'vale fazer um spike antes — a sugestão de reduzir risco'
+    example: "Worth shipping a spike first — one endpoint, one client, one week."
+    translation: "Vale fazer um spike antes — um endpoint, um cliente, uma semana."
+    note: "A sugestão que reduz o risco da decisão grande."
+  - term: "I'd structure it as"
+    meaning: 'eu estruturaria como — a sugestão de forma'
+    example: "I'd structure it as two phases: delivery guarantee first, then the retry policy."
+    translation: "Eu estruturaria em duas fases: garantia de entrega primeiro, depois a política de retry."
+    note: "Sugerir a forma, não só o conteúdo."
+  - term: "self-contained"
+    meaning: 'auto-contida — a RFC que se explica sozinha'
+    example: "Keep it self-contained — the reader at 2am shouldn't need you online."
+    translation: "Mantenha auto-contida — o leitor das 2h não deve precisar de você online."
+    note: "O teste da madrugada de terça: a proposta se sustenta sozinha?"
+  - term: "sign-off pending"
+    meaning: 'aprovação pendente — o estado da revisão'
+    example: "Sign-off pending the retry story — once that's in, I'm good."
+    translation: "Aprovação pendente da história do retry — com isso, estou de acordo."
+    note: "O aval condicional é mais útil que o 'looks good' vazio."
+  - term: "the draft"
+    meaning: 'o rascunho — a versão aberta a comentários'
+    example: "Sharing the draft — comments welcome until Friday."
+    translation: "Compartilhando o rascunho — comentários bem-vindos até sexta."
+    note: "Draft + prazo + convite explícito — a revisão começa combinada."
+  - term: "comments welcome"
+    meaning: 'comentários bem-vindos — o convite formal'
+    example: "Comments welcome — especially on the migration section."
+    translation: "Comentários bem-vindos — especialmente na seção de migração."
+    note: "Aponte onde você quer o olhar — guia o revisor."
+  - term: "I'll own the follow-up"
+    meaning: 'eu assumo o follow-up — o estacionado com dono'
+    example: "I'll own the follow-up on the dead-letter question — doc by Wednesday."
+    translation: "Eu assumo o follow-up da questão do dead-letter — doc até quarta."
+    note: "O estacionado com dono e data — o thread não apodrece."
+  - term: "what would you need to see"
+    meaning: 'o que você precisaria ver — transforma a objeção em condição'
+    example: "What would you need to see to be comfortable with the webhook approach?"
+    translation: "O que você precisaria ver para ficar confortável com a abordagem de webhooks?"
+    note: "A objeção vaga vira condição testável — a melhor pergunta do review."
+
+grammar:
+  title: "a gramática do ciclo completo"
+  explanation: |
+    A prática junta as estruturas das quatro aulas:
+
+    - **Ler**: "*under open questions — it's empty*",
+      "*it says nothing about retry*".
+    - **Escrever**: "*I'm proposing X because Y*",
+      "*we almost went with Z, but…*".
+    - **Comentar**: "*am I reading this right*",
+      "*as written, the failure path is one line*",
+      "*could we ship a spike first*".
+    - **Convergir**: "*sign-off pending the retry
+      story*", "*I'll own the follow-up*".
+
+    E os calques sob pressão de prazo:
+
+    - "**commented in the draft**" → "**commented
+      on**".
+    - "**do a suggestion**" → "**make a suggestion**".
+    - "**suggest to split**" → "**suggest splitting**".
+    - "**in the other hand**" → "**on the other
+      hand**".
+  examples:
+    - { en: "Under open questions — it's empty, and that's the section I needed most.", pt: "Em questões abertas — está vazia, e é a seção que eu mais precisava." }
+    - { en: "It says nothing about the retry story — that's the blocking comment.", pt: "Não diz nada sobre a história do retry — esse é o comentário bloqueante." }
+    - { en: "Could we ship a spike first — one endpoint, one client, one week?", pt: "Poderíamos fazer um spike antes — um endpoint, um cliente, uma semana?" }
+    - { en: "I'd structure it as two phases: delivery first, then the retry policy.", pt: "Eu estruturaria em duas fases: entrega primeiro, depois a política de retry." }
+    - { en: "Sign-off pending the retry story — once that's in, I'm good.", pt: "Aprovação pendente da história do retry — com isso, estou de acordo." }
+    - { en: "What would you need to see to be comfortable with this approach?", pt: "O que você precisaria ver para ficar confortável com essa abordagem?" }
+
+examples:
+  - en: "The parts that hold: motivation is real, numbers check out, diagram is honest."
+    pt: "As partes que se sustentam: a motivação é real, os números fecham, o diagrama é honesto."
+    context: "O review começa reconhecendo."
+  - en: "Two things missing: the retry story and what happens when the endpoint is down."
+    pt: "Duas coisas faltando: a história do retry e o que acontece quando o endpoint está fora."
+    context: "A lacuna nomeada."
+  - en: "It covers the happy path — the failure path is one line. That's my blocking comment."
+    pt: "Cobre o caminho feliz — o caminho da falha é uma linha. Esse é meu comentário bloqueante."
+    context: "A cobertura incompleta."
+  - en: "Worth shipping a spike first — one endpoint, one client, one week."
+    pt: "Vale fazer um spike antes — um endpoint, um cliente, uma semana."
+    context: "A sugestão que reduz o risco."
+  - en: "Keep it self-contained — the reader at 2am shouldn't need you online."
+    pt: "Mantenha auto-contida — o leitor das 2h não deve precisar de você online."
+    context: "O teste da madrugada de terça."
+  - en: "Sign-off pending the retry story — once that's in, I'm good."
+    pt: "Aprovação pendente da história do retry — com isso, estou de acordo."
+    context: "O aval condicional."
+  - en: "I'll own the follow-up on the dead-letter question — doc by Wednesday."
+    pt: "Eu assumo o follow-up da questão do dead-letter — doc até quarta."
+    context: "O estacionado com dono."
+  - en: "What would you need to see to be comfortable with the webhook approach?"
+    pt: "O que você precisaria ver para ficar confortável com a abordagem de webhooks?"
+    context: "A objeção vira condição."
+
+variations:
+  - idea: '"a revisão entregue"'
+    items:
+      - { register: "Boa", text: "Parts that hold + two things missing + a suggestion with a path + the nit.", adequate: true }
+      - { register: "Boa", text: "Sign-off pending the retry story — once that's in, I'm good.", adequate: true }
+      - { register: "Inadequada", text: "Looks good to me! [with eleven unaddressed gaps]", adequate: false, note: "O 'LGTM' vazio é a pior revisão — ou comente ou confesse que não leu." }
+      - { register: "Inadequada", text: "I did a suggestion: rewrite the whole thing.", adequate: false, note: "Calque + sugestão sem caminho — 'make a suggestion' e aponte o como." }
+  - idea: '"a sua RFC"'
+    items:
+      - { register: "Boa", text: "I'm proposing X because Y; the ask is Z by Friday.", adequate: true }
+      - { register: "Boa", text: "Keep it self-contained — the reader at 2am shouldn't need you online.", adequate: true }
+      - { register: "Inadequada", text: "It's kind of a proposal for a thing I've been thinking about.", adequate: false, note: "A abertura tímida mata a proposta — 'I'm proposing X because Y'." }
+      - { register: "Inadequada", text: "In the other hand, alternatives are optional.", adequate: false, note: "Calque + o erro — 'on the other hand', e alternativas não são opcionais." }
+
+brErrors:
+  - { wrong: "I commented in the draft already.", right: "I commented on the draft already.", why: "commented on", tag: br.comment-in }
+  - { wrong: "Can I do a suggestion on the retry part?", right: "Can I make a suggestion on the retry part?", why: "make a suggestion", tag: br.do-suggestion }
+  - { wrong: "I suggest to ship a spike first.", right: "I suggest shipping a spike first.", why: "suggest shipping", tag: br.suggest-to }
+  - { wrong: "In the other hand, webhooks are simpler.", right: "On the other hand, webhooks are simpler.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "I want that you review the draft.", right: "I want you to review the draft.", why: "want you to review", tag: br.want-that }
+  - { wrong: "The same feedback than last time.", right: "The same feedback as last time.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the retry story.", right: "We discussed the retry story.", why: "discussed the retry story", tag: br.discuss-about }
+  - { wrong: "I am agree with the spike idea.", right: "I agree with the spike idea.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "I have doubt about the dead-letter.", right: "I have a doubt about the dead-letter.", why: "a doubt", tag: br.doubt }
+  - { wrong: "She gave me a feedback on the draft.", right: "She gave me feedback on the draft.", why: "feedback sem artigo", tag: br.uncountable }
+
+dialogue:
+  title: "The review session — Carlos's webhook RFC"
+  lines:
+    - { speaker: Carlos, text: "My webhook RFC is up — real review, please. I want the objections." }
+    - { speaker: Yuri, text: "Read it twice. The parts that hold: motivation is real — 300k requests a day becoming ~300 — and the diagram is honest." }
+    - { speaker: Carlos, text: "And the gaps?" }
+    - { speaker: Yuri, text: "Two things missing: the retry story and what happens when the client's endpoint is down. It covers the happy path; the failure path is one line. That's my blocking comment." }
+    - { speaker: Carlos, text: "Fair — I hadn't priced the retry." }
+    - { speaker: Yuri, text: "A suggestion: worth shipping a spike first — one endpoint, one client, one week. And am I reading this right — long polling was rejected, but the reason isn't in the doc?" }
+    - { speaker: Carlos, text: "It's in my head — 'polling at scale is the thing we're removing'. I'll write it in. What about your RFC?" }
+    - { speaker: Yuri, text: "Draft shared — comments welcome until Friday, especially on the migration section. Keep it self-contained: the reader at 2am shouldn't need me online." }
+    - { speaker: Carlos, text: "And your sign-off on mine?" }
+    - { speaker: Yuri, text: "Pending the retry story — once that's in, I'm good. I'll own the follow-up on the dead-letter question; doc by Wednesday." }
+    - { speaker: Carlos, text: "That's a review — gaps named, a path offered, and a conditional yes instead of an empty LGTM." }
+  notes:
+    - "o review real: reconhecer → lacuna nomeada → objeção com peso → sugestão com caminho → aval condicional."
+    - "a sua RFC: auto-contida, com convite explícito e seção guiada ('especially on the migration')."
+    - "a pergunta final do Carlos vira 'sign-off pending' — o aval condicional."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "The practice: review a colleague's RFC and write your own. The review that lands has four parts — what holds, what's missing, a suggestion with a path, and a conditional sign-off. 'Sign-off pending the retry story' beats an empty 'looks good' every time." }
+    - { speaker: Beth, text: "And for your own draft: self-contained — the reader at 2am shouldn't need you online. Share it with a deadline and point at where you want eyes — 'comments welcome, especially on the migration section'." }
+    - { speaker: Yuri, text: "And the calques when you're writing fast: 'commented on the draft', 'make a suggestion', 'suggest shipping', 'on the other hand' — the review full of calques reads rushed before the substance lands." }
+  questions:
+    - { id: M25-05-l1, type: multiple_choice, prompt: "A revisão que aterrissa tem…", options: ["o que sustenta + o que falta + sugestão com caminho + aval condicional", "só elogios", "só bloqueios", "um voto"], answer: 0, explanation: "Quatro partes — o 'LGTM' vazio não é revisão.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-05-l2, type: fill_blank, prompt: "Sign-off ___ the retry story — once that's in, I'm good.", accepted: ["pending"], explanation: "'Pending' — o aval condicional.", tags: [vocab.rfc] }
+    - { id: M25-05-l3, type: error_correction, prompt: "I commented in the draft this morning.", accepted: ["I commented on the draft this morning.", "I commented on the draft this morning"], explanation: "'commented on'.", tags: [br.comment-in] }
+    - { id: M25-05-l4, type: multiple_choice, prompt: "'What would you need to see to be comfortable?' transforma…", options: ["o review em call", "a decisão em debate", "o autor em revisor", "a objeção vaga em condição testável"], answer: 3, explanation: "A melhor pergunta do review — a objeção vira requisito.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-05-l5, type: multiple_choice, prompt: "O teste da 'madrugada de terça' pede uma RFC…", options: ["curta", "com diagrama", "auto-contida — que se sustenta sem você online", "formal"], answer: 2, explanation: "A proposta que precisa de explicação ao vivo não está pronta.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-05-l6, type: multiple_choice, prompt: "'Comments welcome — especially on the migration section' faz o quê?", options: ["pede revisão geral", "guia o revisor para onde você quer o olhar", "atrapalha o revisor", "fecha o review"], answer: 1, explanation: "Apontar a seção carente melhora o review que volta.", tags: [comp.reading, vocab.rfc] }
+
+writing:
+  prompt: |
+    **Cenário da prática:** dois trabalhos em uma sessão.
+
+    **Parte 1 — a revisão.** A RFC do Carlos (webhooks)
+    tem: motivação com número, diagrama honesto, mas nada
+    sobre retry nem sobre endpoint fora do ar; alternativa
+    descartada sem razão; open questions vazia. Escreva a
+    revisão: o que sustenta, a lacuna (bloqueante), a
+    sugestão com caminho, e o aval condicional.
+
+    **Parte 2 — a sua RFC.** Escreva o esqueleto da sua
+    proposta: resumo (proposta + porquê + pedido com
+    prazo), uma alternativa com a razão da morte, e uma
+    open question honesta.
+
+    Escreva 100–140 palavras cobrindo as duas partes.
+  constraints:
+    - { label: "O que sustenta", pattern: "\\bholds?|solid|real|checks? out|honest\\b" }
+    - { label: "A lacuna bloqueante", pattern: "\\bmissing|says nothing|blocking|doesn't (cover|mention)|failure path\\b" }
+    - { label: "A sugestão", pattern: "\\bcould we|worth|suggest|spike|i'd structure\\b" }
+    - { label: "A sua proposta", pattern: "\\bi('m| am) propos|the ask|open question|review closes|because\\b" }
+  rubric:
+    - "Revisão: sustenta + lacuna + sugestão + aval condicional"
+    - "RFC: resumo com pedido + alternativa + open question"
+    - "Tom de review — texto, não autor; razão, não gosto"
+    - "Sem calques ('commented on', 'make a suggestion', 'suggest doing', 'on the other hand')"
+  model: >-
+    Review — Carlos's webhook RFC. The parts that hold:
+    the motivation is real and the numbers check out.
+    Two things missing: the retry story and what happens
+    when the client's endpoint is down — it covers the
+    happy path, the failure path is one line. Blocking.
+    Suggestion: worth shipping a spike first — one
+    endpoint, one client, one week. Sign-off pending
+    the retry story. — My RFC draft: I'm proposing a
+    shared cache because catalog reads drive eighty
+    percent of p99 misses; the ask is review by Friday.
+    Alternative rejected: Redis, for ops overhead. Open
+    question, honestly: how it behaves on deploys.
+  minWords: 100
+  maxWords: 140
+  tags: [comp.writing, vocab.rfc, gram.hedging]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos entregando o review da RFC do Carlos: o que sustenta, as duas lacunas (bloqueante), a sugestão do spike, e o seu aval condicional — depois 30 segundos vendendo a sua própria proposta."
+    maxSeconds: 120
+    targetPhrases:
+      - the parts that hold
+      - two things missing
+      - the retry story
+      - happy path
+      - failure path
+      - worth shipping a spike
+      - I'd structure it as
+      - self-contained
+      - sign-off pending
+      - comments welcome
+      - I'll own the follow-up
+      - what would you need to see
+      - commented on
+      - make a suggestion
+      - on the other hand
+      - I suggest shipping
+    checklist:
+      - "reconhece o que sustenta antes das lacunas"
+      - "lacuna nomeada + peso ('blocking')"
+      - "sugestão com caminho ('spike first')"
+      - "aval condicional + sua proposta com pedido"
+
+quiz:
+  - { id: M25-05-q1, type: multiple_choice, prompt: "O review da RFC do Carlos começa com…", options: ["a objeção", "o nit", "o que sustenta — depois as lacunas", "a sugestão"], answer: 2, explanation: "Reconhecer o que funciona antes de apontar o que falta.", tags: [vocab.rfc] }
+  - { id: M25-05-q2, type: error_correction, prompt: "Can I do a suggestion on the retry part?", accepted: ["Can I make a suggestion on the retry part?", "Can I make a suggestion on the retry part"], explanation: "'make a suggestion'.", tags: [br.do-suggestion] }
+  - { id: M25-05-q3, type: multiple_choice, prompt: "'Sign-off pending the retry story' é melhor que 'LGTM' porque…", options: ["o aval condicional diz exatamente o que falta para o sim", "é mais formal", "é mais rápido", "evita conflito"], answer: 0, explanation: "O sim condicional é informação; o LGTM vazio é ruído.", tags: [vocab.rfc] }
+  - { id: M25-05-q4, type: fill_blank, prompt: "It covers the happy path — the ___ path is one line.", accepted: ["failure"], explanation: "O caminho da falha — onde o design morre ou vive.", tags: [vocab.rfc] }
+  - { id: M25-05-q5, type: multiple_choice, prompt: "A sua RFC precisa ser 'self-contained' porque…", options: ["é mais profissional", "o leitor das 2h não deve precisar de você online", "o template exige", "fica mais curta"], answer: 1, explanation: "A proposta que precisa de explicação ao vivo não está pronta.", tags: [vocab.rfc] }
+  - { id: M25-05-q6, type: error_correction, prompt: "I suggest to ship a spike first.", accepted: ["I suggest shipping a spike first.", "I suggest shipping a spike first", "I suggest that we ship a spike first"], explanation: "'suggest shipping'.", tags: [br.suggest-to] }
+  - { id: M25-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["would", "what", "need", "see", "you", "to"], answer: "what would you need to see", explanation: "A objeção vira condição testável.", tags: [vocab.rfc] }
+  - { id: M25-05-q8, type: multiple_choice, prompt: "'I'll own the follow-up — doc by Wednesday' é o estacionado…", options: ["sem destino", "adiado para sempre", "terceirizado", "com dono e data — o thread não apodrece"], answer: 3, explanation: "Dono + data é o que separa backlog de evaporação.", tags: [vocab.rfc] }
+
+srsCards:
+  - { front: "the parts that hold", back: "O review começa reconhecendo o que funciona.", tag: vocab.rfc }
+  - { front: "two things missing", back: "A lacuna nomeada em uma frase — o comentário mais útil.", tag: vocab.rfc }
+  - { front: "the retry story", back: "O que acontece na falha — onde webhooks/filas morrem ou vivem.", tag: vocab.rfc }
+  - { front: "happy path vs failure path", back: "Design que só cobre o happy path não foi revisado.", tag: vocab.rfc }
+  - { front: "worth shipping a spike first", back: "A sugestão que reduz o risco da decisão grande.", tag: vocab.rfc }
+  - { front: "I'd structure it as", back: "Sugerir a forma, não só o conteúdo.", tag: vocab.rfc }
+  - { front: "self-contained", back: "A RFC que se sustenta às 2h sem você online.", tag: vocab.rfc }
+  - { front: "sign-off pending", back: "O aval condicional — diz o que falta para o sim.", tag: vocab.rfc }
+  - { front: "comments welcome", back: "O convite com a seção guiada.", tag: vocab.rfc }
+  - { front: "I'll own the follow-up", back: "O estacionado com dono e data.", tag: vocab.rfc }
+  - { front: "what would you need to see", back: "A objeção vaga vira condição testável.", tag: vocab.rfc }
+  - { front: "I suggest shipping", back: "'Sugiro fazer' — gerúndio, nunca 'suggest to ship'.", tag: br.suggest-to }
+
+review:
+  preferTags: [vocab.rfc, br.comment-in, br.do-suggestion, gram.hedging]
+  notes: "Revisão prioriza o ciclo completo — reconhecer, lacuna, sugestão, aval condicional — e a RFC auto-contida."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

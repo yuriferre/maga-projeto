@@ -772,3 +772,35 @@ patterns:
     why: '"Quero que você" é "want you to" — "want that" só leva coisa.'
     tag: br.want-that
 
+  # "commented in the PR" — comentar EM inglês é "comment on".
+  # Exige sujeito + verbo antes — "the comments in the code" (substantivo) fica fora.
+  - id: comment-in
+    pattern: "\\b(i|we|you|he|she|they)\\s+comment(ed|s|ing)?\\s+in\\s+(the|this|that|a|his|her|your|my)\\b"
+    wrong: "I commented in the PR yesterday"
+    right: "I commented on the PR yesterday"
+    why: '"Comentar em" é "comment on". ("The comments in the code" é substantivo — válido.)'
+    tag: br.comment-in
+  # "do a suggestion" — "fazer uma sugestão" é "make a suggestion".
+  # "do a survey" é legítimo; só "suggestion" dispara.
+  - id: do-suggestion
+    pattern: "\\b(do|did|done|doing|does)\\s+a\\s+suggestion\\b"
+    wrong: "Can I do a suggestion here?"
+    right: "Can I make a suggestion here?"
+    why: '"Fazer uma sugestão" é "make a suggestion" — "do" não combina.'
+    tag: br.do-suggestion
+  # "suggest to change" — "sugiro mudar" é "suggest changing" ou "suggest that we change".
+  # Exige "to" + verbo conhecido — "suggested to him that" (pessoa) fica fora.
+  - id: suggest-to
+    pattern: "\\bsuggest(s|ed|ing)?\\s+to\\s+(be|do|make|change|use|add|move|split|keep|merge|roll|try|fix|go|wait|have|take|get|start|stop)\\b"
+    wrong: "I suggest to change the default"
+    right: "I suggest changing the default / I suggest that we change it"
+    why: '"Suggest" não leva infinitivo — gerúndio ("suggest changing") ou "that". ("Suggested to him that…" é válido.)'
+    tag: br.suggest-to
+  # "in the other hand" — "por outro lado" é "on the other hand".
+  # "in my other hand" (físico) fica fora — só "in (the) other hand".
+  - id: in-other-hand
+    pattern: "\\bin\\s+(the\\s+)?other\\s+hand\\b"
+    wrong: "In the other hand, the rewrite is risky"
+    right: "On the other hand, the rewrite is risky"
+    why: '"Por outro lado" é "on the other hand" — "in" é para mão física ("in my other hand").'
+    tag: br.in-other-hand
