@@ -9,4 +9,13 @@ describe("M32 lessons", () => {
     expect(bundle.modules["M32"]).toBeTruthy();
     expect(crossValidate(bundle)).toEqual([]);
   });
+  checkLesson(bundle, "M32-01", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 90,
+    prerequisites: ["M26-04"],
+  });
 });

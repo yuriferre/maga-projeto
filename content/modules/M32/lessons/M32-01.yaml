@@ -1,0 +1,324 @@
+id: M32-01
+module: M32
+order: 1
+title: "Primeiras semanas: se apresentar, mensagem de intro, perguntas sem medo"
+objective: >-
+  Ao final, você sabe atravessar a primeira
+  semana — a apresentação de 30 s, a mensagem
+  de introdução no canal, e a pergunta que se
+  faz sem medo de parecer novo.
+durationMin: 30
+competencies: [SPK, WRI, CNF]
+tags: [vocab.onboarding, comp.speaking, comp.writing, comp.confidence]
+prerequisites: [M26-04]
+
+context:
+  scenario: |
+    Primeira semana na empresa internacional.
+    Todo mundo espera três coisas de você — e
+    nenhuma é "provar que sabe tudo":
+
+    1. **Se apresentar** — quem você é, de onde
+       veio, o que vai tocar. Trinta segundos,
+       não a biografia.
+    2. **A mensagem de intro** — postada no
+       canal do time no dia um: nome, papel,
+       background em duas linhas, e um
+       "excited to be here".
+    3. **Perguntar sem medo** — a janela de
+       "sou novo" dura umas quatro semanas; as
+       perguntas que pareceriam bobas no mês
+       três são grátis agora.
+
+    As molduras da primeira semana:
+
+    - **A apresentação**: "*Hi everyone — I'm
+      Yuri, joining as Senior Platform
+      Engineer. I spent the last five years on
+      Kubernetes and CI/CD at a fintech in
+      Brazil.*"
+    - **A intro escrita**: nome + papel +
+      background + "happy to grab a coffee
+      chat anytime".
+    - **A pergunta sem medo**: "*quick
+      question — how do people usually test
+      this locally?*" ou "*probably a dumb
+      question, but…*" — que nunca é boba.
+
+    O erro do brasileiro: ficar quieto para
+    não "incomodar" — e a janela de novo fecha
+    sem ninguém ter te conhecido.
+  roles: [Yuri (new Senior Platform Engineer), Dana (engineering manager)]
+
+vocabulary:
+  - term: "quick intro"
+    meaning: 'apresentação rápida — quem você é em 30 s'
+    example: "Quick intro: I'm Yuri, platform engineer, five years on K8s."
+    translation: "Apresentação rápida: sou Yuri, engenheiro de plataforma, cinco anos de K8s."
+    note: "Trinta segundos — não a biografia."
+  - term: "joining as…"
+    meaning: 'entrando como… — o papel na apresentação'
+    example: "I'm joining as Senior Platform Engineer on the infrastructure team."
+    translation: "Estou entrando como Senior Platform Engineer no time de infraestrutura."
+    note: "Joining as + cargo + time."
+  - term: "I spent the last X years on…"
+    meaning: 'passei os últimos X anos em… — o background em uma linha'
+    example: "I spent the last five years on Kubernetes and CI/CD at a fintech."
+    translation: "Passei os últimos cinco anos em Kubernetes e CI/CD numa fintech."
+    note: "Uma linha de background — o resto descobrem depois."
+  - term: "intro message"
+    meaning: 'mensagem de introdução — o post no canal do dia um'
+    example: "I posted my intro message in the team channel on day one."
+    translation: "Postei minha mensagem de introdução no canal do time no dia um."
+    note: "Dia um, no canal — nome, papel, background."
+  - term: "happy to grab a coffee chat"
+    meaning: 'feliz em tomar um café virtual — o convite aberto na intro'
+    example: "Happy to grab a coffee chat anytime — just ping me."
+    translation: "Feliz em fazer um coffee chat a qualquer hora — é só me chamar."
+    note: "O convite que abre a rede interna."
+  - term: "quick question — how do people usually…?"
+    meaning: 'pergunta rápida — como as pessoas normalmente…? — a pergunta segura'
+    example: "Quick question — how do people usually test this locally?"
+    translation: "Pergunta rápida — como as pessoas normalmente testam isso localmente?"
+    note: "'How do people usually' pede a convenção, não o manual."
+  - term: "probably a dumb question, but…"
+    meaning: 'provavelmente uma pergunta boba, mas… — a moldura que protege'
+    example: "Probably a dumb question, but where does staging deploy from?"
+    translation: "Provavelmente pergunta boba, mas de onde sai o deploy de staging?"
+    note: "Nunca é boba na primeira semana — a moldura é opcional."
+  - term: "new here — still ramping up"
+    meaning: 'novo aqui — ainda em rampa — a licença de novato'
+    example: "I'm new here, still ramping up — bear with me on the acronyms."
+    translation: "Sou novo aqui, ainda em rampa — tenham paciência com os acrônimos."
+    note: "A licença de novato dura umas quatro semanas — use."
+  - term: "bear with me"
+    meaning: 'tenham paciência comigo — a cortesia do novato'
+    example: "Bear with me — still learning where everything lives."
+    translation: "Tenham paciência — ainda aprendendo onde cada coisa fica."
+    note: "Pede paciência sem pedir desculpas."
+  - term: "where does X live?"
+    meaning: 'onde o X mora? — perguntar onde está o recurso/doc'
+    example: "Where does the runbook live — wiki or the repo?"
+    translation: "Onde fica o runbook — wiki ou repo?"
+    note: "'Where does it live' = onde está guardado."
+  - term: "who should I talk to about…?"
+    meaning: 'com quem eu falo sobre…? — a pergunta de roteamento'
+    example: "Who should I talk to about access to the prod cluster?"
+    translation: "Com quem eu falo sobre acesso ao cluster de prod?"
+    note: "A pergunta que acha a pessoa certa."
+  - term: "looking forward to working with you all"
+    meaning: 'ansioso para trabalhar com vocês — o fecho da intro'
+    example: "Looking forward to working with you all — see you in the standups."
+    translation: "Ansioso para trabalhar com vocês — nos vemos nas standups."
+    note: "O fecho padrão da mensagem de intro."
+
+grammar:
+  title: "a gramática da primeira semana"
+  explanation: |
+    As três peças têm molduras próprias:
+
+    - **A apresentação**: "**I'm** Yuri,
+      **joining as** [cargo] — **I spent the
+      last** [X] **years on** [stack]."
+    - **A pergunta sem medo**: "**quick
+      question** — **how do people usually**…?"
+      ou "**probably a dumb question, but**…".
+    - **A licença de novato**: "**I'm new here**
+      — **still ramping up**; **bear with me**."
+
+    E as preposições: "**new to** the team"
+    (não "in"), "**on** my first day" (não
+    "in"), "I need **help**" (sem "a").
+  examples:
+    - { en: "I'm Yuri, joining as Senior Platform Engineer.", pt: "Sou Yuri, entrando como Senior Platform Engineer." }
+    - { en: "I spent the last five years on Kubernetes and CI/CD.", pt: "Passei os últimos cinco anos em Kubernetes e CI/CD." }
+    - { en: "Quick question — how do people usually test this locally?", pt: "Pergunta rápida — como o pessoal testa isso localmente?" }
+    - { en: "I'm new here — still ramping up, bear with me.", pt: "Sou novo aqui — ainda em rampa, tenham paciência." }
+    - { en: "Where does the runbook live — wiki or the repo?", pt: "Onde fica o runbook — wiki ou repo?" }
+    - { en: "Who should I talk to about prod access?", pt: "Com quem falo sobre acesso a prod?" }
+
+examples:
+  - en: "Hi everyone — I'm Yuri, joining as Senior Platform Engineer."
+    pt: "Oi pessoal — sou Yuri, entrando como Senior Platform Engineer."
+    context: "A apresentação."
+  - en: "I spent the last five years on Kubernetes and CI/CD at a fintech in Brazil."
+    pt: "Passei cinco anos em Kubernetes e CI/CD numa fintech no Brasil."
+    context: "O background em uma linha."
+  - en: "Happy to grab a coffee chat anytime — just ping me."
+    pt: "Feliz em fazer um coffee chat a qualquer hora — é só me chamar."
+    context: "O convite na intro."
+  - en: "Quick question — how do people usually test this locally?"
+    pt: "Pergunta rápida — como o pessoal testa isso localmente?"
+    context: "A pergunta segura."
+  - en: "Probably a dumb question, but where does staging deploy from?"
+    pt: "Provavelmente pergunta boba, mas de onde sai o deploy de staging?"
+    context: "A moldura protetora."
+  - en: "I'm new here, still ramping up — bear with me on the acronyms."
+    pt: "Sou novo, ainda em rampa — paciência com os acrônimos."
+    context: "A licença de novato."
+  - en: "Where does the runbook live — wiki or the repo?"
+    pt: "Onde fica o runbook — wiki ou repo?"
+    context: "Perguntar onde está."
+  - en: "Who should I talk to about access to the prod cluster?"
+    pt: "Com quem falo sobre acesso ao cluster de prod?"
+    context: "A pergunta de roteamento."
+
+variations:
+  - idea: '"a apresentação"'
+    items:
+      - { register: "Forte", text: "I'm Yuri, joining as Senior Platform Engineer — five years on K8s and CI/CD.", adequate: true }
+      - { register: "Forte", text: "New here, still ramping up — bear with me on the acronyms.", adequate: true }
+      - { register: "Fraco", text: "Hello. I'm Yuri. I know everything about infrastructure.", adequate: false, note: "Provar que sabe tudo na primeira semana é o oposto do esperado." }
+      - { register: "Fraco", text: "Sorry, I'm new — I don't know anything yet.", adequate: false, note: "Desculpa demais se diminui — 'still ramping up' é a versão confiante." }
+  - idea: '"a pergunta"'
+    items:
+      - { register: "Forte", text: "Quick question — how do people usually test this locally?", adequate: true }
+      - { register: "Forte", text: "Who should I talk to about prod access?", adequate: true }
+      - { register: "Fraco", text: "I'll figure it out alone — don't want to bother anyone.", adequate: false, note: "A janela de novato é grátis — não usar é desperdiçá-la." }
+      - { register: "Fraco", text: "This is probably stupid and you all know it, but…", adequate: false, note: "A moldura 'dumb question' é opcional — auto-depreciação demais pesa." }
+
+brErrors:
+  - { wrong: "I'm new in the company.", right: "I'm new to the company.", why: "new to", tag: br.new-in-company }
+  - { wrong: "In my first day I met the team.", right: "On my first day I met the team.", why: "on my first day", tag: br.in-first-day }
+  - { wrong: "I need a help with the setup.", right: "I need help with the setup.", why: "help sem artigo", tag: br.a-help }
+  - { wrong: "Who is the responsible for this repo?", right: "Who owns this repo?", why: "who owns", tag: br.the-responsible }
+  - { wrong: "I have a doubt about the setup.", right: "I have a question about the setup.", why: "a question", tag: br.doubt }
+  - { wrong: "I pretend to deploy by Friday.", right: "I plan to deploy by Friday.", why: "plan to", tag: br.pretend }
+  - { wrong: "Can you explain me the pipeline?", right: "Can you explain the pipeline to me?", why: "explain to me", tag: br.explain-me }
+  - { wrong: "Let me make a question.", right: "Let me ask a question.", why: "ask a question", tag: br.make-question }
+  - { wrong: "I want to take a coffee with you.", right: "I want to grab a coffee with you.", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "I assist the standup every day.", right: "I attend the standup every day.", why: "attend", tag: br.assist }
+
+dialogue:
+  title: "O dia um — a apresentação e a primeira pergunta"
+  lines:
+    - { speaker: Dana, text: "Welcome aboard, Yuri! Want to give the team a quick intro?" }
+    - { speaker: Yuri, text: "Sure — hi everyone. I'm Yuri, joining as Senior Platform Engineer. I spent the last five years on Kubernetes and CI/CD at a fintech in Brazil. Excited to be here." }
+    - { speaker: Dana, text: "Great to have you. Feel free to post an intro message in the team channel too." }
+    - { speaker: Yuri, text: "Will do — name, role, background, and 'happy to grab a coffee chat anytime'. I'm new here, still ramping up — bear with me on the acronyms for a couple of weeks." }
+    - { speaker: Dana, text: "That's exactly the right posture. Questions are free right now — they stop being free around month three." }
+    - { speaker: Yuri, text: "Then I'll use the window. Quick question — how do people usually test pipeline changes locally?" }
+    - { speaker: Dana, text: "There's a make target — `make test-pipeline`. And ask anything; no such thing as a dumb question in week one." }
+    - { speaker: Yuri, text: "One more — who should I talk to about prod cluster access?" }
+    - { speaker: Dana, text: "Priya owns access — ping her directly." }
+    - { speaker: Yuri, text: "Perfect. And where does the onboarding checklist live — the wiki or the repo?" }
+    - { speaker: Dana, text: "Wiki, under Team → Onboarding. You're going to fit right in." }
+  notes:
+    - "a apresentação de 30 s: nome + joining as + background em uma linha."
+    - "'questions are free right now' — a janela de novato que ele usa na hora."
+    - "duas molduras de pergunta: 'how do people usually' + 'who should I talk to'."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "Week one has three moves: the thirty-second intro — name, 'joining as', one line of background — the intro message in the team channel, and questions asked without fear. The 'I'm new' window lasts about four weeks." }
+    - { speaker: Yuri, text: "The question frames: 'quick question — how do people usually test this locally?', 'probably a dumb question, but…' — which is never actually dumb in week one — 'where does the runbook live?', and 'who should I talk to about access?'" }
+    - { speaker: Dana, text: "The Brazilian mistake: staying quiet so you don't bother anyone — and the window closes before anyone knows you. Posture beats polish: 'new here, still ramping up, bear with me'." }
+  questions:
+    - { id: M32-01-l1, type: multiple_choice, prompt: "A apresentação da primeira semana tem…", options: ["a biografia completa", "30 segundos: nome, 'joining as', background em uma linha", "só o nome", "o currículo inteiro"], answer: 1, explanation: "Trinta segundos — o resto descobrem depois.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-01-l2, type: fill_blank, prompt: "Quick question — how do people ___ test this locally?", accepted: ["usually"], explanation: "Pede a convenção, não o manual.", tags: [vocab.onboarding] }
+    - { id: M32-01-l3, type: error_correction, prompt: "I'm new in the company.", accepted: ["I'm new to the company.", "I'm new to the company", "I'm new here."], explanation: "'New to' — 'new in' é para cidade.", tags: [br.new-in-company] }
+    - { id: M32-01-l4, type: multiple_choice, prompt: "A janela de 'sou novo' dura…", options: ["uma semana", "um ano", "umas quatro semanas — perguntas grátis agora", "para sempre"], answer: 2, explanation: "As perguntas do mês três são grátis agora.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-01-l5, type: multiple_choice, prompt: "O erro do brasileiro na primeira semana é…", options: ["perguntar demais", "ficar quieto para não incomodar — e a janela fecha", "se apresentar", "mandar a intro"], answer: 1, explanation: "Quietude desperdiça a janela de novato.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-01-l6, type: multiple_choice, prompt: "'Who should I talk to about X?' é…", options: ["a pergunta de roteamento — acha a pessoa certa", "uma crítica", "um desabafo", "proibido"], answer: 0, explanation: "A pergunta que roteia para a pessoa.", tags: [comp.listening, vocab.onboarding] }
+
+writing:
+  prompt: |
+    **Cenário:** dia um na CloudScale. A Dana
+    pediu a mensagem de introdução no canal do
+    time — e o coach pediu a sua primeira
+    pergunta escrita para a Priya.
+
+    **Tarefa:** escreva 90–120 palavras: (1) a
+    mensagem de intro — nome, papel, background
+    em duas linhas, convite de coffee chat e o
+    fecho; (2) a mensagem para a Priya — "new
+    here, still ramping up" + a pergunta de
+    acesso.
+  constraints:
+    - { label: "A apresentação", pattern: "\\bi'm|joining as|platform engineer|spent the last\\b" }
+    - { label: "O convite/fecho", pattern: "\\bcoffee chat|ping me|looking forward|excited|happy to\\b" }
+    - { label: "A licença de novato", pattern: "\\bnew (here|to)|ramping up|bear with me|first week\\b" }
+    - { label: "A pergunta", pattern: "\\bquick question|who should i|where does|access|talk to\\b" }
+  rubric:
+    - "Intro com nome, papel, background e convite"
+    - "Pergunta com a moldura de novato"
+    - "Tom leve — sem se diminuir"
+    - "Sem calques ('new to', 'on my first day', 'help' sem artigo)"
+  model: >-
+    The intro message: "Hi team — I'm Yuri,
+    joining as Senior Platform Engineer. I spent
+    the last five years on Kubernetes and CI/CD
+    at a fintech in Brazil. I'm new here, still
+    ramping up — bear with me on the acronyms.
+    Happy to grab a coffee chat anytime; just
+    ping me. Looking forward to working with you
+    all." The message to Priya: "Hi Priya — new
+    here, week one. Quick question: who should I
+    talk to about prod cluster access? Dana said
+    you own it — what's the process?" Both light,
+    both confident — the 'new here' window used
+    on day one, exactly as intended.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.onboarding]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a manhã do dia um — a apresentação de 30 s (nome, 'joining as', background), a licença de novato ('new here, still ramping up'), e três perguntas em voz alta ('quick question — how do people usually…?', 'where does the runbook live?', 'who should I talk to about…?')."
+    maxSeconds: 90
+    targetPhrases:
+      - joining as
+      - i spent the last
+      - new here
+      - still ramping up
+      - bear with me
+      - quick question
+      - how do people usually
+      - probably a dumb question
+      - where does the runbook live
+      - who should i talk to
+      - happy to grab a coffee chat
+      - ping me
+      - looking forward to working with you
+      - excited to be here
+      - intro message
+      - new to the team
+    checklist:
+      - "a apresentação de 30 s completa"
+      - "a licença de novato sem se diminuir"
+      - "três molduras de pergunta usadas"
+      - "tom confiante e leve"
+      - "sem calques ('new to', 'on my first day', 'a help', 'the responsible')"
+
+quiz:
+  - { id: M32-01-q1, type: multiple_choice, prompt: "A apresentação de 30 s leva…", options: ["nome + 'joining as' + background em uma linha", "o currículo todo", "só o nome", "as certificações"], answer: 0, explanation: "Nome, papel, uma linha de background.", tags: [vocab.onboarding] }
+  - { id: M32-01-q2, type: error_correction, prompt: "In my first day I met the team.", accepted: ["On my first day I met the team.", "On my first day I met the team"], explanation: "'On my first day' — dia leva 'on'.", tags: [br.in-first-day] }
+  - { id: M32-01-q3, type: multiple_choice, prompt: "A janela de 'sou novo' dura…", options: ["para sempre", "uma semana", "umas quatro semanas — depois as perguntas custam", "um dia"], answer: 2, explanation: "Use enquanto é grátis.", tags: [vocab.onboarding] }
+  - { id: M32-01-q4, type: fill_blank, prompt: "Where does the runbook ___ — wiki or the repo?", accepted: ["live"], explanation: "'Where does it live' = onde está guardado.", tags: [vocab.onboarding] }
+  - { id: M32-01-q5, type: multiple_choice, prompt: "'I'm new here, still ramping up' é…", options: ["uma desculpa", "a licença de novato — confiante, não diminuída", "uma reclamação", "proibido"], answer: 1, explanation: "Pede paciência sem pedir desculpas.", tags: [vocab.onboarding] }
+  - { id: M32-01-q6, type: error_correction, prompt: "I need a help with the setup.", accepted: ["I need help with the setup.", "I need help with the setup", "I need some help with the setup."], explanation: "'Help' é incontável — sem artigo.", tags: [br.a-help] }
+  - { id: M32-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["should", "who", "i", "talk", "to", "about", "access"], answer: "who should i talk to about access", explanation: "A pergunta de roteamento.", tags: [vocab.onboarding] }
+  - { id: M32-01-q8, type: multiple_choice, prompt: "A pergunta 'who should I talk to about X?' serve para…", options: ["achar a pessoa certa — roteamento", "reclamar", "evitar trabalho", "testar o time"], answer: 0, explanation: "Roteia para quem é dono do assunto.", tags: [vocab.onboarding] }
+
+srsCards:
+  - { front: "quick intro", back: "30 s — nome, papel, uma linha de background.", tag: vocab.onboarding }
+  - { front: "joining as…", back: "O papel na apresentação.", tag: vocab.onboarding }
+  - { front: "I spent the last X years on…", back: "O background em uma linha.", tag: vocab.onboarding }
+  - { front: "intro message", back: "O post no canal do dia um.", tag: vocab.onboarding }
+  - { front: "happy to grab a coffee chat", back: "O convite que abre a rede interna.", tag: vocab.onboarding }
+  - { front: "quick question — how do people usually…?", back: "A pergunta que pede a convenção.", tag: vocab.onboarding }
+  - { front: "probably a dumb question, but…", back: "A moldura que protege — nunca boba na semana um.", tag: vocab.onboarding }
+  - { front: "new here — still ramping up", back: "A licença de novato, ~4 semanas.", tag: vocab.onboarding }
+  - { front: "bear with me", back: "Paciência sem desculpa.", tag: vocab.onboarding }
+  - { front: "where does X live?", back: "Onde o recurso/doc está guardado.", tag: vocab.onboarding }
+  - { front: "who should I talk to about…?", back: "A pergunta de roteamento.", tag: vocab.onboarding }
+  - { front: "looking forward to working with you all", back: "O fecho da intro.", tag: vocab.onboarding }
+
+review:
+  preferTags: [vocab.onboarding, br.new-in-company, br.in-first-day, br.a-help]
+  notes: "Revisão prioriza a apresentação e as molduras de pergunta."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
