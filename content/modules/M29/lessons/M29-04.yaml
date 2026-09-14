@@ -1,0 +1,318 @@
+id: M29-04
+module: M29
+order: 4
+title: "Sinais de senioridade na fala: trade-offs, hindsight, o que eu faria diferente"
+objective: >-
+  Ao final, você reconhece e produz os marcadores
+  que separam a resposta de pleno da de senior:
+  trade-offs nomeados, reflexão em hindsight,
+  "what I'd do differently" e o "we" equilibrado
+  com o "I".
+durationMin: 30
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M29-03]
+
+context:
+  scenario: |
+    O entrevistador senior ouve a história procurando
+    os marcadores — eles separam quem executou de
+    quem decidiu.
+
+    Os cinco sinais de senioridade na fala:
+
+    - **Trade-off nomeado**: "*we traded speed for
+      safety*" — quem decide vê o custo, não só o
+      ganho.
+    - **Reflexão em hindsight**: "*in hindsight,
+      I should have paged sooner*" — o "o que eu
+      faria diferente" sem ser perguntado.
+    - **O "I" e o "we" equilibrados**: "*I designed,
+      we built*" — crédito ao time sem se esconder
+      nele.
+    - **A restrição nomeada**: "*the constraint was
+      the freeze window*" — mostra que a decisão
+      tinha um formato, não era gosto.
+    - **A métrica de sucesso declarada**: "*success
+      looked like p99 under 300ms*" — você definiu
+      "pronto" antes de começar.
+
+    O anti-sinal: a história onde tudo foi certo e
+    todos concordaram — lê como junior porque quem
+    decide sabe que nada é assim.
+
+    O erro do brasileiro: a história honesta demais
+    no sentido errado — "foi difícil mas deu certo"
+    sem nomear o trade-off que você navegou.
+  roles: [Yuri (platform engineer), Marcus (eng manager, interviewer)]
+
+vocabulary:
+  - term: "we traded X for Y"
+    meaning: 'trocamos X por Y — o trade-off nomeado'
+    example: "We traded deploy speed for safety — canary first, then full rollout."
+    translation: "Trocamos velocidade de deploy por segurança — canary primeiro, depois rollout total."
+    note: "Quem decide vê o custo — nomeie o trade-off."
+  - term: "in hindsight, I should have…"
+    meaning: 'em retrospectiva, eu devia ter… — a reflexão sem ser pedida'
+    example: "In hindsight, I should have paged the DBA sooner."
+    translation: "Em retrospectiva, eu devia ter chamado o DBA mais cedo."
+    note: "O 'o que faria diferente' oferecido antes da pergunta."
+  - term: "I designed, we built"
+    meaning: 'eu desenhei, nós construímos — o "I" e o "we" equilibrados'
+    example: "I designed the failover plan; we built it together."
+    translation: "Eu desenhei o plano de failover; construímos juntos."
+    note: "Crédito ao time sem se esconder nele — nem roubar dele."
+  - term: "the constraint was…"
+    meaning: 'a restrição era… — a decisão dentro de um formato'
+    example: "The constraint was the holiday freeze — we had one week, not three."
+    translation: "A restrição era o freeze de fim de ano — tínhamos uma semana, não três."
+    note: "Nomear a restrição mostra que a decisão tinha formato."
+  - term: "success looked like…"
+    meaning: 'sucesso parecia… — a métrica declarada antes'
+    example: "We defined success up front: p99 under 300ms and zero pages."
+    translation: "Definimos sucesso de antemão: p99 abaixo de 300ms e zero páginas."
+    note: "Quem define 'pronto' antes de começar pensa como senior."
+  - term: "what I'd do differently"
+    meaning: 'o que eu faria diferente — a reflexão completa'
+    example: "What I'd do differently: involve security earlier."
+    translation: "O que eu faria diferente: envolver segurança mais cedo."
+    note: "Do M27 — ainda é o marcador mais forte."
+  - term: "I owned the decision, not just the work"
+    meaning: 'eu assumi a decisão, não só o trabalho — ownership total'
+    example: "I owned the decision, not just the work — including being wrong about the timeline."
+    translation: "Eu assumi a decisão, não só o trabalho — incluindo estar errado no prazo."
+    note: "Ownership que inclui o erro é o sinal mais forte."
+  - term: "the call I made"
+    meaning: 'a decisão que eu tomei — decisões suas nomeadas'
+    example: "The call I made: rollback first, diagnose after."
+    translation: "A decisão que tomei: rollback primeiro, diagnóstico depois."
+    note: "Nomeie as decisões SUAS dentro da história."
+  - term: "credit where it's due"
+    meaning: 'crédito a quem merece — reconhecer o time por nome'
+    example: "Credit where it's due — Ana caught the edge case in review."
+    translation: "Crédito a quem merece — a Ana pegou o edge case na revisão."
+    note: "Dar crédito por nome é sinal de quem lidera."
+  - term: "the thing nobody tells you"
+    meaning: 'o que ninguém te conta — a sabedoria da experiência'
+    example: "The thing nobody tells you about migrations: the rollback path is the real test."
+    translation: "O que ninguém te conta sobre migrações: o caminho de rollback é o teste de verdade."
+    note: "A lição de quem aprendeu fazendo — leitura de senior."
+  - term: "I'd push back on that now"
+    meaning: 'eu questionaria isso hoje — a evolução do seu julgamento'
+    example: "Back then I agreed with the rewrite — I'd push back on that now."
+    translation: "Na época eu concordei com o rewrite — hoje eu questionaria."
+    note: "Mostrar que seu julgamento evoluiu é ouro."
+  - term: "it worked, but at a cost"
+    meaning: 'funcionou, mas a um custo — o resultado honesto'
+    example: "It worked, but at a cost — we carried two systems for a quarter."
+    translation: "Funcionou, mas a um custo — carregamos dois sistemas por um trimestre."
+    note: "O resultado com o custo nomeado — nada é de graça."
+
+grammar:
+  title: "a gramática dos sinais de senioridade"
+  explanation: |
+    Os sinais têm molduras gramaticais:
+
+    - Trade-off: "**we traded** X **for** Y" /
+      "**we chose** X **over** Y".
+    - Reflexão: "**in hindsight, I should have**
+      + particípio" — o should-have da lição.
+    - Balanceamento: "**I** + decisão, "**we** +
+      execução" — "*I designed, we built*".
+    - Restrição: "**the constraint was**…" —
+      decisão com formato.
+    - Métrica: "**success looked like** /
+      **we defined success as**…".
+
+    E o contra-sinal gramatical: a história toda
+    em "we" sem um "I" — ou toda em "I" sem um
+    "we". Senior sabe dividir.
+  examples:
+    - { en: "We traded deploy speed for safety — canary first, then full rollout.", pt: "Trocamos velocidade por segurança — canary primeiro, depois total." }
+    - { en: "In hindsight, I should have paged the DBA sooner.", pt: "Em retrospectiva, devia ter chamado o DBA antes." }
+    - { en: "I designed the failover plan; we built it together.", pt: "Eu desenhei o plano de failover; construímos juntos." }
+    - { en: "The constraint was the holiday freeze — one week, not three.", pt: "A restrição era o freeze — uma semana, não três." }
+    - { en: "We defined success up front: p99 under 300ms and zero pages.", pt: "Definimos sucesso de antemão: p99 < 300ms e zero páginas." }
+    - { en: "The call I made: rollback first, diagnose after.", pt: "A decisão que tomei: rollback primeiro, diagnóstico depois." }
+
+examples:
+  - en: "We traded deploy speed for safety — canary first, then full rollout."
+    pt: "Trocamos velocidade de deploy por segurança — canary, depois total."
+    context: "O trade-off nomeado."
+  - en: "In hindsight, I should have paged the DBA sooner — pride cost us five minutes."
+    pt: "Em retrospectiva, devia ter chamado o DBA antes — o orgulho custou cinco minutos."
+    context: "A reflexão sem ser pedida."
+  - en: "I designed the plan; we built it together — credit to Ana for the edge case."
+    pt: "Eu desenhei o plano; construímos juntos — crédito à Ana pelo edge case."
+    context: "O 'I' e o 'we' equilibrados + crédito por nome."
+  - en: "The constraint was the holiday freeze — one week, not three."
+    pt: "A restrição era o freeze — uma semana, não três."
+    context: "A decisão dentro de um formato."
+  - en: "We defined success up front: p99 under 300ms and zero pages."
+    pt: "Definimos sucesso antes: p99 abaixo de 300ms e zero páginas."
+    context: "'Pronto' definido antes de começar."
+  - en: "I owned the decision, not just the work — including being wrong about the timeline."
+    pt: "Assumi a decisão, não só o trabalho — incluindo errar no prazo."
+    context: "Ownership que inclui o erro."
+  - en: "Back then I agreed with the rewrite — I'd push back on that now."
+    pt: "Na época concordei com o rewrite — hoje eu questionaria."
+    context: "O julgamento que evoluiu."
+  - en: "It worked, but at a cost — we carried two systems for a quarter."
+    pt: "Funcionou, mas a um custo — dois sistemas por um trimestre."
+    context: "O resultado honesto."
+
+variations:
+  - idea: '"o balanço I/we"'
+    items:
+      - { register: "Forte", text: "I designed the failover plan; we built it together.", adequate: true }
+      - { register: "Forte", text: "Credit where it's due — Ana caught the edge case.", adequate: true }
+      - { register: "Fraco", text: "We did everything — the team is great.", adequate: false, note: "Tudo 'we' — você some na própria história." }
+      - { register: "Fraco", text: "I did everything — the team just watched.", adequate: false, note: "Tudo 'I' — crédito roubado lê como ego." }
+  - idea: '"a reflexão oferecida"'
+    items:
+      - { register: "Forte", text: "In hindsight, I should have paged sooner — before being asked.", adequate: true }
+      - { register: "Forte", text: "Back then I agreed — I'd push back on that now.", adequate: true }
+      - { register: "Fraco", text: "It all went perfectly — no regrets.", adequate: false, note: "A história sem custo nem reflexão lê como junior." }
+      - { register: "Fraco", text: "I have no idea what I'd change.", adequate: false, note: "Sem reflexão = sem aprendizado." }
+
+brErrors:
+  - { wrong: "I make part of that decision.", right: "I was part of that decision.", why: "was part of", tag: br.make-part-of }
+  - { wrong: "In that epoch we chose speed.", right: "At that time we chose speed.", why: "at that time", tag: br.in-that-epoch }
+  - { wrong: "My defect was trusting the timeline.", right: "My weakness was trusting the timeline.", why: "weakness", tag: br.my-defect }
+  - { wrong: "It's already 5 years that I'm an SRE.", right: "It's been five years as an SRE.", why: "it's been X", tag: br.its-already-years }
+  - { wrong: "I have interest in leading.", right: "I'm interested in leading.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I was promoted for senior.", right: "I was promoted to senior.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "We discussed about the trade-off.", right: "We discussed the trade-off.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "I work here since the migration.", right: "I've been here since the migration.", why: "I've been", tag: br.work-since }
+  - { wrong: "The same trade-off than last time.", right: "The same trade-off as last time.", why: "the same as", tag: br.same-than }
+  - { wrong: "I formed in engineering.", right: "I have a degree in engineering.", why: "a degree", tag: br.formed-in }
+
+dialogue:
+  title: "A história com os sinais ligados"
+  lines:
+    - { speaker: Marcus, text: "Walk me through the migration — and I want the hard parts, not the highlight reel." }
+    - { speaker: Yuri, text: "Sure. The constraint was the holiday freeze — we had one week, not three. The call I made: dual-write first, cut over at 3am." }
+    - { speaker: Marcus, text: "What did that cost you?" }
+    - { speaker: Yuri, text: "We traded cleanup for safety — carried two systems for a quarter. Credit where it's due: Ana caught the ordering bug in review that would've broken it." }
+    - { speaker: Marcus, text: "And if you ran it again?" }
+    - { speaker: Yuri, text: "In hindsight, I should have involved security in week one — they caught a gap late and it cost us two days. I owned the decision, including that one." }
+    - { speaker: Marcus, text: "How did you know it worked?" }
+    - { speaker: Yuri, text: "We defined success up front: p99 under 300ms, zero pages during cutover. Hit both — and the thing nobody tells you: the rollback path is the real test." }
+    - { speaker: Marcus, text: "That's a senior answer — you named the trade-off, the constraint, the metric, and what you'd change. Most people just say 'it went well'." }
+    - { speaker: Yuri, text: "It went well AND it cost us a quarter of dual-running — both are true." }
+  notes:
+    - "cinco sinais em sequência: constraint, the call I made, traded X for Y, credit by name, in hindsight + success defined."
+    - "'it went well AND it cost us' — as duas coisas verdadeiras é o tom de senior."
+    - "o entrevistador nomeia o que ouviu — trade-off, constraint, metric, reflexão."
+
+listening:
+  lines:
+    - { speaker: Marcus, text: "Seniority shows in five markers: the named trade-off — 'we traded speed for safety'; the hindsight reflection — 'in hindsight, I should have paged sooner'; the balanced I and we — 'I designed, we built'; the named constraint — 'the constraint was the freeze'; and the declared metric — 'success looked like p99 under 300ms'." }
+    - { speaker: Yuri, text: "The anti-signal: a story where everything went right and everyone agreed — reads as junior, because people who decide know it's never like that. And two more markers: 'credit where it's due' — naming who helped — and 'I'd push back on that now', showing your judgment evolved." }
+    - { speaker: Marcus, text: "And the ownership that includes being wrong: 'I owned the decision, not just the work — including being wrong about the timeline'. That's the strongest signal there is." }
+  questions:
+    - { id: M29-04-l1, type: multiple_choice, prompt: "Os cinco sinais de senioridade são…", options: ["volume, velocidade, certeza, eloquência", "trade-off, hindsight, I/we equilibrado, constraint, métrica declarada", "sorte, timing", "jargão técnico"], answer: 1, explanation: "Os marcadores que separam quem decide de quem executa.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-04-l2, type: fill_blank, prompt: "We traded deploy speed ___ safety — canary first.", accepted: ["for"], explanation: "'Traded X for Y'.", tags: [vocab.interview] }
+    - { id: M29-04-l3, type: error_correction, prompt: "In that epoch we chose speed.", accepted: ["At that time we chose speed.", "At that time we chose speed", "Back then we chose speed."], explanation: "'At that time' ou 'back then'.", tags: [br.in-that-epoch] }
+    - { id: M29-04-l4, type: multiple_choice, prompt: "'I designed, we built' equilibra…", options: ["crédito e culpa", "o 'I' das decisões e o 'we' da execução", "passado e presente", "pergunta e resposta"], answer: 1, explanation: "I para decisões, we para execução.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-04-l5, type: multiple_choice, prompt: "O anti-sinal de senioridade é…", options: ["admitir erro", "a história onde tudo foi certo e todos concordaram", "usar 'we'", "pedir ajuda"], answer: 1, explanation: "Quem decide sabe que nada é assim.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-04-l6, type: multiple_choice, prompt: "'Success looked like p99 under 300ms' mostra…", options: ["técnica", "que você definiu 'pronto' antes de começar", "exagero", "memória boa"], answer: 1, explanation: "Definir 'pronto' antes — pensamento de senior.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** o coach de entrevistas pediu sua
+    melhor história por escrito — com os cinco
+    sinais de senioridade visíveis.
+
+    **Tarefa:** escreva 90–120 palavras: a história
+    da migração (ou do incidente) com os cinco
+    marcadores — constraint nomeada, "the call I
+    made", "we traded X for Y", "credit where it's
+    due" para alguém do time, e "in hindsight, I
+    should have…".
+  constraints:
+    - { label: "A constraint", pattern: "\\bconstraint|freeze|deadline|budget|one week|limited\\b" }
+    - { label: "O trade-off", pattern: "\\btraded|chose .* over|at a cost|instead of\\b" }
+    - { label: "O I/we", pattern: "\\bi designed|i made|we built|we ran|credit where|credit to\\b" }
+    - { label: "A reflexão", pattern: "\\bin hindsight|looking back|do differently|should have\\b" }
+  rubric:
+    - "Os cinco sinais presentes"
+    - "Crédito a alguém do time por nome"
+    - "A reflexão sem ser pedida"
+    - "Sem calques ('weakness', 'at that time', 'I'm part of')"
+  model: >-
+    The migration, senior markers on. The constraint
+    was the holiday freeze — one week, not three.
+    The call I made: dual-write first, cut over at
+    3am. We traded cleanup for safety — carried two
+    systems for a quarter, and it was worth it.
+    Credit where it's due: Ana caught the ordering
+    bug in review that would have broken the plan.
+    We defined success up front — p99 under 300ms,
+    zero pages — and hit both. In hindsight, I
+    should have involved security in week one; their
+    late catch cost us two days. I owned the
+    decision, including that miss.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a história mais madura do seu banco — com os cinco sinais ligados. Constraint → the call I made → we traded X for Y → credit where it's due → in hindsight. O objetivo: soar como quem decide, não como quem executa."
+    maxSeconds: 90
+    targetPhrases:
+      - the constraint was
+      - the call i made
+      - we traded
+      - for safety
+      - i designed, we built
+      - credit where it's due
+      - in hindsight
+      - i should have
+      - what i'd do differently
+      - success looked like
+      - we defined success
+      - i owned the decision
+      - it worked, but at a cost
+      - i'd push back on that now
+      - the thing nobody tells you
+      - looking back
+    checklist:
+      - "os cinco sinais presentes"
+      - "I para decisões, we para execução"
+      - "crédito a alguém por nome"
+      - "sem calques ('at that time', 'weakness', 'it's been')"
+
+quiz:
+  - { id: M29-04-q1, type: multiple_choice, prompt: "O sinal de senioridade mais forte é…", options: ["falar rápido", "usar jargão", "'I owned the decision — including being wrong'", "nunca errar"], answer: 2, explanation: "Ownership que inclui o erro.", tags: [vocab.interview] }
+  - { id: M29-04-q2, type: error_correction, prompt: "I make part of that decision.", accepted: ["I was part of that decision.", "I was part of that decision", "I'm part of that decision."], explanation: "'Part of'.", tags: [br.make-part-of] }
+  - { id: M29-04-q3, type: multiple_choice, prompt: "'We traded X for Y' sinaliza…", options: ["indecisão", "sorte", "compromisso", "que você vê o custo, não só o ganho"], answer: 3, explanation: "Quem decide nomeia o trade-off.", tags: [vocab.interview] }
+  - { id: M29-04-q4, type: fill_blank, prompt: "Credit where it's ___ — Ana caught the bug.", accepted: ["due"], explanation: "'Credit where it's due'.", tags: [vocab.interview] }
+  - { id: M29-04-q5, type: multiple_choice, prompt: "A história 'tudo certo, todos concordaram' lê como…", options: ["perfeita", "senior", "junior — quem decide sabe que nada é assim", "ensaiada"], answer: 2, explanation: "O anti-sinal.", tags: [vocab.interview] }
+  - { id: M29-04-q6, type: error_correction, prompt: "It's already 5 years that I'm an SRE.", accepted: ["It's been five years as an SRE.", "It's been five years as an SRE", "I've been an SRE for five years."], explanation: "'It's been X' ou present perfect.", tags: [br.its-already-years] }
+  - { id: M29-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["should", "have", "in", "paged", "hindsight", "i", "sooner"], answer: "in hindsight i should have paged sooner", explanation: "A reflexão sem ser pedida.", tags: [vocab.interview] }
+  - { id: M29-04-q8, type: multiple_choice, prompt: "O equilíbrio I/we certo é…", options: ["tudo 'I'", "tudo 'we'", "'I' nas decisões, 'we' na execução — 'I designed, we built'", "metade de cada"], answer: 2, explanation: "Decisão sua, execução do time.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "we traded X for Y", back: "O trade-off nomeado — quem decide vê o custo.", tag: vocab.interview }
+  - { front: "in hindsight, I should have…", back: "A reflexão oferecida antes da pergunta.", tag: vocab.interview }
+  - { front: "I designed, we built", back: "I nas decisões, we na execução.", tag: vocab.interview }
+  - { front: "the constraint was…", back: "A decisão dentro de um formato.", tag: vocab.interview }
+  - { front: "success looked like…", back: "Definir 'pronto' antes de começar.", tag: vocab.interview }
+  - { front: "what I'd do differently", back: "O marcador mais forte — do M27.", tag: vocab.interview }
+  - { front: "I owned the decision, not just the work", back: "Ownership que inclui o erro.", tag: vocab.interview }
+  - { front: "the call I made", back: "Nomeie as decisões SUAS dentro da história.", tag: vocab.interview }
+  - { front: "credit where it's due", back: "Crédito ao time por nome.", tag: vocab.interview }
+  - { front: "the thing nobody tells you", back: "A sabedoria de quem aprendeu fazendo.", tag: vocab.interview }
+  - { front: "I'd push back on that now", back: "O julgamento que evoluiu.", tag: vocab.interview }
+  - { front: "it worked, but at a cost", back: "O resultado honesto — nada é de graça.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.in-that-epoch, br.make-part-of]
+  notes: "Revisão prioriza os cinco sinais e o equilíbrio I/we."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
