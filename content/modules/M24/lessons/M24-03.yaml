@@ -1,0 +1,319 @@
+id: M24-03
+module: M24
+order: 3
+title: "Demos ao vivo: 'while this runs…', e quando a demo quebra no palco"
+objective: >-
+  Ao final, você narra uma demo enquanto executa — cobre os
+  tempos mortos com contexto e trata a falha ao vivo como
+  parte do show, não como desastre.
+durationMin: 40
+competencies: [SPK, PRO, CNF]
+tags: [vocab.presentation, gram.signposting, comp.speaking, comp.confidence, comp.pronunciation]
+prerequisites: [M24-02]
+
+context:
+  scenario: |
+    A demo do rollout ao vivo: você roda o deploy na frente
+    de todos. A demo ao vivo tem três inimigos — o tempo
+    morto, o terminal ilegível e a falha no palco — e uma
+    técnica para cada:
+
+    - **Tempo morto**: "*while this runs, notice the
+      dashboard on the right*" — o silêncio de build vira
+      contexto, não vácuo.
+    - **Narrar antes de clicar**: "*I'm going to trigger
+      the canary — watch the error rate*" — a plateia sabe
+      o que esperar antes de acontecer.
+    - **A falha ao vivo**: "*that's the demo gods — let me
+      show you what it should have done*" — humor leve,
+      gravação/backup, segue o show.
+    - **O veredito**: "*what you just saw is…*" — a demo
+      sem legenda é só um terminal piscando.
+
+    A regra do palco: a demo nunca é o produto — a *narração*
+    é. Quem assiste quer entender o que viu; o terminal é só
+    a evidência.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Ana (eng manager)]
+
+vocabulary:
+  - term: "while this runs…"
+    meaning: 'enquanto isso roda… — cobre o tempo morto com contexto'
+    example: "While this runs, notice the dashboard on the right — the error rate."
+    translation: "Enquanto isso roda, notem o dashboard à direita — a taxa de erro."
+    note: "O build de 30 segundos é 30 segundos de contexto grátis."
+  - term: "I'm going to…"
+    meaning: 'vou… — anuncia a ação antes de executar'
+    example: "I'm going to trigger the canary — watch the error rate."
+    translation: "Vou disparar o canary — observem a taxa de erro."
+    note: "Anuncie antes de clicar — a plateia sabe o que esperar."
+  - term: "watch the…"
+    meaning: 'observem o… — aponta onde o efeito aparece'
+    example: "Watch the error rate — it should stay flat."
+    translation: "Observem a taxa de erro — ela deve ficar plana."
+    note: "Diga onde o resultado mora antes de ele aparecer."
+  - term: "the demo gods"
+    meaning: 'os deuses da demo — o humor leve para a falha ao vivo'
+    example: "The demo gods are not with us today — let me show the recording."
+    translation: "Os deuses da demo não estão conosco hoje — deixe-me mostrar a gravação."
+    note: "Uma piada conhecida desarma o silêncio da quebra."
+  - term: "what it should have done"
+    meaning: 'o que ela devia ter feito — a demo que falhou, explicada'
+    example: "That timed out — let me show you what it should have done."
+    translation: "Isso deu timeout — deixe-me mostrar o que ela devia ter feito."
+    note: "A falha não encerra — mostre o esperado e siga."
+  - term: "what you just saw is…"
+    meaning: 'o que vocês acabaram de ver é… — a legenda da demo'
+    example: "What you just saw is the canary catching a bad deploy."
+    translation: "O que vocês acabaram de ver é o canary pegando um deploy ruim."
+    note: "A demo sem legenda é só um terminal piscando — legende sempre."
+  - term: "as expected"
+    meaning: 'como esperado — o selo de que deu certo'
+    example: "Flat error rate, as expected — the canary did its job."
+    translation: "Taxa de erro plana, como esperado — o canary fez seu trabalho."
+    note: "Confirme o esperado em voz alta — a plateia não conclui sozinha."
+  - term: "live, so bear with me"
+    meaning: 'ao vivo, então aguentem — honestidade antes do risco'
+    example: "This is live, so bear with me — wifi and demos are old enemies."
+    translation: "Isso é ao vivo, então aguentem — wifi e demos são inimigos antigos."
+    note: "Declarar o risco no início compra boa vontade para a falha."
+  - term: "let me zoom in on the terminal"
+    meaning: 'deixe-me ampliar o terminal — a legibilidade do palco'
+    example: "Let me zoom in on the terminal — the back row can't read this."
+    translation: "Deixe-me ampliar o terminal — o fundo da sala não lê isso."
+    note: "Fonte pequena é a falha mais comum — e a mais evitável."
+  - term: "I'll do it twice"
+    meaning: 'faço duas vezes — o efeito que precisa ser visto de novo'
+    example: "The flip is fast — I'll do it twice so you catch it."
+    translation: "A virada é rápida — faço duas vezes para vocês pegarem."
+    note: "O efeito rápido demais pede repetição anunciada."
+  - term: "if it works"
+    meaning: 'se funcionar — a aposta declarada com humor'
+    example: "And if it works — which it will — the line goes green."
+    translation: "E se funcionar — e vai — a linha fica verde."
+    note: "A confiança com parêntese de humor — não aposte contra si."
+  - term: "the money shot"
+    meaning: 'o momento decisivo — o efeito que a demo existe para mostrar'
+    example: "Here's the money shot — the canary rolls back by itself."
+    translation: "Aqui está o momento decisivo — o canary reverte sozinho."
+    note: "Anuncie o clímax — a plateia precisa saber que chegou."
+  - term: "that green line is the SLO"
+    meaning: 'aquela linha verde é o SLO — conecta o gráfico ao conceito'
+    example: "That green line is the SLO — the p99 should stay under it."
+    translation: "Aquela linha verde é o SLO — o p99 deve ficar abaixo dela."
+    note: "Todo elemento na tela merece uma legenda falada."
+  - term: "I'll leave this running"
+    meaning: 'vou deixar rodando — o fundo contínuo da demo'
+    example: "I'll leave this running in the corner — watch it during the next part."
+    translation: "Vou deixar isso rodando no canto — observem durante a próxima parte."
+    note: "A demo de fundo responde perguntas antes de serem feitas."
+
+grammar:
+  title: "a gramática da ação ao vivo"
+  explanation: |
+    Narrar demo usa três estruturas:
+
+    - **"I'm going to" antes do clique**: "*I'm going to
+      trigger the canary*" — a ação anunciada vira
+      expectativa dirigida.
+    - **"While + -ing" para o tempo morto**: "*while
+      this runs*", "*while it builds*" — o silêncio vira
+      contexto paralelo.
+    - **"What you just saw" para a legenda**: "*what you
+      just saw is the canary catching it*" — o veredito
+      depois do efeito.
+    - **E o condicional da falha**: "*if it works — which
+      it will*", "*should this hang, here's the
+      recording*" — a hipótese tratada com humor ou plano.
+
+    E os calques da demo:
+
+    - "**in the screen**" → "**on the screen**".
+    - "**I want that you notice**" → "**I want you to
+      notice**".
+    - "**make a question**" → "**ask a question**".
+    - "**the graphic shows**" → "**the graph shows**".
+  examples:
+    - { en: "I'm going to trigger the canary — watch the error rate.", pt: "Vou disparar o canary — observem a taxa de erro." }
+    - { en: "While this runs, notice the dashboard on the right.", pt: "Enquanto isso roda, notem o dashboard à direita." }
+    - { en: "What you just saw is the canary catching a bad deploy.", pt: "O que vocês acabaram de ver é o canary pegando um deploy ruim." }
+    - { en: "That's the demo gods — let me show you what it should have done.", pt: "São os deuses da demo — deixe-me mostrar o que ela devia ter feito." }
+    - { en: "Flat error rate, as expected — the canary did its job.", pt: "Taxa de erro plana, como esperado — o canary fez seu trabalho." }
+    - { en: "Should this hang, here's the recording from this morning.", pt: "Se isso travar, aqui está a gravação de hoje de manhã." }
+
+examples:
+  - en: "I'm going to deploy a bad version on purpose — watch the error rate."
+    pt: "Vou fazer o deploy de uma versão ruim de propósito — observem a taxa de erro."
+    context: "A ação anunciada antes do clique."
+  - en: "While this runs, look at the green line — that's the SLO."
+    pt: "Enquanto isso roda, olhem a linha verde — esse é o SLO."
+    context: "O tempo morto virando contexto."
+  - en: "Here's the money shot — the canary rolls back by itself."
+    pt: "Aqui está o momento decisivo — o canary reverte sozinho."
+    context: "O clímax anunciado."
+  - en: "What you just saw is the rollback catching the bad deploy in ninety seconds."
+    pt: "O que vocês acabaram de ver é o rollback pegando o deploy ruim em noventa segundos."
+    context: "A legenda depois do efeito."
+  - en: "That timed out — demo gods. Let me show you what it should have done."
+    pt: "Isso deu timeout — deuses da demo. Deixe-me mostrar o que ela devia ter feito."
+    context: "A falha tratada com humor + backup."
+  - en: "The flip is fast — I'll do it twice so you catch it."
+    pt: "A virada é rápida — faço duas vezes para vocês pegarem."
+    context: "A repetição anunciada."
+  - en: "I'll leave this running in the corner — watch it during the cost part."
+    pt: "Vou deixar isso rodando no canto — observem durante a parte de custo."
+    context: "A demo de fundo."
+  - en: "This is live, so bear with me — wifi and demos are old enemies."
+    pt: "Isso é ao vivo, então aguentem — wifi e demos são inimigos antigos."
+    context: "O risco declarado compra boa vontade."
+
+variations:
+  - idea: '"o tempo morto e a falha"'
+    items:
+      - { register: "Boa", text: "While this runs, notice the dashboard on the right.", adequate: true }
+      - { register: "Boa", text: "That's the demo gods — let me show you what it should have done.", adequate: true }
+      - { register: "Inadequada", text: "Hold on… it's loading… still loading…", adequate: false, note: "O silêncio comentado é pior que o silêncio — cubra com contexto ou corte." }
+      - { register: "Inadequada", text: "Sorry sorry sorry — it worked this morning, I swear.", adequate: false, note: "Desculpa em loop perde a sala — uma piada, o backup, e segue." }
+  - idea: '"a legenda da demo"'
+    items:
+      - { register: "Boa", text: "What you just saw is the canary catching a bad deploy.", adequate: true }
+      - { register: "Boa", text: "Flat error rate, as expected — the canary did its job.", adequate: true }
+      - { register: "Inadequada", text: "See? It works.", adequate: false, note: "Sem legenda, a plateia não sabe o que viu — 'what you just saw is…'." }
+      - { register: "Inadequada", text: "I want that you notice the rollback, no?", adequate: false, note: "Dois calques: *want you to notice* + *right?*." }
+
+brErrors:
+  - { wrong: "I want that you notice the rollback.", right: "I want you to notice the rollback.", why: "want you to notice", tag: br.want-that }
+  - { wrong: "As you see in the screen, it rolled back.", right: "As you see on the screen, it rolled back.", why: "on the screen", tag: br.in-the-screen }
+  - { wrong: "The graphic shows the rollback.", right: "The graph shows the rollback.", why: "the graph", tag: br.the-graphic }
+  - { wrong: "Can I make a question during the demo?", right: "Can I ask a question during the demo?", why: "ask a question", tag: br.make-question }
+  - { wrong: "I am agree the demo was clear.", right: "I agree the demo was clear.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "The same demo than last week.", right: "The same demo as last week.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the live demo.", right: "We discussed the live demo.", why: "discussed the demo", tag: br.discuss-about }
+  - { wrong: "Instead a recording, do it live.", right: "Instead of a recording, do it live.", why: "instead of", tag: br.instead-of }
+  - { wrong: "I have doubt about the wifi.", right: "I have a doubt about the wifi.", why: "a doubt", tag: br.doubt }
+  - { wrong: "You must to narrate the click.", right: "You must narrate the click.", why: "must narrate", tag: br.modal-to }
+
+dialogue:
+  title: "The live canary demo"
+  lines:
+    - { speaker: Yuri, text: "This is live, so bear with me — wifi and demos are old enemies. I'm going to deploy a bad version on purpose — watch the error rate on the right." }
+    - { speaker: Yuri, text: "While this builds, look at the green line — that's the SLO. The p99 should stay under it." }
+    - { speaker: Beth, text: "The terminal font is small." }
+    - { speaker: Yuri, text: "Good catch — let me zoom in. Better for the back row?" }
+    - { speaker: Yuri, text: "Here's the money shot — watch the canary catch the bad deploy. Flat error rate… as expected. It rolled back by itself." }
+    - { speaker: Ana, text: "What did we just watch?" }
+    - { speaker: Yuri, text: "What you just saw is ninety seconds of a bad deploy being caught and reverted — no human touched it." }
+    - { speaker: Beth, text: "And if it had hung?" }
+    - { speaker: Yuri, text: "Then I'd blame the demo gods and show you this morning's recording — same flow, pre-baked. I'll leave this running in the corner for the cost section." }
+    - { speaker: Ana, text: "Smooth — the narration did the work, the terminal was just the evidence." }
+  notes:
+    - "'I'm going to' antes do clique; 'while this runs' no tempo morto; 'what you just saw' na legenda."
+    - "a falha hipotética veio respondida: humor ('demo gods') + backup (gravação) — sem pânico."
+    - "fonte pequena corrigida ao vivo — a legibilidade do palco é parte da demo."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "A live demo has three enemies: dead time, an unreadable terminal, and on-stage failure. Cover dead time — 'while this runs, notice the dashboard'. Announce before you click — 'I'm going to trigger the canary, watch the error rate'. And treat the failure as part of the show — 'demo gods', then the recording." }
+    - { speaker: Yuri, text: "The demo is never the product — the narration is. The audience wants to understand what they saw: 'what you just saw is the canary catching it'. Confirm the expected out loud — 'flat error rate, as expected' — because the room won't conclude by itself." }
+    - { speaker: Beth, text: "And under stage pressure the calques creep back: 'in the screen' is 'on', 'I want that you notice' is 'I want you to', 'make a question' is 'ask', and 'the graphic' is 'the graph'." }
+  questions:
+    - { id: M24-03-l1, type: multiple_choice, prompt: "Os três inimigos da demo ao vivo são…", options: ["slide, timer, plateia", "tempo morto, terminal ilegível, falha no palco", "wifi, notebook, projetor", "perguntas, ruído, atraso"], answer: 1, explanation: "Tempo morto se cobre, terminal se amplia, falha se trata com humor + backup.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-03-l2, type: multiple_choice, prompt: "'While this runs…' serve para…", options: ["pedir silêncio", "ganhar tempo de build", "cobrir o tempo morto com contexto", "pausar a demo"], answer: 2, explanation: "O build de 30 s é contexto grátis — não vácuo.", tags: [comp.listening, gram.signposting] }
+    - { id: M24-03-l3, type: fill_blank, prompt: "What you just ___ is the canary catching a bad deploy.", accepted: ["saw"], explanation: "'What you just saw' — a legenda depois do efeito.", tags: [vocab.presentation] }
+    - { id: M24-03-l4, type: error_correction, prompt: "As you see in the screen, it rolled back.", accepted: ["As you see on the screen, it rolled back.", "As you see on the screen, it rolled back"], explanation: "'on the screen'.", tags: [br.in-the-screen] }
+    - { id: M24-03-l5, type: multiple_choice, prompt: "A demo quebra ao vivo. A sequência certa é…", options: ["desculpar-se em loop", "cancelar a apresentação", "fingir que nada aconteceu", "humor leve + backup + seguir o show"], answer: 3, explanation: "'Demo gods' + gravação — a falha vira parte do show.", tags: [comp.listening, comp.confidence] }
+    - { id: M24-03-l6, type: multiple_choice, prompt: "'What you just saw is…' existe porque…", options: ["a plateia estava distraída", "o palestrante precisa de pausa", "a demo sem legenda é só um terminal piscando", "encerra a seção"], answer: 2, explanation: "Legende sempre — a plateia não conclui sozinha.", tags: [comp.listening, vocab.presentation] }
+
+writing:
+  prompt: |
+    **Cenário:** o dry run da demo foi aprovado — e o Carlos
+    pediu o roteiro falado da demo para o runbook da
+    apresentação.
+
+    **Tarefa:** escreva 70–100 palavras com o roteiro da demo
+    do canary: a ação anunciada antes do clique, a cobertura
+    do tempo morto, a legenda depois do efeito, e o plano
+    para a falha ao vivo (humor + backup).
+  constraints:
+    - { label: "A ação anunciada", pattern: "\\bi'm going to|watch the|before\\b" }
+    - { label: "O tempo morto", pattern: "\\bwhile this (runs|builds)|while it\\b" }
+    - { label: "A legenda", pattern: "\\bwhat you just saw|as expected|money shot\\b" }
+    - { label: "O plano da falha", pattern: "\\bdemo gods|recording|backup|should this\\b" }
+  rubric:
+    - "Ação anunciada antes de executar"
+    - "Tempo morto com contexto nomeado"
+    - "Legenda explícita depois do efeito"
+    - "Sem calques ('on the screen', 'want you to', 'ask a question', 'the graph')"
+  model: >-
+    Demo script — the canary. Open live and honest: "this
+    is live, so bear with me". Announce the action: "I'm
+    going to deploy a bad version on purpose — watch the
+    error rate on the right". Cover the build: "while this
+    runs, look at the green line — that's the SLO". Name
+    the climax: "here's the money shot — the rollback by
+    itself". Caption it: "what you just saw is a bad deploy
+    caught in ninety seconds". And the failure plan: "demo
+    gods — the recording from this morning". The narration
+    does the work; the terminal is evidence.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.presentation, gram.signposting]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos narrando a demo do canary como se estivesse ao vivo: ação anunciada, tempo morto coberto, clímax nomeado, legenda — e o plano se travar."
+    maxSeconds: 60
+    targetPhrases:
+      - I'm going to
+      - watch the
+      - while this runs
+      - what you just saw
+      - as expected
+      - the money shot
+      - the demo gods
+      - what it should have done
+      - live, so bear with me
+      - I'll do it twice
+      - I'll leave this running
+      - the green line is the SLO
+      - zoom in on the terminal
+      - on the screen
+      - I want you to notice
+      - ask a question
+    checklist:
+      - "anuncia a ação antes do clique"
+      - "cobre o tempo morto com contexto"
+      - "legenda depois do efeito — 'what you just saw'"
+      - "falha tratada com humor + backup, sem pânico"
+
+quiz:
+  - { id: M24-03-q1, type: multiple_choice, prompt: "A ordem da narração de demo é…", options: ["clicar → narrar → legendar", "anunciar → executar → legendar", "executar → silenciar → repetir", "legendar → executar → anunciar"], answer: 1, explanation: "A plateia sabe o que esperar antes de acontecer.", tags: [vocab.presentation] }
+  - { id: M24-03-q2, type: error_correction, prompt: "I want that you notice the rollback.", accepted: ["I want you to notice the rollback.", "I want you to notice the rollback"], explanation: "'want you to notice'.", tags: [br.want-that] }
+  - { id: M24-03-q3, type: multiple_choice, prompt: "'This is live, so bear with me' compra…", options: ["simpatia para a falha — o risco declarado desarma", "tempo de build", "licença para errar tudo", "atenção do fundo"], answer: 0, explanation: "O risco declarado no início compra boa vontade.", tags: [vocab.presentation, comp.confidence] }
+  - { id: M24-03-q4, type: fill_blank, prompt: "Here's the ___ shot — the canary rolls back by itself.", accepted: ["money"], explanation: "O clímax anunciado — a plateia sabe que chegou.", tags: [vocab.presentation] }
+  - { id: M24-03-q5, type: multiple_choice, prompt: "Por que 'as expected' em voz alta?", options: ["para parecer confiante", "para preencher silêncio", "a plateia não conclui sozinha — confirme o esperado", "para o gravador"], answer: 2, explanation: "O selo falado do sucesso.", tags: [vocab.presentation] }
+  - { id: M24-03-q6, type: error_correction, prompt: "The graphic shows the error rate staying flat.", accepted: ["The graph shows the error rate staying flat.", "The graph shows the error rate staying flat"], explanation: "'the graph'.", tags: [br.the-graphic] }
+  - { id: M24-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["runs", "this", "while", "the", "notice", "dashboard"], answer: "while this runs notice the dashboard", explanation: "O tempo morto vira contexto.", tags: [gram.signposting, vocab.presentation] }
+  - { id: M24-03-q8, type: multiple_choice, prompt: "A demo ao vivo falhou de vez. Você…", options: ["recomeça do zero", "'demo gods' + mostra a gravação e segue — a narração é o produto", "pula para o Q&A", "promete outra sessão"], answer: 1, explanation: "O terminal é a evidência — a narração é o produto.", tags: [vocab.presentation, comp.confidence] }
+
+srsCards:
+  - { front: "while this runs…", back: "O tempo morto vira contexto — 'notice the dashboard'.", tag: vocab.presentation }
+  - { front: "I'm going to…", back: "A ação anunciada antes do clique.", tag: vocab.presentation }
+  - { front: "watch the…", back: "Onde o efeito aparece — 'watch the error rate'.", tag: vocab.presentation }
+  - { front: "the demo gods", back: "O humor da falha ao vivo — uma piada, backup, segue.", tag: vocab.presentation }
+  - { front: "what it should have done", back: "A demo que falhou, explicada — não encerra.", tag: vocab.presentation }
+  - { front: "what you just saw is…", back: "A legenda — sem ela, é só terminal piscando.", tag: vocab.presentation }
+  - { front: "as expected", back: "O selo falado do sucesso — a plateia não conclui sozinha.", tag: vocab.presentation }
+  - { front: "the money shot", back: "O clímax anunciado — 'the canary rolls back by itself'.", tag: vocab.presentation }
+  - { front: "the green line is the SLO", back: "Todo elemento na tela merece legenda falada.", tag: vocab.presentation }
+  - { front: "I'll leave this running", back: "A demo de fundo — responde antes de perguntarem.", tag: vocab.presentation }
+  - { front: "bear with me (live)", back: "O risco declarado compra boa vontade para a falha.", tag: vocab.presentation }
+  - { front: "I want you to notice", back: "'Quero que você note' — nunca 'want that you'.", tag: br.want-that }
+
+review:
+  preferTags: [vocab.presentation, gram.signposting, br.in-the-screen]
+  notes: "Revisão prioriza o ciclo anunciar→executar→legendar, o tempo morto coberto, a falha com humor+backup e os calques de palco."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
