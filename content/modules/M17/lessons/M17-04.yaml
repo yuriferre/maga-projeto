@@ -1,0 +1,296 @@
+id: M17-04
+module: M17
+order: 4
+title: "Action items: dono, prazo, verbo de ação e prioridade"
+objective: >-
+  Ao final, você escreve action items que se executam: verbo de
+  ação + dono (papel) + prazo + prioridade — e reconhece os itens
+  vagos que nunca saem do papel.
+durationMin: 35
+competencies: [WRI]
+tags: [vocab.postmortem, comp.writing]
+prerequisites: [M17-03]
+
+context:
+  scenario: |
+    A análise está feita — três lacunas na cadeia. Agora a seção
+    que decide se o post-mortem valeu a pena: os action items.
+
+    O rascunho tem "**improve alerting**" e "**be more careful
+    with config**". A Priya risca os dois: "**vague items die.
+    Every item needs a verb, an owner, a deadline, a priority.**"
+
+    O action item que se executa:
+
+    - **verbo de ação:** add, enforce, lower, write, automate —
+      nunca "improve", "look into", "consider"
+    - **dono:** um papel ou nome com ticket — "owner: on-call
+      rotation (INFRA-1234)"
+    - **prazo:** "by Oct 15" — data, não "soon"
+    - **prioridade:** P0/P1/P2 ou high/medium/low — declarada
+
+    "Improve alerting" vira "**add a pool-saturation alert —
+    owner: Yuri — by Oct 15 — P0**".
+  roles: [Yuri (platform engineer), Priya (tech lead), Marcos (backend)]
+
+vocabulary:
+  - term: "action item"
+    meaning: 'o item de ação — a saída concreta do post-mortem'
+    example: "Three action items came out of the post-mortem."
+    translation: "Três itens de ação saíram do post-mortem."
+    note: "Sem action items, o post-mortem é só literatura."
+  - term: "owner"
+    meaning: 'o dono — uma pessoa/papel nomeado com ticket'
+    example: "Owner: the on-call rotation — ticket INFRA-1234."
+    translation: "Dono: o rodízio de plantão — ticket INFRA-1234."
+    note: "Sem dono, o item é sugestão."
+  - term: "deadline"
+    meaning: 'o prazo — a data, não "em breve"'
+    example: "Deadline: by October 15th — not 'soon'."
+    translation: "Prazo: até 15 de outubro — não 'em breve'."
+    note: "Data específica ou sprint — 'by', nunca 'until'."
+  - term: "priority (P0/P1/P2)"
+    meaning: 'a prioridade — declarada, não implícita'
+    example: "The guardrail is P0 — it prevents the recurrence."
+    translation: "A proteção é P0 — ela impede a recorrência."
+    note: "P0 = faz agora; P1 = este sprint; P2 = backlog com data."
+  - term: "due by"
+    meaning: 'vence em — o prazo como obrigação'
+    example: "The alert item is due by end of sprint."
+    translation: "O item do alerta vence no fim do sprint."
+    note: "'Due by Friday' — 'by' com data."
+  - term: "track under"
+    meaning: 'rastrear sob — o item vira ticket com número'
+    example: "We'll track it under INFRA-1234."
+    translation: "Vamos rastrear sob o INFRA-1234."
+    note: "O ticket dá ao item um endereço."
+  - term: "prevent recurrence"
+    meaning: 'prevenir a recorrência — o teste do bom item'
+    example: "The guardrail item prevents recurrence — the rest harden."
+    translation: "O item da proteção previne a recorrência — os demais endurecem."
+    note: "Pergunta-guia: 'isso impede o incidente de voltar?'"
+  - term: "harden"
+    meaning: 'endurecer — tornar mais resistente, sem resolver'
+    example: "Harden the config pipeline — add type checks."
+    translation: "Endurecer o pipeline de config — adicionar checagem de tipos."
+    note: "Hardening reduz o risco; prevenir elimina."
+  - term: "low-hanging fruit"
+    meaning: 'fruta baixa — o item barato com retorno rápido'
+    example: "The threshold fix is low-hanging fruit — one line, huge gain."
+    translation: "A correção do limiar é fruta baixa — uma linha, ganho enorme."
+    note: "Faça primeiro; o post-mortem ama vitória rápida."
+  - term: "follow-up"
+    meaning: 'o acompanhamento — quem confere se o item saiu'
+    example: "Follow-up in two weeks — did the items ship?"
+    translation: "Acompanhamento em duas semanas — os itens saíram?"
+    note: "Item sem follow-up vira dívida invisível."
+  - term: "vague item"
+    meaning: 'item vago — "improve X" que nunca se executa'
+    example: "'Improve alerting' is a vague item — it has no verb of action."
+    translation: "'Melhorar alertas' é item vago — não tem verbo de ação."
+    note: "O teste: consigo saber quando está pronto? Se não, é vago."
+  - term: "drive to done"
+    meaning: 'levar ao feito — o dono empurra até concluir'
+    example: "Each item has an owner who drives it to done."
+    translation: "Cada item tem um dono que o leva ao feito."
+    note: "'Done' tem critério — merge, deploy, alerta disparando."
+
+grammar:
+  title: "O action item executável: verbo + dono + prazo + prioridade"
+  explanation: |
+    O formato que se executa:
+
+    "**<verbo de ação> <objeto> — owner: <papel/nome> — by
+    <data> — <P0|P1|P2>**"
+
+    - **Verbos de ação:** add, enforce, lower, raise, write,
+      automate, migrate, remove — nunca "improve", "look into",
+      "consider", "be careful" (verbos de intenção, não de ação).
+    - **Done-criteria:** "add a pool-saturation alert **so it
+      pages before exhaustion**" — o item diz como se sabe que
+      está pronto.
+    - **Prazo com "by":** "by Oct 15", "by end of sprint" —
+      "until" não é prazo.
+    - **A ordenação:** P0 = previne a recorrência; depois
+      low-hanging fruit; o resto com data.
+  examples:
+    - { en: "Add a pool-saturation alert — owner: Yuri — by Oct 15 — P0.", pt: "Adicionar alerta de saturação do pool — dono: Yuri — até 15/out — P0." }
+    - { en: "Enforce type checks on config changes — owner: Marcos — by end of sprint — P1.", pt: "Forçar checagem de tipos em configs — dono: Marcos — até o fim do sprint — P1." }
+    - { en: "Lower the alert threshold from 50% to 10% — owner: on-call — by Friday — P0.", pt: "Baixar o limiar do alerta de 50% para 10% — dono: plantão — até sexta — P0." }
+    - { en: "'Improve alerting' is vague — 'add a pool alert' is an action item.", pt: "'Melhorar alertas' é vago — 'adicionar alerta de pool' é item de ação." }
+    - { en: "We'll track the guardrail work under INFRA-1234.", pt: "Vamos rastrear o trabalho da proteção sob o INFRA-1234." }
+    - { en: "Follow-up in two weeks: are the items done or just filed?", pt: "Acompanhamento em duas semanas: os itens estão feitos ou só arquivados?" }
+
+examples:
+  - en: "Add a pool-saturation alert that pages at 80% — owner: on-call — by Oct 15 — P0."
+    pt: "Adicionar alerta de saturação que aciona aos 80% — dono: plantão — até 15/out — P0."
+    context: "O item completo: verbo + critério + dono + prazo + prioridade."
+  - en: "Enforce config validation in CI — owner: Marcos — due by end of sprint — P1."
+    pt: "Forçar validação de config no CI — dono: Marcos — vence no fim do sprint — P1."
+    context: "O endurecimento com ticket."
+  - en: "Write the runbook for pool exhaustion — owner: Yuri — by Oct 20 — P1."
+    pt: "Escrever o runbook para exaustão de pool — dono: Yuri — até 20/out — P1."
+    context: "Documentar é ação quando tem dono e prazo."
+  - en: "'Look into alerting' is not an action item — it's a wish."
+    pt: "'Investigar alertas' não é item de ação — é um desejo."
+    context: "O verbo de intenção denunciado."
+  - en: "The threshold fix is low-hanging fruit — one line, done today."
+    pt: "A correção do limiar é fruta baixa — uma linha, feita hoje."
+    context: "A vitória rápida primeiro."
+  - en: "We'll track it under INFRA-1234 — follow-up on the 30th."
+    pt: "Vamos rastrear sob o INFRA-1234 — acompanhamento no dia 30."
+    context: "Ticket + data de conferência."
+  - en: "The guardrail prevents recurrence; the runbook hardens response."
+    pt: "A proteção previne a recorrência; o runbook endurece a resposta."
+    context: "Duas classes de item."
+  - en: "Each item has an owner who drives it to done — no orphans."
+    pt: "Cada item tem dono que o leva ao feito — sem órfãos."
+    context: "A regra anti-esquecimento."
+
+variations:
+  - idea: '"o item que se executa"'
+    items:
+      - { register: "Boa", text: "Add a pool-saturation alert — owner: Yuri — by Oct 15 — P0.", adequate: true }
+      - { register: "Boa", text: "Lower the threshold to 10% — owner: on-call — by Friday — P0.", adequate: true }
+      - { register: "Inadequada", text: "Improve alerting.", adequate: false, note: "Sem verbo de ação, dono, prazo — vago. 'Add a pool alert by Friday'." }
+      - { register: "Inadequada", text: "Be more careful with config.", adequate: false, note: "Sermão, não ação — a resposta é um guardrail, não cuidado." }
+  - idea: '"dono e prazo"'
+    items:
+      - { register: "Boa", text: "Owner: Marcos — due by end of sprint — tracked under INFRA-1234.", adequate: true }
+      - { register: "Boa", text: "P0 — prevents recurrence; someone drives it to done.", adequate: true }
+      - { register: "Inadequada", text: "Owner: the team — someday.", adequate: false, note: "'The team' não é dono — um papel ou nome com ticket." }
+      - { register: "Inadequada", text: "Due until next month.", adequate: false, note: "'By' com data — 'until' não marca prazo." }
+
+brErrors:
+  - { wrong: "The item is due until Friday.", right: "The item is due by Friday.", why: "by Friday", tag: br.until-by }
+  - { wrong: "The post-mortem is in Friday.", right: "The post-mortem is on Friday.", why: "on Friday", tag: br.in-weekday }
+  - { wrong: "The item was forgot in the backlog.", right: "The item was forgotten in the backlog.", why: "was forgotten", tag: br.was-past }
+  - { wrong: "The vague item contributed for the recurrence.", right: "The vague item contributed to the recurrence.", why: "contributed to", tag: br.contributed-for }
+  - { wrong: "The incident of Friday generated three items.", right: "Friday's incident generated three items.", why: "Friday's", tag: br.of-weekday }
+  - { wrong: "In this moment we assign the items.", right: "Right now we're assigning the items.", why: "right now", tag: br.in-this-moment }
+  - { wrong: "The item not have an owner.", right: "The item doesn't have an owner.", why: "doesn't have", tag: br.it-not-works }
+  - { wrong: "Each item need a deadline.", right: "Each item needs a deadline.", why: "needs", tag: br.third-person-s }
+  - { wrong: "I have a doubt about the priority.", right: "I have a question about the priority.", why: "question", tag: br.doubt }
+  - { wrong: "We discussed about the action items.", right: "We discussed the action items.", why: "discussed", tag: br.discuss-about }
+
+dialogue:
+  title: "De 'improve alerting' a item de verdade"
+  lines:
+    - { speaker: Priya, text: "Your action items: 'improve alerting' and 'be more careful with config'. Both die here." }
+    - { speaker: Yuri, text: "Vague items. Rewrite: 'add a pool-saturation alert that pages at 80%'." }
+    - { speaker: Priya, text: "Owner?" }
+    - { speaker: Yuri, text: "On-call rotation — tracked under INFRA-1234 — by Oct 15 — P0, it prevents recurrence." }
+    - { speaker: Priya, text: "And 'be more careful'?" }
+    - { speaker: Yuri, text: "'Enforce config type checks in CI' — owner: Marcos — due by end of sprint — P1." }
+    - { speaker: Priya, text: "What's the low-hanging fruit?" }
+    - { speaker: Yuri, text: "The threshold — 'lower the alert threshold to 10%' — one line, done today, P0." }
+    - { speaker: Priya, text: "And who checks they shipped?" }
+    - { speaker: Yuri, text: "Follow-up in two weeks — each owner drives their item to done. No orphans." }
+  notes:
+    - "a transformação item a item: vago → verbo+critério+dono+prazo+prioridade."
+    - "'no orphans' — todo item tem quem o leve ao done."
+
+listening:
+  lines:
+    - { speaker: Priya, text: "An action item that executes has a verb of action, an owner, a deadline and a priority. 'Improve alerting' has none — it's a wish. 'Add a pool-saturation alert — owner: on-call — by October 15th — P0' has all four." }
+    - { speaker: Marcos, text: "The verbs are concrete: add, enforce, lower, write, automate, migrate, remove. The trap verbs are intentions: improve, look into, consider, be careful. The test is the done-criteria — 'pages at 80%' tells you when it's finished." }
+    - { speaker: Yuri, text: "Two kinds of items: the one that prevents recurrence — that's your P0 — and the ones that harden the system around it. Do the low-hanging fruit first; it's usually one line. Then track every item under a ticket, and follow up — an item nobody checks is invisible debt." }
+  questions:
+    - { id: M17-04-l1, type: multiple_choice, prompt: "An executable action item has…", options: ["a good intention", "verb + owner + deadline + priority", "a long description", "a team owner"], answer: 1, explanation: "Quatro partes, sem exceção.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-04-l2, type: multiple_choice, prompt: "Which is a real action item?", options: ["'improve alerting'", "'be careful with config'", "'look into thresholds'", "'add a pool alert — owner: on-call — by Friday — P0'"], answer: 3, explanation: "Verbo de ação + dono + prazo + prioridade.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-04-l3, type: fill_blank, prompt: "We'll track the guardrail work ___ INFRA-1234.", accepted: ["under"], explanation: '"track under" — o ticket dá endereço.', tags: [vocab.postmortem] }
+    - { id: M17-04-l4, type: error_correction, prompt: "The item is due until Friday.", accepted: ["The item is due by Friday.", "The item is due by Friday"], explanation: "by Friday.", tags: [br.until-by] }
+    - { id: M17-04-l5, type: multiple_choice, prompt: "The P0 item is the one that…", options: ["is cheapest", "is most complex", "prevents recurrence", "the manager picks"], answer: 2, explanation: "P0 = impede o incidente de voltar.", tags: [comp.listening, vocab.postmortem] }
+    - { id: M17-04-l6, type: multiple_choice, prompt: "'Low-hanging fruit' should be done…", options: ["last", "only if time permits", "never — it's cosmetic", "first — cheap item, quick gain"], answer: 3, explanation: "Vitória rápida primeiro.", tags: [comp.listening, vocab.postmortem] }
+
+writing:
+  prompt: |
+    **Cenário:** a análise do post-mortem de sexta achou três
+    lacunas: config sem validação, limiar de alerta alto, pool sem
+    alerta de saturação.
+
+    **Tarefa:** escreva 70–100 palavras com os action items
+    completos (verbo + dono + prazo + prioridade + critério de
+    done), indicando qual previne a recorrência (P0) e qual é a
+    fruta baixa, mais o follow-up.
+  constraints:
+    - { label: "Verbo de ação", pattern: "\\b(add|enforce|lower|write|automate|migrate|remove)\\b" }
+    - { label: "Dono", pattern: "\\b(owner|on-call|yuri|marcos|rotation)\\b" }
+    - { label: "Prazo com by", pattern: "\\b(by|due|friday|sprint|oct|october)\\b" }
+    - { label: "Prioridade/follow-up", pattern: "\\b(p0|p1|p2|priority|follow.?up|track)\\b" }
+  rubric:
+    - "Cada item com verbo + dono + prazo"
+    - "Prioridade declarada"
+    - "Critério de done ou follow-up"
+    - "Sem calques"
+  model: >-
+    Action items from Friday's post-mortem: 1) Add a pool-saturation
+    alert that pages at 80% — owner: on-call rotation, tracked
+    under INFRA-1234 — by Oct 15 — P0, it prevents recurrence.
+    2) Enforce config type checks in CI — owner: Marcos — due by
+    end of sprint — P1. 3) Lower the error-rate threshold to 10%
+    — owner: Yuri — by Friday — P0; it's the low-hanging fruit,
+    one line. Follow-up in two weeks: each owner drives their item
+    to done — no vague items, no orphans.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.postmortem]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando os action items do post-mortem: os três itens com dono e prazo, qual é o P0 e como o follow-up funciona."
+    maxSeconds: 45
+    targetPhrases:
+      - action item
+      - owner
+      - by october
+      - due by
+      - p0
+      - prevents recurrence
+      - harden
+      - low-hanging fruit
+      - track under
+      - follow-up
+      - drive to done
+      - add a
+      - enforce
+      - lower the threshold
+      - by friday
+      - vague item
+    checklist:
+      - "Verbo de ação em cada item"
+      - "Dono + prazo declarados"
+      - "P0 = previne recorrência"
+      - "'By Friday', 'contributed to'"
+
+quiz:
+  - { id: M17-04-q1, type: multiple_choice, prompt: "The action item format is…", options: ["verb + owner + deadline + priority", "topic + discussion + vote", "problem + apology + promise", "name + blame + fix"], answer: 0, explanation: "Quatro partes que fazem o item executar.", tags: [vocab.postmortem] }
+  - { id: M17-04-q2, type: error_correction, prompt: "The item is due until next sprint.", accepted: ["The item is due by next sprint.", "The item is due by next sprint", "The item is due next sprint."], explanation: "by — 'until' não marca prazo.", tags: [br.until-by] }
+  - { id: M17-04-q3, type: multiple_choice, prompt: "'Improve alerting' fails because it lacks…", options: ["urgency", "a verb of action — no done-criteria exists", "a budget", "management approval"], answer: 1, explanation: "Verbo de intenção — nunca sai do papel.", tags: [vocab.postmortem] }
+  - { id: M17-04-q4, type: fill_blank, prompt: "Each item has an owner who drives it to ___.", accepted: ["done"], explanation: '"drive to done" — o dono empurra até concluir.', tags: [vocab.postmortem] }
+  - { id: M17-04-q5, type: error_correction, prompt: "The alert item was forgot in the backlog.", accepted: ["The alert item was forgotten in the backlog.", "The alert item was forgotten in the backlog"], explanation: "was forgotten.", tags: [br.was-past] }
+  - { id: M17-04-q6, type: translate, prompt: "Vamos rastrear sob o INFRA-1234.", accepted: ["We'll track it under INFRA-1234.", "We will track it under INFRA-1234."], explanation: '"track under" — o item vira ticket.', tags: [vocab.postmortem] }
+  - { id: M17-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["recurrence", "prevents", "it", "p0"], answer: "it prevents recurrence p0", explanation: '"prevents recurrence" — o teste do P0.', tags: [vocab.postmortem] }
+  - { id: M17-04-q8, type: multiple_choice, prompt: "A 'vague item' is one where…", options: ["the owner is a team", "the deadline is a sprint", "you can't tell when it's done — 'improve X' has no finish line", "the priority is low"], answer: 2, explanation: "Sem linha de chegada, é desejo.", tags: [vocab.postmortem] }
+
+srsCards:
+  - { front: "action item", back: "Verbo + dono + prazo + prioridade.", tag: vocab.postmortem }
+  - { front: "owner", back: "Papel/nome com ticket — 'the team' não é dono.", tag: vocab.postmortem }
+  - { front: "deadline / due by", back: "Data com 'by' — 'until' não é prazo.", tag: vocab.postmortem }
+  - { front: "P0", back: "Previne a recorrência — faz agora.", tag: vocab.postmortem }
+  - { front: "track under", back: "O ticket dá endereço ao item.", tag: vocab.postmortem }
+  - { front: "prevent recurrence", back: "O teste: impede o incidente de voltar?", tag: vocab.postmortem }
+  - { front: "harden", back: "Endurece sem eliminar — reduz risco.", tag: vocab.postmortem }
+  - { front: "low-hanging fruit", back: "Barato e rápido — faça primeiro.", tag: vocab.postmortem }
+  - { front: "follow-up", back: "Quem confere se saiu — senão é dívida invisível.", tag: vocab.postmortem }
+  - { front: "vague item", back: "'Improve X' — sem linha de chegada.", tag: vocab.postmortem }
+  - { front: "drive to done", back: "O dono empurra até o critério de pronto.", tag: vocab.postmortem }
+
+review:
+  preferTags: [vocab.postmortem, br.until-by, br.contributed-for]
+  notes: "Revisão prioriza o formato do item executável e os calques de prazo/contribuição."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
