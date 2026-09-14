@@ -883,3 +883,35 @@ patterns:
     right: "I've worked here since 2020 / I've been here since 2020"
     why: "Since + ano com estado atual leva present perfect — \"I've worked/been here since 2020\"."
     tag: br.work-since
+  # "I have interest in the role" — "ter interesse" vira "be interested in".
+  # Objetos restritos à vaga — "an interest in the company" (participação) fora.
+  - id: have-interest
+    pattern: "\\b(i|we)\\s+have\\s+(a\\s+|an\\s+)?(big\\s+|lot\\s+of\\s+|real\\s+)?interest\\s+(in|for)\\s+(the\\s+|this\\s+|that\\s+)?(position|role|job|opportunity|opening)\\b"
+    wrong: "I have interest in the role"
+    right: "I'm interested in the role / I'm excited about the role"
+    why: '"Ter interesse" na vaga vira "I''m interested in". ("An interest in the company" = participação, outra coisa.)'
+    tag: br.have-interest
+  # "salary pretension" — false friend: pretensão salarial é "expectations/target".
+  # Restrito a salary/pay/compensation ou "my pretension" — "pretensions of grandeur" fora.
+  - id: pretension
+    pattern: "\\b(salary|pay|compensation)\\s+pretensions?\\b|\\bmy\\s+pretension\\b"
+    wrong: "My salary pretension is $140k"
+    right: "My salary expectations are around $140k / I'm targeting $140k"
+    why: '"Pretensão salarial" é "salary expectations" — "pretension" em inglês é afetação.'
+    tag: br.pretension
+  # "I made an interview" — fazer uma entrevista (como candidato) é "have/do an interview".
+  # Sujeito I/we — "she made an interview for the magazine" (jornalismo) fica raro e fora.
+  - id: make-interview
+    pattern: "\\b(i|we)\\s+(made|make)\\s+an\\s+interview\\b"
+    wrong: "I made an interview yesterday"
+    right: "I had an interview yesterday / I did an interview"
+    why: 'Candidato "faz entrevista" em "have an interview" — "make an interview" não existe.'
+    tag: br.make-interview
+  # "two weeks advice" — aviso prévio é "notice". Exige quantidade de tempo —
+  # "give advice" (dar conselho) fica fora.
+  - id: advice-notice
+    pattern: "\\b(one|two|three|four|\\d+)\\s+(weeks?|months?|days?)\\s+(of\\s+)?advice\\b"
+    wrong: "I need to give two weeks advice"
+    right: "I need to give two weeks' notice"
+    why: '"Aviso prévio" é "notice" — "two weeks'' notice". ("Give advice" é dar conselho.)'
+    tag: br.advice-notice

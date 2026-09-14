@@ -200,3 +200,7 @@ tags:
   - { id: br.promoted-for,     group: br, label: "promoted for senior → to" }
   - { id: br.responsible-by,   group: br, label: "responsible by → for" }
   - { id: br.work-since,       group: br, label: "work here since → have worked" }
+  - { id: br.have-interest,   group: br, label: "I have interest in the role" }
+  - { id: br.pretension,       group: br, label: "salary pretension" }
+  - { id: br.make-interview,   group: br, label: "I made an interview" }
+  - { id: br.advice-notice,    group: br, label: "two weeks advice" }

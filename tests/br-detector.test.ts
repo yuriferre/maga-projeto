@@ -1231,3 +1231,47 @@ describe("padrões BR — M27 (carreira)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.work-since");
   });
 });
+
+describe("padrões BR — M28 (recrutadores)", () => {
+  it("flags 'I have interest in the role' but not a stake", () => {
+    expect(tagsOf("I have interest in the position.")).toContain("br.have-interest");
+    expect(tagsOf("I have a lot of interest in this opening.")).toContain("br.have-interest");
+    const clean = [
+      "I'm interested in the role.",
+      "She has an interest in the company — five percent.",
+      "I find the role interesting.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.have-interest");
+  });
+  it("flags 'salary pretension' but not real pretension", () => {
+    expect(tagsOf("My salary pretension is $140k.")).toContain("br.pretension");
+    expect(tagsOf("My pretension is to work remotely.")).toContain("br.pretension");
+    const clean = [
+      "My salary expectations are around $140k.",
+      "I'm targeting $140k.",
+      "His pretensions of grandeur annoyed the team.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.pretension");
+  });
+  it("flags 'I made an interview' but not 'did'", () => {
+    expect(tagsOf("I made an interview yesterday.")).toContain("br.make-interview");
+    expect(tagsOf("We made an interview with them last week.")).toContain("br.make-interview");
+    const clean = [
+      "I had an interview yesterday.",
+      "I did an interview yesterday.",
+      "She conducted the interview.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.make-interview");
+  });
+  it("flags 'two weeks advice' but not 'give advice'", () => {
+    expect(tagsOf("I need to give two weeks advice.")).toContain("br.advice-notice");
+    expect(tagsOf("One month of advice is standard here.")).toContain("br.advice-notice");
+    const clean = [
+      "I need to give two weeks' notice.",
+      "My notice period is 30 days.",
+      "She gave me good advice.",
+      "Years of advice from mentors.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.advice-notice");
+  });
+});
