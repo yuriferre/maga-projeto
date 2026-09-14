@@ -36,4 +36,13 @@ describe("M32 lessons", () => {
     maxSeconds: 90,
     prerequisites: ["M32-02"],
   });
+  checkLesson(bundle, "M32-04", {
+    vocabMin: 12,
+    dialogueMin: 10,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 120,
+    prerequisites: ["M32-03"],
+  });
 });

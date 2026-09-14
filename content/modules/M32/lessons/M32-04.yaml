@@ -1,0 +1,340 @@
+id: M32-04
+module: M32
+order: 4
+title: "Primeira semana (3 cenários curtos)"
+objective: >-
+  Ao final, você atravessou a primeira semana
+  inteira em três cenários curtos — o dia um
+  (intro + canal), o meio da semana (a rede e
+  o contexto) e a sexta (a primeira
+  contribuição).
+durationMin: 40
+competencies: [SPK, WRI, REA, CNF]
+tags: [vocab.onboarding, comp.speaking, comp.writing]
+prerequisites: [M32-03]
+simulation: true
+
+context:
+  scenario: |
+    A simulação da primeira semana — três
+    cenários curtos, um por dia-chave:
+
+    **Cenário 1 — Segunda (o dia um):**
+    a standup de apresentação + a mensagem de
+    intro no canal + a primeira pergunta sem
+    medo. Você abre com os 30 s — "I'm Yuri,
+    joining as Senior Platform Engineer…" —
+    posta a intro com "happy to grab a coffee
+    chat", e faz a pergunta de novato: "quick
+    question — how do people usually test
+    this locally?"
+
+    **Cenário 2 — Quarta (a rede):**
+    o coffee chat com a Priya e o 1:1 com o
+    tech lead. "What should I know that isn't
+    written down?", "the unwritten rule",
+    "who else should I meet?" — e o mapa de
+    quem é dono de quê escrito no fim.
+
+    **Cenário 3 — Sexta (a contribuição):**
+    você achou a lacuna no runbook. O pedido
+    de contexto com pesquisa — "I checked the
+    wiki — seems stale, who owns it?" — e a
+    oferta: "mind if I add that to the doc?
+    I'll write it up today."
+
+    **Rubrica da simulação** (autoavaliação):
+
+    - Dia 1: apresentação de 30 s + intro
+      postada + uma pergunta feita?
+    - Dia 3: coffee chat pedido com "no
+      agenda" + as três perguntas de ouro?
+    - Dia 5: pesquisa declarada + dono
+      achado + lacuna virou contribuição?
+    - Em todas: tom confiante de novato —
+      "new here, ramping up", nunca
+      diminuído?
+  roles: [Yuri (new Senior Platform Engineer), Dana (EM), Priya (SRE lead), Sam (historian)]
+
+vocabulary:
+  - term: "week one checklist"
+    meaning: 'a checklist da semana um — os três movimentos por dia'
+    example: "My week one checklist: intro Monday, coffee chats midweek, a doc contribution Friday."
+    translation: "Minha checklist da semana um: intro segunda, coffee chats no meio, contribuição no doc sexta."
+    note: "Os três movimentos distribuídos pela semana."
+  - term: "day one intro"
+    meaning: 'a intro do dia um — apresentação + post no canal'
+    example: "The day one intro: thirty seconds live, then the message in the channel."
+    translation: "A intro do dia um: 30 segundos ao vivo, depois a mensagem no canal."
+    note: "Ao vivo + escrito — os dois no dia um."
+  - term: "midweek network"
+    meaning: 'a rede do meio da semana — coffee chats e 1:1s'
+    example: "Midweek is for the network — three coffee chats, two 1:1s."
+    translation: "O meio da semana é para a rede — três coffee chats, dois 1:1s."
+    note: "Um por dia, nunca todos num dia só."
+  - term: "the Friday contribution"
+    meaning: 'a contribuição de sexta — a lacuna que vira página'
+    example: "By Friday I want one contribution — even a doc fix counts."
+    translation: "Até sexta quero uma contribuição — mesmo um conserto de doc conta."
+    note: "Fechar a semana com algo escrito por você."
+  - term: "first-week posture"
+    meaning: 'a postura da primeira semana — curioso e confiante'
+    example: "First-week posture: curious, confident, asking — not proving."
+    translation: "Postura de primeira semana: curioso, confiante, perguntando — não provando."
+    note: "Perguntar é a prova — não saber tudo."
+  - term: "pay it forward"
+    meaning: 'pagar adiante — devolver ao próximo novato o que te deram'
+    example: "Sam gave me the story — I wrote it up to pay it forward."
+    translation: "Sam me deu a história — eu escrevi para pagar adiante."
+    note: "A lacuna que você preenche serve ao próximo."
+  - term: "the new-person window"
+    meaning: 'a janela de novato — as quatro semanas de perguntas grátis'
+    example: "I'm using the new-person window — questions are free right now."
+    translation: "Estou usando a janela de novato — perguntas são grátis agora."
+    note: "A metáfora que organiza a semana."
+  - term: "read the room"
+    meaning: 'ler a sala — quando parar de perguntar na reunião'
+    example: "I asked two questions and read the room — saved the rest for the 1:1."
+    translation: "Fiz duas perguntas e li a sala — guardei o resto para o 1:1."
+    note: "Duas perguntas na reunião, o resto no 1:1."
+  - term: "end-of-week recap"
+    meaning: 'a recapitulação de fim de semana — o que aprendi, a quem agradecer'
+    example: "My end-of-week recap to Dana: what I learned, who I met, the doc I added."
+    translation: "Minha recapitulação de sexta para a Dana: o que aprendi, quem conheci, o doc que escrevi."
+    note: "Um parágrafo para o manager — visibilidade leve."
+  - term: "quick win"
+    meaning: 'a vitória rápida — a primeira entrega visível'
+    example: "The doc fix was my quick win — small, visible, done."
+    translation: "O conserto do doc foi minha vitória rápida — pequena, visível, feita."
+    note: "Semana um pede um quick win, não um projeto."
+  - term: "shadow a deploy"
+    meaning: 'sombrar um deploy — assistir antes de fazer'
+    example: "Before I run a deploy myself, I want to shadow one with Ana."
+    translation: "Antes de rodar um deploy, quero sombrar um com a Ana."
+    note: "Assistir primeiro — fazer depois."
+  - term: "that's above my pay grade (yet)"
+    meaning: 'isso está acima do meu nível (ainda) — a fronteira honesta do novato'
+    example: "Whether to rebuild it is above my pay grade — I'll flag it to Dana."
+    translation: "Se vale reconstruir está acima do meu nível — vou sinalizar para a Dana."
+    note: "Saber a fronteira do que você decide na semana um."
+
+grammar:
+  title: "a gramática dos três cenários"
+  explanation: |
+    Cada dia-chave tem a moldura da aula que o
+    gerou:
+
+    - **Segunda**: "**I'm** Yuri, **joining
+      as**…" + "**quick question — how do
+      people usually**…?"
+    - **Quarta**: "**want to grab a virtual
+      coffee? no agenda**" + "**what should
+      I know that isn't written down?**"
+    - **Sexta**: "**I checked** the wiki —
+      **seems stale**; **who owns** it? **mind
+      if I add** that to the doc? **I'll write
+      it up**."
+
+    E o fecho da semana: o recap ao manager —
+    "**what I learned, who I met, what I
+    shipped**".
+  examples:
+    - { en: "Week one checklist: intro Monday, coffee chats midweek, a doc contribution Friday.", pt: "Checklist da semana um: intro segunda, coffee chats no meio, contribuição no doc sexta." }
+    - { en: "I asked two questions and read the room — saved the rest for the 1:1.", pt: "Fiz duas perguntas e li a sala — o resto ficou para o 1:1." }
+    - { en: "Sam gave me the story — I wrote it up to pay it forward.", pt: "Sam me deu a história — escrevi para pagar adiante." }
+    - { en: "The doc fix was my quick win — small, visible, done.", pt: "O conserto do doc foi minha vitória rápida." }
+    - { en: "Before I run a deploy myself, I want to shadow one with Ana.", pt: "Antes de rodar um deploy, quero sombrar um com a Ana." }
+    - { en: "My recap to Dana: what I learned, who I met, what I shipped.", pt: "Meu recap para a Dana: o que aprendi, quem conheci, o que entreguei." }
+
+examples:
+  - en: "Day one: thirty-second intro live, then the intro message in the channel."
+    pt: "Dia um: intro de 30 s ao vivo, depois a mensagem no canal."
+    context: "Segunda."
+  - en: "I'm using the new-person window — questions are free right now."
+    pt: "Estou usando a janela de novato — perguntas são grátis agora."
+    context: "A metáfora que organiza a semana."
+  - en: "Midweek is for the network — three coffee chats, two 1:1s."
+    pt: "O meio da semana é para a rede — três chats, dois 1:1s."
+    context: "Quarta."
+  - en: "I asked two questions and read the room — saved the rest for the 1:1."
+    pt: "Fiz duas perguntas e li a sala — guardei o resto."
+    context: "O limite na reunião."
+  - en: "Before I run a deploy myself, I want to shadow one with Ana."
+    pt: "Antes de rodar um deploy, quero sombrar um com a Ana."
+    context: "Assistir antes de fazer."
+  - en: "The doc fix was my quick win — small, visible, done."
+    pt: "O conserto do doc foi minha vitória rápida."
+    context: "Sexta."
+  - en: "Sam gave me the story — I wrote it up to pay it forward."
+    pt: "Sam me deu a história — escrevi para pagar adiante."
+    context: "A contribuição."
+  - en: "My recap to Dana: what I learned, who I met, what I shipped."
+    pt: "Meu recap para a Dana: aprendi, conheci, entreguei."
+    context: "O fecho da semana."
+
+variations:
+  - idea: '"a semana"'
+    items:
+      - { register: "Forte", text: "Week one checklist: intro Monday, network midweek, contribution Friday.", adequate: true }
+      - { register: "Forte", text: "I asked two questions, read the room, saved the rest for the 1:1.", adequate: true }
+      - { register: "Fraco", text: "I'll stay quiet all week and prove myself with code later.", adequate: false, note: "A janela de novato fecha — e o código sozinho não constrói a rede." }
+      - { register: "Fraco", text: "First week goal: refactor the whole deploy pipeline.", adequate: false, note: "Semana um pede quick win — não o projeto que muda tudo." }
+  - idea: '"a contribuição de sexta"'
+    items:
+      - { register: "Forte", text: "The doc fix was my quick win — small, visible, done.", adequate: true }
+      - { register: "Forte", text: "Nobody documented it — I'll write it up to pay it forward.", adequate: true }
+      - { register: "Fraco", text: "I rewrote the entire wiki in week one.", adequate: false, note: "Quick win é pequeno — reescrever tudo sinaliza julgamento ruim." }
+      - { register: "Fraco", text: "Nothing shipped this week — too busy meeting people.", adequate: false, note: "A rede É o trabalho — mas feche a semana com algo escrito." }
+
+brErrors:
+  - { wrong: "I'm new in this company.", right: "I'm new to this company.", why: "new to", tag: br.new-in-company }
+  - { wrong: "In my first day I broke nothing.", right: "On my first day I broke nothing.", why: "on my first day", tag: br.in-first-day }
+  - { wrong: "I need a help with the recap.", right: "I need help with the recap.", why: "help sem artigo", tag: br.a-help }
+  - { wrong: "Who is the responsible for onboarding?", right: "Who owns onboarding?", why: "who owns", tag: br.the-responsible }
+  - { wrong: "I have a doubt about the checklist.", right: "I have a question about the checklist.", why: "a question", tag: br.doubt }
+  - { wrong: "I pretend to ship a quick win Friday.", right: "I plan to ship a quick win Friday.", why: "plan to", tag: br.pretend }
+  - { wrong: "Can you explain me the canary step?", right: "Can you explain the canary step to me?", why: "explain to me", tag: br.explain-me }
+  - { wrong: "Let me make a question first.", right: "Let me ask a question first.", why: "ask a question", tag: br.make-question }
+  - { wrong: "I'll take a coffee with Priya Thursday.", right: "I'll grab a coffee with Priya Thursday.", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "I assist the Friday deploy.", right: "I attend the Friday deploy.", why: "attend", tag: br.assist }
+
+dialogue:
+  title: "A primeira semana inteira — três dias-chave"
+  lines:
+    - { speaker: Dana, text: "(Monday standup) New face on the call — Yuri, want to introduce yourself?" }
+    - { speaker: Yuri, text: "Sure — I'm Yuri, joining as Senior Platform Engineer. I spent the last five years on Kubernetes and CI/CD at a fintech in Brazil. I'm new here, still ramping up — bear with me on the acronyms. Quick question while I have you: how do people usually test pipeline changes locally?" }
+    - { speaker: Dana, text: "make test-pipeline — and perfect first question. Post your intro in the channel when you can." }
+    - { speaker: Yuri, text: "(Wednesday, coffee chat) Priya — thanks for the 15 minutes. Three questions: what should I know that isn't written down? What's the unwritten rule? And who else should I meet?" }
+    - { speaker: Priya, text: "Efficient. Unwritten rule: no merges during on-call handoff. Meet Ana — she owns deploys — and Sam, our historian." }
+    - { speaker: Yuri, text: "Noted — I'm keeping a map of who owns what. Before I run a deploy myself, I'd like to shadow one with Ana." }
+    - { speaker: Priya, text: "Smart — she'll like that you asked to shadow first." }
+    - { speaker: Yuri, text: "(Friday) Sam — I checked the wiki and the repo for the canary step; seems stale. Who owns that doc?" }
+    - { speaker: Sam, text: "Officially Priya's team, but nobody's touched it since 2023 — the incident year." }
+    - { speaker: Yuri, text: "Then the gap is mine: mind if I add a 'why this step exists' section? I'll write it up today — my quick win for week one." }
+    - { speaker: Sam, text: "That's a strong first week, Yuri — doc contribution on Friday." }
+    - { speaker: Yuri, text: "(Friday EOD, to Dana) Quick recap: met twelve people, shipped one doc, learned the deploy story. Map of who owns what is written. Same time Monday?" }
+    - { speaker: Dana, text: "Best first week I've seen — see you Monday." }
+  notes:
+    - "segunda: apresentação + intro + primeira pergunta, tudo no mesmo fôlego."
+    - "quarta: as três perguntas de ouro + o mapa + 'shadow a deploy'."
+    - "sexta: pesquisa → dono → lacuna vira contribuição → recap ao manager."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "The full first week in three scenarios. Monday: the thirty-second intro live plus the channel message plus one fearless question. Wednesday: the coffee chats and the three golden questions — the map of who owns what gets written down." }
+    - { speaker: Yuri, text: "And Friday: the contribution. I checked first — 'seems stale, who owns it?' — then 'mind if I add that to the doc? I'll write it up today.' A doc fix is the perfect quick win." }
+    - { speaker: Priya, text: "The posture underneath: 'new here, ramping up' — confident, never diminished. Two questions in the meeting, read the room, the rest goes to the 1:1. And the week closes with a recap to the manager: what I learned, who I met, what I shipped." }
+  questions:
+    - { id: M32-04-l1, type: multiple_choice, prompt: "A semana um se distribui como…", options: ["só código", "só reuniões", "intro segunda → rede no meio → contribuição sexta", "só leitura de docs"], answer: 2, explanation: "Os três movimentos, um por dia-chave.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-04-l2, type: fill_blank, prompt: "Before I run a deploy myself, I want to ___ one with Ana.", accepted: ["shadow"], explanation: "Assistir antes de fazer.", tags: [vocab.onboarding] }
+    - { id: M32-04-l3, type: error_correction, prompt: "In my first day I broke nothing.", accepted: ["On my first day I broke nothing.", "On my first day I broke nothing"], explanation: "'On my first day'.", tags: [br.in-first-day] }
+    - { id: M32-04-l4, type: multiple_choice, prompt: "O 'quick win' da primeira semana é…", options: ["o projeto grande", "algo pequeno, visível e feito — o doc consertado", "o refactor", "nada"], answer: 1, explanation: "Pequeno, visível, fechado.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-04-l5, type: multiple_choice, prompt: "'Read the room' na reunião significa…", options: ["falar mais", "sair da reunião", "anotar tudo", "duas perguntas — o resto vai para o 1:1"], answer: 3, explanation: "Duas perguntas na reunião, o resto no 1:1.", tags: [comp.listening, vocab.onboarding] }
+    - { id: M32-04-l6, type: multiple_choice, prompt: "A semana fecha com…", options: ["silêncio", "férias", "o recap ao manager — o que aprendi, quem conheci, o que entreguei", "a reclamação"], answer: 2, explanation: "Um parágrafo de visibilidade leve.", tags: [comp.listening, vocab.onboarding] }
+
+writing:
+  prompt: |
+    **Cenário:** sexta-feira, fim da primeira
+    semana. A Dana pediu por escrito o recap da
+    semana — e o coach quer ver a autoavaliação
+    pela rubrica.
+
+    **Tarefa:** escreva 100–130 palavras em duas
+    partes: (1) o recap para a Dana — o que
+    aprendeu, quem conheceu, o que entregou, o
+    plano da semana dois; (2) três linhas de
+    autoavaliação pela rubrica dos cenários —
+    onde a postura de novato segurou e o que
+    ajustar.
+  constraints:
+    - { label: "O recap", pattern: "\\blearned|met|shipped|wrote|added|recap|week one\\b" }
+    - { label: "A rede construída", pattern: "\\bcoffee|1:1|one.on.one|owns|map|intro\\b" }
+    - { label: "A contribuição", pattern: "\\bdoc|wrote it up|quick win|contribution|added\\b" }
+    - { label: "A autoavaliação", pattern: "\\bnext week|went well|improve|hindsight|posture|adjust\\b" }
+  rubric:
+    - "Recap com aprendido + rede + entrega + plano"
+    - "Autoavaliação nomeia a postura e um ajuste"
+    - "A contribuição concreta (o doc)"
+    - "Sem calques ('new to', 'on my first day', 'who owns')"
+  model: >-
+    The Friday recap to Dana: "Week one recap —
+    what I learned, who I met, what I shipped.
+    Met twelve people: the platform team plus
+    Ana, Sam and Priya's SREs — the map of who
+    owns what is written. Shipped the 'why this
+    step exists' section in the deploy runbook —
+    my quick win. Week two: shadow a deploy with
+    Ana, then run one myself." The self-review:
+    the new-person posture held — questions
+    asked, none diminished. What to adjust — I
+    asked three questions in one standup; two
+    and read the room next time. The window is
+    open; I'm using it.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.onboarding]
+
+speaking:
+  modeA:
+    prompt: "Grave 120 segundos: a primeira semana comprimida em três cenários — segunda (a intro de 30 s + a primeira pergunta), quarta (o coffee chat com as três perguntas de ouro + o mapa de posse), sexta (a pesquisa declarada + 'mind if I add that to the doc?' + o recap ao manager)."
+    maxSeconds: 120
+    targetPhrases:
+      - joining as
+      - new here
+      - still ramping up
+      - quick question
+      - how do people usually
+      - grab a virtual coffee
+      - no agenda
+      - what should i know that isn't written down
+      - the unwritten rule
+      - who else should i meet
+      - owns deploys
+      - i checked the wiki
+      - seems stale
+      - who owns
+      - mind if i add that to the doc
+      - i'll write it up
+      - shadow a deploy
+      - quick win
+      - pay it forward
+      - what i learned, who i met
+    checklist:
+      - "os três dias-chave na ordem"
+      - "as três perguntas de ouro na quarta"
+      - "a lacuna virando contribuição na sexta"
+      - "o recap com aprendido + rede + entrega"
+      - "sem calques ('new to', 'on my first day', 'a help', 'the responsible')"
+
+quiz:
+  - { id: M32-04-q1, type: multiple_choice, prompt: "Os três cenários da simulação são…", options: ["segunda → quarta → sexta", "só segunda", "toda segunda-feira do mês", "só sexta"], answer: 0, explanation: "Intro, rede, contribuição — um por dia-chave.", tags: [vocab.onboarding] }
+  - { id: M32-04-q2, type: error_correction, prompt: "I'm new in this company.", accepted: ["I'm new to this company.", "I'm new to this company", "I'm new here."], explanation: "'New to'.", tags: [br.new-in-company] }
+  - { id: M32-04-q3, type: multiple_choice, prompt: "O quick win de sexta na simulação é…", options: ["o refactor do pipeline", "a seção 'why this step exists' no runbook", "o deploy solo", "a apresentação"], answer: 1, explanation: "Pequeno, visível, feito — o doc.", tags: [vocab.onboarding] }
+  - { id: M32-04-q4, type: fill_blank, prompt: "I wrote it up to pay it ___.", accepted: ["forward"], explanation: "Devolver ao próximo novato.", tags: [vocab.onboarding] }
+  - { id: M32-04-q5, type: multiple_choice, prompt: "O recap de sexta ao manager cobre…", options: ["o que aprendi + quem conheci + o que entreguei", "só reclamações", "só o salário", "nada — recap é vaidade"], answer: 0, explanation: "Um parágrafo de visibilidade leve.", tags: [vocab.onboarding] }
+  - { id: M32-04-q6, type: error_correction, prompt: "I need a help with the recap.", accepted: ["I need help with the recap.", "I need help with the recap", "I need some help with the recap."], explanation: "'Help' sem artigo.", tags: [br.a-help] }
+  - { id: M32-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["shadow", "want", "i", "to", "one", "with", "ana"], answer: "i want to shadow one with ana", explanation: "Assistir antes de fazer.", tags: [vocab.onboarding] }
+  - { id: M32-04-q8, type: multiple_choice, prompt: "A postura da primeira semana é…", options: ["provar que sabe tudo", "curioso, confiante, perguntando — não provando", "quieto", "crítico dos docs"], answer: 1, explanation: "Perguntar é a prova.", tags: [vocab.onboarding] }
+
+srsCards:
+  - { front: "week one checklist", back: "Intro segunda, rede no meio, contribuição sexta.", tag: vocab.onboarding }
+  - { front: "day one intro", back: "30 s ao vivo + mensagem no canal.", tag: vocab.onboarding }
+  - { front: "midweek network", back: "Um coffee chat/1:1 por dia.", tag: vocab.onboarding }
+  - { front: "the Friday contribution", back: "Fechar a semana com algo escrito.", tag: vocab.onboarding }
+  - { front: "first-week posture", back: "Curioso, confiante, perguntando — não provando.", tag: vocab.onboarding }
+  - { front: "pay it forward", back: "A lacuna preenchida serve ao próximo.", tag: vocab.onboarding }
+  - { front: "the new-person window", back: "~4 semanas de perguntas grátis.", tag: vocab.onboarding }
+  - { front: "read the room", back: "Duas perguntas na reunião, o resto no 1:1.", tag: vocab.onboarding }
+  - { front: "end-of-week recap", back: "Aprendi + conheci + entreguei, ao manager.", tag: vocab.onboarding }
+  - { front: "quick win", back: "Pequeno, visível, feito.", tag: vocab.onboarding }
+  - { front: "shadow a deploy", back: "Assistir antes de fazer.", tag: vocab.onboarding }
+  - { front: "that's above my pay grade (yet)", back: "A fronteira honesta do novato.", tag: vocab.onboarding }
+
+review:
+  preferTags: [vocab.onboarding, br.new-in-company, br.in-first-day, br.a-help]
+  notes: "Revisão prioriza os três cenários e a postura de novato."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
