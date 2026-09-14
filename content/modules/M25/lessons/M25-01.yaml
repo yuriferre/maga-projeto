@@ -1,0 +1,304 @@
+id: M25-01
+module: M25
+order: 1
+title: "Lendo RFCs: 'non-goals', 'alternatives considered' e 'open questions'"
+objective: >-
+  Ao final, você lê uma RFC em minutos em vez de horas:
+  reconhece a estrutura, pula o que é boilerplate, e acha
+  onde a decisão real mora — e o que ainda está em aberto.
+durationMin: 40
+competencies: [WRI, REA]
+tags: [vocab.rfc, comp.reading, comp.writing, comp.vocabulary]
+prerequisites: [M21-05, M22-05]
+
+context:
+  scenario: |
+    A Beth abriu uma RFC: "Should we split the billing
+    service?". Quarenta parágrafos. Quem lê RFC bem não lê
+    tudo — lê as seções certas na ordem certa:
+
+    - **Summary** primeiro — três frases, a proposta
+      inteira.
+    - **Non-goals** — o que a RFC *não* resolve; metade
+      das objeções morre aqui.
+    - **Alternatives considered** — o que foi descartado
+      e por quê; onde a sua objeção pode já estar morta.
+    - **Open questions** — o que o autor *sabe* que não
+      sabe; onde o seu comentário mais ajuda.
+    - **Decision / next steps** — quem decide e quando.
+
+    A seção que falta é um sinal: uma RFC sem
+    "alternatives considered" não está propondo — está
+    vendendo. Leia primeiro, comente depois, e comente na
+    seção certa.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "non-goals"
+    meaning: 'não-objetivos — o que a RFC declara não resolver'
+    example: "Under non-goals: this RFC doesn't touch the pricing model."
+    translation: "Em não-objetivos: esta RFC não toca no modelo de preços."
+    note: "Objeção a algo listado em non-goals morre na hora — leia antes."
+  - term: "alternatives considered"
+    meaning: 'alternativas consideradas — o que foi descartado e por quê'
+    example: "Alternatives considered: keep the monolith, or split billing only."
+    translation: "Alternativas consideradas: manter o monólito, ou separar só o billing."
+    note: "Sua objeção pode já estar morta aqui — cheque antes de comentar."
+  - term: "open questions"
+    meaning: 'questões em aberto — o que o autor sabe que não sabe'
+    example: "Open questions: how do we migrate the existing invoices?"
+    translation: "Questões em aberto: como migramos as faturas existentes?"
+    note: "Onde seu comentário mais agrega — o autor pediu ajuda."
+  - term: "the summary"
+    meaning: 'o resumo — três frases no topo com a proposta inteira'
+    example: "The summary: split billing into a service by Q3, keep the API contract."
+    translation: "O resumo: separar billing num serviço até o T3, manter o contrato da API."
+    note: "Se o resumo não cabe em três frases, a proposta não está madura."
+  - term: "motivation"
+    meaning: 'motivação — por que agora, o que dói'
+    example: "Motivation: billing deploys are coupled to checkout — three incidents this quarter."
+    translation: "Motivação: deploys de billing estão acoplados ao checkout — três incidentes no trimestre."
+    note: "A motivação fraca mata a RFC antes da arquitetura."
+  - term: "proposed design"
+    meaning: 'design proposto — a solução em detalhe'
+    example: "The proposed design moves invoicing to a worker with a queue."
+    translation: "O design proposto move faturamento para um worker com fila."
+    note: "A carne da RFC — mas só depois de resumo e non-goals."
+  - term: "out of scope"
+    meaning: 'fora de escopo — sinônimo de non-goals no corpo do texto'
+    example: "Migrating the schema format is out of scope for this RFC."
+    translation: "Migrar o formato do schema está fora de escopo nesta RFC."
+    note: "No texto corrido; na seção, vira 'non-goals'."
+  - term: "a well-formed RFC"
+    meaning: 'uma RFC bem-formada — todas as seções esperadas presentes'
+    example: "It's a well-formed RFC — summary, non-goals, alternatives, open questions."
+    translation: "É uma RFC bem-formada — resumo, não-objetivos, alternativas, questões abertas."
+    note: "A seção que falta diz mais que a que está lá."
+  - term: "read for objections, not just typos"
+    meaning: 'leia atrás de objeções, não só de typos — a postura do revisor'
+    example: "Read for objections, not just typos — does the design hold under load?"
+    translation: "Leia atrás de objeções, não só de typos — o design aguenta carga?"
+    note: "Revisão não é correção ortográfica — é teste de estresse da proposta."
+  - term: "the devil is in the migration"
+    meaning: 'o diabo está na migração — onde as RFCs escondem o risco'
+    example: "The design is clean; the devil is in the migration section."
+    translation: "O design é limpo; o diabo está na seção de migração."
+    note: "O plano de migração/rollback é onde a proposta boa quebra."
+  - term: "decision owner"
+    meaning: 'dono da decisão — quem assina e quando'
+    example: "Decision owner is the platform team; review closes Friday."
+    translation: "O dono da decisão é o time de plataforma; revisão fecha sexta."
+    note: "RFC sem dono e prazo é um documento, não uma decisão."
+  - term: "skim then dive"
+    meaning: 'voar por cima e depois mergulhar — a técnica de leitura'
+    example: "Skim the summary and non-goals first, then dive into the design."
+    translation: "Voe pelo resumo e não-objetivos primeiro, depois mergulhe no design."
+    note: "A ordem de leitura que transforma 40 parágrafos em 10 minutos."
+
+grammar:
+  title: "a gramática da leitura de RFC"
+  explanation: |
+    Ler RFC em voz alta — ou resumir para quem não leu —
+    usa três estruturas:
+
+    - **"Under X:" para citar seção**: "*under non-goals,
+      it says…*", "*under alternatives considered, they
+      rejected the queue*" — a seção vira a fonte.
+    - **"It doesn't touch/cover X" para escopo**: "*it
+      doesn't touch the pricing model*" — delimitar sem
+      julgar.
+    - **"It says nothing about X" para a lacuna**: "*it
+      says nothing about rollback*" — a ausência nomeada é
+      o comentário mais valioso.
+
+    E os calques de quem escreve/comenta:
+
+    - "**I commented in the PR**" → "**commented on**".
+    - "**do a suggestion**" → "**make a suggestion**".
+    - "**in the other hand**" → "**on the other hand**".
+    - "**suggest to change**" → "**suggest changing**".
+  examples:
+    - { en: "Under non-goals, it says this doesn't touch the pricing model.", pt: "Em não-objetivos, diz que não toca no modelo de preços." }
+    - { en: "Under alternatives considered, they rejected keeping the monolith.", pt: "Em alternativas consideradas, rejeitaram manter o monólito." }
+    - { en: "It says nothing about the rollback plan — that's my first comment.", pt: "Não diz nada sobre o plano de rollback — esse é meu primeiro comentário." }
+    - { en: "The open questions are where your review helps most.", pt: "As questões em aberto são onde sua revisão mais ajuda." }
+    - { en: "On the other hand, the migration section is solid.", pt: "Por outro lado, a seção de migração é sólida." }
+    - { en: "I suggest splitting the rollout into two phases.", pt: "Sugiro dividir o rollout em duas fases." }
+
+examples:
+  - en: "Skim the summary and non-goals first — half your objections die there."
+    pt: "Voe pelo resumo e não-objetivos primeiro — metade das suas objeções morre ali."
+    context: "A ordem de leitura."
+  - en: "Under alternatives considered: they rejected the event-driven option as too big a change."
+    pt: "Em alternativas consideradas: rejeitaram a opção orientada a eventos como mudança grande demais."
+    context: "Citando a seção no comentário."
+  - en: "It's a well-formed RFC — but it says nothing about rollback."
+    pt: "É uma RFC bem-formada — mas não diz nada sobre rollback."
+    context: "A lacuna nomeada."
+  - en: "The open questions section is short — either he knows the answers or hasn't looked."
+    pt: "A seção de questões abertas é curta — ou ele sabe as respostas ou não procurou."
+    context: "Lendo a ausência."
+  - en: "Migrating the schema format is out of scope for this RFC."
+    pt: "Migrar o formato do schema está fora de escopo nesta RFC."
+    context: "Out of scope no corpo do texto."
+  - en: "Read for objections, not just typos — does the queue hold under load?"
+    pt: "Leia atrás de objeções, não só de typos — a fila aguenta carga?"
+    context: "A postura do revisor."
+  - en: "The devil is in the migration — the design is clean, the rollout is not."
+    pt: "O diabo está na migração — o design é limpo, o rollout não."
+    context: "Onde a proposta boa quebra."
+  - en: "Decision owner is platform; review closes Friday — comment before then."
+    pt: "O dono da decisão é plataforma; a revisão fecha sexta — comente antes."
+    context: "Dono + prazo."
+
+variations:
+  - idea: '"a seção que falta"'
+    items:
+      - { register: "Boa", text: "It's a well-formed RFC — summary, non-goals, alternatives, open questions.", adequate: true }
+      - { register: "Boa", text: "It says nothing about rollback — that's my first comment.", adequate: true }
+      - { register: "Inadequada", text: "I read the whole thing twice and I still don't get it.", adequate: false, note: "Ler linearmente é o erro — skim as seções-chave primeiro." }
+      - { register: "Inadequada", text: "In the other hand, he forgot the migration plan.", adequate: false, note: "Calque: 'on the other hand'." }
+  - idea: '"citando a seção"'
+    items:
+      - { register: "Boa", text: "Under non-goals: this doesn't touch the pricing model.", adequate: true }
+      - { register: "Boa", text: "Under alternatives considered, they rejected the queue.", adequate: true }
+      - { register: "Inadequada", text: "Somewhere in the middle it says something about scope.", adequate: false, note: "Sem a seção nomeada, o comentário não é rastreável — cite 'under X'." }
+      - { register: "Inadequada", text: "I did a suggestion in the thread.", adequate: false, note: "Dois calques: 'made/left a suggestion' + 'on the thread'." }
+
+brErrors:
+  - { wrong: "I commented in the RFC yesterday.", right: "I commented on the RFC yesterday.", why: "comment on", tag: br.comment-in }
+  - { wrong: "Can I do a suggestion on this section?", right: "Can I make a suggestion on this section?", why: "make a suggestion", tag: br.do-suggestion }
+  - { wrong: "I suggest to split the migration.", right: "I suggest splitting the migration.", why: "suggest splitting", tag: br.suggest-to }
+  - { wrong: "In the other hand, the monolith is simpler.", right: "On the other hand, the monolith is simpler.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "I want that you read the non-goals.", right: "I want you to read the non-goals.", why: "want you to read", tag: br.want-that }
+  - { wrong: "We discussed about the proposal.", right: "We discussed the proposal.", why: "discussed the proposal", tag: br.discuss-about }
+  - { wrong: "She gave me a feedback on my RFC.", right: "She gave me feedback on my RFC.", why: "feedback sem artigo", tag: br.uncountable }
+  - { wrong: "The same design than before.", right: "The same design as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "I am agree with the non-goals.", right: "I agree with the non-goals.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "This is polemic for an RFC.", right: "This is controversial for an RFC.", why: "controversial", tag: br.polemic }
+
+dialogue:
+  title: "Reading Beth's RFC in ten minutes"
+  lines:
+    - { speaker: Beth, text: "I opened an RFC — splitting billing. Forty paragraphs. Can you review it before Friday?" }
+    - { speaker: Yuri, text: "Give me ten minutes. Summary first: split billing into a service by Q3, keep the API contract. Non-goals — it doesn't touch pricing or the schema format." }
+    - { speaker: Carlos, text: "What about the event-driven approach?" }
+    - { speaker: Yuri, text: "Under alternatives considered — they rejected it as too big a change for this quarter." }
+    - { speaker: Carlos, text: "And rollback?" }
+    - { speaker: Yuri, text: "It says nothing about rollback. That's my first comment — right there in the open questions, actually, the author flagged it too." }
+    - { speaker: Beth, text: "See? Skim then dive. The migration section is where the devil is — spend your time there." }
+    - { speaker: Yuri, text: "The design is clean; the migration is where it gets thin. Two comments coming — one on the rollback gap, one suggestion to split the rollout in two phases." }
+    - { speaker: Carlos, text: "Ten minutes well spent — you read for objections, not typos." }
+  notes:
+    - "ordem de leitura real: summary → non-goals → alternatives → open questions."
+    - "a lacuna ('says nothing about rollback') vira o melhor comentário."
+    - "citar a seção ('under alternatives considered') torna o comentário rastreável."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "A well-formed RFC has a skeleton: summary, motivation, non-goals, proposed design, alternatives considered, open questions, decision owner. Read the skeleton first — skim, then dive into the design and the migration plan, which is where the devil lives." }
+    - { speaker: Carlos, text: "When you comment, cite the section — 'under non-goals', 'under alternatives considered'. And the most valuable comment is often about what's missing: 'it says nothing about rollback'. Read for objections, not just typos." }
+    - { speaker: Yuri, text: "Watch the calques when you write your review: 'comment on', not 'in'; 'make a suggestion', not 'do'; 'suggest splitting', not 'suggest to split'; 'on the other hand', not 'in'." }
+  questions:
+    - { id: M25-01-l1, type: multiple_choice, prompt: "A ordem de leitura de uma RFC é…", options: ["linear, do início ao fim", "summary → non-goals → alternatives → open questions → design", "só o resumo", "começar pelos comentários"], answer: 1, explanation: "Skim a estrutura, dive no design e na migração.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-01-l2, type: fill_blank, prompt: "Under ___-goals: this RFC doesn't touch the pricing model.", accepted: ["non"], explanation: "'Non-goals' — o que a RFC declara não resolver.", tags: [vocab.rfc] }
+    - { id: M25-01-l3, type: error_correction, prompt: "I commented in the RFC yesterday.", accepted: ["I commented on the RFC yesterday.", "I commented on the RFC yesterday"], explanation: "'comment on'.", tags: [br.comment-in] }
+    - { id: M25-01-l4, type: multiple_choice, prompt: "Onde o risco de uma RFC costuma morar?", options: ["na seção de migração/rollback", "no resumo", "nos agradecimentos", "nas referências"], answer: 0, explanation: "'The devil is in the migration'.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-01-l5, type: multiple_choice, prompt: "O comentário mais valioso costuma ser sobre…", options: ["typos", "formatação", "o que a RFC não diz — a lacuna nomeada", "o tamanho"], answer: 2, explanation: "'It says nothing about rollback' — a ausência nomeada.", tags: [comp.reading, vocab.rfc] }
+    - { id: M25-01-l6, type: multiple_choice, prompt: "RFC sem 'alternatives considered' é um sinal de…", options: ["proposta madura", "texto curto", "boa escrita", "venda, não proposta — o descarte não foi mostrado"], answer: 3, explanation: "Sem alternativas mostradas, não há proposta — há venda.", tags: [comp.reading, vocab.rfc] }
+
+writing:
+  prompt: |
+    **Cenário:** você leu a RFC da Beth (separar o billing)
+    e vai registrar suas anotações de leitura antes de
+    comentar formalmente.
+
+    **Tarefa:** escreva 70–100 palavras com suas notas de
+    leitura: a proposta em uma frase, o que os non-goals e
+    as alternativas descartadas cobrem, a lacuna que você
+    encontrou, e onde seu comentário mais ajuda.
+  constraints:
+    - { label: "A estrutura citada", pattern: "\\bnon-goals|alternatives considered|open questions|summary\\b" }
+    - { label: "A lacuna", pattern: "\\bsays nothing about|doesn't (touch|cover|mention)|missing\\b" }
+    - { label: "A postura de revisor", pattern: "\\bobjection|suggestion|comment|skim|dive\\b" }
+  rubric:
+    - "Proposta resumida em uma frase"
+    - "Seções citadas pelo nome"
+    - "Lacuna ou open question identificada"
+    - "Sem calques ('comment on', 'make a suggestion', 'on the other hand', 'suggest doing')"
+  model: >-
+    Reading notes — Beth's billing RFC. The proposal in
+    one line: split billing into a service by Q3, keep
+    the API contract. Non-goals are clear — no pricing,
+    no schema format. Under alternatives considered,
+    event-driven was rejected as too big for this
+    quarter. The gap: it says nothing about rollback —
+    that's where my first comment goes. Open questions
+    flag the same thing, so I'll suggest splitting the
+    migration into two phases there. On the other hand,
+    the design itself is clean and the motivation is
+    well-argued. Decision owner is platform, review
+    closes Friday.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.rfc]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos resumindo uma RFC que você leu (real ou imaginária): a proposta em uma frase, o que os non-goals excluem, uma alternativa descartada, e a lacuna que você comentaria."
+    maxSeconds: 60
+    targetPhrases:
+      - the summary
+      - under non-goals
+      - alternatives considered
+      - open questions
+      - it doesn't touch
+      - it says nothing about
+      - out of scope
+      - the proposed design
+      - the devil is in the migration
+      - decision owner
+      - skim then dive
+      - read for objections
+      - comment on
+      - make a suggestion
+      - on the other hand
+      - I suggest splitting
+    checklist:
+      - "a proposta resumida em uma frase"
+      - "seções citadas pelo nome ('under non-goals')"
+      - "a lacuna nomeada ('says nothing about')"
+      - "sem calques ('comment on', 'suggest doing')"
+
+quiz:
+  - { id: M25-01-q1, type: multiple_choice, prompt: "'Non-goals' existe para…", options: ["listar bugs", "encher espaço", "declarar o que a RFC não resolve — metade das objeções morre ali", "dar contexto histórico"], answer: 2, explanation: "Objeção a algo em non-goals morre na hora.", tags: [vocab.rfc] }
+  - { id: M25-01-q2, type: error_correction, prompt: "Can I do a suggestion on this section?", accepted: ["Can I make a suggestion on this section?", "Can I make a suggestion on this section"], explanation: "'make a suggestion'.", tags: [br.do-suggestion] }
+  - { id: M25-01-q3, type: multiple_choice, prompt: "'It says nothing about rollback' é o tipo de comentário…", options: ["inútil", "mais valioso — nomeia a ausência", "fora de escopo", "só de formatação"], answer: 1, explanation: "A lacuna nomeada agrega mais que typo.", tags: [vocab.rfc] }
+  - { id: M25-01-q4, type: fill_blank, prompt: "___ alternatives considered, they rejected the queue.", accepted: ["Under"], explanation: "'Under X' — citando a seção.", tags: [vocab.rfc] }
+  - { id: M25-01-q5, type: multiple_choice, prompt: "RFC sem 'decision owner' e prazo é…", options: ["um documento, não uma decisão", "uma decisão", "rápida de aprovar", "bem escrita"], answer: 0, explanation: "Sem dono e prazo, não há decisão — há texto.", tags: [vocab.rfc] }
+  - { id: M25-01-q6, type: error_correction, prompt: "I suggest to split the migration in two phases.", accepted: ["I suggest splitting the migration into two phases.", "I suggest splitting the migration in two phases", "I suggest that we split the migration into two phases"], explanation: "'suggest splitting' ou 'suggest that we split'.", tags: [br.suggest-to] }
+  - { id: M25-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "other", "on", "hand", "the", "is", "migration", "thin"], answer: "on the other hand the migration is thin", explanation: "'On the other hand' — o contraste.", tags: [br.in-other-hand] }
+  - { id: M25-01-q8, type: multiple_choice, prompt: "Sua objeção já está nas 'alternatives considered'. Você…", options: ["comenta mesmo assim", "abre outra RFC", "muda de assunto", "não comenta — e cita a seção se alguém levantar"], answer: 3, explanation: "Cheque as alternativas antes de comentar — a objeção pode estar morta.", tags: [vocab.rfc] }
+
+srsCards:
+  - { front: "non-goals", back: "O que a RFC não resolve — metade das objeções morre ali.", tag: vocab.rfc }
+  - { front: "alternatives considered", back: "O descartado e o porquê — sua objeção pode estar morta.", tag: vocab.rfc }
+  - { front: "open questions", back: "O que o autor sabe que não sabe — onde você mais ajuda.", tag: vocab.rfc }
+  - { front: "out of scope", back: "Non-goals no corpo do texto.", tag: vocab.rfc }
+  - { front: "it says nothing about X", back: "A lacuna nomeada — o comentário mais valioso.", tag: vocab.rfc }
+  - { front: "under non-goals / under X", back: "Citar a seção torna o comentário rastreável.", tag: vocab.rfc }
+  - { front: "the devil is in the migration", back: "Onde a proposta boa esconde o risco.", tag: vocab.rfc }
+  - { front: "decision owner", back: "Quem assina + quando — sem isso, é documento, não decisão.", tag: vocab.rfc }
+  - { front: "skim then dive", back: "Voe pela estrutura, mergulhe no design.", tag: vocab.rfc }
+  - { front: "read for objections", back: "Revisão é teste de estresse, não correção ortográfica.", tag: vocab.rfc }
+  - { front: "a well-formed RFC", back: "Todas as seções presentes — a que falta é um sinal.", tag: vocab.rfc }
+  - { front: "comment on", back: "'Comentar em' — nunca 'comment in'.", tag: br.comment-in }
+
+review:
+  preferTags: [vocab.rfc, br.comment-in, br.suggest-to]
+  notes: "Revisão prioriza o esqueleto da RFC, a ordem de leitura, a lacuna nomeada e os calques de review."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
