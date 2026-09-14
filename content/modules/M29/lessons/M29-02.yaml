@@ -1,0 +1,314 @@
+id: M29-02
+module: M29
+order: 2
+title: "Respostas estruturadas sem decorar: esqueleto + detalhes reais"
+objective: >-
+  Ao final, você sabe por que decorar respostas
+  quebra na entrevista — e como preparar esqueletos
+  com detalhes reais que sobrevivem a follow-ups.
+durationMin: 30
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M29-01]
+
+context:
+  scenario: |
+    O entrevistador experiente sente a resposta
+    decorada: ela sai lisa demais, rápida demais —
+    e morre no primeiro follow-up ("wait, what did
+    the metric actually measure?").
+
+    A alternativa não é improvisar — é **preparar
+    o esqueleto, não o texto**:
+
+    - **O esqueleto é STAR** — S curto, T seu, A
+      no "I", R com número + lição. Você decora
+      a ESTRUTURA, não as frases.
+    - **Os detalhes são reais** — você fala do que
+      aconteceu, então o follow-up não assusta:
+      a pergunta "o que a métrica media?" tem
+      resposta porque você estava lá.
+    - **As âncoras salvam** — 3–4 palavras-chave
+      por história ("friday, 500ing, index") são
+      o que você memoriza; o resto você reconstrói
+      na hora.
+
+    O teste do preparo bom: se alguém te acordar às
+    3h e pedir a história do incidente, você conta
+    — porque é sua. A resposta decorada não passa
+    nesse teste.
+
+    O erro do brasileiro: ensaiar a frase exata em
+    inglês — que sai robótica e quebra quando a
+    pergunta vem por outro ângulo.
+  roles: [Yuri (platform engineer), Marcus (eng manager, interviewer)]
+
+vocabulary:
+  - term: "I don't memorize answers — I know my stories"
+    meaning: 'não decoro respostas — conheço minhas histórias'
+    example: "I don't memorize answers — I know my stories cold enough to tell them any way you ask."
+    translation: "Não decoro respostas — conheço minhas histórias o suficiente para contá-las de qualquer jeito."
+    note: "O preparo é no esqueleto e nos fatos — não no texto."
+  - term: "the bones of the story"
+    meaning: 'os ossos da história — o esqueleto STAR'
+    example: "I know the bones of the story — the rest I rebuild in the moment."
+    translation: "Conheço os ossos da história — o resto eu reconstruo na hora."
+    note: "Esqueleto decorado, carne reconstruída."
+  - term: "give me a second to think"
+    meaning: 'me dê um segundo para pensar — a pausa legítima'
+    example: "Good question — give me a second to think of the right example."
+    translation: "Boa pergunta — me dê um segundo para pensar no exemplo certo."
+    note: "A pausa natural lê como honestidade — a resposta instantânea lê como decoreba."
+  - term: "let me think of the right example"
+    meaning: 'deixe-me pensar no exemplo certo — escolhendo do banco'
+    example: "Let me think of the right example — I have two that fit."
+    translation: "Deixe-me pensar no exemplo certo — tenho dois que servem."
+    note: "A pausa que mostra um banco, não um script."
+  - term: "the details are real"
+    meaning: 'os detalhes são reais — a prova contra a decoreba'
+    example: "The details are real — I was there, so follow-ups don't scare me."
+    translation: "Os detalhes são reais — eu estava lá, então follow-ups não assustam."
+    note: "Quem viveu a história responde qualquer follow-up."
+  - term: "anchor words"
+    meaning: 'palavras-âncora — o que você memoriza de cada história'
+    example: "My anchor words for the incident story: 'Friday, 500ing, missing index'."
+    translation: "Minhas palavras-âncora para a história do incidente: 'sexta, 500, índice faltando'."
+    note: "3–4 âncoras por história — o resto se reconstrói."
+  - term: "off the top of my head"
+    meaning: 'de cabeça — a resposta espontânea declarada'
+    example: "Off the top of my head, the number was around twelve minutes."
+    translation: "De cabeça, o número era em torno de doze minutos."
+    note: "Marca o detalhe como aproximado mas real."
+  - term: "it went something like this"
+    meaning: 'foi mais ou menos assim — a história reconstruída'
+    example: "It went something like this: Friday, 4pm, checkout starts 500ing…"
+    translation: "Foi mais ou menos assim: sexta, 16h, o checkout começa a dar 500…"
+    note: "O marcador de quem conta do vivido, não do decorado."
+  - term: "I hadn't prepared that one"
+    meaning: 'essa eu não tinha preparado — a honestidade desarmante'
+    example: "Honestly, I hadn't prepared that one — let me think."
+    translation: "Sinceramente, essa eu não tinha preparado — deixe-me pensar."
+    note: "Admitir a surpresa lê melhor que improvisar um script."
+  - term: "the short answer is…"
+    meaning: 'a resposta curta é… — a síntese antes do detalhe'
+    example: "The short answer is yes — let me give you the story behind it."
+    translation: "A resposta curta é sim — deixe-me dar a história por trás."
+    note: "Responde direto, depois expande."
+  - term: "drill into it"
+    meaning: 'cavar fundo — o follow-up técnico'
+    example: "Happy to drill into it — which part should I expand?"
+    translation: "Posso aprofundar — qual parte devo expandir?"
+    note: "O convite ao follow-up depois da resposta curta."
+  - term: "rehearsed vs prepared"
+    meaning: 'decorado × preparado — a distinção central'
+    example: "I came prepared, not rehearsed — I know my stories, not my lines."
+    translation: "Vim preparado, não decorado — conheço minhas histórias, não minhas falas."
+    note: "A diferença que o entrevistador sente."
+
+grammar:
+  title: "a gramática da resposta viva"
+  explanation: |
+    A resposta viva tem marcadores de espontaneidade
+    legítima:
+
+    - "**Give me a second** to think" — a pausa
+      que não é fraqueza.
+    - "**Let me think of** the right example" —
+      escolhendo do banco.
+    - "**Off the top of my head**" — o número
+      aproximado declarado.
+    - "**It went something like this**" — a
+      história reconstruída.
+    - "**The short answer is** X — let me give
+      you the story" — síntese antes do detalhe.
+    - "**I hadn't prepared that one**" — a
+      honestidade que desarma.
+
+    E o tempo verbal continua: fatos no **simple
+    past**, reflexão no **looking back / what I
+    learned**.
+  examples:
+    - { en: "Good question — give me a second to think of the right example.", pt: "Boa pergunta — me dê um segundo para pensar no exemplo certo." }
+    - { en: "Off the top of my head, it was around twelve minutes.", pt: "De cabeça, era em torno de doze minutos." }
+    - { en: "It went something like this: Friday, 4pm, checkout starts 500ing.", pt: "Foi mais ou menos assim: sexta, 16h, o checkout começa a dar 500." }
+    - { en: "The short answer is yes — let me give you the story behind it.", pt: "A resposta curta é sim — deixe-me dar a história por trás." }
+    - { en: "Honestly, I hadn't prepared that one — let me think.", pt: "Sinceramente, essa eu não tinha preparado — deixe-me pensar." }
+    - { en: "Happy to drill into it — which part should I expand?", pt: "Posso aprofundar — qual parte devo expandir?" }
+
+examples:
+  - en: "Give me a second — let me think of the right example."
+    pt: "Me dê um segundo — deixe-me pensar no exemplo certo."
+    context: "A pausa legítima."
+  - en: "It went something like this: Friday, 4pm, checkout starts 500ing."
+    pt: "Foi mais ou menos assim: sexta, 16h, o checkout começa a dar 500."
+    context: "A história reconstruída das âncoras."
+  - en: "Off the top of my head, the number was around twelve minutes."
+    pt: "De cabeça, o número era em torno de doze minutos."
+    context: "O detalhe aproximado declarado."
+  - en: "The short answer is yes — let me give you the story behind it."
+    pt: "A resposta curta é sim — deixe-me dar a história por trás."
+    context: "Síntese antes do detalhe."
+  - en: "Honestly, I hadn't prepared that one — let me think."
+    pt: "Sinceramente, essa eu não tinha preparado — deixe-me pensar."
+    context: "A honestidade desarmante."
+  - en: "Happy to drill into it — which part should I expand?"
+    pt: "Posso aprofundar — qual parte devo expandir?"
+    context: "O convite ao follow-up."
+  - en: "I came prepared, not rehearsed — I know my stories, not my lines."
+    pt: "Vim preparado, não decorado — conheço minhas histórias, não minhas falas."
+    context: "A distinção central."
+  - en: "My anchors for that story: 'Friday, 500ing, missing index'."
+    pt: "Minhas âncoras para aquela história: 'sexta, 500, índice faltando'."
+    context: "3–4 âncoras por história."
+
+variations:
+  - idea: '"a pausa para pensar"'
+    items:
+      - { register: "Forte", text: "Good question — give me a second to think of the right example.", adequate: true }
+      - { register: "Forte", text: "Honestly, I hadn't prepared that one — let me think.", adequate: true }
+      - { register: "Fraco", text: "(resposta instantânea e lisa demais — soa decorada)", adequate: false, note: "A resposta sem hesitação lê como script — a pausa é natural." }
+      - { register: "Fraco", text: "(dez segundos de silêncio sem avisar)", adequate: false, note: "A pausa precisa ser nomeada — 'give me a second'." }
+  - idea: '"preparado × decorado"'
+    items:
+      - { register: "Forte", text: "Prepared: skeleton + real details + anchor words.", adequate: true }
+      - { register: "Forte", text: "I know the bones of the story — the rest I rebuild.", adequate: true }
+      - { register: "Fraco", text: "Rehearsed: memorized sentences that break at the first follow-up.", adequate: false, note: "O script morre em 'wait, what did that metric measure?'." }
+      - { register: "Fraco", text: "Winging it: no bank, no skeleton, pure improvisation.", adequate: false, note: "Improviso puro também não é preparo — o esqueleto é o mínimo." }
+
+brErrors:
+  - { wrong: "It's already 3 years that I work here.", right: "It's been three years since I started.", why: "it's been X since", tag: br.its-already-years }
+  - { wrong: "I make part of the platform team.", right: "I'm part of the platform team.", why: "I'm part of", tag: br.make-part-of }
+  - { wrong: "In that epoch the docs were stale.", right: "Back then the docs were stale.", why: "back then", tag: br.in-that-epoch }
+  - { wrong: "My defect is that I'm perfectionist.", right: "My weakness is perfectionism.", why: "weakness", tag: br.my-defect }
+  - { wrong: "I work here since 2021.", right: "I've been here since 2021.", why: "I've been", tag: br.work-since }
+  - { wrong: "I formed in CS in 2015.", right: "I graduated in 2015.", why: "graduated", tag: br.formed-in }
+  - { wrong: "I was responsible by the docs.", right: "I was responsible for the docs.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "We discussed about the failure.", right: "We discussed the failure.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "I have doubt about that detail.", right: "I'm not sure about that detail.", why: "not sure / a question", tag: br.doubt }
+  - { wrong: "In my vision it went well.", right: "In my view it went well.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "Preparado, não decorado"
+  lines:
+    - { speaker: Marcus, text: "Tell me about a time you failed — and don't give me a rehearsed answer." }
+    - { speaker: Yuri, text: "Fair — give me a second to pick the right one. …Got it. It went something like this: my first migration took the site down for forty minutes." }
+    - { speaker: Marcus, text: "What did the metric actually measure?" }
+    - { speaker: Yuri, text: "Off the top of my head — checkout success rate, which dropped to zero. The detail I remember is watching the error dashboard climb while my rollback script ran." }
+    - { speaker: Marcus, text: "And here's what I changed after?" }
+    - { speaker: Yuri, text: "Exactly — the failover drill became mandatory, and I wrote it into the runbook myself." }
+    - { speaker: Marcus, text: "You didn't hesitate on the detail. That's how I know it's real." }
+    - { speaker: Yuri, text: "I came prepared, not rehearsed — I know the bones of my stories, not the lines." }
+    - { speaker: Marcus, text: "That's exactly the difference I'm listening for." }
+  notes:
+    - "'give me a second' nomeia a pausa — natural, não fraqueza."
+    - "o follow-up de detalhe ('what did the metric measure?') responde porque a história é vivida."
+    - "'prepared, not rehearsed' — a frase que resume a aula."
+
+listening:
+  lines:
+    - { speaker: Marcus, text: "A rehearsed answer comes out too smooth and dies at the first follow-up — 'wait, what did that metric actually measure?'. The alternative isn't winging it: prepare the skeleton, not the text. STAR gives you the bones; real details survive any follow-up; three or four anchor words per story are what you actually memorize." }
+    - { speaker: Yuri, text: "The test of good prep: if someone wakes me at 3am and asks for the incident story, I can tell it — because it's mine. The rehearsed answer fails that test. And naming the pause — 'give me a second to think' — reads as honesty, not weakness." }
+    - { speaker: Marcus, text: "Markers of a live answer: 'off the top of my head', 'it went something like this', 'the short answer is — let me give you the story', 'I hadn't prepared that one'. I listen for them." }
+  questions:
+    - { id: M29-02-l1, type: multiple_choice, prompt: "A resposta decorada morre em…", options: ["no primeiro follow-up de detalhe", "na abertura", "no fecho", "na pronúncia"], answer: 0, explanation: "'What did the metric actually measure?' — o script não aguenta.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-02-l2, type: fill_blank, prompt: "Give me a ___ to think of the right example.", accepted: ["second"], explanation: "'Give me a second' — a pausa nomeada.", tags: [vocab.interview] }
+    - { id: M29-02-l3, type: error_correction, prompt: "It's already 3 years that I work here.", accepted: ["It's been three years since I started.", "It's been three years since I started", "I've been here three years."], explanation: "'It's been X since'.", tags: [br.its-already-years] }
+    - { id: M29-02-l4, type: multiple_choice, prompt: "O que você memoriza de cada história são…", options: ["as frases exatas", "o texto inteiro", "nada", "3–4 palavras-âncora — o resto se reconstrói"], answer: 3, explanation: "Âncoras — a carne se reconstrói na hora.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-02-l5, type: multiple_choice, prompt: "O teste do preparo bom é…", options: ["ensaiar 10 vezes", "escrever o script", "se te acordarem às 3h, você conta a história — porque é sua", "decorar o vocabulário"], answer: 2, explanation: "A história vivida sobrevive a qualquer ângulo.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-02-l6, type: multiple_choice, prompt: "'I hadn't prepared that one — let me think' é…", options: ["fraqueza", "honestidade que desarma — melhor que improvisar script", "despreparo", "evasão"], answer: 1, explanation: "Admitir a surpresa lê melhor que script forçado.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** você está montando as fichas de
+    preparo para a entrevista — não scripts, âncoras.
+
+    **Tarefa:** escreva 80–110 palavras: as fichas
+    de duas histórias do seu banco. Cada uma: o
+    título, as 3–4 palavras-âncora, o número do
+    Result, a lição, e os dois follow-ups prováveis
+    com as respostas em uma linha.
+  constraints:
+    - { label: "As fichas", pattern: "\\banchors?|story|incident|migration|debate|cut|playbook\\b" }
+    - { label: "Números e lições", pattern: "\\b\\d+|lesson|learned|changed\\b" }
+    - { label: "Follow-ups previstos", pattern: "\\bfollow.?up|they'll ask|if asked|react\\b" }
+    - { label: "O anti-script", pattern: "\\bnot memorized|not rehearsed|skeleton|bones|rebuild|improvise\\b" }
+  rubric:
+    - "Duas fichas com âncoras + número + lição"
+    - "Follow-ups prováveis antecipados"
+    - "Formato de ficha, não de texto corrido"
+    - "Sem calques ('it's been', 'I'm part of')"
+  model: >-
+    Prep cards, not scripts: - Incident story:
+    anchors "Friday, 500ing, missing index" — result
+    back in 12 minutes; lesson: test the rollback
+    path. Likely follow-ups: "what did the metric
+    measure?" → checkout success rate; "how did the
+    DBA react?" → relieved. - Migration story:
+    anchors "multi-AZ, replica, DNS flip" — result
+    zero downtime; lesson: drill the failover before
+    you need it. If asked "what would you do
+    differently?" → page the specialist sooner. The
+    bones are memorized; the flesh I rebuild live.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a mesma história STAR duas vezes de formas diferentes — primeiro do começo ao fim, depois começando pelo Result ('the short answer is… — let me give you the story'). Use 'give me a second' entre as duas versões. O objetivo: provar que a história sobrevive a qualquer ordem."
+    maxSeconds: 90
+    targetPhrases:
+      - give me a second to think
+      - let me think of the right example
+      - it went something like this
+      - off the top of my head
+      - the short answer is
+      - let me give you the story
+      - i hadn't prepared that one
+      - happy to drill into it
+      - the situation was
+      - my job was to
+      - the result was
+      - looking back
+      - what i learned was
+      - the real lesson
+      - i know the bones
+      - prepared, not rehearsed
+    checklist:
+      - "a mesma história em duas ordens"
+      - "'give me a second' nomeia a pausa"
+      - "número + lição nas duas versões"
+      - "sem calques ('it's been', 'I'm part of', 'back then')"
+
+quiz:
+  - { id: M29-02-q1, type: multiple_choice, prompt: "O que se prepara para a entrevista é…", options: ["o esqueleto STAR + detalhes reais + âncoras", "o texto exato", "o vocabulário", "nada"], answer: 0, explanation: "Estrutura decorada, carne reconstruída.", tags: [vocab.interview] }
+  - { id: M29-02-q2, type: error_correction, prompt: "I make part of the platform team.", accepted: ["I'm part of the platform team.", "I'm part of the platform team", "I joined the platform team."], explanation: "'I'm part of'.", tags: [br.make-part-of] }
+  - { id: M29-02-q3, type: multiple_choice, prompt: "'Give me a second to think' é…", options: ["fraqueza", "enrolação", "a pausa nomeada — natural e honesta", "despreparo"], answer: 2, explanation: "A pausa nomeada lê melhor que o script instantâneo.", tags: [vocab.interview] }
+  - { id: M29-02-q4, type: fill_blank, prompt: "The short ___ is yes — let me give you the story.", accepted: ["answer"], explanation: "'The short answer is' — síntese antes do detalhe.", tags: [vocab.interview] }
+  - { id: M29-02-q5, type: multiple_choice, prompt: "Follow-ups não assustam quando…", options: ["você decorou bem", "você desvia", "você fala rápido", "os detalhes são reais — você estava lá"], answer: 3, explanation: "Quem viveu responde qualquer ângulo.", tags: [vocab.interview] }
+  - { id: M29-02-q6, type: error_correction, prompt: "My defect is that I'm a perfectionist.", accepted: ["My weakness is that I'm a perfectionist.", "My weakness is that I'm a perfectionist", "My weakness is perfectionism."], explanation: "'Weakness'.", tags: [br.my-defect] }
+  - { id: M29-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "of", "top", "off", "my", "head"], answer: "off the top of my head", explanation: "'Off the top of my head' — de cabeça.", tags: [vocab.interview] }
+  - { id: M29-02-q8, type: multiple_choice, prompt: "'Prepared, not rehearsed' significa…", options: ["não preparar", "decorar as falas", "conhecer as histórias, não as falas", "improvisar tudo"], answer: 2, explanation: "Bones decorados, flesh reconstruída.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "I don't memorize answers — I know my stories", back: "O preparo é no esqueleto e nos fatos.", tag: vocab.interview }
+  - { front: "the bones of the story", back: "O esqueleto STAR — decorado; a carne, reconstruída.", tag: vocab.interview }
+  - { front: "give me a second to think", back: "A pausa nomeada — honestidade, não fraqueza.", tag: vocab.interview }
+  - { front: "let me think of the right example", back: "Escolhendo do banco — não de um script.", tag: vocab.interview }
+  - { front: "the details are real", back: "Quem viveu responde qualquer follow-up.", tag: vocab.interview }
+  - { front: "anchor words", back: "3–4 palavras por história — o resto se reconstrói.", tag: vocab.interview }
+  - { front: "off the top of my head", back: "O detalhe aproximado declarado.", tag: vocab.interview }
+  - { front: "it went something like this", back: "A história reconstruída — não decorada.", tag: vocab.interview }
+  - { front: "I hadn't prepared that one", back: "Admitir a surpresa desarma.", tag: vocab.interview }
+  - { front: "the short answer is…", back: "Síntese antes do detalhe.", tag: vocab.interview }
+  - { front: "drill into it", back: "O convite ao follow-up.", tag: vocab.interview }
+  - { front: "rehearsed vs prepared", back: "Conhecer as histórias, não as falas.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.its-already-years, br.make-part-of]
+  notes: "Revisão prioriza os marcadores de resposta viva e os calques novos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
