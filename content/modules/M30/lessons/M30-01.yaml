@@ -1,0 +1,317 @@
+id: M30-01
+module: M30
+order: 1
+title: "Pensar em voz alta: let me think; my first instinct is…; let me clarify"
+objective: >-
+  Ao final, você sabe pensar em voz alta numa
+  entrevista técnica — narrando seu raciocínio com
+  marcadores que mostram como você pensa, sem
+  silêncio e sem monólogo.
+durationMin: 30
+competencies: [SPK, LIS, CNF]
+tags: [vocab.sysdesign, comp.speaking, comp.listening]
+prerequisites: [M18-04, M21-05]
+
+context:
+  scenario: |
+    A entrevista técnica não avalia a resposta —
+    avalia o raciocínio. Quem pensa em silêncio por
+    dois minutos e entrega a resposta certa perde
+    para quem narra o caminho.
+
+    Os marcadores do pensamento em voz alta:
+
+    - **Comprar tempo sem sumir**: "*let me think
+      about that for a second*", "*good question —
+      let me work through it*".
+    - **Narrar o raciocínio**: "*my first instinct
+      is…*", "*the way I'd break this down*",
+      "*two ways to go here*".
+    - **Corrigir em voz alta**: "*wait — that
+      doesn't work because…*", "*actually, let me
+      revise that*".
+    - **Checar com o entrevistador**: "*does that
+      make sense so far?*", "*am I on the right
+      track?*".
+
+    A regra de ouro: **silêncio ≤ 10 segundos** —
+    depois disso, narre o que está pensando mesmo
+    que seja "ainda não sei".
+
+    O erro do brasileiro: o silêncio de
+    processamento — pensar tudo em português e
+    traduzir no final. A entrevista técnica mede o
+    processo, não o resultado.
+  roles: [Yuri (platform engineer), Dana (staff engineer, interviewer)]
+
+vocabulary:
+  - term: "let me think about that for a second"
+    meaning: 'deixe-me pensar nisso um segundo — comprar tempo sem sumir'
+    example: "Hmm, let me think about that for a second — the scale matters here."
+    translation: "Hmm, deixe-me pensar nisso um segundo — a escala importa aqui."
+    note: "O marcador de tempo que mantém o canal aberto."
+  - term: "my first instinct is…"
+    meaning: 'meu primeiro instinto é… — narrar o ponto de partida'
+    example: "My first instinct is a queue — but let me check the load first."
+    translation: "Meu primeiro instinto é uma fila — mas deixe-me checar a carga primeiro."
+    note: "Mostra o raciocínio desde o início."
+  - term: "the way I'd break this down"
+    meaning: 'o jeito que eu decomporia isso — a decomposição narrada'
+    example: "The way I'd break this down: reads first, then writes, then storage."
+    translation: "O jeito que eu decomporia: leituras primeiro, depois escritas, depois storage."
+    note: "Decompor o problema em voz alta é a habilidade avaliada."
+  - term: "two ways to go here"
+    meaning: 'dois caminhos aqui — apresentar as opções antes de escolher'
+    example: "Two ways to go here: cache it or precompute it — let me compare."
+    translation: "Dois caminhos aqui: cachear ou pré-computar — deixe-me comparar."
+    note: "Mostrar as opções antes da escolha."
+  - term: "wait — that doesn't work because…"
+    meaning: 'espere — isso não funciona porque… — a autocorreção em voz alta'
+    example: "Wait — that doesn't work because the cache would be stale during writes."
+    translation: "Espere — isso não funciona porque o cache ficaria velho durante as escritas."
+    note: "Corrigir a si mesmo em voz alta é sinal forte, não fraqueza."
+  - term: "actually, let me revise that"
+    meaning: 'na verdade, deixe-me revisar — a correção elegante'
+    example: "Actually, let me revise that — a read replica wouldn't help writes."
+    translation: "Na verdade, deixe-me revisar — uma réplica de leitura não ajuda escritas."
+    note: "Revisar sem drama — mostra processo iterativo."
+  - term: "does that make sense so far?"
+    meaning: 'isso faz sentido até aqui? — o check com o entrevistador'
+    example: "So reads go through the cache — does that make sense so far?"
+    translation: "Então leituras passam pelo cache — isso faz sentido até aqui?"
+    note: "O check transforma monólogo em conversa."
+  - term: "am I on the right track?"
+    meaning: 'estou no caminho certo? — a verificação de direção'
+    example: "Am I on the right track, or is there a constraint I'm missing?"
+    translation: "Estou no caminho certo, ou há uma restrição que estou perdendo?"
+    note: "Convida o entrevistador a guiar — eles gostam."
+  - term: "talk me through it"
+    meaning: 'me guie por isso — o pedido que você vai ouvir'
+    example: "Don't just give me the answer — talk me through it."
+    translation: "Não me dê só a resposta — me guie pelo raciocínio."
+    note: "O que o entrevistador pede quando você silencia."
+  - term: "thinking out loud here"
+    meaning: 'pensando em voz alta aqui — meta-comentário honesto'
+    example: "Just thinking out loud here — the bottleneck is probably the DB."
+    translation: "Só pensando em voz alta aqui — o gargalo é provavelmente o banco."
+    note: "Nomear o que você está fazendo é legítimo."
+  - term: "let me sanity-check that"
+    meaning: 'deixe-me fazer uma checagem de sanidade — a verificação rápida'
+    example: "10k RPS on one node… let me sanity-check that — that's too much."
+    translation: "10k RPS num nó só… deixe-me checar — isso é demais."
+    note: "Validar números em voz alta — hábito de senior."
+  - term: "roughly speaking"
+    meaning: 'em termos aproximados — a estimativa sem precisão falsa'
+    example: "Roughly speaking, that's a terabyte a day."
+    translation: "Em termos aproximados, isso é um terabyte por dia."
+    note: "Estimativas honestas — 'roughly', 'ballpark'."
+
+grammar:
+  title: "a gramática do pensamento narrado"
+  explanation: |
+    Pensar em voz alta tem molduras próprias:
+
+    - **Comprar tempo**: "**let me** think about
+      that / work through it / sanity-check that".
+    - **Instinto**: "**my first instinct is** +
+      nome/gerúndio" — "*my first instinct is a
+      queue / is to cache it*".
+    - **Decomposição**: "**the way I'd break this
+      down**" + lista — reads, writes, storage.
+    - **Autocorreção**: "**wait — that doesn't
+      work because**…" / "**actually, let me
+      revise that**".
+    - **Checks**: "**does that make sense so
+      far?**" / "**am I on the right track?**".
+
+    O padrão: narre → cheque → continue. O
+    silêncio longo é o único erro real.
+  examples:
+    - { en: "Let me think about that for a second — the scale matters here.", pt: "Deixe-me pensar um segundo — a escala importa aqui." }
+    - { en: "My first instinct is a queue — but let me check the load first.", pt: "Meu primeiro instinto é uma fila — mas checo a carga antes." }
+    - { en: "The way I'd break this down: reads, then writes, then storage.", pt: "O jeito que decomporia: leituras, escritas, storage." }
+    - { en: "Wait — that doesn't work because the cache would go stale.", pt: "Espere — isso não funciona porque o cache ficaria velho." }
+    - { en: "Does that make sense so far, or am I missing a constraint?", pt: "Faz sentido até aqui, ou estou perdendo uma restrição?" }
+    - { en: "Roughly speaking, that's a terabyte a day — let me sanity-check.", pt: "Aproximadamente, um terabyte por dia — deixe-me conferir." }
+
+examples:
+  - en: "Hmm, let me think about that for a second — the scale changes everything."
+    pt: "Hmm, deixe-me pensar um segundo — a escala muda tudo."
+    context: "Comprar tempo sem sumir."
+  - en: "My first instinct is a queue — but let me check the load first."
+    pt: "Meu primeiro instinto é fila — mas checo a carga antes."
+    context: "O instinto narrado + a verificação."
+  - en: "The way I'd break this down: reads first, then writes, then storage."
+    pt: "Como eu decomporia: leituras, escritas, storage."
+    context: "A decomposição em voz alta."
+  - en: "Wait — that doesn't work; the cache would go stale during writes."
+    pt: "Espere — isso não funciona; o cache ficaria velho nas escritas."
+    context: "A autocorreção que conta pontos."
+  - en: "Actually, let me revise that — a read replica wouldn't help writes."
+    pt: "Na verdade, deixe-me revisar — réplica de leitura não ajuda escrita."
+    context: "A correção elegante."
+  - en: "Does that make sense so far? Am I on the right track?"
+    pt: "Faz sentido até aqui? Estou no caminho certo?"
+    context: "O check que transforma em conversa."
+  - en: "Just thinking out loud — the bottleneck is probably the DB, not the app."
+    pt: "Pensando em voz alta — o gargalo é provavelmente o banco, não o app."
+    context: "O meta-comentário honesto."
+  - en: "10k RPS on one node — let me sanity-check that… yeah, too much for one box."
+    pt: "10k RPS num nó — deixe-me conferir… é, demais para uma máquina."
+    context: "O sanity check em voz alta."
+
+variations:
+  - idea: '"o silêncio de processamento"'
+    items:
+      - { register: "Forte", text: "Let me think about that for a second — the scale matters.", adequate: true }
+      - { register: "Forte", text: "Two ways to go here — let me compare them.", adequate: true }
+      - { register: "Fraco", text: "(dois minutos de silêncio, depois a resposta)", adequate: false, note: "O silêncio esconde o processo — é isso que está sendo medido." }
+      - { register: "Fraco", text: "I don't know. Next question?", adequate: false, note: "Desistir sem narrar o que tentou é pior que errar." }
+  - idea: '"a autocorreção"'
+    items:
+      - { register: "Forte", text: "Wait — that doesn't work; the cache would go stale.", adequate: true }
+      - { register: "Forte", text: "Actually, let me revise that — a replica won't help writes.", adequate: true }
+      - { register: "Fraco", text: "(insistir na ideia quebrada para não parecer errado)", adequate: false, note: "Corrigir a si mesmo conta pontos; insistir quebra-os." }
+      - { register: "Fraco", text: "Sorry sorry sorry — I'm so bad at this.", adequate: false, note: "Autocorreção sem drama — desculpa demais lê como pânico." }
+
+brErrors:
+  - { wrong: "Let me make a test first.", right: "Let me run a test first.", why: "run a test", tag: br.make-a-test }
+  - { wrong: "I would mount a solution with a queue.", right: "I would build a solution with a queue.", why: "build/design", tag: br.mount-solution }
+  - { wrong: "The site is on air again.", right: "The site is up again.", why: "is up/online", tag: br.on-air }
+  - { wrong: "The server falls every night.", right: "The server goes down every night.", why: "goes down", tag: br.service-falls }
+  - { wrong: "I have a doubt about the scale.", right: "I have a question about the scale.", why: "a question", tag: br.doubt }
+  - { wrong: "It depends of the traffic.", right: "It depends on the traffic.", why: "depends on", tag: br.depend-of }
+  - { wrong: "We discussed about the design.", right: "We discussed the design.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision a queue wins.", right: "In my view a queue wins.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "I make part of the design.", right: "I'm part of the design.", why: "I'm part of", tag: br.make-part-of }
+  - { wrong: "It's already 2 hours that we try.", right: "It's been two hours trying.", why: "it's been", tag: br.its-already-years }
+
+dialogue:
+  title: "O problema aberto, pensado em voz alta"
+  lines:
+    - { speaker: Dana, text: "Design a URL shortener. Don't give me the answer — talk me through it." }
+    - { speaker: Yuri, text: "Sure. Let me think about that for a second… the way I'd break this down: write path, read path, storage." }
+    - { speaker: Dana, text: "Go on." }
+    - { speaker: Yuri, text: "My first instinct is a hash — but wait, that doesn't work alone; I'd need collision handling. Actually, let me revise that: a counter plus base62 is simpler." }
+    - { speaker: Dana, text: "Why simpler?" }
+    - { speaker: Yuri, text: "Just thinking out loud here — a hash needs a uniqueness check on every write; a counter is unique by construction. Roughly speaking, at 100 writes a second, the check is the bottleneck." }
+    - { speaker: Dana, text: "And reads?" }
+    - { speaker: Yuri, text: "Reads are the hot path — cache in front, DB behind. Does that make sense so far, or is there a constraint I'm missing?" }
+    - { speaker: Dana, text: "That's exactly what I wanted to hear — the process, not the answer." }
+    - { speaker: Yuri, text: "The answer's the easy part once the thinking is visible." }
+  notes:
+    - "cada marcador em ação: 'let me think', 'the way I'd break this down', 'my first instinct', 'wait — doesn't work', 'let me revise', 'thinking out loud', 'roughly speaking', 'does that make sense'."
+    - "a autocorreção ('wait — that doesn't work') conta pontos — não esconde o erro."
+    - "o check final ('am I missing a constraint?') transforma monólogo em conversa."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "The technical interview measures the process, not the result. Silence longer than ten seconds hides your thinking — narrate it. 'Let me think about that', 'my first instinct is', 'two ways to go here'." }
+    - { speaker: Yuri, text: "The strongest marker is self-correction: 'wait — that doesn't work because', 'actually, let me revise that'. Fixing yourself out loud reads as senior. And close segments with 'does that make sense so far?' — it turns the monologue into a conversation." }
+    - { speaker: Dana, text: "And when you don't know: narrate what you'd try — 'my first instinct would be X, and I'd validate it by Y'. 'I don't know' with no process is the only real failure." }
+  questions:
+    - { id: M30-01-l1, type: multiple_choice, prompt: "A entrevista técnica mede…", options: ["a resposta certa", "o processo — o raciocínio narrado", "a velocidade", "o vocabulário"], answer: 1, explanation: "O processo, não o resultado.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-01-l2, type: fill_blank, prompt: "My first ___ is a queue — but let me check the load.", accepted: ["instinct"], explanation: "'My first instinct is…'.", tags: [vocab.sysdesign] }
+    - { id: M30-01-l3, type: error_correction, prompt: "Let me make a test first.", accepted: ["Let me run a test first.", "Let me run a test first", "Let me test it first."], explanation: "'Run a test'.", tags: [br.make-a-test] }
+    - { id: M30-01-l4, type: multiple_choice, prompt: "O marcador mais forte de senioridade no pensamento é…", options: ["nunca errar", "falar rápido", "a autocorreção em voz alta — 'wait, that doesn't work because'", "o silêncio profundo"], answer: 2, explanation: "Corrigir a si mesmo conta pontos.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-01-l5, type: multiple_choice, prompt: "O silêncio máximo aceitável é…", options: ["~10 segundos — depois narre o que está pensando", "um minuto", "zero — fale sem parar", "cinco minutos"], answer: 0, explanation: "Depois de ~10s, narre — mesmo que seja 'ainda não sei'.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-01-l6, type: multiple_choice, prompt: "'Does that make sense so far?' transforma…", options: ["dúvida em certeza", "pergunta em resposta", "erro em acerto", "o monólogo em conversa"], answer: 3, explanation: "O check convida o entrevistador a participar.", tags: [comp.listening, vocab.sysdesign] }
+
+writing:
+  prompt: |
+    **Cenário:** a preparação pediu por escrito o seu
+    "script de pensamento" — os marcadores que você
+    vai usar para narrar o raciocínio.
+
+    **Tarefa:** escreva 90–120 palavras: o seu plano
+    de pensar em voz alta — 1) como você compra tempo
+    sem sumir, 2) como decompõe o problema em voz
+    alta, 3) como você se autocorrige, 4) os checks
+    com o entrevistador.
+  constraints:
+    - { label: "Comprar tempo", pattern: "\\blet me think|let me work|good question|second\\b" }
+    - { label: "Decompor", pattern: "\\bbreak.*down|first instinct|two ways|reads.*writes\\b" }
+    - { label: "Autocorreção", pattern: "\\bwait|doesn't work|revise|actually\\b" }
+    - { label: "Os checks", pattern: "\\bmake sense|right track|missing a constraint|sanity.check\\b" }
+  rubric:
+    - "Os quatro momentos do pensamento narrado"
+    - "Marcadores em inglês natural"
+    - "Tom de conversa, não de monólogo"
+    - "Sem calques ('run a test', 'goes down', 'build')"
+  model: >-
+    My thinking-out-loud plan. Buying time: "let me
+    think about that for a second" — never ten
+    seconds of silence. Breaking down: "the way I'd
+    break this down — reads, writes, storage", then
+    "my first instinct is a queue" as the starting
+    point. Self-correcting: "wait — that doesn't
+    work because the cache goes stale", then
+    "actually, let me revise that". Checking in:
+    "does that make sense so far?" after each block,
+    and "am I missing a constraint?" before the
+    final answer. If I get stuck: narrate what I'd
+    try, never a bare "I don't know".
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.sysdesign]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: pense em voz alta sobre um problema aberto — 'design a rate limiter' ou 'the API is slow'. Use: 'let me think', 'the way I'd break this down', 'my first instinct is', 'wait — that doesn't work because', 'does that make sense so far?'."
+    maxSeconds: 90
+    targetPhrases:
+      - let me think about that
+      - the way i'd break this down
+      - my first instinct is
+      - two ways to go here
+      - wait — that doesn't work
+      - actually, let me revise that
+      - does that make sense so far
+      - am i on the right track
+      - thinking out loud
+      - let me sanity-check
+      - roughly speaking
+      - talk me through it
+      - reads first, then writes
+      - the bottleneck is probably
+      - am i missing a constraint
+      - i'd validate it by
+    checklist:
+      - "sem silêncio > 10 segundos"
+      - "decomposição narrada"
+      - "pelo menos uma autocorreção"
+      - "um check com o entrevistador"
+      - "sem calques ('run a test', 'up/online', 'build')"
+
+quiz:
+  - { id: M30-01-q1, type: multiple_choice, prompt: "Pensar em voz alta serve para…", options: ["mostrar o processo — que é o que a entrevista mede", "impressionar com velocidade", "evitar perguntas", "ganhar tempo"], answer: 0, explanation: "O processo narrado é o objeto de avaliação.", tags: [vocab.sysdesign] }
+  - { id: M30-01-q2, type: error_correction, prompt: "I would mount a solution with a cache.", accepted: ["I would build a solution with a cache.", "I would build a solution with a cache", "I'd design a solution with a cache."], explanation: "'Build/design'.", tags: [br.mount-solution] }
+  - { id: M30-01-q3, type: multiple_choice, prompt: "O silêncio de processamento vira problema quando…", options: ["sempre", "passa de ~10 s sem narrar nada", "nunca", "só na primeira pergunta"], answer: 1, explanation: "Depois de ~10s, narre — mesmo que seja 'ainda não sei'.", tags: [vocab.sysdesign] }
+  - { id: M30-01-q4, type: fill_blank, prompt: "Wait — that doesn't ___ because the cache goes stale.", accepted: ["work"], explanation: "'That doesn't work because…' — a autocorreção.", tags: [vocab.sysdesign] }
+  - { id: M30-01-q5, type: multiple_choice, prompt: "'Am I on the right track?' é…", options: ["insegurança", "um check que convida o entrevistador a guiar", "desistir", "uma pergunta proibida"], answer: 1, explanation: "Transforma monólogo em conversa.", tags: [vocab.sysdesign] }
+  - { id: M30-01-q6, type: error_correction, prompt: "The site is on air again after the fix.", accepted: ["The site is up again after the fix.", "The site is up again after the fix", "The site is back online after the fix."], explanation: "'Up/online' — 'on air' é broadcasting.", tags: [br.on-air] }
+  - { id: M30-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["me", "let", "that", "think", "about", "second", "for", "a"], answer: "let me think about that for a second", explanation: "Comprar tempo sem sumir.", tags: [vocab.sysdesign] }
+  - { id: M30-01-q8, type: multiple_choice, prompt: "Quando você não sabe, o certo é…", options: ["'I don't know. Next?'", "ficar em silêncio", "chutar confiante", "narrar o que tentaria — 'my first instinct would be X'"], answer: 3, explanation: "O 'não sei' com processo ainda pontua.", tags: [vocab.sysdesign] }
+
+srsCards:
+  - { front: "let me think about that for a second", back: "Comprar tempo sem sumir.", tag: vocab.sysdesign }
+  - { front: "my first instinct is…", back: "Narrar o ponto de partida.", tag: vocab.sysdesign }
+  - { front: "the way I'd break this down", back: "A decomposição em voz alta.", tag: vocab.sysdesign }
+  - { front: "two ways to go here", back: "As opções antes da escolha.", tag: vocab.sysdesign }
+  - { front: "wait — that doesn't work because…", back: "A autocorreção que conta pontos.", tag: vocab.sysdesign }
+  - { front: "actually, let me revise that", back: "A correção elegante.", tag: vocab.sysdesign }
+  - { front: "does that make sense so far?", back: "O check que transforma em conversa.", tag: vocab.sysdesign }
+  - { front: "am I on the right track?", back: "A verificação de direção.", tag: vocab.sysdesign }
+  - { front: "talk me through it", back: "O pedido quando você silencia.", tag: vocab.sysdesign }
+  - { front: "thinking out loud here", back: "O meta-comentário honesto.", tag: vocab.sysdesign }
+  - { front: "let me sanity-check that", back: "A verificação rápida em voz alta.", tag: vocab.sysdesign }
+  - { front: "roughly speaking", back: "A estimativa sem precisão falsa.", tag: vocab.sysdesign }
+
+review:
+  preferTags: [vocab.sysdesign, br.make-a-test, br.mount-solution]
+  notes: "Revisão prioriza os marcadores do pensamento narrado e os calques novos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

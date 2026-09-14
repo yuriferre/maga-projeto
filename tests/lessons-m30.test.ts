@@ -10,4 +10,13 @@ describe("M30 lessons", () => {
     expect(bundle.modules["M30"]).toBeTruthy();
     expect(crossValidate(bundle)).toEqual([]);
   });
+  checkLesson(bundle, "M30-01", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 90,
+    prerequisites: ["M18-04", "M21-05"],
+  });
 });
