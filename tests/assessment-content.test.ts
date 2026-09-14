@@ -581,3 +581,43 @@ describe("M16 assessment variants", () => {
     expect(checkExercise(q, "Sorry to interrupt — the bridge depends on discipline. He explain it well.").correct).toBe(false);
   });
 });
+
+describe("M17 assessment variants", () => {
+  const m17 = bundle.moduleAssessments["M17"]!;
+  it("requires 'was written' and 'on Friday'", () => {
+    const q = m17.items.find((q) => q.id === "M17-A02")!;
+    expect(checkExercise(q, "The report was written — the review is on Friday.").correct).toBe(true);
+    expect(checkExercise(q, "The report was wrote — the review is on Friday.").correct).toBe(false);
+    expect(checkExercise(q, "The report was written — the review is in Friday.").correct).toBe(false);
+  });
+  it("requires 'contributed to' and the weekday fix", () => {
+    const q = m17.items.find((q) => q.id === "M17-A04")!;
+    expect(checkExercise(q, "The missing test contributed to Friday's outage.").correct).toBe(true);
+    expect(checkExercise(q, "The missing test contributed for Friday's outage.").correct).toBe(false);
+    expect(checkExercise(q, "The missing test contributed to the outage of Friday.").correct).toBe(false);
+  });
+  it("requires 'right now' and 'doesn't reach' on A06", () => {
+    const q = m17.items.find((q) => q.id === "M17-A06")!;
+    expect(checkExercise(q, "Right now the alert doesn't reach the on-call.").correct).toBe(true);
+    expect(checkExercise(q, "In this moment the alert doesn't reach the on-call.").correct).toBe(false);
+    expect(checkExercise(q, "Right now the alert not reach the on-call.").correct).toBe(false);
+  });
+  it("requires 'question' and bare 'discussed' on A08", () => {
+    const q = m17.items.find((q) => q.id === "M17-A08")!;
+    expect(checkExercise(q, "I have a question — we discussed the timeline.").correct).toBe(true);
+    expect(checkExercise(q, "I have a doubt — we discussed the timeline.").correct).toBe(false);
+    expect(checkExercise(q, "I have a question — we discussed about the timeline.").correct).toBe(false);
+  });
+  it("requires 'depends on' and 'fails' on A10", () => {
+    const q = m17.items.find((q) => q.id === "M17-A10")!;
+    expect(checkExercise(q, "The detection depends on the threshold. It fails silently.").correct).toBe(true);
+    expect(checkExercise(q, "The detection depend of the threshold. It fails silently.").correct).toBe(false);
+    expect(checkExercise(q, "The detection depends on the threshold. It fail silently.").correct).toBe(false);
+  });
+  it("requires 'dropped' and 'by Friday' on A12", () => {
+    const q = m17.items.find((q) => q.id === "M17-A12")!;
+    expect(checkExercise(q, "The call dropped — the item is due by Friday.").correct).toBe(true);
+    expect(checkExercise(q, "The call fell — the item is due by Friday.").correct).toBe(false);
+    expect(checkExercise(q, "The call dropped — the item is due until Friday.").correct).toBe(false);
+  });
+});

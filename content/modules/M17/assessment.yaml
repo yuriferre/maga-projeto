@@ -1,0 +1,86 @@
+# Avaliação do módulo M17: 15 itens cobrindo as cinco aulas + escrita (post-mortem) + fala.
+id: M17
+title: "Avaliação do módulo M17: Post-mortems"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 4, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M17-A01, type: multiple_choice, prompt: "A blameless rewrite of 'Ana's mistake took the site down' is…", options: ["'a bad config value took the site down'", "'Ana's accidental mistake took the site down'", "'someone's mistake took the site down'", "'the site went down mysteriously'"], answer: 0, explanation: "O artefato como sujeito — sem nome.", tags: [vocab.postmortem] }
+  - { id: M17-A02, type: error_correction, prompt: "The report was wrote — the review is in Friday.", accepted: ["The report was written — the review is on Friday.", "The report was written — the review is on Friday"], explanation: 'Dois calques: "was written" + "on Friday".', tags: [br.was-past, br.in-weekday] }
+  - { id: M17-A03, type: fill_blank, prompt: "The error went ___ because the threshold was set too high.", accepted: ["unnoticed"], explanation: '"went unnoticed" — a detecção falhou.', tags: [vocab.postmortem] }
+  - { id: M17-A04, type: error_correction, prompt: "The missing test contributed for the outage of Friday.", accepted: ["The missing test contributed to Friday's outage.", "The missing test contributed to the outage on Friday."], explanation: 'Dois calques: "contributed to" + "Friday''s".', tags: [br.contributed-for, br.of-weekday] }
+  - { id: M17-A05, type: multiple_choice, prompt: "The blameless passive protects by…", options: ["hiding the timeline", "omitting the agent — 'it was deployed' focuses the fact", "removing all verbs", "naming the manager"], answer: 1, explanation: "A passiva sem agente foca o fato.", tags: [gram.passive-blameless] }
+  - { id: M17-A06, type: error_correction, prompt: "In this moment the alert not reach the on-call.", accepted: ["Right now the alert doesn't reach the on-call.", "Right now the alert doesn't reach the on-call"], explanation: 'Dois calques: "right now" + "doesn''t reach".', tags: [br.in-this-moment, br.it-not-works] }
+  - { id: M17-A07, type: multiple_choice, prompt: "TTD and TTR in a post-mortem measure…", options: ["deploy speed and test coverage", "start→detection and start→all-clear", "team size and ticket count", "alert volume and page count"], answer: 2, explanation: "Time to detect e time to resolve.", tags: [gram.timeline] }
+  - { id: M17-A08, type: error_correction, prompt: "I have a doubt — we discussed about the timeline.", accepted: ["I have a question — we discussed the timeline.", "I have a question — we discussed the timeline"], explanation: 'Dois calques: "question" + "discussed" sem about.', tags: [br.doubt, br.discuss-about] }
+  - { id: M17-A09, type: translate, prompt: "O deploy foi o gatilho — a causa foi a validação ausente.", accepted: ["The deploy was the trigger — the cause was the missing validation.", "The deploy was the trigger — the underlying cause was missing validation."], explanation: '"the trigger" × "the cause".', tags: [vocab.postmortem] }
+  - { id: M17-A10, type: error_correction, prompt: "The detection depend of the threshold. It fail silently.", accepted: ["The detection depends on the threshold. It fails silently.", "The detection depends on the threshold. It fails silently"], explanation: 'Dois calques: "depends on" + "fails".', tags: [br.depend-of, br.third-person-s] }
+  - { id: M17-A11, type: multiple_choice, prompt: "Which action item will actually ship?", options: ["'be more careful with deploys'", "'look into the pool issue soon'", "'improve alerting for everyone'", "'lower the threshold to 10% — owner: on-call — by Friday — P0'"], answer: 3, explanation: "Verbo + dono + prazo + prioridade.", tags: [vocab.postmortem] }
+  - { id: M17-A12, type: error_correction, prompt: "The call fell — the item is due until Friday.", accepted: ["The call dropped — the item is due by Friday.", "The call dropped — the item is due by Friday"], explanation: 'Dois calques: "dropped" + "by Friday".', tags: [br.call-fell, br.until-by] }
+  - { id: M17-A13, type: fill_blank, prompt: "TTD was four minutes — detected at 17:42, started at 17:38. That's the time to ___.", accepted: ["detect"], explanation: '"time to detect" — início ao alerta.', tags: [gram.timeline] }
+  - { id: M17-A14, type: multiple_choice, prompt: "'A chain of three gaps — remove any one and the outage doesn't happen' is…", options: ["the test that the factors are real", "a list of people to blame", "the executive summary", "the action items"], answer: 1, explanation: "Cada elo necessário = análise real.", tags: [gram.cause-effect] }
+  - { id: M17-A15, type: match, prompt: "Associe a seção do post-mortem ao que ela carrega.", pairs: [{ left: "executive summary", right: "what, how much, when — two sentences" }, { left: "timeline", right: "timestamps and past-tense facts" }, { left: "action items", right: "verb, owner, deadline, priority" }, { left: "what went well", right: "what worked and gets protected" }], explanation: "As seções e o que cada uma responde.", tags: [vocab.postmortem] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** o post-mortem do incidente de sexta,
+    completo, para circular na empresa.
+
+    **Tarefa:** escreva 100–140 palavras na estrutura do documento:
+    resumo executivo, impacto (número + escopo + janela), timeline
+    com timestamps UTC, análise (trigger × causa × fatores) e
+    action items com dono e prazo. Blameless — sem nomes.
+  constraints:
+    - { label: "Resumo + impacto", pattern: "\\b(summary|impact|%|minutes|unaffected|no data loss)\\b" }
+    - { label: "Timeline", pattern: "\\b\\d{2}:\\d{2}\\b" }
+    - { label: "Análise em cadeia", pattern: "\\b(trigger|root cause|underlying|contributing|exacerbated|unnoticed|chain)\\b" }
+    - { label: "Action items", pattern: "\\b(owner|by|p0|p1|add|enforce|lower)\\b" }
+  rubric:
+    - "Resumo em duas frases + impacto com número"
+    - "Timeline em UTC, verbos no passado"
+    - "Trigger × causa × fatores"
+    - "Itens com dono, prazo, prioridade — sem nomes"
+  model: >-
+    Summary: a bad config value took web checkout down for 27
+    minutes on Friday; a rollback resolved it. Impact: 60% of web
+    checkouts failed during the window; mobile was unaffected and
+    there was no data loss. Timeline (UTC): 17:38 the change
+    shipped; 17:42 alerts fired and the on-call was paged; 17:52
+    the deploy was rolled back; 18:05 the error rate recovered.
+    The deploy was the trigger — the underlying cause was missing
+    config validation; a chain of three gaps (no validation, a
+    high threshold, no saturation alert) made it an outage.
+    Action items: add a saturation alert — owner: on-call — by
+    Oct 15 — P0; enforce config validation — owner: Marcos — end
+    of sprint — P1; lower the threshold — owner: Yuri — by Friday
+    — P0.
+  minWords: 100
+  maxWords: 140
+  tags: [comp.writing, vocab.postmortem]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando o post-mortem para a empresa: o resumo, o impacto com números, a análise em cadeia e os action items priorizados."
+  maxSeconds: 60
+  targetPhrases:
+    - executive summary
+    - impact
+    - no data loss
+    - the trigger
+    - underlying cause
+    - contributing factor
+    - a chain of
+    - went unnoticed
+    - action items
+    - owner
+    - p0
+    - by friday
+    - what went well
+    - lessons learned
+    - the timeline
+    - on friday
+  checklist:
+    - "Resumo + impacto com número"
+    - "Trigger × causa × fatores"
+    - "Itens com dono e prazo"
+    - "'On Friday', 'was written', 'contributed to'"
