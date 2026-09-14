@@ -1,0 +1,308 @@
+id: M21-01
+module: M21
+order: 1
+title: "A estrutura da decisão: context → options → decision → rationale → consequences"
+objective: >-
+  Ao final, você apresenta uma decisão técnica em cinco
+  batidas — contexto, opções, decisão, justificativa e
+  consequências — sem pular direto para "we'll use Kafka".
+durationMin: 40
+competencies: [SPK, WRI, CNF]
+tags: [vocab.decisions, gram.argument-connectors, comp.speaking, comp.writing]
+prerequisites: [M10-05, M14-05]
+
+context:
+  scenario: |
+    O design review começou e a pergunta da Beth (staff
+    engineer) foi direta: "**walk me through the decision.**"
+    A resposta que convence não começa na escolha — começa
+    no contexto. A estrutura que os revisores esperam:
+
+    - **context** — o problema e as restrições: "our checkout
+      service calls the payment API synchronously, and traffic
+      doubles on weekends".
+    - **options** — o que estava na mesa, sem esconder a
+      perdedora: "we considered three options: sync calls,
+      a queue, or a full event-driven rewrite".
+    - **decision** — a escolha, uma frase: "we're going with
+      a queue — Kafka".
+    - **rationale** — por quê, ligando à restrição:
+      "because it decouples the services without a rewrite".
+    - **consequences** — o custo assumido, de peito aberto:
+      "the trade-off is eventual consistency on the receipt".
+
+    Quem pula para a decisão é perguntado "what else did you
+    consider?" e perde a sala. Quem abre com a estrutura
+    controla a discussão.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "trade-off"
+    meaning: 'o custo que vem junto com a escolha — o que você abre mão'
+    example: "The trade-off is eventual consistency on the receipt."
+    translation: "O trade-off é consistência eventual no recibo."
+    note: "Não existe decisão sem trade-off — nomeá-lo é sinal de senioridade."
+  - term: "option"
+    meaning: 'a opção considerada — cada alternativa na mesa'
+    example: "We considered three options before deciding."
+    translation: "Consideramos três opções antes de decidir."
+    note: "Options mostram trabalho — quem tem uma opção só não decidiu, obedeceu."
+  - term: "rationale"
+    meaning: 'a justificativa — o porquê que liga contexto à decisão'
+    example: "The rationale is decoupling without a full rewrite."
+    translation: "A justificativa é desacoplar sem rewrite completo."
+    note: "Não é 'razão' solta: rationale é a cadeia de motivos."
+  - term: "constraint"
+    meaning: 'a restrição — limite real: prazo, budget, time, legado'
+    example: "The main constraint is the migration deadline in Q3."
+    translation: "A restrição principal é o prazo de migração no Q3."
+    note: "Decisão boa é a que respeita as constraints — nomeie-as primeiro."
+  - term: "to go with"
+    meaning: 'ir com — escolher informalmente entre as opções'
+    example: "We're going with a queue — Kafka, specifically."
+    translation: "Vamos com uma fila — Kafka, especificamente."
+    note: "A fala da decisão: 'we're going with X'. Em doc: 'we decided on X'."
+  - term: "decoupling"
+    meaning: 'o desacoplamento — separar o que andava junto'
+    example: "A queue gives us decoupling between checkout and payments."
+    translation: "Uma fila nos dá desacoplamento entre checkout e pagamentos."
+    note: "O benefício que a decisão compra — ligue-o à constraint."
+  - term: "a rewrite"
+    meaning: 'a reescrita — refazer do zero, caro e arriscado'
+    example: "A full rewrite is off the table — six months, no features."
+    translation: "Um rewrite completo está fora de cogitação — seis meses sem features."
+    note: "Cognato limpo: rewrite é reescrita — o nuclear option das decisões."
+  - term: "off the table"
+    meaning: 'fora de cogitação — descartado de antemão'
+    example: "Vendor lock-in makes that option off the table for us."
+    translation: "Vendor lock-in tira essa opção de cogitação para nós."
+    note: "Para descartar com estrutura: 'X is off the table because…'."
+  - term: "weigh"
+    meaning: 'pesar — comparar opções antes de decidir'
+    example: "We weighed the three options against the deadline."
+    translation: "Pesamos as três opções contra o prazo."
+    note: "'We weighed X against Y' — o verbo da comparação consciente."
+  - term: "downside"
+    meaning: 'o lado ruim — a consequência negativa da escolha'
+    example: "The downside is operational complexity — Kafka isn't free to run."
+    translation: "O lado ruim é complexidade operacional — Kafka não roda de graça."
+    note: "Admita a downside antes que o revisor aponte — perde a munição dele."
+  - term: "reversible"
+    meaning: 'reversível — decisão que dá para desfazer barato'
+    example: "This decision is reversible — we can roll back in a day."
+    translation: "Essa decisão é reversível — dá para reverter em um dia."
+    note: "Reversível = decida rápido. Irreversível = decida devagar."
+  - term: "walk through"
+    meaning: 'percorrer — guiar alguém passo a passo pelo raciocínio'
+    example: "Let me walk you through how we got to this decision."
+    translation: "Deixa eu te guiar por como chegamos a essa decisão."
+    note: "O pedido do revisor: 'walk me through the decision'."
+
+grammar:
+  title: "os conectores da argumentação"
+  explanation: |
+    A estrutura de cinco batidas anda nos conectores — cada
+    um sinaliza qual batida vem agora:
+
+    - **Contexto**: "*The problem is…*", "*the constraint
+      here is…*", "*currently, …*".
+    - **Opções**: "*we considered X*", "*another option was…*",
+      "*alternatively, …*".
+    - **Decisão**: "*we're going with…*", "*we decided on…*",
+      "*our call is…*".
+    - **Rationale**: "*because*", "*since*", "*which gives
+      us…*", "*that way, …*" — ligam a escolha à constraint.
+    - **Consequências**: "*the trade-off is…*", "*on the
+      other hand*", "*the downside is…*", "*at the cost of…*".
+
+    Três calques que estragam a apresentação:
+
+    - "**I am agree**" — "eu concordo" é "**I agree**":
+      agree é verbo, não precisa de "am".
+    - "**chose Kafka instead RabbitMQ**" — falta o "**of**":
+      "instead of RabbitMQ".
+    - "**the same result than before**" — "o mesmo que" é
+      "**the same as**"; "than" é só de comparativo.
+  examples:
+    - { en: "I agree with Beth — the queue is the right call.", pt: "Concordo com a Beth — a fila é a escolha certa." }
+    - { en: "We chose Kafka instead of RabbitMQ.", pt: "Escolhemos Kafka em vez de RabbitMQ." }
+    - { en: "We get the same result as before, at half the cost.", pt: "Temos o mesmo resultado que antes, pela metade do custo." }
+    - { en: "The constraint is the deadline — alternatively, we could delay.", pt: "A restrição é o prazo — alternativamente, poderíamos adiar." }
+    - { en: "We're going with a queue because it decouples the services.", pt: "Vamos com fila porque ela desacopla os serviços." }
+    - { en: "The trade-off is eventual consistency on the receipt.", pt: "O trade-off é consistência eventual no recibo." }
+
+examples:
+  - en: "The problem is synchronous calls; the constraint is the Q3 deadline."
+    pt: "O problema é chamada síncrona; a restrição é o prazo do Q3."
+    context: "Contexto em uma frase."
+  - en: "We considered three options: sync, a queue, or a full rewrite."
+    pt: "Consideramos três opções: síncrono, fila ou rewrite completo."
+    context: "A mesa de opções."
+  - en: "We're going with a queue — Kafka, specifically."
+    pt: "Vamos com fila — Kafka, especificamente."
+    context: "A decisão em uma frase."
+  - en: "The rationale is decoupling — it buys us resilience without a rewrite."
+    pt: "A justificativa é desacoplamento — nos dá resiliência sem rewrite."
+    context: "O porquê ligado à constraint."
+  - en: "The downside is operational complexity — Kafka isn't free to run."
+    pt: "O lado ruim é complexidade operacional — Kafka não roda de graça."
+    context: "A consequência assumida."
+  - en: "This decision is reversible — we can roll back within a day."
+    pt: "Essa decisão é reversível — dá para reverter em um dia."
+    context: "O custo de desfazer."
+  - en: "We weighed the options against the deadline and the team's size."
+    pt: "Pesamos as opções contra o prazo e o tamanho do time."
+    context: "A comparação consciente."
+  - en: "A rewrite is off the table — six months with no features shipped."
+    pt: "Rewrite está fora de cogitação — seis meses sem features."
+    context: "Descarte com estrutura."
+
+variations:
+  - idea: '"a decisão completa em cinco batidas"'
+    items:
+      - { register: "Boa", text: "Context first: sync calls, weekend traffic. Options: sync, queue, rewrite. We're going with a queue because it decouples. Trade-off: eventual consistency.", adequate: true }
+      - { register: "Boa", text: "We weighed sync, queue and rewrite against the deadline — our call is the queue. The downside is ops complexity, and it's reversible.", adequate: true }
+      - { register: "Inadequada", text: "We'll use Kafka.", adequate: false, note: "Sem contexto, opções ou rationale — 'why?' vai derrubar." }
+      - { register: "Inadequada", text: "I am agree that Kafka is the best.", adequate: false, note: "*I agree* — agree é verbo, sem 'am'." }
+  - idea: '"comparando e descartando"'
+    items:
+      - { register: "Boa", text: "We chose the queue instead of a rewrite — same decoupling, a third of the effort.", adequate: true }
+      - { register: "Boa", text: "The rewrite is off the table — the deadline kills it.", adequate: true }
+      - { register: "Inadequada", text: "We chose the queue instead the rewrite.", adequate: false, note: "*Instead of* — o 'of' não cai." }
+      - { register: "Inadequada", text: "The queue gives the same decoupling than a rewrite.", adequate: false, note: "*The same as* — 'than' é só de comparativo." }
+
+brErrors:
+  - { wrong: "I am agree with the queue.", right: "I agree with the queue.", why: "I agree", tag: br.am-agree }
+  - { wrong: "We're agree that Kafka is right.", right: "We agree that Kafka is right.", why: "we agree", tag: br.am-agree }
+  - { wrong: "We chose Kafka instead RabbitMQ.", right: "We chose Kafka instead of RabbitMQ.", why: "instead of", tag: br.instead-of }
+  - { wrong: "We get the same decoupling than a rewrite.", right: "We get the same decoupling as a rewrite.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the options yesterday.", right: "We discussed the options yesterday.", why: "discussed the options", tag: br.discuss-about }
+  - { wrong: "I don't pretend to rewrite the service.", right: "I don't intend to rewrite the service.", why: "I don't intend", tag: br.pretend }
+  - { wrong: "Actually we run three brokers.", right: "Currently we run three brokers.", why: "currently", tag: br.actually }
+  - { wrong: "It depends of the deadline.", right: "It depends on the deadline.", why: "depends on", tag: br.depend-of }
+  - { wrong: "Can you explain me the rationale?", right: "Can you explain the rationale to me?", why: "explain the rationale", tag: br.explain-me }
+  - { wrong: "I think it make sense to go with Kafka.", right: "I think it makes sense to go with Kafka.", why: "it makes sense", tag: br.it-makes-sense }
+
+dialogue:
+  title: "Walk me through the decision"
+  lines:
+    - { speaker: Beth, text: "Walk me through the decision — why Kafka?" }
+    - { speaker: Yuri, text: "Context first: the checkout calls the payment API synchronously, and weekend traffic doubles the load. The constraint is the Q3 deadline." }
+    - { speaker: Beth, text: "What else was on the table?" }
+    - { speaker: Yuri, text: "Three options: keep sync with retries, add a queue, or a full event-driven rewrite. The rewrite is off the table — six months, no features." }
+    - { speaker: Carlos, text: "So why the queue over retries?" }
+    - { speaker: Yuri, text: "Retries hide the coupling — they don't remove it. The queue gives us the same decoupling as a rewrite at a third of the effort. That's the rationale." }
+    - { speaker: Beth, text: "And the downside?" }
+    - { speaker: Yuri, text: "Eventual consistency on the receipt, plus Kafka ops. It's the trade-off we're accepting — and the decision is reversible if it hurts." }
+    - { speaker: Carlos, text: "I hear it. Structure holds up — document it as an ADR." }
+  notes:
+    - "as cinco batidas na ordem: contexto → opções → decisão → rationale → trade-off."
+    - "'the same decoupling as a rewrite' — 'as', nunca 'than'."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "When you present a decision, lead with context — the problem and the constraints. 'The checkout calls payments synchronously; the constraint is the Q3 deadline.' Then the options — what was on the table, including the loser. 'We considered sync, a queue, and a rewrite.'" }
+    - { speaker: Yuri, text: "Then the decision in one sentence — 'we're going with a queue'. The rationale links the choice to the constraint — 'because it decouples without a rewrite'. And the consequences close it — 'the trade-off is eventual consistency'." }
+    - { speaker: Carlos, text: "Watch the connectors: 'we considered', 'alternatively', 'our call is', 'which gives us', 'the downside is'. And the calques — it's 'I agree', never 'I am agree'; 'instead of RabbitMQ', never 'instead RabbitMQ'." }
+  questions:
+    - { id: M21-01-l1, type: multiple_choice, prompt: "A apresentação de decisão começa com…", options: ["a escolha", "o contexto — problema e constraints", "o trade-off", "o pedido de aprovação"], answer: 1, explanation: "Contexto primeiro — a decisão vem depois.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-01-l2, type: multiple_choice, prompt: "'The trade-off is eventual consistency' é a batida de…", options: ["consequências", "contexto", "opções", "decisão"], answer: 0, explanation: "O custo assumido fecha a estrutura.", tags: [comp.listening, gram.argument-connectors] }
+    - { id: M21-01-l3, type: fill_blank, prompt: "We're going ___ a queue — Kafka, specifically.", accepted: ["with"], explanation: "'We're going with X' — a fala da decisão.", tags: [vocab.decisions] }
+    - { id: M21-01-l4, type: error_correction, prompt: "I am agree with the queue.", accepted: ["I agree with the queue.", "I agree with the queue"], explanation: "'I agree' — sem 'am'.", tags: [br.am-agree] }
+    - { id: M21-01-l5, type: multiple_choice, prompt: "'A rewrite is off the table' significa…", options: ["é a opção escolhida", "está em teste", "está descartado de antemão", "falta documentar"], answer: 2, explanation: "Off the table — fora de cogitação.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-01-l6, type: multiple_choice, prompt: "A rationale liga…", options: ["o trade-off ao prazo", "as opções entre si", "a escolha à constraint", "o contexto ao revisor"], answer: 2, explanation: "O porquê conecta decisão e restrição.", tags: [comp.listening, gram.argument-connectors] }
+
+writing:
+  prompt: |
+    **Cenário:** o design review acabou e a Beth pediu a
+    decisão por escrito no canal: "put the five beats in
+    writing — context, options, decision, rationale,
+    consequences".
+
+    **Tarefa:** escreva 70–100 palavras apresentando a
+    decisão de usar uma fila no checkout, nas cinco batidas
+    nomeadas. Inclua a opção descartada ("off the table") e
+    o trade-off assumido.
+  constraints:
+    - { label: "O contexto", pattern: "\\bconstraint|context|problem\\b" }
+    - { label: "As opções", pattern: "\\boption|considered|alternativ\\w*\\b" }
+    - { label: "A decisão", pattern: "\\bgoing with|decided on|our call\\b" }
+    - { label: "As consequências", pattern: "\\btrade-off|downside|consequence\\w*\\b" }
+  rubric:
+    - "Cinco batidas na ordem, identificáveis"
+    - "Opção descartada com motivo ('off the table')"
+    - "Trade-off assumido com nome próprio"
+    - "Sem calques ('I agree', 'instead of', 'the same as')"
+  model: >-
+    Context: checkout calls the payment API synchronously and
+    weekend traffic doubles the load; the constraint is the
+    Q3 deadline. We considered three options — sync with
+    retries, a queue, and a full rewrite. The rewrite is off
+    the table: six months, no features. Our call is the
+    queue — it gives the same decoupling as a rewrite at a
+    third of the effort. The trade-off is eventual
+    consistency on the receipt, plus Kafka ops. The decision
+    is reversible within a day.
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.decisions, gram.argument-connectors]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando a decisão do checkout nas cinco batidas: contexto, opções, decisão, rationale e consequências."
+    maxSeconds: 45
+    targetPhrases:
+      - the problem is
+      - the constraint is
+      - we considered
+      - another option
+      - we're going with
+      - the rationale is
+      - because it decouples
+      - the trade-off is
+      - the downside is
+      - off the table
+      - reversible
+      - I agree
+      - instead of
+      - the same as
+      - we decided on
+      - walk you through
+    checklist:
+      - "as cinco batidas na ordem"
+      - "'I agree', nunca 'I am agree'"
+      - "'instead of' e 'the same as'"
+      - "o trade-off assumido, não escondido"
+
+quiz:
+  - { id: M21-01-q1, type: multiple_choice, prompt: "A ordem da estrutura é…", options: ["decisão → contexto → opções", "contexto → opções → decisão → rationale → consequências", "opções → trade-off → decisão", "contexto → decisão → prazo"], answer: 1, explanation: "Contexto abre; consequências fecham.", tags: [vocab.decisions, gram.argument-connectors] }
+  - { id: M21-01-q2, type: error_correction, prompt: "We chose Kafka instead RabbitMQ.", accepted: ["We chose Kafka instead of RabbitMQ.", "We chose Kafka instead of RabbitMQ"], explanation: "'instead of'.", tags: [br.instead-of] }
+  - { id: M21-01-q3, type: multiple_choice, prompt: "'The queue is reversible' significa…", options: ["é barata", "dá para desfazer barato", "é definitiva", "roda de graça"], answer: 1, explanation: "Reversível — rollback em um dia.", tags: [vocab.decisions] }
+  - { id: M21-01-q4, type: fill_blank, prompt: "The trade-___ is eventual consistency on the receipt.", accepted: ["off"], explanation: "Trade-off — o custo da escolha.", tags: [vocab.decisions] }
+  - { id: M21-01-q5, type: multiple_choice, prompt: "'We weighed the options against the deadline' — 'weighed' é…", options: ["ignoramos", "pesamos/comparamos", "descartamos", "atrasamos"], answer: 1, explanation: "Weigh X against Y — comparar com critério.", tags: [vocab.decisions] }
+  - { id: M21-01-q6, type: error_correction, prompt: "We get the same decoupling than a rewrite.", accepted: ["We get the same decoupling as a rewrite.", "We get the same decoupling as a rewrite"], explanation: "'the same as'.", tags: [br.same-than] }
+  - { id: M21-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["with", "going", "queue", "a", "we're"], answer: "we're going with a queue", explanation: "A fala da decisão.", tags: [vocab.decisions] }
+  - { id: M21-01-q8, type: multiple_choice, prompt: "Por que nomear a downside antes do revisor?", options: ["para parecer humilde", "porque o revisor pede", "para fechar a reunião", "para tirar a munição dele — você já assumiu o custo"], answer: 3, explanation: "Trade-off assumido perde o poder de ataque.", tags: [vocab.decisions, comp.confidence] }
+
+srsCards:
+  - { front: "trade-off", back: "O custo da escolha — 'the trade-off is eventual consistency'.", tag: vocab.decisions }
+  - { front: "option", back: "Alternativa na mesa — 'we considered three options'.", tag: vocab.decisions }
+  - { front: "rationale", back: "O porquê que liga escolha à constraint — 'the rationale is decoupling'.", tag: vocab.decisions }
+  - { front: "constraint", back: "Restrição real — 'the constraint is the Q3 deadline'.", tag: vocab.decisions }
+  - { front: "to go with", back: "Escolher — 'we're going with a queue'.", tag: vocab.decisions }
+  - { front: "decoupling", back: "Separar o que andava junto — 'the queue buys decoupling'.", tag: vocab.decisions }
+  - { front: "a rewrite", back: "Refazer do zero — 'six months, no features'.", tag: vocab.decisions }
+  - { front: "off the table", back: "Fora de cogitação — 'the rewrite is off the table'.", tag: vocab.decisions }
+  - { front: "weigh", back: "Pesar/comparar — 'we weighed X against the deadline'.", tag: vocab.decisions }
+  - { front: "downside", back: "O lado ruim — 'the downside is ops complexity'.", tag: vocab.decisions }
+  - { front: "reversible", back: "Desfazível barato — 'roll back within a day'.", tag: vocab.decisions }
+  - { front: "walk through", back: "Guiar pelo raciocínio — 'walk me through the decision'.", tag: vocab.decisions }
+
+review:
+  preferTags: [vocab.decisions, gram.argument-connectors, br.am-agree]
+  notes: "Revisão prioriza a estrutura em cinco batidas, os conectores de cada batida e os três calques de argumentação."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
