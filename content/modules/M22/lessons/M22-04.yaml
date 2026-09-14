@@ -1,0 +1,307 @@
+id: M22-04
+module: M22
+order: 4
+title: "Para decisão: recomendação clara + alternativas + o ask"
+objective: >-
+  Ao final, você transforma análise de risco em pedido de
+  decisão: recomendação na primeira frase, alternativas
+  honestas e o que você precisa de quem decide — "my
+  recommendation is…", "the alternative would be…", "what
+  I need from you is…".
+durationMin: 40
+competencies: [SPK, WRI]
+tags: [vocab.risk, gram.probability-modals, comp.speaking, comp.writing]
+prerequisites: [M22-03]
+
+context:
+  scenario: |
+    A análise da migração está madura — e agora ela vai para
+    a Direção, que tem dez minutos e uma pergunta: "**so,
+    what do you recommend?**"
+
+    Quem decide não quer a jornada — quer a estrutura:
+
+    - **a recomendação primeiro** — uma frase, sem hedge:
+      "*my recommendation is to migrate Friday, with the
+      rehearsed abort*". Não é arrogância — é o trabalho
+      de quem analisou.
+    - **as alternativas honestas** — "*the alternative is
+      delaying a quarter — the cost is the backlog*".
+      Esconder a segunda opção é a forma mais rápida de
+      perder confiança.
+    - **o ask** — o que a decisão precisa de quem decide:
+      "*what I need from you is sign-off on the window and
+      two people on the bridge*".
+
+    E o critério de reversão — "*if the dry run fails
+    Thursday, this recommendation changes*". Decisão boa
+    declara o que a faria mudar.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead), Ana (diretora)]
+
+vocabulary:
+  - term: "recommendation"
+    meaning: 'a recomendação — a sua posição, dita primeiro'
+    example: "My recommendation is to migrate Friday, with the abort rehearsed."
+    translation: "Minha recomendação é migrar sexta, com o abort ensaiado."
+    note: "'My recommendation is X' — sem 'I think': quem analisou, posiciona."
+  - term: "the ask"
+    meaning: 'o pedido — o que você precisa de quem decide'
+    example: "The ask: sign-off on the window and two people on the bridge."
+    translation: "O pedido: aprovação da janela e duas pessoas na bridge."
+    note: "Ask sem prazo nem dono não é ask — é sugestão no ar."
+  - term: "to sign off on"
+    meaning: 'aprovar — o ok formal de quem decide'
+    example: "We need Ana to sign off on the Friday window."
+    translation: "Precisamos que a Ana aprove a janela de sexta."
+    note: "'Sign off on X' — a decisão registrada de quem tem a caneta."
+  - term: "the alternative"
+    meaning: 'a alternativa — a segunda opção honesta'
+    example: "The alternative is delaying a quarter — the cost is the backlog."
+    translation: "A alternativa é adiar um trimestre — o custo é o backlog."
+    note: "Apresentar a alternativa com o custo dela — não escondê-la."
+  - term: "decision-maker"
+    meaning: 'quem decide — o dono da caneta'
+    example: "Ana is the decision-maker — the review informs, she decides."
+    translation: "A Ana é quem decide — a review informa, ela decide."
+    note: "Nomeie quem decide — 'who decides this?' antes da reunião."
+  - term: "default option"
+    meaning: 'a opção padrão — o que acontece se ninguém decidir'
+    example: "The default option is doing nothing — the spikes keep hurting."
+    translation: "A opção padrão é não fazer nada — os picos continuam doendo."
+    note: "Nomear o default expõe que 'não decidir' também é decisão."
+  - term: "deferred"
+    meaning: 'adiada — a decisão empurrada com custo nomeado'
+    example: "Deferred a quarter, the migration still faces the same risks."
+    translation: "Adiada um trimestre, a migração enfrenta os mesmos riscos."
+    note: "'Deferred' não é 'cancelled' — o custo do adiar entra na conta."
+  - term: "walk-away condition"
+    meaning: 'a condição de abandono — quando a recomendação morre'
+    example: "The walk-away condition: if the dry run fails, we don't migrate."
+    translation: "A condição de abandono: se o ensaio falhar, não migramos."
+    note: "Declarar quando desistir torna a recomendação mais forte, não mais fraca."
+  - term: "on the table"
+    meaning: 'na mesa — as opções abertas para decisão'
+    example: "Two options on the table: migrate Friday or defer a quarter."
+    translation: "Duas opções na mesa: migrar sexta ou adiar um trimestre."
+    note: "O par de 'off the table' — o que está aberto para escolha."
+  - term: "informed consent"
+    meaning: 'consentimento informado — decidir sabendo os riscos'
+    example: "We want informed consent — you sign the window knowing the residual risk."
+    translation: "Queremos consentimento informado — você assina a janela sabendo do risco residual."
+    note: "O objetivo da apresentação: decisão com os riscos na mesa."
+  - term: "two-way door"
+    meaning: 'porta de mão dupla — decisão reversível'
+    example: "This is a two-way door — roll back in a day if it hurts."
+    translation: "É uma porta de mão dupla — rollback em um dia se doer."
+    note: "Two-way door = decida rápido; one-way door = decida devagar."
+  - term: "the deciding factor"
+    meaning: 'o fator decisivo — o que pendeu a balança'
+    example: "The deciding factor is reversibility — the rewrite isn't one."
+    translation: "O fator decisivo é a reversibilidade — o rewrite não é uma."
+    note: "Diga o que decidiu — 'the deciding factor was…'."
+
+grammar:
+  title: "a gramática da recomendação — posição, contraste, pedido"
+  explanation: |
+    Apresentar para quem decide tem três movimentos com
+    gramática própria:
+
+    - **Posição**: "*my recommendation is to migrate*",
+      "*I recommend we go Friday*" — infinitivo ou
+      'recommend + we + base'. Sem hedge na posição —
+      o hedge mora no risco, não na recomendação.
+    - **Contraste honesto**: "*the alternative would be
+      deferring — that costs a quarter*", "*you could also
+      do nothing — then the spikes stay*".
+    - **O ask**: "*what I need from you is…*",
+      "*I need sign-off on the window by Thursday*".
+
+    E a condição de reversão no condicional real:
+    "*if the dry run fails, this recommendation changes*".
+
+    Calques: "**the risk to lose**" → "**of losing**";
+    "**we are in risk**" → "**at risk**".
+  examples:
+    - { en: "My recommendation is to migrate Friday — with the rehearsed abort.", pt: "Minha recomendação é migrar sexta — com o abort ensaiado." }
+    - { en: "The alternative would be deferring a quarter — the cost is the backlog.", pt: "A alternativa seria adiar um trimestre — o custo é o backlog." }
+    - { en: "What I need from you is sign-off on the window by Thursday.", pt: "O que eu preciso de você é a aprovação da janela até quinta." }
+    - { en: "The default option is doing nothing — the spikes keep hurting.", pt: "A opção padrão é não fazer nada — os picos continuam doendo." }
+    - { en: "If the dry run fails Thursday, this recommendation changes.", pt: "Se o ensaio falhar quinta, essa recomendação muda." }
+    - { en: "It's a two-way door — we roll back in a day if it hurts.", pt: "É porta de mão dupla — rollback em um dia se doer." }
+
+examples:
+  - en: "My recommendation is to migrate Friday — the abort is rehearsed."
+    pt: "Minha recomendação é migrar sexta — o abort está ensaiado."
+    context: "A posição primeiro."
+  - en: "The alternative is deferring a quarter — same risks, plus the backlog."
+    pt: "A alternativa é adiar um trimestre — mesmos riscos, mais o backlog."
+    context: "A alternativa honesta."
+  - en: "Doing nothing is also a choice — the spikes keep taking us down."
+    pt: "Não fazer nada também é escolha — os picos continuam nos derrubando."
+    context: "O default nomeado."
+  - en: "What I need from you: sign-off on the window and two people on the bridge."
+    pt: "O que preciso de você: aprovação da janela e duas pessoas na bridge."
+    context: "O ask com dono e prazo."
+  - en: "The deciding factor was reversibility — this is a two-way door."
+    pt: "O fator decisivo foi a reversibilidade — é porta de mão dupla."
+    context: "O que pendeu a balança."
+  - en: "The walk-away condition: the dry run fails, we don't migrate."
+    pt: "A condição de abandono: o ensaio falha, não migramos."
+    context: "Quando a recomendação morre."
+  - en: "We want informed consent — you sign knowing the residual risk."
+    pt: "Queremos consentimento informado — você assina sabendo do risco residual."
+    context: "Decisão com os riscos na mesa."
+  - en: "Two options on the table — migrate Friday or defer to Q4."
+    pt: "Duas opções na mesa — migrar sexta ou adiar para o Q4."
+    context: "As opções abertas."
+
+variations:
+  - idea: '"a recomendação direta"'
+    items:
+      - { register: "Boa", text: "My recommendation is to migrate Friday — the abort is rehearsed and bounded.", adequate: true }
+      - { register: "Boa", text: "I recommend we migrate Friday; the alternative is deferring, which keeps the spikes.", adequate: true }
+      - { register: "Inadequada", text: "Maybe we could possibly migrate, if that's ok?", adequate: false, note: "Hedge na posição mina a recomendação — hedge é para o risco." }
+      - { register: "Inadequada", text: "I am agree we should migrate.", adequate: false, note: "*I agree* — sem 'am'." }
+  - idea: '"o ask com dono e prazo"'
+    items:
+      - { register: "Boa", text: "What I need from you is sign-off on the window by Thursday.", adequate: true }
+      - { register: "Boa", text: "The ask: two people on the bridge Friday, and a go/no-go after the dry run.", adequate: true }
+      - { register: "Inadequada", text: "It would be nice if someone could help.", adequate: false, note: "Ask vago não é atendível — dono, o quê, quando." }
+      - { register: "Inadequada", text: "There's a risk to lose the window.", adequate: false, note: "*Risk of losing* — 'risco de' é 'of + -ing'." }
+
+brErrors:
+  - { wrong: "There's a risk to lose the window.", right: "There's a risk of losing the window.", why: "risk of losing", tag: br.risk-to }
+  - { wrong: "We are in risk if we defer.", right: "We are at risk if we defer.", why: "at risk", tag: br.in-risk }
+  - { wrong: "I am agree we should migrate Friday.", right: "I agree we should migrate Friday.", why: "I agree", tag: br.am-agree }
+  - { wrong: "The fee compensates the risk.", right: "The fee offsets the risk.", why: "offsets the risk", tag: br.compensate-risk }
+  - { wrong: "Deferring is danger for the backlog.", right: "Deferring is dangerous for the backlog.", why: "is dangerous", tag: br.is-danger }
+  - { wrong: "We discussed about the options.", right: "We discussed the options.", why: "discussed the options", tag: br.discuss-about }
+  - { wrong: "The same risks than before.", right: "The same risks as before.", why: "the same as", tag: br.same-than }
+  - { wrong: "We chose Friday instead next Monday.", right: "We chose Friday instead of next Monday.", why: "instead of", tag: br.instead-of }
+  - { wrong: "The migration worths the window.", right: "The migration is worth the window.", why: "is worth", tag: br.worths }
+  - { wrong: "I think it make sense to migrate Friday.", right: "I think it makes sense to migrate Friday.", why: "it makes sense", tag: br.it-makes-sense }
+
+dialogue:
+  title: "So, what do you recommend?"
+  lines:
+    - { speaker: Ana, text: "Ten minutes. What do you recommend?" }
+    - { speaker: Yuri, text: "My recommendation is to migrate Friday — the abort is rehearsed and the blast radius is bounded to one region." }
+    - { speaker: Ana, text: "And the alternative?" }
+    - { speaker: Yuri, text: "Deferring a quarter — the risks don't change, and the backlog grows. The default option is doing nothing, which keeps the weekend outages." }
+    - { speaker: Beth, text: "The residual risk after mitigation?" }
+    - { speaker: Yuri, text: "An hour of uncommitted writes, worst case — unlikely, and it's a two-way door: we roll back in a day if it hurts." }
+    - { speaker: Ana, text: "What would make this recommendation wrong?" }
+    - { speaker: Yuri, text: "The walk-away condition is the dry run — if it fails Thursday, this changes, and we don't migrate." }
+    - { speaker: Carlos, text: "And what do you need from her?" }
+    - { speaker: Yuri, text: "The ask: sign-off on the Friday window, two people on the bridge, and a go/no-go right after the dry run." }
+    - { speaker: Ana, text: "Granted — pending the dry run. Send me the one-page summary." }
+  notes:
+    - "recomendação primeiro → alternativas com custo → risco residual → walk-away → ask."
+    - "'informed consent' — ela decide sabendo o residual."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "When you present for a decision, lead with the recommendation — 'my recommendation is to migrate Friday'. Not 'I think', not 'maybe'. You analyzed; position yourself. Then the honest alternatives — 'the alternative is deferring a quarter; the cost is the backlog'. Including doing nothing — 'the default option keeps the outages'." }
+    - { speaker: Yuri, text: "Then the residual risk, bounded — 'an hour of uncommitted writes, unlikely'. The walk-away condition — 'if the dry run fails, this changes'. And the ask, with owner and deadline — 'sign-off on the window by Thursday, two people on the bridge'." }
+    - { speaker: Carlos, text: "Two mistakes: hedging the position — 'maybe we could possibly' — the hedge belongs to the risk, not the recommendation. And a vague ask — 'it would be nice if someone helped' isn't actionable. Name who, what, and when." }
+  questions:
+    - { id: M22-04-l1, type: multiple_choice, prompt: "A apresentação para decisão abre com…", options: ["o contexto longo", "os riscos todos", "a recomendação — uma frase, sem hedge", "as alternativas"], answer: 2, explanation: "'My recommendation is…' — a posição primeiro.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-04-l2, type: multiple_choice, prompt: "O hedge mora…", options: ["na recomendação", "no ask", "no risco — nunca na posição", "no título"], answer: 2, explanation: "'Maybe we could' na recomendação mina a posição.", tags: [comp.listening, gram.probability-modals] }
+    - { id: M22-04-l3, type: fill_blank, prompt: "What I ___ from you is sign-off on the window by Thursday.", accepted: ["need"], explanation: "'What I need from you is…' — o ask.", tags: [vocab.risk] }
+    - { id: M22-04-l4, type: error_correction, prompt: "There's a risk to lose the window.", accepted: ["There's a risk of losing the window.", "There's a risk of losing the window"], explanation: "'risk of losing'.", tags: [br.risk-to] }
+    - { id: M22-04-l5, type: multiple_choice, prompt: "Uma 'two-way door' é uma decisão…", options: ["irreversível — decida devagar", "reversível — decida rápido", "sem risco", "de duas pessoas"], answer: 1, explanation: "Reversível = rollback barato = decida rápido.", tags: [comp.listening, vocab.risk] }
+    - { id: M22-04-l6, type: multiple_choice, prompt: "A 'walk-away condition' declara…", options: ["quem sai da reunião", "quando a recomendação morre", "o plano B", "o orçamento"], answer: 1, explanation: "'If the dry run fails, this changes' — o que a faria mudar.", tags: [comp.listening, vocab.risk] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana aprovou condicionada ao ensaio e pediu
+    o resumo: "send me the one-page summary".
+
+    **Tarefa:** escreva 80–110 palavras com: a recomendação
+    na primeira frase, as alternativas com o custo de cada
+    (incluindo não fazer nada), o risco residual delimitado,
+    a walk-away condition e o ask com dono e prazo.
+  constraints:
+    - { label: "A recomendação", pattern: "\\brecommend\\w*\\b" }
+    - { label: "As alternativas", pattern: "\\balternative|default option|defer\\w*\\b" }
+    - { label: "O residual", pattern: "\\bresidual|worst case|bounded\\b" }
+    - { label: "O ask", pattern: "\\bneed|sign-off|ask\\b" }
+  rubric:
+    - "Recomendação na primeira frase, sem hedge"
+    - "Alternativas com custo — incluindo 'do nothing'"
+    - "Walk-away condition declarada"
+    - "Ask com dono e prazo"
+  model: >-
+    My recommendation is to migrate Friday — the abort is
+    rehearsed and the blast radius is bounded to one region.
+    The alternative is deferring a quarter — same risks, plus
+    a growing backlog; doing nothing keeps the weekend
+    outages. Residual risk: an hour of uncommitted writes,
+    unlikely — and it's a two-way door, we roll back in a
+    day. Walk-away condition: if Thursday's dry run fails,
+    this recommendation changes. What I need from you:
+    sign-off on the window by Thursday, two people on the
+    bridge, and a go/no-go after the dry run.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.risk]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos apresentando a recomendação da migração para a Ana: posição primeiro, alternativas com custo, residual delimitado, walk-away condition e o ask."
+    maxSeconds: 45
+    targetPhrases:
+      - my recommendation is
+      - the alternative would be
+      - the default option
+      - what I need from you
+      - sign-off
+      - the residual risk
+      - walk-away condition
+      - two-way door
+      - the deciding factor
+      - on the table
+      - informed consent
+      - deferred
+      - if the dry run fails
+      - at risk
+      - risk of
+      - bounded
+    checklist:
+      - "recomendação primeiro, sem hedge"
+      - "alternativas com custo — incluindo o default"
+      - "walk-away condition declarada"
+      - "ask com dono e prazo"
+
+quiz:
+  - { id: M22-04-q1, type: multiple_choice, prompt: "A ordem da apresentação para decisão é…", options: ["contexto → análise → talvez uma recomendação", "recomendação → alternativas → residual → ask", "ask → contexto → riscos", "riscos → alternativas → decisão"], answer: 1, explanation: "Posição primeiro — quem decide tem dez minutos.", tags: [vocab.risk] }
+  - { id: M22-04-q2, type: error_correction, prompt: "I am agree we should migrate Friday.", accepted: ["I agree we should migrate Friday.", "I agree we should migrate Friday"], explanation: "'I agree'.", tags: [br.am-agree] }
+  - { id: M22-04-q3, type: multiple_choice, prompt: "Nomear o 'default option' expõe que…", options: ["não decidir também é uma decisão — com custo", "a reunião é inútil", "o default é sempre certo", "as opções acabaram"], answer: 0, explanation: "'Doing nothing keeps the outages' — o custo do não decidir.", tags: [vocab.risk] }
+  - { id: M22-04-q4, type: fill_blank, prompt: "The ___ factor was reversibility — it's a two-way door.", accepted: ["deciding"], explanation: "'The deciding factor' — o que pendeu a balança.", tags: [vocab.risk] }
+  - { id: M22-04-q5, type: multiple_choice, prompt: "'Maybe we could possibly migrate' falha porque…", options: ["é informal", "hedge na posição mina a recomendação — hedge é para o risco", "é longo demais", "usa modal errado"], answer: 1, explanation: "A posição vai sem hedge; a incerteza fica no risco.", tags: [gram.probability-modals] }
+  - { id: M22-04-q6, type: error_correction, prompt: "We are in risk if we defer the migration.", accepted: ["We are at risk if we defer the migration.", "We are at risk if we defer the migration"], explanation: "'at risk'.", tags: [br.in-risk] }
+  - { id: M22-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["need", "i", "is", "you", "from", "sign-off", "what"], answer: "what i need from you is sign-off", explanation: "O ask.", tags: [vocab.risk] }
+  - { id: M22-04-q8, type: multiple_choice, prompt: "Declarar a walk-away condition torna a recomendação…", options: ["mais fraca", "descartável", "opcional", "mais forte — mostra quando desistir"], answer: 3, explanation: "Saber quando mudar é o que faz a posição confiável.", tags: [vocab.risk, comp.confidence] }
+
+srsCards:
+  - { front: "recommendation", back: "A posição primeiro — 'my recommendation is to migrate Friday'.", tag: vocab.risk }
+  - { front: "the ask", back: "O pedido com dono e prazo — 'sign-off by Thursday'.", tag: vocab.risk }
+  - { front: "to sign off on", back: "Aprovar formalmente — 'Ana signs off on the window'.", tag: vocab.risk }
+  - { front: "the alternative", back: "A segunda opção honesta — 'deferring, at the cost of the backlog'.", tag: vocab.risk }
+  - { front: "decision-maker", back: "Quem decide — 'the review informs, she decides'.", tag: vocab.risk }
+  - { front: "default option", back: "O que acontece sem decisão — 'doing nothing keeps the outages'.", tag: vocab.risk }
+  - { front: "deferred", back: "Adiada com custo — 'deferred a quarter, same risks'.", tag: vocab.risk }
+  - { front: "walk-away condition", back: "Quando a recomendação morre — 'if the dry run fails'.", tag: vocab.risk }
+  - { front: "on the table", back: "As opções abertas — 'two options on the table'.", tag: vocab.risk }
+  - { front: "informed consent", back: "Decidir sabendo os riscos — 'sign knowing the residual'.", tag: vocab.risk }
+  - { front: "two-way door", back: "Decisão reversível — 'roll back in a day'.", tag: vocab.risk }
+  - { front: "the deciding factor", back: "O que pendeu a balança — 'reversibility was it'.", tag: vocab.risk }
+
+review:
+  preferTags: [vocab.risk, gram.probability-modals, br.risk-to]
+  notes: "Revisão prioriza a ordem recomendação → alternativas → residual → ask, o hedge no risco (não na posição) e os calques."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
