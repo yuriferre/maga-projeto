@@ -1,0 +1,102 @@
+# Avaliação do módulo M30: 15 itens cobrindo as seis aulas + escrita (autoavaliação da simulação) + fala (entrevista técnica comprimida).
+id: M30
+title: "Avaliação do módulo M30: entrevistas técnicas e system design"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M30-A01, type: multiple_choice, prompt: "Thinking out loud works because the interview measures…", options: ["the reasoning process, not just the answer", "how fast you speak", "how much jargon you know", "your accent"], answer: 0, explanation: "O processo narrado é o objeto de avaliação.", tags: [vocab.sysdesign] }
+  - { id: M30-A02, type: error_correction, prompt: "I would mount a solution and make a test of it.", accepted: ["I would build a solution and run a test of it.", "I would build a solution and run a test of it", "I'd design a solution and run a test of it."], explanation: 'Dois calques: "build/design" + "run a test".', tags: [br.mount-solution, br.make-a-test] }
+  - { id: M30-A03, type: error_correction, prompt: "The site is on air now, but the API falls under load.", accepted: ["The site is up now, but the API goes down under load.", "The site is up now, but the API goes down under load", "The site is online now, but the API crashes under load."], explanation: 'Dois calques: "is up" + "goes down".', tags: [br.on-air, br.service-falls] }
+  - { id: M30-A04, type: error_correction, prompt: "It depends of the scale — I have a doubt about it.", accepted: ["It depends on the scale — I have a question about it.", "It depends on the scale — I have a question about it", "It depends on the scale — I'm not sure about it."], explanation: 'Dois calques: "depends on" + "a question".', tags: [br.depend-of, br.doubt] }
+  - { id: M30-A05, type: multiple_choice, prompt: "Before designing, the senior move is…", options: ["start drawing immediately", "ask for the answer", "clarify scale, constraints, scope and success — 3 to 5 questions", "recite the documentation"], answer: 2, explanation: "Esclarecer primeiro — nem zero nem vinte.", tags: [vocab.sysdesign] }
+  - { id: M30-A06, type: error_correction, prompt: "We discussed about the design — in my vision it scales.", accepted: ["We discussed the design — in my view it scales.", "We discussed the design — in my view it scales"], explanation: 'Dois calques: "discussed the" + "in my view".', tags: [br.discuss-about, br.in-my-vision] }
+  - { id: M30-A07, type: error_correction, prompt: "I work with K8s since 2020 — it's already 5 years that I do it.", accepted: ["I've worked with K8s since 2020 — it's been five years doing it.", "I've worked with K8s since 2020 — it's been five years doing it", "I've worked with K8s since 2020 — five years now."], explanation: 'Dois calques: "I''ve worked since" + "it''s been X".', tags: [br.work-since, br.its-already-years] }
+  - { id: M30-A08, type: fill_blank, prompt: "Every check should eliminate a candidate — 'that rules ___ the CDN'.", accepted: ["out"], explanation: "'Rules out' — a eliminação nomeada.", tags: [vocab.troubleshoot] }
+  - { id: M30-A09, type: error_correction, prompt: "I make part of the on-call team — the same rotation than before.", accepted: ["I'm part of the on-call team — the same rotation as before.", "I'm part of the on-call team — the same rotation as before"], explanation: 'Dois calques: "part of" + "the same as".', tags: [br.make-part-of, br.same-than] }
+  - { id: M30-A10, type: match, prompt: "Associe o tema da rodada factual à resposta de senior.", pairs: [{ left: "why IaC over the console?", right: "reviewable, repeatable, auditable — drift is the villain" }, { left: "when would you NOT use Kubernetes?", right: "for a small team with simple workloads — it's overhead" }, { left: "how do you think about permissions?", right: "least privilege — roles are who you can be" }, { left: "the site is slow — walk me through", right: "symptom, candidates, cheap checks, elimination" }], explanation: "Cada tema tem a resposta estruturada certa.", tags: [vocab.cloud, vocab.k8s, vocab.troubleshoot] }
+  - { id: M30-A11, type: multiple_choice, prompt: "In 'the site is slow', the first question is…", options: ["which log to open", "who to blame", "which command to run", "'slow how — for whom, since when, what changed?'", ], answer: 3, explanation: "Definir o sintoma antes de checar.", tags: [vocab.troubleshoot, vocab.incident] }
+  - { id: M30-A12, type: fill_blank, prompt: "Fix the DB and the ___ moves to the network.", accepted: ["bottleneck"], explanation: "O gargalo que se move — nomeie onde ele está.", tags: [vocab.sysdesign] }
+  - { id: M30-A13, type: multiple_choice, prompt: "The narration order in system design is…", options: ["details first, boxes later", "requirements → interface → boxes → paths → scale → trade-offs", "scale first, requirements later", "whatever comes to mind"], answer: 1, explanation: "Cada camada assenta a próxima.", tags: [vocab.architecture, vocab.sysdesign] }
+  - { id: M30-A14, type: fill_blank, prompt: "Least privilege: start from nothing, ___ what the workload needs.", accepted: ["grant"], explanation: "IAM — do zero, conceda só o necessário.", tags: [vocab.cloud] }
+  - { id: M30-A15, type: reorder, prompt: "Rearranje as palavras na ordem da frase de abertura do esclarecimento.", tokens: ["before", "i", "answer", "let", "me", "clarify", "a", "few", "things"], answer: "before i answer let me clarify a few things", explanation: "A moldura que abre o esclarecimento.", tags: [vocab.sysdesign] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** depois da
+    entrevista técnica simulada, o coach pediu a
+    autoavaliação por escrito — pela rubrica do
+    processo.
+
+    **Tarefa:** escreva 100–130 palavras: 1) onde
+    o processo ficou visível (esclarecimento,
+    narração, eliminação), 2) onde você silenciou
+    ou pulou etapa, 3) o trade-off e o ponto único
+    de falha que nomeou, 4) o plano de treino
+    antes da entrevista real.
+  constraints:
+    - { label: "O processo visível", pattern: "\\bclarif|narrat|out loud|break.*down|eliminat|ruled out\\b" }
+    - { label: "Onde faltou", pattern: "\\bsilent|skipped|rushed|missed|forgot|too long\\b" }
+    - { label: "Trade-off/SPOF", pattern: "\\btraded|trade-off|single point|fallback|bottleneck\\b" }
+    - { label: "O treino", pattern: "\\bdrill|practice|work on|next time|before the real\\b" }
+  rubric:
+    - "Autoavaliação pela rubrica, honesta"
+    - "Trade-off e SPOF avaliados"
+    - "Plano de treino concreto"
+    - "Sem calques ('build', 'goes down', 'up', 'run a test')"
+  model: >-
+    Self-review against the technical rubric.
+    Where the process stayed visible: I clarified
+    first — five questions, each shaping the
+    design — and narrated the boxes, the paths and
+    the troubleshooting elimination without a
+    long silence. Where I slipped: I rushed the
+    algorithm comparison once and skipped the
+    recap before drawing. The trade-off held:
+    consistency for latency, named and defended.
+    The SPOF I found myself: the counter store,
+    with a fallback I'd add. The training plan:
+    drill the algorithm trade-offs until instant,
+    run one mock troubleshooting a week, and
+    always end by naming my own red flag before
+    they ask for it themselves.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.sysdesign]
+
+speaking:
+  prompt: "Grave até 120 segundos: a entrevista técnica comprimida — uma resposta factual (definição→porquê→exemplo), o design na ordem (esclarecer→recap→caixas→trade-off), o troubleshooting por eliminação, e o fecho com o SPOF + o que monitoraria."
+  maxSeconds: 120
+  targetPhrases:
+    - in one sentence
+    - the reason it matters
+    - for example, in my last project
+    - before i answer, let me clarify
+    - what scale are we talking
+    - did i get that right
+    - three pieces
+    - on the read path
+    - we traded
+    - the bottleneck moves to
+    - slow how
+    - my candidates are
+    - that rules out
+    - the problem sits between
+    - the single point of failure
+    - what i'd monitor
+    - least privilege
+    - drill into any piece
+    - let me pressure-test that
+    - roughly speaking
+  checklist:
+    - "quatro blocos atravessados"
+    - "esclarecimento antes do design"
+    - "eliminação nomeada no troubleshooting"
+    - "SPOF próprio + o que monitoraria"
+    - "sem calques ('build', 'goes down', 'up', 'run a test')"
+
+passCriteria:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3

@@ -1067,3 +1067,43 @@ describe("M29 assessment variants", () => {
     expect(checkExercise(q, "We get the same latency as before — I have doubt about the fix.").correct).toBe(false);
   });
 });
+
+describe("M30 assessment variants", () => {
+  const m30 = bundle.moduleAssessments["M30"]!;
+  it("requires 'build/design' and 'run a test' on A02", () => {
+    const q = m30.items.find((q) => q.id === "M30-A02")!;
+    expect(checkExercise(q, "I would build a solution and run a test of it.").correct).toBe(true);
+    expect(checkExercise(q, "I would mount a solution and run a test of it.").correct).toBe(false);
+    expect(checkExercise(q, "I would build a solution and make a test of it.").correct).toBe(false);
+  });
+  it("requires 'is up' and 'goes down' on A03", () => {
+    const q = m30.items.find((q) => q.id === "M30-A03")!;
+    expect(checkExercise(q, "The site is up now, but the API goes down under load.").correct).toBe(true);
+    expect(checkExercise(q, "The site is on air now, but the API goes down under load.").correct).toBe(false);
+    expect(checkExercise(q, "The site is up now, but the API falls under load.").correct).toBe(false);
+  });
+  it("requires 'depends on' and 'a question' on A04", () => {
+    const q = m30.items.find((q) => q.id === "M30-A04")!;
+    expect(checkExercise(q, "It depends on the scale — I have a question about it.").correct).toBe(true);
+    expect(checkExercise(q, "It depends of the scale — I have a question about it.").correct).toBe(false);
+    expect(checkExercise(q, "It depends on the scale — I have a doubt about it.").correct).toBe(false);
+  });
+  it("requires 'discussed the' and 'in my view' on A06", () => {
+    const q = m30.items.find((q) => q.id === "M30-A06")!;
+    expect(checkExercise(q, "We discussed the design — in my view it scales.").correct).toBe(true);
+    expect(checkExercise(q, "We discussed about the design — in my view it scales.").correct).toBe(false);
+    expect(checkExercise(q, "We discussed the design — in my vision it scales.").correct).toBe(false);
+  });
+  it("requires present perfect and 'it's been X' on A07", () => {
+    const q = m30.items.find((q) => q.id === "M30-A07")!;
+    expect(checkExercise(q, "I've worked with K8s since 2020 — it's been five years doing it.").correct).toBe(true);
+    expect(checkExercise(q, "I work with K8s since 2020 — it's been five years doing it.").correct).toBe(false);
+    expect(checkExercise(q, "I've worked with K8s since 2020 — it's already 5 years that I do it.").correct).toBe(false);
+  });
+  it("requires 'part of' and 'the same as' on A09", () => {
+    const q = m30.items.find((q) => q.id === "M30-A09")!;
+    expect(checkExercise(q, "I'm part of the on-call team — the same rotation as before.").correct).toBe(true);
+    expect(checkExercise(q, "I make part of the on-call team — the same rotation as before.").correct).toBe(false);
+    expect(checkExercise(q, "I'm part of the on-call team — the same rotation than before.").correct).toBe(false);
+  });
+});
