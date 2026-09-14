@@ -1,0 +1,321 @@
+id: M26-04
+module: M26
+order: 4
+title: "Humor, ironia e sarcasmo: reconhecer — e quando não tentar"
+objective: >-
+  Ao final, você reconhece ironia e sarcasmo no texto
+  e na voz — os marcadores ('yeah, right', 'shocking',
+  a entoação plana) —, reage sem levar a sério nem
+  congelar, e sabe exatamente quando NÃO tentar
+  fazer graça: incidente, feedback e o primeiro mês.
+durationMin: 35
+competencies: [SPK, LIS, CNF]
+tags: [vocab.smalltalk, comp.speaking, comp.listening, comp.confidence]
+prerequisites: [M26-03]
+
+context:
+  scenario: |
+    O deploy quebrou pela terceira vez — e o Carlos
+    escreveu no canal: "*oh great, the migration
+    again*". Era ironia. Sarcasmo e ironia ingleses
+    têm marcadores claros:
+
+    - **A entoação plana**: o sarcasmo tira a música
+      da frase — "*well THAT went well*" é plano e
+      lento.
+    - **Os marcadores**: "*yeah, right*", "*shocking*",
+      "*what a surprise*", "*genius move*" — o exagero
+      óbvio é o sinal.
+    - **O contexto**: elogio logo depois de desastre =
+      ironia quase sempre.
+    - **A resposta**: um "*ha — fair*" ou um emoji
+      basta; não é preciso rebater com piada.
+
+    E quando **não** tentar: durante incidente real,
+    em feedback, com quem você não conhece, e no seu
+    primeiro mês — o humor errado custa mais que o
+    silêncio. O brasileiro que traduz piada descobre
+    que "piada explicada é piada morta" — em
+    qualquer língua.
+
+    A ironia se **reconhece** primeiro; a sua própria
+    vem depois, com o tempo e o canal certos.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead), Ana (eng manager)]
+
+vocabulary:
+  - term: "yeah, right"
+    meaning: 'sei, claro — o marcador clássico de sarcasmo'
+    example: "The deploy will be quick. — Yeah, right. It's never quick."
+    translation: "O deploy vai ser rápido. — Sei, claro. Nunca é rápido."
+    note: "O exagero de concordância que quer dizer o contrário."
+  - term: "shocking / what a surprise"
+    meaning: 'chocante / que surpresa — ironia com cara de espanto'
+    example: "The Friday deploy broke again. — Shocking. Truly shocking."
+    translation: "O deploy de sexta quebrou de novo. — Chocante. De verdade."
+    note: "O falso espanto — quanto mais solene, mais irônico."
+  - term: "well, THAT went well"
+    meaning: 'bom, ISSO correu bem — a ironia do desastre'
+    example: "Well, THAT went well — three pages in ten minutes."
+    translation: "Bom, ISSO correu bem — três páginas em dez minutos."
+    note: "O 'that' maiúsculo na escrita sinaliza a entoação."
+  - term: "genius move"
+    meaning: 'jogada de gênio — a ironia do erro'
+    example: "Deploying at 5pm on a Friday — genius move."
+    translation: "Deploy às 17h de sexta — jogada de gênio."
+    note: "Elogio depois de erro = ironia quase sempre."
+  - term: "fair — ha"
+    meaning: 'justo — a resposta leve ao sarcasmo'
+    example: "Oh great, the migration again. — Ha — fair. Third time lucky."
+    translation: "Ah ótimo, a migração de novo. — Ha — justo. Terceira vez vai."
+    note: "Reconheça com leveza — não rebata com explicação."
+  - term: "third time's the charm"
+    meaning: 'a terceira vez é a que funciona — humor de consolo'
+    example: "It failed twice, but third time's the charm."
+    translation: "Falhou duas, mas a terceira vez é a que funciona."
+    note: "O humor gentil que o brasileiro consegue usar cedo."
+  - term: "deadpan"
+    meaning: 'a cara (ou texto) séria da piada — humor sem sorriso'
+    example: "Beth's deadpan 'shocking' fooled me for a second."
+    translation: "O 'chocante' sério da Beth me enganou por um segundo."
+    note: "O estilo britânico exportado — a piada que não se anuncia."
+  - term: "self-deprecating"
+    meaning: 'autodepreciativo — rir de si primeiro'
+    example: "My deploys are famously reliable — see: today's incident."
+    translation: "Meus deploys são famosamente confiáveis — vide o incidente de hoje."
+    note: "O humor seguro: rir de si nunca ofende ninguém."
+  - term: "read the room"
+    meaning: 'ler a sala — saber se o humor cabe'
+    example: "During a SEV1, read the room — it's not the time for jokes."
+    translation: "Durante um SEV1, leia a sala — não é hora de piada."
+    note: "A habilidade que decide quando o humor cabe."
+  - term: "kidding / joking"
+    meaning: 'brincando — a etiqueta da piada no texto'
+    example: "Let's just rewrite it in Rust. (Kidding. Mostly.)"
+    translation: "Vamos só reescrever em Rust. (Brincando. Quase.)"
+    note: "No texto, a piada às vezes precisa da etiqueta."
+  - term: "ha — fair point"
+    meaning: 'ha — ponto justo — a devolução do sarcasmo bem dado'
+    example: "Another 5pm deploy? — Ha — fair point. I'll wait for Monday."
+    translation: "Outro deploy às 17h? — Ha — ponto justo. Espero segunda."
+    note: "O sarcasmo que aponta um erro real merece 'fair'."
+  - term: "not the time"
+    meaning: 'não é a hora — a linha entre humor e erro'
+    example: "The post-mortem is not the time for the 'genius move' joke."
+    translation: "O post-mortem não é hora para a piada de 'genius move'."
+    note: "Reconhecer o momento errado é metade da competência."
+
+grammar:
+  title: "a gramática do reconhecimento"
+  explanation: |
+    Sarcasmo se reconhece por sinais — não por
+    gramática:
+
+    - **O exagero invertido**: "*shocking*",
+      "*what a surprise*", "*genius move*" — o
+      elogio desproporcional ao fato.
+    - **"Yeah, right"**: a concordância que
+      discorda.
+    - **O contexto**: elogio depois de desastre =
+      ironia.
+    - **No texto**: maiúsculas no "*THAT*", o
+      "…" ou o emoji fazem o trabalho da
+      entoação.
+
+    E a resposta certa:
+
+    - "**Ha — fair**" reconhece sem se defender.
+    - "**Fair point**" aceita o sarcasmo que tem
+      razão.
+    - "**(kidding)**" etiqueta a sua própria
+      piada no texto.
+    - "**third time's the charm**" é o humor
+      gentil seguro de usar cedo.
+
+    O que não existe: "**I'm kidding you**" →
+    "**I'm kidding**" (kidding é intransitivo).
+  examples:
+    - { en: "The deploy broke. — Shocking. Truly shocking.", pt: "O deploy quebrou. — Chocante. De verdade." }
+    - { en: "Oh great, the migration again. — Ha — fair. Third time's the charm.", pt: "Ah ótimo, a migração de novo. — Ha — justo. A terceira é a que vai." }
+    - { en: "Another 5pm deploy — genius move. — Fair point. Monday it is.", pt: "Outro deploy às 17h — jogada de gênio. — Ponto justo. Segunda então." }
+    - { en: "Let's rewrite it in Rust. (Kidding. Mostly.)", pt: "Vamos reescrever em Rust. (Brincando. Quase.)" }
+    - { en: "My deploys are famously reliable — see: today's incident.", pt: "Meus deploys são famosamente confiáveis — vide o incidente de hoje." }
+    - { en: "During the SEV1, no jokes — read the room.", pt: "Durante o SEV1, sem piadas — leia a sala." }
+
+examples:
+  - en: "The Friday deploy broke again. — Yeah, right, because Friday deploys always work."
+    pt: "O deploy de sexta quebrou de novo. — Sei, porque deploy de sexta sempre funciona."
+    context: "O 'yeah, right' que discorda."
+  - en: "Well, THAT went well — three pages in ten minutes."
+    pt: "Bom, ISSO correu bem — três páginas em dez minutos."
+    context: "A ironia do desastre."
+  - en: "Oh great, the migration again. — Ha — fair. Third time's the charm."
+    pt: "Ah ótimo, a migração de novo. — Ha — justo. A terceira é a que vai."
+    context: "A resposta leve, sem defesa."
+  - en: "Another 5pm deploy — genius move. — Fair point, Monday it is."
+    pt: "Outro deploy às 17h — jogada de gênio. — Ponto justo, segunda então."
+    context: "O sarcasmo com razão merece 'fair'."
+  - en: "Let's just rewrite it in Rust. (Kidding. Mostly.)"
+    pt: "Vamos só reescrever em Rust. (Brincando. Quase.)"
+    context: "A etiqueta da piada no texto."
+  - en: "My deploys are famously reliable — see: today's incident."
+    pt: "Meus deploys são famosamente confiáveis — vide o incidente de hoje."
+    context: "Autodepreciativo — o humor seguro."
+  - en: "Not the time for jokes — the bridge is still open."
+    pt: "Não é hora de piada — a bridge ainda está aberta."
+    context: "O momento errado nomeado."
+  - en: "I'm bored waiting for this build — how long has it been?"
+    pt: "Estou entediado esperando esse build — faz quanto tempo?"
+    context: "O calque corrigido no meio da conversa."
+
+variations:
+  - idea: '"reconhecendo a ironia"'
+    items:
+      - { register: "Ironia", text: "The 5pm deploy broke — shocking, truly shocking.", adequate: true, note: "Falso espanto depois do desastre = ironia." }
+      - { register: "Ironia", text: "Yeah, right — because Friday deploys always work.", adequate: true, note: "A concordância que discorda." }
+      - { register: "Sério", text: "The 5pm deploy broke — we need to fix the pipeline.", adequate: false, note: "Sem marcador e com ação = declaração real." }
+      - { register: "Sério", text: "Good work on the migration — it landed cleanly.", adequate: false, note: "Elogio depois de sucesso = elogio de verdade." }
+  - idea: '"a resposta"'
+    items:
+      - { register: "Boa", text: "Ha — fair. Third time's the charm.", adequate: true }
+      - { register: "Boa", text: "Fair point — I'll wait for Monday.", adequate: true }
+      - { register: "Inadequada", text: "Actually, the deploy failed because of a DNS misconfiguration that…", adequate: false, note: "Explicar para o sarcasmo mata a leveza — reconheça primeiro." }
+      - { register: "Inadequada", text: "Why are you being sarcastic? That's not professional.", adequate: false, note: "Reclamar do tom escala — 'ha, fair' resolve em três palavras." }
+
+brErrors:
+  - { wrong: "I'm boring waiting for this build.", right: "I'm bored waiting for this build.", why: "bored", tag: br.i-am-boring }
+  - { wrong: "How long time has this build taken?", right: "How long has this build taken?", why: "how long", tag: br.how-long-time }
+  - { wrong: "Too much people joking in the channel.", right: "Too many people joking in the channel.", why: "too many people", tag: br.too-much-people }
+  - { wrong: "Let's take a coffee after the incident.", right: "Let's grab a coffee after the incident.", why: "grab a coffee", tag: br.take-a-coffee }
+  - { wrong: "I'm kidding you — relax.", right: "I'm kidding — relax.", why: "kidding — sem objeto", tag: br.kidding-you }
+  - { wrong: "He is very humor today.", right: "He's very funny today.", why: "funny — 'humor' não é adjetivo", tag: br.he-is-humor }
+  - { wrong: "In the other hand, the joke landed.", right: "On the other hand, the joke landed.", why: "on the other hand", tag: br.in-other-hand }
+  - { wrong: "We discussed about the incident.", right: "We discussed the incident.", why: "discussed the incident", tag: br.discuss-about }
+  - { wrong: "She suggest to wait Monday.", right: "She suggests waiting until Monday.", why: "suggests waiting", tag: br.suggest-to }
+  - { wrong: "I have doubt if he was joking.", right: "I have a doubt if he was joking.", why: "a doubt", tag: br.doubt }
+
+dialogue:
+  title: "Shocking, truly shocking"
+  lines:
+    - { speaker: Carlos, text: "The Friday deploy broke again. Shocking. Truly shocking." }
+    - { speaker: Yuri, text: "Ha — fair. Third time's the charm, right?" }
+    - { speaker: Beth, text: "Another 5pm deploy — genius move. Who scheduled that?" }
+    - { speaker: Yuri, text: "…That would be me. Fair point — Monday it is." }
+    - { speaker: Carlos, text: "We could just rewrite the pipeline in Rust. (Kidding. Mostly.)" }
+    - { speaker: Beth, text: "Read the room, Carlos — the bridge is still open. Fix first, jokes after." }
+    - { speaker: Carlos, text: "You're right — not the time. Rolling back now." }
+    - { speaker: Yuri, text: "My deploys are famously reliable, anyway — see: today." }
+    - { speaker: Ana, text: "The self-deprecation I allow. The 5pm deploy I don't. Monday, people." }
+    - { speaker: Yuri, text: "Monday it is. And after the post-mortem — coffee's on me." }
+  notes:
+    - "a ironia reconhecida ('shocking', 'genius move'), respondida com 'ha — fair' e 'fair point'."
+    - "o momento errado nomeado: 'read the room', 'not the time' — a bridge aberta não é lugar de piada."
+    - "o humor seguro: autodepreciativo ('my deploys are famously reliable')."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "Sarcasm has markers, not grammar: the flat tone, 'yeah, right', 'shocking', 'genius move' — and context. Praise right after a disaster is almost always irony. The right answer is 'ha — fair' or 'fair point' — never a defense, never an explanation." }
+    - { speaker: Carlos, text: "Your own jokes come later — with time and the right channel. Three places to never try: a live incident, a feedback conversation, and your first month on a team. The safe humor is self-deprecating — laughing at yourself offends nobody." }
+    - { speaker: Yuri, text: "In text, the joke sometimes needs the label — '(kidding)'. And 'kidding' takes no object: 'I'm kidding', not 'I'm kidding you'. Meanwhile — 'I'm bored waiting for this build', and it's 'how long has it been', never 'how long time'." }
+  questions:
+    - { id: M26-04-l1, type: multiple_choice, prompt: "Os marcadores de sarcasmo são…", options: ["a entoação plana + 'yeah, right'/'shocking' + o contexto", "a gramática", "emojis apenas", "o volume"], answer: 0, explanation: "Sinais, não regra — o exagero invertido.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-04-l2, type: fill_blank, prompt: "The Friday deploy broke again. — Yeah, ___.", accepted: ["right"], explanation: "'Yeah, right' — a concordância que discorda.", tags: [vocab.smalltalk] }
+    - { id: M26-04-l3, type: error_correction, prompt: "I'm kidding you — relax.", accepted: ["I'm kidding — relax.", "I'm kidding, relax", "I'm kidding"], explanation: "'Kidding' é intransitivo — sem 'you'.", tags: [br.kidding-you] }
+    - { id: M26-04-l4, type: multiple_choice, prompt: "A resposta certa ao sarcasmo é…", options: ["explicar o erro", "reclamar do tom", "ignorar", "'ha — fair' ou 'fair point' — reconhecer sem se defender"], answer: 3, explanation: "Leveza em três palavras.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-04-l5, type: multiple_choice, prompt: "Onde NÃO tentar humor?", options: ["no canal #random", "numa sexta-feira", "num incidente aberto, num feedback, no primeiro mês", "com o chefe"], answer: 2, explanation: "Três lugares proibidos — o resto é timing.", tags: [comp.listening, vocab.smalltalk] }
+    - { id: M26-04-l6, type: multiple_choice, prompt: "O humor seguro para quem está começando é…", options: ["o sarcasmo", "a piada interna", "a autodepreciação — rir de si não ofende ninguém", "a imitação de sotaque"], answer: 2, explanation: "'See: today's incident' — rir de si primeiro.", tags: [comp.listening, vocab.smalltalk] }
+
+writing:
+  prompt: |
+    **Cenário:** o canal #random está reagindo ao
+    deploy de sexta que quebrou — a Beth escreveu
+    "shocking, truly shocking".
+
+    **Tarefa:** escreva 60–90 palavras no canal:
+    reconheça a ironia da Beth com leveza, assuma a
+    autoria do deploy com humor autodepreciativo, e
+    feche com o plano sério (segunda, rollback, café
+    por sua conta) — mostrando que a piada acabou
+    quando o trabalho começou.
+  constraints:
+    - { label: "Reconhecer a ironia", pattern: "\\bha — fair|fair point|yeah, right|shocking\\b" }
+    - { label: "Autodepreciativo", pattern: "\\bfamously reliable|see: today|my deploy|on me|my bad\\b" }
+    - { label: "O plano sério", pattern: "\\bMonday|rollback|post-mortem|fix\\b" }
+    - { label: "O fecho leve", pattern: "\\bcoffee's on me|kidding|third time|grab a coffee\\b" }
+  rubric:
+    - "Ironia reconhecida sem defesa"
+    - "Humor autodepreciativo, não sobre ninguém"
+    - "O plano sério depois da piada"
+    - "Sem calques ('kidding' sem 'you', 'bored')"
+  model: >-
+    Ha — fair, Beth. Truly shocking indeed. That
+    5pm deploy was on me — my deploys are famously
+    reliable, see: today's incident. Jokes aside:
+    rollback is in, the post-mortem goes out
+    Monday, and the next deploy window is not a
+    Friday. Third time's the charm on the migration
+    — and after the post-mortem, coffee's on me.
+    Want to grab a coffee Tuesday and I'll walk
+    through what I missed?
+  minWords: 60
+  maxWords: 90
+  tags: [comp.writing, vocab.smalltalk]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos no canal de voz do incidente: reconheça a ironia do colega ('ha — fair'), assuma o deploy com um toque de autodepreciação, marque que agora é sério ('read the room' na hora certa), e feche com o plano de segunda e o café por sua conta."
+    maxSeconds: 60
+    targetPhrases:
+      - ha — fair
+      - fair point
+      - yeah, right
+      - shocking
+      - well, that went well
+      - genius move
+      - third time's the charm
+      - deadpan
+      - self-deprecating
+      - read the room
+      - kidding
+      - not the time
+      - coffee's on me
+      - grab a coffee
+      - I'm bored
+      - how long
+    checklist:
+      - "ironia reconhecida com 'ha — fair'/'fair point'"
+      - "autodepreciação, não sarcasmo sobre o outro"
+      - "o momento sério marcado ('not the time')"
+      - "sem calques ('kidding' sem objeto, 'bored')"
+
+quiz:
+  - { id: M26-04-q1, type: multiple_choice, prompt: "'Shocking. Truly shocking.' depois de um deploy quebrado é…", options: ["espanto real", "elogio", "pedido de ajuda", "ironia — o elogio desproporcional ao fato"], answer: 3, explanation: "O contexto (desastre) + o exagero = ironia.", tags: [vocab.smalltalk] }
+  - { id: M26-04-q2, type: error_correction, prompt: "He is very humor today.", accepted: ["He's very funny today.", "He is very funny today", "He's very funny today"], explanation: "'Funny' — 'humor' não é adjetivo.", tags: [br.he-is-humor] }
+  - { id: M26-04-q3, type: multiple_choice, prompt: "Elogio logo depois de um desastre é…", options: ["elogio", "ironia quase sempre — o contexto decide", "confusão", "sincero"], answer: 1, explanation: "O contexto é o marcador mais forte.", tags: [vocab.smalltalk] }
+  - { id: M26-04-q4, type: fill_blank, prompt: "Another 5pm deploy — ___ move.", accepted: ["genius"], explanation: "'Genius move' — a ironia do erro.", tags: [vocab.smalltalk] }
+  - { id: M26-04-q5, type: multiple_choice, prompt: "No texto, a sua piada às vezes precisa de…", options: ["negrito", "a etiqueta — '(kidding)'", "caps lock", "tradução"], answer: 1, explanation: "Sem entoação, a etiqueta faz o trabalho.", tags: [vocab.smalltalk] }
+  - { id: M26-04-q6, type: error_correction, prompt: "I'm boring waiting for this build.", accepted: ["I'm bored waiting for this build.", "I'm bored waiting for this build"], explanation: "'Bored'.", tags: [br.i-am-boring] }
+  - { id: M26-04-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "read", "room"], answer: "read the room", explanation: "A habilidade que decide quando o humor cabe.", tags: [vocab.smalltalk] }
+  - { id: M26-04-q8, type: multiple_choice, prompt: "Três lugares para nunca tentar humor:", options: ["incidente, feedback, primeiro mês", "café, almoço, happy hour", "segunda, quarta, sexta", "chat, e-mail, call"], answer: 0, explanation: "O momento errado custa mais que o silêncio.", tags: [vocab.smalltalk] }
+
+srsCards:
+  - { front: "yeah, right", back: "A concordância que discorda — marcador de sarcasmo.", tag: vocab.smalltalk }
+  - { front: "shocking / what a surprise", back: "O falso espanto — quanto mais solene, mais irônico.", tag: vocab.smalltalk }
+  - { front: "well, THAT went well", back: "A ironia do desastre — o 'that' maiúsculo sinaliza.", tag: vocab.smalltalk }
+  - { front: "genius move", back: "A ironia do erro — elogio depois de desastre.", tag: vocab.smalltalk }
+  - { front: "ha — fair", back: "A resposta leve — reconhece sem se defender.", tag: vocab.smalltalk }
+  - { front: "third time's the charm", back: "O humor gentil seguro de usar cedo.", tag: vocab.smalltalk }
+  - { front: "deadpan", back: "A piada sem sorriso — o estilo que não se anuncia.", tag: vocab.smalltalk }
+  - { front: "self-deprecating", back: "Rir de si primeiro — nunca ofende.", tag: vocab.smalltalk }
+  - { front: "read the room", back: "Saber se o humor cabe — metade da competência.", tag: vocab.smalltalk }
+  - { front: "kidding / joking", back: "A etiqueta da piada no texto — 'I'm kidding', sem objeto.", tag: br.kidding-you }
+  - { front: "not the time", back: "Incidente, feedback, primeiro mês — a linha do erro.", tag: vocab.smalltalk }
+  - { front: "he's funny", back: "'Engraçado' é funny — 'he is humor' não existe.", tag: br.he-is-humor }
+
+review:
+  preferTags: [vocab.smalltalk, br.kidding-you, br.he-is-humor]
+  notes: "Revisão prioriza os marcadores de ironia, a resposta leve e os três lugares proibidos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true

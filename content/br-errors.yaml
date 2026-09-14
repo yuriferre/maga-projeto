@@ -835,3 +835,19 @@ patterns:
     right: "Want to grab a coffee later? / have a coffee"
     why: 'Café se "grabs" ou se "has" — "take a coffee" é calque. ("A coffee break" é outra coisa.)'
     tag: br.take-a-coffee
+  # "I'm kidding you" — "estou te zoando" é "I'm kidding" ou "I'm messing
+  # with you". "Kidding me" idiomático ("you're kidding me") fica fora.
+  - id: kidding-you
+    pattern: "\\bkidding\\s+(you|them|her|him|us)\\b"
+    wrong: "I'm kidding you — relax"
+    right: "I'm kidding — relax / I'm messing with you"
+    why: '"Kidding" é intransitivo no uso comum — "I''m kidding". ("You''re kidding me" é a exceção idiomática.)'
+    tag: br.kidding-you
+  # "He is humor" — "ele está bem-humorado/engraçado" é "he's funny" ou
+  # "in a good mood". Exige verbo de estado — "sense of humor" fora.
+  - id: he-is-humor
+    pattern: "\\b(am|is|are|was|were|feels?|seems?|sounds?)\\s+(very\\s+|so\\s+|really\\s+|too\\s+)?humor\\b|\\bsuch\\s+a\\s+humor\\b"
+    wrong: "He is very humor today"
+    right: "He's very funny today / in a good mood"
+    why: '"Humor" é substantivo — a pessoa engraçada é "funny", bem-humorada é "in a good mood".'
+    tag: br.he-is-humor

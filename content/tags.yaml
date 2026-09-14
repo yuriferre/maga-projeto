@@ -194,3 +194,5 @@ tags:
   - { id: br.too-much-people,  group: br, label: "too much people → many" }
   - { id: br.how-long-time,    group: br, label: "how long time → how long" }
   - { id: br.take-a-coffee,    group: br, label: "take a coffee → grab/have" }
+  - { id: br.kidding-you,      group: br, label: "I'm kidding you → kidding" }
+  - { id: br.he-is-humor,      group: br, label: "he is humor → funny" }

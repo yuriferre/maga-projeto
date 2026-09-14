@@ -1163,3 +1163,26 @@ describe("padrões BR — M26 (colaboração multicultural)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.take-a-coffee");
   });
 });
+
+describe("padrões BR — M26 (humor)", () => {
+  it("flags 'I'm kidding you' but not intransitive kidding", () => {
+    expect(tagsOf("I'm kidding you — relax.")).toContain("br.kidding-you");
+    expect(tagsOf("She's kidding you again.")).toContain("br.kidding-you");
+    const clean = [
+      "I'm kidding — relax.",
+      "Just kidding.",
+      "You're kidding me — that's the idiomatic object form.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.kidding-you");
+  });
+  it("flags 'he is humor' but not real adjectives", () => {
+    expect(tagsOf("He is very humor today.")).toContain("br.he-is-humor");
+    expect(tagsOf("She has such a humor about deploys.")).toContain("br.he-is-humor");
+    const clean = [
+      "He's very funny today.",
+      "His sense of humor is dry.",
+      "The humor in the channel helped.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.he-is-humor");
+  });
+});
