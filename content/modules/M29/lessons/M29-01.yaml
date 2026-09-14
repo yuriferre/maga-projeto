@@ -1,0 +1,325 @@
+id: M29-01
+module: M29
+order: 1
+title: "As perguntas clássicas: conflict, failure, ownership, ambiguity"
+objective: >-
+  Ao final, você reconhece as quatro famílias de
+  perguntas comportamentais — conflito, falha,
+  ownership e ambiguidade — e sabe o que o
+  entrevistador está realmente medindo em cada uma.
+durationMin: 30
+competencies: [SPK, CNF]
+tags: [vocab.interview, comp.speaking, comp.confidence]
+prerequisites: [M28-04]
+
+context:
+  scenario: |
+    A entrevista comportamental tem um mapa — e ele
+    é pequeno. Quase toda pergunta é uma destas quatro
+    famílias:
+
+    - **Conflict**: "tell me about a time you
+      disagreed with a teammate/manager" → mede como
+      você diverge sem explodir.
+    - **Failure**: "tell me about a time you failed"
+      → mede autoconsciência e aprendizado, não
+      perfeição.
+    - **Ownership**: "tell me about a time you went
+      above and beyond" → mede iniciativa além do
+      papel.
+    - **Ambiguity**: "tell me about a time you had
+      incomplete information" → mede decisão sob
+      incerteza.
+
+    O truque: **a pergunta nunca é sobre a história —
+    é sobre o padrão**. "A time you failed" testa se
+    você admite falha real; "a conflict" testa se
+    você resolve sem escalar para o ego.
+
+    Cada família tem um sinal de senioridade:
+    conflito → "we disagreed, and here's the data I
+    brought"; falha → "here's what I changed after";
+    ownership → "it wasn't my job, but"; ambiguidade
+    → "here's how I bounded the unknown".
+
+    O erro do brasileiro: escolher uma falha falsa
+    ("I work too hard") ou um conflito onde ele
+    simplesmente estava certo — as duas leem como
+    evasão.
+  roles: [Yuri (platform engineer), Marcus (eng manager, interviewer)]
+
+vocabulary:
+  - term: "tell me about a time you disagreed"
+    meaning: 'conte sobre uma vez que você discordou — a pergunta de conflito'
+    example: "Tell me about a time you disagreed with your manager."
+    translation: "Conte-me sobre uma vez em que você discordou do seu gerente."
+    note: "A pergunta de conflito — mede divergência sem ego."
+  - term: "tell me about a time you failed"
+    meaning: 'conte sobre uma vez que você falhou — a pergunta de falha'
+    example: "Tell me about a time you failed — a real failure, not a success in disguise."
+    translation: "Conte-me sobre uma vez em que você falhou — uma falha real, não um sucesso disfarçado."
+    note: "Mede autoconsciência — a falha tem que ser real."
+  - term: "a time you went above and beyond"
+    meaning: 'uma vez que você foi além — a pergunta de ownership'
+    example: "Tell me about a time you went above and beyond your role."
+    translation: "Conte-me sobre uma vez em que você foi além do seu papel."
+    note: "Ownership — iniciativa que não era seu trabalho."
+  - term: "a time you had incomplete information"
+    meaning: 'uma vez com informação incompleta — a pergunta de ambiguidade'
+    example: "Tell me about a time you had to decide with incomplete information."
+    translation: "Conte-me sobre uma vez em que você teve que decidir com informação incompleta."
+    note: "Ambiguidade — como você decide sem todos os dados."
+  - term: "here's what I changed after"
+    meaning: 'aqui está o que eu mudei depois — a falha vira sistema'
+    example: "The deploy broke prod — here's what I changed after: a canary step in the pipeline."
+    translation: "O deploy quebrou prod — aqui está o que mudei depois: um canary step no pipeline."
+    note: "O sinal de senior: a falha gerou uma mudança permanente."
+  - term: "it wasn't my job, but"
+    meaning: 'não era meu trabalho, mas — o marcador de ownership'
+    example: "It wasn't my job, but the onboarding docs were missing — so I wrote them."
+    translation: "Não era meu trabalho, mas a documentação de onboarding não existia — então escrevi."
+    note: "A frase que abre toda história de ownership."
+  - term: "we disagreed on the approach"
+    meaning: 'discordamos na abordagem — conflito sobre mérito, não pessoa'
+    example: "We disagreed on the approach — I brought the latency data to the next sync."
+    translation: "Discordamos na abordagem — levei os dados de latência ao próximo sync."
+    note: "Conflito no mérito + evidência — nunca 'he was wrong'."
+  - term: "how I bounded the unknown"
+    meaning: 'como delimitei o desconhecido — ambiguidade com método'
+    example: "I couldn't know the full scope — here's how I bounded the unknown: a two-day spike."
+    translation: "Eu não podia saber o escopo todo — aqui está como delimitei o desconhecido: um spike de dois dias."
+    note: "Ambiguidade respondida com um método, não um chute."
+  - term: "a real failure, not a success in disguise"
+    meaning: 'uma falha real, não um sucesso disfarçado — o aviso do entrevistador'
+    example: "I want a real failure — not a success in disguise like 'I work too hard'."
+    translation: "Quero uma falha real — não um sucesso disfarçado como 'trabalho demais'."
+    note: "Eles já ouviram 'perfeccionismo' mil vezes — seja real."
+  - term: "what did you learn from it?"
+    meaning: 'o que você aprendeu? — o follow-up obrigatório da falha'
+    example: "And what did you learn from it?"
+    translation: "E o que você aprendeu com isso?"
+    note: "A falha sem aprendizado é só uma falha."
+  - term: "how did the other person react?"
+    meaning: 'como a outra pessoa reagiu? — o follow-up do conflito'
+    example: "How did your manager react when you pushed back?"
+    translation: "Como seu gerente reagiu quando você fez o pushback?"
+    note: "Testa se você viu o conflito dos dois lados."
+  - term: "walk me through your thinking"
+    meaning: 'me guie pelo seu raciocínio — o follow-up da ambiguidade'
+    example: "Walk me through your thinking — how did you decide?"
+    translation: "Me guie pelo seu raciocínio — como você decidiu?"
+    note: "Eles querem o processo, não só o resultado."
+
+grammar:
+  title: "o tempo das histórias comportamentais"
+  explanation: |
+    As histórias comportamentais vivem no **simple
+    past** — fatos fechados:
+
+    - "*I disagreed*, *I brought the data*, *we
+      shipped it*"
+
+    A reflexão usa marcadores específicos:
+
+    - "**Here's what I changed** after" — falha →
+      sistema.
+    - "**What I learned** was…" — o follow-up já
+      respondido antes de perguntarem.
+    - "**In hindsight**" / "**looking back**" —
+      do M27, continua valendo.
+
+    E os calques do gênero:
+
+    - "**I make part of**" → "**I'm part of**".
+    - "**In that epoch**" → "**at that time /
+      back then**".
+    - "**My defect is**" → "**my weakness is**".
+    - "**It's already X years that**" → "**it's
+      been X years since**".
+  examples:
+    - { en: "We disagreed on the approach — I brought the data to the next sync.", pt: "Discordamos na abordagem — levei os dados ao próximo sync." }
+    - { en: "I failed the migration — here's what I changed after.", pt: "Falhei na migração — aqui está o que mudei depois." }
+    - { en: "It wasn't my job, but I wrote the onboarding docs anyway.", pt: "Não era meu trabalho, mas escrevi os docs de onboarding mesmo assim." }
+    - { en: "I bounded the unknown with a two-day spike.", pt: "Delimitei o desconhecido com um spike de dois dias." }
+    - { en: "What I learned was that silence reads as agreement.", pt: "O que aprendi foi que silêncio soa como concordância." }
+    - { en: "Back then we didn't have alerting — now we do.", pt: "Naquela época não tínhamos alerting — agora temos." }
+
+examples:
+  - en: "Tell me about a time you disagreed with your manager."
+    pt: "Conte-me sobre uma vez em que você discordou do seu gerente."
+    context: "Conflito — o mérito, não a pessoa."
+  - en: "Tell me about a time you failed — a real one."
+    pt: "Conte-me sobre uma vez em que você falhou — uma real."
+    context: "Falha — autoconsciência, não perfeição."
+  - en: "Tell me about a time you went above and beyond your role."
+    pt: "Conte-me sobre uma vez em que você foi além do seu papel."
+    context: "Ownership — não era seu trabalho, mas."
+  - en: "Tell me about a time you decided with incomplete information."
+    pt: "Conte-me sobre uma decisão com informação incompleta."
+    context: "Ambiguidade — o método de delimitar o desconhecido."
+  - en: "The deploy broke prod — here's what I changed after: a canary step."
+    pt: "O deploy quebrou prod — o que mudei depois: um canary step."
+    context: "A falha vira sistema."
+  - en: "We disagreed on the approach — I brought the latency data to the next sync."
+    pt: "Discordamos na abordagem — levei os dados de latência ao próximo sync."
+    context: "Conflito resolvido com evidência."
+  - en: "I couldn't know the full scope — I bounded it with a two-day spike."
+    pt: "Não podia saber o escopo todo — delimitei com um spike de dois dias."
+    context: "Ambiguidade com método."
+  - en: "What I learned was that silence in a review reads as agreement."
+    pt: "O que aprendi foi que silêncio numa revisão soa como concordância."
+    context: "O aprendizado já respondido."
+
+variations:
+  - idea: '"a pergunta de falha"'
+    items:
+      - { register: "Forte", text: "I broke prod with a bad migration — here's what I changed after.", adequate: true }
+      - { register: "Forte", text: "I underestimated the timeline and we shipped late — I learned to add buffer for unknowns.", adequate: true }
+      - { register: "Fraco", text: "My biggest failure is that I work too hard.", adequate: false, note: "Falha falsa — o entrevistador já ouviu mil vezes." }
+      - { register: "Fraco", text: "I've never really failed at anything.", adequate: false, note: "Lê como falta de autoconsciência — ou mentira." }
+  - idea: '"a pergunta de conflito"'
+    items:
+      - { register: "Forte", text: "We disagreed on the approach — I brought the data to the next sync.", adequate: true }
+      - { register: "Forte", text: "He wanted the rewrite; I argued for incremental — we ran a spike to decide.", adequate: true }
+      - { register: "Fraco", text: "He was wrong and I was right — end of story.", adequate: false, note: "Conflito onde você só 'venceu' lê como ego." }
+      - { register: "Fraco", text: "I just did what he said — I avoid conflict.", adequate: false, note: "Evitar conflito não é resolvê-lo — é o que a pergunta mede." }
+
+brErrors:
+  - { wrong: "I make part of the on-call rotation.", right: "I'm part of the on-call rotation.", why: "I'm part of", tag: br.make-part-of }
+  - { wrong: "In that epoch I was at the startup.", right: "At that time I was at the startup.", why: "at that time / back then", tag: br.in-that-epoch }
+  - { wrong: "My defect is perfectionism.", right: "My weakness is perfectionism.", why: "weakness", tag: br.my-defect }
+  - { wrong: "It's already 3 years that I work here.", right: "It's been three years since I started.", why: "it's been X since", tag: br.its-already-years }
+  - { wrong: "I work here since 2021.", right: "I've been here since 2021.", why: "I've been", tag: br.work-since }
+  - { wrong: "I was promoted for senior.", right: "I was promoted to senior.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "I formed in 2015.", right: "I graduated in 2015.", why: "graduated", tag: br.formed-in }
+  - { wrong: "I was responsible by the migration.", right: "I was responsible for the migration.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "In my vision it was a failure.", right: "In my view it was a failure.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "We discussed about the approach.", right: "We discussed the approach.", why: "discussed the", tag: br.discuss-about }
+
+dialogue:
+  title: "As quatro famílias em sequência"
+  lines:
+    - { speaker: Marcus, text: "Tell me about a time you disagreed with a teammate." }
+    - { speaker: Yuri, text: "Carlos wanted paging on every SLO burn — we disagreed on the approach. I brought the numbers to the next sync: his version paged forty times a week, mine twice. He agreed." }
+    - { speaker: Marcus, text: "How did he react?" }
+    - { speaker: Yuri, text: "Skeptical at first — fair, since his approach was simpler. Running both in parallel for a week settled it with data instead of opinion." }
+    - { speaker: Marcus, text: "Now — tell me about a time you failed. A real one." }
+    - { speaker: Yuri, text: "The first migration attempt took the site down for forty minutes — I skipped the failover drill. Here's what I changed after: the drill is now mandatory, and I wrote it into the runbook." }
+    - { speaker: Marcus, text: "And a time you went above and beyond?" }
+    - { speaker: Yuri, text: "It wasn't my job, but our onboarding docs were three years stale — I rewrote them. New hires now ramp in two weeks instead of six." }
+    - { speaker: Marcus, text: "Last one — a decision with incomplete information." }
+    - { speaker: Yuri, text: "We couldn't predict the cache hit-rate before migrating — I bounded the unknown with a two-day spike on 5% of traffic, then committed with real numbers." }
+    - { speaker: Marcus, text: "Good — I can see the pattern. You answer the follow-ups before I ask them." }
+  notes:
+    - "cada resposta: a família → a história → o sinal de senior (dados, mudança permanente, 'it wasn't my job', 'bounded the unknown')."
+    - "o follow-up ('how did he react?') já vem respondido — 'skeptical, fair' mostra os dois lados."
+    - "'I can see the pattern' — a entrevista reconhece o método."
+
+listening:
+  lines:
+    - { speaker: Marcus, text: "Behavioral questions come in four families: conflict — 'a time you disagreed'; failure — 'a time you failed'; ownership — 'a time you went above and beyond'; ambiguity — 'a time you had incomplete information'. The question is never about the story — it's about the pattern it reveals." }
+    - { speaker: Yuri, text: "Each family has a seniority signal: conflict ends with data, not ego — 'I brought the numbers'; failure ends with a permanent change — 'here's what I changed after'; ownership starts with 'it wasn't my job, but'; ambiguity ends with 'here's how I bounded the unknown'." }
+    - { speaker: Marcus, text: "The wrong moves: a fake failure like 'I work too hard', or a conflict where you were simply right. Both read as evasion — and I've heard them a thousand times." }
+  questions:
+    - { id: M29-01-l1, type: multiple_choice, prompt: "As quatro famílias de perguntas comportamentais são…", options: ["conflito, falha, ownership, ambiguidade", "técnica, código, deploy, monitoramento", "salário, visto, remoto, férias", "passado, presente, futuro"], answer: 0, explanation: "O mapa é pequeno — quatro famílias cobrem quase tudo.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-01-l2, type: fill_blank, prompt: "It wasn't my ___, but I wrote the onboarding docs anyway.", accepted: ["job"], explanation: "'It wasn't my job, but' — o marcador de ownership.", tags: [vocab.interview] }
+    - { id: M29-01-l3, type: error_correction, prompt: "My defect is perfectionism.", accepted: ["My weakness is perfectionism.", "My weakness is perfectionism", "My biggest weakness is perfectionism."], explanation: "'Weakness'.", tags: [br.my-defect] }
+    - { id: M29-01-l4, type: multiple_choice, prompt: "O sinal de senior na pergunta de falha é…", options: ["nunca falhar", "culpar o time", "a falha falsa", "'here's what I changed after' — a falha vira sistema"], answer: 3, explanation: "Mudança permanente depois da falha.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-01-l5, type: multiple_choice, prompt: "'How did the other person react?' testa…", options: ["sua memória", "sua paciência", "se você viu o conflito dos dois lados", "o outro"], answer: 2, explanation: "O follow-up mede perspectiva.", tags: [comp.listening, vocab.interview] }
+    - { id: M29-01-l6, type: multiple_choice, prompt: "Responder ambiguidade com 'bounded the unknown with a spike' mostra…", options: ["chute", "medo", "improviso", "método — delimitar a incerteza antes de decidir"], answer: 3, explanation: "Método, não adivinhação.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** a preparação para a entrevista de
+    amanhã pede o seu mapa de histórias por escrito.
+
+    **Tarefa:** escreva 80–110 palavras: para cada
+    uma das quatro famílias (conflict, failure,
+    ownership, ambiguity), uma linha com a história
+    do seu banco que a cobre — a cola, o sinal de
+    senior e o número.
+  constraints:
+    - { label: "As quatro famílias", pattern: "\\bconflict|failure|ownership|ambiguit\\b" }
+    - { label: "Os sinais de senior", pattern: "\\bchanged after|wasn't my job|bounded|data|learned\\b" }
+    - { label: "Os números", pattern: "\\b\\d+\\b" }
+    - { label: "As colas", pattern: "\\bthe \\w+ (incident|migration|debate|docs|spike|story|incident)\\b|\\bthe \\w+\\b" }
+  rubric:
+    - "Quatro famílias mapeadas, uma história cada"
+    - "Cada linha com sinal de senior + número"
+    - "A cola de cada história identificada"
+    - "Sem calques ('weakness', 'back then', 'I'm part of')"
+  model: >-
+    My behavioral map — four families, one story
+    each: - Conflict: the paging debate with Carlos
+    — ended with data, both versions in parallel for
+    a week. - Failure: the first migration took the
+    site down 40 minutes — here's what I changed
+    after: the failover drill is now mandatory. -
+    Ownership: it wasn't my job, but the onboarding
+    docs were stale — rewrote them; ramp time went
+    from 6 weeks to 2. - Ambiguity: the cache
+    migration — bounded the unknown with a 2-day
+    spike on 5% of traffic.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: responda duas famílias de perguntas em sequência — 'a time you failed' e 'a time you disagreed'. Cada uma com história real + o sinal de senior ('here's what I changed after', 'I brought the data')."
+    maxSeconds: 90
+    targetPhrases:
+      - tell me about a time
+      - we disagreed on the approach
+      - i brought the data
+      - here's what i changed after
+      - it wasn't my job, but
+      - a real failure
+      - what i learned was
+      - back then
+      - at that time
+      - i bounded the unknown
+      - a two-day spike
+      - how did he react
+      - looking back
+      - in hindsight
+      - the real lesson
+      - i'm part of
+    checklist:
+      - "duas famílias respondidas com histórias reais"
+      - "o sinal de senior em cada uma"
+      - "o follow-up antecipado ('how did he react')"
+      - "sem calques ('weakness', 'back then', 'I'm part of', 'it's been')"
+
+quiz:
+  - { id: M29-01-q1, type: multiple_choice, prompt: "A pergunta comportamental mede…", options: ["o padrão que a história revela", "a história", "a memória", "o vocabulário"], answer: 0, explanation: "Nunca é sobre a história — é sobre o padrão.", tags: [vocab.interview] }
+  - { id: M29-01-q2, type: error_correction, prompt: "I make part of the on-call rotation.", accepted: ["I'm part of the on-call rotation.", "I'm part of the on-call rotation", "I joined the on-call rotation."], explanation: "'I'm part of'.", tags: [br.make-part-of] }
+  - { id: M29-01-q3, type: multiple_choice, prompt: "A falha certa para contar é…", options: ["'I work too hard'", "nenhuma", "uma real, com 'here's what I changed after'", "a do colega"], answer: 2, explanation: "Real + mudança permanente.", tags: [vocab.interview] }
+  - { id: M29-01-q4, type: fill_blank, prompt: "I bounded the ___ with a two-day spike.", accepted: ["unknown"], explanation: "'Bounded the unknown' — ambiguidade com método.", tags: [vocab.interview] }
+  - { id: M29-01-q5, type: multiple_choice, prompt: "O conflito respondido com senioridade termina com…", options: ["'I was right'", "'he apologized'", "o gerente decidindo", "dados — 'I brought the numbers to the next sync'"], answer: 3, explanation: "Evidência, não ego.", tags: [vocab.interview] }
+  - { id: M29-01-q6, type: error_correction, prompt: "In that epoch I was at the startup.", accepted: ["At that time I was at the startup.", "At that time I was at the startup", "Back then I was at the startup."], explanation: "'At that time' ou 'back then'.", tags: [br.in-that-epoch] }
+  - { id: M29-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["my", "wasn't", "job", "it", "but"], answer: "it wasn't my job but", explanation: "O marcador de ownership.", tags: [vocab.interview] }
+  - { id: M29-01-q8, type: multiple_choice, prompt: "'Walk me through your thinking' pede…", options: ["o resultado", "o resumo", "o processo da decisão, não só o resultado", "a desculpa"], answer: 2, explanation: "O processo — como você decidiu.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "tell me about a time you disagreed", back: "Conflito — mérito + dados, nunca pessoa.", tag: vocab.interview }
+  - { front: "tell me about a time you failed", back: "Falha real + 'here's what I changed after'.", tag: vocab.interview }
+  - { front: "a time you went above and beyond", back: "Ownership — 'it wasn't my job, but'.", tag: vocab.interview }
+  - { front: "a time you had incomplete information", back: "Ambiguidade — 'how I bounded the unknown'.", tag: vocab.interview }
+  - { front: "here's what I changed after", back: "A falha vira sistema — o sinal de senior.", tag: vocab.interview }
+  - { front: "it wasn't my job, but", back: "O marcador de ownership.", tag: vocab.interview }
+  - { front: "we disagreed on the approach", back: "Conflito no mérito + evidência.", tag: vocab.interview }
+  - { front: "how I bounded the unknown", back: "Ambiguidade com método — spike, amostra, prazo.", tag: vocab.interview }
+  - { front: "a real failure, not a success in disguise", back: "'I work too hard' já foi ouvido mil vezes.", tag: vocab.interview }
+  - { front: "what did you learn from it?", back: "O follow-up da falha — responda antes.", tag: vocab.interview }
+  - { front: "how did the other person react?", back: "O follow-up do conflito — veja os dois lados.", tag: vocab.interview }
+  - { front: "walk me through your thinking", back: "O processo da decisão, não só o resultado.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.make-part-of, br.my-defect]
+  notes: "Revisão prioriza as quatro famílias, os sinais de senior e os calques novos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
