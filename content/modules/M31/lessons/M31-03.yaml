@@ -1,0 +1,345 @@
+id: M31-03
+module: M31
+order: 3
+title: "Aceitar, pedir tempo e recusar por escrito"
+objective: >-
+  Ao final, você sabe fechar a negociação por
+  escrito em três direções — aceitar com
+  entusiasmo e confirmação, pedir tempo com
+  data marcada, e recusar deixando a porta
+  aberta.
+durationMin: 30
+competencies: [WRI, SPK]
+tags: [vocab.compensation, comp.writing, comp.speaking]
+prerequisites: [M31-02]
+
+context:
+  scenario: |
+    A negociação terminou — agora o fecho por
+    escrito, em três direções:
+
+    **Aceitar** — entusiasmo + confirmação do
+    pacote por escrito (nada fica só na ligação):
+
+    > "*I'm thrilled to accept the offer for
+    > Senior Platform Engineer. Confirming the
+    > details: $160k base, 15% target bonus,
+    > $90k in RSUs vesting over four years,
+    > $25k sign-on, 25 days PTO, start date
+    > March 3rd. I'll sign the paperwork as
+    > soon as it arrives.*"
+
+    **Pedir tempo** — sempre com data marcada,
+    nunca um "let me think" aberto:
+
+    > "*Thank you — this is exciting. I'd like
+    > to review it with my family over the
+    > weekend. I'll get back to you by Monday
+    > EOD — is that workable?*"
+
+    **Recusar** — gratidão + razão curta +
+    porta aberta. Nunca queime a ponte — o
+    recrutador de hoje é o seu contato em
+    três anos:
+
+    > "*After a lot of thought, I've decided to
+    > accept another offer that's a closer
+    > match for my goals. This wasn't easy —
+    > I've genuinely enjoyed the process and
+    > the team. I hope we can stay in touch
+    > for the future.*"
+
+    As regras do fecho por escrito:
+
+    - **Aceitar**: confirme cada número — o
+      que não está por escrito não existe.
+    - **Tempo**: 2–3 dias no máximo, com data
+      concreta — mais que isso parece dúvida.
+    - **Recusar**: a razão em uma frase, sem
+      detalhar a outra oferta — e sempre
+      "stay in touch".
+
+    O erro do brasileiro: recusar por WhatsApp
+    ou sumir — ou aceitar sem confirmar os
+    números por escrito.
+  roles: [Yuri (platform engineer), Rachel (recruiter)]
+
+vocabulary:
+  - term: "I'm thrilled to accept"
+    meaning: 'estou animado em aceitar — o aceite com entusiasmo'
+    example: "I'm thrilled to accept the offer for Senior Platform Engineer."
+    translation: "Estou animado em aceitar a oferta para Senior Platform Engineer."
+    note: "Entusiasmo + o título do cargo."
+  - term: "confirming the details"
+    meaning: 'confirmando os detalhes — o aceite põe tudo por escrito'
+    example: "Confirming the details: $160k base, 15% bonus, $90k RSUs, start March 3rd."
+    translation: "Confirmando os detalhes: $160k base, 15% bônus, $90k RSUs, início 3 de março."
+    note: "Cada número por escrito — o que não está escrito não existe."
+  - term: "I'd like to review it over the weekend"
+    meaning: 'gostaria de revisar no fim de semana — pedir tempo com plano'
+    example: "I'd like to review it with my family over the weekend."
+    translation: "Gostaria de revisar com a família no fim de semana."
+    note: "Tempo com um motivo leve e uma data."
+  - term: "I'll get back to you by Monday EOD"
+    meaning: 'te retorno até segunda no fim do dia — a data marcada'
+    example: "I'll get back to you by Monday EOD — is that workable?"
+    translation: "Te retorno até segunda no fim do dia — funciona?"
+    note: "Data concreta + confirmação de que serve."
+  - term: "is that workable?"
+    meaning: 'isso funciona? — a checagem do prazo'
+    example: "Is Friday workable for my final answer?"
+    translation: "Sexta funciona para minha resposta final?"
+    note: "Pergunta o prazo — não o impõe."
+  - term: "I've decided to accept another offer"
+    meaning: 'decidi aceitar outra oferta — a recusa direta'
+    example: "After a lot of thought, I've decided to accept another offer."
+    translation: "Depois de muito pensar, decidi aceitar outra oferta."
+    note: "Direto — sem drama nem detalhe demais."
+  - term: "a closer match for my goals"
+    meaning: 'mais alinhada aos meus objetivos — a razão curta da recusa'
+    example: "Another offer is a closer match for my goals at this stage."
+    translation: "Outra oferta está mais alinhada aos meus objetivos neste momento."
+    note: "A razão em uma frase — sem detalhar a outra."
+  - term: "this wasn't an easy decision"
+    meaning: 'não foi uma decisão fácil — o respeito na recusa'
+    example: "This wasn't an easy decision — I've genuinely enjoyed the process."
+    translation: "Não foi uma decisão fácil — gostei de verdade do processo."
+    note: "O reconhecimento antes do motivo."
+  - term: "I hope we can stay in touch"
+    meaning: 'espero que a gente mantenha contato — a porta aberta'
+    example: "I hope we can stay in touch — the team was a highlight."
+    translation: "Espero que a gente mantenha contato — o time foi um destaque."
+    note: "O recrutador de hoje é seu contato em três anos."
+  - term: "please keep me in mind for future roles"
+    meaning: 'mantenha-me em mente para vagas futuras — a rede ativa'
+    example: "Please keep me in mind if a closer-fit role opens up."
+    translation: "Mantenha-me em mente se surgir uma vaga mais alinhada."
+    note: "Recusar hoje pode virar oferta amanhã."
+  - term: "sign the paperwork"
+    meaning: 'assinar a papelada — o fecho do aceite'
+    example: "I'll sign the paperwork as soon as it arrives."
+    translation: "Assino a papelada assim que chegar."
+    note: "O próximo passo concreto do aceite."
+  - term: "onboarding / start date"
+    meaning: 'integração / data de início — o depois do aceite'
+    example: "Excited for the onboarding — confirming the March 3rd start date."
+    translation: "Animado para o onboarding — confirmando o início em 3 de março."
+    note: "O aceite já olha para o dia um."
+
+grammar:
+  title: "a gramática do fecho por escrito"
+  explanation: |
+    Os três e-mails têm molduras próprias:
+
+    - **Aceitar**: "**I'm thrilled to accept**
+      the offer for [title]. **Confirming the
+      details**: $X base, Y% bonus, $Z RSUs,
+      [N] days PTO, start date [data].
+      **I'll sign the paperwork** as soon as
+      it arrives."
+    - **Tempo**: "**I'd like to review it**
+      over the weekend. **I'll get back to
+      you by** Monday EOD — **is that
+      workable?**"
+    - **Recusar**: "**After a lot of thought,
+      I've decided to** accept another offer
+      — a closer match for my goals. **This
+      wasn't an easy decision**. **I hope we
+      can stay in touch.**"
+
+    A regra transversal: tudo que foi falado
+    se confirma por escrito — e todo fecho
+    tem data.
+  examples:
+    - { en: "I'm thrilled to accept the offer for Senior Platform Engineer.", pt: "Estou animado em aceitar a oferta para Senior Platform Engineer." }
+    - { en: "Confirming the details: $160k base, 15% bonus, $90k RSUs, start March 3rd.", pt: "Confirmando: $160k base, 15% bônus, $90k RSUs, início 3 de março." }
+    - { en: "I'd like to review it over the weekend — I'll get back by Monday EOD.", pt: "Gostaria de revisar no fim de semana — retorno até segunda EOD." }
+    - { en: "Is Friday workable for my final answer?", pt: "Sexta funciona para minha resposta final?" }
+    - { en: "After a lot of thought, I've decided to accept another offer.", pt: "Depois de muito pensar, decidi aceitar outra oferta." }
+    - { en: "I hope we can stay in touch for the future.", pt: "Espero que a gente mantenha contato para o futuro." }
+
+examples:
+  - en: "I'm thrilled to accept the offer for Senior Platform Engineer."
+    pt: "Estou animado em aceitar a oferta para Senior Platform Engineer."
+    context: "O aceite com entusiasmo."
+  - en: "Confirming the details: $160k base, 15% bonus, $90k RSUs, 25 days PTO, start March 3rd."
+    pt: "Confirmando: $160k base, 15% bônus, $90k RSUs, 25 dias PTO, início 3 de março."
+    context: "Tudo por escrito."
+  - en: "I'd like to review it with my family over the weekend — I'll get back by Monday EOD."
+    pt: "Gostaria de revisar com a família no fim de semana — retorno segunda EOD."
+    context: "Tempo com motivo e data."
+  - en: "Is Friday workable for my final answer?"
+    pt: "Sexta funciona para minha resposta final?"
+    context: "Perguntar o prazo, não impor."
+  - en: "After a lot of thought, I've decided to accept another offer that's a closer match."
+    pt: "Depois de muito pensar, decidi aceitar outra oferta mais alinhada."
+    context: "A recusa direta."
+  - en: "This wasn't an easy decision — I've genuinely enjoyed the process and the team."
+    pt: "Não foi fácil — gostei de verdade do processo e do time."
+    context: "O respeito na recusa."
+  - en: "I hope we can stay in touch — the team was a highlight."
+    pt: "Espero manter contato — o time foi um destaque."
+    context: "A porta aberta."
+  - en: "Please keep me in mind if a closer-fit role opens up."
+    pt: "Mantenha-me em mente se surgir uma vaga mais alinhada."
+    context: "A rede ativa."
+
+variations:
+  - idea: '"o fecho"'
+    items:
+      - { register: "Forte", text: "I'm thrilled to accept — confirming the details: $160k base, start March 3rd.", adequate: true }
+      - { register: "Forte", text: "I'll get back to you by Monday EOD — is that workable?", adequate: true }
+      - { register: "Fraco", text: "Yes, whatever the terms were — count me in.", adequate: false, note: "Aceitar sem confirmar os números por escrito é risco." }
+      - { register: "Fraco", text: "I'll think about it — maybe sometime next month.", adequate: false, note: "Tempo sem data parece dúvida, não consideração." }
+  - idea: '"a recusa"'
+    items:
+      - { register: "Forte", text: "I've decided to accept another offer — a closer match for my goals. I hope we stay in touch.", adequate: true }
+      - { register: "Forte", text: "This wasn't an easy decision — the team was a highlight.", adequate: true }
+      - { register: "Fraco", text: "Your offer lost — the other one pays way more.", adequate: false, note: "Detalhar a outra oferta e humilhar queima a ponte." }
+      - { register: "Fraco", text: "Just not interested — please stop emailing.", adequate: false, note: "Recusar sem gratidão fecha uma porta que você pode precisar." }
+
+brErrors:
+  - { wrong: "My actual salary offer is $160k.", right: "My current salary offer is $160k.", why: "current", tag: br.actual-current }
+  - { wrong: "I'm refusing the job proposal.", right: "I'm declining the job offer.", why: "decline a job offer", tag: br.job-proposal }
+  - { wrong: "They offer me more vacations.", right: "They offer me more vacation days.", why: "vacation days/PTO", tag: br.more-vacations }
+  - { wrong: "The thirteenth salary is included.", right: "The 13th-month bonus is included.", why: "13th-month bonus", tag: br.thirteenth-salary }
+  - { wrong: "My salary pretension was met.", right: "My salary expectations were met.", why: "expectations", tag: br.pretension }
+  - { wrong: "I'll win a signing bonus.", right: "I'll get a signing bonus.", why: "get/receive", tag: br.win-money }
+  - { wrong: "I have interest in accepting.", right: "I'm interested in accepting.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I'll give two weeks advice tomorrow.", right: "I'll give two weeks' notice tomorrow.", why: "notice", tag: br.advice-notice }
+  - { wrong: "We discussed about the start date.", right: "We discussed the start date.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision the offer is good.", right: "In my view the offer is good.", why: "in my view", tag: br.in-my-vision }
+
+dialogue:
+  title: "Os três fechos"
+  lines:
+    - { speaker: Rachel, text: "So — $160k base, 15% target, $90k RSUs, $25k sign-on, 25 days PTO. What do you say?" }
+    - { speaker: Yuri, text: "That's a strong package. I'd like to review it with my family over the weekend — I'll get back to you by Monday EOD. Is that workable?" }
+    - { speaker: Rachel, text: "Monday works. And for the other offer you're weighing — anything I should know?" }
+    - { speaker: Yuri, text: "It's a good problem to have — two strong teams. This one has the scope I want; I want to give it proper thought, not a rushed yes." }
+    - { speaker: Rachel, text: "Fair — talk Monday." }
+    - { speaker: Yuri, text: "(Monday) Rachel — I'm thrilled to accept the offer for Senior Platform Engineer. Confirming the details: $160k base, 15% target bonus, $90k in RSUs vesting over four years, $25k sign-on, 25 days PTO, start date March 3rd. I'll sign the paperwork as soon as it arrives." }
+    - { speaker: Rachel, text: "Welcome aboard — sending the paperwork today. And the other offer?" }
+    - { speaker: Yuri, text: "I owe them a decline — I'll send it today: 'after a lot of thought, I've decided to accept another offer — a closer match for my goals. This wasn't easy — I've genuinely enjoyed the process. I hope we can stay in touch.'" }
+    - { speaker: Rachel, text: "That's a graceful decline — the door stays open. See you March 3rd." }
+  notes:
+    - "o tempo com data ('Monday EOD — workable?') — nunca aberto."
+    - "o aceite confirma cada número por escrito — incluindo o start date."
+    - "a recusa do outro lado também é por escrito — gratidão, razão curta, porta aberta."
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "Three closes in writing. Accept with enthusiasm and every number confirmed — what isn't in writing doesn't exist. Buy time with a reason and a date — 'I'll get back to you by Monday EOD — is that workable?' Two or three days max." }
+    - { speaker: Yuri, text: "And decline with gratitude, a one-line reason, and the door open — 'this wasn't easy, the team was a highlight, I hope we stay in touch.' Today's recruiter is your contact in three years." }
+    - { speaker: Rachel, text: "The Brazilian mistake: declining over WhatsApp, or ghosting — or accepting without confirming the numbers. The close is always written, always dated, always gracious." }
+  questions:
+    - { id: M31-03-l1, type: multiple_choice, prompt: "Ao aceitar, o que precisa estar por escrito é…", options: ["só o salário", "só a data de início", "só o cargo", "cada número — base, bônus, equity, sign-on, PTO, start date"], answer: 3, explanation: "O que não está escrito não existe.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-03-l2, type: fill_blank, prompt: "I'll get back to you by Monday ___ — is that workable?", accepted: ["eod", "EOD"], explanation: "A data marcada.", tags: [vocab.compensation] }
+    - { id: M31-03-l3, type: error_correction, prompt: "I'm refusing the job proposal.", accepted: ["I'm declining the job offer.", "I'm declining the job offer", "I'm declining the offer."], explanation: "'Decline a job offer'.", tags: [br.job-proposal] }
+    - { id: M31-03-l4, type: multiple_choice, prompt: "A recusa por escrito leva…", options: ["gratidão + razão em uma frase + porta aberta", "todos os detalhes da outra oferta", "só 'no thanks'", "uma lista de defeitos"], answer: 0, explanation: "O recrutador de hoje é seu contato em três anos.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-03-l5, type: multiple_choice, prompt: "Pedir tempo se faz com…", options: ["um 'let me think' aberto", "uma razão leve + data concreta — 'by Monday EOD, workable?'", "duas semanas", "silêncio"], answer: 1, explanation: "2–3 dias com data marcada.", tags: [comp.listening, vocab.compensation] }
+    - { id: M31-03-l6, type: multiple_choice, prompt: "O erro do brasileiro no fecho é…", options: ["confirmar demais", "recusar por WhatsApp, sumir — ou aceitar sem confirmar os números", "agradecer", "pedir tempo"], answer: 1, explanation: "O fecho é sempre escrito e datado.", tags: [comp.listening, vocab.compensation] }
+
+writing:
+  prompt: |
+    **Cenário:** você decidiu — vai aceitar a
+    oferta da Rachel e recusar a outra. O coach
+    pediu os dois e-mails por escrito antes de
+    enviar.
+
+    **Tarefa:** escreva 100–130 palavras: o
+    e-mail de aceite (entusiasmo + cada número
+    confirmado + próximo passo) e o e-mail de
+    recusa do outro lado (gratidão + razão em
+    uma frase + porta aberta) — os dois com
+    data e tom profissional.
+  constraints:
+    - { label: "O aceite com entusiasmo", pattern: "\\bthrilled|excited|accept|delighted|happy\\b" }
+    - { label: "Os números confirmados", pattern: "\\bbase|bonus|rsu|sign.on|pto|start|confirming\\b" }
+    - { label: "A recusa com porta aberta", pattern: "\\bdecided|another offer|closer match|stay in touch|keep me in mind|grateful\\b" }
+    - { label: "A data/próximo passo", pattern: "\\bby (monday|tuesday|wednesday|thursday|friday)|eod|sign|paperwork|onboarding|march|april\\b" }
+  rubric:
+    - "Aceite confirma cada número por escrito"
+    - "Recusa: gratidão + razão em uma frase + porta aberta"
+    - "Os dois com data e próximo passo"
+    - "Sem calques ('current salary', 'job offer', 'decline')"
+  model: >-
+    The accept email: "Rachel — I'm thrilled to
+    accept the offer for Senior Platform Engineer.
+    Confirming the details: $160k base, 15% target
+    bonus, $90k in RSUs vesting over four years,
+    $25k sign-on, 25 days PTO, start date March
+    3rd. I'll sign the paperwork as soon as it
+    arrives — excited for the onboarding." The
+    decline to the other side: "After a lot of
+    thought, I've decided to accept another offer
+    — a closer match for my goals at this stage.
+    This wasn't an easy decision; I've genuinely
+    enjoyed the process and the team. I hope we
+    can stay in touch — please keep me in mind for
+    future roles." Both dated, both gracious, both
+    written.
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.compensation]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: feche a negociação — o aceite em voz alta ('I'm thrilled to accept — confirming the details…'), o pedido de tempo com data ('I'll get back by Monday EOD — workable?'), e a recusa do outro lado ('after a lot of thought… I hope we stay in touch')."
+    maxSeconds: 90
+    targetPhrases:
+      - i'm thrilled to accept
+      - confirming the details
+      - i'd like to review it over the weekend
+      - i'll get back to you by monday eod
+      - is that workable
+      - i've decided to accept another offer
+      - a closer match for my goals
+      - this wasn't an easy decision
+      - i hope we can stay in touch
+      - keep me in mind
+      - sign the paperwork
+      - start date
+      - onboarding
+      - after a lot of thought
+      - the team was a highlight
+      - grateful for the opportunity
+    checklist:
+      - "o aceite com entusiasmo e números confirmados"
+      - "o pedido de tempo com data marcada"
+      - "a recusa com porta aberta"
+      - "tudo por escrito — nada só na ligação"
+      - "sem calques ('current salary', 'job offer', 'vacation days')"
+
+quiz:
+  - { id: M31-03-q1, type: multiple_choice, prompt: "O aceite por escrito precisa…", options: ["só dizer 'yes'", "confirmar cada número — base, bônus, equity, sign-on, PTO, start date", "só agradecer", "só a data"], answer: 1, explanation: "O que não está escrito não existe.", tags: [vocab.compensation] }
+  - { id: M31-03-q2, type: error_correction, prompt: "They offer me more vacations.", accepted: ["They offer me more vacation days.", "They offer me more vacation days", "They offer me more PTO."], explanation: "'Vacation days/PTO'.", tags: [br.more-vacations] }
+  - { id: M31-03-q3, type: multiple_choice, prompt: "Pedir tempo se faz com…", options: ["um 'let me think' aberto", "um mês", "silêncio", "razão leve + data concreta — 'by Monday EOD, workable?'"], answer: 3, explanation: "2–3 dias no máximo, com data.", tags: [vocab.compensation] }
+  - { id: M31-03-q4, type: fill_blank, prompt: "I hope we can stay in ___ for the future.", accepted: ["touch"], explanation: "A porta aberta na recusa.", tags: [vocab.compensation] }
+  - { id: M31-03-q5, type: multiple_choice, prompt: "A recusa por escrito leva…", options: ["gratidão + razão em uma frase + porta aberta", "todos os detalhes da outra oferta", "só 'no'", "comparação de salários"], answer: 0, explanation: "Nunca queime a ponte.", tags: [vocab.compensation] }
+  - { id: M31-03-q6, type: error_correction, prompt: "The thirteenth salary is included.", accepted: ["The 13th-month bonus is included.", "The 13th-month bonus is included", "The year-end bonus is included."], explanation: "'13th-month/year-end bonus'.", tags: [br.thirteenth-salary] }
+  - { id: M31-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["thrilled", "i'm", "to", "accept", "offer", "the"], answer: "i'm thrilled to accept the offer", explanation: "O aceite com entusiasmo.", tags: [vocab.compensation] }
+  - { id: M31-03-q8, type: multiple_choice, prompt: "O tempo pedido na negociação é no máximo…", options: ["2–3 dias com data", "duas semanas", "um mês", "sem limite"], answer: 0, explanation: "Mais que isso parece dúvida.", tags: [vocab.compensation] }
+
+srsCards:
+  - { front: "I'm thrilled to accept", back: "O aceite com entusiasmo + o título.", tag: vocab.compensation }
+  - { front: "confirming the details", back: "Cada número por escrito — o que não está escrito não existe.", tag: vocab.compensation }
+  - { front: "I'd like to review it over the weekend", back: "Tempo com motivo leve.", tag: vocab.compensation }
+  - { front: "I'll get back to you by Monday EOD", back: "A data marcada.", tag: vocab.compensation }
+  - { front: "is that workable?", back: "Perguntar o prazo, não impor.", tag: vocab.compensation }
+  - { front: "I've decided to accept another offer", back: "A recusa direta.", tag: vocab.compensation }
+  - { front: "a closer match for my goals", back: "A razão em uma frase.", tag: vocab.compensation }
+  - { front: "this wasn't an easy decision", back: "O respeito na recusa.", tag: vocab.compensation }
+  - { front: "I hope we can stay in touch", back: "A porta aberta — o recrutador de hoje é seu contato em três anos.", tag: vocab.compensation }
+  - { front: "please keep me in mind for future roles", back: "A rede ativa na recusa.", tag: vocab.compensation }
+  - { front: "sign the paperwork", back: "O próximo passo do aceite.", tag: vocab.compensation }
+  - { front: "onboarding / start date", back: "O depois do aceite.", tag: vocab.compensation }
+
+review:
+  preferTags: [vocab.compensation, br.job-proposal, br.more-vacations, br.thirteenth-salary]
+  notes: "Revisão prioriza os três fechos por escrito."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
