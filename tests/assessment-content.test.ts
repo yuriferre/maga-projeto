@@ -726,3 +726,43 @@ describe("M20 assessment variants", () => {
     expect(checkExercise(q, "The rewrite isn't worth it — we spend two sprints with a $200 saving.").correct).toBe(false);
   });
 });
+
+describe("M21 assessment variants", () => {
+  const m21 = bundle.moduleAssessments["M21"]!;
+  it("requires 'I agree' and 'discussed the options' on A02", () => {
+    const q = m21.items.find((q) => q.id === "M21-A02")!;
+    expect(checkExercise(q, "I agree with the reviewers — we discussed the options.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree with the reviewers — we discussed the options.").correct).toBe(false);
+    expect(checkExercise(q, "I agree with the reviewers — we discussed about the options.").correct).toBe(false);
+  });
+  it("requires 'instead of' and 'the same as' on A05", () => {
+    const q = m21.items.find((q) => q.id === "M21-A05")!;
+    expect(checkExercise(q, "We chose Kafka instead of RabbitMQ — it gives the same guarantees as a rewrite.").correct).toBe(true);
+    expect(checkExercise(q, "We chose Kafka instead RabbitMQ — it gives the same guarantees as a rewrite.").correct).toBe(false);
+    expect(checkExercise(q, "We chose Kafka instead of RabbitMQ — it gives the same guarantees than a rewrite.").correct).toBe(false);
+  });
+  it("requires 'I agree' and 'the same as' on A08", () => {
+    const q = m21.items.find((q) => q.id === "M21-A08")!;
+    expect(checkExercise(q, "I agree it needs validation — the cost is the same as RabbitMQ.").correct).toBe(true);
+    expect(checkExercise(q, "I am agree it needs validation — the cost is the same as RabbitMQ.").correct).toBe(false);
+    expect(checkExercise(q, "I agree it needs validation — the cost is the same than RabbitMQ.").correct).toBe(false);
+  });
+  it("requires 'discussed the' and 'instead of' on A10", () => {
+    const q = m21.items.find((q) => q.id === "M21-A10")!;
+    expect(checkExercise(q, "We discussed the trade-offs instead of the risks.").correct).toBe(true);
+    expect(checkExercise(q, "We discussed about the trade-offs instead of the risks.").correct).toBe(false);
+    expect(checkExercise(q, "We discussed the trade-offs instead the risks.").correct).toBe(false);
+  });
+  it("requires 'we agree' twice on A13", () => {
+    const q = m21.items.find((q) => q.id === "M21-A13")!;
+    expect(checkExercise(q, "We agree that capacity is pending — we agree it needs a test.").correct).toBe(true);
+    expect(checkExercise(q, "We're agree that capacity is pending — we agree it needs a test.").correct).toBe(false);
+    expect(checkExercise(q, "We agree that capacity is pending — we am agree it needs a test.").correct).toBe(false);
+  });
+  it("requires 'instead of' and 'I agree' on A15", () => {
+    const q = m21.items.find((q) => q.id === "M21-A15")!;
+    expect(checkExercise(q, "We chose the safe option instead of the fast one, and I agree it was right.").correct).toBe(true);
+    expect(checkExercise(q, "We chose the safe option instead the fast one, and I agree it was right.").correct).toBe(false);
+    expect(checkExercise(q, "We chose the safe option instead of the fast one, and I am agree it was right.").correct).toBe(false);
+  });
+});

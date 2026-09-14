@@ -1,0 +1,87 @@
+# Avaliação do módulo M21: 15 itens cobrindo as cinco aulas + escrita (resumo pós-review) + fala.
+id: M21
+title: "Avaliação do módulo M21: Defendendo decisões técnicas"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M21-A01, type: multiple_choice, prompt: "The five-beat structure for presenting a decision is…", options: ["decision → apology → ask", "options → trade-off → context", "context → options → decision → rationale → consequences", "problem → promise → deadline"], answer: 2, explanation: "Contexto abre; consequências fecham.", tags: [vocab.decisions, gram.argument-connectors] }
+  - { id: M21-A02, type: error_correction, prompt: "I am agree with the reviewers — we discussed about the options.", accepted: ["I agree with the reviewers — we discussed the options.", "I agree with the reviewers — we discussed the options"], explanation: 'Dois calques: "I agree" + "discussed the options".', tags: [br.am-agree, br.discuss-about] }
+  - { id: M21-A03, type: fill_blank, prompt: "We chose a queue ___ a rewrite because it ships this quarter.", accepted: ["over"], explanation: '"we chose X over Y because…".', tags: [gram.argument-connectors, vocab.decisions] }
+  - { id: M21-A04, type: multiple_choice, prompt: "An ADR that no longer reflects the decision is marked…", options: ["deleted", "wrong", "superseded — pointing to its successor", "draft"], answer: 2, explanation: "Superseded — o histórico não se apaga.", tags: [vocab.decisions] }
+  - { id: M21-A05, type: error_correction, prompt: "We chose Kafka instead RabbitMQ — it gives the same guarantees than a rewrite.", accepted: ["We chose Kafka instead of RabbitMQ — it gives the same guarantees as a rewrite.", "We chose Kafka instead of RabbitMQ — it gives the same guarantees as a rewrite"], explanation: 'Dois calques: "instead of" + "the same as".', tags: [br.instead-of, br.same-than] }
+  - { id: M21-A06, type: multiple_choice, prompt: "The three beats of answering pushback are…", options: ["validate → answer → propose", "deny → defend → close", "listen → agree → change", "escalate → defer → forget"], answer: 0, explanation: "Validar a preocupação antes de respondê-la.", tags: [gram.argument-connectors, vocab.decisions] }
+  - { id: M21-A07, type: fill_blank, prompt: "We don't know ___ how it behaves at 10x — the spike test runs Thursday.", accepted: ["yet"], explanation: '"we don''t know yet" — com o plano que fecha.', tags: [vocab.decisions, gram.hedging] }
+  - { id: M21-A08, type: error_correction, prompt: "I am agree it needs validation — the cost is the same than RabbitMQ.", accepted: ["I agree it needs validation — the cost is the same as RabbitMQ.", "I agree it needs validation — the cost is the same as RabbitMQ"], explanation: 'Dois calques: "I agree" + "the same as".', tags: [br.am-agree, br.same-than] }
+  - { id: M21-A09, type: multiple_choice, prompt: "'I'd want to validate that before committing' is used when…", options: ["the answer is measured and certain", "a premise needs a test before it becomes a commitment", "you want to end the meeting", "the decision is final"], answer: 1, explanation: "Incerteza com plano — validate before committing.", tags: [vocab.decisions, gram.hedging] }
+  - { id: M21-A10, type: error_correction, prompt: "We discussed about the trade-offs instead the risks.", accepted: ["We discussed the trade-offs instead of the risks.", "We discussed the trade-offs instead of the risks"], explanation: 'Dois calques: "discussed the" + "instead of".', tags: [br.discuss-about, br.instead-of] }
+  - { id: M21-A11, type: translate, prompt: "O rewrite está fora de cogitação — seis meses sem features.", accepted: ["The rewrite is off the table — six months without features.", "The rewrite is off the table — six months, no features.", "The rewrite is off the table — six months without features"], explanation: '"off the table" — descartado de antemão.', tags: [vocab.decisions] }
+  - { id: M21-A12, type: match, prompt: "Associe o termo ao que ele carrega.", pairs: [{ left: "rationale", right: "the 'why' linking choice to constraint" }, { left: "open question", right: "what the ADR hasn't answered yet" }, { left: "superseded", right: "replaced by a newer ADR" }, { left: "meet halfway", right: "a concession from both sides" }], explanation: "O vocabulário central da decisão.", tags: [vocab.decisions] }
+  - { id: M21-A13, type: error_correction, prompt: "We're agree that capacity is pending — we am agree it needs a test.", accepted: ["We agree that capacity is pending — we agree it needs a test.", "We're agreed that capacity is pending — we agree it needs a test.", "We agree that capacity is pending — we agree it needs a test"], explanation: '"We agree" — agree é verbo, sem "are".', tags: [br.am-agree] }
+  - { id: M21-A14, type: multiple_choice, prompt: "'I might be wrong about the ceiling — the test will tell' works because it…", options: ["shows doubt and weakness", "declares fallibility with a way to check", "avoids the question", "ends the review"], answer: 1, explanation: "Falibilidade + verificação = credibilidade.", tags: [gram.hedging, vocab.decisions] }
+  - { id: M21-A15, type: error_correction, prompt: "We chose the safe option instead the fast one, and I am agree it was right.", accepted: ["We chose the safe option instead of the fast one, and I agree it was right.", "We chose the safe option instead of the fast one, and I agree it was right"], explanation: 'Dois calques: "instead of" + "I agree".', tags: [br.instead-of, br.am-agree] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** a review do ADR-003 terminou
+    com sign-off pendente do spike test. O Carlos pediu o
+    resumo por escrito no canal.
+
+    **Tarefa:** escreva 80–110 palavras registrando: a
+    decisão com a fórmula "we chose X over Y because…", uma
+    objeção recebida com as três batidas (validar, responder,
+    propor), as questões abertas declaradas com o plano que
+    as fecha e o fechamento — ADR atualizado, sign-off
+    pendente.
+  constraints:
+    - { label: "A decisão com a fórmula", pattern: "\\bchose|went with\\b[^.]{0,60}\\bover\\b|\\bgoing with\\b" }
+    - { label: "A objeção validada", pattern: "\\bfair concern|valid point\\b" }
+    - { label: "As questões abertas", pattern: "\\bopen question|pending|don't know\\b" }
+    - { label: "O fechamento", pattern: "\\bsign-off|ADR|test\\b" }
+  rubric:
+    - "Decisão com 'chose … over … because' completa"
+    - "Objeção validada antes de respondida"
+    - "Questões abertas com plano datado"
+    - "Fechamento: ADR + sign-off pendente"
+    - "Sem calques ('I agree', 'instead of', 'the same as', 'discussed')"
+  model: >-
+    Decision defended: we chose a queue over a rewrite
+    because it decouples checkout from payments and ships
+    before the Q3 deadline. Beth raised a fair concern on
+    receipt ordering — the receipt is a notification, not the
+    record, and an idempotency check on the consumer covers
+    it; it goes in the ADR. Open questions, recorded as
+    pending: behavior at 10x and a possible consumer
+    bottleneck — the spike test Thursday closes both. The
+    ADR is updated; sign-off is pending the test results,
+    and we revisit if the numbers move.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.decisions, gram.argument-connectors]
+
+speaking:
+  prompt: "Grave 60 segundos defendendo uma decisão técnica num design review: as cinco batidas, uma objeção respondida em três, um limite declarado com plano e o fechamento com sign-off pendente."
+  maxSeconds: 60
+  targetPhrases:
+    - context first
+    - we considered
+    - we're going with
+    - we chose
+    - the trade-off is
+    - that's a fair concern
+    - however
+    - I'll concede
+    - we don't know yet
+    - I'd want to validate
+    - open question
+    - meet halfway
+    - I stand by
+    - sign-off pending
+    - instead of
+    - the same as
+  checklist:
+    - "cinco batidas na abertura"
+    - "objeção validada antes de respondida"
+    - "limite declarado com plano — sem chutar número"
+    - "fechamento com ADR atualizado + sign-off pendente"
