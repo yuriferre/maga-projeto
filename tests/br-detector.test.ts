@@ -952,3 +952,44 @@ describe("padrões BR — M21 (decisões e argumentação)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.same-than");
   });
 });
+
+describe("padrões BR — M22 (riscos e trade-offs)", () => {
+  it("flags 'we are in risk' but not 'at risk' / risk management", () => {
+    expect(tagsOf("We are in risk of losing data.")).toContain("br.in-risk");
+    expect(tagsOf("The migration is in risk.")).toContain("br.in-risk");
+    const clean = [
+      "We are at risk of losing data.",
+      "She works in risk management.",
+      "The change is risky.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.in-risk");
+  });
+  it("flags 'risk to fail' but not 'chance to win' / 'risk to reward'", () => {
+    expect(tagsOf("There's a risk to fail the migration.")).toContain("br.risk-to");
+    expect(tagsOf("The possibility to lose data is real.")).toContain("br.risk-to");
+    const clean = [
+      "There's a risk of failing the migration.",
+      "Give me a chance to fix it.",
+      "The risk to reward ratio is bad.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.risk-to");
+  });
+  it("flags 'compensates the risk' but not 'compensate the victims'", () => {
+    expect(tagsOf("The discount compensates the risk.")).toContain("br.compensate-risk");
+    const clean = [
+      "The discount offsets the risk.",
+      "We compensate the victims fairly.",
+      "The saving compensates for the effort.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.compensate-risk");
+  });
+  it("flags 'the change is danger' but not 'the danger is real'", () => {
+    expect(tagsOf("The change is danger for the data.")).toContain("br.is-danger");
+    const clean = [
+      "The change is dangerous for the data.",
+      "The danger is real.",
+      "It's a danger zone.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.is-danger");
+  });
+});

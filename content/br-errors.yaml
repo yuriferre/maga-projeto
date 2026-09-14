@@ -676,3 +676,35 @@ patterns:
     right: "We get the same result as before"
     why: '"The same" pede "as" — "than" é só de comparativo.'
     tag: br.same-than
+  # "we are in risk" — "em risco" é "at risk".
+  # O lookahead protege "works in risk management/assessment".
+  - id: in-risk
+    pattern: "\\b(am|is|are|was|were|'m|'re|'s)\\s+in\\s+risk\\b(?!\\s+management|\\s+assessment)"
+    wrong: "We are in risk of losing data"
+    right: "We are at risk of losing data"
+    why: '"Em risco" é "at risk" — "in risk" não existe.'
+    tag: br.in-risk
+  # "risk to fail" — "risco de falhar" é "risk of failing".
+  # Substantivos e verbos restritos: "chance to win" e "risk to reward" ficam fora.
+  - id: risk-to
+    pattern: "\\b(risk|possibility|probability|likelihood)\\s+to\\s+(fail|happen|occur|lose|leak|break|go wrong)\\b"
+    wrong: "There's a risk to fail the migration"
+    right: "There's a risk of failing the migration"
+    why: '"Risco de" é "risk of" + -ing — nunca "risk to".'
+    tag: br.risk-to
+  # "compensates the risk" — "compensar o risco" é "offset the risk".
+  # Objetos restritos: "compensate the victims" fica fora.
+  - id: compensate-risk
+    pattern: "\\bcompensate(s|d)?\\s+(the|that|this)\\s+(risk|loss|exposure|downside)\\b"
+    wrong: "The discount compensates the risk"
+    right: "The discount offsets the risk"
+    why: '"Compensar" risco é "offset" — "compensate" é para pessoas/prejuízos.'
+    tag: br.compensate-risk
+  # "the change is danger" — "é perigoso" é "dangerous".
+  # "The danger is real" e "a danger zone" ficam fora.
+  - id: is-danger
+    pattern: "\\b(is|'s|seems|looks|sounds)\\s+danger\\b(?!\\s+(zone|of|to|that|when))"
+    wrong: "The change is danger for the data"
+    right: "The change is dangerous for the data"
+    why: '"Perigoso" é "dangerous" — "danger" é o substantivo.'
+    tag: br.is-danger

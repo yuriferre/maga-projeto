@@ -167,3 +167,9 @@ tags:
   - { id: br.am-agree,   group: br, label: "I am agree (I agree)" }
   - { id: br.instead-of, group: br, label: "instead RabbitMQ (instead of)" }
   - { id: br.same-than,  group: br, label: "the same X than (as)" }
+  - { id: gram.probability-modals, group: gram, label: "Modais de probabilidade" }
+  - { id: vocab.risk,              group: vocab, label: "Riscos, trade-offs e mitigações" }
+  - { id: br.in-risk,         group: br, label: "in risk (at risk)" }
+  - { id: br.risk-to,         group: br, label: "risk to fail (of failing)" }
+  - { id: br.compensate-risk, group: br, label: "compensates the risk (offsets)" }
+  - { id: br.is-danger,       group: br, label: "is danger (dangerous)" }
