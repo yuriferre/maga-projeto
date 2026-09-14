@@ -624,3 +624,33 @@ patterns:
     right: "We must fix this today"
     why: 'Modal + verbo direto — "must fix", nunca "must to fix".'
     tag: br.modal-to
+  # "the price is expensive" — preço é high/low; expensive descreve o item.
+  - id: price-expensive
+    pattern: "\\b(the |this |that )?(price|prices|cost|costs|rate|rates|fee|fees|bill|bills)\\s+(is|are|was|were|looks?|seems?|feels?|got|gets?|getting)\\s+(so |very |really |too |quite |pretty )?(expensive|cheap)\\b"
+    wrong: "The price is expensive for that tier"
+    right: "The price is high for that tier"
+    why: 'Preço/custo é "high" ou "low" — "expensive"/"cheap" descrevem o item ("the instance is cheap").'
+    tag: br.price-expensive
+  # "an economy of $40k" — "uma economia de X" é "a saving of X";
+  # exige valor ($/dígito) — "the economy of Brazil", "economies of scale" ficam fora.
+  - id: an-economy-of
+    pattern: "\\ban? economy of\\s+(about |around |roughly |nearly |up to |~)?(\\$|€|£|\\d)"
+    wrong: "Right-sizing brings an economy of $40k a year"
+    right: "Right-sizing brings a saving of $40k a year"
+    why: '"Uma economia de X" é "a saving of X" — economy é a economia do país.'
+    tag: br.an-economy
+  # "spend money with" — "gastar com" é "spend on"; "spend time with" fica fora.
+  - id: spend-with
+    pattern: "\\bspend(s|ing|t)?\\s+((money|the budget|most of the budget|too much|a lot|much|more|less)\\s+with\\b|\\$[\\d.,kmb]+\\b[^.]{0,25}?\\bwith\\b|\\d+(\\.\\d+)?\\s?(k|m|b|dollars)\\b[^.]{0,25}?\\bwith\\b)"
+    wrong: "We spend too much with the vendor"
+    right: "We spend too much on the vendor"
+    why: '"Gastar dinheiro com" é "spend money on" — "with" é para pessoas ("spend time with").'
+    tag: br.spend-with
+  # "the half of the bill" — "a metade de" é "half the" ou "half of the";
+  # "the" antes de half só em "the first/second half" (fora: exige "the" depois de of).
+  - id: the-half-of
+    pattern: "\\bthe half of the\\b"
+    wrong: "Compute is the half of the bill"
+    right: "Compute is half the bill"
+    why: '"A metade de X" é "half of X" ou "half the X" — sem "the" antes de half.'
+    tag: br.the-half

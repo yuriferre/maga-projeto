@@ -865,4 +865,48 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     ];
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.modal-to");
   });
+
+  it("flags 'the price is expensive' but not 'the bag is expensive'", () => {
+    expect(tagsOf("The price is expensive for that tier.")).toContain("br.price-expensive");
+    expect(tagsOf("The egress fees look expensive.")).toContain("br.price-expensive");
+    const clean = [
+      "The price is high for that tier.",
+      "The bag is expensive.",
+      "Spot instances are cheap.",
+      "The cost is reasonable.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.price-expensive");
+  });
+  it("flags 'an economy of $40k' but not 'the economy of Brazil'", () => {
+    expect(tagsOf("Right-sizing brings an economy of $40k a year.")).toContain("br.an-economy");
+    expect(tagsOf("That's an economy of about 40%.")).toContain("br.an-economy");
+    const clean = [
+      "Right-sizing brings a saving of $40k a year.",
+      "The economy of Brazil is growing.",
+      "We benefit from economies of scale.",
+      "The sharing economy changed travel.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.an-economy");
+  });
+  it("flags 'spend money with' but not 'spend time with'", () => {
+    expect(tagsOf("We spend too much with the vendor.")).toContain("br.spend-with");
+    expect(tagsOf("The team spends $12k a month with AWS.")).toContain("br.spend-with");
+    const clean = [
+      "We spend too much on the vendor.",
+      "I spend time with the team.",
+      "She spent the weekend with her family.",
+      "We spend less on spot instances.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.spend-with");
+  });
+  it("flags 'the half of the bill' but not 'the second half'", () => {
+    expect(tagsOf("Compute is the half of the bill.")).toContain("br.the-half");
+    const clean = [
+      "Compute is half the bill.",
+      "Compute is half of the bill.",
+      "Traffic doubled in the second half of the year.",
+      "You haven't heard the half of it.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.the-half");
+  });
 });

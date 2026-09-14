@@ -158,3 +158,7 @@ tags:
   - { id: br.is-critic,        group: br, label: "is critic (is critical)" }
   - { id: br.in-compliance-to, group: br, label: "in compliance to (with)" }
   - { id: br.modal-to,         group: br, label: "must to fix (must fix)" }
+  - { id: br.price-expensive, group: br, label: "the price is expensive (high)" }
+  - { id: br.an-economy,      group: br, label: "an economy of $40k (a saving)" }
+  - { id: br.spend-with,      group: br, label: "spend money with (on)" }
+  - { id: br.the-half,        group: br, label: "the half of the bill (half)" }
