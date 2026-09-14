@@ -44,4 +44,13 @@ describe("M21 lessons", () => {
     maxSeconds: 45,
     prerequisites: ["M21-03"],
   });
+  checkLesson(bundle, "M21-05", {
+    vocabMin: 12,
+    dialogueMin: 6,
+    listening: 6,
+    quiz: 8,
+    cardsMin: 10,
+    maxSeconds: 60,
+    prerequisites: ["M21-04"],
+  });
 });

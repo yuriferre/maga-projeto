@@ -1,0 +1,322 @@
+id: M21-05
+module: M21
+order: 5
+title: "[SIM] Design review: defender o ADR-003 contra dois céticos"
+objective: >-
+  Ao final, você sustenta uma decisão num design review
+  completo: apresenta nas cinco batidas, responde objeções
+  validando antes de argumentar e declara incerteza com
+  plano — sem chutar número nem abandonar a decisão.
+durationMin: 45
+competencies: [SPK, CNF]
+tags: [vocab.decisions, gram.argument-connectors, comp.speaking, comp.listening, gram.hedging]
+prerequisites: [M21-04]
+
+context:
+  scenario: |
+    Review final do ADR-003 — a fila entre checkout e
+    pagamentos. Na sala, dois céticos com papéis diferentes:
+
+    - **Beth** (staff) ataca a **correção técnica**:
+      consistência, ordenação, o teto de latência a 10x.
+    - **Carlos** (SRE lead) ataca a **operabilidade**:
+      on-call, capacidade, quem corre quando quebra.
+
+    A defesa completa junta tudo do módulo:
+
+    - **abrir** com as cinco batidas — contexto, opções,
+      decisão, rationale, consequências;
+    - **receber** cada objeção em três batidas — "that's a
+      fair concern, however…", "I hear you, and…", "let me
+      address that";
+    - **declarar** o que não é sabido — "we don't know yet",
+      "I'd want to validate that before committing", "I
+      might be wrong about…" — sempre com o plano que fecha;
+    - **conceder** o que é verdade — "I'll concede the ops
+      cost" — e **propor** o meio — "let's meet halfway";
+    - **fechar** com o registro: "I'll update the ADR with
+      the open questions — sign-off pending Thursday's test".
+
+    A derrota não é mudar de decisão — é chutar número ou
+    brigar com a pergunta.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "design review"
+    meaning: 'a revisão de design — onde a decisão é questionada'
+    example: "The design review runs forty-five minutes — bring the ADR."
+    translation: "O design review dura 45 minutos — traga o ADR."
+    note: "O formato: você apresenta, a sala questiona, o ADR sai atualizado."
+  - term: "to defend a decision"
+    meaning: 'defender a decisão — sustentar com estrutura, não com tom'
+    example: "You'll defend the decision against two reviewers."
+    translation: "Você vai defender a decisão contra dois revisores."
+    note: "Defender ≠ teimar: é sustentar o rationale e ceder onde o dado manda."
+  - term: "the burden of proof"
+    meaning: 'o ônus da prova — quem propõe, demonstra'
+    example: "The burden of proof is on us — we propose, we validate."
+    translation: "O ônus da prova é nosso — propomos, nós validamos."
+    note: "Aceitar o ônus desarma: 'fair — we'll bring the numbers'."
+  - term: "to hold up"
+    meaning: 'aguentar o escrutínio — a decisão que sobrevive à review'
+    example: "Does the rationale hold up under questioning?"
+    translation: "O rationale aguenta o questionamento?"
+    note: "'The structure holds up' — quando a defesa funcionou."
+  - term: "a constraint violation"
+    meaning: 'violação de restrição — quando a opção quebra a regra'
+    example: "The rewrite violates the deadline constraint — it's out."
+    translation: "O rewrite viola a restrição de prazo — está fora."
+    note: "O argumento mais limpo da review: apontar a constraint quebrada."
+  - term: "second-guess"
+    meaning: 'duvidar depois — reabrir o que já foi decidido'
+    example: "Let's not second-guess without new data — the test is Thursday."
+    translation: "Não vamos duvidar sem dados novos — o teste é quinta."
+    note: "'Second-guess' ≠ revisitar: duvidar sem dado novo é ruído."
+  - term: "the record"
+    meaning: 'o registro — o que fica documentado da review'
+    example: "For the record: the receipt concern is tracked as an open question."
+    translation: "Para o registro: a questão do recibo está como questão aberta."
+    note: "'For the record' — o que entra no ADR depois da discussão."
+  - term: "to sign off"
+    meaning: 'aprovar — o ok que fecha a review'
+    example: "Beth signs off once the open questions are in the ADR."
+    translation: "A Beth aprova quando as questões abertas entrarem no ADR."
+    note: "O fechamento da review: sign-off, ou sign-off pendente de teste."
+  - term: "a leading question"
+    meaning: 'pergunta tendenciosa — a que já carrega a resposta'
+    example: "'How is that not a bug?' is a leading question — answer the substance."
+    translation: "'Como isso não é um bug?' é pergunta tendenciosa — responda a substância."
+    note: "Não brigue com a forma — responda o conteúdo da pergunta."
+  - term: "devil's advocate"
+    meaning: 'advogado do diabo — quem questiona para testar'
+    example: "Carlos plays devil's advocate on the ops side — it's his job."
+    translation: "O Carlos faz de advogado do diabo no lado de ops — é o trabalho dele."
+    note: "O cético da sala está testando a decisão, não atacando você."
+  - term: "stand by"
+    meaning: 'manter — sustentar a decisão após o escrutínio'
+    example: "After the review, I stand by the queue — the data supports it."
+    translation: "Depois da review, mantenho a fila — os dados a sustentam."
+    note: "'I stand by the decision' — o fechamento de quem defendeu bem."
+  - term: "walk it back"
+    meaning: 'recuar — desfazer uma afirmação que não se sustentou'
+    example: "The 5x claim didn't survive the test — we walked it back in the ADR."
+    translation: "A afirmação de 5x não sobreviveu ao teste — recuamos no ADR."
+    note: "Quando o dado derruba a premissa, recuar no registro é o certo."
+
+grammar:
+  title: "a gramática inteira do módulo numa review só"
+  explanation: |
+    O design review é onde tudo se junta — os conectores de
+    cada fase:
+
+    - **Apresentar**: "*context first*…", "*we considered*…",
+      "*we're going with*…", "*the trade-off is*…".
+    - **Receber**: "*that's a fair concern*",
+      "*valid point*", "*I hear you, and*…".
+    - **Responder**: "*however*", "*here's the
+      counterpoint*", "*the rationale is*…".
+    - **Declarar limite**: "*we don't know yet*",
+      "*I'd want to validate that before committing*",
+      "*I might be wrong about*…".
+    - **Fechar**: "*let's meet halfway*", "*I'll update
+      the ADR*", "*sign-off pending the test*".
+
+    E os calques que entregam o sotaque na hora do aperto:
+    "**I am agree**" → "**I agree**"; "chose it **instead**
+    the safe option" → "**instead of**"; "**the same risk
+    than**" → "**the same as**"; "we **discussed about**"
+    → "**we discussed**".
+  examples:
+    - { en: "That's a fair concern — however, the receipt is a notification.", pt: "É uma preocupação justa — porém, o recibo é uma notificação." }
+    - { en: "We don't know yet at 10x — the spike test runs Thursday.", pt: "Ainda não sabemos a 10x — o teste de pico roda quinta." }
+    - { en: "I might be wrong about the consumer — the test will tell.", pt: "Posso estar errado sobre o consumer — o teste vai dizer." }
+    - { en: "I'll concede the on-call cost — and we meet halfway with a rotation.", pt: "Concedo o custo de on-call — e nos encontramos no meio com rodízio." }
+    - { en: "Sign-off pending Thursday's test — I'll update the ADR.", pt: "Aprovação pendente do teste de quinta — atualizo o ADR." }
+    - { en: "I stand by the decision — the rationale holds up.", pt: "Mantenho a decisão — o rationale se sustenta." }
+
+examples:
+  - en: "Context first: sync calls, weekend spikes, Q3 deadline."
+    pt: "Contexto primeiro: chamadas síncronas, picos de fim de semana, prazo do Q3."
+    context: "Abrir com a estrutura."
+  - en: "We chose the queue over a rewrite because it ships this quarter."
+    pt: "Escolhemos a fila em vez do rewrite porque entrega neste trimestre."
+    context: "A fórmula na defesa."
+  - en: "That's a fair concern; the ordering question gets an idempotency check."
+    pt: "Preocupação justa; a questão da ordem ganha um check de idempotência."
+    context: "Validar + responder."
+  - en: "We don't know yet at 10x — I'd want to validate before committing."
+    pt: "Ainda não sabemos a 10x — quero validar antes de me comprometer."
+    context: "O limite declarado."
+  - en: "I'll concede the ops cost — Kafka is real work, and still cheaper than the rewrite."
+    pt: "Concedo o custo de ops — Kafka dá trabalho, e ainda é mais barato que o rewrite."
+    context: "Conceder o verdadeiro."
+  - en: "The rewrite violates the deadline constraint — it stays off the table."
+    pt: "O rewrite viola a restrição de prazo — permanece fora de cogitação."
+    context: "A constraint quebrada."
+  - en: "For the record: capacity is an open question, pending the spike test."
+    pt: "Para o registro: capacidade é questão aberta, pendente do teste de pico."
+    context: "O que entra no ADR."
+  - en: "I stand by the queue — and we revisit if Thursday's numbers move."
+    pt: "Mantenho a fila — e revisitamos se os números de quinta mudarem."
+    context: "O fechamento."
+
+variations:
+  - idea: '"a defesa sob pressão"'
+    items:
+      - { register: "Boa", text: "Fair concern — however, the receipt is a notification, and the idempotency check covers it.", adequate: true }
+      - { register: "Boa", text: "We don't know at 10x yet — the spike test runs Thursday; sign-off can wait for it.", adequate: true }
+      - { register: "Inadequada", text: "Trust me, it scales.", adequate: false, note: "'Trust me' não é argumento — *the test will tell*." }
+      - { register: "Inadequada", text: "I am agree it needs a test.", adequate: false, note: "*I agree* — sem 'am'." }
+  - idea: '"fechando a review"'
+    items:
+      - { register: "Boa", text: "Let's meet halfway: queue ships, consistency review in Q4.", adequate: true }
+      - { register: "Boa", text: "For the record: capacity is an open question — pending the test.", adequate: true }
+      - { register: "Inadequada", text: "Ok, we'll do the rewrite then.", adequate: false, note: "Ceder tudo abandona o trabalho — proponha *meet halfway*." }
+      - { register: "Inadequada", text: "We discussed about the same risk than last week.", adequate: false, note: "*Discussed* sem 'about' + *the same as* — dois calques juntos." }
+
+brErrors:
+  - { wrong: "I am agree with the reviewers.", right: "I agree with the reviewers.", why: "I agree", tag: br.am-agree }
+  - { wrong: "We're agree on the plan.", right: "We agree on the plan.", why: "we agree", tag: br.am-agree }
+  - { wrong: "We chose Kafka instead the managed queue.", right: "We chose Kafka instead of the managed queue.", why: "instead of", tag: br.instead-of }
+  - { wrong: "The queue has the same cost than the rewrite.", right: "The queue has the same cost as the rewrite.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the decision.", right: "We discussed the decision.", why: "discussed the decision", tag: br.discuss-about }
+  - { wrong: "I have doubt about the load.", right: "I have a doubt about the load.", why: "a doubt", tag: br.doubt }
+  - { wrong: "It depends of the spike test.", right: "It depends on the spike test.", why: "depends on", tag: br.depend-of }
+  - { wrong: "He explained me the concern.", right: "He explained the concern to me.", why: "explained the concern", tag: br.explain-me }
+  - { wrong: "The question worths an answer.", right: "The question is worth an answer.", why: "is worth", tag: br.worths }
+  - { wrong: "I think it make sense to wait for the test.", right: "I think it makes sense to wait for the test.", why: "it makes sense", tag: br.it-makes-sense }
+
+dialogue:
+  title: "A review completa — você defende"
+  lines:
+    - { speaker: Beth, text: "Fifteen minutes. Walk me through the decision." }
+    - { speaker: Yuri, text: "Context: checkout calls payments synchronously, weekend traffic doubles, and the Q3 deadline is the constraint. We considered sync retries, a queue, and a rewrite. We're going with a queue — it decouples without a rewrite. The trade-off: eventual consistency on the receipt, plus Kafka ops." }
+    - { speaker: Beth, text: "The receipt can arrive before the payment confirms — how is that not a bug?" }
+    - { speaker: Yuri, text: "That's a fair concern. However, the receipt is a notification, not the record — and the fix is an idempotency check on the consumer. I'll put it in the ADR." }
+    - { speaker: Carlos, text: "And who runs Kafka? You're signing us up for it." }
+    - { speaker: Yuri, text: "Valid point — here's the counterpoint: we already run Kafka for the event bus; the marginal cost is one topic." }
+    - { speaker: Carlos, text: "On-call isn't free. Who takes the page?" }
+    - { speaker: Yuri, text: "I'll concede on-call is real work. Let's meet halfway: the team rotates it, and we revisit a managed service if the load justifies." }
+    - { speaker: Beth, text: "And at 10x traffic?" }
+    - { speaker: Yuri, text: "We don't know yet — honestly. p99 at current load is 40ms, measured. For 10x, I'd want to validate before committing; the spike test runs Thursday." }
+    - { speaker: Beth, text: "I might be wrong, but the consumer could bottleneck first." }
+    - { speaker: Yuri, text: "Fair — that's an open question too. For the record: it goes in the ADR as pending, next to capacity." }
+    - { speaker: Carlos, text: "So: decision holds, two open questions, a test Thursday." }
+    - { speaker: Yuri, text: "Exactly. I stand by the queue — and we revisit if the numbers move. Sign-off pending the test; I'll update the ADR today." }
+  notes:
+    - "as três técnicas na sequência real: estrutura → pushback → limites → fechamento."
+    - "cada objeção saiu com validação + argumento + proposta — nenhuma virou briga."
+
+listening:
+  lines:
+    - { speaker: Beth, text: "A design review defense has four phases. Present in five beats — context, options, decision, rationale, consequences. Receive objections in three — 'that's a fair concern', 'I hear you and', 'let me address that'. Declare limits with a plan — 'we don't know yet', 'I'd want to validate before committing'. And close with the record — 'open questions go in the ADR; sign-off pending the test'." }
+    - { speaker: Carlos, text: "Two ways to lose the room: guessing a number with conviction — it becomes a commitment — and fighting the question instead of answering it. The skeptics aren't enemies; devil's advocate is the job. Concede what's true, meet halfway on the rest, and stand by the decision when the data supports it." }
+  questions:
+    - { id: M21-05-l1, type: multiple_choice, prompt: "As quatro fases da defesa são…", options: ["apresentar → receber → declarar limites → fechar", "abrir → brigar → ceder → sair", "contexto → promessa → prazo → ask", "ouvir → anotar → sair → testar"], answer: 0, explanation: "Estrutura → pushback → limites → registro.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-05-l2, type: multiple_choice, prompt: "As duas formas de perder a sala são…", options: ["falar baixo e devagar", "ser técnico demais", "chutar número e brigar com a pergunta", "usar slides ruins"], answer: 2, explanation: "Número inventado vira compromisso; briga escala.", tags: [comp.listening, comp.confidence] }
+    - { id: M21-05-l3, type: fill_blank, prompt: "I ___ by the queue — and we revisit if the numbers move.", accepted: ["stand"], explanation: "'Stand by the decision' — mantenho.", tags: [vocab.decisions] }
+    - { id: M21-05-l4, type: error_correction, prompt: "We chose Kafka instead the managed queue.", accepted: ["We chose Kafka instead of the managed queue.", "We chose Kafka instead of the managed queue"], explanation: "'instead of'.", tags: [br.instead-of] }
+    - { id: M21-05-l5, type: multiple_choice, prompt: "'Devil's advocate' na review é…", options: ["o inimigo da decisão", "quem questiona para testar — é o trabalho dele", "quem aprova no fim", "o moderador"], answer: 1, explanation: "O cético testa a decisão, não ataca você.", tags: [comp.listening, vocab.decisions] }
+    - { id: M21-05-l6, type: multiple_choice, prompt: "'Sign-off pending the test' significa…", options: ["reunião cancelada", "decisão rejeitada", "aprovação condicionada ao resultado do teste", "o ADR foi deletado"], answer: 2, explanation: "O fechamento honesto: aprova quando o dado chega.", tags: [comp.listening, vocab.decisions] }
+
+writing:
+  prompt: |
+    **Cenário:** a review acabou com sign-off pendente do
+    teste de quinta. O Carlos pediu o resumo por escrito no
+    canal do ADR.
+
+    **Tarefa:** escreva 80–110 palavras registrando: a
+    decisão que se sustentou ("we chose X over Y because…"),
+    as duas objeções recebidas e como foram respondidas
+    (validar → argumento → ação), as questões abertas
+    declaradas (10x, consumer) e o fechamento — sign-off
+    pendente do spike test, ADR atualizado.
+  constraints:
+    - { label: "A decisão", pattern: "\\bchose|going with|stand by\\b" }
+    - { label: "As objeções", pattern: "\\bconcern|objection|question\\w*\\b" }
+    - { label: "As questões abertas", pattern: "\\bopen question|pending|don't know\\b" }
+    - { label: "O fechamento", pattern: "\\bsign-off|ADR|test\\b" }
+  rubric:
+    - "Decisão com rationale em uma frase"
+    - "Objeções com a resposta dada"
+    - "Questões abertas com o plano que fecha"
+    - "Sign-off pendente declarado"
+  model: >-
+    Decision defended: we chose a queue over a rewrite
+    because it decouples checkout from payments and ships
+    before the Q3 deadline. Two concerns were raised and
+    addressed: the receipt ordering — fair concern — gets
+    an idempotency check, and on-call ownership gets a
+    rotation, with a managed service revisited if the load
+    justifies it. Open questions, recorded in the ADR:
+    behavior at 10x and a possible consumer bottleneck —
+    both pending Thursday's spike test. Sign-off is pending
+    those results; I stand by the decision and we revisit
+    if the numbers move.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.decisions, gram.argument-connectors]
+
+speaking:
+  modeA:
+    prompt: "Grave 60 segundos defendendo o ADR-003 na review: a decisão nas cinco batidas, uma objeção respondida em três batidas, um limite declarado com plano e o fechamento com sign-off pendente."
+    maxSeconds: 60
+    targetPhrases:
+      - context first
+      - we considered
+      - we're going with
+      - we chose
+      - over
+      - because
+      - that's a fair concern
+      - however
+      - I hear you
+      - let me address that
+      - I'll concede
+      - we don't know yet
+      - I'd want to validate
+      - open question
+      - meet halfway
+      - I stand by
+      - sign-off pending
+      - instead of
+      - the same as
+      - I agree
+    checklist:
+      - "as cinco batidas na abertura"
+      - "objeção respondida: validar → responder → propor"
+      - "limite declarado com plano, sem chutar número"
+      - "fechamento: open questions no ADR + sign-off pendente"
+
+quiz:
+  - { id: M21-05-q1, type: multiple_choice, prompt: "A defesa de uma decisão se perde quando…", options: ["se usam slides simples", "se chuta um número com convicção", "a review demora", "há dois revisores"], answer: 1, explanation: "Número inventado vira compromisso.", tags: [vocab.decisions] }
+  - { id: M21-05-q2, type: error_correction, prompt: "We discussed about the decision yesterday.", accepted: ["We discussed the decision yesterday.", "We discussed the decision yesterday"], explanation: "'discussed the decision'.", tags: [br.discuss-about] }
+  - { id: M21-05-q3, type: multiple_choice, prompt: "'I stand by the decision' é…", options: ["abandonar a decisão", "manter a decisão após o escrutínio", "adiar a decisão", "escalar a decisão"], answer: 1, explanation: "O fechamento de quem defendeu bem.", tags: [vocab.decisions] }
+  - { id: M21-05-q4, type: fill_blank, prompt: "For the ___: capacity is an open question, pending the test.", accepted: ["record"], explanation: "'For the record' — o que entra no ADR.", tags: [vocab.decisions] }
+  - { id: M21-05-q5, type: multiple_choice, prompt: "A objeção cética na review deve ser recebida como…", options: ["um ataque pessoal", "ruído", "um teste da decisão — devil's advocate", "uma ordem"], answer: 2, explanation: "O cético está trabalhando para a decisão certa.", tags: [vocab.decisions, comp.confidence] }
+  - { id: M21-05-q6, type: error_correction, prompt: "The queue has the same risk than the rewrite.", accepted: ["The queue has the same risk as the rewrite.", "The queue has the same risk as the rewrite"], explanation: "'the same as'.", tags: [br.same-than] }
+  - { id: M21-05-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["halfway", "meet", "let's"], answer: "let's meet halfway", explanation: "A concessão dos dois lados.", tags: [vocab.decisions] }
+  - { id: M21-05-q8, type: multiple_choice, prompt: "'Sign-off pending the test' é o fechamento…", options: ["evasivo", "honesto — aprovação condicionada ao dado", "definitivo", "informal"], answer: 1, explanation: "Aprova quando o dado chega — registrado.", tags: [vocab.decisions] }
+
+srsCards:
+  - { front: "design review", back: "Onde a decisão é questionada — 'bring the ADR'.", tag: vocab.decisions }
+  - { front: "defend a decision", back: "Sustentar com estrutura — não com tom.", tag: vocab.decisions }
+  - { front: "burden of proof", back: "Quem propõe, demonstra — 'we'll bring the numbers'.", tag: vocab.decisions }
+  - { front: "to hold up", back: "Sobreviver ao escrutínio — 'the rationale holds up'.", tag: vocab.decisions }
+  - { front: "constraint violation", back: "Opção que quebra a regra — 'violates the deadline'.", tag: vocab.decisions }
+  - { front: "second-guess", back: "Duvidar sem dado novo — ruído, não revisão.", tag: vocab.decisions }
+  - { front: "the record", back: "O que entra no ADR — 'for the record: open question'.", tag: vocab.decisions }
+  - { front: "to sign off", back: "O ok que fecha — 'sign-off pending the test'.", tag: vocab.decisions }
+  - { front: "leading question", back: "Pergunta tendenciosa — responda a substância.", tag: vocab.decisions }
+  - { front: "devil's advocate", back: "Quem questiona para testar — é o trabalho dele.", tag: vocab.decisions }
+  - { front: "stand by", back: "Manter após o escrutínio — 'I stand by the queue'.", tag: vocab.decisions }
+  - { front: "walk it back", back: "Recuar a afirmação que o dado derrubou.", tag: vocab.decisions }
+
+review:
+  preferTags: [vocab.decisions, gram.argument-connectors, br.instead-of]
+  notes: "Revisão prioriza a defesa completa — cinco batidas, pushback em três, limites com plano, fechamento com registro — e os calques de argumentação."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
