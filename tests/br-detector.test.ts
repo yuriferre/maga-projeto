@@ -910,3 +910,45 @@ describe("padrões BR — M13 (e-mail e docs)", () => {
     for (const s of clean) expect(tagsOf(s), s).not.toContain("br.the-half");
   });
 });
+
+describe("padrões BR — M21 (decisões e argumentação)", () => {
+  it("flags 'I am agree' but not 'I agree'", () => {
+    expect(tagsOf("I am agree with the decision.")).toContain("br.am-agree");
+    expect(tagsOf("We're agree on the approach.")).toContain("br.am-agree");
+    const clean = [
+      "I agree with the decision.",
+      "We agreed on the approach.",
+      "I strongly agree.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.am-agree");
+  });
+  it("flags 'discussed about' but not 'a discussion about'", () => {
+    expect(tagsOf("We discussed about the trade-offs.")).toContain("br.discuss-about");
+    expect(tagsOf("Let's discuss about it tomorrow.")).toContain("br.discuss-about");
+    const clean = [
+      "We discussed the trade-offs.",
+      "We had a discussion about the trade-offs.",
+      "Let's talk about it tomorrow.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.discuss-about");
+  });
+  it("flags 'chose X instead Y' but not 'instead of' / trailing instead", () => {
+    expect(tagsOf("We chose Kafka instead RabbitMQ.")).toContain("br.instead-of");
+    expect(tagsOf("We went with the queue instead the table.")).toContain("br.instead-of");
+    const clean = [
+      "We chose Kafka instead of RabbitMQ.",
+      "We stayed home instead.",
+      "We could use the queue; instead, we poll.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.instead-of");
+  });
+  it("flags 'the same X than' but not 'the same as'", () => {
+    expect(tagsOf("We get the same result than before.")).toContain("br.same-than");
+    const clean = [
+      "We get the same result as before.",
+      "The same as before.",
+      "More than before.",
+    ];
+    for (const s of clean) expect(tagsOf(s), s).not.toContain("br.same-than");
+  });
+});

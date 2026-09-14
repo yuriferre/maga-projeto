@@ -654,3 +654,25 @@ patterns:
     right: "Compute is half the bill"
     why: '"A metade de X" é "half of X" ou "half the X" — sem "the" antes de half.'
     tag: br.the-half
+  # "I am agree" — "eu concordo" é "I agree"; agree é verbo, não adjetivo.
+  - id: am-agree
+    pattern: "\\b(i|we|they|he|she|you)\\s*(am|is|are|'m|'re|'s)\\s+agree\\b"
+    wrong: "I am agree with the decision"
+    right: "I agree with the decision"
+    why: '"Agree" é verbo — "I agree", nunca "I am agree".'
+    tag: br.am-agree
+  # "chose X instead Y" — falta o "of": "instead of Y".
+  # Exige determinante ou maiúscula depois — "instead, we…" e "stayed instead" ficam fora.
+  - id: instead-of-missing
+    pattern: "\\binstead\\s+(?!of\\b|we\\b|i\\b|they\\b|he\\b|she\\b|you\\b|it\\b)\\w+\\b"
+    wrong: "We chose Kafka instead RabbitMQ"
+    right: "We chose Kafka instead of RabbitMQ"
+    why: '"Em vez de" é "instead of" — nunca "instead" direto.'
+    tag: br.instead-of
+  # "the same X than" — "o mesmo que" é "the same as", nunca "than".
+  - id: same-than
+    pattern: "\\bthe same\\s+\\w+\\s+than\\b"
+    wrong: "We get the same result than before"
+    right: "We get the same result as before"
+    why: '"The same" pede "as" — "than" é só de comparativo.'
+    tag: br.same-than

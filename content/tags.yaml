@@ -162,3 +162,8 @@ tags:
   - { id: br.an-economy,      group: br, label: "an economy of $40k (a saving)" }
   - { id: br.spend-with,      group: br, label: "spend money with (on)" }
   - { id: br.the-half,        group: br, label: "the half of the bill (half)" }
+  - { id: gram.argument-connectors, group: gram, label: "Conectores de argumentação" }
+  - { id: vocab.decisions,          group: vocab, label: "Decisões, ADRs e design review" }
+  - { id: br.am-agree,   group: br, label: "I am agree (I agree)" }
+  - { id: br.instead-of, group: br, label: "instead RabbitMQ (instead of)" }
+  - { id: br.same-than,  group: br, label: "the same X than (as)" }
