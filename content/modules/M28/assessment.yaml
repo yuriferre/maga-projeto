@@ -1,0 +1,98 @@
+# Avaliação do módulo M28: 15 itens cobrindo as quatro aulas + escrita (follow-up pós-screening) + fala (screening em miniatura).
+id: M28
+title: "Avaliação do módulo M28: conversas com recrutadores"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M28-A01, type: multiple_choice, prompt: "A screening call is primarily…", options: ["a fit check — communication, trajectory, logistics, expectations", "a technical deep-dive", "a salary negotiation", "a coding test"], answer: 0, explanation: "Filtro de encaixe em quatro eixos — não é técnica.", tags: [vocab.interview] }
+  - { id: M28-A02, type: error_correction, prompt: "I have interest in the position — I work here since 2021.", accepted: ["I'm interested in the position — I've been here since 2021.", "I'm interested in the position — I've been here since 2021", "I'm interested in the position — I've worked here since 2021."], explanation: 'Dois calques: "I''m interested" + present perfect.', tags: [br.have-interest, br.work-since] }
+  - { id: M28-A03, type: error_correction, prompt: "My salary pretension is $140k and I need to give two weeks advice.", accepted: ["My salary expectations are around $140k and I need to give two weeks' notice.", "My salary expectations are around $140k and I need to give two weeks' notice", "I'm targeting $140k and I need to give two weeks notice."], explanation: 'Dois calques: "expectations/targeting" + "notice".', tags: [br.pretension, br.advice-notice] }
+  - { id: M28-A04, type: error_correction, prompt: "I made an interview yesterday — they said I win a good salary.", accepted: ["I had an interview yesterday — they said I earn a good salary.", "I had an interview yesterday — they said I earn a good salary", "I did an interview yesterday — they said I make a good salary."], explanation: 'Dois calques: "had an interview" + "earn/make a salary".', tags: [br.make-interview, br.win-money] }
+  - { id: M28-A05, type: multiple_choice, prompt: "During a screening, the right answer length is…", options: ["ten minutes per answer", "as long as you need", "one sentence only", "two minutes — the recruiter needs three sentences to pass along"], answer: 3, explanation: "Respostas econômicas — o recrutador repassa um resumo.", tags: [vocab.interview] }
+  - { id: M28-A06, type: error_correction, prompt: "I formed in Computer Science and was promoted for senior last year.", accepted: ["I graduated in Computer Science and was promoted to senior last year.", "I graduated in Computer Science and was promoted to senior last year", "I have a degree in Computer Science and was promoted to senior last year."], explanation: 'Dois calques: "graduated/a degree" + "promoted to".', tags: [br.formed-in, br.promoted-for] }
+  - { id: M28-A07, type: error_correction, prompt: "I was responsible by the pipeline — in my vision it was clean.", accepted: ["I was responsible for the pipeline — in my view it was clean.", "I was responsible for the pipeline — in my view it was clean"], explanation: 'Dois calques: "responsible for" + "in my view".', tags: [br.responsible-by, br.in-my-vision] }
+  - { id: M28-A08, type: fill_blank, prompt: "I'll pass your profile ___ to the hiring manager.", accepted: ["along"], explanation: "'Pass your profile along' — o sinal de aprovação.", tags: [vocab.interview] }
+  - { id: M28-A09, type: error_correction, prompt: "It's the same process than before — I have doubt about the timeline.", accepted: ["It's the same process as before — I have a question about the timeline.", "It's the same process as before — I have a question about the timeline", "It's the same process as before — I'm not sure about the timeline."], explanation: 'Dois calques: "the same as" + "a question".', tags: [br.same-than, br.doubt] }
+  - { id: M28-A10, type: match, prompt: "Associe a fase do screening ao que o recrutador checa.", pairs: [{ left: "tell me about yourself", right: "communication plus trajectory — your two-minute pitch" }, { left: "notice period and sponsorship", right: "logistics — blockers to starting" }, { left: "salary expectations", right: "expectations — a range inside their band" }, { left: "do you have any questions", right: "your seniority signal — ask about their problem" }], explanation: "Cada fase do roteiro tem um propósito de filtro.", tags: [vocab.interview] }
+  - { id: M28-A11, type: multiple_choice, prompt: "Before leaving a screening call, always confirm…", options: ["the office address", "the CEO's name", "'when should I expect to hear back' — the timeline for next steps", "the dress code"], answer: 2, explanation: "Nunca saia sem o timeline de retorno.", tags: [vocab.interview] }
+  - { id: M28-A12, type: error_correction, prompt: "I have interest in the role and my pretension is remote work.", accepted: ["I'm interested in the role and my preference is remote work.", "I'm interested in the role and my preference is remote work", "I'm interested in the role and remote is my preference."], explanation: 'Dois calques: "I''m interested" + "preference" (pretension não existe para isso).', tags: [br.have-interest, br.pretension] }
+  - { id: M28-A13, type: multiple_choice, prompt: "Asked about salary, the strongest response is…", options: ["a single firm number", "'I'm targeting the $140–160k range — what's the band on your end?'", "'whatever you offer'", "'my pretension is high'"], answer: 1, explanation: "Faixa + devolução da pergunta — mantém alavancagem.", tags: [vocab.interview] }
+  - { id: M28-A14, type: fill_blank, prompt: "What does ___ look like in the first 90 days for this role?", accepted: ["success"], explanation: "'What does success look like' — a pergunta de senior.", tags: [vocab.interview] }
+  - { id: M28-A15, type: multiple_choice, prompt: "'I'll pass your profile along to the hiring manager' means…", options: ["rejection", "you're hired", "you passed the filter — next step is the hiring manager", "they lost your resume"], answer: 3, explanation: "Sinal de aprovação do screening.", tags: [vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** o screening com a
+    Rachel acabou — ela pediu um follow-up por e-mail
+    confirmando três pontos logísticos.
+
+    **Tarefa:** escreva 90–120 palavras: o e-mail de
+    follow-up — agradecimento, um callback específico
+    da conversa ("the CI reliability roadmap"), a
+    confirmação do interesse, os três pontos de
+    logística (notice → data de início, remoto/visto,
+    faixa salarial) e a confirmação do próximo passo.
+  constraints:
+    - { label: "Agradecimento + callback", pattern: "\\bthanks|thank you|appreciated|great talking|roadmap|reliability\\b" }
+    - { label: "O interesse", pattern: "\\bexcited|interested|looking forward|strong fit\\b" }
+    - { label: "A logística", pattern: "\\bnotice|start in|remote|sponsorship|authorized|targeting|range\\b" }
+    - { label: "O próximo passo", pattern: "\\bnext steps|hear back|hiring manager|friday|follow.?up\\b" }
+  rubric:
+    - "Follow-up curto com callback específico"
+    - "Logística confirmada: notice→data, visto, faixa"
+    - "Interesse declarado + próximo passo confirmado"
+    - "Sem calques ('interested', 'notice', 'expectations')"
+  model: >-
+    Hi Rachel — thanks for the screening today, great
+    talking with you. The CI reliability roadmap
+    sounds like exactly the problem I've been
+    solving, and I'm excited about the role.
+    Confirming the logistics: my notice is two weeks,
+    so I could start in early March; remote from
+    Brazil needs no sponsorship, and US relocation
+    would need it; on comp, I'm targeting the
+    $140–160k range, which you said is within band.
+    Looking forward to the hiring manager call —
+    should I still expect to hear back by Friday?
+    Happy to send anything else that helps.
+  minWords: 90
+  maxWords: 120
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  prompt: "Grave até 120 segundos: o screening completo em miniatura. Cinco fases: abertura + pitch de 2 min comprimido, 'why this role', a logística (notice → data, remoto, sponsorship), a expectativa salarial (faixa + devolução do band), e duas perguntas fortes + fecho com timeline."
+  maxSeconds: 120
+  targetPhrases:
+    - thanks for reaching out
+    - i'm a platform engineer
+    - i've been here since
+    - i led the
+    - i was responsible for
+    - reduced deploy time from
+    - it's a problem i know
+    - my notice is
+    - i could start in
+    - i'd need sponsorship
+    - remote is my strong preference
+    - i'm targeting the
+    - what's the band
+    - what does success look like
+    - new role or a backfill
+    - when should i expect to hear back
+    - that covers everything
+    - looking forward to the next steps
+    - i'm interested in
+    - two weeks' notice
+  checklist:
+    - "cinco fases cobertas, respostas ≤2 min"
+    - "logística sim/não + fato"
+    - "faixa salarial + devolução do band"
+    - "≥2 perguntas fortes + timeline no fecho"
+    - "sem calques ('interested', 'notice', 'expectations', 'promoted to')"
+
+pass:
+  itemsMin: 0.75
+  writingMin: 3
+  speakingMin: 3

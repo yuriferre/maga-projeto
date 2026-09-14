@@ -987,3 +987,43 @@ describe("M27 assessment variants", () => {
     expect(checkExercise(q, "I'm working on the pitch since Monday.").correct).toBe(false);
   });
 });
+
+describe("M28 assessment variants", () => {
+  const m28 = bundle.moduleAssessments["M28"]!;
+  it("requires 'interested' and present perfect on A02", () => {
+    const q = m28.items.find((q) => q.id === "M28-A02")!;
+    expect(checkExercise(q, "I'm interested in the position — I've been here since 2021.").correct).toBe(true);
+    expect(checkExercise(q, "I have interest in the position — I've been here since 2021.").correct).toBe(false);
+    expect(checkExercise(q, "I'm interested in the position — I work here since 2021.").correct).toBe(false);
+  });
+  it("requires 'expectations/targeting' and 'notice' on A03", () => {
+    const q = m28.items.find((q) => q.id === "M28-A03")!;
+    expect(checkExercise(q, "My salary expectations are around $140k and I need to give two weeks' notice.").correct).toBe(true);
+    expect(checkExercise(q, "My salary pretension is $140k and I need to give two weeks' notice.").correct).toBe(false);
+    expect(checkExercise(q, "My salary expectations are around $140k and I need to give two weeks advice.").correct).toBe(false);
+  });
+  it("requires 'had an interview' and 'earn/make' on A04", () => {
+    const q = m28.items.find((q) => q.id === "M28-A04")!;
+    expect(checkExercise(q, "I had an interview yesterday — they said I earn a good salary.").correct).toBe(true);
+    expect(checkExercise(q, "I made an interview yesterday — they said I earn a good salary.").correct).toBe(false);
+    expect(checkExercise(q, "I had an interview yesterday — they said I win a good salary.").correct).toBe(false);
+  });
+  it("requires 'graduated/degree' and 'promoted to' on A06", () => {
+    const q = m28.items.find((q) => q.id === "M28-A06")!;
+    expect(checkExercise(q, "I graduated in Computer Science and was promoted to senior last year.").correct).toBe(true);
+    expect(checkExercise(q, "I formed in Computer Science and was promoted to senior last year.").correct).toBe(false);
+    expect(checkExercise(q, "I graduated in Computer Science and was promoted for senior last year.").correct).toBe(false);
+  });
+  it("requires 'the same as' and 'a question' on A09", () => {
+    const q = m28.items.find((q) => q.id === "M28-A09")!;
+    expect(checkExercise(q, "It's the same process as before — I have a question about the timeline.").correct).toBe(true);
+    expect(checkExercise(q, "It's the same process than before — I have a question about the timeline.").correct).toBe(false);
+    expect(checkExercise(q, "It's the same process as before — I have doubt about the timeline.").correct).toBe(false);
+  });
+  it("requires 'interested' and 'preference' on A12", () => {
+    const q = m28.items.find((q) => q.id === "M28-A12")!;
+    expect(checkExercise(q, "I'm interested in the role and my preference is remote work.").correct).toBe(true);
+    expect(checkExercise(q, "I have interest in the role and my preference is remote work.").correct).toBe(false);
+    expect(checkExercise(q, "I'm interested in the role and my pretension is remote work.").correct).toBe(false);
+  });
+});

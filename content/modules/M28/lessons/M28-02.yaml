@@ -1,0 +1,319 @@
+id: M28-02
+module: M28
+order: 2
+title: "Expectativas: salário, remoto, disponibilidade, visto e notice"
+objective: >-
+  Ao final, você sabe responder às perguntas delicadas
+  do screening — salário, remoto, disponibilidade,
+  visto e notice period — com frases que mantêm sua
+  posição de negociação.
+durationMin: 30
+competencies: [SPK, LIS]
+tags: [vocab.interview, comp.speaking, comp.listening]
+prerequisites: [M28-01]
+
+context:
+  scenario: |
+    A parte mais desconfortável do screening: números
+    e logística. O recrutador pergunta direto — e a
+    forma como você responde afeta a oferta depois.
+
+    As regras do jogo:
+
+    - **Salário**: nunca dê um número único primeiro.
+      Dê uma **faixa** ("I'm targeting the $140–160k
+      range") ou devolva a pergunta ("what's the
+      budgeted range?"). "Pretensão salarial" não
+      existe em inglês — é **expectations**.
+    - **Remoto/híbrido**: seja direto sobre sua
+      preferência, mas mostre flexibilidade:
+      "remote is my strong preference".
+    - **Disponibilidade**: notice period é o tempo
+      até começar — "my notice is two weeks".
+      Brasileiro diz "aviso prévio" → **notice**,
+      nunca "advice".
+    - **Visto/sponsorship**: resposta direta.
+      "I'd need sponsorship" ou "I'm authorized
+      to work in…". Esconder só adia o problema.
+
+    O erro do brasileiro: traduzir "pretensão
+    salarial" literalmente, dizer "I have interest"
+    (quer dizer participação acionária!), e travar
+    quando perguntam de visto.
+  roles: [Yuri (platform engineer), Rachel (recruiter)]
+
+vocabulary:
+  - term: "I'm targeting the $X–$Y range"
+    meaning: 'estou mirando a faixa $X–$Y — resposta de salário com faixa'
+    example: "I'm targeting the $140–160k range, depending on the full package."
+    translation: "Estou mirando a faixa de $140–160 mil, dependendo do pacote completo."
+    note: "Faixa, não número único — mantém espaço para negociar depois."
+  - term: "what's the budgeted range?"
+    meaning: 'qual a faixa orçada? — devolve a pergunta'
+    example: "Before I give a number — what's the budgeted range for this role?"
+    translation: "Antes de eu dar um número — qual a faixa orçada para essa vaga?"
+    note: "Devolve a pergunta — quem fala o número primeiro perde."
+  - term: "depending on the full package"
+    meaning: 'dependendo do pacote completo — hedge legítimo'
+    example: "I'm targeting $150k, depending on the full package — equity, bonus, benefits."
+    translation: "Miro $150k, dependendo do pacote completo — equity, bônus, benefícios."
+    note: "Justifica a faixa: base não é tudo."
+  - term: "remote is my strong preference"
+    meaning: 'remoto é minha forte preferência — preferência clara mas flexível'
+    example: "Remote is my strong preference, but I'd consider hybrid for the right team."
+    translation: "Remoto é minha forte preferência, mas consideraria híbrido pelo time certo."
+    note: "Claro sem fechar portas."
+  - term: "I'm authorized to work in…"
+    meaning: 'sou autorizado a trabalhar em… — resposta de visto positiva'
+    example: "I'm authorized to work in Brazil — I'd need sponsorship for the US."
+    translation: "Sou autorizado a trabalhar no Brasil — precisaria de patrocínio para os EUA."
+    note: "Afirme o que você PODE antes do que não pode."
+  - term: "I'd need visa sponsorship"
+    meaning: 'eu precisaria de patrocínio de visto — resposta direta'
+    example: "For US-based roles, I'd need visa sponsorship."
+    translation: "Para vagas nos EUA, eu precisaria de patrocínio de visto."
+    note: "Direto — esconder só adia o problema."
+  - term: "my notice period is…"
+    meaning: 'meu aviso prévio é… — tempo até começar'
+    example: "My notice period is two weeks — I could start by mid-March."
+    translation: "Meu aviso prévio é de duas semanas — poderia começar em meados de março."
+    note: "Sempre 'notice', nunca 'advice'."
+  - term: "I can start in…"
+    meaning: 'posso começar em… — converte notice em data'
+    example: "I can start in early April — two weeks' notice plus a week to wrap up."
+    translation: "Posso começar no início de abril — duas semanas de aviso mais uma para finalizar."
+    note: "Transforme o notice numa data concreta."
+  - term: "immediately available"
+    meaning: 'disponível imediatamente — sem notice'
+    example: "I'm immediately available — I left my last role in December."
+    translation: "Estou disponível imediatamente — saí do último emprego em dezembro."
+    note: "Se não está empregado, isso é um ponto forte — diga."
+  - term: "does the role support remote work?"
+    meaning: 'a vaga aceita remoto? — devolve a pergunta de logística'
+    example: "Does the role support fully remote work, or is hybrid expected?"
+    translation: "A vaga aceita totalmente remoto, ou híbrido é esperado?"
+    note: "Você também pode perguntar a logística deles."
+  - term: "within the band"
+    meaning: 'dentro da faixa — confirmação de compatibilidade salarial'
+    example: "That's within the band I had in mind — happy to continue."
+    translation: "Isso está dentro da faixa que eu tinha em mente — podemos continuar."
+    note: "'Band' é o termo deles — use o vocabulário deles."
+  - term: "I'd rather discuss comp later"
+    meaning: 'prefiro discutir comp depois — adiar o número'
+    example: "I'd rather discuss compensation once I understand the scope better."
+    translation: "Prefiro discutir compensação quando entender melhor o escopo."
+    note: "Adiar é legítimo — mas dê uma razão."
+
+grammar:
+  title: "a gramática das expectativas"
+  explanation: |
+    Respostas de expectativa usam estruturas
+    específicas:
+
+    - "**I'm targeting** + range" — a forma padrão de
+      dar faixa salarial.
+    - "**Would you need / Are you open to**" →
+      responda com o mesmo modal: "*I'd need…*",
+      "*I'm open to…*".
+    - "**Depending on** the full package" — o hedge
+      que mantém a faixa flexível.
+    - "**I could start** in March" — could + data
+      concreta para disponibilidade.
+
+    Os calques da conversa:
+
+    - "**My pretension**" → "**my expectations** /
+      **I'm targeting**".
+    - "**I have interest**" → "**I'm interested**".
+    - "**two weeks advice**" → "**two weeks'
+      notice**".
+    - "**I made an interview**" → "**I had an
+      interview**".
+  examples:
+    - { en: "I'm targeting the $140–160k range, depending on the full package.", pt: "Miro a faixa de $140–160k, dependendo do pacote." }
+    - { en: "Before I give a number — what's the budgeted range for the role?", pt: "Antes de dar um número — qual a faixa orçada para a vaga?" }
+    - { en: "Yes, I'd need sponsorship for the US — remote from Brazil needs none.", pt: "Sim, precisaria de patrocínio para os EUA — remoto do Brasil não precisa." }
+    - { en: "My notice is two weeks — I could start in early March.", pt: "Meu aviso é de duas semanas — poderia começar no início de março." }
+    - { en: "Remote is my strong preference, but I'd consider hybrid.", pt: "Remoto é minha forte preferência, mas consideraria híbrido." }
+    - { en: "I'd rather discuss comp once I understand the scope better.", pt: "Prefiro discutir comp quando entender melhor o escopo." }
+
+examples:
+  - en: "I'm targeting the $140–160k range, depending on the full package."
+    pt: "Miro a faixa de $140–160k, dependendo do pacote completo."
+    context: "Faixa + hedge legítimo."
+  - en: "Before I give a number — what's the budgeted range for the role?"
+    pt: "Antes de dar um número — qual a faixa orçada para a vaga?"
+    context: "Devolve a pergunta."
+  - en: "I'd need visa sponsorship for US-based roles — remote from Brazil needs none."
+    pt: "Precisaria de patrocínio para vagas nos EUA — remoto do Brasil não precisa."
+    context: "Visto: direto, sem pânico."
+  - en: "My notice period is two weeks — I could start in early March."
+    pt: "Meu aviso prévio é de duas semanas — poderia começar no início de março."
+    context: "Notice → data concreta."
+  - en: "I'm immediately available — I left my last role in December."
+    pt: "Estou disponível imediatamente — saí do último emprego em dezembro."
+    context: "Disponibilidade imediata é ponto forte."
+  - en: "Remote is my strong preference, but I'd consider hybrid for the right team."
+    pt: "Remoto é minha forte preferência, mas consideraria híbrido pelo time certo."
+    context: "Claro sem fechar portas."
+  - en: "Does the role support fully remote work, or is hybrid expected?"
+    pt: "A vaga aceita totalmente remoto, ou híbrido é esperado?"
+    context: "Devolve a pergunta de logística."
+  - en: "That's within the band I had in mind — happy to continue."
+    pt: "Isso está dentro da faixa que eu tinha em mente — podemos continuar."
+    context: "Use o vocabulário deles: 'band'."
+
+variations:
+  - idea: '"a pergunta de salário"'
+    items:
+      - { register: "Forte", text: "I'm targeting the $140–160k range, depending on the full package.", adequate: true }
+      - { register: "Forte", text: "Before I give a number — what's the budgeted range for the role?", adequate: true }
+      - { register: "Fraco", text: "I need at least $140k, non-negotiable.", adequate: false, note: "Número único + ultimato fecha a negociação antes de começar." }
+      - { register: "Fraco", text: "My pretension is $140k.", adequate: false, note: "Calque de 'pretensão' — e número único sem hedge." }
+  - idea: '"a pergunta de visto"'
+    items:
+      - { register: "Forte", text: "For US roles, I'd need sponsorship — remote from Brazil needs none.", adequate: true }
+      - { register: "Forte", text: "I'm authorized to work in Brazil — US roles would need an H-1B.", adequate: true }
+      - { register: "Fraco", text: "Um… the visa thing is complicated, I don't really know…", adequate: false, note: "Indecisão na logística é o que o filtro quer eliminar." }
+      - { register: "Fraco", text: "(mente que não precisa)", adequate: false, note: "Esconder só adia o bloqueio para depois da oferta." }
+
+brErrors:
+  - { wrong: "My pretension is $150k.", right: "I'm targeting $150k.", why: "targeting / expectations", tag: br.pretension }
+  - { wrong: "I have interest in the role.", right: "I'm interested in the role.", why: "I'm interested", tag: br.have-interest }
+  - { wrong: "I made an interview last week.", right: "I had an interview last week.", why: "had an interview", tag: br.make-interview }
+  - { wrong: "I give one month advice.", right: "I give one month's notice.", why: "one month's notice", tag: br.advice-notice }
+  - { wrong: "I win a good salary now.", right: "I earn a good salary now.", why: "earn a salary", tag: br.win-money }
+  - { wrong: "I work here since 2021.", right: "I've worked here since 2021.", why: "I've worked", tag: br.work-since }
+  - { wrong: "I was promoted for senior.", right: "I was promoted to senior.", why: "promoted to", tag: br.promoted-for }
+  - { wrong: "I formed in 2015.", right: "I graduated in 2015.", why: "graduated", tag: br.formed-in }
+  - { wrong: "I was responsible by DevOps.", right: "I was responsible for DevOps.", why: "responsible for", tag: br.responsible-by }
+  - { wrong: "The same role than before.", right: "The same role as before.", why: "the same as", tag: br.same-than }
+
+dialogue:
+  title: "A parte delicada do screening"
+  lines:
+    - { speaker: Rachel, text: "Now some logistics questions — what are your salary expectations?" }
+    - { speaker: Yuri, text: "I'm targeting the $140–160k range, depending on the full package — equity, bonus, benefits. What's the budgeted band for the role?" }
+    - { speaker: Rachel, text: "That's within our band, good. And the role is hybrid in Austin — are you open to relocation?" }
+    - { speaker: Yuri, text: "Remote is my strong preference, but I'd consider it for the right team. Is hybrid firm, or negotiable?" }
+    - { speaker: Rachel, text: "It's flexible for senior hires. Would you need visa sponsorship if you relocated?" }
+    - { speaker: Yuri, text: "Yes, I'd need sponsorship for the US — I'm authorized to work in Brazil, so remote needs nothing." }
+    - { speaker: Rachel, text: "Got it. And your notice period?" }
+    - { speaker: Yuri, text: "Two weeks — I could start in early March. How soon is the team looking to fill this?" }
+    - { speaker: Rachel, text: "Ideally within a month, so that works. Moving you forward — the hiring manager will reach out." }
+    - { speaker: Yuri, text: "Sounds great — happy to send over anything else you need. Thanks, Rachel!" }
+  notes:
+    - "salário: faixa + hedge 'depending on the full package' + devolução 'what's the band?'."
+    - "visto: direto e positivo — 'authorized in Brazil' antes de 'need sponsorship'."
+    - "notice: 'two weeks' → 'I could start in early March' — notice vira data."
+    - "você também pergunta: 'is hybrid firm?' e 'how soon is the team looking?'"
+
+listening:
+  lines:
+    - { speaker: Rachel, text: "Expectations questions are where candidates lose leverage. The rules: never give a single number first — give a range, 'I'm targeting the 140 to 160 range', or return the question, 'what's the budgeted band?'. 'Pretensão salarial' doesn't translate — say expectations." }
+    - { speaker: Yuri, text: "For logistics: 'my notice period is two weeks' — never 'advice', that's 'aviso'. For visa, answer directly: 'I'd need sponsorship for the US — I'm authorized in Brazil'. Hiding it just postpones the blocker. And 'remote is my strong preference' states your preference without closing doors." }
+    - { speaker: Rachel, text: "And you can ask logistics back: 'does the role support fully remote?', 'how soon is the team looking to fill this?' — it shows you're evaluating them too." }
+  questions:
+    - { id: M28-02-l1, type: multiple_choice, prompt: "A melhor resposta de salário é…", options: ["uma faixa com hedge — 'targeting $140–160k depending on the package'", "um número único firme", "'whatever you offer'", "'my pretension is X'"], answer: 0, explanation: "Faixa + hedge mantém espaço para negociar.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-02-l2, type: fill_blank, prompt: "I'm ___ the $140–160k range, depending on the full package.", accepted: ["targeting"], explanation: "'Targeting' + faixa.", tags: [vocab.interview] }
+    - { id: M28-02-l3, type: error_correction, prompt: "I made an interview yesterday.", accepted: ["I had an interview yesterday.", "I had an interview yesterday", "I did an interview yesterday."], explanation: "'Had an interview'.", tags: [br.make-interview] }
+    - { id: M28-02-l4, type: multiple_choice, prompt: "Perguntaram sponsorship. A resposta forte é…", options: ["esconder", "panic", "'it's complicated'", "'I'd need sponsorship for the US — I'm authorized in Brazil'"], answer: 3, explanation: "Direto e positivo — o que pode antes do que não pode.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-02-l5, type: multiple_choice, prompt: "'Aviso prévio' em inglês é…", options: ["advice", "warning", "notice — 'two weeks' notice'", "previous advice"], answer: 2, explanation: "'Notice' — advice é conselho.", tags: [comp.listening, vocab.interview] }
+    - { id: M28-02-l6, type: multiple_choice, prompt: "'Remote is my strong preference' significa…", options: ["ultimato: só remoto", "preferência clara sem fechar portas", "tanto faz", "odeio escritório"], answer: 1, explanation: "Claro sem fechar portas.", tags: [comp.listening, vocab.interview] }
+
+writing:
+  prompt: |
+    **Cenário:** depois do screening, Rachel pediu por
+    e-mail: "Could you share your expected comp range,
+    earliest start date, and work authorization status
+    in writing?"
+
+    **Tarefa:** escreva 70–100 palavras respondendo os
+    três pontos: faixa salarial com hedge, data de
+    início a partir do notice, e status de
+    autorização de trabalho (o que você PODE antes
+    do que não pode).
+  constraints:
+    - { label: "Faixa salarial", pattern: "\\btargeting|range|expectations|band|depending on\\b" }
+    - { label: "Data de início", pattern: "\\bnotice|start|available|weeks?|march|april|immediately\\b" }
+    - { label: "Autorização", pattern: "\\bauthorized|sponsorship|visa|remote|brazil\\b" }
+    - { label: "Fecho", pattern: "\\bhappy to|let me know|looking forward|thanks|questions\\b" }
+  rubric:
+    - "Faixa salarial com hedge, não número único"
+    - "Notice convertido em data de início"
+    - "Autorização afirmada positivamente"
+    - "Sem calques ('expectations', 'notice', 'authorized')"
+  model: >-
+    Hi Rachel — happy to confirm in writing. On
+    compensation: I'm targeting the $140–160k range,
+    depending on the full package — equity, bonus,
+    and benefits. On timing: my notice period is two
+    weeks, so I could start in early March. On
+    authorization: I'm authorized to work in Brazil
+    and need no sponsorship for remote work; US
+    relocation would need visa sponsorship. Happy to
+    answer anything else — thanks again for the
+    smooth process!
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.interview]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: a parte de expectativas do screening. Responda em sequência: 'what are your salary expectations?', 'are you open to relocation?', 'would you need sponsorship?', 'what's your notice period?'. Use 'I'm targeting', 'I'd need/I'm authorized', 'my notice is… I could start'."
+    maxSeconds: 90
+    targetPhrases:
+      - i'm targeting the
+      - range
+      - depending on the full package
+      - what's the budgeted range
+      - what's the band
+      - remote is my strong preference
+      - i'm open to
+      - i'd need visa sponsorship
+      - i'm authorized to work
+      - my notice period is
+      - i could start in
+      - immediately available
+      - does the role support remote
+      - within the band
+      - i'd rather discuss comp
+      - happy to continue
+    checklist:
+      - "faixa salarial com hedge, não número único"
+      - "devolução da pergunta ('what's the band?')"
+      - "visto respondido direto, positivo primeiro"
+      - "sem calques ('expectations', 'notice', 'authorized')"
+
+quiz:
+  - { id: M28-02-q1, type: multiple_choice, prompt: "A melhor forma de dar expectativa salarial é…", options: ["uma faixa + hedge — 'targeting $140–160k depending on the package'", "um número único", "'whatever is fair'", "'I don't care about money'"], answer: 0, explanation: "Faixa + hedge mantém alavancagem.", tags: [vocab.interview] }
+  - { id: M28-02-q2, type: error_correction, prompt: "I made an interview last week.", accepted: ["I had an interview last week.", "I had an interview last week", "I did an interview last week."], explanation: "'Had an interview'.", tags: [br.make-interview] }
+  - { id: M28-02-q3, type: multiple_choice, prompt: "'What's the budgeted range?' é usada para…", options: ["pedir aumento", "pedir desconto", "devolver a pergunta de salário ao recrutador", "encerrar a call"], answer: 2, explanation: "Quem fala o número primeiro perde alavancagem.", tags: [vocab.interview] }
+  - { id: M28-02-q4, type: fill_blank, prompt: "My ___ period is two weeks — I could start in early March.", accepted: ["notice"], explanation: "'Notice period'.", tags: [vocab.interview] }
+  - { id: M28-02-q5, type: multiple_choice, prompt: "Sobre visto, a forma certa é…", options: ["esconder até a oferta", "panic", "'I don't know'", "'I'm authorized in Brazil — US roles would need sponsorship'"], answer: 3, explanation: "Afirme o que pode antes do que não pode.", tags: [vocab.interview] }
+  - { id: M28-02-q6, type: error_correction, prompt: "I have interest in the role and I work here since 2021.", accepted: ["I'm interested in the role and I've been here since 2021.", "I'm interested in the role and I've been here since 2021", "I'm interested in the role and I've worked here since 2021."], explanation: "Dois calques: 'I'm interested' + present perfect.", tags: [br.have-interest, br.work-since] }
+  - { id: M28-02-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["the", "i'm", "range", "targeting", "140-160k"], answer: "i'm targeting the 140-160k range", explanation: "'I'm targeting the… range'.", tags: [vocab.interview] }
+  - { id: M28-02-q8, type: multiple_choice, prompt: "'Remote is my strong preference' comunica…", options: ["ultimato", "desinteresse", "preferência clara mantendo flexibilidade", "recusa do híbrido"], answer: 2, explanation: "Claro sem fechar portas.", tags: [vocab.interview] }
+
+srsCards:
+  - { front: "I'm targeting the $X–$Y range", back: "Faixa salarial — nunca número único primeiro.", tag: vocab.interview }
+  - { front: "what's the budgeted range?", back: "Devolve a pergunta de salário.", tag: vocab.interview }
+  - { front: "depending on the full package", back: "Hedge legítimo — base não é tudo.", tag: vocab.interview }
+  - { front: "remote is my strong preference", back: "Preferência clara sem fechar portas.", tag: vocab.interview }
+  - { front: "I'm authorized to work in…", back: "Afirme o que pode antes do que não pode.", tag: vocab.interview }
+  - { front: "I'd need visa sponsorship", back: "Resposta de visto direta — sem pânico.", tag: vocab.interview }
+  - { front: "my notice period is…", back: "Notice = aviso prévio, nunca 'advice'.", tag: vocab.interview }
+  - { front: "I can start in…", back: "Converte notice em data concreta.", tag: vocab.interview }
+  - { front: "immediately available", back: "Sem notice — é ponto forte, diga.", tag: vocab.interview }
+  - { front: "does the role support remote work?", back: "Devolve a logística — você também avalia.", tag: vocab.interview }
+  - { front: "within the band", back: "Confirmação de faixa — use o vocabulário deles.", tag: vocab.interview }
+  - { front: "I'd rather discuss comp later", back: "Adiar o número é legítimo — com razão.", tag: vocab.interview }
+
+review:
+  preferTags: [vocab.interview, br.have-interest, br.advice-notice]
+  notes: "Revisão prioriza faixa salarial, respostas de visto/notice e os calques novos."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
