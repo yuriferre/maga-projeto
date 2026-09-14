@@ -1,0 +1,320 @@
+id: M30-03
+module: M30
+order: 3
+title: "System design narrado: componentes, trade-offs, escala"
+objective: >-
+  Ao final, você sabe narrar um design de sistema
+  em camadas — requisitos → API → componentes →
+  dados → escala → trade-offs — sem se perder e
+  sem pular etapas.
+durationMin: 30
+competencies: [SPK, LIS, CNF]
+tags: [vocab.sysdesign, vocab.architecture, comp.speaking]
+prerequisites: [M30-02]
+
+context:
+  scenario: |
+    Depois do esclarecimento vem o design — e o
+    design tem uma **ordem de narração** que o
+    entrevistador espera:
+
+    - **Requisitos**: "*so we need X, Y, Z — did I
+      get that right?*" — recapitular antes de
+      desenhar.
+    - **API/contrato**: "*the interface first:
+      POST /shorten returns a code*".
+    - **Componentes**: "*three pieces: the app
+      tier, the cache, the store*" — nomeie as
+      caixas antes de ligar as setas.
+    - **Dados**: "*the record is small — code,
+      URL, expiry*".
+    - **Escala**: "*at 10k RPS the cache does the
+      work; the DB sees maybe 1%*".
+    - **Trade-offs**: "*we traded consistency for
+      availability — stale is fine here*".
+
+    A metáfora útil: você está **desenhando no
+    quadro enquanto fala** — cada caixa nomeada,
+    cada seta justificada.
+
+    O erro do brasileiro: desenhar em silêncio e
+    depois explicar o desenho pronto — ou mergulhar
+    em detalhe de implementação ("usaria Redis 7.2
+    com…") antes das caixas estarem de pé.
+  roles: [Yuri (platform engineer), Dana (staff engineer, interviewer)]
+
+vocabulary:
+  - term: "so we need X, Y, Z — did I get that right?"
+    meaning: 'então precisamos de X, Y, Z — entendi certo? — recapitular os requisitos'
+    example: "So we need 10k RPS, sub-5ms, fairness first — did I get that right?"
+    translation: "Então precisamos de 10k RPS, sub-5ms, fairness primeiro — entendi certo?"
+    note: "Recapitular os requisitos antes de desenhar."
+  - term: "the interface first"
+    meaning: 'a interface primeiro — o contrato antes das caixas'
+    example: "The interface first: POST /shorten takes a URL, returns a code."
+    translation: "A interface primeiro: POST /shorten recebe URL, retorna código."
+    note: "O contrato define as caixas."
+  - term: "three pieces: the app tier, the cache, the store"
+    meaning: 'três peças — nomear os componentes antes de ligá-los'
+    example: "Three pieces: the app tier, a cache in front, and the store behind."
+    translation: "Três peças: a camada de app, um cache na frente, e o store atrás."
+    note: "Nomeie as caixas antes de ligar as setas."
+  - term: "on the write path / on the read path"
+    meaning: 'no caminho de escrita / de leitura — separar os fluxos'
+    example: "On the read path: cache first, store on miss. On the write path: store, then invalidate."
+    translation: "No caminho de leitura: cache primeiro, store se falhar. Na escrita: store, depois invalida."
+    note: "Separar read path × write path é a decomposição clássica."
+  - term: "the hot path"
+    meaning: 'o caminho quente — o fluxo que carrega a carga'
+    example: "Reads are the hot path — 99% of traffic — so the cache does the work."
+    translation: "Leituras são o caminho quente — 99% do tráfego — então o cache faz o trabalho."
+    note: "Otimize o hot path; o resto segue."
+  - term: "a cache in front, the DB behind"
+    meaning: 'cache na frente, banco atrás — a topologia padrão'
+    example: "Standard topology: a cache in front, the DB behind, a queue for writes."
+    translation: "Topologia padrão: cache na frente, banco atrás, fila para escritas."
+    note: "A posição relativa é o que importa."
+  - term: "we'd shard by user ID"
+    meaning: 'particionaríamos por ID de usuário — a estratégia de escala'
+    example: "At real scale we'd shard by user ID — keeps related data together."
+    translation: "Em escala real, particionaríamos por user ID — mantém dados relacionados juntos."
+    note: "Sharding por chave — a resposta para 'e se crescer 10×?'."
+  - term: "the bottleneck moves to…"
+    meaning: 'o gargalo se move para… — acompanhar o limite'
+    example: "Fix the DB and the bottleneck moves to the network."
+    translation: "Corrige o banco e o gargalo se move para a rede."
+    note: "Todo design tem um gargalo — nomeie onde ele está."
+  - term: "we traded consistency for availability"
+    meaning: 'trocamos consistência por disponibilidade — o trade-off de dados'
+    example: "We traded consistency for availability — a stale read is fine here."
+    translation: "Trocamos consistência por disponibilidade — leitura velha é aceitável aqui."
+    note: "CAP em uma frase — o trade-off que entrevistadores procuram."
+  - term: "if this grows 10x…"
+    meaning: 'se isso crescer 10×… — a pergunta de escala antecipada'
+    example: "If this grows 10x, the single DB becomes the problem — we'd shard."
+    translation: "Se isso crescer 10×, o banco único vira o problema — particionaríamos."
+    note: "Antecipar a escala mostra visão."
+  - term: "let me draw the boxes first"
+    meaning: 'deixe-me desenhar as caixas primeiro — componentes antes de detalhes'
+    example: "Let me draw the boxes first, then we can drill into each."
+    translation: "Deixe-me desenhar as caixas primeiro, depois aprofundamos em cada uma."
+    note: "A ordem: caixas → setas → detalhes."
+  - term: "drill into any piece you want"
+    meaning: 'aprofunde em qualquer peça — o convite ao detalhe'
+    example: "That's the sketch — drill into any piece you want."
+    translation: "Esse é o esboço — aprofunde em qualquer peça que quiser."
+    note: "O fecho que entrega o controle ao entrevistador."
+
+grammar:
+  title: "a gramática do design narrado"
+  explanation: |
+    O design narrado tem uma ordem e molduras por
+    camada:
+
+    - **Recapitular**: "**so we need** X, Y, Z —
+      **did I get that right?**".
+    - **Contrato**: "**the interface first**:
+      VERB /path returns …".
+    - **Componentes**: "**three pieces**…" —
+      nomeie as caixas, depois ligue as setas.
+    - **Fluxos**: "**on the write path** /
+      **on the read path**" — separe os caminhos.
+    - **Escala**: "**the bottleneck moves to**…"
+      / "**if this grows 10x**…".
+    - **Trade-off**: "**we traded X for Y**" (do
+      M29 — em design é ainda mais central).
+
+    E o fecho: "**drill into any piece you
+    want**" — entrega o controle.
+  examples:
+    - { en: "So we need 10k RPS and sub-5ms — did I get that right?", pt: "Então precisamos de 10k RPS e sub-5ms — entendi certo?" }
+    - { en: "The interface first: POST /shorten takes a URL, returns a code.", pt: "A interface primeiro: POST /shorten recebe URL, retorna código." }
+    - { en: "On the read path: cache first, store on miss.", pt: "No caminho de leitura: cache primeiro, store se falhar." }
+    - { en: "Reads are the hot path — the cache does the work.", pt: "Leituras são o caminho quente — o cache faz o trabalho." }
+    - { en: "Fix the DB and the bottleneck moves to the network.", pt: "Corrige o banco e o gargalo vai para a rede." }
+    - { en: "We traded consistency for availability — stale is fine here.", pt: "Trocamos consistência por disponibilidade — velho é ok aqui." }
+
+examples:
+  - en: "So we need 10k RPS, sub-5ms, fairness first — did I get that right?"
+    pt: "Então precisamos de 10k RPS, sub-5ms, fairness — entendi certo?"
+    context: "Recapitular antes de desenhar."
+  - en: "The interface first: POST /shorten takes a URL, returns a short code."
+    pt: "A interface primeiro: POST /shorten recebe URL, retorna código curto."
+    context: "O contrato antes das caixas."
+  - en: "Three pieces: the app tier, a cache in front, the store behind."
+    pt: "Três peças: a camada de app, cache na frente, store atrás."
+    context: "Caixas nomeadas antes das setas."
+  - en: "On the write path: store first, then invalidate the cache."
+    pt: "Na escrita: store primeiro, depois invalida o cache."
+    context: "Os fluxos separados."
+  - en: "Reads are the hot path — 99% of traffic — so the cache does the work."
+    pt: "Leituras são o caminho quente — 99% do tráfego — o cache trabalha."
+    context: "Otimize onde a carga está."
+  - en: "Fix the DB and the bottleneck moves to the network — always something."
+    pt: "Corrige o banco e o gargalo vai para a rede — sempre tem algo."
+    context: "O gargalo que se move."
+  - en: "We traded consistency for availability — a stale read is fine here."
+    pt: "Trocamos consistência por disponibilidade — leitura velha é ok aqui."
+    context: "O trade-off de dados em uma frase."
+  - en: "If this grows 10x, the single DB becomes the problem — we'd shard by user."
+    pt: "Se crescer 10×, o banco único vira o problema — shard por usuário."
+    context: "A escala antecipada."
+
+variations:
+  - idea: '"a ordem de narração"'
+    items:
+      - { register: "Forte", text: "Let me draw the boxes first, then we drill into each.", adequate: true }
+      - { register: "Forte", text: "So we need X, Y, Z — did I get that right?", adequate: true }
+      - { register: "Fraco", text: "(desenhar em silêncio e explicar o pronto)", adequate: false, note: "O desenho silencioso esconde o processo." }
+      - { register: "Fraco", text: "I'd use Redis 7.2 with these exact config flags…", adequate: false, note: "Detalhe de implementação antes das caixas de pé." }
+  - idea: '"a pergunta de escala"'
+    items:
+      - { register: "Forte", text: "If this grows 10x, the DB becomes the problem — we'd shard.", adequate: true }
+      - { register: "Forte", text: "Fix that and the bottleneck moves to the network.", adequate: true }
+      - { register: "Fraco", text: "It scales — don't worry about it.", adequate: false, note: "'Escala' sem dizer como é resposta vazia." }
+      - { register: "Fraco", text: "Everything on one big server.", adequate: false, note: "Sem particionamento nem fila não há resposta de escala." }
+
+brErrors:
+  - { wrong: "I would mount a solution with three pieces.", right: "I would build a solution with three pieces.", why: "build/design", tag: br.mount-solution }
+  - { wrong: "Let me make a test of the write path.", right: "Let me run a test of the write path.", why: "run a test", tag: br.make-a-test }
+  - { wrong: "The site is on air at 10k RPS.", right: "The site is up at 10k RPS.", why: "is up", tag: br.on-air }
+  - { wrong: "The DB falls at that scale.", right: "The DB goes down at that scale.", why: "goes down", tag: br.service-falls }
+  - { wrong: "I have a doubt about the data model.", right: "I have a question about the data model.", why: "a question", tag: br.doubt }
+  - { wrong: "It depends of the read/write ratio.", right: "It depends on the read/write ratio.", why: "depends on", tag: br.depend-of }
+  - { wrong: "We discussed about the trade-off.", right: "We discussed the trade-off.", why: "discussed the", tag: br.discuss-about }
+  - { wrong: "In my vision the cache wins.", right: "In my view the cache wins.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "The same design than last time.", right: "The same design as last time.", why: "the same as", tag: br.same-than }
+  - { wrong: "I work with sharding since 2021.", right: "I've worked with sharding since 2021.", why: "I've worked", tag: br.work-since }
+
+dialogue:
+  title: "O rate limiter, camada por camada"
+  lines:
+    - { speaker: Yuri, text: "So we need 10k RPS, sub-5ms added latency, fairness first — did I get that right?" }
+    - { speaker: Dana, text: "Yes. Go." }
+    - { speaker: Yuri, text: "Let me draw the boxes first. Three pieces: the check itself at the gateway, a shared counter store, and the config." }
+    - { speaker: Dana, text: "Which algorithm?" }
+    - { speaker: Yuri, text: "Token bucket — my first instinct was fixed window, but wait, that doesn't work; the boundary burst is unfair. Token bucket it is." }
+    - { speaker: Dana, text: "Where does the counter live?" }
+    - { speaker: Yuri, text: "On the read path — every request — we need the counter fast, so Redis in memory; the DB never sees the hot path. We traded strict consistency for latency: a slightly stale counter is fine." }
+    - { speaker: Dana, text: "And if traffic grows 10x?" }
+    - { speaker: Yuri, text: "Then the bottleneck moves to Redis — we'd shard counters by API key. Roughly speaking, 100k RPS across 8 shards is still fine." }
+    - { speaker: Dana, text: "Good. What would you monitor?" }
+    - { speaker: Yuri, text: "Drop rate, Redis latency, and counter drift. That's the sketch — drill into any piece you want." }
+    - { speaker: Dana, text: "That's a senior narration — requirements, boxes, paths, scale, trade-offs, in order." }
+  notes:
+    - "a ordem completa: recap → caixas → algoritmo (com autocorreção) → read path → trade-off → 10x → monitoramento → 'drill into'."
+    - "o trade-off nomeado: 'consistency for latency — stale counter is fine'."
+    - "'the bottleneck moves to Redis' — acompanhar o limite mostra pensamento de escala."
+
+listening:
+  lines:
+    - { speaker: Dana, text: "Narrate the design in order: recap the requirements — 'so we need X, did I get that right'; the interface first; then three boxes — name them before drawing arrows. Then separate the paths: 'on the read path', 'on the write path'." }
+    - { speaker: Yuri, text: "For scale: name where the bottleneck is and where it moves — 'fix the DB and the bottleneck moves to the network'. And the money line: 'we traded consistency for availability — stale is fine here'. Close with 'drill into any piece you want'." }
+    - { speaker: Dana, text: "The failure modes: drawing in silence, diving into implementation details before the boxes stand, or claiming 'it scales' without saying how." }
+  questions:
+    - { id: M30-03-l1, type: multiple_choice, prompt: "A ordem de narração do design é…", options: ["requisitos → interface → caixas → fluxos → escala → trade-offs", "detalhes → caixas → requisitos", "escala → interface → requisitos", "aleatória"], answer: 0, explanation: "Cada camada assenta a próxima.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-03-l2, type: fill_blank, prompt: "On the ___ path: cache first, store on miss.", accepted: ["read"], explanation: "'On the read path' — os fluxos separados.", tags: [vocab.sysdesign] }
+    - { id: M30-03-l3, type: error_correction, prompt: "The DB falls at that scale.", accepted: ["The DB goes down at that scale.", "The DB goes down at that scale", "The DB crashes at that scale."], explanation: "'Goes down'.", tags: [br.service-falls] }
+    - { id: M30-03-l4, type: multiple_choice, prompt: "'The bottleneck moves to the network' mostra…", options: ["pessimismo", "que você desiste", "jargão", "que você acompanha onde o limite está"], answer: 3, explanation: "Todo design tem um gargalo — nomeie-o.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-03-l5, type: multiple_choice, prompt: "'We traded consistency for availability' é…", options: ["uma desculpa", "o trade-off de dados que entrevistadores procuram", "um erro", "teoria sem prática"], answer: 1, explanation: "CAP em uma frase.", tags: [comp.listening, vocab.sysdesign] }
+    - { id: M30-03-l6, type: multiple_choice, prompt: "O fecho do design narrado é…", options: ["'that's all I know'", "silêncio", "'drill into any piece you want' — entrega o controle", "'any questions?'"], answer: 2, explanation: "O convite ao detalhe.", tags: [comp.listening, vocab.sysdesign] }
+
+writing:
+  prompt: |
+    **Cenário:** a preparação pediu por escrito a
+    narração do seu design de rate limiter — a
+    versão que você falaria desenhando no quadro.
+
+    **Tarefa:** escreva 100–130 palavras: o design
+    na ordem certa — recap dos requisitos, a
+    interface, as três caixas, o caminho quente, o
+    trade-off nomeado e o que acontece a 10×.
+  constraints:
+    - { label: "O recap", pattern: "\\bwe need|did i get|requirements|rps|latency\\b" }
+    - { label: "As caixas", pattern: "\\bpieces|components|tier|cache|store|gateway\\b" }
+    - { label: "O trade-off", pattern: "\\btraded|chose .* over|consistency|availability|stale\\b" }
+    - { label: "A escala", pattern: "\\b10x|shard|bottleneck|grows|scale\\b" }
+  rubric:
+    - "A ordem de narração respeitada"
+    - "Trade-off nomeado com razão"
+    - "Escala antecipada (10x, shard, bottleneck)"
+    - "Sem calques ('build', 'goes down', 'up')"
+  model: >-
+    Narrating the rate limiter. Recap first: "we
+    need 10k RPS, sub-5ms added, fairness first —
+    did I get that right?" Then the interface:
+    "every request asks the limiter — allow or
+    deny." Three boxes: the check at the gateway,
+    a shared counter store, and the config. The
+    read path is the hot path — every request hits
+    the counter, so it lives in Redis, in memory;
+    the DB never sees it. The trade-off, named:
+    "we traded strict consistency for latency — a
+    slightly stale counter is fine here." At 10x:
+    "the bottleneck moves to Redis — we shard
+    counters by API key." Then: "drill into any
+    piece you want."
+  minWords: 100
+  maxWords: 130
+  tags: [comp.writing, vocab.sysdesign, vocab.architecture]
+
+speaking:
+  modeA:
+    prompt: "Grave 90 segundos: narre o design de um rate limiter (ou URL shortener) na ordem — recap dos requisitos, interface, três caixas, hot path, o trade-off nomeado, o que muda a 10×, e o fecho 'drill into any piece you want'."
+    maxSeconds: 90
+    targetPhrases:
+      - so we need
+      - did i get that right
+      - the interface first
+      - three pieces
+      - the app tier
+      - a cache in front
+      - on the write path
+      - on the read path
+      - the hot path
+      - the bottleneck moves to
+      - we traded consistency for availability
+      - if this grows 10x
+      - we'd shard by
+      - roughly speaking
+      - let me draw the boxes first
+      - drill into any piece you want
+    checklist:
+      - "a ordem: requisitos → interface → caixas → fluxos → escala → trade-off"
+      - "um trade-off nomeado com razão"
+      - "a escala antecipada (10x, shard)"
+      - "o fecho 'drill into any piece'"
+      - "sem calques ('build', 'goes down', 'is up')"
+
+quiz:
+  - { id: M30-03-q1, type: multiple_choice, prompt: "Antes de desenhar as caixas, você…", options: ["escolhe a tecnologia", "detalha o schema", "pergunta o salário", "recapitula os requisitos — 'did I get that right?'"], answer: 3, explanation: "O recap confirma o entendimento.", tags: [vocab.sysdesign] }
+  - { id: M30-03-q2, type: error_correction, prompt: "I would mount a solution with three pieces.", accepted: ["I would build a solution with three pieces.", "I would build a solution with three pieces", "I'd design a solution with three pieces."], explanation: "'Build/design'.", tags: [br.mount-solution] }
+  - { id: M30-03-q3, type: multiple_choice, prompt: "O 'hot path' é…", options: ["o caminho mais lento", "o fluxo que carrega a carga — onde você otimiza", "o caminho novo", "o caminho de erro"], answer: 1, explanation: "Otimize onde a carga está.", tags: [vocab.sysdesign] }
+  - { id: M30-03-q4, type: fill_blank, prompt: "If this grows 10x, we'd ___ counters by API key.", accepted: ["shard"], explanation: "'Shard by key' — a resposta para 'e se crescer?'.", tags: [vocab.sysdesign] }
+  - { id: M30-03-q5, type: multiple_choice, prompt: "O erro de narração mais comum é…", options: ["desenhar em silêncio e explicar o pronto", "falar demais", "usar um quadro", "recapitular requisitos"], answer: 0, explanation: "O desenho silencioso esconde o processo.", tags: [vocab.sysdesign] }
+  - { id: M30-03-q6, type: error_correction, prompt: "The site is on air at 10k RPS.", accepted: ["The site is up at 10k RPS.", "The site is up at 10k RPS", "The site stays online at 10k RPS."], explanation: "'Up/online'.", tags: [br.on-air] }
+  - { id: M30-03-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["traded", "we", "consistency", "availability", "for"], answer: "we traded consistency for availability", explanation: "O trade-off de dados em uma frase.", tags: [vocab.sysdesign] }
+  - { id: M30-03-q8, type: multiple_choice, prompt: "'Drill into any piece you want' no fecho…", options: ["encerra sem abertura", "entrega o controle ao entrevistador para o detalhe", "é fraqueza", "evita perguntas"], answer: 1, explanation: "O convite ao detalhe.", tags: [vocab.sysdesign] }
+
+srsCards:
+  - { front: "so we need X, Y, Z — did I get that right?", back: "Recapitular os requisitos antes de desenhar.", tag: vocab.sysdesign }
+  - { front: "the interface first", back: "O contrato antes das caixas.", tag: vocab.sysdesign }
+  - { front: "three pieces: app tier, cache, store", back: "Nomeie as caixas antes de ligar as setas.", tag: vocab.sysdesign }
+  - { front: "on the write path / on the read path", back: "Separar os fluxos é a decomposição clássica.", tag: vocab.sysdesign }
+  - { front: "the hot path", back: "O fluxo que carrega a carga — otimize ali.", tag: vocab.sysdesign }
+  - { front: "a cache in front, the DB behind", back: "A topologia padrão.", tag: vocab.sysdesign }
+  - { front: "we'd shard by user ID", back: "A estratégia para 'e se crescer 10×?'.", tag: vocab.sysdesign }
+  - { front: "the bottleneck moves to…", back: "Todo design tem um gargalo — acompanhe-o.", tag: vocab.sysdesign }
+  - { front: "we traded consistency for availability", back: "O trade-off de dados que entrevistadores procuram.", tag: vocab.sysdesign }
+  - { front: "if this grows 10x…", back: "A escala antecipada.", tag: vocab.sysdesign }
+  - { front: "let me draw the boxes first", back: "Componentes antes de detalhes.", tag: vocab.sysdesign }
+  - { front: "drill into any piece you want", back: "O fecho que entrega o controle.", tag: vocab.sysdesign }
+
+review:
+  preferTags: [vocab.sysdesign, vocab.architecture, br.service-falls, br.mount-solution]
+  notes: "Revisão prioriza a ordem de narração e o trade-off de dados."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
