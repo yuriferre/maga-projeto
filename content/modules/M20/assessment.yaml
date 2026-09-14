@@ -1,0 +1,79 @@
+# Avaliação do módulo M20: 15 itens cobrindo as cinco aulas + escrita (one-pager do plano) + fala.
+id: M20
+title: "Avaliação do módulo M20: Custos e FinOps"
+intro: |
+  Quinze itens objetivos, uma escrita e uma gravação. Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 3, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: M20-A01, type: multiple_choice, prompt: "The thing that pushes the bill — 'compute is 60% of it' — is the…", options: ["showback", "chargeback", "savings plan", "cost driver"], answer: 3, explanation: "O driver explica por que a fatura subiu.", tags: [vocab.finops] }
+  - { id: M20-A02, type: error_correction, prompt: "We spend $12k a month with AWS, and the price is expensive.", accepted: ["We spend $12k a month on AWS, and the price is high.", "We spend $12k a month on AWS, and the price is high"], explanation: 'Dois calques: "spend on" + "the price is high".', tags: [br.spend-with, br.price-expensive] }
+  - { id: M20-A03, type: fill_blank, prompt: "Egress is up 40% quarter ___ quarter since the SIEM migration.", accepted: ["over"], explanation: '"quarter over quarter" — QoQ, como MoM.', tags: [gram.numbers-percentages] }
+  - { id: M20-A04, type: multiple_choice, prompt: "Logs streamed to an external SIEM — billed going out. That cost is…", options: ["ingress", "egress", "spot", "idle"], answer: 1, explanation: "Egress — sair do provedor cobra.", tags: [vocab.finops] }
+  - { id: M20-A05, type: error_correction, prompt: "Compute is the half of the bill — it doesn't worth right-sizing.", accepted: ["Compute is half the bill — it isn't worth right-sizing.", "Compute is half of the bill — it isn't worth right-sizing.", "Compute is half the bill — it isn't worth right-sizing"], explanation: 'Dois calques: "half the" + "isn''t worth".', tags: [br.the-half, br.worths] }
+  - { id: M20-A06, type: multiple_choice, prompt: "'Utilization is ___ 35% and costs rose ___ 40%.'", options: ["at / by", "in / in", "on / at", "at / in"], answer: 0, explanation: "Nível leva 'at'; variação leva 'by'.", tags: [gram.numbers-percentages] }
+  - { id: M20-A07, type: error_correction, prompt: "The migration brought an economy of $60k a year.", accepted: ["The migration brought a saving of $60k a year.", "The migration brought a saving of $60k a year"], explanation: '"a saving of" — economy é a economia do país.', tags: [br.an-economy] }
+  - { id: M20-A08, type: fill_blank, prompt: "CPU utilization is ___ 12% — the nodes are oversized.", accepted: ["at"], explanation: '"at 12%" — nível leva "at".', tags: [br.in-percent, gram.numbers-percentages] }
+  - { id: M20-A09, type: multiple_choice, prompt: "Interruptible capacity at ~70% off — for batch, never the API — is…", options: ["reserved", "on-demand", "spot", "a savings plan"], answer: 2, explanation: "Spot — barato e interrompível.", tags: [vocab.finops] }
+  - { id: M20-A10, type: error_correction, prompt: "It's an economy of 30% — and the rate is cheap.", accepted: ["It's a saving of 30% — and the rate is low.", "It's a saving of 30% — and the rate is low"], explanation: 'Dois calques: "a saving of" + "the rate is low".', tags: [br.an-economy, br.price-expensive] }
+  - { id: M20-A11, type: translate, prompt: "Aproximadamente um terço da fatura é desperdício — os bancos ociosos custam $800 por mês.", accepted: ["Roughly a third of the bill is waste — the idle databases cost $800 a month.", "About a third of the bill is waste — the idle databases cost $800 a month.", "Roughly a third of the bill is waste — the idle databases cost $800 a month"], explanation: '"roughly a third" + "idle databases".', tags: [gram.numbers-percentages, vocab.finops] }
+  - { id: M20-A12, type: match, prompt: "Associe o termo ao que ele carrega.", pairs: [{ left: "right-sizing", right: "matching the resource to the real load" }, { left: "showback", right: "showing each team its spend" }, { left: "break even", right: "the point the return covers the cost" }, { left: "false economy", right: "a cut that costs more later" }], explanation: "O vocabulário central do FinOps.", tags: [vocab.finops] }
+  - { id: M20-A13, type: error_correction, prompt: "The fee looks expensive and utilization is in 20%.", accepted: ["The fee looks high and utilization is at 20%.", "The fee looks high and utilization is at 20%"], explanation: 'Dois calques: "the fee looks high" + "at 20%".', tags: [br.price-expensive, br.in-percent] }
+  - { id: M20-A14, type: multiple_choice, prompt: "'Spot is an order of magnitude cheaper for batch' means…", options: ["10% cheaper", "roughly 10x cheaper", "twice as cheap", "slightly cheaper"], answer: 1, explanation: "Uma ordem de grandeza ≈10x.", tags: [gram.numbers-percentages] }
+  - { id: M20-A15, type: error_correction, prompt: "The rewrite doesn't worth it — we spend two sprints with a $200 saving.", accepted: ["The rewrite isn't worth it — we spend two sprints on a $200 saving.", "The rewrite isn't worth it — we spend two sprints on a $200 saving"], explanation: 'Dois calques: "isn''t worth" + "spend on".', tags: [br.worths, br.spend-with] }
+
+writing:
+  prompt: |
+    **Cenário final do módulo:** a reunião com a Ana terminou
+    com "send me the one-pager". É ele que você entrega agora.
+
+    **Tarefa:** escreva 80–110 palavras cobrindo: o problema
+    (a fatura +18% e a fração de waste), as alavancas com
+    economia e trade-off nomeado, o que ficou fora do escopo e
+    por quê, o bottom line líquido e o ask com prazo.
+  constraints:
+    - { label: "O problema com número", pattern: "\\bup \\d+|\\d+%|roughly|a third\\b" }
+    - { label: "Alavanca com trade-off", pattern: "\\b(could save|would save|saving[s]? of)[^.]{0,80}\\b(but|trade-off|catch)\\b|\\btrade-off\\b" }
+    - { label: "O fora de escopo", pattern: "\\bout of scope|not worth|isn\\'t worth\\b" }
+    - { label: "O ask com prazo", pattern: "\\b(sign-off|approve|approval|ask)\\b|\\bby (Friday|Q\\d|next week|month end)\\b" }
+  rubric:
+    - "Problema com número e fração"
+    - "Cada alavanca com o trade-off nomeado"
+    - "O descartado com razão de esforço"
+    - "Bottom line líquido + ask com prazo"
+    - "Sem calques ('a saving of', 'isn't worth', 'spend on', 'at X%')"
+  model: >-
+    The bill is up 18% month over month; roughly a third is
+    waste. Three levers. Quick win: kill the three idle
+    databases — $800 a month, zero risk. Right-size the node
+    group — a saving of about $8k; the trade-off is a
+    fifteen-minute redeploy window. Spot for batch — we could
+    save $5k, but jobs restart mid-run; worst case the report
+    lands an hour late, which is acceptable. Out of scope: the
+    pipeline rewrite — two sprints for $800 more isn't worth
+    the effort. Bottom line: net saving of about $17k a month,
+    $200k a year. Ask: sign-off on the savings plan and the
+    spot migration by Friday.
+  minWords: 80
+  maxWords: 110
+  tags: [comp.writing, vocab.finops]
+
+speaking:
+  prompt: "Grave 60 segundos apresentando o plano de redução para um gestor não técnico: problema, quick win, alavancas com trade-off, fora de escopo, bottom line e ask."
+  maxSeconds: 60
+  targetPhrases:
+    - the bill is up
+    - roughly a third
+    - quick win
+    - a saving of
+    - we could save
+    - the trade-off is
+    - worst-case scenario
+    - acceptable risk
+    - out of scope
+    - not worth the effort
+    - bottom line
+    - net saving
+    - sign-off by Friday
+    - month over month
+    - break even

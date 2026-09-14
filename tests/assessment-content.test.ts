@@ -687,3 +687,42 @@ describe("M19 assessment variants", () => {
     expect(checkExercise(q, "The report is critical and due until Monday.").correct).toBe(false);
   });
 });
+
+describe("M20 assessment variants", () => {
+  const m20 = bundle.moduleAssessments["M20"]!;
+  it("requires 'spend on' and 'price is high' on A02", () => {
+    const q = m20.items.find((q) => q.id === "M20-A02")!;
+    expect(checkExercise(q, "We spend $12k a month on AWS, and the price is high.").correct).toBe(true);
+    expect(checkExercise(q, "We spend $12k a month with AWS, and the price is high.").correct).toBe(false);
+    expect(checkExercise(q, "We spend $12k a month on AWS, and the price is expensive.").correct).toBe(false);
+  });
+  it("requires 'half the bill' and 'isn't worth' on A05", () => {
+    const q = m20.items.find((q) => q.id === "M20-A05")!;
+    expect(checkExercise(q, "Compute is half the bill — it isn't worth right-sizing.").correct).toBe(true);
+    expect(checkExercise(q, "Compute is the half of the bill — it isn't worth right-sizing.").correct).toBe(false);
+    expect(checkExercise(q, "Compute is half the bill — it doesn't worth right-sizing.").correct).toBe(false);
+  });
+  it("requires 'a saving of' on A07", () => {
+    const q = m20.items.find((q) => q.id === "M20-A07")!;
+    expect(checkExercise(q, "The migration brought a saving of $60k a year.").correct).toBe(true);
+    expect(checkExercise(q, "The migration brought an economy of $60k a year.").correct).toBe(false);
+  });
+  it("requires 'a saving of' and 'rate is low' on A10", () => {
+    const q = m20.items.find((q) => q.id === "M20-A10")!;
+    expect(checkExercise(q, "It's a saving of 30% — and the rate is low.").correct).toBe(true);
+    expect(checkExercise(q, "It's an economy of 30% — and the rate is low.").correct).toBe(false);
+    expect(checkExercise(q, "It's a saving of 30% — and the rate is cheap.").correct).toBe(false);
+  });
+  it("requires 'the fee looks high' and 'at 20%' on A13", () => {
+    const q = m20.items.find((q) => q.id === "M20-A13")!;
+    expect(checkExercise(q, "The fee looks high and utilization is at 20%.").correct).toBe(true);
+    expect(checkExercise(q, "The fee looks expensive and utilization is at 20%.").correct).toBe(false);
+    expect(checkExercise(q, "The fee looks high and utilization is in 20%.").correct).toBe(false);
+  });
+  it("requires 'isn't worth' and 'spend on' on A15", () => {
+    const q = m20.items.find((q) => q.id === "M20-A15")!;
+    expect(checkExercise(q, "The rewrite isn't worth it — we spend two sprints on a $200 saving.").correct).toBe(true);
+    expect(checkExercise(q, "The rewrite doesn't worth it — we spend two sprints on a $200 saving.").correct).toBe(false);
+    expect(checkExercise(q, "The rewrite isn't worth it — we spend two sprints with a $200 saving.").correct).toBe(false);
+  });
+});
