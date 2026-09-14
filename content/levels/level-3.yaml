@@ -1,0 +1,101 @@
+# Avaliação do Nível 3 (E5): 30 itens cobrindo todas as tags de M15–M20 + escrita (post-mortem + sequência de updates) + fala (simulação de bridge).
+id: L3
+title: "Avaliação do Nível 3: Responder"
+intro: |
+  Trinta itens mistos cobrindo os seis módulos, uma escrita em duas partes (post-mortem + sequência de atualizações) e uma gravação de 90 segundos (você é o IC numa bridge). Sem consulta. Você não vê o resultado item a item até terminar.
+
+  **Aprovação:** itens ≥ 75 %, escrita ≥ 4, fala ≥ 3/5. Pode refazer; vale a última.
+items:
+  - { id: L3-A01, type: multiple_choice, prompt: "Customers can't pay and the API is throwing 5xx — that's a…", options: ["SEV4", "SEV3", "SEV1 — full impact, all hands", "post-mortem"], answer: 2, explanation: "Impacto total = SEV1.", tags: [vocab.incident] }
+  - { id: L3-A02, type: error_correction, prompt: "In this moment we're investigating — we'll update as soon possible.", accepted: ["Right now we're investigating — we'll update as soon as possible.", "Right now we're investigating — we'll update as soon as possible"], explanation: 'Dois calques: "right now" + "as soon as possible".', tags: [br.in-this-moment, br.asap-missing-as] }
+  - { id: L3-A03, type: error_correction, prompt: "Thanks for the patience — the service normalized at 14:32.", accepted: ["Thanks for your patience — the service recovered at 14:32.", "Thanks for your patience — the service recovered at 14:32"], explanation: 'Dois calques: "your patience" + "recovered".', tags: [br.thanks-patience, br.normalized] }
+  - { id: L3-A04, type: fill_blank, prompt: "Alerts ___ at 14:02 UTC; we acknowledged at 14:05.", accepted: ["fired"], explanation: '"alerts fired" — o verbo da timeline.', tags: [gram.timeline, vocab.incident] }
+  - { id: L3-A05, type: multiple_choice, prompt: "On the bridge, the person who runs the call and makes the calls is the…", options: ["incident commander", "scribe", "SME", "stakeholder"], answer: 0, explanation: "O IC comanda a bridge; scribe registra, comms lead atualiza fora.", tags: [vocab.bridge] }
+  - { id: L3-A06, type: error_correction, prompt: "Can you confirm me the rollback is live? She said me it worked.", accepted: ["Can you confirm the rollback is live? She told me it worked.", "Can you confirm the rollback is live? She told me it worked"], explanation: 'Dois calques: "confirm" + "told me".', tags: [br.confirm-me, br.said-me] }
+  - { id: L3-A07, type: error_correction, prompt: "I can't listen you — the call fell twice already.", accepted: ["I can't hear you — the call dropped twice already.", "I can't hear you — the call dropped twice already"], explanation: 'Dois calques: "hear you" + "dropped".', tags: [br.listen-you, br.call-fell] }
+  - { id: L3-A08, type: error_correction, prompt: "Stay in the line — sorry for interrupt the update.", accepted: ["Stay on the line — sorry to interrupt the update.", "Stay on the line — sorry for interrupting the update.", "Stay on the line — sorry to interrupt the update"], explanation: 'Dois calques: "on the line" + "sorry to interrupt".', tags: [br.in-the-line, br.sorry-for-interrupt] }
+  - { id: L3-A09, type: multiple_choice, prompt: "The deploy didn't cause it directly — it exposed a missing index. The deploy is the…", options: ["root cause", "trigger — the root cause is the missing index", "blast radius", "action item"], answer: 1, explanation: "Trigger dispara; root cause sustenta.", tags: [gram.cause-effect, vocab.postmortem] }
+  - { id: L3-A10, type: error_correction, prompt: "Explain me the timeline — do we can freeze deploys?", accepted: ["Explain the timeline — can we freeze deploys?", "Walk me through the timeline — can we freeze deploys?", "Explain the timeline — can we freeze deploys"], explanation: 'Dois calques: "explain/walk me through" + "can we".', tags: [br.explain-me, br.do-modal] }
+  - { id: L3-A11, type: fill_blank, prompt: "The deploy ___ rolled back at 15:10 — blameless: the process failed, not the person.", accepted: ["was"], explanation: "Passiva sem agente — 'was rolled back'.", tags: [gram.passive-blameless] }
+  - { id: L3-A12, type: error_correction, prompt: "The post-mortem is in Friday — the incident of Friday started at 14:02.", accepted: ["The post-mortem is on Friday — Friday's incident started at 14:02.", "The post-mortem is on Friday — the incident on Friday started at 14:02."], explanation: 'Dois calques: "on Friday" + "Friday''s incident".', tags: [br.in-weekday, br.of-weekday] }
+  - { id: L3-A13, type: error_correction, prompt: "The alert was forgot — the retry storm contributed for the outage.", accepted: ["The alert was forgotten — the retry storm contributed to the outage.", "The alert was forgotten — the retry storm contributed to the outage"], explanation: 'Dois calques: "was forgotten" + "contributed to".', tags: [br.was-past, br.contributed-for] }
+  - { id: L3-A14, type: multiple_choice, prompt: "A post-mortem action item that survives is…", options: ["'improve monitoring'", "'add an alert on pool saturation — owner: Yuri, due Friday'", "'be more careful'", "'never again'"], answer: 3, explanation: "Verbo + dono + prazo — item vago morre.", tags: [vocab.postmortem] }
+  - { id: L3-A15, type: error_correction, prompt: "The failover was succeeded, but the alert not works.", accepted: ["The failover succeeded, but the alert doesn't work.", "The failover succeeded, but the alert doesn't work"], explanation: 'Dois calques: "succeeded" + "doesn''t work".', tags: [br.was-succeeded, br.it-not-works] }
+  - { id: L3-A16, type: error_correction, prompt: "We wait for to patch it — the fix ships until Friday.", accepted: ["We wait to patch it — the fix ships by Friday.", "We're waiting to patch it — the fix ships by Friday."], explanation: 'Dois calques: "to patch" + "by Friday".', tags: [br.for-to, br.until-by] }
+  - { id: L3-A17, type: multiple_choice, prompt: "Request rate, latency, error rate — these are…", options: ["metrics", "traces", "runbooks", "post-mortems"], answer: 0, explanation: "Métricas = números agregados; traces seguem uma requisição.", tags: [vocab.observability] }
+  - { id: L3-A18, type: error_correction, prompt: "The latency raised — utilization is in 90%.", accepted: ["The latency went up — utilization is at 90%.", "The latency rose — utilization is at 90%.", "The latency went up — utilization is at 90%"], explanation: 'Dois calques: "went up/rose" + "at 90%".', tags: [br.metric-raised, br.in-percent] }
+  - { id: L3-A19, type: fill_blank, prompt: "We're burning the error ___ at 2x — feature freeze until it recovers.", accepted: ["budget"], explanation: '"error budget" — a margem do SLO.', tags: [vocab.slo] }
+  - { id: L3-A20, type: error_correction, prompt: "We have a latency of 400ms — the pool overpassed capacity.", accepted: ["The latency is 400ms — the pool exceeded capacity.", "The p99 latency is 400ms — the pool exceeded capacity.", "The latency is 400ms — the pool exceeded capacity"], explanation: 'Dois calques: "the latency is" + "exceeded".', tags: [br.have-a-latency, br.overpassed] }
+  - { id: L3-A21, type: multiple_choice, prompt: "P99 jumped to 900ms at 14:00 and stayed there — it…", options: ["dropped", "spiked and plateaued", "was flat", "burned"], answer: 1, explanation: "Subiu e ficou — spike + plateau.", tags: [gram.describing-trends] }
+  - { id: L3-A22, type: multiple_choice, prompt: "Keys in three repos, the deploy role reads every secret — that's secret sprawl violating…", options: ["the SLA", "hard coding", "hardening", "least privilege"], answer: 3, explanation: "Least privilege — só o acesso necessário.", tags: [vocab.security] }
+  - { id: L3-A23, type: error_correction, prompt: "They explored the vuln — the finding is critic.", accepted: ["They exploited the vuln — the finding is critical.", "They exploited the vulnerability — the finding is critical.", "They exploited the vuln — the finding is critical"], explanation: 'Dois calques: "exploited" + "critical".', tags: [br.explored-vuln, br.is-critic] }
+  - { id: L3-A24, type: error_correction, prompt: "We're in compliance to SOC2 — we must to fix it this sprint.", accepted: ["We're in compliance with SOC2 — we must fix it this sprint.", "We're in compliance with SOC2 — we must fix it this sprint"], explanation: 'Dois calques: "in compliance with" + "must fix".', tags: [br.in-compliance-to, br.modal-to] }
+  - { id: L3-A25, type: error_correction, prompt: "The price is expensive — we spend too much with egress.", accepted: ["The price is high — we spend too much on egress.", "The price is high — we spend too much on egress"], explanation: 'Dois calques: "the price is high" + "spend on".', tags: [br.price-expensive, br.spend-with] }
+  - { id: L3-A26, type: error_correction, prompt: "It's an economy of $40k — compute is the half of the bill.", accepted: ["It's a saving of $40k — compute is half the bill.", "It's a saving of $40k — compute is half of the bill."], explanation: 'Dois calques: "a saving of" + "half the bill".', tags: [br.an-economy, br.the-half] }
+  - { id: L3-A27, type: multiple_choice, prompt: "Showing each team what it spends — before charging anyone — is…", options: ["chargeback", "hardening", "showback", "egress"], answer: 2, explanation: "Showback mostra; chargeback cobra.", tags: [vocab.finops] }
+  - { id: L3-A28, type: fill_blank, prompt: "Spend is up 12% month ___ month — the growth is a trend.", accepted: ["over"], explanation: '"month over month".', tags: [gram.numbers-percentages] }
+  - { id: L3-A29, type: error_correction, prompt: "It doesn't worth the effort — it gives an economy of only $10k.", accepted: ["It isn't worth the effort — it gives a saving of only $10k.", "It isn't worth the effort — it gives a saving of only $10k"], explanation: 'Dois calques: "isn''t worth" + "a saving of".', tags: [br.worths, br.an-economy] }
+  - { id: L3-A30, type: match, prompt: "Ligue cada termo ao que ele significa neste nível.", pairs: [{ left: "read back", right: "repeat it to confirm you heard right" }, { left: "compensating control", right: "the accepted alternative to the required control" }, { left: "error budget", right: "the failure the SLO still tolerates" }, { left: "right-sizing", right: "matching the resource to the real load" }], explanation: "Um termo de cada módulo do nível.", tags: [vocab.bridge, vocab.security, vocab.slo, vocab.finops] }
+
+writing:
+  prompt: |
+    **Cenário final do nível:** o SEV1 de ontem foi resolvido e a
+    Priya pediu os dois artefatos escritos.
+
+    **Tarefa:** escreva 110–140 palavras em duas partes
+    separadas por `---`. Parte 1: o resumo do post-mortem —
+    trigger, root cause, contributing factor e um action item
+    com dono e prazo (linguagem blameless, passiva sem agente).
+    Parte 2: a sequência de três atualizações do incidente —
+    investigating → identified → resolved, cada uma com
+    timestamp e "next update".
+  constraints:
+    - { label: "O post-mortem", pattern: "\\b(trigger|root cause|contributing|action item)\\w*" }
+    - { label: "Blameless / passiva", pattern: "\\bwas |were |were not|was not\\b" }
+    - { label: "A sequência de updates", pattern: "\\b(investigating|identified|resolved|mitigated|monitoring)\\b" }
+    - { label: "Timestamps e next update", pattern: "\\b\\d{1,2}:\\d{2}|next update\\b" }
+  rubric:
+    - "Post-mortem: trigger × root cause × contributing × action item"
+    - "Blameless: 'the deploy', 'the process' — nunca 'John's fault'"
+    - "Updates: três batidas com timestamp e próxima atualização"
+    - "Sem os calques do nível ('on Friday', 'was rolled back', 'contributed to')"
+  model: >-
+    Post-mortem summary. Trigger: Friday's deploy. Root cause:
+    a missing cache invalidation after the schema change.
+    Contributing factor: the alert was forgotten — saturation
+    went unnoticed for forty minutes. Detection: the p99 alert
+    fired at 14:02. Impact: checkout down for 63 minutes, about
+    4% of daily orders. Action item: add a cache-invalidation
+    check to the deploy pipeline — owner: Yuri, due Friday. The
+    process failed, not the person. --- 14:05 — Investigating.
+    Elevated 5xx on checkout; impact under review; next update
+    at 14:30. 14:30 — Identified: the cache didn't invalidate
+    after the deploy; rolling back now; next update at 15:00.
+    15:05 — Resolved: the rollback restored the service; total
+    impact 63 minutes. Post-mortem on Friday.
+  minWords: 110
+  maxWords: 140
+  tags: [comp.writing, vocab.postmortem, vocab.incident]
+
+speaking:
+  prompt: "Grave 90 segundos: a simulação de bridge — você é o IC num SEV1 de checkout. Abra a call, atribua papéis (scribe, comms), peça confirmação sob pressão, tome a decisão de rollback com 'on my call' e feche com o próximo update e a promessa de post-mortem."
+  maxSeconds: 90
+  targetPhrases:
+    - this is the incident bridge
+    - i'm the incident commander
+    - scribe
+    - comms lead
+    - can someone confirm
+    - i'm seeing
+    - say again
+    - let's roll back
+    - on my call
+    - hold off on
+    - quick correction
+    - take it offline
+    - next update
+    - resolved
+    - post-mortem by friday
+    - thanks for your patience
+
+pass: { itemsMin: 0.75, writingMin: 4, speakingMin: 3 }

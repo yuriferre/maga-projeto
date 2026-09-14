@@ -143,3 +143,50 @@ describe("avaliação de nível 2", () => {
     expect(again.status).toBe(409);
   }, 60000);
 });
+
+describe("avaliação de nível 3", () => {
+  const l3 = content.levelAssessments["L3"]!;
+  const level3Modules = content.levels.find((l) => l.id === 3)!.modules.map((m) => m.id);
+
+  it("existe no bundle e cobre os seis módulos", () => {
+    expect(l3).toBeDefined();
+    expect(l3.items).toHaveLength(30);
+    expect(level3Modules).toEqual(["M15", "M16", "M17", "M18", "M19", "M20"]);
+  });
+
+  it("levelEligibility exige os módulos aprovados", () => {
+    const none = levelEligibility(content, [], 3);
+    expect(none.modulesTotal).toBe(6);
+    expect(none.modulesDone).toBe(0);
+    expect(none.missing).toEqual(level3Modules);
+  });
+
+  it("state bloqueia o finish sem os módulos", async () => {
+    const res = await json("POST", "/api/levels/3/assessment/finish");
+    expect(res.status).toBe(409);
+  });
+
+  it("fluxo completo: módulos aprovados → itens → escrita ≥4 → fala → aprovado → 409", async () => {
+    for (const m of level3Modules) await passModule(m);
+    const s = await (await app.request("/api/levels/3/assessment/state")).json();
+    expect(s.eligible.missing).toEqual([]);
+
+    const early = await json("POST", "/api/levels/3/assessment/finish");
+    expect(early.status).toBe(409);
+
+    await answerAll(l3);
+    const w = await json("POST", "/api/levels/3/assessment/writing", { text: l3.writing.model, selfScore: 4 });
+    expect(w.status).toBe(200);
+    const sp = await json("POST", "/api/levels/3/assessment/speaking", { mode: "A", transcript: l3.speaking.targetPhrases.join(". ") + ". Done.", durationSec: 85 });
+    expect(sp.status).toBe(200);
+
+    const fin = await (await json("POST", "/api/levels/3/assessment/finish")).json();
+    expect(fin.assessment.result.kind).toBe("level");
+    expect(fin.assessment.result.passed).toBe(true);
+    expect(fin.assessment.result.itemsPct).toBe(1);
+    expect(fin.assessment.result.writingScore).toBe(4);
+
+    const again = await json("POST", "/api/levels/3/assessment/finish");
+    expect(again.status).toBe(409);
+  }, 60000);
+});
