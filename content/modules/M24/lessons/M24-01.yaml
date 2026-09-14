@@ -1,0 +1,325 @@
+id: M24-01
+module: M24
+order: 1
+title: "Estrutura e signposting: 'I'll start with…', 'moving on to…', 'to wrap up…'"
+objective: >-
+  Ao final, você conduz uma apresentação de 5–10 minutos com
+  sinalizações claras — abertura, transições e fecho — para a
+  plateia nunca se perder.
+durationMin: 40
+competencies: [SPK, PRO, CNF]
+tags: [vocab.presentation, gram.signposting, comp.speaking, comp.confidence, comp.pronunciation]
+prerequisites: [M05-05, M18-05]
+
+context:
+  scenario: |
+    Você tem dez minutos para apresentar o rollout de
+    observabilidade para o time + liderança. A diferença entre
+    "palestra que se segue" e "sinal de fumaça" não é o
+    conteúdo — é a **sinalização**: as frases que dizem à
+    plateia onde você está e para onde vai.
+
+    A estrutura e seus signposts:
+
+    - **Abertura**: "*I'll start with a quick context*",
+      "*today I'll walk you through the rollout*",
+      "*three things I want you to take away*".
+    - **Agenda**: "*first the problem, then the rollout,
+      then the cost*" — o mapa de três partes.
+    - **Transição**: "*moving on to…*",
+      "*that brings me to the cost*",
+      "*before I move on, quick recap*".
+    - **Fecho**: "*to wrap up*",
+      "*the takeaway is this*",
+      "*I'll take questions now*".
+
+    A regra: quem ouve não pode reler. Cada transição dita
+    em voz alta é um parágrafo para o ouvido — sem elas,
+    a plateia vê slide e perde o fio.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Ana (eng manager)]
+
+vocabulary:
+  - term: "I'll start with…"
+    meaning: 'eu começo com… — a abertura que dá o primeiro passo'
+    example: "I'll start with a quick context — then the rollout plan."
+    translation: "Vou começar com um contexto rápido — depois o plano do rollout."
+    note: "Abertura simples — não precisa de piada, precisa de mapa."
+  - term: "today I'll walk you through…"
+    meaning: 'hoje eu conduzo vocês por… — a promessa da apresentação'
+    example: "Today I'll walk you through the observability rollout."
+    translation: "Hoje eu conduzo vocês pelo rollout de observabilidade."
+    note: "'Walk through' = guiar passo a passo — a metáfora certa."
+  - term: "moving on to…"
+    meaning: 'passando para… — a transição entre seções'
+    example: "That's the problem — moving on to the rollout itself."
+    translation: "Esse é o problema — passando para o rollout em si."
+    note: "A frase-ponte: fecha uma seção, abre a próxima."
+  - term: "that brings me to…"
+    meaning: 'isso me leva a… — a transição com lógica embutida'
+    example: "That brings me to the cost — because it drove the design."
+    translation: "Isso me leva ao custo — porque ele dirigiu o design."
+    note: "Diferente de 'moving on': declara o elo entre as seções."
+  - term: "quick recap"
+    meaning: 'recapitulação rápida — o resumo no meio do caminho'
+    example: "Quick recap before I move on: low SLO compliance, budget burning."
+    translation: "Recapitulação rápida antes de seguir: compliance de SLO baixa, budget queimando."
+    note: "Para a plateia que se perdeu — e para você respirar."
+  - term: "to wrap up"
+    meaning: 'para encerrar — o sinal de que o fim chegou'
+    example: "To wrap up: three phases, two quarters, one dashboard."
+    translation: "Para encerrar: três fases, dois trimestres, um dashboard."
+    note: "Anuncie o fim — a plateia relê a atenção quando ouve."
+  - term: "the takeaway"
+    meaning: 'o que levar — a mensagem que fica depois da saída'
+    example: "The takeaway: we're instrumented, but we're not yet observing."
+    translation: "O que fica: estamos instrumentados, mas ainda não observando."
+    note: "Uma apresentação sem takeaway é um desfile de slides."
+  - term: "three things I want you to take away"
+    meaning: 'três coisas para levar — a agenda de resultados'
+    example: "Three things I want you to take away: coverage, cost, and the next phase."
+    translation: "Três coisas que quero que levem: cobertura, custo e a próxima fase."
+    note: "Prometer três e entregar três — a estrutura que se fecha."
+  - term: "before I move on"
+    meaning: 'antes de seguir — o freio que fecha a seção'
+    example: "Before I move on: any questions on the problem part?"
+    translation: "Antes de seguir: alguma pergunta sobre a parte do problema?"
+    note: "O checkpoint — a seção morre aqui, não ressuscita depois."
+  - term: "I'll take questions now"
+    meaning: 'agora aceito perguntas — o fecho que abre o Q&A'
+    example: "That's the plan — I'll take questions now."
+    translation: "Esse é o plano — agora aceito perguntas."
+    note: "Anuncie o Q&A — a plateia esperava pelo sinal."
+  - term: "in the next ten minutes"
+    meaning: 'nos próximos dez minutos — o contrato de tempo'
+    example: "In the next ten minutes: the problem, the rollout, the cost."
+    translation: "Nos próximos dez minutos: o problema, o rollout, o custo."
+    note: "Dar o tempo é dar o mapa — a plateia se organiza."
+  - term: "bear with me"
+    meaning: 'aguentem comigo — a pausa pedida com elegância'
+    example: "Bear with me one second — the slide is loading."
+    translation: "Aguentem comigo um segundo — o slide está carregando."
+    note: "Para o silêncio técnico — mantém a plateia com você."
+  - term: "land this"
+    meaning: 'fazer isso aterrissar — a frase que precisa assentar'
+    example: "Let me land this: we hit the SLO three months straight."
+    translation: "Deixem isso aterrissar: batemos o SLO três meses seguidos."
+    note: "Peça a pausa quando a frase é a mais importante."
+  - term: "back to you"
+    meaning: 'de volta para você — devolve a palavra com elegância'
+    example: "That's the status on our side — back to you, Ana."
+    translation: "Esse é o status do nosso lado — de volta para você, Ana."
+    note: "O fecho do hand-off — quem apresenta também passa o bastão."
+
+grammar:
+  title: "signposting: a gramática do mapa falado"
+  explanation: |
+    O signposting usa três tempos-verbais, e cada um marca
+    um lugar da apresentação:
+
+    - **Futuro para o mapa**: "*I'll start with…*",
+      "*I'll walk you through…*", "*we'll look at…*" —
+      o 'will' anuncia o que vem.
+    - **Gerúndio para a transição**: "*moving on to…*",
+      "*looking at the cost…*", "*turning to the demo*"
+      — o -ing é a ponte.
+    - **Infinitivo para o fecho**: "*to wrap up*",
+      "*to recap*", "*to close*" — o 'to' abre a
+      conclusão.
+    - **E o imperativo suave**: "*bear with me*",
+      "*let me land this*", "*picture this*" — a plateia
+      recebe a ordem como convite.
+
+    E os calques do palco:
+
+    - "**make a question**" → "**ask a question**" —
+      pergunta se "ask", não se "make".
+    - "**in the screen**" → "**on the screen**" — na
+      tela é "on".
+    - "**the graphic shows**" → "**the graph shows**" —
+      gráfico é "graph" ou "chart".
+    - "**I want that you see**" → "**I want you to
+      see**" — "want that" só leva coisa.
+  examples:
+    - { en: "I'll start with the problem — then the rollout, then the cost.", pt: "Vou começar com o problema — depois o rollout, depois o custo." }
+    - { en: "Moving on to the rollout — three phases over two quarters.", pt: "Passando para o rollout — três fases em dois trimestres." }
+    - { en: "That brings me to the cost — it drove every design call.", pt: "Isso me leva ao custo — ele dirigiu cada decisão de design." }
+    - { en: "To wrap up: we're instrumented — observing is the next phase.", pt: "Para encerrar: estamos instrumentados — observar é a próxima fase." }
+    - { en: "Let me land this: three months straight inside SLO.", pt: "Deixem isso aterrissar: três meses seguidos dentro do SLO." }
+    - { en: "Bear with me — the dashboard takes a second to load.", pt: "Aguentem comigo — o dashboard leva um segundo para carregar." }
+
+examples:
+  - en: "Today I'll walk you through the rollout — problem, plan, cost."
+    pt: "Hoje eu conduzo vocês pelo rollout — problema, plano, custo."
+    context: "A promessa com mapa."
+  - en: "Three things I want you to take away: coverage, cost, and the next phase."
+    pt: "Três coisas que quero que levem: cobertura, custo e a próxima fase."
+    context: "A agenda de resultados."
+  - en: "That's the problem in one slide — moving on to the plan."
+    pt: "Esse é o problema em um slide — passando para o plano."
+    context: "A transição limpa."
+  - en: "Before I move on — any questions on the problem?"
+    pt: "Antes de seguir — alguma pergunta sobre o problema?"
+    context: "O checkpoint entre seções."
+  - en: "That brings me to the cost — it's what drove the phased design."
+    pt: "Isso me leva ao custo — foi o que dirigiu o design em fases."
+    context: "A transição com elo."
+  - en: "To wrap up: instrumented today, observing next quarter."
+    pt: "Para encerrar: instrumentados hoje, observando no próximo trimestre."
+    context: "O fecho anunciado."
+  - en: "The takeaway: coverage is done, observability is the next quarter's work."
+    pt: "O que fica: cobertura pronta, observabilidade é o trabalho do próximo trimestre."
+    context: "A mensagem que fica."
+  - en: "That's the rollout — I'll take questions now."
+    pt: "Esse é o rollout — agora aceito perguntas."
+    context: "O sinal que abre o Q&A."
+
+variations:
+  - idea: '"a transição que carrega a plateia"'
+    items:
+      - { register: "Boa", text: "That's the problem — moving on to the rollout.", adequate: true }
+      - { register: "Boa", text: "That brings me to the cost — it drove the design.", adequate: true }
+      - { register: "Inadequada", text: "Next slide.", adequate: false, note: "'Next slide' não é transição — a plateia perde o fio entre seções." }
+      - { register: "Inadequada", text: "So… yeah. Next.", adequate: false, note: "Hesitação no lugar do signpost — a ponte some e a plateia fica para trás." }
+  - idea: '"o fecho que anuncia"'
+    items:
+      - { register: "Boa", text: "To wrap up: three phases, two quarters, one dashboard.", adequate: true }
+      - { register: "Boa", text: "The takeaway: instrumented today, observing next quarter.", adequate: true }
+      - { register: "Inadequada", text: "And… that's it, I guess.", adequate: false, note: "O fecho tímido desfaz a apresentação — anuncie: 'to wrap up'." }
+      - { register: "Inadequada", text: "I want that you take three things away.", adequate: false, note: "*I want you to take* — 'want that' só leva coisa." }
+
+brErrors:
+  - { wrong: "Can I make a question?", right: "Can I ask a question?", why: "ask a question", tag: br.make-question }
+  - { wrong: "As you can see in the screen.", right: "As you can see on the screen.", why: "on the screen", tag: br.in-the-screen }
+  - { wrong: "The graphic shows the spike.", right: "The graph shows the spike.", why: "the graph", tag: br.the-graphic }
+  - { wrong: "I want that you see the error rate.", right: "I want you to see the error rate.", why: "want you to see", tag: br.want-that }
+  - { wrong: "I am agree with the rollout plan.", right: "I agree with the rollout plan.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "The same coverage than last quarter.", right: "The same coverage as last quarter.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the demo.", right: "We discussed the demo.", why: "discussed the demo", tag: br.discuss-about }
+  - { wrong: "Instead slides, do a live demo.", right: "Instead of slides, do a live demo.", why: "instead of", tag: br.instead-of }
+  - { wrong: "I have doubt about the order.", right: "I have a doubt about the order.", why: "a doubt", tag: br.doubt }
+  - { wrong: "You must to land the takeaway.", right: "You must land the takeaway.", why: "must land", tag: br.modal-to }
+
+dialogue:
+  title: "The rollout presentation"
+  lines:
+    - { speaker: Yuri, text: "Thanks for the ten minutes. Today I'll walk you through the observability rollout — three things I want you to take away: coverage, cost, and the next phase." }
+    - { speaker: Yuri, text: "I'll start with the problem: we were instrumented, but not observing — 60% coverage, alerts nobody read." }
+    - { speaker: Yuri, text: "Moving on to the rollout itself — three phases over two quarters." }
+    - { speaker: Yuri, text: "Before I move on — quick recap: coverage went from 60% to 95%, alerts cut in half." }
+    - { speaker: Yuri, text: "That brings me to the cost — it's what drove the phased design. We sampled, not collected-everything." }
+    - { speaker: Yuri, text: "To wrap up: instrumented today, observing next quarter. The takeaway — coverage is done; the value phase starts now." }
+    - { speaker: Yuri, text: "That's the rollout — I'll take questions now." }
+    - { speaker: Ana, text: "Clean run — I always knew where you were. That map at the top does the work." }
+  notes:
+    - "cada seção abre e fecha com signpost — 'moving on', 'that brings me to', 'before I move on'."
+    - "o 'three things' prometido na abertura é entregue no wrap up — a estrutura se fecha."
+    - "'quick recap' no meio — o checkpoint que resgata quem se perdeu."
+
+listening:
+  lines:
+    - { speaker: Ana, text: "A presentation the audience can follow isn't about slides — it's signposting. Open with the map: 'I'll start with the problem'. Move between sections: 'moving on to', 'that brings me to'. Check in mid-way: 'quick recap', 'before I move on'. And announce the end: 'to wrap up', 'the takeaway is', 'I'll take questions now'." }
+    - { speaker: Yuri, text: "The grammar carries it: 'will' for the map — 'I'll start with'; the -ing for transitions — 'moving on to'; 'to' for the close — 'to wrap up'. And the soft imperatives keep the room with you — 'bear with me', 'let me land this'." }
+    - { speaker: Beth, text: "And the stage calques: 'make a question' is 'ask a question'; 'in the screen' is 'on the screen'; 'the graphic shows' is 'the graph'; 'I want that you see' is 'I want you to see'." }
+  questions:
+    - { id: M24-01-l1, type: multiple_choice, prompt: "O signposting serve para…", options: ["a plateia nunca se perder — o mapa dito em voz alta", "embelezar slides", "ganhar tempo", "evitar perguntas"], answer: 0, explanation: "Quem ouve não pode reler — a transição é o parágrafo do ouvido.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-01-l2, type: multiple_choice, prompt: "O gerúndio (-ing) no signposting marca…", options: ["a abertura", "o fecho", "a transição entre seções", "o Q&A"], answer: 2, explanation: "'Moving on to', 'turning to' — a ponte.", tags: [comp.listening, gram.signposting] }
+    - { id: M24-01-l3, type: fill_blank, prompt: "That ___ me to the cost — it drove the design.", accepted: ["brings"], explanation: "'That brings me to' — a transição com elo.", tags: [vocab.presentation] }
+    - { id: M24-01-l4, type: error_correction, prompt: "Can I make a question about the rollout?", accepted: ["Can I ask a question about the rollout?", "Can I ask a question about the rollout"], explanation: "'ask a question'.", tags: [br.make-question] }
+    - { id: M24-01-l5, type: multiple_choice, prompt: "'To wrap up' anuncia…", options: ["uma nova seção", "uma pausa", "o Q&A", "o fim — a plateia relê a atenção"], answer: 3, explanation: "O fecho anunciado recobra a atenção.", tags: [comp.listening, vocab.presentation] }
+    - { id: M24-01-l6, type: multiple_choice, prompt: "Prometer 'three things' na abertura exige…", options: ["três slides", "entregar as três no wrap up — a estrutura se fecha", "três demos", "três palestrantes"], answer: 1, explanation: "Promessa cumprida é a estrutura que se fecha.", tags: [comp.listening, comp.confidence] }
+
+writing:
+  prompt: |
+    **Cenário:** a Ana pediu o roteiro da apresentação do
+    rollout — a espinha dorsal em texto, para revisar antes
+    de você subir ao palco.
+
+    **Tarefa:** escreva 70–100 palavras com o esqueleto da
+    apresentação: a abertura com mapa (I'll start with /
+    three things), as transições entre as três seções, o
+    recap do meio e o fecho (wrap up + takeaway + abertura
+    do Q&A).
+  constraints:
+    - { label: "A abertura com mapa", pattern: "\\bstart with|walk you through|take away\\b" }
+    - { label: "As transições", pattern: "\\bmoving on|brings me to|before I move on\\b" }
+    - { label: "O recap", pattern: "\\brecap\\b" }
+    - { label: "O fecho", pattern: "\\bwrap up|takeaway|questions\\b" }
+  rubric:
+    - "Mapa prometido na abertura, entregue no fecho"
+    - "Cada seção com signpost de entrada e saída"
+    - "Takeaway explícito — não 'that's it'"
+    - "Sem calques ('ask a question', 'on the screen', 'the graph', 'want you to')"
+  model: >-
+    The spine of the talk. Open: "today I'll walk you
+    through the rollout — three things to take away:
+    coverage, cost, next phase". Section one closes with
+    "that's the problem — moving on to the plan". Mid-way:
+    "quick recap — 60 to 95% coverage, alerts halved".
+    Then "that brings me to the cost — it drove the phased
+    design". Close: "to wrap up: instrumented today,
+    observing next quarter. The takeaway — coverage is
+    done, the value phase starts now. I'll take questions
+    now."
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.presentation, gram.signposting]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos com a abertura + primeira transição da apresentação do rollout: mapa de três partes, 'I'll start with', 'moving on to', 'before I move on'."
+    maxSeconds: 45
+    targetPhrases:
+      - I'll start with
+      - today I'll walk you through
+      - moving on to
+      - that brings me to
+      - quick recap
+      - before I move on
+      - to wrap up
+      - the takeaway
+      - I'll take questions now
+      - three things I want you to take away
+      - bear with me
+      - let me land this
+      - in the next ten minutes
+      - on the screen
+      - ask a question
+      - I want you to see
+    checklist:
+      - "abre com mapa — três partes anunciadas"
+      - "transição dita em voz alta, não 'next slide'"
+      - "fecha seção com 'before I move on'"
+      - "sem calques — 'on the screen', 'ask a question'"
+
+quiz:
+  - { id: M24-01-q1, type: multiple_choice, prompt: "A espinha da apresentação é…", options: ["os slides", "os signposts — abertura, transições, fecho", "o demo", "o timer"], answer: 1, explanation: "A sinalização carrega a plateia.", tags: [vocab.presentation] }
+  - { id: M24-01-q2, type: error_correction, prompt: "As you can see in the screen, coverage rose.", accepted: ["As you can see on the screen, coverage rose.", "As you can see on the screen, coverage rose"], explanation: "'on the screen'.", tags: [br.in-the-screen] }
+  - { id: M24-01-q3, type: multiple_choice, prompt: "'That brings me to X' difere de 'moving on to X' porque…", options: ["é mais formal", "declara o elo lógico entre as seções", "é mais curto", "não difere"], answer: 1, explanation: "Um pula; o outro explica a ponte.", tags: [gram.signposting, vocab.presentation] }
+  - { id: M24-01-q4, type: fill_blank, prompt: "To ___ up: instrumented today, observing next quarter.", accepted: ["wrap"], explanation: "'To wrap up' — o fecho anunciado.", tags: [vocab.presentation] }
+  - { id: M24-01-q5, type: multiple_choice, prompt: "Por que anunciar 'I'll take questions now'?", options: ["para encerrar rápido", "para parecer preparado", "a plateia espera o sinal — o Q&A abre com a frase", "para evitar perguntas"], answer: 2, explanation: "O sinal explícito abre o Q&A.", tags: [vocab.presentation] }
+  - { id: M24-01-q6, type: error_correction, prompt: "I want that you see the coverage graph.", accepted: ["I want you to see the coverage graph.", "I want you to see the coverage graph"], explanation: "'want you to see'.", tags: [br.want-that] }
+  - { id: M24-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["with", "start", "I'll", "context", "a", "quick"], answer: "I'll start with a quick context", explanation: "A abertura que dá o mapa.", tags: [gram.signposting] }
+  - { id: M24-01-q8, type: multiple_choice, prompt: "Apresentação sem 'takeaway' é…", options: ["mais curta", "mais técnica", "melhor", "um desfile de slides — nada fica depois da saída"], answer: 3, explanation: "A mensagem que fica é o ponto da apresentação.", tags: [vocab.presentation, comp.confidence] }
+
+srsCards:
+  - { front: "I'll start with…", back: "A abertura — 'I'll start with the problem'.", tag: vocab.presentation }
+  - { front: "today I'll walk you through", back: "A promessa com mapa — 'the rollout: problem, plan, cost'.", tag: vocab.presentation }
+  - { front: "moving on to…", back: "A transição limpa — fecha uma seção, abre a próxima.", tag: vocab.presentation }
+  - { front: "that brings me to…", back: "A transição com elo — 'it drove the design'.", tag: vocab.presentation }
+  - { front: "quick recap", back: "O resumo do meio — resgata quem se perdeu.", tag: vocab.presentation }
+  - { front: "before I move on", back: "O checkpoint — 'any questions on the problem?'.", tag: vocab.presentation }
+  - { front: "to wrap up", back: "O fecho anunciado — 'three phases, two quarters'.", tag: vocab.presentation }
+  - { front: "the takeaway", back: "O que fica — 'coverage is done; observability next'.", tag: vocab.presentation }
+  - { front: "bear with me", back: "A pausa pedida com elegância — 'the slide is loading'.", tag: vocab.presentation }
+  - { front: "I'll take questions now", back: "O sinal que abre o Q&A.", tag: vocab.presentation }
+  - { front: "ask a question", back: "Pergunta se 'ask' — nunca 'make a question'.", tag: br.make-question }
+  - { front: "on the screen", back: "Na tela é 'on' — nunca 'in the screen'.", tag: br.in-the-screen }
+
+review:
+  preferTags: [vocab.presentation, gram.signposting, br.want-that]
+  notes: "Revisão prioriza a espinha (abertura → transições → recap → wrap up → takeaway), os três tempos do signposting e os quatro calques de palco."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
