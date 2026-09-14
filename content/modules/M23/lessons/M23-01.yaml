@@ -1,0 +1,327 @@
+id: M23-01
+module: M23
+order: 1
+title: "A escala de discordância: suave → direto — 'I see it differently'"
+objective: >-
+  Ao final, você escolhe o grau certo de discordância — da
+  pergunta suave ao "I disagree" direto — sabendo quando cada
+  degrau é o correto.
+durationMin: 40
+competencies: [SPK, CNF, LIS]
+tags: [vocab.disagreement, gram.hedging, gram.softeners, comp.speaking, comp.confidence]
+prerequisites: [M08-05, M21-05]
+
+context:
+  scenario: |
+    A Beth propôs reescrever o serviço de billing do zero — e
+    você discorda. Mas "como" discordar muda tudo: o mesmo
+    "não" pode sair como pergunta, como cautela, como oposição
+    firme ou como bloqueio.
+
+    A escala tem degraus, e cada um tem sua frase:
+
+    - **Pergunta**: "*are we sure about…?*", "*could we look
+      at…?*" — discorda sem dizer que discorda.
+    - **Cautela**: "*I'm not sure that's right*",
+      "*I might be missing something, but…*" — abre espaço
+      para estar errado.
+    - **Discordância suave**: "*I see it differently*",
+      "*I'd push back on that*".
+    - **Direto**: "*I disagree*", "*that won't work*" —
+      quando o assunto é sério ou já foi ouvido.
+    - **Bloqueio**: "*I'm blocking this*", "*that's a
+      dealbreaker*" — raro, só para segurança ou irreversível.
+
+    A regra: comece no degrau mais suave que o problema
+    permite. Suba se não foi ouvido. Pule degraus só quando
+    o custo do erro é alto.
+  roles: [Yuri (platform engineer), Beth (staff engineer), Carlos (SRE lead)]
+
+vocabulary:
+  - term: "I see it differently"
+    meaning: 'eu vejo de outro jeito — discordância suave e completa'
+    example: "I see it differently — the rewrite costs us six months."
+    translation: "Eu vejo diferente — a reescrita nos custa seis meses."
+    note: "Discordância inteira numa frase suave — não precisa de 'but I'."
+  - term: "I'd push back on that"
+    meaning: 'eu contestaria isso — oposição educada mas firme'
+    example: "I'd push back on the timeline — six weeks isn't realistic."
+    translation: "Eu contestaria o prazo — seis semanas não é realista."
+    note: "Push back = contestar. O 'would' mantém no degrau suave."
+  - term: "I'm not convinced that"
+    meaning: 'não estou convencido de que — discorda e pede evidência'
+    example: "I'm not convinced that a rewrite fixes the billing bugs."
+    translation: "Não estou convencido de que uma reescrita conserte os bugs do billing."
+    note: "Transfere o ônus: quem propõe precisa convencer."
+  - term: "are we sure about…?"
+    meaning: 'temos certeza de…? — discordância disfarçada de pergunta'
+    example: "Are we sure about rewriting billing during the freeze?"
+    translation: "Temos certeza de reescrever o billing durante o freeze?"
+    note: "O degrau mais suave — pergunta que carrega a dúvida."
+  - term: "I disagree"
+    meaning: 'eu discordo — direto, limpo, sem ataque'
+    example: "I disagree — the monolith served us fine for five years."
+    translation: "Eu discordo — o monólito nos serviu bem por cinco anos."
+    note: "Direto ≠ rude: 'I disagree' + razão é profissional."
+  - term: "I'm not sure that follows"
+    meaning: 'não sei se isso se segue — questiona a lógica, não a pessoa'
+    example: "The data is stale — I'm not sure that follows from the graphs."
+    translation: "Os dados estão velhos — não sei se isso decorre dos gráficos."
+    note: "Ataca a conclusão, não quem concluiu."
+  - term: "fair point, but…"
+    meaning: 'ponto justo, mas… — valida antes de discordar'
+    example: "Fair point, but the rewrite doesn't touch the schema bugs."
+    translation: "Ponto justo, mas a reescrita não toca nos bugs do schema."
+    note: "A validação antes do 'but' mantém a conversa aberta."
+  - term: "I'm blocking this"
+    meaning: 'estou bloqueando isso — o degrau máximo, raro'
+    example: "I'm blocking this — shipping without auth is a security risk."
+    translation: "Estou bloqueando isso — lançar sem auth é risco de segurança."
+    note: "Só para o que é irreversível ou inseguro — usado à toa, perde o peso."
+  - term: "dealbreaker"
+    meaning: 'impeditivo — a condição que mata a proposta'
+    example: "Losing the audit trail is a dealbreaker for billing."
+    translation: "Perder a trilha de auditoria é impeditivo para o billing."
+    note: "Nomeie o dealbreaker — não deixe implícito."
+  - term: "pushback"
+    meaning: 'a contestação — o ato de resistir a uma proposta'
+    example: "Expect pushback on the rewrite — the team likes the monolith."
+    translation: "Espere contestação à reescrita — o time gosta do monólito."
+    note: "Substantivo do 'push back' — 'expect pushback on X'."
+  - term: "to push back on"
+    meaning: 'contestar — resistir a um ponto específico'
+    example: "She pushed back on the deadline, not the design."
+    translation: "Ela contestou o prazo, não o design."
+    note: "Sempre 'push back ON algo' — nunca o ponto sem o 'on'."
+  - term: "meet halfway"
+    meaning: 'chegar ao meio-termo — a saída que honra os dois lados'
+    example: "Can we meet halfway — modularize billing, keep the monolith?"
+    translation: "Podemos chegar ao meio-termo — modularizar o billing, manter o monólito?"
+    note: "O degrau de saída: discordar bem termina em acordo."
+  - term: "controversial"
+    meaning: 'polêmico — o adjetivo correto'
+    example: "The rewrite is controversial — half the team disagrees."
+    translation: "A reescrita é polêmica — metade do time discorda."
+    note: "'Polêmico' é controversial — 'polemic' é substantivo raro."
+  - term: "the way I see it"
+    meaning: 'do jeito que eu vejo — marca a opinião como sua'
+    example: "The way I see it, the schema is the real problem."
+    translation: "Do jeito que eu vejo, o schema é o problema real."
+    note: "Nunca 'in my vision' — opinião é 'view', não 'vision'."
+
+grammar:
+  title: "hedging: a cautela que gradua a discordância"
+  explanation: |
+    A discordância se gradua com verbos e modais de cautela:
+
+    - **Modal de cautela**: "*I'd* push back on that",
+      "I *could* be wrong, but…" — o 'd e o could deixam
+      a porta aberta.
+    - **Verbo hedged**: "*I'm not sure that follows*",
+      "*I'm not convinced*",
+      "*I don't think that's right*" — discordar pelo
+      verbo mental, não pelo "you're wrong".
+    - **A pergunta**: "*are we sure about…?*" — o grau
+      zero: a dúvida que nem declara oposição.
+    - **A validação**: "*fair point, but…*",
+      "*I hear you, and…*" — concede antes de contestar.
+    - **O direto**: "*I disagree*", "*that won't work*" —
+      sem hedge, mas com razão anexada.
+
+    E os calques do debate:
+
+    - "**in my vision**" → "**in my view**" — opinião é
+      "view"; "vision" é vista ou visão de produto.
+    - "**this is polemic**" → "**controversial**" —
+      polêmico é adjetivo.
+    - "**you agree, no?**" → "**right? / don't you?**" —
+      o "né?" vira tag question.
+    - "**I didn't see nothing**" → "**didn't see
+      anything**" — inglês não dobra a negação.
+  examples:
+    - { en: "I'd push back on the rewrite — but I could be wrong about the cost.", pt: "Eu contestaria a reescrita — mas posso estar errado sobre o custo." }
+    - { en: "I'm not convinced the timeline is realistic — what am I missing?", pt: "Não estou convencido de que o prazo é realista — o que estou perdendo?" }
+    - { en: "Are we sure about doing this during the freeze?", pt: "Temos certeza de fazer isso durante o freeze?" }
+    - { en: "I disagree — the monolith served us fine, and here's why.", pt: "Eu discordo — o monólito nos serviu bem, e aqui está o porquê." }
+    - { en: "The way I see it, the schema causes the bugs — not the monolith.", pt: "Do jeito que eu vejo, o schema causa os bugs — não o monólito." }
+    - { en: "I didn't see anything in the data that supports a rewrite.", pt: "Não vi nada nos dados que sustente uma reescrita." }
+
+examples:
+  - en: "Are we sure about rewriting billing during the freeze?"
+    pt: "Temos certeza de reescrever o billing durante o freeze?"
+    context: "O grau zero — a pergunta."
+  - en: "I might be missing something, but the rewrite doesn't fix the schema."
+    pt: "Posso estar perdendo algo, mas a reescrita não conserta o schema."
+    context: "Cautela — abre espaço para estar errado."
+  - en: "I see it differently — the bug rate dropped after the refactor."
+    pt: "Eu vejo diferente — a taxa de bugs caiu depois do refactor."
+    context: "Discordância suave e completa."
+  - en: "I'd push back on the timeline — six weeks isn't realistic."
+    pt: "Eu contestaria o prazo — seis semanas não é realista."
+    context: "Pushback educado."
+  - en: "I'm not convinced that rewriting fixes the audit trail."
+    pt: "Não estou convencido de que reescrever conserta a trilha de auditoria."
+    context: "Discordar pedindo evidência."
+  - en: "I disagree — and here's the data that backs me."
+    pt: "Eu discordo — e aqui está o dado que me sustenta."
+    context: "Direto, com razão anexada."
+  - en: "Losing the audit trail is a dealbreaker — I'm blocking this."
+    pt: "Perder a trilha de auditoria é impeditivo — estou bloqueando."
+    context: "O degrau máximo, justificado."
+  - en: "Can we meet halfway — modularize billing inside the monolith?"
+    pt: "Podemos chegar ao meio-termo — modularizar o billing dentro do monólito?"
+    context: "A saída que honra os dois lados."
+
+variations:
+  - idea: '"o degrau certo para o problema"'
+    items:
+      - { register: "Boa", text: "Are we sure about rewriting billing during the freeze?", adequate: true }
+      - { register: "Boa", text: "I see it differently — the rewrite doesn't touch the schema.", adequate: true }
+      - { register: "Inadequada", text: "That's stupid.", adequate: false, note: "Ataque à ideia sem razão — discorda da proposta, não da pessoa." }
+      - { register: "Inadequada", text: "Whatever you want.", adequate: false, note: "Desistir não é discordar — a opinião some e o risco fica." }
+  - idea: '"a cautela que mantém a porta aberta"'
+    items:
+      - { register: "Boa", text: "I might be missing something, but the timeline looks tight.", adequate: true }
+      - { register: "Boa", text: "I'm not sure that follows from the graphs.", adequate: true }
+      - { register: "Inadequada", text: "You're wrong about the graphs.", adequate: false, note: "Ataca a pessoa — 'I'm not sure that follows' ataca a lógica." }
+      - { register: "Inadequada", text: "In my vision, you're wrong.", adequate: false, note: "*In my view* — 'vision' é vista, não opinião." }
+
+brErrors:
+  - { wrong: "In my vision, the rewrite is wrong.", right: "In my view, the rewrite is wrong.", why: "in my view", tag: br.in-my-vision }
+  - { wrong: "This is polemic in the team.", right: "This is controversial in the team.", why: "controversial", tag: br.polemic }
+  - { wrong: "You agree, no?", right: "You agree, right?", why: "tag question", tag: br.no-tag }
+  - { wrong: "I didn't see nothing wrong with the plan.", right: "I didn't see anything wrong with the plan.", why: "didn't see anything", tag: br.double-negative }
+  - { wrong: "I am agree the timeline is tight.", right: "I agree the timeline is tight.", why: "I agree", tag: br.i-am-agree }
+  - { wrong: "The same opinion than Beth.", right: "The same opinion as Beth.", why: "the same as", tag: br.same-than }
+  - { wrong: "We discussed about the rewrite.", right: "We discussed the rewrite.", why: "discussed the rewrite", tag: br.discuss-about }
+  - { wrong: "Instead the rewrite, we refactor.", right: "Instead of the rewrite, we refactor.", why: "instead of", tag: br.instead-of }
+  - { wrong: "I have doubt about the timeline.", right: "I have a doubt about the timeline.", why: "a doubt", tag: br.doubt }
+  - { wrong: "We must to decide today.", right: "We must decide today.", why: "must decide", tag: br.modal-to }
+
+dialogue:
+  title: "Rewrite the billing?"
+  lines:
+    - { speaker: Beth, text: "I want to put the billing rewrite on the table — six weeks, new service." }
+    - { speaker: Carlos, text: "Thoughts?" }
+    - { speaker: Yuri, text: "Are we sure about starting a rewrite during the freeze?" }
+    - { speaker: Beth, text: "The freeze is exactly why — quiet weeks." }
+    - { speaker: Yuri, text: "Fair point, but I might be missing something: the rewrite doesn't touch the schema bugs." }
+    - { speaker: Beth, text: "The schema comes with it." }
+    - { speaker: Yuri, text: "Then I see it differently — this is a schema project wearing a rewrite's coat. I'm not convinced six weeks covers both." }
+    - { speaker: Carlos, text: "So you disagree with the rewrite as scoped?" }
+    - { speaker: Yuri, text: "I disagree with the scope — the way I see it, we fix the schema first, then decide if anything needs rewriting." }
+    - { speaker: Beth, text: "And if the schema fix isn't enough?" }
+    - { speaker: Yuri, text: "Then we meet halfway — modularize billing inside the monolith. A full rewrite is a dealbreaker for me only if it delays the audit-trail work." }
+    - { speaker: Carlos, text: "Good — disagreement with a ladder. Schema first, revisit after." }
+  notes:
+    - "Yuri sobe a escala aos poucos: pergunta → cautela → 'I see it differently' → 'I disagree' — cada degrau com razão."
+    - "'a schema project wearing a rewrite's coat' — discordar bem também nomeia o que a proposta realmente é."
+    - "o degrau máximo ('dealbreaker') aparece uma vez, condicionado — não como ameaça."
+
+listening:
+  lines:
+    - { speaker: Carlos, text: "Disagreement has a scale, and each step has its phrase. The question — 'are we sure about…?'. The hedge — 'I might be missing something, but…'. The soft disagreement — 'I see it differently', 'I'd push back on that'. The direct — 'I disagree'. And the block — 'that's a dealbreaker', reserved for what's irreversible or unsafe." }
+    - { speaker: Yuri, text: "The rule is: start at the softest step the problem allows. Climb if you weren't heard. Skip steps only when the cost of being wrong is high — a security hole doesn't get a 'are we sure', it gets an 'I'm blocking this'." }
+    - { speaker: Beth, text: "Four calques to keep out of the debate: 'in my vision' is 'in my view'; 'this is polemic' is 'controversial'; 'you agree, no?' is 'right?'; and 'I didn't see nothing' is 'I didn't see anything'." }
+  questions:
+    - { id: M23-01-l1, type: multiple_choice, prompt: "O grau zero da discordância é…", options: ["'I disagree'", "'I'm blocking this'", "'are we sure about…?'", "'that's wrong'"], answer: 2, explanation: "A pergunta — discorda sem declarar oposição.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-01-l2, type: multiple_choice, prompt: "Quando pular degraus da escala?", options: ["sempre", "quando o custo do erro é alto", "com gente nova", "nunca"], answer: 1, explanation: "Segurança e irreversível pedem o degrau máximo direto.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-01-l3, type: fill_blank, prompt: "I see it ___ — the rewrite doesn't touch the schema.", accepted: ["differently"], explanation: "'I see it differently' — a discordância suave.", tags: [vocab.disagreement] }
+    - { id: M23-01-l4, type: error_correction, prompt: "In my vision, the schema is the problem.", accepted: ["In my view, the schema is the problem.", "In my view, the schema is the problem"], explanation: "'in my view'.", tags: [br.in-my-vision] }
+    - { id: M23-01-l5, type: multiple_choice, prompt: "'I'm blocking this' é reservado para…", options: ["o que é irreversível ou inseguro", "qualquer discordância", "quando se tem razão", "reuniões com gestor"], answer: 0, explanation: "O bloqueio perde peso se usado à toa.", tags: [comp.listening, vocab.disagreement] }
+    - { id: M23-01-l6, type: multiple_choice, prompt: "'I'm not sure that follows' ataca…", options: ["a pessoa", "o projeto", "o prazo", "a lógica — a conclusão, não quem concluiu"], answer: 3, explanation: "Questiona a inferência — não o colega.", tags: [comp.listening, vocab.disagreement] }
+
+writing:
+  prompt: |
+    **Cenário:** depois da reunião, o Carlos pediu um parágrafo
+    no doc registrando sua posição sobre a reescrita do
+    billing.
+
+    **Tarefa:** escreva 70–100 palavras discordando da
+    reescrita como proposta — comece no degrau suave
+    ("I'm not convinced", "I see it differently"), escale até
+    sua posição real, e feche com a saída (meio-termo ou o que
+    faria primeiro).
+  constraints:
+    - { label: "Discordância suave", pattern: "\\bsee it differently|not convinced|push back|not sure\\b" }
+    - { label: "A posição direta", pattern: "\\bdisagree|won't work|dealbreaker|blocking\\b" }
+    - { label: "A saída", pattern: "\\bmeet halfway|first|instead|step\\b" }
+    - { label: "A razão", pattern: "\\bschema|bugs|audit|cost|timeline|scope\\b" }
+  rubric:
+    - "Escala respeitada: suave antes do direto"
+    - "Discordância com razão anexada"
+    - "Saída proposta (meio-termo ou ordem alternativa)"
+    - "Sem calques ('in my view', 'controversial', 'right?', 'anything')"
+  model: >-
+    I'm not convinced the rewrite is the right first step.
+    The way I see it, the schema causes most billing bugs —
+    a new service inherits them. I see it differently from
+    Beth: this is a schema project wearing a rewrite's coat.
+    I disagree with the scope as proposed, and if the rewrite
+    delays the audit-trail work, that's a dealbreaker. Can
+    we meet halfway — fix the schema first, then modularize
+    billing inside the monolith if anything still needs
+    pulling out?
+  minWords: 70
+  maxWords: 100
+  tags: [comp.writing, vocab.disagreement, gram.hedging]
+
+speaking:
+  modeA:
+    prompt: "Grave 45 segundos discordando da reescrita do billing: suba a escala (pergunta → cautela → 'I see it differently' → posição) e feche com uma saída."
+    maxSeconds: 45
+    targetPhrases:
+      - are we sure about
+      - I might be missing something
+      - I see it differently
+      - I'd push back on
+      - I'm not convinced
+      - I'm not sure that follows
+      - I disagree
+      - dealbreaker
+      - meet halfway
+      - the way I see it
+      - in my view
+      - controversial
+      - fair point
+      - pushback
+      - I didn't see anything
+      - right?
+    checklist:
+      - "sobe a escala aos poucos, não começa no topo"
+      - "cada discordância vem com razão"
+      - "fecha com saída — meio-termo ou próximo passo"
+      - "'in my view', 'controversial', 'anything' — sem calques"
+
+quiz:
+  - { id: M23-01-q1, type: multiple_choice, prompt: "A escala de discordância vai de…", options: ["direto para suave", "pergunta → cautela → suave → direto → bloqueio", "educado para rude", "escrito para falado"], answer: 1, explanation: "Cinco degraus — comece no mais suave que o problema permite.", tags: [vocab.disagreement] }
+  - { id: M23-01-q2, type: error_correction, prompt: "This rewrite is polemic.", accepted: ["This rewrite is controversial.", "This rewrite is controversial"], explanation: "'controversial'.", tags: [br.polemic] }
+  - { id: M23-01-q3, type: multiple_choice, prompt: "'I'd push back on that' — o 'would' faz o quê?", options: ["mantém no degrau suave — hipotético educado", "endurece", "pede permissão", "atrasa a resposta"], answer: 0, explanation: "O modal de cautela gradua a oposição.", tags: [gram.hedging, vocab.disagreement] }
+  - { id: M23-01-q4, type: fill_blank, prompt: "I'm not sure that ___ from the graphs.", accepted: ["follows"], explanation: "Questiona a inferência, não a pessoa.", tags: [vocab.disagreement] }
+  - { id: M23-01-q5, type: multiple_choice, prompt: "Você discordou suavemente e não foi ouvido. O próximo passo é…", options: ["desistir", "repetir a mesma frase", "subir um degrau — mais direto, mesma razão", "bloquear tudo"], answer: 2, explanation: "Escala se sobe quando não se é ouvido.", tags: [vocab.disagreement, comp.confidence] }
+  - { id: M23-01-q6, type: error_correction, prompt: "You agree the schema is the problem, no?", accepted: ["You agree the schema is the problem, right?", "You agree the schema is the problem, right", "You agree the schema is the problem, don't you?", "You agree the schema is the problem, don't you"], explanation: "Tag question — 'right?' ou 'don't you?'.", tags: [br.no-tag] }
+  - { id: M23-01-q7, type: reorder, prompt: "Coloque na ordem certa.", tokens: ["halfway", "meet", "we", "can"], answer: "can we meet halfway", explanation: "A saída que honra os dois lados.", tags: [vocab.disagreement] }
+  - { id: M23-01-q8, type: multiple_choice, prompt: "Por que 'I disagree' precisa de razão anexada?", options: ["para ser mais longo", "para soar britânico", "não precisa", "direto sem razão vira ataque; com razão vira posição"], answer: 3, explanation: "Direto + razão = profissional; direto sozinho = rude.", tags: [vocab.disagreement, comp.confidence] }
+
+srsCards:
+  - { front: "I see it differently", back: "Discordância suave e completa — 'I see it differently: the rewrite costs six months'.", tag: vocab.disagreement }
+  - { front: "I'd push back on that", back: "Contestação educada — o 'would' mantém suave.", tag: vocab.disagreement }
+  - { front: "I'm not convinced that", back: "Discorda pedindo evidência — 'not convinced six weeks covers it'.", tag: vocab.disagreement }
+  - { front: "are we sure about…?", back: "O grau zero — a pergunta que carrega a dúvida.", tag: vocab.disagreement }
+  - { front: "I'm not sure that follows", back: "Questiona a lógica, não a pessoa.", tag: vocab.disagreement }
+  - { front: "I'm blocking this", back: "O degrau máximo — só para irreversível ou inseguro.", tag: vocab.disagreement }
+  - { front: "dealbreaker", back: "O impeditivo nomeado — 'losing the audit trail is a dealbreaker'.", tag: vocab.disagreement }
+  - { front: "meet halfway", back: "O meio-termo — 'modularize billing, keep the monolith'.", tag: vocab.disagreement }
+  - { front: "controversial", back: "'Polêmico' — nunca 'polemic' (substantivo raro).", tag: br.polemic }
+  - { front: "in my view", back: "'Na minha visão' (opinião) — nunca 'in my vision'.", tag: br.in-my-vision }
+  - { front: "the way I see it", back: "Marca a opinião como sua — 'the way I see it, the schema is the problem'.", tag: vocab.disagreement }
+  - { front: "right? / don't you?", back: "O 'né?' vira tag question — nunca ', no?'.", tag: br.no-tag }
+
+review:
+  preferTags: [vocab.disagreement, gram.hedging, br.in-my-vision]
+  notes: "Revisão prioriza a escala de cinco degraus, os hedges (I'd, I'm not sure) e os quatro calques do debate (in my view, controversial, right?, anything)."
+
+completion:
+  quizMin: 0.75
+  writingMin: 3
+  speakingRequired: true
